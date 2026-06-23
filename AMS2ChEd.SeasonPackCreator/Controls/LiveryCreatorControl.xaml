@@ -1,0 +1,200 @@
+<UserControl x:Class="AMS2ChEd.SeasonPackEditor.Controls.LiveryCreatorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <UserControl.Resources>
+        <!-- Base Colors -->
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#E10600"/>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#B0B0B0"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#404040"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Panel - Configuration -->
+        <Border Grid.Column="0" BorderThickness="0,0,1,0" Padding="15" >
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Livery Generator" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                    <!-- Template Selection -->
+                    <GroupBox Header="Base Template" Margin="0,0,0,15" >
+                        <StackPanel Margin="10">
+                            <Button Name="btnLoadTemplate" Content="Load Template PNG..." 
+                                    Click="LoadTemplate_Click" Height="32" Margin="0,0,0,8"/>
+                            <TextBlock Name="txtTemplatePath" Text="No template loaded" 
+                                       TextWrapping="Wrap" FontSize="11" Foreground="#666"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Sponsor Placements JSON -->
+                    <GroupBox Header="Sponsor Placements" Margin="0,0,0,15">
+                        <StackPanel Margin="10">
+                            <Button Name="btnLoadPlacements" Content="Load Placements JSON..." 
+                                    Click="LoadPlacements_Click" Height="32" Margin="0,0,0,8"/>
+                            <TextBlock Name="txtPlacementsPath" Text="No placements loaded" 
+                                       TextWrapping="Wrap" FontSize="11" Foreground="#666"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Template Colors -->
+                    <GroupBox Header="Template Colors" Margin="0,0,0,15">
+                        <StackPanel Margin="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="32"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Red -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Red" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" Name="txtColorRed" Text="#FF0000" 
+                                         VerticalContentAlignment="Center" Margin="0,0,5,4"
+                                         TextChanged="ColorTextBox_Changed" Tag="Red"/>
+                                <Rectangle Grid.Row="0" Grid.Column="2" Name="previewRed" Fill="#FF0000" 
+                                           Stroke="#999" StrokeThickness="1" Margin="0,0,0,4"/>
+
+                                <!-- Green -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Green" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" Name="txtColorGreen" Text="#00FF00"
+                                         VerticalContentAlignment="Center" Margin="0,0,5,4"
+                                         TextChanged="ColorTextBox_Changed" Tag="Green"/>
+                                <Rectangle Grid.Row="1" Grid.Column="2" Name="previewGreen" Fill="#00FF00"
+                                           Stroke="#999" StrokeThickness="1" Margin="0,0,0,4"/>
+
+                                <!-- Blue -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Blue" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="2" Grid.Column="1" Name="txtColorBlue" Text="#0000FF"
+                                         VerticalContentAlignment="Center" Margin="0,0,5,4"
+                                         TextChanged="ColorTextBox_Changed" Tag="Blue"/>
+                                <Rectangle Grid.Row="2" Grid.Column="2" Name="previewBlue" Fill="#0000FF"
+                                           Stroke="#999" StrokeThickness="1" Margin="0,0,0,4"/>
+
+                                <!-- Yellow -->
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Yellow" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="3" Grid.Column="1" Name="txtColorYellow" Text="#FFFF00"
+                                         VerticalContentAlignment="Center" Margin="0,0,5,4"
+                                         TextChanged="ColorTextBox_Changed" Tag="Yellow"/>
+                                <Rectangle Grid.Row="3" Grid.Column="2" Name="previewYellow" Fill="#FFFF00"
+                                           Stroke="#999" StrokeThickness="1" Margin="0,0,0,4"/>
+
+                                <!-- Magenta -->
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Magenta" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="4" Grid.Column="1" Name="txtColorMagenta" Text="#FF00FF"
+                                         VerticalContentAlignment="Center" Margin="0,0,5,4"
+                                         TextChanged="ColorTextBox_Changed" Tag="Magenta"/>
+                                <Rectangle Grid.Row="4" Grid.Column="2" Name="previewMagenta" Fill="#FF00FF"
+                                           Stroke="#999" StrokeThickness="1" Margin="0,0,0,4"/>
+
+                                <!-- Cyan -->
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="Cyan" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="5" Grid.Column="1" Name="txtColorCyan" Text="#00FFFF"
+                                         VerticalContentAlignment="Center" Margin="0,0,5,4"
+                                         TextChanged="ColorTextBox_Changed" Tag="Cyan"/>
+                                <Rectangle Grid.Row="5" Grid.Column="2" Name="previewCyan" Fill="#00FFFF"
+                                           Stroke="#999" StrokeThickness="1" Margin="0,0,0,4"/>
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Sponsor Images -->
+                    <GroupBox Header="Sponsor Images" Margin="0,0,0,15">
+                        <StackPanel Margin="10">
+                            <CheckBox Name="chkShowZones" Content="Show Sponsor Zones" 
+                                      Foreground="White" Margin="0,0,0,10"
+                                      Checked="ShowZones_Changed" Unchecked="ShowZones_Changed"/>
+                            <ScrollViewer MaxHeight="350" VerticalScrollBarVisibility="Auto">
+                                <StackPanel Name="sponsorPanel">
+                                    <!-- Dynamically generated sponsor fields -->
+                                </StackPanel>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Actions -->
+                    <StackPanel Margin="0,10,0,0">
+                        <Button Name="btnGenerate" Content="Generate Preview" 
+                                Click="GeneratePreview_Click" Height="38" 
+                                FontWeight="Bold"
+                                Margin="0,0,0,8" IsEnabled="False"/>
+                        <Button Name="btnExport" Content="Export PNG..." 
+                                Click="ExportPng_Click" Height="38" 
+                                FontWeight="Bold"
+                                IsEnabled="False"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Right Panel - Preview -->
+        <Grid Grid.Column="1" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Preview" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+            <!-- Zoom Controls -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Zoom:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <Button Name="btnZoom25" Content="25%" Width="50" Height="26" Margin="0,0,5,0" Click="Zoom_Click" Tag="0.25" FontWeight="Bold"/>
+                <Button Name="btnZoom50" Content="50%" Width="50" Height="26" Margin="0,0,5,0" Click="Zoom_Click" Tag="0.5"/>
+                <Button Name="btnZoom100" Content="100%" Width="50" Height="26" Margin="0,0,5,0" Click="Zoom_Click" Tag="1.0"/>
+                <Button Name="btnZoomFit" Content="Fit" Width="50" Height="26" Margin="0,0,20,0" Click="ZoomFit_Click"/>
+                <Button Name="btnEditZones" Content="✏ Edit Zones" Width="100" Height="26" Margin="0,0,5,0" Click="EditZones_Click"/>
+                <Button Name="btnExportZones" Content="💾 Export Zones JSON" Width="140" Height="26" IsEnabled="False" Click="ExportZonesJson_Click"/>
+            </StackPanel>
+
+            <Border Grid.Row="2" Background="#FF2D2D2D" BorderBrush="#CCCCCC" BorderThickness="1">
+                <Grid>
+                    <TextBlock Name="txtNoPreview" 
+                               Text="Load template and placements, then select sponsor images to generate preview" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontSize="14" Foreground="#999" TextAlignment="Center"
+                               TextWrapping="Wrap" Margin="20"
+                               Visibility="Visible"/>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                                  VerticalScrollBarVisibility="Auto"
+                                  Name="previewScroll"
+                                  Visibility="Collapsed">
+                                            <Grid Name="previewContainer">
+                                                <Image Name="imgPreview" Stretch="None" RenderTransformOrigin="0,0">
+                                                    <Image.RenderTransform>
+                                                        <ScaleTransform x:Name="previewScale" ScaleX="0.25" ScaleY="0.25"/>
+                                                    </Image.RenderTransform>
+                                                </Image>
+                                                <Canvas Name="zoneEditorCanvas"
+                                                        Background="Transparent"
+                                                        IsHitTestVisible="False"
+                                                        MouseDown="ZoneCanvas_MouseDown"
+                                                        MouseMove="ZoneCanvas_MouseMove"
+                                                        MouseUp="ZoneCanvas_MouseUp"
+                                                        Cursor="Cross"/>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

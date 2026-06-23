@@ -1,0 +1,130 @@
+﻿<Window x:Class="AMS2ChEd.ContractLetterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Contract Offer" 
+        Height="800" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="#f5f5dc"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style x:Key="NextButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#c41e3a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#d32f2f"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Letter Content -->
+        <Border Grid.Row="0" 
+                Background="White" 
+                BorderBrush="#8b7355" 
+                BorderThickness="2"
+                Margin="40,30,40,20"
+                CornerRadius="3">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="3" Opacity="0.3"/>
+            </Border.Effect>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="50,40">
+                <StackPanel>
+                    <!-- Team Letterhead -->
+                    <TextBlock x:Name="TeamNameHeader"
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="#2c2c2c"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,5"/>
+
+                    <TextBlock Text="Formula Racing Team"
+                               FontSize="12" 
+                               Foreground="#666666"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,30"/>
+
+                    <Rectangle Height="1" Fill="#cccccc" Margin="0,0,0,30"/>
+
+                    <!-- Letter Body -->
+                    <TextBlock x:Name="LetterContent"
+                               FontSize="14"
+                               Foreground="#2c2c2c"
+                               TextWrapping="Wrap"
+                               LineHeight="24"
+                               FontFamily="Georgia"
+                               TextAlignment="Left"
+                               Margin="0,0,40,0"/>
+
+                    <!-- Signature -->
+                    <TextBlock Text="Sincerely,"
+                               FontSize="14"
+                               Foreground="#2c2c2c"
+                               FontFamily="Georgia"
+                               Margin="0,40,0,10"/>
+
+                    <TextBlock x:Name="SignatureName"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Foreground="#2c2c2c"
+                               FontFamily="Segoe Script"
+                               Margin="0,0,0,5"/>
+
+                    <TextBlock x:Name="SignatureTitle"
+                               FontSize="12"
+                               Foreground="#666666"
+                               FontFamily="Georgia"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="1" 
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,40,30">
+            <Button x:Name="NextButton"
+                    Content="NEXT" 
+                    Style="{StaticResource NextButtonStyle}"
+                    Click="NextButton_Click"
+                    Margin="0,0,10,0"/>
+            <Button x:Name="ChooseAnotherTeamButton"
+                    Content="CHOOSE ANOTHER TEAM"
+                    Width="220"
+                    Height="45"
+                    Background="#555555"
+                    Foreground="White"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Click="ChooseAnotherTeamButton_Click"
+                    Visibility="Collapsed">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#555555"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#666666"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,603 @@
+﻿<Window x:Class="AMS2ChEd.Views.EditPlayerDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Edit Player Details" 
+        Height="750" Width="650"
+        WindowStartupLocation="CenterOwner"
+        Background="#1a1a1a"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <!-- Text Input Style -->
+        <Style x:Key="InputTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="#2a2a2a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                        Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#c41e3a"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#666666"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Label Style -->
+        <Style x:Key="InputLabelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#999999"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <!-- Button Style -->
+        <Style x:Key="DialogButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#2a2a2a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3a3a3a"/>
+                    <Setter Property="BorderBrush" Value="#c41e3a"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Primary Button Style -->
+        <Style x:Key="PrimaryButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButtonStyle}">
+            <Setter Property="Background" Value="#c41e3a"/>
+            <Setter Property="BorderBrush" Value="#c41e3a"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#d52d48"/>
+                    <Setter Property="BorderBrush" Value="#d52d48"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Browse Button Style -->
+        <Style x:Key="BrowseButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#2a2a2a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3a3a3a"/>
+                    <Setter Property="BorderBrush" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Radio Button Style -->
+        <Style x:Key="RadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0,0,20,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- Tab Control Style -->
+        <Style x:Key="EraTabControlStyle" TargetType="{x:Type TabControl}">
+            <Setter Property="Background" Value="#1a1a1a"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <!-- Tab Item Style -->
+        <Style x:Key="EraTabItemStyle" TargetType="{x:Type TabItem}">
+            <Setter Property="Background" Value="#111111"/>
+            <Setter Property="Foreground" Value="#999999"/>
+            <Setter Property="BorderBrush" Value="#444444"/>
+            <Setter Property="BorderThickness" Value="1,1,1,0"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Border x:Name="TabBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Margin="0,0,2,0">
+                            <ContentPresenter x:Name="ContentSite"
+                                              ContentSource="Header"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TabBorder" Property="Background" Value="#1a1a1a"/>
+                                <Setter TargetName="TabBorder" Property="BorderBrush" Value="#c41e3a"/>
+                                <Setter TargetName="TabBorder" Property="BorderThickness" Value="1,2,1,0"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TabBorder" Property="Background" Value="#2a2a2a"/>
+                                <Setter Property="Foreground" Value="#cccccc"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Helmet item border style (shared via DataTemplate, triggered by IsSelected) -->
+        <DataTemplate x:Key="HelmetItemTemplate">
+            <Border Width="100"
+                    Height="120"
+                    Margin="0,0,10,10"
+                    Background="#1a1a1a"
+                    BorderThickness="2"
+                    CornerRadius="3"
+                    Cursor="Hand"
+                    MouseLeftButtonDown="HelmetPreview_Click"
+                    Tag="{Binding}">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="BorderBrush" Value="#555555"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="BorderBrush" Value="#c41e3a"/>
+                                <Setter Property="Background" Value="#2a1a1a"/>
+                            </DataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#888888"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel>
+                    <Image Source="{Binding HelmetDesign.PreviewImage}"
+                           Stretch="UniformToFill"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Border BorderBrush="#c41e3a" BorderThickness="2" Margin="20">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="4" Opacity="0.5"/>
+        </Border.Effect>
+
+        <Grid Background="#0a0a0a">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0" Background="#c41e3a" Padding="20,15">
+                <TextBlock Text="EDIT PLAYER DETAILS"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
+            </Border>
+
+            <!-- Form Content -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="30,25">
+
+                    <!-- Player Name -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Player Name" Style="{StaticResource InputLabelStyle}"/>
+                        <TextBox x:Name="PlayerNameTextBox"
+                                 Style="{StaticResource InputTextBoxStyle}"
+                                 MaxLength="50"/>
+                    </StackPanel>
+
+                    <!-- Nationality -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Nationality (3-letter code)" Style="{StaticResource InputLabelStyle}"/>
+                        <TextBlock Text="Enter a 3-character nationality code (e.g., GBR, USA, ITA)"
+                                   FontSize="10"
+                                   Foreground="#666666"
+                                   Margin="0,0,0,6"/>
+                        <TextBox x:Name="NationalityTextBox"
+                                 Style="{StaticResource InputTextBoxStyle}"
+                                 MaxLength="3"
+                                 CharacterCasing="Upper"/>
+                    </StackPanel>
+
+                    <!-- Photo File -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Photo File" Style="{StaticResource InputLabelStyle}"/>
+                        <TextBlock Text="Path to your player photo (JPG, PNG, or BMP format)"
+                                   FontSize="10"
+                                   Foreground="#666666"
+                                   Margin="0,0,0,6"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="PhotoFileTextBox"
+                                     Grid.Column="0"
+                                     Style="{StaticResource InputTextBoxStyle}"
+                                     IsReadOnly="True"
+                                     Margin="0,0,10,0"/>
+                            <Button Grid.Column="1"
+                                    x:Name="BrowsePhotoButton"
+                                    Click="BrowsePhotoButton_Click"
+                                    Style="{StaticResource BrowseButtonStyle}"
+                                    Content="Browse..."/>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Photo URL -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Photo URL" Style="{StaticResource InputLabelStyle}"/>
+                        <TextBlock Text="Alternative: URL to an online photo (e.g., https://example.com/photo.jpg)"
+                                   FontSize="10"
+                                   Foreground="#666666"
+                                   Margin="0,0,0,6"/>
+                        <TextBox x:Name="PhotoURLTextBox"
+                                 Style="{StaticResource InputTextBoxStyle}"
+                                 MaxLength="500"/>
+                    </StackPanel>
+
+                    <!-- Helmet Design Section -->
+                    <Border Background="#1a1a1a" 
+                            BorderBrush="#555555" 
+                            BorderThickness="1" 
+                            Padding="15"
+                            Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock Text="Helmet Design" 
+                                       Style="{StaticResource InputLabelStyle}"
+                                       FontSize="13"
+                                       Foreground="#c41e3a"
+                                       Margin="0,0,0,15"/>
+
+                            <!-- Era Tabs -->
+                            <TabControl x:Name="EraTabControl"
+                                        Style="{StaticResource EraTabControlStyle}"
+                                        SelectionChanged="EraTabControl_SelectionChanged">
+
+                                <!-- ═══ MODERN TAB ═══ -->
+                                <TabItem Header="MODERN" Style="{StaticResource EraTabItemStyle}" Tag="Modern">
+                                    <StackPanel Margin="0,15,0,0">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                                            <RadioButton x:Name="UseDefaultHelmetRadio_Modern"
+                                                         Content="Use Default Helmet Design"
+                                                         Style="{StaticResource RadioButtonStyle}"
+                                                         GroupName="HelmetMode_Modern"
+                                                         IsChecked="True"
+                                                         Checked="HelmetModeChanged_Modern"/>
+                                            <RadioButton x:Name="UseCustomHelmetRadio_Modern"
+                                                         Content="Use Custom Files"
+                                                         Style="{StaticResource RadioButtonStyle}"
+                                                         GroupName="HelmetMode_Modern"
+                                                         Checked="HelmetModeChanged_Modern"/>
+                                        </StackPanel>
+
+                                        <!-- Default Helmets -->
+                                        <StackPanel x:Name="DefaultHelmetPanel_Modern" Visibility="Visible">
+                                            <TextBlock Text="Select Helmet Design"
+                                                       FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
+                                            <ItemsControl x:Name="DefaultHelmetItemsControl_Modern"
+                                                          ItemTemplate="{StaticResource HelmetItemTemplate}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                            </ItemsControl>
+                                        </StackPanel>
+
+                                        <!-- Custom Files -->
+                                        <StackPanel x:Name="CustomHelmetPanel_Modern" Visibility="Collapsed">
+                                            <StackPanel Margin="0,0,0,15">
+                                                <TextBlock Text="Helmet File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox x:Name="HelmetFileTextBox_Modern" Grid.Column="0"
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                    <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Modern"/>
+                                                </Grid>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <TextBlock Text="Visor File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox x:Name="VisorFileTextBox_Modern" Grid.Column="0"
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                    <Button Grid.Column="1" Click="BrowseVisorButton_Click"
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Modern"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </TabItem>
+
+                                <!-- ═══ 1990s TAB ═══ -->
+                                <TabItem Header="1990s" Style="{StaticResource EraTabItemStyle}" Tag="Nineties">
+                                    <StackPanel Margin="0,15,0,0">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                                            <RadioButton x:Name="UseDefaultHelmetRadio_90s"
+                                                         Content="Use Default Helmet Design"
+                                                         Style="{StaticResource RadioButtonStyle}"
+                                                         GroupName="HelmetMode_90s"
+                                                         IsChecked="True"
+                                                         Checked="HelmetModeChanged_90s"/>
+                                            <RadioButton x:Name="UseCustomHelmetRadio_90s"
+                                                         Content="Use Custom Files"
+                                                         Style="{StaticResource RadioButtonStyle}"
+                                                         GroupName="HelmetMode_90s"
+                                                         Checked="HelmetModeChanged_90s"/>
+                                        </StackPanel>
+
+                                        <!-- Default Helmets -->
+                                        <StackPanel x:Name="DefaultHelmetPanel_90s" Visibility="Visible">
+                                            <TextBlock Text="Select Helmet Design"
+                                                       FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
+                                            <ItemsControl x:Name="DefaultHelmetItemsControl_90s"
+                                                          ItemTemplate="{StaticResource HelmetItemTemplate}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                            </ItemsControl>
+                                        </StackPanel>
+
+                                        <!-- Custom Files (90s only has helmet, no visor) -->
+                                        <StackPanel x:Name="CustomHelmetPanel_90s" Visibility="Collapsed">
+                                            <StackPanel Margin="0,0,0,15">
+                                                <TextBlock Text="Helmet File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox x:Name="HelmetFileTextBox_90s" Grid.Column="0"
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                    <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Nineties"/>
+                                                </Grid>
+                                            </StackPanel>
+                                            <TextBlock Text="Note: The 1990s era uses a single helmet texture with no separate visor file."
+                                                       FontSize="10" Foreground="#666666" FontStyle="Italic"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </TabItem>
+
+                                <!-- ═══ 1980s TAB ═══ -->
+                                <TabItem Header="1980s" Style="{StaticResource EraTabItemStyle}" Tag="Eighties">
+                                    <StackPanel Margin="0,15,0,0">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                                            <RadioButton x:Name="UseDefaultHelmetRadio_80s"
+                                                         Content="Use Default Helmet Design"
+                                                         Style="{StaticResource RadioButtonStyle}"
+                                                         GroupName="HelmetMode_80s"
+                                                         IsChecked="True"
+                                                         Checked="HelmetModeChanged_80s"/>
+                                            <RadioButton x:Name="UseCustomHelmetRadio_80s"
+                                                         Content="Use Custom Files"
+                                                         Style="{StaticResource RadioButtonStyle}"
+                                                         GroupName="HelmetMode_80s"
+                                                         Checked="HelmetModeChanged_80s"/>
+                                        </StackPanel>
+
+                                        <!-- Default Helmets -->
+                                        <StackPanel x:Name="DefaultHelmetPanel_80s" Visibility="Visible">
+                                            <TextBlock Text="Select Helmet Design"
+                                                       FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
+                                            <ItemsControl x:Name="DefaultHelmetItemsControl_80s"
+                                                          ItemTemplate="{StaticResource HelmetItemTemplate}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                            </ItemsControl>
+                                        </StackPanel>
+
+                                        <!-- Custom Files -->
+                                        <StackPanel x:Name="CustomHelmetPanel_80s" Visibility="Collapsed">
+                                            <StackPanel Margin="0,0,0,15">
+                                                <TextBlock Text="Helmet File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox x:Name="HelmetFileTextBox_80s" Grid.Column="0"
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                    <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Eighties"/>
+                                                </Grid>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <TextBlock Text="Visor File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox x:Name="VisorFileTextBox_80s" Grid.Column="0"
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                    <Button Grid.Column="1" Click="BrowseVisorButton_Click"
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Eighties"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </TabItem>
+
+                                <!-- ═══ 1970s TAB ═══ -->
+                                <TabItem Header="1970s" Style="{StaticResource EraTabItemStyle}" Tag="Seventies">
+                                    <StackPanel Margin="0,15,0,0">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                                            <RadioButton x:Name="UseDefaultHelmetRadio_70s"
+                                                         Content="Use Default Helmet Design"
+                                                         Style="{StaticResource RadioButtonStyle}"
+                                                         GroupName="HelmetMode_70s"
+                                                         IsChecked="True"
+                                                         Checked="HelmetModeChanged_70s"/>
+                                            <RadioButton x:Name="UseCustomHelmetRadio_70s"
+                                                         Content="Use Custom Files"
+                                                         Style="{StaticResource RadioButtonStyle}"
+                                                         GroupName="HelmetMode_70s"
+                                                         Checked="HelmetModeChanged_70s"/>
+                                        </StackPanel>
+
+                                        <!-- Default Helmets -->
+                                        <StackPanel x:Name="DefaultHelmetPanel_70s" Visibility="Visible">
+                                            <TextBlock Text="Select Helmet Design"
+                                                       FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
+                                            <ItemsControl x:Name="DefaultHelmetItemsControl_70s"
+                                                          ItemTemplate="{StaticResource HelmetItemTemplate}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                            </ItemsControl>
+                                        </StackPanel>
+
+                                        <!-- Custom Files -->
+                                        <StackPanel x:Name="CustomHelmetPanel_70s" Visibility="Collapsed">
+                                            <StackPanel Margin="0,0,0,15">
+                                                <TextBlock Text="Helmet File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox x:Name="HelmetFileTextBox_70s" Grid.Column="0"
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                    <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Seventies"/>
+                                                </Grid>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <TextBlock Text="Visor File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox x:Name="VisorFileTextBox_70s" Grid.Column="0"
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                    <Button Grid.Column="1" Click="BrowseVisorButton_Click"
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Seventies"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </TabItem>
+
+                            </TabControl>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Action Buttons -->
+            <Border Grid.Row="2" 
+                    Background="#0f0f0f" 
+                    BorderBrush="#222222" 
+                    BorderThickness="0,1,0,0"
+                    Padding="30,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="1"
+                            x:Name="CancelButton"
+                            Click="CancelButton_Click"
+                            Style="{StaticResource DialogButtonStyle}"
+                            Content="Cancel"/>
+
+                    <Button Grid.Column="3"
+                            x:Name="SaveButton"
+                            Click="SaveButton_Click"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Content="Save Changes"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

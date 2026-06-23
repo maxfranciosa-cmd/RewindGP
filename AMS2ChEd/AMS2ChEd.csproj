@@ -1,0 +1,995 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>True</UseWindowsForms>
+    <PackageIcon>rewind_gp_logo_128.png</PackageIcon>
+    <ApplicationIcon>StaticFiles\rewind_gp_logo_128.ico</ApplicationIcon>
+	  <UpdaterProject>$(SolutionDir)..\AMS2ChEd.Updater\AMS2ChEd.Updater.csproj</UpdaterProject>
+	  <UpdaterBinDir>$(SolutionDir)..\AMS2ChEd.Updater\bin\$(Configuration)\net8.0-windows\win-x64\</UpdaterBinDir>
+	  <AssemblyVersion>1.5.0.0</AssemblyVersion>
+	  <FileVersion>1.5.0.0</FileVersion>
+  </PropertyGroup>
+	
+<Target Name="BuildAndCopyUpdater" AfterTargets="Build">
+	<MSBuild Projects="$(UpdaterProject)" Properties="Configuration=$(Configuration);Platform=AnyCPU" Targets="Build" />
+
+	<ItemGroup>
+		<UpdaterFiles Include="$(UpdaterBinDir)**\*.*" />
+	</ItemGroup>
+
+	<Copy SourceFiles="@(UpdaterFiles)" DestinationFiles="@(UpdaterFiles->'$(OutputPath)Updater\%(RecursiveDir)%(Filename)%(Extension)')" />
+</Target>
+	
+  <ItemGroup>
+    <None Remove="Fonts\Soniano Sans Unicode Regular.ttf" />
+    <None Remove="StaticFiles\rewind_gp_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="App\App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="App\App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="StaticFiles\rewind_gp_logo_128.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Drivers\base_helmet_liveries\defaulthelmet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\defaulthelmet_70s.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\defaulthelmet_80s.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\defaulthelmet_90s.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\defaultvisor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\defaultvisor_70s.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\defaultvisor_80s.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\0_CARBON.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\10_GERMANY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\11_ITALY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\12_GREEN_PINK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\13_GREY_BLUE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\14_BLACK_GREEN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\15_WHITE_RED.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\16_BLACK_WHITE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\17_YELLOW_BLACK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\18_BLUE_GREY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\19_RED_WHITE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\1_NEWHOUSE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\2_TAKUMI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\3_JAPAN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\4_USA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\5_CANADA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\6_BRAZIL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\7_UK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\8_SPAIN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\90s_01_arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\90s_02_bastoni.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\90s_03_flashy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\90s_04_jimmy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\90s_05_blocks.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\90s_06_stripes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\90s_07_spikey.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\90s_08_trippy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\90s_09_murica.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\90s_10_hashtag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\helmets\9_FRANCE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\0_CARBON.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\10_GERMANY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\11_ITALY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\12_GREEN_PINK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\13_GREY_BLUE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\14_BLACK_GREEN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\15_WHITE_RED.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\16_BLACK_WHITE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\17_YELLOW_BLACK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\18_BLUE_GREY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\19_RED_WHITE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\1_NEWHOUSE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\2_TAKUMI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\3_JAPAN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\4_USA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\5_CANADA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\6_BRAZIL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\7_UK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\8_SPAIN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\90s_01_arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\90s_02_bastoni.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\90s_03_flashy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\90s_04_jimmy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\90s_05_blocks.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\90s_06_stripes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\90s_07_spikey.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\90s_08_trippy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\90s_09_murica.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\90s_10_hashtag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\previews\9_FRANCE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\0_CARBON.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\10_GERMANY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\11_ITALY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\12_GREEN_PINK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\13_GREY_BLUE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\14_BLACK_GREEN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\15_WHITE_RED.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\16_BLACK_WHITE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\17_YELLOW_BLACK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\18_BLUE_GREY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\19_RED_WHITE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\1_NEWHOUSE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\2_TAKUMI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\3_JAPAN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\4_USA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\5_CANADA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\6_BRAZIL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\7_UK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\8_SPAIN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\base_helmet_liveries\player_helmets\visors\9_FRANCE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\risciacqui.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Bonton.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Bonton_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\bonton_nose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\bonton_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\ferroni_nose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\ferroni_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\ferroni_wing_bottom_half.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\ferroni_wing_top_half.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\fonti_nose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\fonti_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\jolly_nose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\lumiere_nose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\lumiere_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\lunardi_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\lunardi_wing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\mclorden_nose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\mclorden_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\Slingshot_nose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\Slingshot_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\somber_nose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\somber_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\tyrres_nose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\tyrres_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\willis_nose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\car_numbers\willis_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Ferroni.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Ferroni_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Fonti.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Jolly.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Jolly_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Lumiere.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Lumiere_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Lunardi1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Lunardi2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\mclorden.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\mclorden_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Slingshot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Somber.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Tyrres.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Tyrres_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Willis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\car_liveries\Willis_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\drivers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\avvocappen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\axelson.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\bontempi.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\borsett.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\burger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\carrello.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\default.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\empty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\esquecido.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\Fisiketio.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\hebete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\irvito.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\kafeyna.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\kakkinen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\kraften.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\maddeques.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\mallard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\mazzell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\namy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\newhouse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\numacher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\oneill.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\panin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\queltalesi.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\scendo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\sgrulli.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Drivers\portraits\somaru.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Fonts\Soniano Sans Unicode SIL OFL Font License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\gpcovers\default.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\avvocappen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\avvocappen_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\axelson.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\axelson_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\Bontempi.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\bontempi_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\borsett.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\borsett_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\burger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\burger_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\carrello.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\carrello_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\defaulthelmet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\esquecido.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\esquecido_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\fisiketio.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\fisiketio_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\hebete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\hebete_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\irvito.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\irvito_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\kafeyama.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\kafeyama_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\kakkinen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\kakkinen_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\kraften.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\kraften_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\maddeques.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\maddeques_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\mallard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\mallard_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\Mazzell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\Mazzell_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\namy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\namy_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\newhouse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\newhouse_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\numacher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\numacher_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\oneill.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\oneill_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\Panin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\Panin_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\queltalesi.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\queltalesi_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\risciacqui.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\risciacqui_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\sgrulli.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\sgrulli_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\somaru.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\somaru_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\sotto.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_liveries\sotto_visor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\bonton_helmet_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\bonton_helmet_sponsors_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\bonton_visor_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\Ferroni_helmet_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\Ferroni_helmet_sponsors_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\ferroni_visor_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\jolly_helmet_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\jolly_helmet_sponsors_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\jolly_visor_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\jolly_visor_sponsors_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\lumiere_visor_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\lumiere_visor_sponsors_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\McLorden_helmet_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\Mclorden_helmet_sponsors_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\mclorden_visor_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\Slingshot_helmet_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\Slingshot_helmet_sponsors_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\somber_helmet_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\somber_visor_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\tyrres_helmet_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\tyrres_helmet_sponsors_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\Willis_helmet_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\Willis_helmet_sponsors_NT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\helmet_sponsors\Willis_visor_sponsors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\arrows.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\benetton.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\ferrari.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\forti.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\jordan.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\ligier_prost.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\mclaren.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\minardi.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\sauber.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\tyrrell.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\liveries_xml\williams.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Bonton.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Bonton_NT.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Ferroni.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Ferroni_NT.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Fonti.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Jolly.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Jolly_NT.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Lumiere.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Lumiere_NT.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Lunardi.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\McLorden.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\McLorden_NT.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Slingshot.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Somber.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Tyrres.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Tyrres_NT.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Willis.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\previews\Willis_NT.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\Scenarios\John_Newhouse_1996.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\Scenarios\Nigel_Mazzell_1996.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\Scenarios\Nu_Macher_1996.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\Scenarios\Saves\John_Newhouse_1996.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\Scenarios\Saves\Nigel_Mazzell_1996.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\Scenarios\Saves\Nu_Macher_1996.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\season.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\BlueArms.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\BlueGloves.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\BlueLegs.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\BlueTorso.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\RedArms.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\RedGloves.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\RedLegs.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\RedTorso.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\WhiteArms.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\WhiteGloves.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\WhiteLegs.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\WhiteTorso.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\YellowArms.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\YellowGloves.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\YellowLegs.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Driver\YellowTorso.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Harness\blue.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\formula_v10_g1\1996\Harness\Red.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\mclaren_mp4_12\1996\Driver\BlueArms.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\mclaren_mp4_12\1996\Driver\BlueGloves.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\mclaren_mp4_12\1996\Driver\BlueLegs.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\mclaren_mp4_12\1996\Driver\BlueTorso.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\mclaren_mp4_12\1996\Driver\RedArms.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\mclaren_mp4_12\1996\Driver\RedGloves.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\mclaren_mp4_12\1996\Driver\RedLegs.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\mclaren_mp4_12\1996\Driver\RedTorso.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\mclaren_mp4_12\1996\Harness\blue.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Seasons\1996\static_assets\Vehicles\Textures\CustomLiveries\Overrides\mclaren_mp4_12\1996\Harness\Red.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="seasons_manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="StaticFiles\rewind_gp_logo_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Teams\teams.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCnEncoder.Net" Version="2.2.1" />
+    <PackageReference Include="BCnEncoder.Net.ImageSharp" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
+    <PackageReference Include="StbImageSharp" Version="2.30.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ams2ChEd.Business.AMS2\Ams2ChEd.Business.AMS2.csproj" />
+    <ProjectReference Include="..\AMS2ChEd.Business\AMS2ChEd.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AMS2SharedMemoryNet">
+      <HintPath>..\Ams2ChEd.Business.AMS2\ExternalDependencies\AMS2SharedMemoryNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="StaticFiles\rewind_gp_logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="StaticFiles\rewind_gp_logo_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\Soniano Sans Unicode Regular.ttf" />
+  </ItemGroup>
+
+</Project>

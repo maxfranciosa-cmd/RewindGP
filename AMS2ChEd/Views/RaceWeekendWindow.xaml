@@ -1,0 +1,565 @@
+﻿<Window x:Class="AMS2ChEd.Views.RaceWeekendWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:AMS2ChEd.Views"
+        Title="Race Weekend" 
+        Height="800" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        ContentRendered="Window_ContentRendered"
+        Background="Black">
+
+    <Window.Resources>
+        <views:UpperCaseConverter x:Key="UpperCaseConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <!-- Semi-transparent dark overlay -->
+        <Border x:Name="MainBackground" Background="#CC3C3C3C" Margin="40">
+            <Grid Margin="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock x:Name="GrandPrixHeader"
+                                       Text="MONACO GRAND PRIX 2024"
+                                       FontFamily="Calibri"
+                                       FontSize="28"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,0,0,5"/>
+
+                            <TextBlock x:Name="CircuitHeader"
+                                       Text="CIRCUIT DE MONACO"
+                                       FontFamily="Calibri"
+                                       FontSize="16"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Session Banner -->
+                <Border x:Name="SessionBanner"
+                        Grid.Row="1" 
+                        Background="#FFFF00"
+                        Padding="10"
+                        Margin="0,0,0,20">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock x:Name="SessionLabelText"
+                                   Text="CURRENT SESSION: "
+                                   FontFamily="Calibri"
+                                   FontWeight="Bold"
+                                   FontSize="18"
+                                   Foreground="Black"/>
+                        <TextBlock x:Name="SessionText"
+                                   Text="PRACTICE 1"
+                                   FontFamily="Calibri"
+                                   FontWeight="Bold"
+                                   FontSize="18"
+                                   Foreground="Black"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Standings Table -->
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <!-- Waiting Message - Visible when no data -->
+                        <TextBlock x:Name="WaitingMessage"
+                                   Text="Waiting For Simulator Data..."
+                                   FontFamily="Calibri"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="#FFFF00"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Visibility="Visible"/>
+
+                        <!-- Standings Content - Hidden until data arrives -->
+                        <StackPanel x:Name="StandingsContent" Visibility="Collapsed">
+                            <!-- Column Headers -->
+                            <Grid x:Name="ColumnHeaders" Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <!-- Position -->
+                                    <ColumnDefinition Width="50"/>
+                                    <!-- Number -->
+                                    <ColumnDefinition Width="*"/>
+                                    <!-- Name -->
+                                    <ColumnDefinition x:Name="NatColumnDefinition" Width="50"/>
+                                    <!-- Nationality (Pre-94 only, 50px) -->
+                                    <ColumnDefinition Width="*"/>
+                                    <!-- Team -->
+                                    <ColumnDefinition Width="120"/>
+                                    <!-- Best Lap -->
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0"
+                                           x:Name="PositionColumnHeader"
+                                           Text="P" 
+                                           FontFamily="Calibri"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Foreground="White"
+                                           Margin="5,0"/>
+                                <TextBlock Grid.Column="1"
+                                           x:Name="NumberColumnHeader"
+                                           Text="#"
+                                           FontFamily="Calibri"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Foreground="White"
+                                           Margin="5,0"/>
+                                <TextBlock Grid.Column="2"
+                                           x:Name="NameColumnHeader"
+                                           Text="NAME"
+                                           FontFamily="Calibri"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Foreground="White"
+                                           Margin="5,0"/>
+                                <TextBlock Grid.Column="3"
+                                           x:Name="NationalityColumnHeader"
+                                           Text="NAT"
+                                           FontFamily="Calibri"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Foreground="White"
+                                           Margin="5,0"/>
+                                <TextBlock Grid.Column="4"
+                                           x:Name="TeamColumnHeader"
+                                           Text="TEAM"
+                                           FontFamily="Calibri"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Foreground="White"
+                                           Margin="5,0"/>
+                                <TextBlock Grid.Column="5"
+                                           x:Name="LapColumnHeader"
+                                           Text="BEST LAP"
+                                           FontFamily="Calibri"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Foreground="White"
+                                           Margin="5,0"/>
+                            </Grid>
+
+                            <!-- Data Rows -->
+                            <ItemsControl x:Name="StandingsItems">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="{Binding RowMargin}">
+
+                                            <!-- Pre-94 Style Layout -->
+                                            <Grid Visibility="{Binding ShowPre94Layout}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="50"/>
+                                                    <!-- Position -->
+                                                    <ColumnDefinition Width="50"/>
+                                                    <!-- Number -->
+                                                    <ColumnDefinition Width="*"/>
+                                                    <!-- Name -->
+                                                    <ColumnDefinition Width="{Binding NatColumnWidth}"/>
+                                                    <!-- Nationality (50px in Pre-94) -->
+                                                    <ColumnDefinition Width="*"/>
+                                                    <!-- Team -->
+                                                    <ColumnDefinition Width="120"/>
+                                                    <!-- Best Lap -->
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Position with dot -->
+                                                <TextBlock Grid.Column="0"
+                                                          FontFamily="Calibri"
+                                                          FontStyle="{Binding FontStyleValue}"
+                                                          FontSize="22"
+                                                          Foreground="White"
+                                                          Margin="5,0,0,0"
+                                                          TextAlignment="Left">
+                                                    <Run Text="{Binding Position}"/><Run Text="."/>
+                                                </TextBlock>
+
+                                                <!-- Number -->
+                                                <TextBlock Grid.Column="1"
+                                                          Text="{Binding Number}"
+                                                          FontFamily="Calibri"
+                                                          FontStyle="{Binding FontStyleValue}"
+                                                          FontSize="22"
+                                                          Foreground="#FFFF00"
+                                                          Margin="5,0,0,0"
+                                                          TextAlignment="Left"/>
+
+                                                <!-- Driver Name -->
+                                                <TextBlock Grid.Column="2"
+                                                          Text="{Binding DriverName}"
+                                                          FontFamily="Calibri"
+                                                          FontStyle="{Binding FontStyleValue}"
+                                                          FontWeight="Bold"
+                                                          FontSize="22"
+                                                          Foreground="White"
+                                                          Margin="5,0,0,0"
+                                                          TextAlignment="Left"/>
+
+                                                <!-- Nationality (Column 3) -->
+                                                <TextBlock Grid.Column="3"
+                                                          Text="{Binding Nationality}"
+                                                          FontFamily="Calibri"
+                                                          FontStyle="{Binding FontStyleValue}"
+                                                          FontSize="22"
+                                                          Foreground="#FFFF00"
+                                                          Margin="5,0,0,0"
+                                                          TextAlignment="Left"/>
+
+                                                <!-- Team Name (Column 4) -->
+                                                <TextBlock Grid.Column="4"
+                                                          Text="{Binding TeamName}"
+                                                          FontFamily="Calibri"
+                                                          FontStyle="{Binding FontStyleValue}"
+                                                          FontSize="22"
+                                                          Foreground="White"
+                                                          Margin="5,0,0,0"
+                                                          TextAlignment="Left"/>
+
+                                                <!-- Best Lap -->
+                                                <TextBlock Grid.Column="5"
+                                                          Text="{Binding BestLap}"
+                                                          FontFamily="Consolas"
+                                                          FontStyle="{Binding FontStyleValue}"
+                                                          FontSize="20"
+                                                          Foreground="White"
+                                                          Margin="5,0,0,0"
+                                                          TextAlignment="Left"/>
+                                            </Grid>
+
+                                            <!-- 1990s & Mid-2000s Style Layout -->
+                                            <Grid Visibility="{Binding ShowModernLayout}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="50"/>
+                                                    <!-- Position -->
+                                                    <ColumnDefinition Width="{Binding NumberColumnWidth}"/>
+                                                    <!-- Number -->
+                                                    <ColumnDefinition Width="*"/>
+                                                    <!-- Name -->
+                                                    <ColumnDefinition Width="{Binding NatColumnWidth}"/>
+                                                    <!-- Nationality (0 in 1990s/Mid-2000s) -->
+                                                    <ColumnDefinition Width="*"/>
+                                                    <!-- Team -->
+                                                    <ColumnDefinition Width="120"/>
+                                                    <!-- Best Lap -->
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Position box -->
+                                                <Border Grid.Column="0"
+                                                        Background="{Binding PositionBackground}"
+                                                        Width="{Binding PositionBorderWidth}"
+                                                        Height="25"
+                                                        HorizontalAlignment="{Binding PositionAlignment}"
+                                                        Margin="{Binding PositionMargin}">
+                                                    <TextBlock Text="{Binding Position}"
+                                                               FontFamily="Calibri"
+                                                               FontWeight="Bold"
+                                                               FontSize="18"
+                                                               Foreground="{Binding PositionForeground}"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               MinWidth="{Binding PositionMinWidth}"/>
+                                                </Border>
+
+                                                <!-- Number - visible in 1990s style only -->
+                                                <Border Grid.Column="1"
+                                                        Background="LightSkyBlue"
+                                                        CornerRadius="24"
+                                                        Width="30"
+                                                        Height="20"
+                                                        HorizontalAlignment="Left"
+                                                        Margin="5,0"
+                                                        Visibility="{Binding ShowNumberColumn}">
+                                                    <TextBlock Text="{Binding Number}"
+                                                               FontFamily="Calibri"
+                                                               FontWeight="Bold"
+                                                               FontSize="14"
+                                                               Foreground="Black"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"/>
+                                                </Border>
+
+                                                <!-- Driver Name -->
+                                                <Border Grid.Column="2"
+                                                        Background="{Binding DriverNameBackground}">
+                                                    <TextBlock Text="{Binding DriverName}"
+                                                               FontFamily="Calibri"
+                                                               FontWeight="Bold"
+                                                               FontSize="22"
+                                                               Foreground="{Binding DriverNameForeground}"
+                                                               VerticalAlignment="Center"
+                                                               Margin="{Binding DriverNameTextMargin}"/>
+                                                </Border>
+
+                                                <!-- Nationality column (hidden - Width="0") -->
+                                                <!-- Column 3 is hidden -->
+
+                                                <!-- Team Name -->
+                                                <Border Grid.Column="4"
+                                                        Background="{Binding TeamNameBackground}">
+                                                    <TextBlock Text="{Binding TeamName}"
+                                                               FontFamily="Calibri"
+                                                               FontSize="22"
+                                                               Foreground="{Binding TeamNameForeground}"
+                                                               VerticalAlignment="Center"
+                                                               Margin="{Binding TeamNameTextMargin}"/>
+                                                </Border>
+
+                                                <!-- Best Lap Time -->
+                                                <Border Grid.Column="5"
+                                                        Background="{Binding BestLapBackground}">
+                                                    <TextBlock Text="{Binding BestLap}"
+                                                               FontFamily="Consolas"
+                                                               FontWeight="Bold"
+                                                               FontSize="18"
+                                                               Foreground="{Binding BestLapForeground}"
+                                                               VerticalAlignment="Center"
+                                                               Margin="{Binding BestLapTextMargin}"/>
+                                                </Border>
+                                            </Grid>
+
+                                            <!-- 2010s Style Layout with skewed angles -->
+                                            <Grid Visibility="{Binding Show2010sLayout}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="40"/>
+                                                    <!-- Position (narrower) -->
+                                                    <ColumnDefinition Width="*"/>
+                                                    <!-- Driver Name -->
+                                                    <ColumnDefinition Width="*"/>
+                                                    <!-- Team -->
+                                                    <ColumnDefinition Width="110"/>
+                                                    <!-- Best Lap -->
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Position with skew -->
+                                                <Border Grid.Column="0"
+                                                        Background="{Binding PositionBackground}"
+                                                        Height="26"
+                                                        Margin="0">
+                                                    <Border.RenderTransform>
+                                                        <SkewTransform AngleX="-15"/>
+                                                    </Border.RenderTransform>
+                                                    <TextBlock Text="{Binding Position}"
+                                                               FontFamily="Arial"
+                                                               FontWeight="Bold"
+                                                               FontSize="18"
+                                                               Foreground="{Binding PositionForeground}"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center">
+                                                        <TextBlock.RenderTransform>
+                                                            <SkewTransform AngleX="15"/>
+                                                        </TextBlock.RenderTransform>
+                                                    </TextBlock>
+                                                </Border>
+
+                                                <!-- Driver Name with skew and glossy black background -->
+                                                <Border Grid.Column="1"
+                                                        Background="{Binding DriverNameBackground}"
+                                                        Height="26"
+                                                        Margin="0">
+                                                    <Border.RenderTransform>
+                                                        <SkewTransform AngleX="-15"/>
+                                                    </Border.RenderTransform>
+                                                    
+                                                    <Grid Grid.Column="1">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="4"/>
+                                                            <!-- Team color accent -->
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <!-- Team color accent bar -->
+                                                        <Border Grid.Column="0"
+                                                            Background="{Binding TeamColorAccent}">
+                                                            <Border.RenderTransform>
+                                                                <SkewTransform AngleX="-11"/>
+                                                            </Border.RenderTransform>
+                                                        </Border>
+
+                                                        <!-- Driver name -->
+                                                        <Border Grid.Column="1"
+                                                            Background="{Binding DriverNameBackground}">
+                                                            <TextBlock Text="{Binding DriverName}"
+                                                                       FontFamily="Bahnschrift SemiBold"
+                                                                       FontWeight="SemiBold"
+                                                                       FontSize="16"
+                                                                       Foreground="{Binding DriverNameForeground}"
+                                                                       VerticalAlignment="Center"
+                                                                       Margin="{Binding DriverNameTextMargin}">
+                                                                <TextBlock.RenderTransform>
+                                                                    <SkewTransform AngleX="15"/>
+                                                                </TextBlock.RenderTransform>
+                                                            </TextBlock>
+                                                        </Border>
+                                                    </Grid>
+
+                                                    
+                                                </Border>
+
+                                                <!-- Team Name with skew and dark gray glossy background -->
+                                                <Border Grid.Column="2"
+                                                        Background="{Binding TeamNameBackground}"
+                                                        Height="26"
+                                                        Margin="0">
+                                                    <Border.RenderTransform>
+                                                        <SkewTransform AngleX="-15"/>
+                                                    </Border.RenderTransform>
+                                                    <TextBlock Text="{Binding TeamName}"
+                                                               FontFamily="Arial"
+                                                               FontSize="16"
+                                                               Foreground="{Binding TeamNameForeground}"
+                                                               VerticalAlignment="Center"
+                                                               Margin="8,0,5,0">
+                                                        <TextBlock.RenderTransform>
+                                                            <SkewTransform AngleX="15"/>
+                                                        </TextBlock.RenderTransform>
+                                                    </TextBlock>
+                                                </Border>
+
+                                                <!-- Best Lap Time with skew and glossy black background -->
+                                                <Border Grid.Column="3"
+                                                        Background="{Binding BestLapBackground}"
+                                                        Height="26"
+                                                        Margin="0">
+                                                    <Border.RenderTransform>
+                                                        <SkewTransform AngleX="-15"/>
+                                                    </Border.RenderTransform>
+                                                    <TextBlock Text="{Binding BestLap}"
+                                                               FontFamily="Consolas"
+                                                               FontWeight="Bold"
+                                                               FontSize="15"
+                                                               Foreground="{Binding BestLapForeground}"
+                                                               VerticalAlignment="Center"
+                                                               HorizontalAlignment="Right"
+                                                               Margin="5,0,8,0">
+                                                        <TextBlock.RenderTransform>
+                                                            <SkewTransform AngleX="15"/>
+                                                        </TextBlock.RenderTransform>
+                                                    </TextBlock>
+                                                </Border>
+                                            </Grid>
+
+                                            <!-- 2020s Style Layout - clean modern F1 look -->
+                                            <Grid Visibility="{Binding Show2020sLayout}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="45"/>
+                                                    <!-- Position -->
+                                                    <ColumnDefinition Width="*"/>
+                                                    <!-- Driver Name -->
+                                                    <ColumnDefinition Width="*"/>
+                                                    <!-- Team -->
+                                                    <ColumnDefinition Width="110"/>
+                                                    <!-- Best Lap -->
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Position - white box with black number -->
+                                                <Border Grid.Column="0"
+                                                        Background="{Binding PositionBackground}"
+                                                        Width="{Binding PositionBorderWidth}"
+                                                        Margin="{Binding PositionMargin}"
+                                                        Height="28">
+                                                    <TextBlock Text="{Binding Position}"
+                                                               FontFamily="pack://application:,,,/./Fonts/#Soniano Sans Unicode"
+                                                               FontWeight="Bold"
+                                                               FontSize="24"
+                                                               Foreground="{Binding PositionForeground}"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"/>
+                                                </Border>
+
+                                                <!-- Driver Name with team color accent on left -->
+                                                <Grid Grid.Column="1">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="4"/>
+                                                        <!-- Team color accent -->
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <!-- Team color accent bar -->
+                                                    <Border Grid.Column="0"
+                                                            Background="{Binding TeamColorAccent}"/>
+
+                                                    <!-- Driver name -->
+                                                    <Border Grid.Column="1"
+                                                            Background="{Binding DriverNameBackground}">
+                                                        <TextBlock Text="{Binding DriverName}"
+                                                                   FontFamily="pack://application:,,,/./Fonts/#Soniano Sans Unicode"
+                                                                   FontWeight="SemiBold"
+                                                                   FontSize="24"
+                                                                   Foreground="{Binding DriverNameForeground}"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="{Binding DriverNameTextMargin}"/>
+                                                    </Border>
+                                                </Grid>
+
+                                                <!-- Team Name - not bold -->
+                                                <Border Grid.Column="2"
+                                                        Background="{Binding TeamNameBackground}">
+                                                    <TextBlock Text="{Binding TeamName}"
+                                                               FontFamily="pack://application:,,,/./Fonts/#Soniano Sans Unicode"
+                                                               FontWeight="Normal"
+                                                               FontSize="24"
+                                                               Foreground="{Binding TeamNameForeground}"
+                                                               VerticalAlignment="Center"
+                                                               Margin="{Binding TeamNameTextMargin}"/>
+                                                </Border>
+
+                                                <!-- Best Lap Time -->
+                                                <Border Grid.Column="3"
+                                                        Background="{Binding BestLapBackground}">
+                                                    <TextBlock Text="{Binding BestLap}"
+                                                               FontFamily="pack://application:,,,/./Fonts/#Soniano Sans Unicode"
+                                                               FontWeight="Bold"
+                                                               FontSize="24"
+                                                               Foreground="{Binding BestLapForeground}"
+                                                               VerticalAlignment="Center"
+                                                               HorizontalAlignment="Right"
+                                                               Margin="{Binding BestLapTextMargin}"/>
+                                                </Border>
+                                            </Grid>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+
+                <!-- Bottom Button -->
+                <Button x:Name="EndRaceButton"
+                        Grid.Row="3" 
+                        Content="END RACE ▶"
+                        Width="200"
+                        Height="45"
+                        FontFamily="Calibri"
+                        FontWeight="Bold"
+                        FontSize="18"
+                        Background="#FFFF00"
+                        Foreground="Black"
+                        BorderThickness="0"
+                        HorizontalAlignment="Center"
+                        Margin="0,20,0,0"
+                        Cursor="Hand"
+                        Click="NextSession_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
