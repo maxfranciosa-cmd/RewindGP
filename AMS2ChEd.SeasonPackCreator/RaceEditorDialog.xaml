@@ -1,0 +1,116 @@
+<Window x:Class="AMS2ChEd.SeasonPackEditor.RaceEditorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Race Editor" 
+        Height="500" 
+        Width="600"
+        WindowStartupLocation="CenterOwner"
+        Background="#1A1A1A">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#E10600"/>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#B0B0B0"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#404040"/>
+
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="2" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Background" Value="#404040"/>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="0,0,0,5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="30,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Race Information" FontSize="18" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,20"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Race ID:" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Name="RaceIdTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Race Name:" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="RaceNameTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Short Name:" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Name="RaceShortNameTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Date:" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Name="RaceDateTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Circuit:" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Name="CircuitTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
+
+            <Label Grid.Row="5" Grid.Column="0" Content="Cover Picture:" VerticalAlignment="Center"/>
+            <StackPanel Grid.Row="5" Grid.Column="1" Margin="0,0,0,15">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Name="CoverPictureTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,10,0"/>
+                    <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseCoverPicture_Click"/>
+                </Grid>
+                <TextBlock Name="CoverPictureSourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="OK" Style="{StaticResource PrimaryButton}" Click="OK_Click" Margin="0,0,10,0" Width="100"/>
+            <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Click="Cancel_Click" Width="100"/>
+        </StackPanel>
+    </Grid>
+</Window>

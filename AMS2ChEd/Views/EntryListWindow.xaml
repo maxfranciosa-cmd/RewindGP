@@ -1,0 +1,254 @@
+﻿<Window x:Class="AMS2ChEd.Views.EntryListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AMS2ChEd.Views"
+        Title="Official Entry List" 
+        Height="900" Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Background="#f8f8f0"
+        ResizeMode="CanResize">
+
+    <Window.Resources>
+
+        <!-- Converter for bold player names -->
+        <local:BoolToFontWeightConverter x:Key="BoolToFontWeightConverter"/>
+        <local:UpperCaseConverter x:Key="UpperCaseConverter" />
+        <!-- Header style -->
+        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <!-- Entry text style -->
+        <Style x:Key="EntryTextStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <!-- Section title style -->
+        <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial Black"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Black"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#f8f8f0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <!-- Race Poster (Full height) -->
+            <ColumnDefinition Width="*"/>
+            <!-- Entry List -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Column: Race Poster -->
+        <Border Grid.Column="0" 
+                Background="Black"
+                BorderBrush="#c41e3a" 
+                BorderThickness="0,0,4,0">
+            <Image x:Name="RacePosterImage" 
+                   Stretch="UniformToFill"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+        </Border>
+
+        <!-- Right Column: Entry List Document -->
+        <Border Grid.Column="1"
+                Background="White" 
+                BorderBrush="Black" 
+                BorderThickness="4"
+                Margin="20">
+            <Grid Margin="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Official Header -->
+                <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                    <!-- Top border -->
+                    <Rectangle Height="4" Fill="Black" Margin="0,0,0,5"/>
+                    <Rectangle Height="2" Fill="Black" Margin="0,0,0,10"/>
+
+
+
+                    <TextBlock x:Name="EntryListTitleText"
+                               Text="OFFICIAL ENTRY LIST"
+                               FontFamily="Arial Black"
+                               FontSize="20"
+                               FontWeight="Black"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,5"/>
+
+                    <TextBlock x:Name="GrandPrixText"
+                               FontFamily="Arial Black"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,5"/>
+
+                    <TextBlock x:Name="DateText"
+                               FontFamily="Arial"
+                               FontSize="12"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,10"/>
+
+                    <Border x:Name="PreQualiBanner"
+                            Background="Black"
+                            Margin="0,0,0,8"
+                            Visibility="Collapsed">
+                            <TextBlock Text="PRE-QUALIFYING SESSION"
+                                   FontFamily="Arial Black"
+                                   FontSize="13"
+                                   FontWeight="Black"
+                                   Foreground="#FFD700"
+                                   HorizontalAlignment="Center"
+                                   Padding="0,6"/>
+                    </Border>
+
+                    <!-- Bottom border -->
+                    <Rectangle Height="2" Fill="Black" Margin="0,0,0,5"/>
+                    <Rectangle Height="4" Fill="Black"/>
+                </StackPanel>
+
+                <!-- Column Headers -->
+                <Grid Grid.Row="1" Margin="0,10,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <!-- No. -->
+                        <ColumnDefinition Width="250"/>
+                        <!-- Driver -->
+                        <ColumnDefinition Width="60"/>
+                        <!-- Nationality -->
+                        <ColumnDefinition Width="*"/>
+                        <!-- Team -->
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Grid.Column="0" Grid.ColumnSpan="4" 
+                               Height="1" Fill="Black" 
+                               VerticalAlignment="Bottom"/>
+
+                    <TextBlock Grid.Column="0" Text="No."
+                               Style="{StaticResource HeaderTextStyle}"
+                               Margin="5,0"/>
+                    <TextBlock Grid.Column="1" Text="DRIVER"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Margin="5,0"/>
+                    <TextBlock Grid.Column="2" Text="NAT."
+                               Style="{StaticResource HeaderTextStyle}"
+                               Margin="5,0"/>
+                    <TextBlock Grid.Column="3" Text="TEAM"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Margin="5,0"/>
+                </Grid>
+
+                <!-- Entry List -->
+                <ScrollViewer Grid.Row="2" 
+                              VerticalScrollBarVisibility="Auto"
+                              Margin="0,5,0,10">
+                    <ItemsControl x:Name="EntryListItems">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" 
+                                        BorderThickness="0,0,0,1"
+                                        Padding="0,8">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Driver Number -->
+                                        <TextBlock Grid.Column="0" 
+                                                   Text="{Binding DriverNumber}"
+                                                   Style="{StaticResource EntryTextStyle}"
+                                                   FontWeight="Bold"
+                                                   FontSize="13"
+                                                   Margin="10,0,5,0"/>
+
+                                        <!-- Driver Name -->
+                                        <TextBlock Grid.Column="1" 
+                                                   Text="{Binding DriverName, Converter={StaticResource UpperCaseConverter}}"
+                                                   Style="{StaticResource EntryTextStyle}"
+                                                   Margin="5,0"
+                                                   FontWeight="{Binding IsPlayer, Converter={StaticResource BoolToFontWeightConverter}}"/>
+                                        <!-- Nationality-->
+                                        <TextBlock Grid.Column="2" 
+                                                   Text="{Binding Nationality}"
+                                                   Style="{StaticResource EntryTextStyle}"
+                                                   Margin="5,0"
+                                                   FontWeight="{Binding IsPlayer, Converter={StaticResource BoolToFontWeightConverter}}"/>
+                                        <!-- Team Name -->
+                                        <TextBlock Grid.Column="3" 
+                                                   Text="{Binding TeamName, Converter={StaticResource UpperCaseConverter}}"
+                                                   Style="{StaticResource EntryTextStyle}"
+                                                   Margin="5,0"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- Footer with signature -->
+                <StackPanel Grid.Row="3">
+                    <Rectangle Height="2" Fill="Black" Margin="0,0,0,10"/>
+
+                    <TextBlock x:Name="FooterText"
+                               FontFamily="Arial"
+                               FontSize="10"
+                               FontStyle="Italic"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,5"/>
+
+                    <Button x:Name="ContinueButton"
+                            Content="CONTINUE TO RACE WEEKEND"
+                            Width="250"
+                            Height="40"
+                            FontFamily="Arial"
+                            FontWeight="Bold"
+                            FontSize="13"
+                            Background="Black"
+                            Foreground="White"
+                            BorderThickness="0"
+                            HorizontalAlignment="Center"
+                            Cursor="Hand"
+                            Click="ContinueButton_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Black"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderThickness="0"
+                                                    Padding="10,5">
+                                                <ContentPresenter HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#333333"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

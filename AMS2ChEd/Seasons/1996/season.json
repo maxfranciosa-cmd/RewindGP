@@ -1,0 +1,1227 @@
+{
+  "$type": "AMS2ChEd.Business.AMS2.Models.Ams2Season",
+  "ams2Class": "F-V10_Gen1",
+  "year": 1996,
+  "slug": "1996-spoof",
+  "points_system": {
+    "1": 10,
+    "2": 6,
+    "3": 4,
+    "4": 3,
+    "5": 2,
+    "6": 1
+  },
+  "races": [
+    {
+      "race_id": 1,
+      "race_name": "Australian Grand Prix",
+      "race_short_name": "AUS",
+      "race_date": "1996-03-10",
+      "circuit": "Albert Park Circuit",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 2,
+      "race_name": "Brazilian Grand Prix",
+      "race_short_name": "BRA",
+      "race_date": "1996-03-31",
+      "circuit": "Aut\u00F3dromo Jos\u00E9 Carlos Pace (Interlagos)",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 3,
+      "race_name": "Argentine Grand Prix",
+      "race_short_name": "ARG",
+      "race_date": "1996-04-07",
+      "circuit": "Aut\u00F3dromo Oscar Alfredo G\u00E1lvez",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 4,
+      "race_name": "European Grand Prix",
+      "race_short_name": "EUR",
+      "race_date": "1996-04-28",
+      "circuit": "N\u00FCrburgring",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 5,
+      "race_name": "San Marino Grand Prix",
+      "race_short_name": "SMA",
+      "race_date": "1996-05-05",
+      "circuit": "Autodromo Enzo e Dino Ferrari (Imola)",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 6,
+      "race_name": "Monaco Grand Prix",
+      "race_short_name": "MON",
+      "race_date": "1996-05-19",
+      "circuit": "Circuit de Monaco (Monte Carlo)",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 7,
+      "race_name": "Spanish Grand Prix",
+      "race_short_name": "SPA",
+      "race_date": "1996-06-02",
+      "circuit": "Circuit de Barcelona-Catalunya",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 8,
+      "race_name": "Canadian Grand Prix",
+      "race_short_name": "CAN",
+      "race_date": "1996-06-16",
+      "circuit": "Circuit Gilles Villeneuve",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 9,
+      "race_name": "French Grand Prix",
+      "race_short_name": "FRA",
+      "race_date": "1996-06-30",
+      "circuit": "Circuit de Nevers Magny-Cours",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 10,
+      "race_name": "British Grand Prix",
+      "race_short_name": "GBR",
+      "race_date": "1996-07-14",
+      "circuit": "Silverstone Circuit",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 11,
+      "race_name": "German Grand Prix",
+      "race_short_name": "GER",
+      "race_date": "1996-07-28",
+      "circuit": "Hockenheimring",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 12,
+      "race_name": "Hungarian Grand Prix",
+      "race_short_name": "HUN",
+      "race_date": "1996-08-11",
+      "circuit": "Hungaroring",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 13,
+      "race_name": "Belgian Grand Prix",
+      "race_short_name": "BEL",
+      "race_date": "1996-08-25",
+      "circuit": "Circuit de Spa-Francorchamps",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 14,
+      "race_name": "Italian Grand Prix",
+      "race_short_name": "ITA",
+      "race_date": "1996-09-08",
+      "circuit": "Autodromo Nazionale di Monza",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 15,
+      "race_name": "Portuguese Grand Prix",
+      "race_short_name": "POR",
+      "race_date": "1996-09-22",
+      "circuit": "Aut\u00F3dromo do Estoril",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    },
+    {
+      "race_id": 16,
+      "race_name": "Japanese Grand Prix",
+      "race_short_name": "JAP",
+      "race_date": "1996-10-13",
+      "circuit": "Suzuka International Racing Course",
+      "cover_picture": "Seasons/1996/gpcovers/default.png"
+    }
+  ],
+  "teams": [
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "formula_v10_g1",
+      "ams2carPerformanceMalus": {
+        "consistency": 0,
+        "defending": 0,
+        "fuel_management": 0,
+        "qualifying_skill": 0,
+        "race_skill": 0,
+        "tyre_management": 0
+      },
+      "base_livery_driver1": "car_liveries\\Willis.png",
+      "base_livery_driver2": "car_liveries\\Willis.png",
+      "livery_preview": "previews\\Willis.dds",
+      "helmet_sponsors": "helmet_sponsors\\Willis_helmet_sponsors.png",
+      "visor_sponsors": "helmet_sponsors\\Willis_visor_sponsors.png",
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\willis_side.png",
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 361,
+            "Y": 1079
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\willis_side.png",
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3608,
+            "Y": 1079
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\willis_nose.png",
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 889,
+            "Y": 2439
+          },
+          "rotation": "Deg270"
+        }
+      ],
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "car_liveries\\Willis_NT.png",
+          "driver2_livery": "car_liveries\\Willis_NT.png",
+          "livery_preview": "previews\\Willis_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\Willis_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "car_liveries\\Willis_NT.png",
+          "driver2_livery": "car_liveries\\Willis_NT.png",
+          "livery_preview": "previews\\Willis_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\Willis_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "car_liveries\\Willis_NT.png",
+          "driver2_livery": "car_liveries\\Willis_NT.png",
+          "livery_preview": "previews\\Willis_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\Willis_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        }
+      ],
+      "team_id": "williams",
+      "team_name": "Willis Rellaux",
+      "team_principal": "Frank Willis",
+      "reputation": "TOP_TEAM",
+      "driver1_contract": {
+        "driver_id": "damon_hill",
+        "races": 16,
+
+        "drivernumber": 5
+      },
+      "driver2_contract": {
+        "driver_id": "jacques_villeneuve",
+        "races": 49,
+
+        "drivernumber": 6
+      },
+      "color": "#0033A0"
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "formula_v10_g1",
+      "ams2carPerformanceMalus": {
+        "consistency": 0.05,
+        "defending": 0.05,
+        "fuel_management": 0.05,
+        "qualifying_skill": 0.05,
+        "race_skill": 0.05,
+        "tyre_management": 0.05
+      },
+      "base_livery_driver1": "car_liveries\\ferroni.png",
+      "base_livery_driver2": "car_liveries\\ferroni.png",
+      "livery_preview": "previews\\ferroni.dds",
+      "helmet_sponsors": "helmet_sponsors\\ferroni_helmet_sponsors.png",
+      "visor_sponsors": "helmet_sponsors\\ferroni_visor_sponsors.png",
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\ferroni_side.png",
+          "number_plate_width": 102,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 363,
+            "Y": 1083
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\ferroni_side.png",
+          "number_plate_width": 102,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3611,
+            "Y": 1083
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\ferroni_nose.png",
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1064,
+            "Y": 2457
+          },
+          "rotation": "Deg270"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\ferroni_wing_top_half.png",
+          "number_plate_width": 114,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3186,
+            "Y": 2367
+          },
+          "rotation": "Deg180"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\ferroni_wing_bottom_half.png",
+          "number_plate_width": 114,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3186,
+            "Y": 2628
+          },
+          "rotation": "Deg180"
+        }
+      ],
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "car_liveries\\ferroni_NT.png",
+          "driver2_livery": "car_liveries\\ferroni_NT.png",
+          "livery_preview": "previews\\ferroni_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\ferroni_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "car_liveries\\ferroni_NT.png",
+          "driver2_livery": "car_liveries\\ferroni_NT.png",
+          "livery_preview": "previews\\ferroni_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\ferroni_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "car_liveries\\ferroni_NT.png",
+          "driver2_livery": "car_liveries\\ferroni_NT.png",
+          "livery_preview": "previews\\ferroni_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\ferroni_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        }
+      ],
+      "team_id": "ferrari",
+      "team_name": "Ferroni",
+      "team_principal": "John Toad",
+      "reputation": "MIDFIELD_HIGH",
+      "driver1_contract": {
+        "driver_id": "michael_schumacher",
+        "races": 49,
+
+        "drivernumber": 1
+      },
+      "driver2_contract": {
+        "driver_id": "eddie_irvine",
+        "races": 49,
+
+        "drivernumber": 2
+      },
+      "color": "#DC143C"
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "formula_v10_g1",
+      "ams2carPerformanceMalus": {
+        "consistency": 0.08,
+        "defending": 0.08,
+        "fuel_management": 0.08,
+        "qualifying_skill": 0.08,
+        "race_skill": 0.08,
+        "tyre_management": 0.08
+      },
+      "base_livery_driver1": "car_liveries\\bonton.png",
+      "base_livery_driver2": "car_liveries\\bonton.png",
+      "livery_preview": "previews\\bonton.dds",
+      "helmet_sponsors": "helmet_sponsors\\bonton_helmet_sponsors.png",
+      "visor_sponsors": "helmet_sponsors\\bonton_visor_sponsors.png",
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\bonton_side.png",
+          "number_plate_width": 188,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3336,
+            "Y": 3307
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\bonton_side.png",
+          "number_plate_width": 188,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3880,
+            "Y": 3307
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\bonton_nose.png",
+          "number_plate_width": 200,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1311,
+            "Y": 2455
+          },
+          "rotation": "Deg270"
+        }
+      ],
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "car_liveries\\bonton_NT.png",
+          "driver2_livery": "car_liveries\\bonton_NT.png",
+          "livery_preview": "previews\\bonton_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\bonton_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "car_liveries\\bonton_NT.png",
+          "driver2_livery": "car_liveries\\bonton_NT.png",
+          "livery_preview": "previews\\bonton_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\bonton_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "car_liveries\\bonton_NT.png",
+          "driver2_livery": "car_liveries\\bonton_NT.png",
+          "livery_preview": "previews\\bonton_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\bonton_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        }
+      ],
+      "team_id": "benetton",
+      "team_name": "Bonton Rellaux",
+      "team_principal": "Fulvio Bantore",
+      "reputation": "MIDFIELD_HIGH",
+      "driver1_contract": {
+        "driver_id": "jean_alesi",
+        "races": 33,
+
+        "drivernumber": 3
+      },
+      "driver2_contract": {
+        "driver_id": "gerhard_berger",
+        "races": 33,
+
+        "drivernumber": 4
+      },
+      "color": "#3AC5E8"
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "mclaren_mp4_12",
+      "ams2carPerformanceMalus": {
+        "consistency": 0.05,
+        "defending": 0.05,
+        "fuel_management": 0.05,
+        "qualifying_skill": 0.05,
+        "race_skill": 0.05,
+        "tyre_management": 0.05
+      },
+      "base_livery_driver1": "car_liveries\\mclorden.png",
+      "base_livery_driver2": "car_liveries\\mclorden.png",
+      "livery_preview": "previews\\mclorden.dds",
+      "helmet_sponsors": "helmet_sponsors\\mclorden_helmet_sponsors.png",
+      "visor_sponsors": "helmet_sponsors\\mclorden_visor_sponsors.png",
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\mclorden_side.png",
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2899,
+            "Y": 1457
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\mclorden_side.png",
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2516,
+            "Y": 1903
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\mclorden_nose.png",
+          "number_plate_width": 176,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2139,
+            "Y": 1170
+          },
+          "rotation": "Deg180"
+        }
+      ],
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "car_liveries\\mclorden_NT.png",
+          "driver2_livery": "car_liveries\\mclorden_NT.png",
+          "livery_preview": "previews\\mclorden_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\mclorden_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "car_liveries\\mclorden_NT.png",
+          "driver2_livery": "car_liveries\\mclorden_NT.png",
+          "livery_preview": "previews\\mclorden_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\mclorden_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "car_liveries\\mclorden_NT.png",
+          "driver2_livery": "car_liveries\\mclorden_NT.png",
+          "livery_preview": "previews\\mclorden_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\mclorden_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        }
+      ],
+      "team_id": "mclaren",
+      "team_name": "McLorden Merkesser",
+      "team_principal": "Don Rennis",
+      "reputation": "MIDFIELD_HIGH",
+      "driver1_contract": {
+        "driver_id": "mika_hakkinen",
+        "races": 49,
+
+        "drivernumber": 7
+      },
+      "driver2_contract": {
+        "driver_id": "david_coulthard",
+        "races": 49,
+
+        "drivernumber": 8
+      },
+      "color": "#DC0000"
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "formula_v10_g1",
+      "ams2carPerformanceMalus": {
+        "consistency": 0.11,
+        "defending": 0.11,
+        "fuel_management": 0.11,
+        "qualifying_skill": 0.11,
+        "race_skill": 0.11,
+        "tyre_management": 0.11
+      },
+      "base_livery_driver1": "car_liveries\\jolly.png",
+      "base_livery_driver2": "car_liveries\\jolly.png",
+      "livery_preview": "previews\\jolly.dds",
+      "helmet_sponsors": "helmet_sponsors\\jolly_helmet_sponsors.png",
+      "visor_sponsors": "helmet_sponsors\\jolly_visor_sponsors.png",
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\jolly_nose.png",
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3375,
+            "Y": 3251
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\jolly_nose.png",
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3835,
+            "Y": 3246
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\jolly_nose.png",
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1119,
+            "Y": 2462
+          },
+          "rotation": "Deg270"
+        }
+      ],
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "car_liveries\\jolly_NT.png",
+          "driver2_livery": "car_liveries\\jolly_NT.png",
+          "livery_preview": "previews\\jolly_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\jolly_helmet_sponsors_NT.png",
+          "visor_sponsors": "helmet_sponsors\\jolly_visor_sponsors_NT.png",
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "car_liveries\\jolly_NT.png",
+          "driver2_livery": "car_liveries\\jolly_NT.png",
+          "livery_preview": "previews\\jolly_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\jolly_helmet_sponsors_NT.png",
+          "visor_sponsors": "helmet_sponsors\\jolly_visor_sponsors_NT.png",
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "car_liveries\\jolly_NT.png",
+          "driver2_livery": "car_liveries\\jolly_NT.png",
+          "livery_preview": "previews\\jolly_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\jolly_helmet_sponsors_NT.png",
+          "visor_sponsors": "helmet_sponsors\\jolly_visor_sponsors_NT.png",
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        }
+      ],
+      "team_id": "jordan",
+      "team_name": "Jolly Pegaux",
+      "team_principal": "Eddie Jolly",
+      "reputation": "MIDFIELD",
+      "driver1_contract": {
+        "driver_id": "rubens_barrichello",
+        "races": 16,
+
+        "drivernumber": 11
+      },
+      "driver2_contract": {
+        "driver_id": "martin_brundle",
+        "races": 16,
+
+        "drivernumber": 12
+      },
+      "color": "#FFD700"
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "mclaren_mp4_12",
+      "ams2carPerformanceMalus": {
+        "consistency": 0.1,
+        "defending": 0.1,
+        "fuel_management": 0.1,
+        "qualifying_skill": 0.1,
+        "race_skill": 0.1,
+        "tyre_management": 0.1
+      },
+      "base_livery_driver1": "car_liveries\\lumiere.png",
+      "base_livery_driver2": "car_liveries\\lumiere.png",
+      "livery_preview": "previews\\lumiere.dds",
+      "helmet_sponsors": null,
+      "visor_sponsors": "helmet_sponsors\\lumiere_visor_sponsors.png",
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\lumiere_side.png",
+          "number_plate_width": 164,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2519,
+            "Y": 2009
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\lumiere_side.png",
+          "number_plate_width": 164,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2919,
+            "Y": 1580
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\lumiere_nose.png",
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2165,
+            "Y": 720
+          },
+          "rotation": "Deg180"
+        }
+      ],
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "car_liveries\\lumiere_NT.png",
+          "driver2_livery": "car_liveries\\lumiere_NT.png",
+          "livery_preview": "previews\\lumiere_NT.dds",
+          "helmet_sponsors": null,
+          "visor_sponsors": "helmet_sponsors\\lumiere_visor_sponsors_NT.png",
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "car_liveries\\lumiere_NT.png",
+          "driver2_livery": "car_liveries\\lumiere_NT.png",
+          "livery_preview": "previews\\lumiere_NT.dds",
+          "helmet_sponsors": null,
+          "visor_sponsors": "helmet_sponsors\\lumiere_visor_sponsors_NT.png",
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "car_liveries\\lumiere_NT.png",
+          "driver2_livery": "car_liveries\\lumiere_NT.png",
+          "livery_preview": "previews\\lumiere_NT.dds",
+          "helmet_sponsors": null,
+          "visor_sponsors": "helmet_sponsors\\lumiere_visor_sponsors_NT.png",
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        }
+      ],
+      "team_id": "ligier_prost",
+      "team_name": "Lumiere Buzen-Hotta",
+      "team_principal": "Tom Runinshaw",
+      "reputation": "MIDFIELD",
+      "driver1_contract": {
+        "driver_id": "olivier_panis",
+        "races": 49,
+
+        "drivernumber": 9
+      },
+      "driver2_contract": {
+        "driver_id": "pedro_diniz",
+        "races": 16,
+
+        "drivernumber": 10
+      },
+      "color": "#0066CC"
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "formula_v10_g1",
+      "ams2carPerformanceMalus": {
+        "consistency": 0.12,
+        "defending": 0.12,
+        "fuel_management": 0.12,
+        "qualifying_skill": 0.12,
+        "race_skill": 0.12,
+        "tyre_management": 0.12
+      },
+      "base_livery_driver1": "car_liveries\\Somber.png",
+      "base_livery_driver2": "car_liveries\\Somber.png",
+      "livery_preview": "previews\\Somber.dds",
+      "helmet_sponsors": "helmet_sponsors\\Somber_helmet_sponsors.png",
+      "visor_sponsors": null,
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\Somber_side.png",
+          "number_plate_width": 148,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3367,
+            "Y": 3306
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\Somber_side.png",
+          "number_plate_width": 148,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3891,
+            "Y": 3306
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\Somber_nose.png",
+          "number_plate_width": 204,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 977,
+            "Y": 2465
+          },
+          "rotation": "Deg270"
+        }
+      ],
+      "livery_overrides": [],
+      "team_id": "sauber",
+      "team_name": "Somber Fond",
+      "team_principal": "Peter Somber",
+      "reputation": "MIDFIELD",
+      "driver1_contract": {
+        "driver_id": "johnny_herbert",
+        "races": 33,
+
+        "drivernumber": 14
+      },
+      "driver2_contract": {
+        "driver_id": "heinz_harald_frentzen",
+        "races": 16,
+
+        "drivernumber": 15
+      },
+      "color": "#00B8A9"
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "formula_v10_g1",
+      "ams2carPerformanceMalus": {
+        "consistency": 0.17,
+        "defending": 0.17,
+        "fuel_management": 0.17,
+        "qualifying_skill": 0.17,
+        "race_skill": 0.17,
+        "tyre_management": 0.17
+      },
+      "base_livery_driver1": "car_liveries\\Slingshot.png",
+      "base_livery_driver2": "car_liveries\\Slingshot.png",
+      "livery_preview": "previews\\Slingshot.dds",
+      "helmet_sponsors": "helmet_sponsors\\Slingshot_helmet_sponsors.png",
+      "visor_sponsors": null,
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\Slingshot_side.png",
+          "number_plate_width": 148,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3375,
+            "Y": 3315
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\Slingshot_side.png",
+          "number_plate_width": 148,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3889,
+            "Y": 3315
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\Slingshot_nose.png",
+          "number_plate_width": 178,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3292,
+            "Y": 3547
+          },
+          "rotation": "Deg0"
+        }
+      ],
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "helmet_sponsors": "helmet_sponsors\\Slingshot_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "helmet_sponsors": "helmet_sponsors\\Slingshot_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "helmet_sponsors": "helmet_sponsors\\Slingshot_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        }
+      ],
+      "team_id": "arrows",
+      "team_name": "Slingshot Core",
+      "team_principal": "Oliver Jack",
+      "reputation": "MINNOW",
+      "driver1_contract": {
+        "driver_id": "ricardo_rosset",
+        "races": 16,
+
+        "drivernumber": 16
+      },
+      "driver2_contract": {
+        "driver_id": "jos_verstappen",
+        "races": 16,
+
+        "drivernumber": 17
+      },
+      "color": "#FFFFFF"
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "formula_v10_g1",
+      "ams2carPerformanceMalus": {
+        "consistency": 0.17,
+        "defending": 0.17,
+        "fuel_management": 0.17,
+        "qualifying_skill": 0.17,
+        "race_skill": 0.17,
+        "tyre_management": 0.17
+      },
+      "base_livery_driver1": "car_liveries\\tyrres.png",
+      "base_livery_driver2": "car_liveries\\tyrres.png",
+      "livery_preview": "previews\\tyrres.dds",
+      "helmet_sponsors": "helmet_sponsors\\tyrres_helmet_sponsors.png",
+      "visor_sponsors": null,
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\tyrres_side.png",
+          "number_plate_width": 162,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3368,
+            "Y": 3328
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\tyrres_side.png",
+          "number_plate_width": 162,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3872,
+            "Y": 3328
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\tyrres_nose.png",
+          "number_plate_width": 204,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1181,
+            "Y": 2465
+          },
+          "rotation": "Deg270"
+        }
+      ],
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "car_liveries\\tyrres_NT.png",
+          "driver2_livery": "car_liveries\\tyrres_NT.png",
+          "livery_preview": "previews\\tyrres_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\tyrres_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "car_liveries\\tyrres_NT.png",
+          "driver2_livery": "car_liveries\\tyrres_NT.png",
+          "livery_preview": "previews\\tyrres_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\tyrres_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "car_liveries\\tyrres_NT.png",
+          "driver2_livery": "car_liveries\\tyrres_NT.png",
+          "livery_preview": "previews\\tyrres_NT.dds",
+          "helmet_sponsors": "helmet_sponsors\\tyrres_helmet_sponsors_NT.png",
+          "visor_sponsors": null,
+          "drivers_specific_helmet": null,
+          "numbers_placements": null
+        }
+      ],
+      "team_id": "tyrrell",
+      "team_name": "Tyrres Hamaya",
+      "team_principal": "Ken Tyrres",
+      "reputation": "MINNOW",
+      "driver1_contract": {
+        "driver_id": "ukyo_katayama",
+        "races": 16,
+
+        "drivernumber": 18
+      },
+      "driver2_contract": {
+        "driver_id": "mika_salo",
+        "races": 33,
+
+        "drivernumber": 19
+      },
+      "color": "#8c8c8c"
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "formula_v10_g1",
+      "ams2carPerformanceMalus": {
+        "consistency": 0.2,
+        "defending": 0.2,
+        "fuel_management": 0.2,
+        "qualifying_skill": 0.2,
+        "race_skill": 0.2,
+        "tyre_management": 0.2
+      },
+      "base_livery_driver1": "car_liveries\\lunardi1.png",
+      "base_livery_driver2": "car_liveries\\lunardi2.png",
+      "livery_preview": "previews\\lunardi.dds",
+      "helmet_sponsors": null,
+      "visor_sponsors": null,
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\lunardi_side.png",
+          "number_plate_width": 148,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3366,
+            "Y": 3313
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\lunardi_side.png",
+          "number_plate_width": 148,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3895,
+            "Y": 3313
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\lunardi_wing.png",
+          "number_plate_width": 208,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2151,
+            "Y": 3564
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\lunardi_wing.png",
+          "number_plate_width": 208,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3263,
+            "Y": 3564
+          },
+          "rotation": "Deg0"
+        }
+      ],
+      "livery_overrides": [],
+      "team_id": "minardi",
+      "team_name": "Lunardi Fond",
+      "team_principal": "Giancarlo Lunardi",
+      "reputation": "MINNOW",
+      "driver1_contract": {
+        "driver_id": "pedro_lamy",
+        "races": 16,
+
+        "drivernumber": 20
+      },
+      "driver2_contract": {
+        "driver_id": "giancarlo_fisichella",
+        "races": 16,
+
+        "drivernumber": 21
+      },
+      "color": "#228B22"
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+      "ams2car": "formula_v10_g1",
+      "ams2carPerformanceMalus": {
+        "consistency": 0.25,
+        "defending": 0.25,
+        "fuel_management": 0.25,
+        "qualifying_skill": 0.25,
+        "race_skill": 0.25,
+        "tyre_management": 0.25
+      },
+      "base_livery_driver1": "car_liveries\\fonti.png",
+      "base_livery_driver2": "car_liveries\\fonti.png",
+      "livery_preview": "previews\\fonti.dds",
+      "helmet_sponsors": null,
+      "visor_sponsors": null,
+      "drivers_specific_helmet": null,
+      "numbers_placements": [
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\fonti_side.png",
+          "number_plate_width": 168,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3385,
+            "Y": 3200
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\fonti_side.png",
+          "number_plate_width": 168,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3858,
+            "Y": 3200
+          },
+          "rotation": "Deg0"
+        },
+        {
+          "numbers_texture": "car_liveries\\car_numbers\\fonti_nose.png",
+          "number_plate_width": 138,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1569,
+            "Y": 2421
+          },
+          "rotation": "Deg270"
+        }
+      ],
+      "livery_overrides": [],
+      "team_id": "forti",
+      "team_name": "Fonti Fond",
+      "team_principal": "Guido Fonti",
+      "reputation": "SUPER_MINNOW",
+      "driver1_contract": {
+        "driver_id": "luca_badoer",
+        "races": 16,
+
+        "drivernumber": 22
+      },
+      "driver2_contract": {
+        "driver_id": "andrea_montermini",
+        "races": 16,
+
+        "drivernumber": 23
+      },
+      "color": "#FFC200"
+    }
+  ],
+  "absences": [
+    {
+      "race_id": 2,
+      "teamid": "minardi",
+      "driver_out": "giancarlo_fisichella",
+      "driver_in": "tarso_marques",
+      "chainedAbsence": null
+    },
+    {
+      "race_id": 3,
+      "teamid": "minardi",
+      "driver_out": "giancarlo_fisichella",
+      "driver_in": "tarso_marques",
+      "chainedAbsence": null
+    },
+    {
+      "race_id": 11,
+      "teamid": "minardi",
+      "driver_out": "giancarlo_fisichella",
+      "driver_in": "giovanni_lavaggi",
+      "chainedAbsence": null
+    },
+    {
+      "race_id": 12,
+      "teamid": "minardi",
+      "driver_out": "giancarlo_fisichella",
+      "driver_in": "giovanni_lavaggi",
+      "chainedAbsence": null
+    },
+    {
+      "race_id": 13,
+      "teamid": "minardi",
+      "driver_out": "giancarlo_fisichella",
+      "driver_in": "giovanni_lavaggi",
+      "chainedAbsence": null
+    },
+    {
+      "race_id": 14,
+      "teamid": "minardi",
+      "driver_out": "giancarlo_fisichella",
+      "driver_in": "giovanni_lavaggi",
+      "chainedAbsence": null
+    },
+    {
+      "race_id": 15,
+      "teamid": "minardi",
+      "driver_out": "giancarlo_fisichella",
+      "driver_in": "giovanni_lavaggi",
+      "chainedAbsence": null
+    },
+    {
+      "race_id": 16,
+      "teamid": "minardi",
+      "driver_out": "giancarlo_fisichella",
+      "driver_in": "giovanni_lavaggi",
+      "chainedAbsence": null
+    }
+  ]
+}

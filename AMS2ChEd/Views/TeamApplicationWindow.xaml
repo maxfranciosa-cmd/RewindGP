@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="AMS2ChEd.Views.TeamApplicationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Apply for Open Seats" 
+        Height="700" Width="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#1a1a1a"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <!-- Converter for visibility -->
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style x:Key="TeamCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#2a2a2a"/>
+            <Setter Property="BorderBrush" Value="#444444"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DisabledCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#1a1a1a"/>
+            <Setter Property="BorderBrush" Value="#444444"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+
+        <Style x:Key="SelectedCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#2a2a2a"/>
+            <Setter Property="BorderBrush" Value="#c41e3a"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="DroppedDriverCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#2a1a1a"/>
+            <Setter Property="BorderBrush" Value="#c41e3a"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+
+        <Style x:Key="ContinueButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#c41e3a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#d32f2f"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#0d0d0d" BorderBrush="#444444" BorderThickness="0,0,0,1" Padding="30,20">
+            <StackPanel>
+                <TextBlock Text="DRIVER MARKET" Style="{StaticResource HeaderStyle}"/>
+                <TextBlock Text="Select which roles you'd like to apply to for the upcoming season"
+                           FontSize="14"
+                           Foreground="#aaaaaa"
+                           Margin="0,5,0,0"/>
+                <TextBlock x:Name="InstructionText"
+                           Text="Click on a driver role to apply. Teams shown with red borders are already selected."
+                           FontSize="12"
+                           FontStyle="Italic"
+                           Foreground="#888888"
+                           Margin="0,10,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Team List -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="30,20">
+            <ItemsControl x:Name="TeamList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="TeamCard" 
+                                        Style="{StaticResource TeamCardStyle}"
+                                        MouseLeftButtonDown="TeamCard_Click"
+                                        Tag="{Binding}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <!-- Team Name with Color Accent -->
+                                    <Grid Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <!-- Team Color Strip -->
+                                        <Border Grid.Column="0"
+                                                Width="5"
+                                                Height="20"
+                                                Background="{Binding TeamColor}"
+                                                CornerRadius="2"
+                                                Margin="0,0,10,0"
+                                                VerticalAlignment="Center"/>
+                                        
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding TeamName}"
+                                                   FontSize="18"
+                                                   FontWeight="Bold"
+                                                   Foreground="White"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
+                                    <!-- Dropped Driver Info -->
+                                    <TextBlock Text="{Binding DropReasonText}"
+                                                       FontSize="12"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="#ffaa00"
+                                                       Margin="0,5,0,0"
+                                                       TextWrapping="Wrap"
+                                                       Visibility="{Binding HasDropInfo, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                    <TextBlock Text="{Binding RoleDescription}"
+                                                       FontSize="14"
+                                                       Foreground="#aaaaaa"
+                                                       Margin="0,5,0,0"/>
+                                    <TextBlock Text="{Binding StatusMessage}"
+                                                       FontSize="12"
+                                                       FontStyle="Italic"
+                                                       Foreground="#888888"
+                                                       Margin="0,5,0,0"/>
+                                </StackPanel>
+
+                                <CheckBox Grid.Column="1"
+                                                 x:Name="SelectionCheckbox"
+                                                 IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                 VerticalAlignment="Center"
+                                                 IsHitTestVisible="False"
+                                                 Focusable="False"/>
+                            </Grid>
+                        </Border>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsDisabled}" Value="True">
+                                <Setter TargetName="TeamCard" Property="Style" Value="{StaticResource DisabledCardStyle}"/>
+                                <Setter TargetName="TeamCard" Property="Cursor" Value="Arrow"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter TargetName="TeamCard" Property="Style" Value="{StaticResource SelectedCardStyle}"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Bottom Button -->
+        <Border Grid.Row="2" Background="#0d0d0d" BorderBrush="#444444" BorderThickness="0,1,0,0" Padding="30,20">
+            <StackPanel>
+                <TextBlock x:Name="SelectionCountText"
+                           Text="0 roles selected"
+                           FontSize="12"
+                           Foreground="#aaaaaa"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10"/>
+                <Button x:Name="ContinueButton"
+                        Content="CONTINUE"
+                        Style="{StaticResource ContinueButtonStyle}"
+                        HorizontalAlignment="Center"
+                        Click="ContinueButton_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

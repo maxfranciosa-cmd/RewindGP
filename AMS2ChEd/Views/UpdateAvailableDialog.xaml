@@ -1,0 +1,105 @@
+<Window x:Class="AMS2ChEd.Dialogs.UpdateAvailableDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Update Available"
+        Width="480" SizeToContent="Height"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="#1a1a1a"
+        Foreground="White">
+
+    <Window.Resources>
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="#c41e3a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#d32f2f"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#555555"/>
+                    <Setter Property="Foreground" Value="#888888"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="Background" Value="#555555"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel Margin="24,24,24,24">
+
+        <TextBlock Text="UPDATE AVAILABLE"
+                   FontSize="20" FontWeight="Bold"
+                   Foreground="#c41e3a" Margin="0,0,0,20"/>
+
+        <Grid Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <Label Content="CURRENT" Foreground="#cccccc" FontSize="11" FontWeight="SemiBold" Padding="0,0,0,4"/>
+                <TextBlock x:Name="CurrentVersionText" FontSize="20" FontWeight="Bold" Foreground="#888888"/>
+            </StackPanel>
+            <TextBlock Grid.Column="1" Text="→" FontSize="22" Foreground="#c41e3a"
+                       VerticalAlignment="Bottom" Margin="16,0,16,4"/>
+            <StackPanel Grid.Column="2">
+                <Label Content="NEW VERSION" Foreground="#cccccc" FontSize="11" FontWeight="SemiBold" Padding="0,0,0,4"/>
+                <TextBlock x:Name="LatestVersionText" FontSize="20" FontWeight="Bold" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+
+        <Rectangle Height="2" Fill="#c41e3a" Margin="0,0,0,20"/>
+
+        <!-- Step 1: prompt to go to download page -->
+        <StackPanel x:Name="Step1Panel">
+            <TextBlock TextWrapping="Wrap" FontSize="13" Foreground="#cccccc" LineHeight="20" Margin="0,0,0,20">
+                A new version of Rewind GP is available on overtake.gg. Click the button below to open the download page, download the ZIP file, then come back here.
+            </TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="NOT NOW" Style="{StaticResource SecondaryButton}" Click="OnSkipClicked"/>
+                <Button Grid.Column="2" Content="GO TO DOWNLOAD PAGE" Style="{StaticResource PrimaryButton}" Click="OnGoToDownloadPageClicked"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Step 2: locate the downloaded file -->
+        <StackPanel x:Name="Step2Panel" Visibility="Collapsed">
+            <TextBlock TextWrapping="Wrap" FontSize="13" Foreground="#cccccc" LineHeight="20" Margin="0,0,0,20">
+                Once you have downloaded the ZIP file, click the button below to locate it. Rewind GP will close and the update will be applied automatically.
+            </TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="NOT NOW" Style="{StaticResource SecondaryButton}" Click="OnSkipClicked"/>
+                <Button Grid.Column="2" Content="I'VE DOWNLOADED IT" Style="{StaticResource PrimaryButton}" Click="OnLocateFileClicked"/>
+            </Grid>
+        </StackPanel>
+
+    </StackPanel>
+</Window>

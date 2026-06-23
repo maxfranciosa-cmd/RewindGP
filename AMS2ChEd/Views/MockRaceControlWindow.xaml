@@ -1,0 +1,245 @@
+﻿<Window x:Class="AMS2ChEd.Views.MockRaceControlWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AMS2ChEd.Views"
+        Title="Mock Race Control" 
+        Height="700" Width="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#2D2D30">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="RACE CONTROL PANEL"
+                       FontFamily="Arial"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,10"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Current Session: "
+                           FontFamily="Arial"
+                           FontSize="14"
+                           Foreground="#CCCCCC"
+                           VerticalAlignment="Center"/>
+                <TextBlock x:Name="TxtCurrentSession"
+                           Text="PRACTICE 1"
+                           FontFamily="Arial"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Foreground="#FFFF00"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Session Controls -->
+        <Border Grid.Row="1" 
+                Background="#3E3E42"
+                Padding="15"
+                Margin="0,0,0,15"
+                BorderBrush="#555555"
+                BorderThickness="1">
+            <StackPanel>
+                <TextBlock Text="SESSION CONTROL"
+                           FontFamily="Arial"
+                           FontSize="12"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,0,0,10"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="BtnStartSession"
+                            Content="START SESSION"
+                            Width="130"
+                            Height="35"
+                            Margin="5"
+                            Background="#4CAF50"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            BorderThickness="0"
+                            Click="BtnStartSession_Click"/>
+
+                    <Button x:Name="BtnFinishSession"
+                            Content="FINISH SESSION"
+                            Width="130"
+                            Height="35"
+                            Margin="5"
+                            Background="#FF5722"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            BorderThickness="0"
+                            Click="BtnFinishSession_Click"/>
+
+                    <Button x:Name="BtnDNF"
+                            Content="MARK DNF"
+                            Width="130"
+                            Height="35"
+                            Margin="5"
+                            Background="#FF9800"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            BorderThickness="0"
+                            Click="BtnDNF_Click"
+                            IsEnabled="False"/>
+                </StackPanel>
+
+                <Button x:Name="BtnNextSession"
+                        Content="ADVANCE TO NEXT SESSION ▶"
+                        Width="280"
+                        Height="35"
+                        Margin="5,10,5,0"
+                        Background="#FFFF00"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Click="BtnNextSession_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Participants List -->
+        <Border Grid.Row="2"
+                Background="#3E3E42"
+                BorderBrush="#555555"
+                BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" 
+                        Background="#2D2D30"
+                        Padding="10"
+                        BorderBrush="#555555"
+                        BorderThickness="0,0,0,1">
+                    <TextBlock Text="PARTICIPANTS (Click to move position)"
+                               FontFamily="Arial"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Foreground="White"/>
+                </Border>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="ParticipantsItems">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#2D2D30"
+                                        Margin="5"
+                                        Padding="10"
+                                        BorderBrush="#555555"
+                                        BorderThickness="1"
+                                        Cursor="Hand"
+                                        MouseLeftButtonDown="Participant_Click">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDNF}" Value="True">
+                                                    <Setter Property="Opacity" Value="0.5"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Position -->
+                                        <Border Grid.Column="0"
+                                                Background="#FFFF00"
+                                                Width="30"
+                                                Height="30"
+                                                CornerRadius="3">
+                                            <TextBlock Text="{Binding Position}"
+                                                       FontFamily="Arial"
+                                                       FontWeight="Bold"
+                                                       FontSize="16"
+                                                       Foreground="Black"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                        </Border>
+
+                                        <!-- Driver Info -->
+                                        <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding DriverName}"
+                                                           FontFamily="Arial"
+                                                           FontWeight="Bold"
+                                                           FontSize="14"
+                                                           Foreground="White"/>
+                                                <Border Background="#FF5722"
+                                                        Padding="4,2"
+                                                        Margin="8,0,0,0"
+                                                        CornerRadius="2"
+                                                        Visibility="{Binding DNF, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                    <TextBlock Text="DNF"
+                                                               FontFamily="Arial"
+                                                               FontWeight="Bold"
+                                                               FontSize="10"
+                                                               Foreground="White"/>
+                                                </Border>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding TeamName}"
+                                                       FontFamily="Arial"
+                                                       FontSize="12"
+                                                       Foreground="#CCCCCC"/>
+                                        </StackPanel>
+
+                                        <!-- Lap Time -->
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding BestLapTime}"
+                                                   FontFamily="Consolas"
+                                                   FontWeight="Bold"
+                                                   FontSize="14"
+                                                   Foreground="White"
+                                                   VerticalAlignment="Center"
+                                                   Margin="10,0,0,0"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- Instructions -->
+        <Border Grid.Row="3"
+                Background="#3E3E42"
+                Padding="10"
+                Margin="0,15,0,0"
+                BorderBrush="#555555"
+                BorderThickness="1">
+            <TextBlock TextWrapping="Wrap"
+                       FontFamily="Arial"
+                       FontSize="11"
+                       Foreground="#CCCCCC">
+                <Run Text="Click on a participant to select them (highlighted in yellow), then:"/>
+                <LineBreak/>
+                <Run Text="• Click another participant to swap positions"/>
+                <LineBreak/>
+                <Run Text="• Click 'MARK DNF' to retire the selected driver"/>
+                <LineBreak/>
+                <Run Text="• Click the same participant again to deselect"/>
+                <LineBreak/>
+                <LineBreak/>
+                <Run Text="Use 'FINISH SESSION' to complete current session and save results."/>
+            </TextBlock>
+        </Border>
+    </Grid>
+</Window>

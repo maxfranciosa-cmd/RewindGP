@@ -1,0 +1,590 @@
+<Window x:Class="AMS2ChEd.SeasonPackEditor.ScenarioCreatorWizard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+        Title="Scenario Creator"
+        Height="780" Width="1100"
+        WindowStartupLocation="CenterOwner"
+        Background="#1A1A1A"
+        ResizeMode="CanResizeWithGrip">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryBrush"       Color="#E10600"/>
+        <SolidColorBrush x:Key="BackgroundBrush"    Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="SurfaceBrush"       Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="Surface2Brush"      Color="#242424"/>
+        <SolidColorBrush x:Key="TextBrush"          Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecBrush"       Color="#B0B0B0"/>
+        <SolidColorBrush x:Key="BorderBrush"        Color="#404040"/>
+        <SolidColorBrush x:Key="DisabledBrush"      Color="#333333"/>
+        <SolidColorBrush x:Key="WarningBrush"       Color="#F5A623"/>
+
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Background"              Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="Foreground"              Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderBrush"             Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness"         Value="1"/>
+            <Setter Property="Padding"                 Value="6,4"/>
+            <Setter Property="FontSize"                Value="12"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Background"      Value="#2D2D2D"/>
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="BorderBrush"     Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height"          Value="28"/>
+            <Setter Property="FontSize"        Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                Background="#2D2D2D"
+                                BorderBrush="#404040"
+                                BorderThickness="1"
+                                Focusable="False"
+                                IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"/>
+                                            <Path x:Name="Arrow"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0,0,8,0"
+                                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                                  Fill="White"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ContentSite"
+                                              IsHitTestVisible="False"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                              Margin="6,3,22,3"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid x:Name="DropDown"
+                                      SnapsToDevicePixels="True"
+                                      MinWidth="{TemplateBinding ActualWidth}"
+                                      MaxHeight="200">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="#2D2D2D"
+                                            BorderBrush="#404040"
+                                            BorderThickness="1"/>
+                                    <ScrollViewer Margin="2" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Resources>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="#2D2D2D"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBoxItem">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="0">
+                                    <ContentPresenter Margin="6,3,6,3"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsHighlighted" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#E10600"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#FF1800"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background"   Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground"   Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding"      Value="20,8"/>
+            <Setter Property="FontSize"     Value="13"/>
+            <Setter Property="FontWeight"   Value="SemiBold"/>
+            <Setter Property="Cursor"       Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="2" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF1800"/>
+                </Trigger>
+                <Trigger Property="IsEnabled"   Value="False">
+                    <Setter Property="Background" Value="#555"/>
+                    <Setter Property="Foreground" Value="#888"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Background" Value="#404040"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#4A4A4A"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="StepButton" TargetType="Button">
+            <Setter Property="Background"      Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="Foreground"      Value="{StaticResource TextSecBrush}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,3"/>
+            <Setter Property="BorderBrush"     Value="Transparent"/>
+            <Setter Property="Padding"         Value="16,10"/>
+            <Setter Property="FontSize"        Value="12"/>
+            <Setter Property="FontWeight"      Value="Medium"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="StepButtonActive" TargetType="Button" BasedOn="{StaticResource StepButton}">
+            <Setter Property="Background"  Value="#242424"/>
+            <Setter Property="Foreground"  Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+        </Style>
+
+        <Style x:Key="ModernDataGrid" TargetType="DataGrid">
+            <Setter Property="Background"            Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="Foreground"            Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderBrush"           Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness"       Value="1"/>
+            <Setter Property="RowBackground"         Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="AlternatingRowBackground" Value="#282828"/>
+            <Setter Property="GridLinesVisibility"   Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="ColumnHeaderHeight"    Value="32"/>
+            <Setter Property="RowHeight"             Value="28"/>
+            <Setter Property="SelectionMode"         Value="Single"/>
+            <Setter Property="AutoGenerateColumns"   Value="False"/>
+            <Setter Property="CanUserAddRows"        Value="False"/>
+            <Setter Property="CanUserDeleteRows"     Value="False"/>
+            <Setter Property="HeadersVisibility"     Value="Column"/>
+            <Setter Property="FontSize"              Value="12"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background"    Value="#222"/>
+            <Setter Property="Foreground"    Value="{StaticResource TextSecBrush}"/>
+            <Setter Property="FontSize"      Value="11"/>
+            <Setter Property="FontWeight"    Value="SemiBold"/>
+            <Setter Property="Padding"       Value="8,0"/>
+            <Setter Property="BorderBrush"   Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Step tabs -->
+            <RowDefinition Height="*"/>
+            <!-- Content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Nav buttons -->
+        </Grid.RowDefinitions>
+
+        <!-- ── Step Header ── -->
+        <Border Grid.Row="0" Background="#0D0D0D" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="Step1Button" Content="1. ROSTER"    Style="{StaticResource StepButtonActive}" Click="StepButton_Click" Tag="0"/>
+                <Button x:Name="Step2Button" Content="2. ABSENCES"  Style="{StaticResource StepButton}"       Click="StepButton_Click" Tag="1"/>
+                <Button x:Name="Step3Button" Content="3. RESULTS"   Style="{StaticResource StepButton}"       Click="StepButton_Click" Tag="2"/>
+                <Button x:Name="Step4Button" Content="4. STANDINGS" Style="{StaticResource StepButton}"       Click="StepButton_Click" Tag="3"/>
+                <Button x:Name="Step5Button" Content="5. DETAILS"   Style="{StaticResource StepButton}"       Click="StepButton_Click" Tag="4"/>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Step Content ── -->
+        <Grid Grid.Row="1">
+
+            <!-- ════ STEP 1: ROSTER ════ -->
+            <Grid x:Name="Step1Panel" Margin="20,15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Driver Roster" FontSize="16" FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,12"/>
+
+                <DataGrid Grid.Row="1" x:Name="RosterDataGrid"
+                          Style="{StaticResource ModernDataGrid}"
+                          SelectionChanged="RosterDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn     Header="Team"       Binding="{Binding TeamId}"      Width="130" IsReadOnly="True"/>
+                        <DataGridTextColumn     Header="Slot"       Binding="{Binding SlotLabel}"   Width="50"  IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="Driver"     Width="200">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding AvailableDrivers}"
+                                              SelectedValue="{Binding DriverId, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedValuePath="DriverId"
+                                              DisplayMemberPath="Name"
+                                              Style="{StaticResource ModernComboBox}"
+                                              SelectionChanged="RosterDriverCombo_SelectionChanged"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn     Header="Car #"      Binding="{Binding CarNumber, UpdateSourceTrigger=LostFocus}" Width="60"/>
+                        <DataGridTextColumn     Header="Races (bitmask)" Binding="{Binding Races, UpdateSourceTrigger=LostFocus}" Width="120"/>
+                        <DataGridTemplateColumn Header="Player"     Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <RadioButton GroupName="PlayerRadio"
+                                                 IsChecked="{Binding IsPlayer, UpdateSourceTrigger=PropertyChanged}"
+                                                 HorizontalAlignment="Center"
+                                                 Checked="PlayerRadio_Checked"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- New driver section -->
+                <Expander Grid.Row="2" Header="Create New Player Driver" Foreground="{StaticResource TextSecBrush}"
+                          x:Name="NewDriverExpander" Margin="0,10,0,0"
+                          Collapsed="NewDriverExpander_Collapsed">
+                    <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1" Padding="15,10" CornerRadius="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="8"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Row 0: labels for basic info -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="First Name"   Foreground="{StaticResource TextSecBrush}" FontSize="11" Margin="0,0,0,4"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Last Name"    Foreground="{StaticResource TextSecBrush}" FontSize="11" Margin="8,0,0,4"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Nationality"  Foreground="{StaticResource TextSecBrush}" FontSize="11" Margin="8,0,0,4"/>
+
+                            <!-- Row 1: basic info inputs -->
+                            <TextBox Grid.Row="1" Grid.Column="0" x:Name="NewDriverFirstName"   Style="{StaticResource ModernTextBox}" Height="28"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" x:Name="NewDriverLastName"     Style="{StaticResource ModernTextBox}" Height="28" Margin="8,0,0,0"/>
+                            <TextBox Grid.Row="1" Grid.Column="2" x:Name="NewDriverNationality"  Style="{StaticResource ModernTextBox}" Height="28" Margin="8,0,0,0"/>
+
+                            <!-- Separator row (Row 2 is Height=8) -->
+
+                            <!-- Era helmet/visor labels (Row 3) -->
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Era"         Foreground="{StaticResource TextSecBrush}" FontSize="11" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="Helmet (.dds)" Foreground="{StaticResource TextSecBrush}" FontSize="11" Margin="8,0,0,4"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Text="Visor (.dds)"  Foreground="{StaticResource TextSecBrush}" FontSize="11" Margin="8,0,0,4"/>
+
+                            <!-- Default (base_helmet_file / base_visor_file) -->
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Default" Foreground="{StaticResource TextSecBrush}" FontSize="11" VerticalAlignment="Center"/>
+                            <Grid Grid.Row="4" Grid.Column="1" Margin="8,0,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="BaseHelmetFileBox" Grid.Column="0" Style="{StaticResource ModernTextBox}" Height="28" IsReadOnly="True"/>
+                                <Button Grid.Column="1" Content="..." Style="{StaticResource SecondaryButton}" Padding="8,4" Margin="4,0,0,0" Tag="BaseHelmetFileBox" Click="BrowseDdsFile_Click"/>
+                            </Grid>
+                            <Grid Grid.Row="4" Grid.Column="2" Margin="8,0,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="BaseVisorFileBox" Grid.Column="0" Style="{StaticResource ModernTextBox}" Height="28" IsReadOnly="True"/>
+                                <Button Grid.Column="1" Content="..." Style="{StaticResource SecondaryButton}" Padding="8,4" Margin="4,0,0,0" Tag="BaseVisorFileBox" Click="BrowseDdsFile_Click"/>
+                            </Grid>
+
+                            <!-- 90s (base_helmet_file_90s — no visor) -->
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="90s" Foreground="{StaticResource TextSecBrush}" FontSize="11" VerticalAlignment="Center"/>
+                            <Grid Grid.Row="5" Grid.Column="1" Margin="8,0,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="BaseHelmetFile90sBox" Grid.Column="0" Style="{StaticResource ModernTextBox}" Height="28" IsReadOnly="True"/>
+                                <Button Grid.Column="1" Content="..." Style="{StaticResource SecondaryButton}" Padding="8,4" Margin="4,0,0,0" Tag="BaseHelmetFile90sBox" Click="BrowseDdsFile_Click"/>
+                            </Grid>
+
+                            <!-- 80s (base_helmet_file_80s / base_visor_file_80s) -->
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="80s" Foreground="{StaticResource TextSecBrush}" FontSize="11" VerticalAlignment="Center"/>
+                            <Grid Grid.Row="6" Grid.Column="1" Margin="8,0,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="BaseHelmetFile80sBox" Grid.Column="0" Style="{StaticResource ModernTextBox}" Height="28" IsReadOnly="True"/>
+                                <Button Grid.Column="1" Content="..." Style="{StaticResource SecondaryButton}" Padding="8,4" Margin="4,0,0,0" Tag="BaseHelmetFile80sBox" Click="BrowseDdsFile_Click"/>
+                            </Grid>
+                            <Grid Grid.Row="6" Grid.Column="2" Margin="8,0,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="BaseVisorFile80sBox" Grid.Column="0" Style="{StaticResource ModernTextBox}" Height="28" IsReadOnly="True"/>
+                                <Button Grid.Column="1" Content="..." Style="{StaticResource SecondaryButton}" Padding="8,4" Margin="4,0,0,0" Tag="BaseVisorFile80sBox" Click="BrowseDdsFile_Click"/>
+                            </Grid>
+
+                            <!-- 70s (base_helmet_file_70s / base_visor_file_70s) -->
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="70s" Foreground="{StaticResource TextSecBrush}" FontSize="11" VerticalAlignment="Center"/>
+                            <Grid Grid.Row="7" Grid.Column="1" Margin="8,0,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="BaseHelmetFile70sBox" Grid.Column="0" Style="{StaticResource ModernTextBox}" Height="28" IsReadOnly="True"/>
+                                <Button Grid.Column="1" Content="..." Style="{StaticResource SecondaryButton}" Padding="8,4" Margin="4,0,0,0" Tag="BaseHelmetFile70sBox" Click="BrowseDdsFile_Click"/>
+                            </Grid>
+                            <Grid Grid.Row="7" Grid.Column="2" Margin="8,0,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="BaseVisorFile70sBox" Grid.Column="0" Style="{StaticResource ModernTextBox}" Height="28" IsReadOnly="True"/>
+                                <Button Grid.Column="1" Content="..." Style="{StaticResource SecondaryButton}" Padding="8,4" Margin="4,0,0,0" Tag="BaseVisorFile70sBox" Click="BrowseDdsFile_Click"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Expander>
+
+                <TextBlock Grid.Row="3" x:Name="RosterWarningText" Foreground="{StaticResource WarningBrush}"
+                           FontSize="11" Margin="0,8,0,0" Visibility="Collapsed" TextWrapping="Wrap"/>
+            </Grid>
+
+            <!-- ════ STEP 2: ABSENCES ════ -->
+            <Grid x:Name="Step2Panel" Visibility="Collapsed" Margin="20,15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Driver Absences" FontSize="16" FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,12"/>
+
+                <DataGrid Grid.Row="1" x:Name="AbsencesDataGrid" Style="{StaticResource ModernDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Race ID"        Binding="{Binding RaceId}"   Width="80"/>
+                        <DataGridTextColumn Header="Team"           Binding="{Binding TeamId}"   Width="140"/>
+                        <DataGridTextColumn Header="Driver Out"     Binding="{Binding DriverOut}" Width="160"/>
+                        <DataGridTextColumn Header="Driver In"      Binding="{Binding DriverIn}"  Width="160"/>
+                        <DataGridTextColumn Header="Has Chain"      Binding="{Binding HasChain}"  Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                    <Button Content="Add Absence"    Style="{StaticResource SecondaryButton}" Click="AddAbsence_Click"    Margin="0,0,10,0"/>
+                    <Button Content="Edit Absence"   Style="{StaticResource SecondaryButton}" Click="EditAbsence_Click"   Margin="0,0,10,0"/>
+                    <Button Content="Remove Absence" Style="{StaticResource SecondaryButton}" Click="RemoveAbsence_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- ════ STEP 3: RESULTS ════ -->
+            <Grid x:Name="Step3Panel" Visibility="Collapsed" Margin="20,15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Race Results  (positions 1-N · DNF · DNQ)" FontSize="16" FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,12"/>
+
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <DataGrid x:Name="ResultsDataGrid" Style="{StaticResource ModernDataGrid}"
+                              RowHeight="26" CanUserResizeColumns="True"
+                              PreparingCellForEdit="ResultsDataGrid_PreparingCellForEdit"
+                              CellEditEnding="ResultsDataGrid_CellEditEnding"/>
+                </ScrollViewer>
+
+                <TextBlock Grid.Row="2" Foreground="{StaticResource TextSecBrush}" FontSize="11" Margin="0,8,0,0"
+                           Text="Enter 1–N for finishing position, DNF for did-not-finish, DNQ for did-not-pre-qualify. BL column = best lap (one per race)."/>
+            </Grid>
+
+            <!-- ════ STEP 4: STANDINGS ════ -->
+            <Grid x:Name="Step4Panel" Visibility="Collapsed" Margin="20,15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Standings Preview" FontSize="16" FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,12"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="DRIVER STANDINGS" FontSize="12" FontWeight="Bold"
+                                   Foreground="{StaticResource TextSecBrush}" Margin="0,0,0,6"/>
+                        <DataGrid Grid.Row="1" x:Name="DriverStandingsGrid" Style="{StaticResource ModernDataGrid}" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Pos"    Binding="{Binding Position}"   Width="45"/>
+                                <DataGridTextColumn Header="Driver" Binding="{Binding DriverName}"  Width="*"/>
+                                <DataGridTextColumn Header="Team"   Binding="{Binding TeamId}"      Width="120"/>
+                                <DataGridTextColumn Header="Pts"    Binding="{Binding Points}"      Width="60"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="CONSTRUCTOR STANDINGS" FontSize="12" FontWeight="Bold"
+                                   Foreground="{StaticResource TextSecBrush}" Margin="0,0,0,6"/>
+                        <DataGrid Grid.Row="1" x:Name="ConstructorStandingsGrid" Style="{StaticResource ModernDataGrid}" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Pos"  Binding="{Binding Position}"  Width="45"/>
+                                <DataGridTextColumn Header="Team" Binding="{Binding TeamName}"   Width="*"/>
+                                <DataGridTextColumn Header="Pts"  Binding="{Binding Points}"     Width="60"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!-- ════ STEP 5: DETAILS ════ -->
+            <Grid x:Name="Step5Panel" Visibility="Collapsed" Margin="20,15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Scenario Details" FontSize="16" FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,20"/>
+
+                <Grid Grid.Row="1" Margin="0,0,0,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Name *" VerticalAlignment="Center" Foreground="{StaticResource TextSecBrush}"/>
+                    <TextBox Grid.Column="1" x:Name="ScenarioNameBox" Style="{StaticResource ModernTextBox}" Height="30"/>
+                </Grid>
+
+                <Grid Grid.Row="2" Margin="0,0,0,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Description" VerticalAlignment="Top" Margin="0,4,0,0" Foreground="{StaticResource TextSecBrush}"/>
+                    <TextBox Grid.Column="1" x:Name="ScenarioDescriptionBox"
+                             Style="{StaticResource ModernTextBox}"
+                             Height="70" AcceptsReturn="True" TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"/>
+                </Grid>
+
+                <Grid Grid.Row="3" Margin="0,0,0,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Picture" VerticalAlignment="Center" Foreground="{StaticResource TextSecBrush}"/>
+                    <TextBox Grid.Column="1" x:Name="PicturePathBox" Style="{StaticResource ModernTextBox}" Height="30" IsReadOnly="True"/>
+                    <Button  Grid.Column="2" Content="Browse..." Style="{StaticResource SecondaryButton}"
+                             Padding="14,6" Margin="8,0,0,0" Click="BrowsePicture_Click"/>
+                </Grid>
+
+                <Border Grid.Row="4" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                        BorderThickness="1" CornerRadius="2" Padding="14,10" Margin="0,10,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Output (generated on export)" FontSize="11" FontWeight="Bold"
+                                   Foreground="{StaticResource TextSecBrush}" Margin="0,0,0,8"/>
+                        <TextBlock x:Name="SavePathPreview"       Foreground="{StaticResource TextSecBrush}" FontSize="11"/>
+                        <TextBlock x:Name="ScenarioPathPreview"   Foreground="{StaticResource TextSecBrush}" FontSize="11" Margin="0,4,0,0"/>
+                        <TextBlock x:Name="PicturePathPreview"    Foreground="{StaticResource TextSecBrush}" FontSize="11" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- ── Navigation ── -->
+        <Border Grid.Row="2" Background="#0D0D0D" BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,1,0,0" Padding="20,12">
+            <Grid>
+                <Button x:Name="CancelButton"  Content="Cancel"   Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left"  Click="Cancel_Click"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="PrevButton"   Content="← Previous" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" Click="Prev_Click" IsEnabled="False"/>
+                    <Button x:Name="NextButton"   Content="Next →"     Style="{StaticResource PrimaryButton}"   Margin="0,0,10,0" Click="Next_Click"/>
+                    <Button x:Name="FinishButton" Content="✓ Finish"   Style="{StaticResource PrimaryButton}"   Click="Finish_Click" Visibility="Collapsed"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

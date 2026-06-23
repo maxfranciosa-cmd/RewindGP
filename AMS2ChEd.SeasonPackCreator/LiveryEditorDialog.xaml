@@ -1,0 +1,431 @@
+<Window x:Class="AMS2ChEd.SeasonPackEditor.LiveryEditorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Livery Editor" 
+        Height="750" 
+        Width="1000"
+        WindowStartupLocation="CenterOwner"
+        Background="#1A1A1A">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#E10600"/>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#B0B0B0"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#404040"/>
+
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="2" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Background" Value="#404040"/>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="0,0,0,5"/>
+        </Style>
+
+        <Style TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="RadioMark" 
+                                    Grid.Column="0"
+                                    Width="16" 
+                                    Height="16" 
+                                    CornerRadius="8"
+                                    BorderBrush="{StaticResource BorderBrush}"
+                                    BorderThickness="2"
+                                    Background="{StaticResource SurfaceBrush}"
+                                    Margin="0,0,8,0">
+                                <Ellipse x:Name="InnerCircle"
+                                         Width="8"
+                                         Height="8"
+                                         Fill="{StaticResource PrimaryBrush}"
+                                         Visibility="Collapsed"/>
+                            </Border>
+                            <ContentPresenter Grid.Column="1" 
+                                            VerticalAlignment="Center"
+                                            Content="{TemplateBinding Content}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="InnerCircle" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="RadioMark" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="RadioMark" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="#2a2a2a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#c41e3a"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton" 
+                                Background="#2a2a2a"
+                                BorderBrush="#c41e3a"
+                                BorderThickness="2"
+                                Focusable="False"
+                                IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" 
+                                          Background="{TemplateBinding Background}"
+                                          BorderBrush="{TemplateBinding BorderBrush}"
+                                          BorderThickness="{TemplateBinding BorderThickness}"/>
+                                            <Path x:Name="Arrow" 
+                                        HorizontalAlignment="Right" 
+                                        VerticalAlignment="Center"
+                                        Margin="0,0,10,0"
+                                        Data="M 0 0 L 4 4 L 8 0 Z"
+                                        Fill="White"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ContentSite"
+                                    IsHitTestVisible="False"
+                                    Content="{TemplateBinding SelectionBoxItem}"
+                                    ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                    Margin="5,3,23,3"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                            <Popup x:Name="Popup"
+                         Placement="Bottom"
+                         IsOpen="{TemplateBinding IsDropDownOpen}"
+                         AllowsTransparency="True"
+                         Focusable="False"
+                         PopupAnimation="Slide">
+                                <Grid x:Name="DropDown"
+                            SnapsToDevicePixels="True"
+                            MinWidth="{TemplateBinding ActualWidth}"
+                            MaxHeight="200">
+                                    <Border x:Name="DropDownBorder"
+                                  Background="#2a2a2a"
+                                  BorderBrush="#c41e3a"
+                                  BorderThickness="2"/>
+                                    <ScrollViewer Margin="2" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Resources>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="#2a2a2a"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBoxItem">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="0">
+                                    <ContentPresenter Margin="5,3,5,3"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsHighlighted" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#c41e3a"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#d32f2f"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="ModernDataGrid" TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="RowBackground" Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="AlternatingRowBackground" Value="#242424"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="30,20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="450"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Panel: Livery Configuration -->
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="0,0,20,0">
+            <StackPanel>
+                <TextBlock Text="Base Livery Configuration" FontSize="18" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,20"/>
+
+                <!-- AMS2 Car -->
+                <Label Content="AMS2 Car:"/>
+                <TextBox Name="Ams2CarTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
+
+                <!-- Base Liveries -->
+                <Label Content="Base Livery Driver 1:"/>
+                <StackPanel Margin="0,0,0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Name="BaseLiveryDriver1TextBox" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Margin="0,0,10,0"/>
+                        <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseBaseLiveryDriver1_Click"/>
+                    </Grid>
+                    <TextBlock Name="BaseLiveryDriver1SourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <Label Content="Base Livery Driver 2:"/>
+                <StackPanel Margin="0,0,0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Name="BaseLiveryDriver2TextBox" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Margin="0,0,10,0"/>
+                        <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseBaseLiveryDriver2_Click"/>
+                    </Grid>
+                    <TextBlock Name="BaseLiveryDriver2SourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <!-- Helmet & Visor Sponsors -->
+                <Label Content="Helmet Sponsors:"/>
+                <StackPanel Margin="0,0,0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Name="HelmetSponsorsTextBox" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Margin="0,0,10,0"/>
+                        <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseHelmetSponsors_Click"/>
+                    </Grid>
+                    <TextBlock Name="HelmetSponsorsSourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <Label Content="Visor Sponsors:"/>
+                <StackPanel Margin="0,0,0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Name="VisorSponsorsTextBox" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Margin="0,0,10,0"/>
+                        <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseVisorSponsors_Click"/>
+                    </Grid>
+                    <TextBlock Name="VisorSponsorsSourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <!-- Livery Preview -->
+                <Label Content="Livery Preview:"/>
+                <StackPanel Margin="0,0,0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Name="LiveryPreviewTextBox" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Margin="0,0,10,0"/>
+                        <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseLiveryPreview_Click"/>
+                    </Grid>
+                    <TextBlock Name="LiveryPreviewSourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <!-- Driver Outfit Textures -->
+                <TextBlock Text="Driver Outfit Textures" FontSize="16" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="0,20,0,15"/>
+
+                <!-- Torso -->
+                <Label Content="Torso:"/>
+                <WrapPanel Name="TorsoOptionsPanel" Orientation="Horizontal" Margin="0,0,0,15"/>
+
+                <!-- Arms -->
+                <Label Content="Arms:"/>
+                <WrapPanel Name="ArmsOptionsPanel" Orientation="Horizontal" Margin="0,0,0,15"/>
+
+                <!-- Gloves -->
+                <Label Content="Gloves:"/>
+                <WrapPanel Name="GlovesOptionsPanel" Orientation="Horizontal" Margin="0,0,0,15"/>
+
+                <!-- Legs -->
+                <Label Content="Legs:"/>
+                <WrapPanel Name="LegsOptionsPanel" Orientation="Horizontal" Margin="0,0,0,15"/>
+
+                <!-- Harness -->
+                <Label Content="Harness:"/>
+                <WrapPanel Name="HarnessOptionsPanel" Orientation="Horizontal" Margin="0,0,0,15"/>
+
+                <!-- XML Content -->
+                <Label Content="Livery XML Content (exported as [team_id].xml):"/>
+                <TextBox Name="XmlContentTextBox" 
+                         Style="{StaticResource ModernTextBox}" 
+                         Height="150" 
+                         TextWrapping="Wrap" 
+                         AcceptsReturn="True" 
+                         VerticalScrollBarVisibility="Auto"
+                         VerticalContentAlignment="Top"
+                         Margin="0,0,0,10"/>
+
+                <Button Content="Import from Livery XML" 
+                        Style="{StaticResource SecondaryButton}" 
+                        Click="ImportFromLiveryXml_Click" 
+                        HorizontalAlignment="Left"
+                        Margin="0,0,0,15"/>
+
+                <!-- Number Placements -->
+                <TextBlock Text="Number Placements" FontSize="16" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="0,20,0,15"/>
+
+                <DataGrid Name="NumberPlacementsDataGrid" 
+                          Style="{StaticResource ModernDataGrid}"
+                          Height="200"
+                          Margin="0,0,0,15"
+                          SelectionChanged="NumberPlacementsDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Texture" Binding="{Binding NumbersTexture}" Width="120"/>
+                        <DataGridTextColumn Header="Width" Binding="{Binding NumberPlateWidth}" Width="60"/>
+                        <DataGridTextColumn Header="X" Binding="{Binding StartingPoint.X}" Width="50"/>
+                        <DataGridTextColumn Header="Y" Binding="{Binding StartingPoint.Y}" Width="50"/>
+                        <DataGridTextColumn Header="Rotation" Binding="{Binding NumberRotation}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <Button Content="Add Placement" Style="{StaticResource SecondaryButton}" Click="AddNumberPlacement_Click" Margin="0,0,10,0"/>
+                    <Button Content="Edit Placement" Style="{StaticResource SecondaryButton}" Click="EditNumberPlacement_Click" Margin="0,0,10,0"/>
+                    <Button Content="Remove Placement" Style="{StaticResource SecondaryButton}" Click="RemoveNumberPlacement_Click"/>
+                </StackPanel>
+
+                <!-- Livery Overrides -->
+                <TextBlock Text="Race-Specific Overrides" FontSize="16" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="0,20,0,15"/>
+
+                <DataGrid Name="LiveryOverridesDataGrid" 
+                          Style="{StaticResource ModernDataGrid}"
+                          Height="150"
+                          Margin="0,0,0,15">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Race ID" Binding="{Binding RaceId}" Width="70"/>
+                        <DataGridTextColumn Header="Driver 1 Livery" Binding="{Binding Driver1Livery}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <Button Content="Add Override" Style="{StaticResource SecondaryButton}" Click="AddLiveryOverride_Click" Margin="0,0,10,0"/>
+                    <Button Content="Edit Override" Style="{StaticResource SecondaryButton}" Click="EditLiveryOverride_Click" Margin="0,0,10,0"/>
+                    <Button Content="Remove Override" Style="{StaticResource SecondaryButton}" Click="RemoveLiveryOverride_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Right Panel: Visual Preview -->
+        <Border Grid.Column="1" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Background="{StaticResource SurfaceBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Number Placement Preview" FontSize="16" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="20,20,20,15"/>
+
+                <StackPanel Grid.Row="1" Margin="20,0,20,15">
+                    <Label Content="Preview Source:"/>
+                    <ComboBox Name="PreviewSourceComboBox" Style="{StaticResource ModernComboBox}" SelectionChanged="PreviewSource_Changed">
+                        <ComboBoxItem Content="Base Livery Driver 1" IsSelected="True"/>
+                        <ComboBoxItem Content="Base Livery Driver 2"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Scrollable Canvas for livery preview -->
+                <ScrollViewer Grid.Row="2" 
+                              VerticalScrollBarVisibility="Auto" 
+                              HorizontalScrollBarVisibility="Auto"
+                              Margin="20,0,20,15">
+                    <Border Background="#1F1F1F" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                        <Canvas Name="LiveryPreviewCanvas" 
+                                ClipToBounds="True"
+                                MouseLeftButtonDown="LiveryPreviewCanvas_MouseLeftButtonDown">
+                            <Image Name="LiveryPreviewImage" Stretch="Fill"/>
+                        </Canvas>
+                    </Border>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="3" Margin="20,0,20,15">
+                    <Label Content="Test Number:"/>
+                    <TextBox Name="TestNumberTextBox" Style="{StaticResource ModernTextBox}" Text="88" TextChanged="TestNumber_Changed"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,0,20,20">
+                    <Button Content="OK" Style="{StaticResource PrimaryButton}" Click="OK_Click" Margin="0,0,10,0" Width="100"/>
+                    <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Click="Cancel_Click" Width="100"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
