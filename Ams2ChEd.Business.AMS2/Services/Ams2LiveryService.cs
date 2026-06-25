@@ -55,20 +55,41 @@ namespace Ams2ChEd.Business.AMS2.Services
             string seasonDirectory,
             string ams2RootDirectory)
         {
-            // Step 1: Copy static assets AS-IS from season/static_assets to AMS2
+            GenerateLiveriesOnly(raceId, raceEntryList, seasonDirectory, ams2RootDirectory);
+            GenerateCustomAiOnly(raceId, raceEntryList, ams2RootDirectory);
+        }
+
+        /// <summary>
+        /// Generate only the livery XMLs, car liveries, and helmets for a specific race (no CustomAI roster)
+        /// </summary>
+        public void GenerateLiveriesOnly(
+            int raceId,
+            List<EntryListEntry> raceEntryList,
+            string seasonDirectory,
+            string ams2RootDirectory)
+        {
+            // Copy static assets AS-IS from season/static_assets to AMS2
             CopyStaticAssets(seasonDirectory, ams2RootDirectory);
 
-            // Build paths based on AMS2 structure
-            string customAiPath = Path.Combine(ams2RootDirectory, "UserData", "CustomAIDrivers", $"{ams2Class}.xml");
             string vehiclesOverridesPath = Path.Combine(ams2RootDirectory, "Vehicles", "Textures", "CustomLiveries", "Overrides");
 
-            // Ensure directories exist
+            // Generate livery XMLs, copy car liveries, and generate helmets
+            GenerateLiveryXmlsAMS2(raceId, raceEntryList, vehiclesOverridesPath, seasonDirectory);
+        }
+
+        /// <summary>
+        /// Generate only the custom AI roster XML for a specific race (no liveries)
+        /// </summary>
+        public void GenerateCustomAiOnly(
+            int raceId,
+            List<EntryListEntry> raceEntryList,
+            string ams2RootDirectory)
+        {
+            string customAiPath = Path.Combine(ams2RootDirectory, "UserData", "CustomAIDrivers", $"{ams2Class}.xml");
+
+            // Ensure directory exists
             Directory.CreateDirectory(Path.GetDirectoryName(customAiPath));
 
-            // Step 2 & 3: Generate livery XMLs, copy car liveries, and generate helmets
-            GenerateLiveryXmlsAMS2(raceId, raceEntryList, vehiclesOverridesPath, seasonDirectory);
-
-            // Step 4: Generate custom AI XML
             GenerateCustomAiXml(raceId, raceEntryList, customAiPath);
         }
 
