@@ -32,6 +32,8 @@ namespace AMS2ChEd.Business.Services.Mocks
         public bool IsRunning { get; private set; }
         public bool IsPreQualiSession { get; set; }
 
+        public string[] GetMismatches() => Array.Empty<string>();
+
         public void InitializeRaceWeekend(IEnumerable<ParticipantData> participants)
         {
             _currentSession = new SessionData
