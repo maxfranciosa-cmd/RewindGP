@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="AMS2ChEd.Views.MissingDriversResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Missing Drivers"
+        Height="520" Width="660"
+        WindowStartupLocation="CenterOwner"
+        Background="#1a1a1a"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style x:Key="HeaderText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#999999"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="RowText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="PositionBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4,4"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Width" Value="46"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="RowCheck" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="ConfirmButton" TargetType="Button">
+            <Setter Property="Background" Value="#c41e3a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="Padding" Value="30,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#d32f2f"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Text="MANUAL RESULTS ENTRY"
+                       FontSize="22" FontWeight="Bold"
+                       Foreground="#c41e3a"
+                       HorizontalAlignment="Center"/>
+            <Rectangle Height="2" Fill="#c41e3a" Width="200" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1"
+                   Text="The following drivers were not detected in AMS2. Enter their finishing positions manually. Leave blank to skip a driver."
+                   TextWrapping="Wrap"
+                   Foreground="#aaaaaa"
+                   FontSize="12"
+                   Margin="0,0,0,16"/>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Column headers -->
+            <Grid Grid.Row="0" Margin="0,0,0,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="DRIVER" Style="{StaticResource HeaderText}" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="1" Text="QUALI" Style="{StaticResource HeaderText}"/>
+                <TextBlock Grid.Column="2" Text="RACE" Style="{StaticResource HeaderText}"/>
+                <TextBlock Grid.Column="3" Text="DNF" Style="{StaticResource HeaderText}"/>
+                <TextBlock Grid.Column="4" Text="FASTEST LAP" Style="{StaticResource HeaderText}"/>
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="DriversPanel">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#333333" BorderThickness="0,0,0,1" Padding="0,8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="80"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding DriverName}" Style="{StaticResource RowText}"/>
+                                        <TextBlock Text="{Binding TeamName}" Foreground="#777777" FontSize="11"/>
+                                    </StackPanel>
+                                    <TextBox Grid.Column="1"
+                                             Text="{Binding QualiPositionText, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource PositionBox}"
+                                             HorizontalAlignment="Center"/>
+                                    <TextBox Grid.Column="2"
+                                             Text="{Binding RacePositionText, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource PositionBox}"
+                                             HorizontalAlignment="Center"/>
+                                    <CheckBox Grid.Column="3"
+                                              IsChecked="{Binding IsDnf}"
+                                              Style="{StaticResource RowCheck}"/>
+                                    <CheckBox Grid.Column="4"
+                                              IsChecked="{Binding IsFastestLap}"
+                                              Style="{StaticResource RowCheck}"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
+        <Button Grid.Row="3"
+                Content="CONFIRM RESULTS"
+                Style="{StaticResource ConfirmButton}"
+                HorizontalAlignment="Center"
+                Margin="0,20,0,0"
+                Click="ConfirmButton_Click"/>
+    </Grid>
+</Window>

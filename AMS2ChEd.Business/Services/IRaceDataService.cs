@@ -97,6 +97,12 @@
         List<ParticipantData> RaceResults { get; }
 
         /// <summary>
+        /// Returns driver IDs from the initialized entry list whose names are not present
+        /// in the current AMS2 session (including the player if unidentified).
+        /// </summary>
+        string[] GetMismatches();
+
+        /// <summary>
         /// Starts the data service
         /// </summary>
         void Start();
