@@ -92,6 +92,8 @@ namespace AMS2ChEd.Views
         private Window _controlWindow;
         private GameLogicFactory _gameLogicFactory;
         private List<ParticipantData> _qualifyingResults;
+        private string[] _qualiMismatches = Array.Empty<string>();
+        private string[] _raceMismatches = Array.Empty<string>();
         private GraphicsStyle _currentStyle = GraphicsStyle.Pre94;
         private readonly bool _preQualiMode;
         private string _originalGrandPrixName = "";
@@ -267,14 +269,46 @@ namespace AMS2ChEd.Views
                 switch (e.CompletedSession)
                 {
                     case SessionType.Qualification:
-                        // Store qualifying results
+                        _qualiMismatches = _raceDataService.GetMismatches();
                         _qualifyingResults = e.FinalStandings;
-
                         break;
 
                     case SessionType.Race:
+                        _raceMismatches = _raceDataService.GetMismatches();
+
+                        // Strip unrecognised placeholders from both sessions
+                        var finalStandings = e.FinalStandings
+                            .Where(p => p.DriverId != "driver_id")
+                            .ToList();
+                        if (_qualifyingResults != null)
+                            _qualifyingResults = _qualifyingResults
+                                .Where(p => p.DriverId != "driver_id")
+                                .ToList();
+
+                        // Combine unique missing driver IDs from both sessions
+                        var allMismatches = _qualiMismatches.Union(_raceMismatches).ToArray();
+                        if (allMismatches.Length > 0)
+                        {
+                            var missingEntries = BuildMissingDriverEntries(allMismatches, _qualiMismatches, _raceMismatches);
+                            var manualWindow = new MissingDriversResultWindow(missingEntries) { Owner = this };
+                            if (manualWindow.ShowDialog() == true)
+                            {
+                                if (manualWindow.QualiResults?.Any() == true)
+                                {
+                                    _qualifyingResults ??= new List<ParticipantData>();
+                                    _qualifyingResults.AddRange(manualWindow.QualiResults);
+                                    _qualifyingResults = _qualifyingResults.OrderBy(p => p.Position).ToList();
+                                }
+                                if (manualWindow.RaceResults?.Any() == true)
+                                {
+                                    finalStandings.AddRange(manualWindow.RaceResults);
+                                    finalStandings = finalStandings.OrderBy(p => p.Position).ToList();
+                                }
+                            }
+                        }
+
                         // Create comprehensive race result
-                        var raceResult = CreateCompleteGrandPrixResult(e.FinalStandings);
+                        var raceResult = CreateCompleteGrandPrixResult(finalStandings);
 
                         // Merge DNPQ records into the result for historical completeness.
                         // These are excluded from standings by the DidNotPreQualify guard above.
@@ -375,6 +409,65 @@ namespace AMS2ChEd.Views
                 Position = p.Position,
                 DNF = p.DNF,
                 FastestLap = p.IsSessionBestLap
+            }).ToList();
+        }
+
+        private List<MissingDriverEntry> BuildMissingDriverEntries(
+            string[] missingDriverIds, string[] qualiMismatches, string[] raceMismatches)
+        {
+            var qualiSet = new HashSet<string>(qualiMismatches);
+            var raceSet = new HashSet<string>(raceMismatches);
+
+            return missingDriverIds.Select(driverId =>
+            {
+                bool isPlayer = driverId == saveGame.PlayerData.DriverId;
+
+                MissingDriverEntry entry;
+                if (isPlayer)
+                {
+                    var playerTeamEntry = saveGame.NextGpEntryList?
+                        .FirstOrDefault(e => e.Driver1Id == driverId || e.Driver2Id == driverId);
+                    int playerNumber = playerTeamEntry?.Driver1Id == driverId
+                        ? playerTeamEntry.Driver1Number
+                        : playerTeamEntry?.Driver2Number ?? 0;
+
+                    entry = new MissingDriverEntry
+                    {
+                        DriverId = driverId,
+                        DriverName = saveGame.PlayerData.Name,
+                        TeamId = saveGame.PlayerData.TeamId,
+                        TeamName = saveGame.CurrentSeason.Teams
+                            .FirstOrDefault(t => t.TeamId == saveGame.PlayerData.TeamId)?.TeamName ?? "",
+                        Number = playerNumber,
+                        IsPlayer = true
+                    };
+                }
+                else
+                {
+                    var driver = saveGame.Drivers.FirstOrDefault(d => d.DriverId == driverId);
+                    var teamEntry = saveGame.NextGpEntryList?
+                        .FirstOrDefault(e => e.Driver1Id == driverId || e.Driver2Id == driverId);
+                    var team = teamEntry != null
+                        ? saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamEntry.TeamId)
+                        : null;
+                    int number = teamEntry?.Driver1Id == driverId
+                        ? teamEntry.Driver1Number
+                        : teamEntry?.Driver2Number ?? 0;
+
+                    entry = new MissingDriverEntry
+                    {
+                        DriverId = driverId,
+                        DriverName = driver?.Name ?? driverId,
+                        TeamId = team?.TeamId ?? "",
+                        TeamName = team?.TeamName ?? "",
+                        Number = number,
+                        IsPlayer = false
+                    };
+                }
+
+                entry.MissingFromQuali = qualiSet.Contains(driverId);
+                entry.MissingFromRace = raceSet.Contains(driverId);
+                return entry;
             }).ToList();
         }
 
