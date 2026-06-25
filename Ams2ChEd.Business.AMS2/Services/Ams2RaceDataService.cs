@@ -23,6 +23,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         private Dictionary<string, int> _driverNameDriverNumber;
         private bool _sessionHasStarted = false;
         private AMS2Page _previousPage;
+        private bool _hasReceivedPage = false;
 
         // Player's career driver information
         private string _playerInGameNameInLowerCase;
@@ -140,6 +141,9 @@ namespace Ams2ChEd.Business.AMS2.Services
  
                 isFinished = IsSessionFinished(page);
                 standings = GetStandings(page);
+
+                _previousPage = page;
+                _hasReceivedPage = true;
 
                 _currentSession = new SessionData
                 {
@@ -352,6 +356,45 @@ namespace Ams2ChEd.Business.AMS2.Services
             if (end < 0) end = bytes.Length;
 
             return Encoding.UTF8.GetString(bytes, 0, end);
+        }
+
+        public string[] GetMismatches()
+        {
+            AMS2Page page;
+            bool hasPage;
+            lock (_lock)
+            {
+                page = _previousPage;
+                hasPage = _hasReceivedPage;
+            }
+
+            if (!hasPage || _driverNameDriverIdLookup == null)
+                return Array.Empty<string>();
+
+            var presentNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var p in page.mParticipantInfo)
+            {
+                if (p.mRacePosition > 0)
+                    presentNames.Add(DecodeAms2String(p.mName));
+            }
+
+            var missingIds = new List<string>();
+
+            bool playerFound = page.mParticipantInfo.Any(p =>
+                p.mRacePosition > 0 &&
+                DecodeAms2String(p.mName).ToLower() == _playerInGameNameInLowerCase);
+
+            if (!playerFound && _playerDriverId != null)
+                missingIds.Add(_playerDriverId);
+
+            foreach (var (name, driverId) in _driverNameDriverIdLookup)
+            {
+                if (driverId == _playerDriverId) continue;
+                if (!presentNames.Contains(name))
+                    missingIds.Add(driverId);
+            }
+
+            return missingIds.Distinct().ToArray();
         }
 
         public void InitializeRaceWeekend(IEnumerable<ParticipantData> participants)
