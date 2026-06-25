@@ -47,8 +47,10 @@ namespace AMS2ChEd
         private readonly string downloadUrlFormat = "https://www.overtake.gg/downloads/{0}";
         public static ServiceProvider Services { get; private set; }
 
-        private void ConfigureServices(ServiceCollection services, bool scenarioCreatorMode, bool forceAppUpdate, bool forceSeasonsUpdate)
+        private void ConfigureServices(ServiceCollection services, bool scenarioCreatorMode, bool forceAppUpdate, bool forceSeasonsUpdate, bool developerMode)
         {
+            services.AddSingleton(new DeveloperModeSettings(developerMode));
+
             // ********* JSON LOADERS ************
             services.AddSingleton<IDriversLoader<Ams2DriverData>, DriversLoader>();
             services.AddSingleton<ISeasonLoader<Ams2Season>, SeasonLoader>();
@@ -121,7 +123,7 @@ namespace AMS2ChEd
             var exePath = Process.GetCurrentProcess().MainModule!.FileName; 
             FileAssociationHelper.Register(exePath, exePath);
             var services = new ServiceCollection();
-            ConfigureServices(services, e.Args.Contains("--scenariocreatormode"), e.Args.Contains("--forceupdate"), e.Args.Contains("--forceseasonsupdate"));
+            ConfigureServices(services, e.Args.Contains("--scenariocreatormode"), e.Args.Contains("--forceupdate"), e.Args.Contains("--forceseasonsupdate"), e.Args.Contains("--developermode"));
             _serviceProvider = services.BuildServiceProvider();
             Services = _serviceProvider; // Make it static for easy access
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();

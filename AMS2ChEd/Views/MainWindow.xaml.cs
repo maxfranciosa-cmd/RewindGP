@@ -18,6 +18,7 @@ using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Models;
 using AMS2ChEd.Commands;
 using AMS2ChEd.Extensions;
+using AMS2ChEd.Services;
 using AMS2ChEd.ViewModels;
 using AMS2ChEd.Views;
 using System.IO;
@@ -51,6 +52,7 @@ namespace AMS2ChEd
         private GameLogicFactory _gameLogicFactory;
         private SaveGameSeasonChecker _seasonChecker;
         private SeasonManifestService _manifest;
+        private DeveloperModeSettings _developerModeSettings;
 
         // Scenario-related fields
         private List<Scenario> _scenarios;
@@ -61,13 +63,15 @@ namespace AMS2ChEd
             Ams2StorageFactory ams2StorageFactory,
             GameLogicFactory gameLogicFactory,
             SeasonManifestService manifest,
-            SaveGameSeasonChecker seasonChecker)
+            SaveGameSeasonChecker seasonChecker,
+            DeveloperModeSettings developerModeSettings)
         {
             InitializeComponent();
             _ams2StorageFactory = ams2StorageFactory;
             _gameLogicFactory = gameLogicFactory;
             _seasonChecker = seasonChecker;
             _manifest = manifest;
+            _developerModeSettings = developerModeSettings;
 
             InstallSeasonCommand = new InstallSeasonModCommandAsync(ams2StorageFactory);
             InstallSeasonCommand.SeasonInstalled += OnSeasonModInstalled;
@@ -78,6 +82,8 @@ namespace AMS2ChEd
             InitializeReputations();
             LoadSeasons();
             _scenarios = new List<Scenario>();
+
+            DeveloperToolsButton.Visibility = _developerModeSettings.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
 
@@ -261,6 +267,115 @@ namespace AMS2ChEd
                 SeasonComboBox.Items.Add(new ComboBoxItem { Content = "Error Loading Seasons" });
                 SeasonComboBox.SelectedIndex = 0;
             }
+        }
+
+        private void DeveloperToolsButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainMenuPanel.Visibility = Visibility.Collapsed;
+            DeveloperToolsPanel.Visibility = Visibility.Visible;
+            LoadDevToolsSeasons();
+        }
+
+        private void DevToolsBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            DeveloperToolsPanel.Visibility = Visibility.Collapsed;
+            MainMenuPanel.Visibility = Visibility.Visible;
+        }
+
+        private void LoadDevToolsSeasons()
+        {
+            DevSeasonComboBox.Items.Clear();
+            foreach (var season in _manifest.GetSeasonCatalog())
+            {
+                DevSeasonComboBox.Items.Add(new ComboBoxItem { Content = season.Year });
+            }
+            if (DevSeasonComboBox.Items.Count > 0)
+                DevSeasonComboBox.SelectedIndex = 0;
+        }
+
+        private void DevSeasonComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DevRaceComboBox.Items.Clear();
+            if (DevSeasonComboBox.SelectedItem == null) return;
+
+            int year = int.Parse(((ComboBoxItem)DevSeasonComboBox.SelectedItem).Content.ToString());
+            var season = _ams2StorageFactory.SeasonLoader.LoadSeason(year);
+
+            foreach (var race in season.Races)
+            {
+                DevRaceComboBox.Items.Add(new ComboBoxItem { Content = race.RaceName, Tag = race });
+            }
+            if (DevRaceComboBox.Items.Count > 0)
+                DevRaceComboBox.SelectedIndex = 0;
+        }
+
+        private void DevExportCustomAiButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryBuildDevExportContext(out var raceId, out var entryList, out var drivers, out var season, out var error))
+            {
+                System.Windows.MessageBox.Show(error, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            try
+            {
+                _gameLogicFactory.RacePreparator.PrepareCustomAi(raceId, entryList, drivers, season);
+                System.Windows.MessageBox.Show("Custom AI exported.", "Developer Mode", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Error exporting Custom AI: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void DevExportLiveriesButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryBuildDevExportContext(out var raceId, out var entryList, out var drivers, out var season, out var error))
+            {
+                System.Windows.MessageBox.Show(error, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            try
+            {
+                _gameLogicFactory.RacePreparator.PrepareLiveries(raceId, entryList, drivers, season);
+                System.Windows.MessageBox.Show("Liveries exported.", "Developer Mode", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Error exporting liveries: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private bool TryBuildDevExportContext(out int raceId, out List<EntryListEntry> entryList, out IEnumerable<IDriverData> drivers, out ISeason season, out string error)
+        {
+            raceId = 0; entryList = null; drivers = null; season = null; error = null;
+
+            if (DevSeasonComboBox.SelectedItem == null || DevRaceComboBox.SelectedItem == null)
+            {
+                error = "Select a season and a race first.";
+                return false;
+            }
+
+            int year = int.Parse(((ComboBoxItem)DevSeasonComboBox.SelectedItem).Content.ToString());
+            var race = (Race)((ComboBoxItem)DevRaceComboBox.SelectedItem).Tag;
+
+            season = _ams2StorageFactory.SeasonLoader.LoadSeason(year);
+            drivers = _ams2StorageFactory.DriversLoader.LoadDrivers(year).Values.Cast<IDriverData>();
+
+            // No save game in play here, so build a plain entry list straight from the season's team rosters
+            // (reputation isn't read by livery/CustomAI generation, so it's left out unlike EntryListGenerator).
+            entryList = season.Teams.Select(t => new EntryListEntry
+            {
+                TeamId = t.TeamId,
+                Driver1Id = t.Driver1Contract.DriverId,
+                Driver1Number = t.Driver1Contract.DriverNumber,
+                Driver2Id = t.Driver2Contract.DriverId,
+                Driver2Number = t.Driver2Contract.DriverNumber
+            }).ToList();
+
+            raceId = race.RaceId;
+            return true;
         }
 
         private void NewGameButton_Click(object sender, RoutedEventArgs e)

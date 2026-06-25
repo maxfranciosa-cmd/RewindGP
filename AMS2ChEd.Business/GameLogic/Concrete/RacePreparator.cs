@@ -8,7 +8,17 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
     {
         public void PrepareRace(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season)
         {
-            
+
+        }
+
+        public void PrepareCustomAi(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season)
+        {
+
+        }
+
+        public void PrepareLiveries(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season)
+        {
+
         }
     }
 }

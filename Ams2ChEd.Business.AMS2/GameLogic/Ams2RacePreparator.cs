@@ -18,6 +18,24 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
         public void PrepareRace(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season)
         {
+            var (liveryService, seasonFileDirectory, ams2InstallationFolder) = BuildLiveryService(drivers, season);
+            liveryService.GenerateRaceFiles(raceId, raceEntryList.ToList(), seasonFileDirectory, ams2InstallationFolder);
+        }
+
+        public void PrepareCustomAi(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season)
+        {
+            var (liveryService, _, ams2InstallationFolder) = BuildLiveryService(drivers, season);
+            liveryService.GenerateCustomAiOnly(raceId, raceEntryList.ToList(), ams2InstallationFolder);
+        }
+
+        public void PrepareLiveries(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season)
+        {
+            var (liveryService, seasonFileDirectory, ams2InstallationFolder) = BuildLiveryService(drivers, season);
+            liveryService.GenerateLiveriesOnly(raceId, raceEntryList.ToList(), seasonFileDirectory, ams2InstallationFolder);
+        }
+
+        private (Ams2LiveryService liveryService, string seasonFileDirectory, string ams2InstallationFolder) BuildLiveryService(IEnumerable<IDriverData> drivers, ISeason season)
+        {
             var seasonFilePath = StoragePaths.SeasonFilePath(season.OriginalYear ?? season.Year);
             var seasonFileDirectory = Path.GetDirectoryName(seasonFilePath);
             var ams2InstallationFolder = _ams2AppSettingsStorage.LoadSettings().Ams2Folder;
@@ -28,9 +46,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 drivers.Cast<Ams2DriverData>(),
                 season.Teams.Cast<Ams2TeamEntry>());
 
-            var ams2Folder = _ams2AppSettingsStorage;
-           
-            liveryService.GenerateRaceFiles(raceId, raceEntryList.ToList(), seasonFileDirectory, ams2InstallationFolder);
+            return (liveryService, seasonFileDirectory, ams2InstallationFolder);
         }
 
     }

@@ -6,5 +6,9 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
     public interface IRacePreparator
     {
         void PrepareRace(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season);
+
+        void PrepareCustomAi(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season);
+
+        void PrepareLiveries(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season);
     }
 }
