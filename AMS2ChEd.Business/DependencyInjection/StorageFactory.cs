@@ -16,16 +16,20 @@ namespace AMS2ChEd.Business.DependencyInjection
 
         public IGameStorage GameStorage { get; private set; }
 
+        public IAccoladesLoader AccoladesLoader { get; private set; }
+
         public StorageFactory(
             IDriversLoader<TDriverData> driversLoader,
             ITeamsLoader teamsLoader,
             ISeasonLoader<TSeason> seasonLoader,
-            IGameStorage gameStorage)
+            IGameStorage gameStorage,
+            IAccoladesLoader accoladesLoader)
         {
             DriversLoader = driversLoader;
             TeamsLoader = teamsLoader;
             SeasonLoader = seasonLoader;
             GameStorage = gameStorage;
+            AccoladesLoader = accoladesLoader;
         }
     }
 }
