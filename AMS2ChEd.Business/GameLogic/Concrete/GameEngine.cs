@@ -95,7 +95,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 CurrentDriverStandings = driverStandings,
                 CurrentConstructorStandings = constructorStandings,
                 HistoricalDriverStandings = new List<HistoricalDriverStanding>(),
-                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>()
+                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>(),
+                AccoladesAtStart = LoadAccoladesForNewGame(modifiedSeason.Year)
             };
             return InitializeConcreteNewSaveGame(provisionalSaveGame);
         }
@@ -279,7 +280,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 CurrentDriverStandings = driverStandings,
                 CurrentConstructorStandings = constructorStandings,
                 HistoricalDriverStandings = new List<HistoricalDriverStanding>(),
-                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>()
+                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>(),
+                AccoladesAtStart = LoadAccoladesForNewGame(modifiedSeason.Year)
             };
             return InitializeConcreteNewSaveGame(provisionalSaveGame);
         }
@@ -305,6 +307,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             return provisionalSaveGame;
         }
+
+        protected virtual HistoricalAccolades LoadAccoladesForNewGame(int seasonYear) => null;
 
         protected virtual IDriverData InitializePlayerDriverData(
             IPlayerData playerData,

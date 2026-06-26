@@ -56,6 +56,7 @@ namespace AMS2ChEd
             services.AddSingleton<ISeasonLoader<Ams2Season>, SeasonLoader>();
             services.AddSingleton<ISeasonLoader, SeasonLoader>();
             services.AddSingleton<ITeamsLoader, TeamsLoader>();
+            services.AddSingleton<IAccoladesLoader, AccoladesLoader>();
             // ********* MOCK LOADERS ************
             //services.AddSingleton<IDriversLoader<Ams2DriverData>, LoaderMocks199697>();
             //services.AddSingleton<ISeasonLoader<Ams2Season>, LoaderMocks199697>();
