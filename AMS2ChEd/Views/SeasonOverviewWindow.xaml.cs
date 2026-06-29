@@ -12,8 +12,10 @@ using AMS2ChEd.Business.Services.Contracts;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Views;
+using System.Formats.Tar;
 using System.Globalization;
 using System.IO;
+using System.Printing;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -27,7 +29,9 @@ namespace AMS2ChEd
     public class DriverStandingDisplay
     {
         public int Position { get; set; }
+        public string DriverId { get; set; }
         public string DriverName { get; set; }
+        public string TeamId { get; set; }
         public double Points { get; set; }
         public bool IsPlayer { get; set; }
         public int? RaceNumber { get; set; }
@@ -37,6 +41,7 @@ namespace AMS2ChEd
     public class ConstructorStandingDisplay
     {
         public int Position { get; set; }
+        public string TeamId { get; set; }
         public string TeamName { get; set; }
         public double Points { get; set; }
         public bool IsPlayerTeam { get; set; }
@@ -228,9 +233,11 @@ namespace AMS2ChEd
                 displayList.Add(new DriverStandingDisplay
                 {
                     Position = standing.Position,
+                    DriverId = standing.DriverId,
                     DriverName = driverName,
                     Points = standing.Points,
                     IsPlayer = standing.DriverId == saveGame.PlayerData.DriverId,
+                    TeamId = standing.TeamId,
                     RaceNumber = standing.TeamId != null ? raceNumber : null,
                     IsEven = index % 2 == 1
                 });
@@ -276,6 +283,7 @@ namespace AMS2ChEd
                 displayList.Add(new ConstructorStandingDisplay
                 {
                     Position = standing.Position,
+                    TeamId = standing.TeamId,
                     TeamName = teamName,
                     Points = standing.Points,
                     IsPlayerTeam = standing.TeamId == saveGame.PlayerData.TeamId,
@@ -664,6 +672,29 @@ namespace AMS2ChEd
             var gridWindow = new ConstructorStandingsGridWindow(saveGame);
             gridWindow.Owner = this;
             gridWindow.ShowDialog();
+        }
+
+        private void DriverRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2 && sender is System.Windows.Controls.Border b && b.DataContext is DriverStandingDisplay d)
+            {
+                var driver = saveGame.Drivers.FirstOrDefault(x => x.DriverId == d.DriverId);
+                var teamName = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == d.TeamId)?.TeamName;
+                var window = new Views.DriverAccoladesWindow(saveGame, d.DriverId, driver?.Name ?? d.DriverName, teamName ?? "No Team", driver?.PictureUrl);
+                window.Owner = this;
+                window.ShowDialog();
+            }
+        }
+
+        private void ConstructorRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2 && sender is System.Windows.Controls.Border b && b.DataContext is ConstructorStandingDisplay d)
+            {
+                var teamEntry = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == d.TeamId);
+                var window = new Views.ConstructorAccoladesWindow(saveGame, d.TeamId, d.TeamName, teamEntry?.Color);
+                window.Owner = this;
+                window.ShowDialog();
+            }
         }
 
         private void EditPlayerButton_Click(object sender, RoutedEventArgs e)

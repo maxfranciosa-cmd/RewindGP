@@ -10,11 +10,12 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
         public IAms2AppSettingsStorage Ams2AppSettingsStorage { get; private set; }
 
         public Ams2StorageFactory(
-            IDriversLoader<Ams2DriverData> driversLoader, 
-            ITeamsLoader teamsLoader, 
-            ISeasonLoader<Ams2Season> seasonLoader, 
-            IGameStorage gameStorage, 
-            IAms2AppSettingsStorage ams2AppSettingsStorage) : base(driversLoader, teamsLoader, seasonLoader, gameStorage)
+            IDriversLoader<Ams2DriverData> driversLoader,
+            ITeamsLoader teamsLoader,
+            ISeasonLoader<Ams2Season> seasonLoader,
+            IGameStorage gameStorage,
+            IAccoladesLoader accoladesLoader,
+            IAms2AppSettingsStorage ams2AppSettingsStorage) : base(driversLoader, teamsLoader, seasonLoader, gameStorage, accoladesLoader)
         {
             Ams2AppSettingsStorage = ams2AppSettingsStorage;
         }
