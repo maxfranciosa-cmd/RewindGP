@@ -45,6 +45,11 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             return Path.Combine(SeasonsFolder, seasonYear.ToString(), "season.json");
         }
 
+        public static string ExternalLiveriesFilePath(int seasonYear)
+        {
+            return Path.Combine(SeasonsFolder, seasonYear.ToString(), "external_liveries.json");
+        }
+
         private static string _savesPath = null;
         public static string SavesFolder
         {
