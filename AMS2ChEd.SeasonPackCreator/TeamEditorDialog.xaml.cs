@@ -159,9 +159,11 @@ namespace AMS2ChEd.SeasonPackEditor
             Team.TeamPrincipal = TeamPrincipalTextBox.Text;
             Team.Color = TeamColorTextBox.Text;
             Team.Reputation = (TeamReputation)ReputationComboBox.SelectedItem;
+            Team.Driver1Contract = Team.Driver1Contract ?? new DriverContract();
             Team.Driver1Contract.DriverId = Driver1ComboBox.SelectedItem?.ToString();
             Team.Driver1Contract.DriverNumber = int.Parse(Driver1NumberTextBox.Text);
             Team.Driver1Contract.Races = int.Parse(Driver1RacesContractTextBox.Text);
+            Team.Driver2Contract = Team.Driver2Contract ?? new DriverContract();
             Team.Driver2Contract.DriverId = Driver2ComboBox.SelectedItem?.ToString();
             Team.Driver2Contract.DriverNumber = int.Parse(Driver2NumberTextBox.Text);
             Team.Driver2Contract.Races = int.Parse(Driver2RacesContractTextBox.Text);
