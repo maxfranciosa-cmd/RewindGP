@@ -502,7 +502,8 @@
                         <ItemsControl x:Name="DriverStandingsItems">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border>
+                                    <Border MouseLeftButtonDown="DriverRow_MouseDoubleClick"
+                                            Cursor="Hand">
                                         <Border.Style>
                                             <Style TargetType="{x:Type Border}" BasedOn="{StaticResource StandingItemStyle}">
                                                 <Style.Triggers>
@@ -644,7 +645,8 @@
                         <ItemsControl x:Name="ConstructorStandingsItems">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border>
+                                    <Border MouseLeftButtonDown="ConstructorRow_MouseDoubleClick"
+                                            Cursor="Hand">
                                         <Border.Style>
                                             <Style TargetType="{x:Type Border}" BasedOn="{StaticResource StandingItemStyle}">
                                                 <Style.Triggers>

@@ -22,6 +22,11 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             return Path.Combine(SeasonsFolder, seasonYear.ToString(), "drivers.json");
         }
 
+        public static string AccoladesFilePath(int seasonYear)
+        {
+            return Path.Combine(SeasonsFolder, seasonYear.ToString(), "accolades.json");
+        }
+
         private static string _seasonsFilePath = null;
         public static string SeasonsFolder
         {
