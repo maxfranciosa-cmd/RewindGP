@@ -70,7 +70,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
             else
             {
-                using var archive = ArchiveFactory.Open(archivePath);
+                using var archive = ArchiveFactory.OpenArchive(archivePath);
                 foreach (var entry in archive.Entries.Where(e => !e.IsDirectory))
                 {
                     entry.WriteToDirectory(destinationDir, new ExtractionOptions
