@@ -123,6 +123,15 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         /// </summary>
         public void LoadGame(ISaveGame saveGame)
         {
+            if (saveGame.AccoladesAtStart == null)
+            {
+                var year = saveGame.HistoricalDriverStandings?.Any() == true
+                    ? saveGame.HistoricalDriverStandings.Min(s => s.Year)
+                    : saveGame.CurrentSeason.Year;
+
+                saveGame.AccoladesAtStart = LoadAccoladesForNewGame(year);
+            }
+
             _currentGame = saveGame;
             GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
         }
