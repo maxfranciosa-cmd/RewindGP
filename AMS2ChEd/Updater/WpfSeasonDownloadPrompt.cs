@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.AMS2.Services;
+﻿using Ams2ChEd.Business.AMS2.Services;
+using AMS2ChEd.Business.AMS2.Services;
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Models;
 using AMS2ChEd.Dialogs;
@@ -14,10 +15,19 @@ namespace AMS2ChEd.Updater
     public class WpfSeasonDownloadPrompt : ISeasonDownloadPrompt
     {
         private readonly SeasonModInstaller _seasonModInstaller;
+        private readonly ExternalLiveriesInstaller _externalLiveriesInstaller;
+        private readonly IExternalLiveriesPrompt _externalLiveriesPrompt;
         private readonly string _downloadUrlFormat;
-        public WpfSeasonDownloadPrompt(string downloadUrlFormat, SeasonModInstaller seasonModInstaller)
+
+        public WpfSeasonDownloadPrompt(
+            string downloadUrlFormat,
+            SeasonModInstaller seasonModInstaller,
+            ExternalLiveriesInstaller externalLiveriesInstaller,
+            IExternalLiveriesPrompt externalLiveriesPrompt)
         {
             _seasonModInstaller = seasonModInstaller;
+            _externalLiveriesInstaller = externalLiveriesInstaller;
+            _externalLiveriesPrompt = externalLiveriesPrompt;
             _downloadUrlFormat = downloadUrlFormat;
         }
 
@@ -63,6 +73,20 @@ namespace AMS2ChEd.Updater
             if (rwgpPath == null) return false;
 
             var result = await Task.Run(() => _seasonModInstaller.InstallSeasonMod(rwgpPath));
+
+            if (result.Success && _externalLiveriesInstaller.HasExternalLiveries(result.SeasonYear))
+            {
+                var liveriesInstalled = await _externalLiveriesInstaller.InstallAsync(result.SeasonYear, _externalLiveriesPrompt);
+                if (!liveriesInstalled)
+                {
+                    MessageBox.Show(
+                        "The external livery pack was not downloaded. You can get it later by reinstalling the season pack.",
+                        "External Liveries Skipped",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
+            }
+
             return result.Success;
         }
 

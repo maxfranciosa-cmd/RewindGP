@@ -1,8 +1,10 @@
 ﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
+using Ams2ChEd.Business.AMS2.Services;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.AMS2.Services;
 using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
 using AMS2ChEd.Business.Storage.Contracts;
+using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Views;
 using Microsoft.Win32;
 using System;
@@ -24,15 +26,22 @@ namespace AMS2ChEd.Commands
     public class InstallSeasonModCommandAsync : ICommand
     {
         private readonly SeasonModInstaller _installer;
+        private readonly ExternalLiveriesInstaller _externalLiveriesInstaller;
+        private readonly IExternalLiveriesPrompt _externalLiveriesPrompt;
         private bool _isExecuting;
 
         public event EventHandler<SeasonInstalledEventArgs> SeasonInstalled;
 
-        public InstallSeasonModCommandAsync(Ams2StorageFactory storageFactory)
+        public InstallSeasonModCommandAsync(
+            Ams2StorageFactory storageFactory,
+            ExternalLiveriesInstaller externalLiveriesInstaller,
+            IExternalLiveriesPrompt externalLiveriesPrompt)
         {
             var driversLoader = storageFactory.DriversLoader;
             var teamsLoader = storageFactory.TeamsLoader;
             _installer = new SeasonModInstaller(driversLoader, teamsLoader);
+            _externalLiveriesInstaller = externalLiveriesInstaller;
+            _externalLiveriesPrompt = externalLiveriesPrompt;
         }
 
         public event EventHandler CanExecuteChanged
@@ -92,6 +101,14 @@ namespace AMS2ChEd.Commands
                     // Show result
                     if (result.Success)
                     {
+                        if (_externalLiveriesInstaller.HasExternalLiveries(result.SeasonYear))
+                        {
+                            var liveriesInstalled = await _externalLiveriesInstaller.InstallAsync(result.SeasonYear, _externalLiveriesPrompt);
+                            if (!liveriesInstalled)
+                                result.CleanupWarning = (string.IsNullOrEmpty(result.CleanupWarning) ? "" : result.CleanupWarning + "\n")
+                                    + "External livery pack was not downloaded. Reinstall the season pack to be prompted again.";
+                        }
+
                         SeasonInstalled?.Invoke(this, new SeasonInstalledEventArgs
                         {
                             SeasonYear = result.SeasonYear,

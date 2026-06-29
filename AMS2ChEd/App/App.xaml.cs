@@ -98,6 +98,8 @@ namespace AMS2ChEd
             services.AddTransient<DriverHirer>();
             services.AddTransient<DriverFirer>();
             services.AddTransient<SeasonModInstaller>();
+            services.AddSingleton<ExternalLiveriesInstaller>();
+            services.AddSingleton<IExternalLiveriesPrompt, WpfExternalLiveriesPrompt>();
             // ********************************************
 
             // Register Windows
@@ -111,7 +113,11 @@ namespace AMS2ChEd
             
             var versionCheckStore = new JsonCurrentVersionCheckStore(StoragePaths.CurrentVersionCheckPath);
             services.AddSingleton<SeasonUpdaterOrchestrator>();
-            services.AddSingleton<ISeasonDownloadPrompt>((serviceProvider) => new WpfSeasonDownloadPrompt(downloadUrlFormat, serviceProvider.GetService<SeasonModInstaller>()));
+            services.AddSingleton<ISeasonDownloadPrompt>((serviceProvider) => new WpfSeasonDownloadPrompt(
+                downloadUrlFormat,
+                serviceProvider.GetService<SeasonModInstaller>(),
+                serviceProvider.GetService<ExternalLiveriesInstaller>(),
+                serviceProvider.GetService<IExternalLiveriesPrompt>()));
             services.AddSingleton((serviceProvider) => new SeasonManifestService(StoragePaths.SeasonsFolder, StoragePaths.SeasonsManifestPath, serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate));
             services.AddSingleton(versionCheckStore);
             services.AddSingleton<SaveGameSeasonChecker>();
@@ -159,6 +165,17 @@ namespace AMS2ChEd
 
                         if (result.Success)
                         {
+                            var externalLiveries = _serviceProvider.GetService<ExternalLiveriesInstaller>();
+                            if (externalLiveries.HasExternalLiveries(result.SeasonYear))
+                            {
+                                var liveriesInstalled = await externalLiveries.InstallAsync(
+                                    result.SeasonYear,
+                                    _serviceProvider.GetService<IExternalLiveriesPrompt>());
+                                if (!liveriesInstalled)
+                                    result.CleanupWarning = (string.IsNullOrEmpty(result.CleanupWarning) ? "" : result.CleanupWarning + "\n")
+                                        + "External livery pack was not downloaded. Reinstall the season pack to be prompted again.";
+                            }
+
                             MessageBox.Show(
                                 result.GetDetailedReport(),
                                 "Season Mod Installed Successfully",

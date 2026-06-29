@@ -64,7 +64,9 @@ namespace AMS2ChEd
             GameLogicFactory gameLogicFactory,
             SeasonManifestService manifest,
             SaveGameSeasonChecker seasonChecker,
-            DeveloperModeSettings developerModeSettings)
+            DeveloperModeSettings developerModeSettings,
+            ExternalLiveriesInstaller externalLiveriesInstaller,
+            IExternalLiveriesPrompt externalLiveriesPrompt)
         {
             InitializeComponent();
             _ams2StorageFactory = ams2StorageFactory;
@@ -73,7 +75,7 @@ namespace AMS2ChEd
             _manifest = manifest;
             _developerModeSettings = developerModeSettings;
 
-            InstallSeasonCommand = new InstallSeasonModCommandAsync(ams2StorageFactory);
+            InstallSeasonCommand = new InstallSeasonModCommandAsync(ams2StorageFactory, externalLiveriesInstaller, externalLiveriesPrompt);
             InstallSeasonCommand.SeasonInstalled += OnSeasonModInstalled;
 
             InitializeGameLogic();
