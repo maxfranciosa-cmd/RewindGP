@@ -1,5 +1,6 @@
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using Ams2ChEd.Business.AMS2.Models;
 using BCnEncoder.ImageSharp;
 using Microsoft.Win32;
 using System;
@@ -25,6 +26,7 @@ namespace AMS2ChEd.SeasonPackEditor
         private string _currentBaseLiveryDriver2Path;
         private int _seasonYear;
         private double _previewScale = 1.0; // Scale factor for preview display
+        private ExternalLiveriesConfig _externalLiveriesConfig;
 
         // Driver outfit texture selections
         private string _selectedTorso;
@@ -33,7 +35,7 @@ namespace AMS2ChEd.SeasonPackEditor
         private string _selectedLegs;
         private string _selectedHarness;
 
-        public LiveryEditorDialog(Ams2TeamEntry team, IEnumerable<Race> races, Dictionary<string, string> textureFiles, Dictionary<string, string> xmlFiles, int seasonYear)
+        public LiveryEditorDialog(Ams2TeamEntry team, IEnumerable<Race> races, Dictionary<string, string> textureFiles, Dictionary<string, string> xmlFiles, int seasonYear, ExternalLiveriesConfig externalLiveriesConfig = null)
         {
             InitializeComponent();
 
@@ -42,6 +44,7 @@ namespace AMS2ChEd.SeasonPackEditor
             _textureFiles = textureFiles;
             _xmlFiles = xmlFiles;
             _seasonYear = seasonYear;
+            _externalLiveriesConfig = externalLiveriesConfig ?? new ExternalLiveriesConfig();
 
             LoadTeamData();
 
@@ -111,6 +114,108 @@ namespace AMS2ChEd.SeasonPackEditor
 
             // Parse existing XML to populate selections
             ParseExistingXmlForOutfit();
+
+            // Restore external livery state from config
+            LoadExternalLiveryState();
+
+            // Populate preview source combobox (base + race overrides)
+            RefreshPreviewSourceComboBox();
+        }
+
+        private void LoadExternalLiveryState()
+        {
+            var driver1Key = BaseLiveryDriver1TextBox.Text;
+            if (!string.IsNullOrEmpty(driver1Key))
+            {
+                var entry = _externalLiveriesConfig.Entries.FirstOrDefault(e =>
+                    string.Equals(e.DestinationPath, driver1Key, StringComparison.OrdinalIgnoreCase));
+                if (entry != null)
+                {
+                    BaseLiveryDriver1ExternalCheckBox.IsChecked = true;
+                    BaseLiveryDriver1ExternalPanel.Visibility = Visibility.Visible;
+                    BaseLiveryDriver1SourcePathTextBox.Text = entry.SourcePath ?? "";
+                }
+            }
+
+            var driver2Key = BaseLiveryDriver2TextBox.Text;
+            if (!string.IsNullOrEmpty(driver2Key))
+            {
+                var entry = _externalLiveriesConfig.Entries.FirstOrDefault(e =>
+                    string.Equals(e.DestinationPath, driver2Key, StringComparison.OrdinalIgnoreCase));
+                if (entry != null)
+                {
+                    BaseLiveryDriver2ExternalCheckBox.IsChecked = true;
+                    BaseLiveryDriver2ExternalPanel.Visibility = Visibility.Visible;
+                    BaseLiveryDriver2SourcePathTextBox.Text = entry.SourcePath ?? "";
+                }
+            }
+
+            var previewKey = LiveryPreviewTextBox.Text;
+            if (!string.IsNullOrEmpty(previewKey))
+            {
+                var entry = _externalLiveriesConfig.Entries.FirstOrDefault(e =>
+                    string.Equals(e.DestinationPath, previewKey, StringComparison.OrdinalIgnoreCase));
+                if (entry != null)
+                {
+                    LiveryPreviewExternalCheckBox.IsChecked = true;
+                    LiveryPreviewExternalPanel.Visibility = Visibility.Visible;
+                    LiveryPreviewSourcePathTextBox.Text = entry.SourcePath ?? "";
+                }
+            }
+
+            UpdateExternalBadge();
+        }
+
+        private void UpdateExternalBadge()
+        {
+            if (ExternalLiveryBadge == null) return;
+
+            string key;
+            if (PreviewSourceComboBox?.SelectedIndex == 0)
+                key = BaseLiveryDriver1TextBox?.Text;
+            else if (PreviewSourceComboBox?.SelectedIndex == 1)
+                key = BaseLiveryDriver2TextBox?.Text;
+            else if (PreviewSourceComboBox?.SelectedItem is ComboBoxItem { Tag: string overridePath })
+                key = overridePath;
+            else
+                key = null;
+
+            bool isExternal = !string.IsNullOrEmpty(key) &&
+                _externalLiveriesConfig.Entries.Any(e =>
+                    string.Equals(e.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+
+            ExternalLiveryBadge.Visibility = isExternal ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void RefreshPreviewSourceComboBox()
+        {
+            int savedIndex = PreviewSourceComboBox.SelectedIndex;
+            PreviewSourceComboBox.SelectionChanged -= PreviewSource_Changed;
+            PreviewSourceComboBox.Items.Clear();
+
+            PreviewSourceComboBox.Items.Add(new ComboBoxItem { Content = "Base Livery Driver 1" });
+            PreviewSourceComboBox.Items.Add(new ComboBoxItem { Content = "Base Livery Driver 2" });
+
+            if (_team.LiveryOverrides != null)
+            {
+                foreach (var ovr in _team.LiveryOverrides)
+                {
+                    var raceName = _races?.FirstOrDefault(r => r.RaceId == ovr.RaceId)?.RaceName
+                                   ?? $"Race {ovr.RaceId}";
+
+                    if (!string.IsNullOrEmpty(ovr.Driver1Livery))
+                        PreviewSourceComboBox.Items.Add(new ComboBoxItem
+                            { Content = $"{raceName} Livery Driver 1", Tag = ovr.Driver1Livery });
+
+                    if (!string.IsNullOrEmpty(ovr.Driver2Livery))
+                        PreviewSourceComboBox.Items.Add(new ComboBoxItem
+                            { Content = $"{raceName} Livery Driver 2", Tag = ovr.Driver2Livery });
+                }
+            }
+
+            PreviewSourceComboBox.SelectionChanged += PreviewSource_Changed;
+            PreviewSourceComboBox.SelectedIndex = Math.Max(0,
+                Math.Min(savedIndex, PreviewSourceComboBox.Items.Count - 1));
         }
 
         private void UpdateBaseLiveryDriver1SourceLabel()
@@ -307,6 +412,110 @@ namespace AMS2ChEd.SeasonPackEditor
                 });
         }
 
+        #region External Livery State
+
+        private void BaseLiveryDriver1External_Changed(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = BaseLiveryDriver1ExternalCheckBox.IsChecked == true;
+            BaseLiveryDriver1ExternalPanel.Visibility = isChecked ? Visibility.Visible : Visibility.Collapsed;
+
+            var key = BaseLiveryDriver1TextBox.Text;
+            if (!string.IsNullOrEmpty(key))
+            {
+                _externalLiveriesConfig.Entries.RemoveAll(entry =>
+                    string.Equals(entry.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+
+                if (isChecked)
+                {
+                    _externalLiveriesConfig.Entries.Add(new ExternalLiveriesEntry
+                    {
+                        SourcePath = BaseLiveryDriver1SourcePathTextBox.Text,
+                        DestinationPath = key
+                    });
+                }
+            }
+
+            UpdateExternalBadge();
+        }
+
+        private void BaseLiveryDriver2External_Changed(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = BaseLiveryDriver2ExternalCheckBox.IsChecked == true;
+            BaseLiveryDriver2ExternalPanel.Visibility = isChecked ? Visibility.Visible : Visibility.Collapsed;
+
+            var key = BaseLiveryDriver2TextBox.Text;
+            if (!string.IsNullOrEmpty(key))
+            {
+                _externalLiveriesConfig.Entries.RemoveAll(entry =>
+                    string.Equals(entry.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+
+                if (isChecked)
+                {
+                    _externalLiveriesConfig.Entries.Add(new ExternalLiveriesEntry
+                    {
+                        SourcePath = BaseLiveryDriver2SourcePathTextBox.Text,
+                        DestinationPath = key
+                    });
+                }
+            }
+
+            UpdateExternalBadge();
+        }
+
+        private void BaseLiveryDriver1SourcePath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var key = BaseLiveryDriver1TextBox.Text;
+            if (string.IsNullOrEmpty(key)) return;
+            var entry = _externalLiveriesConfig.Entries.FirstOrDefault(en =>
+                string.Equals(en.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+            if (entry != null)
+                entry.SourcePath = BaseLiveryDriver1SourcePathTextBox.Text;
+        }
+
+        private void BaseLiveryDriver2SourcePath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var key = BaseLiveryDriver2TextBox.Text;
+            if (string.IsNullOrEmpty(key)) return;
+            var entry = _externalLiveriesConfig.Entries.FirstOrDefault(en =>
+                string.Equals(en.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+            if (entry != null)
+                entry.SourcePath = BaseLiveryDriver2SourcePathTextBox.Text;
+        }
+
+        private void LiveryPreviewExternal_Changed(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = LiveryPreviewExternalCheckBox.IsChecked == true;
+            LiveryPreviewExternalPanel.Visibility = isChecked ? Visibility.Visible : Visibility.Collapsed;
+
+            var key = LiveryPreviewTextBox.Text;
+            if (!string.IsNullOrEmpty(key))
+            {
+                _externalLiveriesConfig.Entries.RemoveAll(entry =>
+                    string.Equals(entry.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+
+                if (isChecked)
+                {
+                    _externalLiveriesConfig.Entries.Add(new ExternalLiveriesEntry
+                    {
+                        SourcePath = LiveryPreviewSourcePathTextBox.Text,
+                        DestinationPath = key
+                    });
+                }
+            }
+        }
+
+        private void LiveryPreviewSourcePath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var key = LiveryPreviewTextBox.Text;
+            if (string.IsNullOrEmpty(key)) return;
+            var entry = _externalLiveriesConfig.Entries.FirstOrDefault(en =>
+                string.Equals(en.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+            if (entry != null)
+                entry.SourcePath = LiveryPreviewSourcePathTextBox.Text;
+        }
+
+        #endregion
+
         private void BrowseForFile(string title, string filter, Action<string, string> onSelected)
         {
             var dialog = new OpenFileDialog
@@ -376,7 +585,7 @@ namespace AMS2ChEd.SeasonPackEditor
 
         private void AddLiveryOverride_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new LiveryOverrideDialog(_races, _textureFiles, _team.TeamId);
+            var dialog = new LiveryOverrideDialog(_races, _textureFiles, _team.TeamId, _externalLiveriesConfig);
             if (dialog.ShowDialog() == true)
             {
                 var overrides = _team.LiveryOverrides.ToList();
@@ -384,6 +593,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 _team.LiveryOverrides = overrides;
                 LiveryOverridesDataGrid.ItemsSource = null;
                 LiveryOverridesDataGrid.ItemsSource = _team.LiveryOverrides;
+                RefreshPreviewSourceComboBox();
             }
         }
 
@@ -391,7 +601,7 @@ namespace AMS2ChEd.SeasonPackEditor
         {
             if (LiveryOverridesDataGrid.SelectedItem is LiveryOverride selected)
             {
-                var dialog = new LiveryOverrideDialog(_races, _textureFiles, _team.TeamId, selected);
+                var dialog = new LiveryOverrideDialog(_races, _textureFiles, _team.TeamId, _externalLiveriesConfig, selected);
                 if (dialog.ShowDialog() == true)
                 {
                     var overrides = _team.LiveryOverrides.ToList();
@@ -399,6 +609,7 @@ namespace AMS2ChEd.SeasonPackEditor
                     _team.LiveryOverrides = overrides;
                     LiveryOverridesDataGrid.ItemsSource = null;
                     LiveryOverridesDataGrid.ItemsSource = _team.LiveryOverrides;
+                    RefreshPreviewSourceComboBox();
                 }
             }
         }
@@ -412,6 +623,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 _team.LiveryOverrides = overrides;
                 LiveryOverridesDataGrid.ItemsSource = null;
                 LiveryOverridesDataGrid.ItemsSource = _team.LiveryOverrides;
+                RefreshPreviewSourceComboBox();
             }
         }
 
@@ -422,6 +634,7 @@ namespace AMS2ChEd.SeasonPackEditor
         private void PreviewSource_Changed(object sender, SelectionChangedEventArgs e)
         {
             UpdatePreview();
+            UpdateExternalBadge();
         }
 
         private void TestNumber_Changed(object sender, TextChangedEventArgs e)
@@ -441,9 +654,15 @@ namespace AMS2ChEd.SeasonPackEditor
             if (_team != null && !string.IsNullOrEmpty(_team.BaseLiveryDriver2)) _textureFiles.TryGetValue(_team?.BaseLiveryDriver2, out _currentBaseLiveryDriver2Path);
 
             // Determine which livery to preview
-            string previewPath = PreviewSourceComboBox.SelectedIndex == 1
-                ? _currentBaseLiveryDriver2Path
-                : _currentBaseLiveryDriver1Path;
+            string previewPath;
+            if (PreviewSourceComboBox.SelectedIndex == 0)
+                previewPath = _currentBaseLiveryDriver1Path;
+            else if (PreviewSourceComboBox.SelectedIndex == 1)
+                previewPath = _currentBaseLiveryDriver2Path;
+            else if (PreviewSourceComboBox.SelectedItem is ComboBoxItem { Tag: string relativePath })
+                _textureFiles.TryGetValue(relativePath, out previewPath);
+            else
+                previewPath = null;
 
             if (string.IsNullOrEmpty(previewPath) || !System.IO.File.Exists(previewPath))
             {
@@ -750,7 +969,7 @@ namespace AMS2ChEd.SeasonPackEditor
 
                     var visorDiff = helmetOverrideNode.Descendants("TEXTURE")
                         .FirstOrDefault(t => t.Attribute("NAME")?.Value == "VISOR_DIFF");
-                    var visorPathAttr = visorDiff.Attribute("PATH");
+                    var visorPathAttr = visorDiff?.Attribute("PATH");
                     if (visorPathAttr != null)
                     {
                         string relativePath = visorPathAttr.Value;

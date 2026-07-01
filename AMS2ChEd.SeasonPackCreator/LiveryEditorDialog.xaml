@@ -241,6 +241,20 @@
                         <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseBaseLiveryDriver1_Click"/>
                     </Grid>
                     <TextBlock Name="BaseLiveryDriver1SourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                    <CheckBox Name="BaseLiveryDriver1ExternalCheckBox"
+                              Content="External (not bundled in pack)"
+                              Foreground="#E8A000"
+                              FontSize="12"
+                              Margin="0,5,0,3"
+                              Checked="BaseLiveryDriver1External_Changed"
+                              Unchecked="BaseLiveryDriver1External_Changed"/>
+                    <StackPanel Name="BaseLiveryDriver1ExternalPanel" Visibility="Collapsed" Margin="0,0,0,3">
+                        <TextBlock Text="Archive source path:" Foreground="#888888" FontSize="11" Margin="0,0,0,3"/>
+                        <TextBox Name="BaseLiveryDriver1SourcePathTextBox"
+                                 Style="{StaticResource ModernTextBox}"
+                                 ToolTip="Path of this file inside the external archive (e.g. car_liveries/team1/default.dds)"
+                                 TextChanged="BaseLiveryDriver1SourcePath_TextChanged"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <Label Content="Base Livery Driver 2:"/>
@@ -254,6 +268,20 @@
                         <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseBaseLiveryDriver2_Click"/>
                     </Grid>
                     <TextBlock Name="BaseLiveryDriver2SourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                    <CheckBox Name="BaseLiveryDriver2ExternalCheckBox"
+                              Content="External (not bundled in pack)"
+                              Foreground="#E8A000"
+                              FontSize="12"
+                              Margin="0,5,0,3"
+                              Checked="BaseLiveryDriver2External_Changed"
+                              Unchecked="BaseLiveryDriver2External_Changed"/>
+                    <StackPanel Name="BaseLiveryDriver2ExternalPanel" Visibility="Collapsed" Margin="0,0,0,3">
+                        <TextBlock Text="Archive source path:" Foreground="#888888" FontSize="11" Margin="0,0,0,3"/>
+                        <TextBox Name="BaseLiveryDriver2SourcePathTextBox"
+                                 Style="{StaticResource ModernTextBox}"
+                                 ToolTip="Path of this file inside the external archive (e.g. car_liveries/team1/default.dds)"
+                                 TextChanged="BaseLiveryDriver2SourcePath_TextChanged"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <!-- Helmet & Visor Sponsors -->
@@ -295,6 +323,12 @@
                         <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseLiveryPreview_Click"/>
                     </Grid>
                     <TextBlock Name="LiveryPreviewSourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                    <CheckBox Name="LiveryPreviewExternalCheckBox" Content="External (not bundled in pack)" Foreground="#E8A000" FontSize="12" Margin="0,5,0,3"
+                              Checked="LiveryPreviewExternal_Changed" Unchecked="LiveryPreviewExternal_Changed"/>
+                    <StackPanel Name="LiveryPreviewExternalPanel" Visibility="Collapsed" Margin="0,0,0,3">
+                        <TextBlock Text="Archive source path:" Foreground="#888888" FontSize="11" Margin="0,0,0,3"/>
+                        <TextBox Name="LiveryPreviewSourcePathTextBox" Style="{StaticResource ModernTextBox}" TextChanged="LiveryPreviewSourcePath_TextChanged"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <!-- Driver Outfit Textures -->
@@ -390,25 +424,23 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Text="Number Placement Preview" FontSize="16" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="20,20,20,15"/>
 
                 <StackPanel Grid.Row="1" Margin="20,0,20,15">
                     <Label Content="Preview Source:"/>
-                    <ComboBox Name="PreviewSourceComboBox" Style="{StaticResource ModernComboBox}" SelectionChanged="PreviewSource_Changed">
-                        <ComboBoxItem Content="Base Livery Driver 1" IsSelected="True"/>
-                        <ComboBoxItem Content="Base Livery Driver 2"/>
-                    </ComboBox>
+                    <ComboBox Name="PreviewSourceComboBox" Style="{StaticResource ModernComboBox}" SelectionChanged="PreviewSource_Changed"/>
                 </StackPanel>
 
                 <!-- Scrollable Canvas for livery preview -->
-                <ScrollViewer Grid.Row="2" 
-                              VerticalScrollBarVisibility="Auto" 
+                <ScrollViewer Grid.Row="2"
+                              VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Auto"
                               Margin="20,0,20,15">
                     <Border Background="#1F1F1F" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
-                        <Canvas Name="LiveryPreviewCanvas" 
+                        <Canvas Name="LiveryPreviewCanvas"
                                 ClipToBounds="True"
                                 MouseLeftButtonDown="LiveryPreviewCanvas_MouseLeftButtonDown">
                             <Image Name="LiveryPreviewImage" Stretch="Fill"/>
@@ -416,12 +448,19 @@
                     </Border>
                 </ScrollViewer>
 
-                <StackPanel Grid.Row="3" Margin="20,0,20,15">
+                <!-- External livery badge (visible when previewed texture is marked external) -->
+                <Border Grid.Row="3" Background="#1A1000" BorderBrush="#E8A000" BorderThickness="1"
+                        Name="ExternalLiveryBadge" Visibility="Collapsed" Margin="20,0,20,10" Padding="10,6">
+                    <TextBlock Text="⚠ EXTERNAL — Preview only. This texture will not be bundled in the season pack."
+                               Foreground="#E8A000" FontWeight="SemiBold" FontSize="11" TextWrapping="Wrap"/>
+                </Border>
+
+                <StackPanel Grid.Row="4" Margin="20,0,20,15">
                     <Label Content="Test Number:"/>
                     <TextBox Name="TestNumberTextBox" Style="{StaticResource ModernTextBox}" Text="88" TextChanged="TestNumber_Changed"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,0,20,20">
+                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,0,20,20">
                     <Button Content="OK" Style="{StaticResource PrimaryButton}" Click="OK_Click" Margin="0,0,10,0" Width="100"/>
                     <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Click="Cancel_Click" Width="100"/>
                 </StackPanel>
