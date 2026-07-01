@@ -549,6 +549,67 @@
                 </Grid>
             </TabItem>
 
+            <!-- External Liveries Tab -->
+            <TabItem Header="EXTERNAL LIVERIES" Style="{StaticResource ModernTabItem}">
+                <Grid Margin="30,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="External Liveries" FontSize="18" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,5"/>
+                    <TextBlock Grid.Row="0" Text="Large livery files declared here are excluded from the .rwgp pack and must be downloaded separately by users."
+                               FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,32,0,20" TextWrapping="Wrap"/>
+
+                    <!-- Download URL -->
+                    <Grid Grid.Row="1" Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Download URL:" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBox Grid.Column="1" Name="ExternalLiveriesUrlTextBox" Style="{StaticResource ModernTextBox}"
+                                 TextChanged="ExternalLiveriesUrl_TextChanged"
+                                 ToolTip="URL where users will download the external livery archive"/>
+                    </Grid>
+
+                    <!-- Working Path for folder import -->
+                    <Grid Grid.Row="2" Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Working path (base for relative paths):" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBox Grid.Column="1" Name="ExternalLiveriesWorkingPathTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,10,0"
+                                 ToolTip="Base folder used to compute relative paths when importing files from a folder"/>
+                        <Button Grid.Column="2" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseExternalLiveriesWorkingPath_Click" Padding="15,8"/>
+                    </Grid>
+
+                    <!-- Entries DataGrid -->
+                    <DataGrid Grid.Row="3" Name="ExternalLiveriesDataGrid"
+                              Style="{StaticResource ModernDataGrid}"
+                              AutoGenerateColumns="False"
+                              SelectionMode="Extended"
+                              CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Source Path (in archive)" Binding="{Binding SourcePath, UpdateSourceTrigger=LostFocus}" Width="*"/>
+                            <DataGridTextColumn Header="Destination Path (in season folder)" Binding="{Binding DestinationPath, UpdateSourceTrigger=LostFocus}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                        <Button Content="Add files from folder..." Style="{StaticResource SecondaryButton}" Click="AddExternalLiveriesFromFolder_Click" Margin="0,0,10,0"/>
+                        <Button Content="Remove Selected" Style="{StaticResource SecondaryButton}" Click="RemoveExternalLiveriesEntries_Click" Margin="0,0,10,0"/>
+                        <Button Content="Clear All" Style="{StaticResource SecondaryButton}" Click="ClearExternalLiveriesEntries_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
         </TabControl>
 
         <!-- Footer -->

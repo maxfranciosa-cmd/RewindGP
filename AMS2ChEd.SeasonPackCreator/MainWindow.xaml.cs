@@ -1,5 +1,6 @@
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
+using Ams2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
@@ -128,6 +129,12 @@ namespace AMS2ChEd.SeasonPackEditor
             // Scenarios
             ScenariosDataGrid.ItemsSource = null;
             ScenariosDataGrid.ItemsSource = _currentProject.Scenarios ?? (_currentProject.Scenarios = new List<ScenarioEntry>());
+
+            // External Liveries
+            _currentProject.ExternalLiveriesConfig ??= new ExternalLiveriesConfig();
+            if (ExternalLiveriesUrlTextBox != null)
+                ExternalLiveriesUrlTextBox.Text = _currentProject.ExternalLiveriesConfig.Url ?? "";
+            RefreshExternalLiveriesDataGrid();
 
             StatusTextBlock.Text = _currentProject.Season.Year > 0
                 ? $"Season Pack: {_currentProject.Season.Year}"
@@ -688,10 +695,11 @@ namespace AMS2ChEd.SeasonPackEditor
         {
             if (TeamsDataGrid.SelectedItem is Ams2TeamEntry selectedTeam)
             {
-                var dialog = new LiveryEditorDialog(selectedTeam, _currentProject.Season.Races, _currentProject.TextureFiles, _currentProject.XmlFiles, _currentProject.Season.Year);
+                var dialog = new LiveryEditorDialog(selectedTeam, _currentProject.Season.Races, _currentProject.TextureFiles, _currentProject.XmlFiles, _currentProject.Season.Year, _currentProject.ExternalLiveriesConfig);
                 if (dialog.ShowDialog() == true)
                 {
                     RefreshUI();
+                    RefreshExternalLiveriesDataGrid();
                 }
             }
             else
@@ -1065,6 +1073,116 @@ namespace AMS2ChEd.SeasonPackEditor
 
         #endregion
 
+        #region External Liveries
+
+        private void RefreshExternalLiveriesDataGrid()
+        {
+            if (ExternalLiveriesDataGrid == null || _currentProject?.ExternalLiveriesConfig == null) return;
+            ExternalLiveriesDataGrid.ItemsSource = null;
+            ExternalLiveriesDataGrid.ItemsSource = _currentProject.ExternalLiveriesConfig.Entries;
+        }
+
+        private void ExternalLiveriesUrl_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_currentProject?.ExternalLiveriesConfig != null)
+                _currentProject.ExternalLiveriesConfig.Url = ExternalLiveriesUrlTextBox.Text;
+        }
+
+        private void BrowseExternalLiveriesWorkingPath_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select Working Path (Base Folder)",
+                CheckFileExists = false,
+                CheckPathExists = true,
+                FileName = "Select Folder",
+                Filter = "Folders|*.none",
+                ValidateNames = false
+            };
+            if (dialog.ShowDialog() == true)
+                ExternalLiveriesWorkingPathTextBox.Text = Path.GetDirectoryName(dialog.FileName);
+        }
+
+        private void AddExternalLiveriesFromFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var folderDialog = new OpenFileDialog
+            {
+                Title = "Select folder containing external livery files",
+                CheckFileExists = false,
+                CheckPathExists = true,
+                FileName = "Select Folder",
+                Filter = "Folders|*.none",
+                ValidateNames = false
+            };
+            if (folderDialog.ShowDialog() != true) return;
+
+            var selectedFolder = Path.GetDirectoryName(folderDialog.FileName);
+            if (string.IsNullOrEmpty(selectedFolder)) return;
+
+            var workingPath = ExternalLiveriesWorkingPathTextBox.Text?.Trim();
+            if (string.IsNullOrEmpty(workingPath) || !Directory.Exists(workingPath))
+            {
+                MessageBox.Show(
+                    "Please set a valid Working Path before adding files from a folder.\nThe working path is used to compute relative source paths.",
+                    "Working Path Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                var files = Directory.GetFiles(selectedFolder, "*.*", SearchOption.AllDirectories);
+                int added = 0;
+
+                foreach (var file in files)
+                {
+                    var relativePath = Path.GetRelativePath(workingPath, file).Replace('\\', '/');
+
+                    if (_currentProject.ExternalLiveriesConfig.Entries.Any(entry =>
+                        string.Equals(entry.SourcePath, relativePath, StringComparison.OrdinalIgnoreCase)))
+                        continue;
+
+                    _currentProject.ExternalLiveriesConfig.Entries.Add(new ExternalLiveriesEntry
+                    {
+                        SourcePath = relativePath,
+                        DestinationPath = $"static_assets/{relativePath}"
+                    });
+                    added++;
+                }
+
+                RefreshExternalLiveriesDataGrid();
+                StatusTextBlock.Text = $"Added {added} external livery entries.";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding files: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void RemoveExternalLiveriesEntries_Click(object sender, RoutedEventArgs e)
+        {
+            if (ExternalLiveriesDataGrid.SelectedItems.Count > 0)
+            {
+                var toRemove = ExternalLiveriesDataGrid.SelectedItems.Cast<ExternalLiveriesEntry>().ToList();
+                foreach (var entry in toRemove)
+                    _currentProject.ExternalLiveriesConfig.Entries.Remove(entry);
+                RefreshExternalLiveriesDataGrid();
+            }
+        }
+
+        private void ClearExternalLiveriesEntries_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentProject.ExternalLiveriesConfig.Entries.Count == 0) return;
+            var result = MessageBox.Show("Clear all external livery entries?", "Confirm",
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                _currentProject.ExternalLiveriesConfig.Entries.Clear();
+                RefreshExternalLiveriesDataGrid();
+            }
+        }
+
+        #endregion
+
         #region Tab Navigation
 
         private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1127,6 +1245,28 @@ namespace AMS2ChEd.SeasonPackEditor
 
             if (dialog.ShowDialog() == true)
             {
+                // Pre-export validation for external liveries
+                var extConfig = _currentProject.ExternalLiveriesConfig;
+                if (extConfig?.Entries.Count > 0)
+                {
+                    if (string.IsNullOrWhiteSpace(extConfig.Url))
+                    {
+                        var proceed = MessageBox.Show(
+                            "External liveries are configured but no download URL is set.\nExport anyway?",
+                            "Missing URL", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                        if (proceed == MessageBoxResult.No) return;
+                    }
+
+                    var missingSource = extConfig.Entries.Count(ex => string.IsNullOrWhiteSpace(ex.SourcePath));
+                    if (missingSource > 0)
+                    {
+                        var proceed = MessageBox.Show(
+                            $"{missingSource} external livery entry/entries have no source path set.\nExport anyway?",
+                            "Missing Source Paths", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                        if (proceed == MessageBoxResult.No) return;
+                    }
+                }
+
                 try
                 {
                     StatusTextBlock.Text = "Exporting season pack...";
@@ -1164,6 +1304,11 @@ namespace AMS2ChEd.SeasonPackEditor
                 var driversJson = JsonSerializer.Serialize(driversDb, DefaultJsonSerializerOptions.Instance);
                 File.WriteAllText(Path.Combine(tempDir, "drivers.json"), driversJson);
 
+                // Build set of destination paths declared as external (won't be bundled)
+                var externalDestPaths = (_currentProject.ExternalLiveriesConfig?.Entries ?? new List<ExternalLiveriesEntry>())
+                    .Select(ex => ex.DestinationPath)
+                    .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
                 // Copy texture files
                 foreach (var textureFile in _currentProject.TextureFiles)
                 {
@@ -1173,6 +1318,10 @@ namespace AMS2ChEd.SeasonPackEditor
                     var realRelativePath = textureFile.Key.StartsWith("Seasons/1996", StringComparison.OrdinalIgnoreCase) ?
                                              Path.GetRelativePath($"Seasons/{_currentProject.Season.Year}", textureFile.Key) :
                                              textureFile.Key;
+
+                    // Skip textures marked as external — they'll be downloaded separately
+                    if (externalDestPaths.Contains(textureFile.Key) || externalDestPaths.Contains(realRelativePath))
+                        continue;
 
                     var destPath = Path.Combine(tempDir, realRelativePath);
 
@@ -1208,6 +1357,13 @@ namespace AMS2ChEd.SeasonPackEditor
 
 
                     }
+                }
+
+                // Export external_liveries.json if any external entries are declared
+                if (_currentProject.ExternalLiveriesConfig?.Entries.Count > 0)
+                {
+                    var extJson = JsonSerializer.Serialize(_currentProject.ExternalLiveriesConfig, DefaultJsonSerializerOptions.Instance);
+                    File.WriteAllText(Path.Combine(tempDir, "external_liveries.json"), extJson);
                 }
 
                 // Export livery XML files
@@ -1539,6 +1695,7 @@ namespace AMS2ChEd.SeasonPackEditor
             public Dictionary<string, string> XmlFiles { get; set; } // Team ID -> XML content
             public List<StaticAssetFile> StaticAssetFiles { get; set; } // Files to copy to static_assets folder
             public List<ScenarioEntry> Scenarios { get; set; } = new List<ScenarioEntry>();
+            public ExternalLiveriesConfig ExternalLiveriesConfig { get; set; } = new();
         }
 
         /// <summary>

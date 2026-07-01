@@ -158,6 +158,12 @@
                         <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseDriver1Livery_Click"/>
                     </Grid>
                     <TextBlock Name="Driver1LiverySourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                    <CheckBox Name="Driver1ExternalCheckBox" Content="External (not bundled in pack)" Foreground="#E8A000" FontSize="12" Margin="0,5,0,3"
+                              Checked="Driver1External_Changed" Unchecked="Driver1External_Changed"/>
+                    <StackPanel Name="Driver1ExternalPanel" Visibility="Collapsed" Margin="0,0,0,3">
+                        <TextBlock Text="Archive source path:" Foreground="#888888" FontSize="11" Margin="0,0,0,3"/>
+                        <TextBox Name="Driver1SourcePathTextBox" Style="{StaticResource ModernTextBox}" TextChanged="Driver1SourcePath_TextChanged"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <!-- Driver 2 Livery -->
@@ -172,6 +178,12 @@
                         <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseDriver2Livery_Click"/>
                     </Grid>
                     <TextBlock Name="Driver2LiverySourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                    <CheckBox Name="Driver2ExternalCheckBox" Content="External (not bundled in pack)" Foreground="#E8A000" FontSize="12" Margin="0,5,0,3"
+                              Checked="Driver2External_Changed" Unchecked="Driver2External_Changed"/>
+                    <StackPanel Name="Driver2ExternalPanel" Visibility="Collapsed" Margin="0,0,0,3">
+                        <TextBlock Text="Archive source path:" Foreground="#888888" FontSize="11" Margin="0,0,0,3"/>
+                        <TextBox Name="Driver2SourcePathTextBox" Style="{StaticResource ModernTextBox}" TextChanged="Driver2SourcePath_TextChanged"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <!-- Helmet Sponsors -->
@@ -214,6 +226,12 @@
                         <Button Grid.Column="1" Content="Browse..." Style="{StaticResource SecondaryButton}" Click="BrowseLiveryPreview_Click"/>
                     </Grid>
                     <TextBlock Name="LiveryPreviewSourceLabel" Text="" Foreground="#888888" FontSize="10" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                    <CheckBox Name="PreviewExternalCheckBox" Content="External (not bundled in pack)" Foreground="#E8A000" FontSize="12" Margin="0,5,0,3"
+                              Checked="PreviewExternal_Changed" Unchecked="PreviewExternal_Changed"/>
+                    <StackPanel Name="PreviewExternalPanel" Visibility="Collapsed" Margin="0,0,0,3">
+                        <TextBlock Text="Archive source path:" Foreground="#888888" FontSize="11" Margin="0,0,0,3"/>
+                        <TextBox Name="PreviewSourcePathTextBox" Style="{StaticResource ModernTextBox}" TextChanged="PreviewSourcePath_TextChanged"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

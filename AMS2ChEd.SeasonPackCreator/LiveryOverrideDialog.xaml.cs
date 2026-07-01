@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using Ams2ChEd.Business.AMS2.Models;
 using System.Windows.Shell;
 using System.IO;
 
@@ -19,14 +20,16 @@ namespace AMS2ChEd.SeasonPackEditor
         private readonly string _teamId;
         private readonly bool _isEditMode;
         private readonly LiveryOverride _originalOverride;
+        private readonly ExternalLiveriesConfig _externalLiveriesConfig;
 
-        public LiveryOverrideDialog(IEnumerable<Race> races, Dictionary<string, string> textureFiles, string teamId, LiveryOverride liveryOverride = null)
+        public LiveryOverrideDialog(IEnumerable<Race> races, Dictionary<string, string> textureFiles, string teamId, ExternalLiveriesConfig externalLiveriesConfig = null, LiveryOverride liveryOverride = null)
         {
             InitializeComponent();
 
             _races = races;
             _textureFiles = textureFiles;
             _teamId = teamId;
+            _externalLiveriesConfig = externalLiveriesConfig ?? new ExternalLiveriesConfig();
             _isEditMode = liveryOverride != null;
             _originalOverride = liveryOverride;
 
@@ -74,7 +77,148 @@ namespace AMS2ChEd.SeasonPackEditor
             UpdateVisorSponsorsSourceLabel();
             UpdateLiveryPreviewSourceLabel();
 
+            // Restore external livery state
+            LoadExternalOverrideState();
         }
+
+        private void LoadExternalOverrideState()
+        {
+            var d1Key = Driver1LiveryTextBox.Text;
+            if (!string.IsNullOrEmpty(d1Key))
+            {
+                var entry = _externalLiveriesConfig.Entries.FirstOrDefault(e =>
+                    string.Equals(e.DestinationPath, d1Key, StringComparison.OrdinalIgnoreCase));
+                if (entry != null)
+                {
+                    Driver1ExternalCheckBox.IsChecked = true;
+                    Driver1ExternalPanel.Visibility = Visibility.Visible;
+                    Driver1SourcePathTextBox.Text = entry.SourcePath ?? "";
+                }
+            }
+
+            var d2Key = Driver2LiveryTextBox.Text;
+            if (!string.IsNullOrEmpty(d2Key))
+            {
+                var entry = _externalLiveriesConfig.Entries.FirstOrDefault(e =>
+                    string.Equals(e.DestinationPath, d2Key, StringComparison.OrdinalIgnoreCase));
+                if (entry != null)
+                {
+                    Driver2ExternalCheckBox.IsChecked = true;
+                    Driver2ExternalPanel.Visibility = Visibility.Visible;
+                    Driver2SourcePathTextBox.Text = entry.SourcePath ?? "";
+                }
+            }
+
+            var previewKey = LiveryPreviewTextBox.Text;
+            if (!string.IsNullOrEmpty(previewKey))
+            {
+                var entry = _externalLiveriesConfig.Entries.FirstOrDefault(e =>
+                    string.Equals(e.DestinationPath, previewKey, StringComparison.OrdinalIgnoreCase));
+                if (entry != null)
+                {
+                    PreviewExternalCheckBox.IsChecked = true;
+                    PreviewExternalPanel.Visibility = Visibility.Visible;
+                    PreviewSourcePathTextBox.Text = entry.SourcePath ?? "";
+                }
+            }
+        }
+
+        #region External Livery State
+
+        private void Driver1External_Changed(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = Driver1ExternalCheckBox.IsChecked == true;
+            Driver1ExternalPanel.Visibility = isChecked ? Visibility.Visible : Visibility.Collapsed;
+
+            var key = Driver1LiveryTextBox.Text;
+            if (!string.IsNullOrEmpty(key))
+            {
+                _externalLiveriesConfig.Entries.RemoveAll(entry =>
+                    string.Equals(entry.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+
+                if (isChecked)
+                {
+                    _externalLiveriesConfig.Entries.Add(new ExternalLiveriesEntry
+                    {
+                        SourcePath = Driver1SourcePathTextBox.Text,
+                        DestinationPath = key
+                    });
+                }
+            }
+        }
+
+        private void Driver2External_Changed(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = Driver2ExternalCheckBox.IsChecked == true;
+            Driver2ExternalPanel.Visibility = isChecked ? Visibility.Visible : Visibility.Collapsed;
+
+            var key = Driver2LiveryTextBox.Text;
+            if (!string.IsNullOrEmpty(key))
+            {
+                _externalLiveriesConfig.Entries.RemoveAll(entry =>
+                    string.Equals(entry.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+
+                if (isChecked)
+                {
+                    _externalLiveriesConfig.Entries.Add(new ExternalLiveriesEntry
+                    {
+                        SourcePath = Driver2SourcePathTextBox.Text,
+                        DestinationPath = key
+                    });
+                }
+            }
+        }
+
+        private void PreviewExternal_Changed(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = PreviewExternalCheckBox.IsChecked == true;
+            PreviewExternalPanel.Visibility = isChecked ? Visibility.Visible : Visibility.Collapsed;
+
+            var key = LiveryPreviewTextBox.Text;
+            if (!string.IsNullOrEmpty(key))
+            {
+                _externalLiveriesConfig.Entries.RemoveAll(entry =>
+                    string.Equals(entry.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+
+                if (isChecked)
+                {
+                    _externalLiveriesConfig.Entries.Add(new ExternalLiveriesEntry
+                    {
+                        SourcePath = PreviewSourcePathTextBox.Text,
+                        DestinationPath = key
+                    });
+                }
+            }
+        }
+
+        private void Driver1SourcePath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var key = Driver1LiveryTextBox.Text;
+            if (string.IsNullOrEmpty(key)) return;
+            var entry = _externalLiveriesConfig.Entries.FirstOrDefault(en =>
+                string.Equals(en.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+            if (entry != null) entry.SourcePath = Driver1SourcePathTextBox.Text;
+        }
+
+        private void Driver2SourcePath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var key = Driver2LiveryTextBox.Text;
+            if (string.IsNullOrEmpty(key)) return;
+            var entry = _externalLiveriesConfig.Entries.FirstOrDefault(en =>
+                string.Equals(en.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+            if (entry != null) entry.SourcePath = Driver2SourcePathTextBox.Text;
+        }
+
+        private void PreviewSourcePath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var key = LiveryPreviewTextBox.Text;
+            if (string.IsNullOrEmpty(key)) return;
+            var entry = _externalLiveriesConfig.Entries.FirstOrDefault(en =>
+                string.Equals(en.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
+            if (entry != null) entry.SourcePath = PreviewSourcePathTextBox.Text;
+        }
+
+        #endregion
 
         #region Browse Methods
 
