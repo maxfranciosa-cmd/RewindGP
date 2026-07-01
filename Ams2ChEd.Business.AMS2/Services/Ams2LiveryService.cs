@@ -684,7 +684,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                     PlateWidth = placement.NumberPlateWidth,
                     StartX = placement.StartingPoint.X,
                     StartY = placement.StartingPoint.Y,
-                    Rotation = rotation
+                    Rotation = rotation,
+                    FillColor = placement.FillColor
                 });
             }
 

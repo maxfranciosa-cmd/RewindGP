@@ -51,6 +51,7 @@ namespace AMS2ChEd.SeasonPackEditor
             StartXTextBox.Text = NumberPlacement.StartingPoint.X.ToString();
             StartYTextBox.Text = NumberPlacement.StartingPoint.Y.ToString();
             RotationComboBox.SelectedItem = NumberPlacement.NumberRotation;
+            FillColorTextBox.Text = NumberPlacement.FillColor ?? "";
         }
 
         private void BrowseNumbersTexture_Click(object sender, RoutedEventArgs e)
@@ -130,6 +131,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 int.Parse(StartYTextBox.Text)
             );
             NumberPlacement.NumberRotation = (NumberRotation)RotationComboBox.SelectedItem;
+            NumberPlacement.FillColor = string.IsNullOrWhiteSpace(FillColorTextBox.Text) ? null : FillColorTextBox.Text;
 
             DialogResult = true;
             Close();
@@ -171,6 +173,19 @@ namespace AMS2ChEd.SeasonPackEditor
             {
                 MessageBox.Show("Please select a rotation.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(FillColorTextBox.Text))
+            {
+                try
+                {
+                    System.Drawing.ColorTranslator.FromHtml(FillColorTextBox.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Fill Color must be a valid HTML color (e.g. #FF0000 or Red).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
             }
 
             return true;

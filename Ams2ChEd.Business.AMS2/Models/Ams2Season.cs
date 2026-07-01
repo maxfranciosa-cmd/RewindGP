@@ -132,6 +132,9 @@ namespace AMS2ChEd.Business.AMS2.Models
         [JsonPropertyName("rotation")]
         [JsonConverter(typeof(NumberRotationConverter))]
         public NumberRotation NumberRotation { get; set; }
+
+        [JsonPropertyName("fill_color")]
+        public string FillColor { get; set; }
     }
 
     public class LiveryOverride

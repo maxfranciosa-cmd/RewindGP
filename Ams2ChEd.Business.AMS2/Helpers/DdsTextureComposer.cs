@@ -4,6 +4,7 @@ using BCnEncoder.Decoder;
 using BCnEncoder.Encoder;
 using BCnEncoder.ImageSharp;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
@@ -109,6 +110,23 @@ public class DdsTextureComposer
             // Calculate digit dimensions
             int digitWidth = numbersImage.Width / 10;
             int digitHeight = numbersImage.Height;
+
+            // Fill the number plate area with a solid color before drawing the digits, if configured
+            if (!string.IsNullOrWhiteSpace(placement.FillColor))
+            {
+                try
+                {
+                    var parsedColour = System.Drawing.ColorTranslator.FromHtml(placement.FillColor);
+                    var rgba = new Rgba32(parsedColour.R, parsedColour.G, parsedColour.B, parsedColour.A);
+                    var fillRect = CalculatePlateFillRectangle(
+                        placement.StartX, placement.StartY, placement.PlateWidth, digitHeight, placement.Rotation);
+                    liveryImage.Mutate(ctx => ctx.Fill(rgba, fillRect));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning: Invalid FillColor '{placement.FillColor}' for placement, skipping fill: {ex.Message}");
+                }
+            }
 
             // Apply the number to this placement
             if (numberString.Length == 1)
@@ -233,6 +251,7 @@ public class DdsTextureComposer
         public int StartX { get; set; }
         public int StartY { get; set; }
         public int Rotation { get; set; }
+        public string FillColor { get; set; }
     }
 
     private static Point CalculateDigitPosition(
@@ -266,6 +285,22 @@ public class DdsTextureComposer
 
             default:
                 return new Point(startX + offset - digitWidth / 2, startY);
+        }
+    }
+
+    private static RectangleF CalculatePlateFillRectangle(
+        int startX, int startY, int plateWidth, int digitHeight, int rotation)
+    {
+        switch (rotation)
+        {
+            case 90:
+                return new RectangleF(startX - digitHeight, startY, digitHeight, plateWidth);
+            case 180:
+                return new RectangleF(startX - plateWidth, startY - digitHeight, plateWidth, digitHeight);
+            case 270:
+                return new RectangleF(startX, startY - plateWidth, digitHeight, plateWidth);
+            default: // 0
+                return new RectangleF(startX, startY, plateWidth, digitHeight);
         }
     }
 
