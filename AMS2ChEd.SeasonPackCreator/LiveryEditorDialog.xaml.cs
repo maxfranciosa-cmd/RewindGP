@@ -857,6 +857,30 @@ namespace AMS2ChEd.SeasonPackEditor
             }
         }
 
+        private void LiveryPreviewCanvas_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (NumberPlacementsDataGrid.SelectedItem is NumbersPlacement selectedPlacement
+                && LiveryPreviewImage.Source is BitmapSource bitmapSource)
+            {
+                var clickPosition = e.GetPosition(LiveryPreviewImage);
+                int originalX = (int)(clickPosition.X / _previewScale);
+                int originalY = (int)(clickPosition.Y / _previewScale);
+
+                if (originalX < 0 || originalY < 0 || originalX >= bitmapSource.PixelWidth || originalY >= bitmapSource.PixelHeight)
+                    return;
+
+                var converted = new FormatConvertedBitmap(bitmapSource, PixelFormats.Bgra32, null, 0);
+                var pixel = new byte[4];
+                converted.CopyPixels(new Int32Rect(originalX, originalY, 1, 1), pixel, 4, 0);
+
+                selectedPlacement.FillColor = $"#{pixel[2]:X2}{pixel[1]:X2}{pixel[0]:X2}";
+
+                NumberPlacementsDataGrid.Items.Refresh();
+                UpdatePreview();
+                e.Handled = true;
+            }
+        }
+
         #endregion
 
         #region Import from Livery XML
