@@ -167,6 +167,39 @@ namespace AMS2ChEd.Business.AMS2.Services
             {
                 result.OverwrittenFiles.Add("drivers.json");
             }
+
+            // Copy external_liveries.json
+            string externalLiveriesJsonSource = Path.Combine(seasonFolderPath, "external_liveries.json");
+            if (File.Exists(externalLiveriesJsonSource))
+            {
+                string externalLiveriesJsonDest = Path.Combine(seasonDestPath, "external_liveries.json");
+                bool externalLiveriesJsonExists = File.Exists(driversJsonDest);
+
+                File.Copy(externalLiveriesJsonSource, externalLiveriesJsonDest, true);
+                result.CopiedFiles.Add("external_liveries.json");
+
+                if (externalLiveriesJsonExists)
+                {
+                    result.OverwrittenFiles.Add("external_liveries.json");
+                }
+            }
+            
+
+            // Copy accolades.json
+            string accoladesJsonSource = Path.Combine(seasonFolderPath, "accolades.json");
+            if (File.Exists(accoladesJsonSource))
+            {
+                string accoladesJsonDest = Path.Combine(seasonDestPath, "accolades.json");
+                bool accoladesJsonExists = File.Exists(accoladesJsonDest);
+
+                File.Copy(accoladesJsonSource, accoladesJsonDest, true);
+                result.CopiedFiles.Add("accolades.json");
+
+                if (accoladesJsonExists)
+                {
+                    result.OverwrittenFiles.Add("accolades.json");
+                }
+            }
         }
 
         private void CopyDirectory(string sourceDir, string destDir, bool overwrite, SeasonModInstallResult result = null)

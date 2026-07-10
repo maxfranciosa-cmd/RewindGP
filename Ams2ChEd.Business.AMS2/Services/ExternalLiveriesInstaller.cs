@@ -42,12 +42,18 @@ namespace Ams2ChEd.Business.AMS2.Services
                 var seasonDestPath = Path.Combine(_baseDirectory, "Seasons", seasonYear.ToString());
                 foreach (var entry in config.Entries)
                 {
-                    var sourceDir = Path.Combine(tempDir, entry.SourcePath);
-                    if (!Directory.Exists(sourceDir))
+                    var sourcePath = Path.Combine(tempDir, entry.SourcePath);
+                    if (!File.Exists(sourcePath))
                         continue;
 
-                    var destDir = Path.Combine(seasonDestPath, entry.DestinationPath);
-                    CopyDirectory(sourceDir, destDir);
+                    var destPath = Path.Combine(seasonDestPath, entry.DestinationPath);
+                    var destPathFolder = Path.GetDirectoryName(destPath);
+
+                    if(!Directory.Exists(destPathFolder))
+                        Directory.CreateDirectory(destPathFolder);
+
+
+                    File.Copy(sourcePath, destPath, true);
                 }
 
                 return true;
@@ -80,17 +86,6 @@ namespace Ams2ChEd.Business.AMS2.Services
                     });
                 }
             }
-        }
-
-        private static void CopyDirectory(string sourceDir, string destDir)
-        {
-            Directory.CreateDirectory(destDir);
-
-            foreach (var file in Directory.GetFiles(sourceDir))
-                File.Copy(file, Path.Combine(destDir, Path.GetFileName(file)), overwrite: true);
-
-            foreach (var subDir in Directory.GetDirectories(sourceDir))
-                CopyDirectory(subDir, Path.Combine(destDir, Path.GetFileName(subDir)));
         }
     }
 }
