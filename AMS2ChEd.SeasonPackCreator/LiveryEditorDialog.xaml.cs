@@ -13,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
+using SixLabors.ImageSharp;
 
 namespace AMS2ChEd.SeasonPackEditor
 {
@@ -74,19 +75,17 @@ namespace AMS2ChEd.SeasonPackEditor
             // Resolve file paths for preview from texture files dictionary
             if (!string.IsNullOrEmpty(_team.BaseLiveryDriver1))
             {
-                var key = $"car_liveries/{_team.TeamId}/{_team.BaseLiveryDriver1}";
-                if (_textureFiles.ContainsKey(key))
+                if (_textureFiles.ContainsKey(_team.BaseLiveryDriver1))
                 {
-                    _currentBaseLiveryDriver1Path = _textureFiles[key];
+                    _currentBaseLiveryDriver1Path = _textureFiles[_team.BaseLiveryDriver1];
                 }
             }
 
             if (!string.IsNullOrEmpty(_team.BaseLiveryDriver2))
             {
-                var key = $"car_liveries/{_team.TeamId}/{_team.BaseLiveryDriver2}";
-                if (_textureFiles.ContainsKey(key))
+                if (_textureFiles.ContainsKey(_team.BaseLiveryDriver2))
                 {
-                    _currentBaseLiveryDriver2Path = _textureFiles[key];
+                    _currentBaseLiveryDriver2Path = _textureFiles[_team.BaseLiveryDriver2];
                 }
             }
 
@@ -560,6 +559,8 @@ namespace AMS2ChEd.SeasonPackEditor
                 var dialog = new NumberPlacementDialog(_team.TeamId, _textureFiles, selected);
                 if (dialog.ShowDialog() == true)
                 {
+                    NumberPlacementsDataGrid.CommitEdit(DataGridEditingUnit.Cell, true);
+                    NumberPlacementsDataGrid.CommitEdit(DataGridEditingUnit.Row, true);
                     NumberPlacementsDataGrid.Items.Refresh();
                     UpdatePreview();
                 }
@@ -642,6 +643,36 @@ namespace AMS2ChEd.SeasonPackEditor
             UpdatePreview();
         }
 
+        private BitmapImage LoadPreviewBitmap(string path)
+        {
+            string extension = Path.GetExtension(path).ToLowerInvariant();
+
+            if (extension == ".dds")
+            {
+                using var fs = File.OpenRead(path);
+                var decoder = new BCnEncoder.Decoder.BcDecoder();
+                using var image = decoder.DecodeToImageRgba32(fs);
+                using var memoryStream = new MemoryStream();
+                image.SaveAsPng(memoryStream);
+                memoryStream.Position = 0;
+
+                var ddsBitmap = new BitmapImage();
+                ddsBitmap.BeginInit();
+                ddsBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                ddsBitmap.StreamSource = memoryStream;
+                ddsBitmap.EndInit();
+                ddsBitmap.Freeze();
+                return ddsBitmap;
+            }
+
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(path);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            return bitmap;
+        }
+
         private void UpdatePreview()
         {
             // Check if controls are initialized
@@ -673,11 +704,7 @@ namespace AMS2ChEd.SeasonPackEditor
             try
             {
                 // Load the base livery image
-                var bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(previewPath);
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
+                var bitmap = LoadPreviewBitmap(previewPath);
 
                 // Calculate scale to fit in preview area while maintaining aspect ratio
                 // Use larger maximum size for better preview quality
@@ -850,6 +877,8 @@ namespace AMS2ChEd.SeasonPackEditor
                 selectedPlacement.StartingPoint = new System.Drawing.Point(originalX, originalY);
 
                 // Refresh the data grid to show updated values
+                NumberPlacementsDataGrid.CommitEdit(DataGridEditingUnit.Cell, true);
+                NumberPlacementsDataGrid.CommitEdit(DataGridEditingUnit.Row, true);
                 NumberPlacementsDataGrid.Items.Refresh();
 
                 // Update the preview to show new position
@@ -875,6 +904,8 @@ namespace AMS2ChEd.SeasonPackEditor
 
                 selectedPlacement.FillColor = $"#{pixel[2]:X2}{pixel[1]:X2}{pixel[0]:X2}";
 
+                NumberPlacementsDataGrid.CommitEdit(DataGridEditingUnit.Cell, true);
+                NumberPlacementsDataGrid.CommitEdit(DataGridEditingUnit.Row, true);
                 NumberPlacementsDataGrid.Items.Refresh();
                 UpdatePreview();
                 e.Handled = true;
