@@ -367,9 +367,15 @@
                          VerticalContentAlignment="Top"
                          Margin="0,0,0,10"/>
 
-                <Button Content="Import from Livery XML" 
-                        Style="{StaticResource SecondaryButton}" 
-                        Click="ImportFromLiveryXml_Click" 
+                <Button Content="Import from Livery XML"
+                        Style="{StaticResource SecondaryButton}"
+                        Click="ImportFromLiveryXml_Click"
+                        HorizontalAlignment="Left"
+                        Margin="0,0,0,15"/>
+
+                <Button Content="Import External Livery (XML)"
+                        Style="{StaticResource SecondaryButton}"
+                        Click="ImportExternalLiveryFromXml_Click"
                         HorizontalAlignment="Left"
                         Margin="0,0,0,15"/>
 

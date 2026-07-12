@@ -146,6 +146,12 @@
                     </ScrollViewer>
                 </Border>
 
+                <Button Content="Import External Livery (XML)"
+                        Style="{StaticResource SecondaryButton}"
+                        Click="ImportExternalLiveryFromXml_Click"
+                        HorizontalAlignment="Left"
+                        Margin="0,0,0,15"/>
+
                 <!-- Driver 1 Livery -->
                 <Label Content="Driver 1 Livery:"/>
                 <StackPanel Margin="0,0,0,15">

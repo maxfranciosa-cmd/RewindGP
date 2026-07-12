@@ -8,6 +8,7 @@ using AMS2ChEd.Business.Models.Concrete;
 using Ams2ChEd.Business.AMS2.Models;
 using System.Windows.Shell;
 using System.IO;
+using System.Xml.Linq;
 
 namespace AMS2ChEd.SeasonPackEditor
 {
@@ -216,6 +217,97 @@ namespace AMS2ChEd.SeasonPackEditor
             var entry = _externalLiveriesConfig.Entries.FirstOrDefault(en =>
                 string.Equals(en.DestinationPath, key, StringComparison.OrdinalIgnoreCase));
             if (entry != null) entry.SourcePath = PreviewSourcePathTextBox.Text;
+        }
+
+        #endregion
+
+        #region Import External Livery from XML
+
+        private void ImportExternalLiveryFromXml_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new OpenFileDialog
+                {
+                    Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+                    Title = "Select AMS2 Custom AI Driver XML File"
+                };
+
+                if (dialog.ShowDialog() != true)
+                    return;
+
+                string xmlFilePath = dialog.FileName;
+                string xmlDirectory = Path.GetDirectoryName(xmlFilePath);
+                var xmlDoc = XDocument.Load(xmlFilePath);
+
+                var candidates = ExternalLiveryXmlImportHelper.FindLiveryOverrideCandidates(xmlDoc);
+                if (candidates.Count == 0)
+                {
+                    MessageBox.Show("No LIVERY_OVERRIDE nodes with NAME and LIVERY attributes found in the selected XML file.",
+                        "No Liveries Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var selectionDialog = new LiverySelectionDialog(candidates.Select(c => c.Name).ToList());
+                if (selectionDialog.ShowDialog() != true)
+                    return;
+
+                var selected = candidates[selectionDialog.SelectedIndex];
+
+                var bodyPath = ExternalLiveryXmlImportHelper.GetTexturePath(selected.LiveryOverrideNode, "BODY");
+                if (!string.IsNullOrEmpty(bodyPath))
+                {
+                    string fullPath = ExternalLiveryXmlImportHelper.ResolveXmlRelativePath(xmlDirectory, bodyPath);
+                    string fileName = Path.GetFileName(bodyPath);
+                    string destKey = $"external_liveries/car_liveries/{_teamId}/{fileName}";
+
+                    Driver1LiveryTextBox.Text = destKey;
+                    Driver2LiveryTextBox.Text = destKey;
+                    _textureFiles[destKey] = fullPath;
+
+                    string sourcePath = ExternalLiveryXmlImportHelper.ComputeExternalSourcePath(xmlDirectory, fullPath);
+                    _externalLiveriesConfig.Entries.RemoveAll(en =>
+                        string.Equals(en.DestinationPath, destKey, StringComparison.OrdinalIgnoreCase));
+                    _externalLiveriesConfig.Entries.Add(new ExternalLiveriesEntry
+                    {
+                        SourcePath = sourcePath,
+                        DestinationPath = destKey
+                    });
+                }
+
+                var previewPath = ExternalLiveryXmlImportHelper.GetPreviewImagePath(selected.LiveryOverrideNode);
+                if (!string.IsNullOrEmpty(previewPath))
+                {
+                    string fullPath = ExternalLiveryXmlImportHelper.ResolveXmlRelativePath(xmlDirectory, previewPath);
+                    string fileName = Path.GetFileName(previewPath);
+                    string destKey = $"external_liveries/previews/{_teamId}/{fileName}";
+
+                    LiveryPreviewTextBox.Text = destKey;
+                    _textureFiles[destKey] = fullPath;
+
+                    string sourcePath = ExternalLiveryXmlImportHelper.ComputeExternalSourcePath(xmlDirectory, fullPath);
+                    _externalLiveriesConfig.Entries.RemoveAll(en =>
+                        string.Equals(en.DestinationPath, destKey, StringComparison.OrdinalIgnoreCase));
+                    _externalLiveriesConfig.Entries.Add(new ExternalLiveriesEntry
+                    {
+                        SourcePath = sourcePath,
+                        DestinationPath = destKey
+                    });
+                }
+
+                UpdateDriver1LiverySourceLabel();
+                UpdateDriver2LiverySourceLabel();
+                UpdateLiveryPreviewSourceLabel();
+                LoadExternalOverrideState();
+
+                MessageBox.Show($"Successfully imported external livery '{selected.Name}' from XML file.",
+                    "Import Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error importing external livery from XML: {ex.Message}",
+                    "Import Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         #endregion
