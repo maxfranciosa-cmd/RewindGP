@@ -55,7 +55,8 @@ namespace AMS2ChEd.SeasonPackEditor
                 Drivers = new List<Ams2DriverData>(),
                 TextureFiles = new Dictionary<string, string>(),
                 XmlFiles = new Dictionary<string, string>(),
-                StaticAssetFiles = new List<StaticAssetFile>()
+                StaticAssetFiles = new List<StaticAssetFile>(),
+                Accolades = new HistoricalAccolades { DriverAccolades = new(), TeamsAccolades = new() }
             };
 
             RefreshUI();
@@ -114,6 +115,19 @@ namespace AMS2ChEd.SeasonPackEditor
             // Teams
             TeamsDataGrid.ItemsSource = null;
             TeamsDataGrid.ItemsSource = _currentProject.Season.Teams;
+
+            // Accolades
+            _currentProject.Accolades ??= new HistoricalAccolades { DriverAccolades = new(), TeamsAccolades = new() };
+            _currentProject.Accolades.DriverAccolades ??= new();
+            _currentProject.Accolades.TeamsAccolades ??= new();
+
+            AccoladesDriversDataGrid.ItemsSource = _currentProject.Drivers
+                .Select(d => new DriverAccoladeDisplayModel(d.DriverId, d.Name, _currentProject.Accolades.DriverAccolades))
+                .ToList();
+
+            AccoladesTeamsDataGrid.ItemsSource = _currentProject.Season.Teams
+                .Select(t => new TeamAccoladeDisplayModel(t.TeamId, t.TeamName, _currentProject.Accolades.TeamsAccolades))
+                .ToList();
 
             // Absences
             var absencesWithFlag = _currentProject.Season.Absences.Select(a => new
@@ -1304,6 +1318,10 @@ namespace AMS2ChEd.SeasonPackEditor
                 var driversJson = JsonSerializer.Serialize(driversDb, DefaultJsonSerializerOptions.Instance);
                 File.WriteAllText(Path.Combine(tempDir, "drivers.json"), driversJson);
 
+                // Export accolades JSON
+                var accoladesJson = JsonSerializer.Serialize(_currentProject.Accolades, DefaultJsonSerializerOptions.Instance);
+                File.WriteAllText(Path.Combine(tempDir, "accolades.json"), accoladesJson);
+
                 // Build set of destination paths declared as external (won't be bundled)
                 var externalDestPaths = (_currentProject.ExternalLiveriesConfig?.Entries ?? new List<ExternalLiveriesEntry>())
                     .Select(ex => ex.DestinationPath)
@@ -1696,6 +1714,7 @@ namespace AMS2ChEd.SeasonPackEditor
             public List<StaticAssetFile> StaticAssetFiles { get; set; } // Files to copy to static_assets folder
             public List<ScenarioEntry> Scenarios { get; set; } = new List<ScenarioEntry>();
             public ExternalLiveriesConfig ExternalLiveriesConfig { get; set; } = new();
+            public HistoricalAccolades Accolades { get; set; } = new() { DriverAccolades = new(), TeamsAccolades = new() };
         }
 
         /// <summary>
@@ -1965,6 +1984,125 @@ namespace AMS2ChEd.SeasonPackEditor
             public string SizeFormatted { get; set; }
         }
 
+        /// <summary>
+        /// Editable grid row backed directly by an Accolades dictionary entry (keyed by driver/team id,
+        /// created lazily on first write). Unlike DriverDisplayModel, the getters always re-derive from
+        /// the underlying entry and setters only write through when the input validates, so an invalid
+        /// edit visibly reverts instead of silently sitting in the cell.
+        /// </summary>
+        public abstract class AccoladeDisplayModelBase : INotifyPropertyChanged
+        {
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            public string Id { get; }
+            public string Name { get; }
+            private readonly Dictionary<string, Accolades> _store;
+
+            protected AccoladeDisplayModelBase(string id, string name, Dictionary<string, Accolades> store)
+            {
+                Id = id;
+                Name = name;
+                _store = store;
+            }
+
+            private Accolades Entry
+            {
+                get
+                {
+                    if (!_store.TryGetValue(Id, out var entry))
+                    {
+                        entry = new Accolades();
+                        _store[Id] = entry;
+                    }
+                    return entry;
+                }
+            }
+
+            public string Wins
+            {
+                get => Entry.Wins.ToString();
+                set
+                {
+                    if (int.TryParse(value, out int v) && v >= 0)
+                        Entry.Wins = v;
+                    OnPropertyChanged(nameof(Wins));
+                }
+            }
+
+            public string Podiums
+            {
+                get => Entry.Podiums.ToString();
+                set
+                {
+                    if (int.TryParse(value, out int v) && v >= 0)
+                        Entry.Podiums = v;
+                    OnPropertyChanged(nameof(Podiums));
+                }
+            }
+
+            public string Poles
+            {
+                get => Entry.PolePositions.ToString();
+                set
+                {
+                    if (int.TryParse(value, out int v) && v >= 0)
+                        Entry.PolePositions = v;
+                    OnPropertyChanged(nameof(Poles));
+                }
+            }
+
+            public string Championships
+            {
+                get => string.Join(", ", Entry.Championships.OrderBy(y => y));
+                set
+                {
+                    var tokens = (value ?? "").Split(',')
+                        .Select(t => t.Trim())
+                        .Where(t => t.Length > 0)
+                        .ToList();
+
+                    var years = new List<int>();
+                    bool allValid = true;
+                    foreach (var token in tokens)
+                    {
+                        if (int.TryParse(token, out int year) && year >= 0)
+                            years.Add(year);
+                        else
+                        {
+                            allValid = false;
+                            break;
+                        }
+                    }
+
+                    if (allValid)
+                        Entry.Championships = years;
+
+                    OnPropertyChanged(nameof(Championships));
+                }
+            }
+
+            protected void OnPropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public class DriverAccoladeDisplayModel : AccoladeDisplayModelBase
+        {
+            public DriverAccoladeDisplayModel(string driverId, string name, Dictionary<string, Accolades> store)
+                : base(driverId, name, store)
+            {
+            }
+        }
+
+        public class TeamAccoladeDisplayModel : AccoladeDisplayModelBase
+        {
+            public TeamAccoladeDisplayModel(string teamId, string teamName, Dictionary<string, Accolades> store)
+                : base(teamId, teamName, store)
+            {
+            }
+        }
+
         #endregion
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -1984,6 +2122,89 @@ namespace AMS2ChEd.SeasonPackEditor
                 _currentProject.Season.Teams = convertedResult.Teams;
                 _currentProject.Season.Year = convertedResult.Year;
                 RefreshUI();
+            }
+        }
+
+        private async void ImportAccoladesFromJolpica_Click(object sender, RoutedEventArgs e)
+        {
+            await RunAccoladesImportAsync(_currentProject.Drivers, _currentProject.Season.Teams);
+        }
+
+        private async void ImportSelectedAccoladesFromJolpica_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedDriverIds = AccoladesDriversDataGrid.SelectedItems
+                .Cast<DriverAccoladeDisplayModel>()
+                .Select(m => m.Id)
+                .ToHashSet();
+
+            var selectedTeamIds = AccoladesTeamsDataGrid.SelectedItems
+                .Cast<TeamAccoladeDisplayModel>()
+                .Select(m => m.Id)
+                .ToHashSet();
+
+            if (selectedDriverIds.Count == 0 && selectedTeamIds.Count == 0)
+            {
+                MessageBox.Show("Select one or more drivers/teams in the grids below first.", "Import Selected Accolades", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var drivers = _currentProject.Drivers.Where(d => selectedDriverIds.Contains(d.DriverId)).ToList();
+            var teams = _currentProject.Season.Teams.Where(t => selectedTeamIds.Contains(t.TeamId)).ToList();
+
+            await RunAccoladesImportAsync(drivers, teams);
+        }
+
+        private async Task RunAccoladesImportAsync(List<Ams2DriverData> drivers, IEnumerable<ITeamEntry> teams)
+        {
+            if (_currentProject.Season.Year <= 0)
+            {
+                MessageBox.Show("Set a season Year on the General tab first.", "Import Accolades", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            ImportAccoladesButton.IsEnabled = false;
+            ImportSelectedAccoladesButton.IsEnabled = false;
+            var previousStatus = StatusTextBlock.Text;
+            StatusTextBlock.Text = "Importing accolades from Jolpica...";
+
+            try
+            {
+                var importService = new JolpicaAccoladesImportService();
+                var result = await importService.ImportAsync(_currentProject.Season.Year, drivers, teams);
+
+                foreach (var entry in result.DriverAccolades)
+                {
+                    _currentProject.Accolades.DriverAccolades[entry.Key] = entry.Value;
+                }
+
+                foreach (var entry in result.TeamAccolades)
+                {
+                    _currentProject.Accolades.TeamsAccolades[entry.Key] = entry.Value;
+                }
+
+                RefreshUI();
+
+                var summary = $"Imported accolades for {result.DriverAccolades.Count} driver(s) and {result.TeamAccolades.Count} team(s).";
+                if (result.UnmatchedDriverNames.Count > 0)
+                {
+                    summary += $"\n\nNo Jolpica match found for drivers: {string.Join(", ", result.UnmatchedDriverNames)}";
+                }
+                if (result.UnmatchedTeamNames.Count > 0)
+                {
+                    summary += $"\n\nNo Jolpica match found for teams: {string.Join(", ", result.UnmatchedTeamNames)}";
+                }
+
+                MessageBox.Show(summary, "Import from Jolpica", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error importing accolades from Jolpica: {ex.Message}", "Import Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                ImportAccoladesButton.IsEnabled = true;
+                ImportSelectedAccoladesButton.IsEnabled = true;
+                StatusTextBlock.Text = previousStatus;
             }
         }
     }

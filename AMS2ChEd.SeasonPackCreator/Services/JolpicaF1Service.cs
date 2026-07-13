@@ -1,9 +1,12 @@
-﻿using System;
+﻿using AMS2ChEd.Business.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AMS2ChEd.Business.Services
@@ -15,7 +18,51 @@ namespace AMS2ChEd.Business.Services
     public class JolpicaF1Service
     {
         private const string BASE_URL = "https://api.jolpi.ca/ergast/f1";
+        private const int PAGE_SIZE = 100;
+        private const int MaxRetries = 6;
         private static readonly HttpClient _httpClient = new HttpClient();
+
+        // Jolpica enforces a hard cap of ~4 req/sec. Since ImportAsync fans out several
+        // drivers/teams concurrently (each doing multiple sequential calls), concurrency
+        // limits alone don't stop bursts — every request is funneled through this gate
+        // so the *actual* dispatch rate stays under the limit regardless of caller count.
+        private static readonly SemaphoreSlim _rateGate = new SemaphoreSlim(1, 1);
+        private static readonly TimeSpan _minRequestInterval = TimeSpan.FromMilliseconds(300);
+        private static DateTime _lastRequestUtc = DateTime.MinValue;
+
+        private static async Task<string> GetWithRetryAsync(string url)
+        {
+            var backoff = TimeSpan.FromMilliseconds(500);
+
+            for (int attempt = 0; ; attempt++)
+            {
+                await _rateGate.WaitAsync();
+                try
+                {
+                    var wait = _minRequestInterval - (DateTime.UtcNow - _lastRequestUtc);
+                    if (wait > TimeSpan.Zero)
+                        await Task.Delay(wait);
+                    _lastRequestUtc = DateTime.UtcNow;
+                }
+                finally
+                {
+                    _rateGate.Release();
+                }
+
+                using var response = await _httpClient.GetAsync(url);
+
+                if (response.StatusCode == HttpStatusCode.TooManyRequests && attempt < MaxRetries)
+                {
+                    var retryAfter = response.Headers.RetryAfter?.Delta ?? backoff;
+                    await Task.Delay(retryAfter);
+                    backoff += backoff;
+                    continue;
+                }
+
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
 
         /// <summary>
         /// Import complete season data: races, drivers, teams, and driver-team assignments
@@ -53,7 +100,7 @@ namespace AMS2ChEd.Business.Services
         private async Task<List<JolpicaRace>> FetchRacesAsync(int year)
         {
             var url = $"{BASE_URL}/{year}.json?limit=100";
-            var response = await _httpClient.GetStringAsync(url);
+            var response = await GetWithRetryAsync(url);
             var data = JsonSerializer.Deserialize<JolpicaRootResponse<JolpicaRaceTable>>(response);
 
             return data?.MRData?.RaceTable?.Races ?? new List<JolpicaRace>();
@@ -62,10 +109,10 @@ namespace AMS2ChEd.Business.Services
         /// <summary>
         /// Fetch all drivers who participated in the season
         /// </summary>
-        private async Task<List<JolpicaDriver>> FetchDriversAsync(int year)
+        public async Task<List<JolpicaDriver>> FetchDriversAsync(int year)
         {
             var url = $"{BASE_URL}/{year}/drivers.json?limit=100";
-            var response = await _httpClient.GetStringAsync(url);
+            var response = await GetWithRetryAsync(url);
             var data = JsonSerializer.Deserialize<JolpicaRootResponse<JolpicaDriverTable>>(response);
 
             return data?.MRData?.DriverTable?.Drivers ?? new List<JolpicaDriver>();
@@ -74,13 +121,221 @@ namespace AMS2ChEd.Business.Services
         /// <summary>
         /// Fetch all constructors/teams for the season
         /// </summary>
-        private async Task<List<JolpicaConstructor>> FetchConstructorsAsync(int year)
+        public async Task<List<JolpicaConstructor>> FetchConstructorsAsync(int year)
         {
             var url = $"{BASE_URL}/{year}/constructors.json?limit=100";
-            var response = await _httpClient.GetStringAsync(url);
+            var response = await GetWithRetryAsync(url);
             var data = JsonSerializer.Deserialize<JolpicaRootResponse<JolpicaConstructorTable>>(response);
 
             return data?.MRData?.ConstructorTable?.Constructors ?? new List<JolpicaConstructor>();
+        }
+
+        /// <summary>
+        /// Fetch a driver's full career race results (all seasons), paginated.
+        /// </summary>
+        private async Task<List<JolpicaRace>> FetchDriverResultsAsync(string driverId)
+        {
+            return await FetchAllRacePagesAsync($"{BASE_URL}/drivers/{driverId}/results.json",
+                data => data?.RaceTable?.Races ?? new List<JolpicaRace>());
+        }
+
+        /// <summary>
+        /// Fetch all of a driver's pole positions (qualifying P1), paginated.
+        /// </summary>
+        private async Task<List<JolpicaRace>> FetchDriverPolesAsync(string driverId)
+        {
+            return await FetchAllRacePagesAsync($"{BASE_URL}/drivers/{driverId}/qualifying/1.json",
+                data => data?.RaceTable?.Races ?? new List<JolpicaRace>());
+        }
+
+        /// <summary>
+        /// Fetch every season where the driver finished P1 in the championship, strictly before
+        /// beforeYear. Jolpica/Ergast standings endpoints require a season in the URL (there is no
+        /// career-wide "driverStandings" query like there is for results/qualifying), so this fetches
+        /// the driver's list of seasons raced and then checks the final standings for each one.
+        /// </summary>
+        private async Task<List<int>> FetchDriverChampionshipsAsync(string driverId, int beforeYear)
+        {
+            var seasons = await FetchDriverSeasonsAsync(driverId);
+            var championships = new List<int>();
+
+            foreach (var season in seasons.Where(s => s < beforeYear))
+            {
+                var url = $"{BASE_URL}/{season}/drivers/{driverId}/driverStandings.json";
+                var response = await GetWithRetryAsync(url);
+                var data = JsonSerializer.Deserialize<JolpicaRootResponse<JolpicaStandingsTable>>(response);
+                var standing = data?.MRData?.StandingsTable?.StandingsLists?.FirstOrDefault()?.DriverStandings?.FirstOrDefault();
+
+                if (standing?.Position == "1")
+                    championships.Add(season);
+            }
+
+            return championships;
+        }
+
+        /// <summary>
+        /// Fetch all seasons a driver has raced in, paginated.
+        /// </summary>
+        private async Task<List<int>> FetchDriverSeasonsAsync(string driverId)
+        {
+            return await FetchAllSeasonsAsync($"{BASE_URL}/drivers/{driverId}/seasons.json");
+        }
+
+        /// <summary>
+        /// Fetch a constructor's full career race results (all seasons), paginated.
+        /// </summary>
+        private async Task<List<JolpicaRace>> FetchConstructorResultsAsync(string constructorId)
+        {
+            return await FetchAllRacePagesAsync($"{BASE_URL}/constructors/{constructorId}/results.json",
+                data => data?.RaceTable?.Races ?? new List<JolpicaRace>());
+        }
+
+        /// <summary>
+        /// Fetch all of a constructor's pole positions (qualifying P1), paginated.
+        /// </summary>
+        private async Task<List<JolpicaRace>> FetchConstructorPolesAsync(string constructorId)
+        {
+            return await FetchAllRacePagesAsync($"{BASE_URL}/constructors/{constructorId}/qualifying/1.json",
+                data => data?.RaceTable?.Races ?? new List<JolpicaRace>());
+        }
+
+        /// <summary>
+        /// Fetch every season where the constructor finished P1 in the championship, strictly before
+        /// beforeYear. See <see cref="FetchDriverChampionshipsAsync"/> for why this is per-season.
+        /// </summary>
+        private async Task<List<int>> FetchConstructorChampionshipsAsync(string constructorId, int beforeYear)
+        {
+            var seasons = await FetchConstructorSeasonsAsync(constructorId);
+            var championships = new List<int>();
+
+            foreach (var season in seasons.Where(s => s < beforeYear))
+            {
+                var url = $"{BASE_URL}/{season}/constructors/{constructorId}/constructorStandings.json";
+                var response = await GetWithRetryAsync(url);
+                var data = JsonSerializer.Deserialize<JolpicaRootResponse<JolpicaStandingsTable>>(response);
+                var standing = data?.MRData?.StandingsTable?.StandingsLists?.FirstOrDefault()?.ConstructorStandings?.FirstOrDefault();
+
+                if (standing?.Position == "1")
+                    championships.Add(season);
+            }
+
+            return championships;
+        }
+
+        /// <summary>
+        /// Fetch all seasons a constructor has competed in, paginated.
+        /// </summary>
+        private async Task<List<int>> FetchConstructorSeasonsAsync(string constructorId)
+        {
+            return await FetchAllSeasonsAsync($"{BASE_URL}/constructors/{constructorId}/seasons.json");
+        }
+
+        /// <summary>
+        /// Generic pager for RaceTable-shaped endpoints (results/qualifying), following the
+        /// limit/offset/total pagination Ergast-compatible APIs use.
+        /// </summary>
+        private async Task<List<JolpicaRace>> FetchAllRacePagesAsync(string baseUrl, Func<JolpicaMRData<JolpicaRaceTable>, List<JolpicaRace>> selector)
+        {
+            var races = new List<JolpicaRace>();
+            int offset = 0;
+            int total = int.MaxValue;
+
+            while (offset < total)
+            {
+                var url = $"{baseUrl}?limit={PAGE_SIZE}&offset={offset}";
+                var response = await GetWithRetryAsync(url);
+                var data = JsonSerializer.Deserialize<JolpicaRootResponse<JolpicaRaceTable>>(response);
+
+                races.AddRange(selector(data?.MRData));
+
+                total = int.TryParse(data?.MRData?.Total, out int t) ? t : races.Count;
+                offset += PAGE_SIZE;
+            }
+
+            return races;
+        }
+
+        /// <summary>
+        /// Generic pager for SeasonTable-shaped endpoints (drivers/constructors "seasons").
+        /// </summary>
+        private async Task<List<int>> FetchAllSeasonsAsync(string baseUrl)
+        {
+            var seasons = new List<int>();
+            int offset = 0;
+            int total = int.MaxValue;
+
+            while (offset < total)
+            {
+                var url = $"{baseUrl}?limit={PAGE_SIZE}&offset={offset}";
+                var response = await GetWithRetryAsync(url);
+                var data = JsonSerializer.Deserialize<JolpicaRootResponse<JolpicaSeasonTable>>(response);
+
+                seasons.AddRange((data?.MRData?.SeasonTable?.Seasons ?? new List<JolpicaSeasonRef>())
+                    .Select(s => int.TryParse(s.Season, out int y) ? y : -1)
+                    .Where(y => y >= 0));
+
+                total = int.TryParse(data?.MRData?.Total, out int t) ? t : seasons.Count;
+                offset += PAGE_SIZE;
+            }
+
+            return seasons;
+        }
+
+        /// <summary>
+        /// Computes a driver's career Wins/Podiums/PolePositions/Championships accrued strictly
+        /// before beforeYear (i.e. the state of their record at the start of that season).
+        /// </summary>
+        public async Task<Accolades> GetDriverCareerAccoladesBeforeSeasonAsync(string jolpicaDriverId, int beforeYear)
+        {
+            var results = await FetchDriverResultsAsync(jolpicaDriverId);
+            var poles = await FetchDriverPolesAsync(jolpicaDriverId);
+            var championships = await FetchDriverChampionshipsAsync(jolpicaDriverId, beforeYear);
+
+            return BuildAccolades(results, poles, championships, beforeYear);
+        }
+
+        /// <summary>
+        /// Computes a constructor's career Wins/Podiums/PolePositions/Championships accrued
+        /// strictly before beforeYear (i.e. the state of their record at the start of that season).
+        /// </summary>
+        public async Task<Accolades> GetConstructorCareerAccoladesBeforeSeasonAsync(string jolpicaConstructorId, int beforeYear)
+        {
+            var results = await FetchConstructorResultsAsync(jolpicaConstructorId);
+            var poles = await FetchConstructorPolesAsync(jolpicaConstructorId);
+            var championships = await FetchConstructorChampionshipsAsync(jolpicaConstructorId, beforeYear);
+
+            return BuildAccolades(results, poles, championships, beforeYear);
+        }
+
+        private Accolades BuildAccolades(List<JolpicaRace> results, List<JolpicaRace> poles, List<int> championships, int beforeYear)
+        {
+            var accolades = new Accolades();
+
+            foreach (var race in results)
+            {
+                if (!int.TryParse(race.Season, out int season) || season >= beforeYear)
+                    continue;
+
+                foreach (var result in race.Results ?? new List<JolpicaResult>())
+                {
+                    if (!int.TryParse(result.Position, out int position))
+                        continue;
+
+                    if (position == 1) accolades.Wins++;
+                    if (position <= 3) accolades.Podiums++;
+                }
+            }
+
+            foreach (var race in poles)
+            {
+                if (int.TryParse(race.Season, out int season) && season < beforeYear)
+                    accolades.PolePositions++;
+            }
+
+            accolades.Championships.AddRange(championships);
+            accolades.Championships.Sort();
+
+            return accolades;
         }
 
         /// <summary>
@@ -89,7 +344,7 @@ namespace AMS2ChEd.Business.Services
         private async Task<List<JolpicaResult>> FetchFirstRaceResultsAsync(int year)
         {
             var url = $"{BASE_URL}/{year}/1/results.json?limit=100";
-            var response = await _httpClient.GetStringAsync(url);
+            var response = await GetWithRetryAsync(url);
             var data = JsonSerializer.Deserialize<JolpicaRootResponse<JolpicaRaceTable>>(response);
 
             var firstRace = data?.MRData?.RaceTable?.Races?.FirstOrDefault();
@@ -136,6 +391,12 @@ namespace AMS2ChEd.Business.Services
 
         [JsonPropertyName("ConstructorTable")]
         public T ConstructorTable { get; set; }
+
+        [JsonPropertyName("StandingsTable")]
+        public T StandingsTable { get; set; }
+
+        [JsonPropertyName("SeasonTable")]
+        public T SeasonTable { get; set; }
     }
 
     public class JolpicaRaceTable
@@ -271,6 +532,58 @@ namespace AMS2ChEd.Business.Services
 
         [JsonPropertyName("Constructor")]
         public JolpicaConstructor Constructor { get; set; }
+    }
+
+    /// <summary>
+    /// Root of a per-season driverStandings/constructorStandings response (Jolpica requires a
+    /// season in the URL for standings queries — there's no career-wide equivalent).
+    /// </summary>
+    public class JolpicaStandingsTable
+    {
+        [JsonPropertyName("season")]
+        public string Season { get; set; }
+
+        [JsonPropertyName("StandingsLists")]
+        public List<JolpicaStandingsList> StandingsLists { get; set; }
+    }
+
+    public class JolpicaStandingsList
+    {
+        [JsonPropertyName("season")]
+        public string Season { get; set; }
+
+        [JsonPropertyName("round")]
+        public string Round { get; set; }
+
+        [JsonPropertyName("DriverStandings")]
+        public List<JolpicaDriverStanding> DriverStandings { get; set; }
+
+        [JsonPropertyName("ConstructorStandings")]
+        public List<JolpicaConstructorStanding> ConstructorStandings { get; set; }
+    }
+
+    public class JolpicaDriverStanding
+    {
+        [JsonPropertyName("position")]
+        public string Position { get; set; }
+    }
+
+    public class JolpicaConstructorStanding
+    {
+        [JsonPropertyName("position")]
+        public string Position { get; set; }
+    }
+
+    public class JolpicaSeasonTable
+    {
+        [JsonPropertyName("Seasons")]
+        public List<JolpicaSeasonRef> Seasons { get; set; }
+    }
+
+    public class JolpicaSeasonRef
+    {
+        [JsonPropertyName("season")]
+        public string Season { get; set; }
     }
 
     #endregion
