@@ -1202,7 +1202,18 @@ namespace AMS2ChEd.SeasonPackEditor
                     });
                 }
 
-                // 8. XML content: USER_OVERRIDES containing the LIVERY_OVERRIDE/HELMET_OVERRIDE/OUTFIT_OVERRIDE nodes
+                // 8. static texture to import (e.g. wheel spec and diff, outfit, etc.)
+                var staticTexturePaths = ExternalLiveryXmlImportHelper.GetStaticExternalTexturesToLoad(xmlDoc, liveryId);
+
+                _externalLiveriesConfig.Entries.AddRange(
+                    staticTexturePaths.Select(path => new ExternalLiveriesEntry
+                    {
+                        SourcePath = ExternalLiveryXmlImportHelper.ComputeExternalSourcePath(xmlDirectory, path),
+                        DestinationPath = $"static_assets\\veichles\\Textures\\CustomLiveries\\Overrides\\${_team.Ams2Car}\\{path}"
+                    })
+                );
+
+                // 9. XML content: USER_OVERRIDES containing the LIVERY_OVERRIDE/HELMET_OVERRIDE/OUTFIT_OVERRIDE nodes
                 XmlContentTextBox.Text = ExternalLiveryXmlImportHelper.BuildUserOverridesXml(xmlDoc, liveryId);
 
                 UpdateBaseLiveryDriver1SourceLabel();

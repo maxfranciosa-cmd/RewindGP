@@ -94,5 +94,36 @@ namespace AMS2ChEd.SeasonPackEditor
 
             return root.ToString();
         }
+
+        /// <summary>
+        /// returns a list of all the relative paths to external textures referenced in the
+        /// xml document for that livery inside any "TEXTURE" elements for that specific liveryid.
+        /// this is used for any static texture (so no livery, helmet or preview).
+        /// </summary>
+        public static string[] GetStaticExternalTexturesToLoad(XDocument xmlDoc, string liveryId)
+        {
+            var root = new XElement("USER_OVERRIDES");
+            var result = new List<string>();
+
+            var liveryOverride = xmlDoc.Descendants("LIVERY_OVERRIDE")
+                .FirstOrDefault(node => node.Attribute("LIVERY")?.Value == liveryId);
+            if (liveryOverride != null)
+            {
+                result.AddRange(liveryOverride.Descendants("TEXTURE")
+                    .Where(t => t.Attribute("PATH")?.Value != null && t.Attribute("NAME")?.Value != "BODY")
+                    .Select(t => t.Attribute("PATH").Value));
+            }
+
+            var outfitOverride = xmlDoc.Descendants("OUTFIT_OVERRIDE")
+                .FirstOrDefault(node => node.Attribute("LIVERY")?.Value == liveryId);
+            if (outfitOverride != null)
+            {
+                result.AddRange(outfitOverride.Descendants("TEXTURE")
+                    .Where(t => t.Attribute("PATH")?.Value != null)
+                    .Select(t => t.Attribute("PATH").Value));
+            }
+
+            return result.ToArray();
+        }
     }
 }
