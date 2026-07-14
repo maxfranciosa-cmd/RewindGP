@@ -30,6 +30,7 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
             List<IDriverData> seasonDrivers);
 
         void LoadGame(ISaveGame saveGame);
+        void UpdateSeasonInsideSave(ISaveGame saveGame);
         void ProgressToNextGrandPrix();
         void CompleteGrandPrix(GrandPrixResult result);
     }

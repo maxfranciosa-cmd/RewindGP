@@ -419,8 +419,9 @@ namespace AMS2ChEd
 
                     if (result == SaveGameSeasonCheckerResult.NeedsRefresh)
                     {
-                        UpdateSave(saveGame);
-                    }                    
+                        System.Windows.MessageBox.Show("it seems that you've installed a new version of this season. we will update driver ratings, liveries, team names and driver names for the curren season.", "Mod out of date", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        _gameLogicFactory.GameEngine.UpdateSeasonInsideSave(saveGame);
+                    }
 
                     _gameLogicFactory.GameEngine.LoadGame(saveGame);
 
@@ -434,106 +435,6 @@ namespace AMS2ChEd
             {
                 System.Windows.MessageBox.Show($"Error loading the game: {ex.Message}",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }
-
-        private void UpdateSave(ISaveGame saveGame)
-        {
-            System.Windows.MessageBox.Show("it seems that you've installed a new version of this season. we will update driver ratings, liveries, team names and driver names for the curren season.", "Mod out of date", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-            var driversDict = _ams2StorageFactory.DriversLoader.LoadDrivers(saveGame.CurrentSeason.Year);
-            var updatedSeason = _ams2StorageFactory.SeasonLoader.LoadSeason(saveGame.CurrentSeason.Year);
-            var raceInfo = updatedSeason.Races.ToDictionary(r => r.RaceId);
-            var newDrivers = new List<IDriverData>();
-            var newTeamEntries = new List<ITeamEntry>();
-
-
-            foreach (var driverInSave in saveGame.Drivers)
-            {
-                var driverInDatabase = driversDict.GetValueOrDefault(driverInSave.DriverId);
-
-                if (driverInDatabase != null)
-                {
-                    var clonedDriver = driverInDatabase.DeepClone();
-
-                    // clone the driver but USE THE REPUTATION FROM CURRENT SAVE.
-                    clonedDriver.Reputation = driverInSave.Reputation;
-                    
-                    if (clonedDriver.DriverId == saveGame.PlayerData.DriverId)
-                    {
-                        saveGame.PlayerData.Name = clonedDriver.Name;
-                        saveGame.PlayerData.Nationality = clonedDriver.Nationality;
-                    }
-
-                    newDrivers.Add(clonedDriver);
-                }
-                else
-                {
-                    newDrivers.Add(driverInSave);
-                }
-            }
-
-            ((Ams2Season)saveGame.CurrentSeason).Ams2Class = ((Ams2Season)updatedSeason).Ams2Class;
-            var teamEntryDict = updatedSeason.Teams.DeepClone().ToDictionary(t => t.TeamId);
-
-            foreach (var teamEntry in saveGame.CurrentSeason.Teams)
-            {
-                var teamFromUpdatedSeason = teamEntryDict.GetValueOrDefault(teamEntry.TeamId);
-
-                if (teamFromUpdatedSeason != null)
-                {
-                    // just port the driver contracts.
-                    var driver1Contract = teamEntry.Driver1Contract;
-                    var driver2Contract = teamEntry.Driver2Contract;
-
-                    teamFromUpdatedSeason.Driver1Contract = teamEntry.Driver1Contract;
-                    teamFromUpdatedSeason.Driver2Contract = teamEntry.Driver2Contract;
-
-                    //update the flag "default prequalifying" (in case it was updated on merit)
-                    teamFromUpdatedSeason.DefaultPrequalifying = teamEntry.DefaultPrequalifying;
-
-                    newTeamEntries.Add(teamFromUpdatedSeason);
-
-                }
-                else
-                {
-                    newTeamEntries.Add(teamEntry);
-                }
-
-            }
-
-            saveGame.Drivers = newDrivers;
-            saveGame.CurrentSeason.Teams = newTeamEntries;
-
-            var newDriverNamesDict = newDrivers.ToDictionary(d => d.DriverId, d => d.Name);
-
-            // update driver names in historical standings
-            if(saveGame.HistoricalDriverStandings != null)
-            {
-                foreach (var year in saveGame.HistoricalDriverStandings)
-                {
-                    foreach (var driver in year.Standing)
-                    {
-                        if (newDriverNamesDict.ContainsKey(driver.DriverId))
-                        {
-                            driver.DriverName = newDriverNamesDict[driver.DriverId];
-                        }       
-                    }
-                }
-            }
-
-            foreach(var race in saveGame.CurrentSeason.Races)
-            {
-                var raceFromNewSeason = raceInfo.GetValueOrDefault(race.RaceId);
-
-                if(raceFromNewSeason != null) {
-                
-                    race.CoverPictureUrl = raceFromNewSeason.CoverPictureUrl ?? race.CoverPictureUrl;
-                    race.RaceDate = raceFromNewSeason.RaceDate ?? race.RaceDate;
-                    race.Circuit = raceFromNewSeason.Circuit;
-                    race.RaceName = raceFromNewSeason.RaceName;
-                    race.RaceShortName = raceFromNewSeason.RaceShortName ?? race.RaceShortName;
-                }
             }
         }
 
@@ -1086,12 +987,13 @@ namespace AMS2ChEd
                 var saveGame = System.Text.Json.JsonSerializer.Deserialize<SaveGame>(jsonContent, DefaultJsonSerializerOptions.Instance);
 
                 var result = _seasonChecker.CheckIfSaveGameNeedsRefresh(saveGame);
-                
+
                 if (result == SaveGameSeasonCheckerResult.NeedsRefresh)
                 {
-                    UpdateSave(saveGame);
+                    System.Windows.MessageBox.Show("it seems that you've installed a new version of this season. we will update driver ratings, liveries, team names and driver names for the curren season.", "Mod out of date", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _gameLogicFactory.GameEngine.UpdateSeasonInsideSave(saveGame);
                 }
-                
+
                 // Save the game
                 string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
                 string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);

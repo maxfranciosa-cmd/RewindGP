@@ -137,6 +137,139 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         }
 
         /// <summary>
+        /// Refreshes an existing save's current season against the now-installed season pack,
+        /// e.g. when a season was cloned from a previous year (no pack existed yet) and the real
+        /// pack for that year has since been installed.
+        /// </summary>
+        public void UpdateSeasonInsideSave(ISaveGame saveGame)
+        {
+            var currentYear = saveGame.CurrentSeason.Year;
+            var updatedSeason = LoadUpdatedSeasonForRefresh(currentYear);
+
+            if (updatedSeason == null)
+                return;
+
+            var driversDict = LoadUpdatedDriversForRefresh(currentYear);
+            var newDrivers = new List<IDriverData>();
+
+            foreach (var driverInSave in saveGame.Drivers)
+            {
+                var driverInDatabase = driversDict.GetValueOrDefault(driverInSave.DriverId);
+
+                if (driverInDatabase != null)
+                {
+                    // clone the driver but USE THE REPUTATION FROM CURRENT SAVE.
+                    var clonedDriver = driverInDatabase.DeepClone();
+                    clonedDriver.Reputation = driverInSave.Reputation;
+
+                    if (clonedDriver.DriverId == saveGame.PlayerData.DriverId)
+                    {
+                        saveGame.PlayerData.Name = clonedDriver.Name;
+                        saveGame.PlayerData.Nationality = clonedDriver.Nationality;
+                    }
+
+                    newDrivers.Add(clonedDriver);
+                }
+                else
+                {
+                    newDrivers.Add(driverInSave);
+                }
+            }
+
+            ApplyConcreteSeasonUpdates(saveGame.CurrentSeason, updatedSeason);
+
+            var teamEntryDict = updatedSeason.Teams.DeepClone().ToDictionary(t => t.TeamId);
+            var newTeamEntries = new List<ITeamEntry>();
+
+            foreach (var teamEntry in saveGame.CurrentSeason.Teams)
+            {
+                var teamFromUpdatedSeason = teamEntryDict.GetValueOrDefault(teamEntry.TeamId);
+
+                if (teamFromUpdatedSeason != null)
+                {
+                    // just port the driver contracts.
+                    teamFromUpdatedSeason.Driver1Contract = teamEntry.Driver1Contract;
+                    teamFromUpdatedSeason.Driver2Contract = teamEntry.Driver2Contract;
+
+                    // update the flag "default prequalifying" (in case it was updated on merit)
+                    teamFromUpdatedSeason.DefaultPrequalifying = teamEntry.DefaultPrequalifying;
+
+                    ApplyConcreteTeamEntryUpdates(teamFromUpdatedSeason, updatedSeason.Year);
+
+                    newTeamEntries.Add(teamFromUpdatedSeason);
+                }
+                else
+                {
+                    newTeamEntries.Add(teamEntry);
+                }
+            }
+
+            saveGame.Drivers = newDrivers;
+            saveGame.CurrentSeason.Teams = newTeamEntries;
+
+            var newDriverNamesDict = newDrivers.ToDictionary(d => d.DriverId, d => d.Name);
+
+            // update driver names in historical standings
+            if (saveGame.HistoricalDriverStandings != null)
+            {
+                foreach (var year in saveGame.HistoricalDriverStandings)
+                {
+                    foreach (var driver in year.Standing)
+                    {
+                        if (newDriverNamesDict.ContainsKey(driver.DriverId))
+                        {
+                            driver.DriverName = newDriverNamesDict[driver.DriverId];
+                        }
+                    }
+                }
+            }
+
+            var raceInfo = updatedSeason.Races.ToDictionary(r => r.RaceId);
+            foreach (var race in saveGame.CurrentSeason.Races)
+            {
+                var raceFromNewSeason = raceInfo.GetValueOrDefault(race.RaceId);
+
+                if (raceFromNewSeason != null)
+                {
+                    race.CoverPictureUrl = raceFromNewSeason.CoverPictureUrl ?? race.CoverPictureUrl;
+                    race.RaceDate = raceFromNewSeason.RaceDate ?? race.RaceDate;
+                    race.Circuit = raceFromNewSeason.Circuit;
+                    race.RaceName = raceFromNewSeason.RaceName;
+                    race.RaceShortName = raceFromNewSeason.RaceShortName ?? race.RaceShortName;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loads the currently-installed season pack data for the given year, used to refresh a
+        /// save whose season was previously cloned/placeholder data. Returns null when there's
+        /// nothing to load (base game has no concept of on-disk season packs).
+        /// </summary>
+        protected virtual ISeason LoadUpdatedSeasonForRefresh(int year) => null;
+
+        /// <summary>
+        /// Loads the currently-installed driver ratings database for the given year, used to
+        /// refresh a save's drivers against the now-installed season pack.
+        /// </summary>
+        protected virtual Dictionary<string, IDriverData> LoadUpdatedDriversForRefresh(int year) => new();
+
+        /// <summary>
+        /// Hook for game-specific season-level fields that need to be copied over from the
+        /// freshly-loaded season pack onto the save's current season (e.g. AMS2's car class).
+        /// </summary>
+        protected virtual void ApplyConcreteSeasonUpdates(ISeason currentSeason, ISeason updatedSeason)
+        {
+        }
+
+        /// <summary>
+        /// Hook for game-specific per-team-entry fixups once a team entry has been refreshed from
+        /// the newly-installed season pack (e.g. AMS2 texture path rewriting).
+        /// </summary>
+        protected virtual void ApplyConcreteTeamEntryUpdates(ITeamEntry updatedTeamEntry, int updatedSeasonYear)
+        {
+        }
+
+        /// <summary>
         /// Progress to the next Grand Prix
         /// </summary>
         public void ProgressToNextGrandPrix()
