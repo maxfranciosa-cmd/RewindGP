@@ -606,6 +606,106 @@ namespace AMS2ChEd.Tests.Business.Services.RaceNumberSystem
         }
 
         [TestMethod]
+        public void AssignNumbersToCurrentSeason_ChampionNotRacing_NumberOneIsReservedNotGivenToOtherTeam()
+        {
+            // Arrange
+            var saveGame = CreateSaveGame();
+
+            // Previous year: champion (who will retire) won with team1
+            saveGame.HistoricalDriverStandings = new List<HistoricalDriverStanding>
+            {
+                CreateHistoricalDriverStanding(2024, new List<HisoricalDriverStandingEntry>
+                {
+                    CreateDriverStanding(1, "retired_champ_id", "team1", 100)
+                })
+            };
+
+            // Current year: team1 (champion's old team) continues unchanged
+            var team1 = CreateTeam("team1", "new_driver1", 27, "new_driver2", 28);
+
+            // Unrelated team2 had valid numbers last year (5, 6), but this year one seat
+            // was filled by a new signing whose contract hasn't had a number set yet (defaults to 0)
+            var team2 = CreateTeam("team2", "new_signing", 0, "driver4", 6);
+
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { team1, team2 };
+            saveGame.HistoricalConstructorStandings = new List<HistoricalConstructorStanding>
+            {
+                new HistoricalConstructorStanding
+                {
+                    Year = 2024,
+                    Standing = saveGame.CurrentSeason.Teams.Select(t =>
+                    new HistoricalConstructorStandingEntry
+                    {
+                        TeamId = t.TeamId,
+                    })
+                }
+            };
+
+            // Act
+            _service.AssignNumbersToCurrentSeason(saveGame);
+
+            // Assert - champion's old team still gets 0 and 2 (unchanged behavior)
+            Assert.AreEqual(0, team1.Driver1Contract.DriverNumber);
+            Assert.AreEqual(2, team1.Driver2Contract.DriverNumber);
+
+            // Assert - team2's new signing must NOT get the vacant champion number (1),
+            // it should get the next real available number instead
+            Assert.AreNotEqual(1, team2.Driver1Contract.DriverNumber);
+            Assert.AreEqual(3, team2.Driver1Contract.DriverNumber);
+
+            // Assert - team2's other, already-valid seat is untouched
+            Assert.AreEqual(6, team2.Driver2Contract.DriverNumber);
+        }
+
+        [TestMethod]
+        public void AssignNumbersToCurrentSeason_ChampionNotRacing_SwapsNumbersWithCurrentHolderOfOneAndTwo()
+        {
+            // Arrange
+            var saveGame = CreateSaveGame();
+
+            // Previous year: champion (who will retire) won with team1
+            saveGame.HistoricalDriverStandings = new List<HistoricalDriverStanding>
+            {
+                CreateHistoricalDriverStanding(2024, new List<HisoricalDriverStandingEntry>
+                {
+                    CreateDriverStanding(1, "retired_champ_id", "team1", 100)
+                })
+            };
+
+            // Current year: team1 (champion's old team) currently holds 5,6 (that year's own
+            // data), while an unrelated team2 currently holds 1,2 (that year's own data) -
+            // team2 has nothing to do with the championship and must not keep 1,2
+            var team1 = CreateTeam("team1", "new_driver1", 5, "new_driver2", 6);
+            var team2 = CreateTeam("team2", "driver3", 1, "driver4", 2);
+
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { team1, team2 };
+            saveGame.HistoricalConstructorStandings = new List<HistoricalConstructorStanding>
+            {
+                new HistoricalConstructorStanding
+                {
+                    Year = 2024,
+                    Standing = saveGame.CurrentSeason.Teams.Select(t =>
+                    new HistoricalConstructorStandingEntry
+                    {
+                        TeamId = t.TeamId,
+                    })
+                }
+            };
+
+            // Act
+            _service.AssignNumbersToCurrentSeason(saveGame);
+
+            // Assert - champion's old team gets 0 and 2
+            Assert.AreEqual(0, team1.Driver1Contract.DriverNumber);
+            Assert.AreEqual(2, team1.Driver2Contract.DriverNumber);
+
+            // Assert - team2 (which held 1,2) is swapped into team1's previous numbers (5,6),
+            // instead of incorrectly keeping 1,2
+            Assert.AreEqual(5, team2.Driver1Contract.DriverNumber);
+            Assert.AreEqual(6, team2.Driver2Contract.DriverNumber);
+        }
+
+        [TestMethod]
         public void AssignNumbersToCurrentSeason_EmptyStandingsList_KeepsExistingNumbers()
         {
             // Arrange

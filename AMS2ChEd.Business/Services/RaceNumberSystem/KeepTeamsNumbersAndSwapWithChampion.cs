@@ -117,20 +117,52 @@ namespace AMS2ChEd.Business.Services.RaceNumberSystem
                 var championOldTeam = saveGame.CurrentSeason.Teams
                     .FirstOrDefault(t => t.TeamId == previousChampion.TeamId);
 
+                // Find whichever team currently holds #1 or #2 (e.g. from that year's season data) -
+                // if it's a different team than the champion's old team, it needs to give up #1/#2
+                // and receive the champion's old team's previous numbers, mirroring the swap done
+                // when the champion is still racing.
+                var holderTeam = saveGame.CurrentSeason.Teams
+                    .FirstOrDefault(t => t.Driver1Contract.DriverNumber == 1 || t.Driver2Contract.DriverNumber == 1 ||
+                                       t.Driver1Contract.DriverNumber == 2 || t.Driver2Contract.DriverNumber == 2);
+
+                // #1 stays vacant this season (only #0/#2 substitute for the retired champion) -
+                // reserve it so it can't be handed out to an unrelated team below.
+                usedNumbers.Add(1);
+
                 if (championOldTeam != null)
                 {
+                    // Store the numbers the champion's old team currently has (before overwrite)
+                    int championTeamOldNumber1 = championOldTeam.Driver1Contract.DriverNumber;
+                    int championTeamOldNumber2 = championOldTeam.Driver2Contract.DriverNumber;
+
                     // Champion's old team gets #0 and #2
                     championOldTeam.Driver1Contract.DriverNumber = 0;
                     championOldTeam.Driver2Contract.DriverNumber = 2;
 
                     usedNumbers.Add(0);
                     usedNumbers.Add(2);
+
+                    // SWAP: give the team that held #1/#2 the champion's old team's previous numbers
+                    if (holderTeam != null && holderTeam.TeamId != championOldTeam.TeamId)
+                    {
+                        // Only swap if the old numbers were valid
+                        if (championTeamOldNumber1 > 0 && championTeamOldNumber1 <= 99 && championTeamOldNumber1 != 1 && championTeamOldNumber1 != 2)
+                        {
+                            holderTeam.Driver1Contract.DriverNumber = championTeamOldNumber1;
+                            usedNumbers.Add(championTeamOldNumber1);
+                        }
+                        if (championTeamOldNumber2 > 0 && championTeamOldNumber2 <= 99 && championTeamOldNumber2 != 1 && championTeamOldNumber2 != 2)
+                        {
+                            holderTeam.Driver2Contract.DriverNumber = championTeamOldNumber2;
+                            usedNumbers.Add(championTeamOldNumber2);
+                        }
+                    }
                 }
 
                 // All other teams keep their existing numbers
                 foreach (var team in saveGame.CurrentSeason.Teams)
                 {
-                    if (team.TeamId != championOldTeam?.TeamId)
+                    if (team.TeamId != championOldTeam?.TeamId && team.TeamId != holderTeam?.TeamId)
                     {
                         // Check if team has valid numbers
                         if (team.Driver1Contract.DriverNumber < 1 || team.Driver1Contract.DriverNumber > 99)
