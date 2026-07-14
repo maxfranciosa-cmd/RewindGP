@@ -8,6 +8,7 @@ using AMS2ChEd.Business.AMS2.GameLogic;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.AMS2.Services;
 using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
+using AMS2ChEd.Business.AMS2.Storage.Contracts;
 using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
@@ -57,6 +58,7 @@ namespace AMS2ChEd
             services.AddSingleton<ISeasonLoader, SeasonLoader>();
             services.AddSingleton<ITeamsLoader, TeamsLoader>();
             services.AddSingleton<IAccoladesLoader, AccoladesLoader>();
+            services.AddSingleton<ICarModelCapacityLoader, CarModelCapacityLoader>();
             // ********* MOCK LOADERS ************
             //services.AddSingleton<IDriversLoader<Ams2DriverData>, LoaderMocks199697>();
             //services.AddSingleton<ISeasonLoader<Ams2Season>, LoaderMocks199697>();

@@ -949,6 +949,9 @@
     <None Update="seasons_manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="CarModels\car_model_capacities.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="StaticFiles\rewind_gp_logo_128.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

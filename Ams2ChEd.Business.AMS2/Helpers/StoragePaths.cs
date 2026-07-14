@@ -90,6 +90,19 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             }
         }
 
+        private static string _carModelCapacitiesFilePath = null;
+        public static string CarModelCapacitiesFilePath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_carModelCapacitiesFilePath))
+                {
+                    _carModelCapacitiesFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CarModels", "car_model_capacities.json");
+                }
+                return _carModelCapacitiesFilePath;
+            }
+        }
+
         private static string _baseHelmetLiveriesPath = null;
         public static string BaseHelmetLiveriesPath
         {

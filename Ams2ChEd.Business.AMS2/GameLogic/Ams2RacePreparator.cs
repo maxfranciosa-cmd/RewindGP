@@ -2,6 +2,7 @@
 using Ams2ChEd.Business.AMS2.Services;
 using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
 using AMS2ChEd.Business.AMS2.Models;
+using AMS2ChEd.Business.AMS2.Storage.Contracts;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
@@ -11,9 +12,11 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
     public class Ams2RacePreparator : IRacePreparator
     {
         private IAms2AppSettingsStorage _ams2AppSettingsStorage;
-        public Ams2RacePreparator(IAms2AppSettingsStorage ams2AppSettingsStorage)
+        private ICarModelCapacityLoader _carModelCapacityLoader;
+        public Ams2RacePreparator(IAms2AppSettingsStorage ams2AppSettingsStorage, ICarModelCapacityLoader carModelCapacityLoader)
         {
             _ams2AppSettingsStorage = ams2AppSettingsStorage;
+            _carModelCapacityLoader = carModelCapacityLoader;
         }
 
         public void PrepareRace(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season)
@@ -39,12 +42,16 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             var seasonFilePath = StoragePaths.SeasonFilePath(season.OriginalYear ?? season.Year);
             var seasonFileDirectory = Path.GetDirectoryName(seasonFilePath);
             var ams2InstallationFolder = _ams2AppSettingsStorage.LoadSettings().Ams2Folder;
+            var ams2Class = ((Ams2Season)season).Ams2Class;
+
+            var modelCapacities = _carModelCapacityLoader.GetModelsForClass(ams2Class);
 
             var liveryService = new Ams2LiveryService(
                 season.Year,
-                ((Ams2Season)season).Ams2Class,
+                ams2Class,
                 drivers.Cast<Ams2DriverData>(),
-                season.Teams.Cast<Ams2TeamEntry>());
+                season.Teams.Cast<Ams2TeamEntry>(),
+                modelCapacities);
 
             return (liveryService, seasonFileDirectory, ams2InstallationFolder);
         }

@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.AMS2.Models;
+﻿using Ams2ChEd.Business.AMS2.Helpers;
+using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
@@ -18,6 +19,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         private readonly string ams2Class;
         private readonly Dictionary<string, Ams2TeamEntry> teamsDict;
         private readonly Dictionary<string, Ams2DriverData> driversDict;
+        private readonly IReadOnlyList<(string Model, int Slots)> modelCapacities;
 
         /// <summary>
         /// Initialize the LiveryService
@@ -25,17 +27,20 @@ namespace Ams2ChEd.Business.AMS2.Services
         /// <param name="driversJsonPath">Path to drivers.json</param>
         /// <param name="seasonJsonPath">Path to season.json</param>
         /// <param name="ddsComposerFunction">Function to compose DDS files: (baseHelmetPath, sponsorPath, outputPath) => outputPath</param>
+        /// <param name="modelCapacities">Ordered (model, slots) list for this class, or null if uncapped</param>
         public Ams2LiveryService(
             int seasonYear,
             string ams2Class,
             IEnumerable<Ams2DriverData> driversData,
-            IEnumerable<Ams2TeamEntry> teamsData)
+            IEnumerable<Ams2TeamEntry> teamsData,
+            IReadOnlyList<(string Model, int Slots)> modelCapacities = null)
         {
 
             this.driversData = driversData;
             this.seasonYear = seasonYear;
             this.teamsDict = teamsData.ToDictionary(t => t.TeamId);
             this.ams2Class = ams2Class;
+            this.modelCapacities = modelCapacities;
 
             // Create driver lookup dictionary
             driversDict = driversData.ToDictionary(d => d.DriverId, d => (Ams2DriverData)d);
@@ -332,8 +337,10 @@ namespace Ams2ChEd.Business.AMS2.Services
             string seasonDirectory)
         {
 
-            // Group entries by car model, per driver slot (driver1/driver2 may use different models)
-            var entriesByCarModel = new Dictionary<string, List<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber)>>();
+            // Group entries by car model, per driver slot (driver1/driver2 may use different models),
+            // while also tracking each slot's original position for deterministic overflow ordering.
+            var allItems = new List<SlotCapacityAllocator.Item<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber)>>();
+            int sequenceIndex = 0;
 
             foreach (var entry in raceEntryList)
             {
@@ -343,26 +350,60 @@ namespace Ams2ChEd.Business.AMS2.Services
                 if (!string.IsNullOrEmpty(entry.Driver1Id))
                 {
                     string carModel1 = team.GetAms2Car(1);
-                    if (!entriesByCarModel.ContainsKey(carModel1))
+                    allItems.Add(new SlotCapacityAllocator.Item<(EntryListEntry, Ams2TeamEntry, int)>
                     {
-                        entriesByCarModel[carModel1] = new List<(EntryListEntry, Ams2TeamEntry, int)>();
-                    }
-                    entriesByCarModel[carModel1].Add((entry, team, 1));
+                        Model = carModel1,
+                        SequenceIndex = sequenceIndex++,
+                        Payload = (entry, team, 1)
+                    });
                 }
 
                 if (!string.IsNullOrEmpty(entry.Driver2Id))
                 {
                     string carModel2 = team.GetAms2Car(2);
-                    if (!entriesByCarModel.ContainsKey(carModel2))
+                    allItems.Add(new SlotCapacityAllocator.Item<(EntryListEntry, Ams2TeamEntry, int)>
                     {
-                        entriesByCarModel[carModel2] = new List<(EntryListEntry, Ams2TeamEntry, int)>();
-                    }
-                    entriesByCarModel[carModel2].Add((entry, team, 2));
+                        Model = carModel2,
+                        SequenceIndex = sequenceIndex++,
+                        Payload = (entry, team, 2)
+                    });
+                }
+            }
+
+            // Determine the final per-model entry lists: when this class has no registered slot
+            // capacities, keep today's exact unbounded behavior. Otherwise, run the 3-pass allocator
+            // and mark any redirected/overflow entries so their liveries are forced to solid-colour.
+            Dictionary<string, List<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber, bool forceSolidColourFallback)>> finalEntriesByCarModel;
+
+            if (modelCapacities == null || modelCapacities.Count == 0)
+            {
+                finalEntriesByCarModel = allItems
+                    .GroupBy(i => i.Model)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => g.Select(i => (i.Payload.entry, i.Payload.team, i.Payload.driverNumber, false)).ToList());
+            }
+            else
+            {
+                var allocation = SlotCapacityAllocator.Allocate(allItems, modelCapacities);
+
+                foreach (var unplaced in allocation.Unplaceable)
+                {
+                    var (entry, team, driverNumber) = unplaced.Payload;
+                    Console.WriteLine($"Warning: no livery slot available anywhere in class '{ams2Class}' for team '{team.TeamId}' driver {driverNumber} (originally car model '{unplaced.Model}'). Skipping livery export for this driver in race {raceId}.");
+                }
+
+                finalEntriesByCarModel = new Dictionary<string, List<(EntryListEntry, Ams2TeamEntry, int, bool)>>();
+                foreach (var kv in allocation.AssignedByModel)
+                {
+                    finalEntriesByCarModel[kv.Key] = kv.Value
+                        .Select(item => (item.Payload.entry, item.Payload.team, item.Payload.driverNumber, item.Model != kv.Key))
+                        .ToList();
                 }
             }
 
             // Process each car model
-            foreach (var carModelGroup in entriesByCarModel)
+            foreach (var carModelGroup in finalEntriesByCarModel)
             {
                 string carModel = carModelGroup.Key;
                 var entries = carModelGroup.Value;
@@ -398,7 +439,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                 GenerateHelmetVisorDDSForCarModel(raceId, entries, temporaryTexturesPath, seasonDirectory);
 
                 // Process each driver slot assigned to this car model
-                foreach (var (entry, team, driverNumber) in entries)
+                foreach (var (entry, team, driverNumber, forceSolidColourFallback) in entries)
                 {
                     // Get race-specific overrides
                     var raceOverride = team.LiveryOverrides?.FirstOrDefault(o => o.RaceId == raceId);
@@ -435,7 +476,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                         temporaryTexturesPath,
                         raceId,
                         fallbackTextureWidth,
-                        fallbackTextureHeight);
+                        fallbackTextureHeight,
+                        forceSolidColourFallback);
                 }
 
                 // Save combined XML
@@ -472,7 +514,8 @@ namespace Ams2ChEd.Business.AMS2.Services
             string temporaryTexturesPath,
             int raceId,
             int fallbackTextureWidth,
-            int fallbackTextureHeight)
+            int fallbackTextureHeight,
+            bool forceSolidColourFallback = false)
         {
             // Get driver data
             if (string.IsNullOrEmpty(driverId) || !driversDict.TryGetValue(driverId, out var driver))
@@ -521,7 +564,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                     ? liveryFilePath
                     : Path.Combine(seasonDirectory, liveryFilePath));
 
-            bool hasValidTexture = !string.IsNullOrEmpty(resolvedLiveryPath) && File.Exists(resolvedLiveryPath);
+            bool hasValidTexture = !forceSolidColourFallback && !string.IsNullOrEmpty(resolvedLiveryPath) && File.Exists(resolvedLiveryPath);
 
             // Get numbers placements
             string finalLiveryPath;
@@ -708,11 +751,11 @@ namespace Ams2ChEd.Business.AMS2.Services
         /// </summary>
         private void GenerateHelmetVisorDDSForCarModel(
             int raceId,
-            List<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber)> entries,
+            List<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber, bool forceSolidColourFallback)> entries,
             string outputDirectory,
             string seasonDirectory)
         {
-            foreach (var (entry, team, driverNumber) in entries)
+            foreach (var (entry, team, driverNumber, _) in entries)
             {
                 // Get race-specific overrides
                 var raceOverride = team.LiveryOverrides?.FirstOrDefault(o => o.RaceId == raceId);
@@ -838,9 +881,9 @@ namespace Ams2ChEd.Business.AMS2.Services
             root.Add(driverElement);
         }
 
-        private (int width, int height)? TryGetLiveryDimensionsForCarModel(List<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber)> entries, string seasonDirectory, int raceId)
+        private (int width, int height)? TryGetLiveryDimensionsForCarModel(List<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber, bool forceSolidColourFallback)> entries, string seasonDirectory, int raceId)
         {
-            foreach (var (entry, team, driverNumber) in entries)
+            foreach (var (entry, team, driverNumber, _) in entries)
             {
                 var raceOverride = team.LiveryOverrides?.FirstOrDefault(o => o.RaceId == raceId);
 
