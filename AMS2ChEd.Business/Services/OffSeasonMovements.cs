@@ -41,7 +41,11 @@ namespace AMS2ChEd.Business.Services
             {
                 TeamId = team.TeamId,
                 DropDriver1 = _driverFirer.WillDropDriver(team.Reputation, team.Driver1.Reputation, team.Driver1.RacesLeftInContract, team.Driver1.DriverRetiring, team.TeamQuitting),
-                DropDriver2 = _driverFirer.WillDropDriver(team.Reputation, team.Driver2.Reputation, team.Driver2.RacesLeftInContract, team.Driver2.DriverRetiring, team.TeamQuitting),
+                // a team with no second car this season has a null Driver2 situation - there's
+                // no driver to evaluate for dropping, so it's simply never dropped.
+                DropDriver2 = team.Driver2 == null
+                    ? DriverFirerOutcome.NOT_DROPPED
+                    : _driverFirer.WillDropDriver(team.Reputation, team.Driver2.Reputation, team.Driver2.RacesLeftInContract, team.Driver2.DriverRetiring, team.TeamQuitting),
             });
         }
 

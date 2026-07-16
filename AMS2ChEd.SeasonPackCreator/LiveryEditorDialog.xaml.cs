@@ -1208,8 +1208,8 @@ namespace AMS2ChEd.SeasonPackEditor
                 _externalLiveriesConfig.Entries.AddRange(
                     staticTexturePaths.Select(path => new ExternalLiveriesEntry
                     {
-                        SourcePath = ExternalLiveryXmlImportHelper.ComputeExternalSourcePath(xmlDirectory, path),
-                        DestinationPath = $"static_assets\\veichles\\Textures\\CustomLiveries\\Overrides\\${_team.Ams2Car}\\{path}"
+                        SourcePath = ExternalLiveryXmlImportHelper.ComputeExternalSourcePath(xmlDirectory, ExternalLiveryXmlImportHelper.ResolveXmlRelativePath(xmlDirectory, path)),
+                        DestinationPath = $"static_assets/veichles/Textures/CustomLiveries/Overrides/{_team.Ams2Car}/{path}"
                     })
                 );
 

@@ -48,44 +48,27 @@ namespace AMS2ChEd.SeasonPackEditor.Services
 
         public static Dictionary<string, double> Generate(TeamReputation reputation)
         {
-            var ratings = new Dictionary<string, double>();
+            double t = _random.NextDouble();
 
-            switch (reputation)
+            var (weightMin, weightMax, powerMin, powerMax, dragMin, dragMax) = reputation switch
             {
-                case TeamReputation.TOP_TEAM:
-                    ratings["weight_scalar"] = - 1.000 - (_random.NextDouble() * 0.002);
-                    ratings["power_scalar"] = - 0.995 - (_random.NextDouble() * 0.005);
-                    ratings["drag_scalar"] = - 1.000 - (_random.NextDouble() * 0.005);
-                    break;
-                case TeamReputation.MIDFIELD_HIGH:
-                    ratings["weight_scalar"] = -1.004 - (_random.NextDouble() * 0.003);
-                    ratings["power_scalar"] = -0.978 - (_random.NextDouble() * 0.007);
-                    ratings["drag_scalar"] = -1.007 - (_random.NextDouble() * 0.003);
-                    break;
-                case TeamReputation.MIDFIELD:
-                    ratings["weight_scalar"] = -1.009 - (_random.NextDouble() * 0.002);
-                    ratings["power_scalar"] = -0.971 - (_random.NextDouble() * 0.005);
-                    ratings["drag_scalar"] = -1.012 - (_random.NextDouble() * 0.002);
-                    break;
-                case TeamReputation.MINNOW:
-                    ratings["weight_scalar"] = -1.011 - (_random.NextDouble() * 0.005);
-                    ratings["power_scalar"] = -0.963 - (_random.NextDouble() * 0.003);
-                    ratings["drag_scalar"] = -1.016 - (_random.NextDouble() * 0.003);
-                    break;
-                case TeamReputation.SUPER_MINNOW:
-                    ratings["weight_scalar"] = -1.019 - (_random.NextDouble() * 0.003);
-                    ratings["power_scalar"] = -0.953 - (_random.NextDouble() * 0.006);
-                    ratings["drag_scalar"] = -1.021 - (_random.NextDouble() * 0.003);
-                    break;
-                default:
-                    ratings["weight_scalar"] = -1.019 - (_random.NextDouble() * 0.003);
-                    ratings["power_scalar"] = -0.953 - (_random.NextDouble() * 0.006);
-                    ratings["drag_scalar"] = -1.021 - (_random.NextDouble() * 0.003);
-                    break;
-            }
+                TeamReputation.TOP_TEAM => (0.988, 0.996, 1.004, 1.012, 0.988, 0.996),
+                TeamReputation.MIDFIELD_HIGH => (1.000, 1.005, 0.995, 1.000, 1.000, 1.005),
+                TeamReputation.MIDFIELD => (1.007, 1.013, 0.984, 0.991, 1.007, 1.013),
+                TeamReputation.MINNOW => (1.016, 1.022, 0.972, 0.980, 1.016, 1.022),
+                TeamReputation.SUPER_MINNOW => (1.026, 1.035, 0.958, 0.968, 1.026, 1.035),
+                _ => (1.026, 1.035, 0.958, 0.968, 1.026, 1.035)
+            };
 
-            return ratings;
+            return new Dictionary<string, double>
+            {
+                ["weight_scalar"] = Lerp(weightMin, weightMax, t),
+                ["power_scalar"] = Lerp(powerMax, powerMin, t),  // inverted: higher t = weaker car
+                ["drag_scalar"] = Lerp(dragMin, dragMax, t)
+            };
         }
+
+        private static double Lerp(double a, double b, double t) => a + (b - a) * t;
 
         public static Dictionary<string, double> Generate(DriverReputation reputation)
         {

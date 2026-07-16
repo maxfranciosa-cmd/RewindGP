@@ -98,26 +98,32 @@ namespace AMS2ChEd
                         PhotoUrl = (string.IsNullOrEmpty(driver1Picture) || driver1Picture.StartsWith("https")) ? driver1Picture : $"pack://siteoforigin:,,,/{driver1Picture}"
                     };
 
-                    var driver2Id = teamEntry.Driver2Contract.DriverId;
+                    var driver2Id = teamEntry.Driver2Contract?.DriverId;
+                    Driver driver2 = null;
 
-                    if (!_driversCache.ContainsKey(driver2Id))
+                    // a team with no second car this season has an empty Driver2Contract.DriverId -
+                    // unlike a missing driver1, this isn't a data error, just show the team with one driver.
+                    if (!string.IsNullOrEmpty(driver2Id))
                     {
-                        System.Diagnostics.Debug.WriteLine($"Skipping team {teamName}: Driver 2 '{driver2Id}' not found in drivers database");
-                        continue;
+                        if (!_driversCache.ContainsKey(driver2Id))
+                        {
+                            System.Diagnostics.Debug.WriteLine($"Skipping team {teamName}: Driver 2 '{driver2Id}' not found in drivers database");
+                            continue;
+                        }
+
+                        var driver2Data = _driversCache[driver2Id];
+                        var driver2Picture = driver2Data?.PictureUrl;
+
+                        driver2 = new Driver
+                        {
+                            DriverId = driver2Data.DriverId,
+                            RoleName = "2nd driver",
+                            Name = driver2Data.Name,
+                            Nationality = string.IsNullOrEmpty(driver2Data.Nationality) ? "N/A" : driver2Data.Nationality,
+                            Number = teamEntry.Driver2Contract.DriverNumber,
+                            PhotoUrl = (string.IsNullOrEmpty(driver2Picture) || driver2Picture.StartsWith("https")) ? driver2Picture : $"pack://siteoforigin:,,,/{driver2Picture}",
+                        };
                     }
-
-                    var driver2Data = _driversCache[driver2Id];
-                    var driver2Picture = driver2Data?.PictureUrl;
-
-                    var driver2 = new Driver
-                    {
-                        DriverId = driver2Data.DriverId,
-                        RoleName = "2nd driver",
-                        Name = driver2Data.Name,
-                        Nationality = string.IsNullOrEmpty(driver2Data.Nationality) ? "N/A" : driver2Data.Nationality,
-                        Number = teamEntry.Driver2Contract.DriverNumber,
-                        PhotoUrl = (string.IsNullOrEmpty(driver2Picture) || driver2Picture.StartsWith("https")) ? driver2Picture : $"pack://siteoforigin:,,,/{driver2Picture}",
-                    };
 
                     teams.Add(new TeamDisplay
                     {
@@ -131,7 +137,10 @@ namespace AMS2ChEd
                     });
 
                     assignedDriverIds.Add(driver1Id);
-                    assignedDriverIds.Add(driver2Id);
+                    if (!string.IsNullOrEmpty(driver2Id))
+                    {
+                        assignedDriverIds.Add(driver2Id);
+                    }
                 }
 
                 TeamsItemsControl.ItemsSource = teams;

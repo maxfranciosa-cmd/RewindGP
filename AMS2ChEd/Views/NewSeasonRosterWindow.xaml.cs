@@ -57,31 +57,45 @@ namespace AMS2ChEd.Views
                 string teamName = team.TeamName ?? teamData?.TeamName ?? "Unknown Team";
 
                 var driver1 = driversDictionary[team.Driver1Contract.DriverId];
-                var driver2 = driversDictionary[team.Driver2Contract.DriverId];
+
+                // a team with no second car this season has an empty Driver2Contract.DriverId
+                var driver2Id = team.Driver2Contract?.DriverId;
+                var driver2 = string.IsNullOrEmpty(driver2Id) ? null : driversDictionary.GetValueOrDefault(driver2Id);
 
                 // Check if lineup is unchanged from previous season
                 bool isUnchanged = IsLineupUnchanged(previousSeason, team.TeamId,
-                    team.Driver1Contract.DriverId, team.Driver2Contract.DriverId);
+                    team.Driver1Contract.DriverId, driver2Id);
 
                 // Get driver reputations
                 var driver1Reputation = driver1?.Reputation;
                 var driver2Reputation = driver2?.Reputation;
 
-                // Build status text
-                string statusText = BuildStatusText(team.Driver1Contract.DriverId, team.Driver2Contract.DriverId,
-                    driver1.Name, driver2.Name, championDriverId, runnerUpDriverId, isUnchanged, constructorChampionTeamId);
-
-                // Build description text
-                string descriptionText = BuildDescriptionText(driver1.Name, driver2.Name,
-                    driver1Reputation, driver2Reputation);
-
+                string statusText;
+                string descriptionText;
+                string driversText;
                 var portraitPathDriver1 = driver1?.PictureUrl;
-                var portraitPathDriver2 = driver2?.PictureUrl;
+                string portraitPathDriver2 = null;
+
+                if (driver2 != null)
+                {
+                    statusText = BuildStatusText(team.Driver1Contract.DriverId, driver2Id,
+                        driver1.Name, driver2.Name, championDriverId, runnerUpDriverId, isUnchanged, constructorChampionTeamId);
+                    descriptionText = BuildDescriptionText(driver1.Name, driver2.Name,
+                        driver1Reputation, driver2Reputation);
+                    driversText = $"{driver1.Name}  •  {driver2.Name}";
+                    portraitPathDriver2 = driver2.PictureUrl;
+                }
+                else
+                {
+                    statusText = BuildSoloStatusText(team.Driver1Contract.DriverId, driver1.Name, championDriverId, runnerUpDriverId, isUnchanged);
+                    descriptionText = BuildSoloDescriptionText(driver1.Name, driver1Reputation);
+                    driversText = driver1.Name;
+                }
 
                 rosterItems.Add(new TeamRosterItem
                 {
                     TeamName = teamName,
-                    DriversText = $"{driver1.Name}  •  {driver2.Name}",
+                    DriversText = driversText,
                     StatusText = statusText,
                     StatusTextVisibility = string.IsNullOrEmpty(statusText) ? Visibility.Collapsed : Visibility.Visible,
                     DescriptionText = descriptionText,
@@ -197,6 +211,27 @@ namespace AMS2ChEd.Views
 
             // No special status to report
             return "";
+        }
+
+        private string BuildSoloStatusText(string driverId, string driverName, string championId, string runnerUpId, bool isUnchanged)
+        {
+            if (driverId == championId)
+                return $"Defending champion {driverName} continues as the team's only driver.";
+
+            if (driverId == runnerUpId)
+                return $"Last season's runner-up {driverName} continues as the team's only driver.";
+
+            if (isUnchanged)
+                return $"{driverName} remains as the team's sole driver for another season.";
+
+            return "";
+        }
+
+        private string BuildSoloDescriptionText(string driverName, DriverReputation? rep)
+        {
+            return rep.HasValue
+                ? $"{driverName}, who {GetReputationDescription(rep.Value)}, carries the team as its sole driver this season."
+                : $"{driverName} carries the team as its sole driver this season.";
         }
 
         private string BuildDescriptionText(string driver1Name, string driver2Name,

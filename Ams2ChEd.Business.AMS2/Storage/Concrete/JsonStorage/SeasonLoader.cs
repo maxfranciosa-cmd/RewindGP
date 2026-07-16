@@ -2,6 +2,7 @@
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
+using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
 using System.Text.Json;
 
@@ -21,6 +22,18 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
 
                 string json = File.ReadAllText(seasonPath);
                 var seasonData = JsonSerializer.Deserialize<Ams2Season>(json, DefaultJsonSerializerOptions.Instance);
+
+                // A team with no second car for the season is represented as a real
+                // Driver2Contract with an empty DriverId (so its reserved race number
+                // still has somewhere to live), not a null contract. Normalize here in
+                // case a hand-edited season.json omits the key entirely.
+                if (seasonData?.Teams != null)
+                {
+                    foreach (var team in seasonData.Teams)
+                    {
+                        team.Driver2Contract ??= new DriverContract();
+                    }
+                }
 
                 return seasonData;
             }

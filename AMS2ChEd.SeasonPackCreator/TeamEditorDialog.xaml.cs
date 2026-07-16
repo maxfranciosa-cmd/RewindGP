@@ -12,6 +12,11 @@ namespace AMS2ChEd.SeasonPackEditor
 {
     public partial class TeamEditorDialog : Window
     {
+        // Selecting this in Driver2ComboBox means the team fields only one car this season -
+        // Driver2Contract is kept (so its reserved race number has somewhere to live) but its
+        // DriverId is left empty.
+        private const string NoSecondDriverPlaceholder = "(no second driver this season)";
+
         public Ams2TeamEntry Team { get; private set; }
         private List<Ams2DriverData> _availableDrivers;
         private List<TeamOption> _availableTeams;
@@ -26,7 +31,9 @@ namespace AMS2ChEd.SeasonPackEditor
 
             ReputationComboBox.ItemsSource = Enum.GetValues(typeof(TeamReputation)).Cast<TeamReputation>();
             Driver1ComboBox.ItemsSource = _availableDrivers.Select(d => d.DriverId).ToList();
-            Driver2ComboBox.ItemsSource = _availableDrivers.Select(d => d.DriverId).ToList();
+            Driver2ComboBox.ItemsSource = new[] { NoSecondDriverPlaceholder }
+                .Concat(_availableDrivers.Select(d => d.DriverId))
+                .ToList();
 
             if (team == null)
             {
@@ -122,7 +129,9 @@ namespace AMS2ChEd.SeasonPackEditor
             Driver1ComboBox.SelectedItem = Team.Driver1Contract?.DriverId;
             Driver1NumberTextBox.Text = Team.Driver1Contract?.DriverNumber.ToString();
             Driver1RacesContractTextBox.Text = Team.Driver2Contract?.Races.ToString();
-            Driver2ComboBox.SelectedItem = Team.Driver2Contract?.DriverId;
+            Driver2ComboBox.SelectedItem = string.IsNullOrEmpty(Team.Driver2Contract?.DriverId)
+                ? NoSecondDriverPlaceholder
+                : Team.Driver2Contract.DriverId;
             Driver2NumberTextBox.Text = Team.Driver2Contract?.DriverNumber.ToString();
             Driver2RacesContractTextBox.Text = Team.Driver2Contract?.Races.ToString();
             DefaultPreQualiCheckBox.IsChecked = Team.DefaultPrequalifying;
@@ -164,7 +173,8 @@ namespace AMS2ChEd.SeasonPackEditor
             Team.Driver1Contract.DriverNumber = int.Parse(Driver1NumberTextBox.Text);
             Team.Driver1Contract.Races = int.Parse(Driver1RacesContractTextBox.Text);
             Team.Driver2Contract = Team.Driver2Contract ?? new DriverContract();
-            Team.Driver2Contract.DriverId = Driver2ComboBox.SelectedItem?.ToString();
+            var driver2Selection = Driver2ComboBox.SelectedItem?.ToString();
+            Team.Driver2Contract.DriverId = driver2Selection == NoSecondDriverPlaceholder ? null : driver2Selection;
             Team.Driver2Contract.DriverNumber = int.Parse(Driver2NumberTextBox.Text);
             Team.Driver2Contract.Races = int.Parse(Driver2RacesContractTextBox.Text);
             Team.DefaultPrequalifying = DefaultPreQualiCheckBox.IsChecked ?? false;

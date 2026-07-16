@@ -151,7 +151,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var result = saveGame.CurrentSeason.Teams.Select(e =>
             {
                 var driver1 = driversDictionary[e.Driver1Contract.DriverId];
-                var driver2 = driversDictionary[e.Driver2Contract.DriverId];
+                var hasDriver2 = !string.IsNullOrEmpty(e.Driver2Contract?.DriverId);
+                var driver2 = hasDriver2 ? driversDictionary[e.Driver2Contract.DriverId] : null;
 
                 var nextSeasonTeamReputation = nextSeasonTeamsDictionary.GetValueOrDefault(e.TeamId)?.Reputation;
 
@@ -167,7 +168,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                         RacesLeftInContract = e.Driver1Contract.Races - saveGame.CurrentSeason.Races.Count(),
                         Reputation = driver1.Reputation
                     },
-                    Driver2 = new DriverSituation
+                    Driver2 = !hasDriver2 ? null : new DriverSituation
                     {
                         DriverId = driver2.DriverId,
                         DriverRetiring = driver2.DriverId != saveGame.PlayerData.DriverId && IsDriverRetiring(nextSeason.Year - driver2.YearOfBirth),
@@ -223,7 +224,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     var driver2DropOutcome = dropTeamResltsDictionary[teamEntry.TeamId].DropDriver2;
 
                     driver1Id = currentSeasonTeamEntriesDictionary[teamEntry.TeamId].Driver1Contract.DriverId;
-                    driver2Id = currentSeasonTeamEntriesDictionary[teamEntry.TeamId].Driver2Contract.DriverId;
+                    driver2Id = currentSeasonTeamEntriesDictionary[teamEntry.TeamId].Driver2Contract?.DriverId;
 
                     if (driver1DropOutcome == DriverFirerOutcome.DROPPED_RETIRING)
                     {
@@ -243,26 +244,32 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                         driversDictionary.Remove(driver1Id);
                     }
 
-                    if (driver2DropOutcome == DriverFirerOutcome.DROPPED_RETIRING)
+                    // a team with no second car this season has an empty driver2Id - there's no
+                    // driver to retire/renew/remove from the pool, and it never gets a SECOND_DRIVER
+                    // job ad below (hiringDriver2 stays false, since NOT_DROPPED.IsDropped() == false).
+                    if (!string.IsNullOrEmpty(driver2Id))
                     {
-                        idsOfRetiringDrivers.Add(driver2Id);
-                        // if the driver is retiring we are marking them as processed as it won't go to the unemployment list
-                        driversDictionary.Remove(driver2Id);
-                    }
-                    else if (driver2DropOutcome == DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED)
-                    {
-                        // if the driver contract's expired, it's a coin toss to decide
-                        // if team and driver are willing to renew
-                        exitingDriver2WillingToRenew = (new Random().Next(2)) == 1;
-                    }
-                    else if (!driver2DropOutcome.IsDropped())
-                    {
-                        // if the driver stays in the team we are marking them as processed as it won't go to the unenployment list
-                        driversDictionary.Remove(driver2Id);
+                        if (driver2DropOutcome == DriverFirerOutcome.DROPPED_RETIRING)
+                        {
+                            idsOfRetiringDrivers.Add(driver2Id);
+                            // if the driver is retiring we are marking them as processed as it won't go to the unemployment list
+                            driversDictionary.Remove(driver2Id);
+                        }
+                        else if (driver2DropOutcome == DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED)
+                        {
+                            // if the driver contract's expired, it's a coin toss to decide
+                            // if team and driver are willing to renew
+                            exitingDriver2WillingToRenew = (new Random().Next(2)) == 1;
+                        }
+                        else if (!driver2DropOutcome.IsDropped())
+                        {
+                            // if the driver stays in the team we are marking them as processed as it won't go to the unenployment list
+                            driversDictionary.Remove(driver2Id);
+                        }
                     }
 
                     hiringDriver1 = driver1DropOutcome.IsDropped();
-                    hiringDriver2 = driver2DropOutcome.IsDropped();
+                    hiringDriver2 = !string.IsNullOrEmpty(driver2Id) && driver2DropOutcome.IsDropped();
                 }
 
                 if (hiringDriver1)
@@ -379,7 +386,12 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 }
 
                 employedDriversIds.Add(teamEntry.Driver1Contract.DriverId, teamEntry.TeamId);
-                employedDriversIds.Add(teamEntry.Driver2Contract.DriverId, teamEntry.TeamId);
+                // teams with no second car this season have an empty Driver2Contract.DriverId;
+                // skip so multiple one-car teams don't collide on the same "" dictionary key
+                if (!string.IsNullOrEmpty(teamEntry.Driver2Contract?.DriverId))
+                {
+                    employedDriversIds.Add(teamEntry.Driver2Contract.DriverId, teamEntry.TeamId);
+                }
             }
 
             saveGame.PlayerData.TeamId = employedDriversIds.ContainsKey(saveGame.PlayerData.DriverId) ? employedDriversIds[saveGame.PlayerData.DriverId] : null;
@@ -563,14 +575,17 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     PositionsTally = new PositionsTally()
                 });
 
-                standings.Add(new HistoricalDriverStandingEntry
+                if (!string.IsNullOrEmpty(team.Driver2Contract?.DriverId))
                 {
-                    Position = position++,
-                    DriverId = team.Driver2Contract.DriverId,
-                    TeamId = team.TeamId,
-                    Points = 0,
-                    PositionsTally = new PositionsTally()
-                });
+                    standings.Add(new HistoricalDriverStandingEntry
+                    {
+                        Position = position++,
+                        DriverId = team.Driver2Contract.DriverId,
+                        TeamId = team.TeamId,
+                        Points = 0,
+                        PositionsTally = new PositionsTally()
+                    });
+                }
             }
 
             return standings;

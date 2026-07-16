@@ -342,14 +342,17 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     PositionsTally = new PositionsTally()
                 });
 
-                standings.Add(new HistoricalDriverStandingEntry
+                if (!string.IsNullOrEmpty(team.Driver2Contract?.DriverId))
                 {
-                    Position = position++,
-                    DriverId = team.Driver2Contract.DriverId,
-                    TeamId = team.TeamId,
-                    Points = 0,
-                    PositionsTally = new PositionsTally()
-                });
+                    standings.Add(new HistoricalDriverStandingEntry
+                    {
+                        Position = position++,
+                        DriverId = team.Driver2Contract.DriverId,
+                        TeamId = team.TeamId,
+                        Points = 0,
+                        PositionsTally = new PositionsTally()
+                    });
+                }
             }
 
             return standings;
@@ -386,7 +389,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     playerTeam.Driver1Contract.DriverId = playerDriverId;
                     playerTeam.Driver1Contract.Races = originalSeason.Races.Count() + 1;
                 }
-                else if (playerTeam.Driver2Contract.DriverId == replacedDriverId)
+                else if (!string.IsNullOrEmpty(replacedDriverId) && playerTeam.Driver2Contract?.DriverId == replacedDriverId)
                 {
                     playerTeam.Driver2Contract.DriverId = playerDriverId;
                     playerTeam.Driver1Contract.Races = originalSeason.Races.Count() + 1;
