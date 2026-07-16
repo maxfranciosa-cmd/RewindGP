@@ -62,9 +62,9 @@ namespace AMS2ChEd.SeasonPackEditor.Services
 
             return new Dictionary<string, double>
             {
-                ["weight_scalar"] = Lerp(weightMin, weightMax, t),
-                ["power_scalar"] = Lerp(powerMax, powerMin, t),  // inverted: higher t = weaker car
-                ["drag_scalar"] = Lerp(dragMin, dragMax, t)
+                ["weight_scalar"] = -Lerp(weightMin, weightMax, t),
+                ["power_scalar"] = -Lerp(powerMax, powerMin, t),  // inverted: higher t = weaker car
+                ["drag_scalar"] = -Lerp(dragMin, dragMax, t)
             };
         }
 
