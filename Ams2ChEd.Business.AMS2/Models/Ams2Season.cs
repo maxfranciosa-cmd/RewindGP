@@ -63,6 +63,43 @@ namespace AMS2ChEd.Business.AMS2.Models
         [JsonIgnore]
         public bool HasSecondCar => !string.IsNullOrEmpty(Ams2CarDriver2);
 
+        /// <summary>
+        /// Convenience accessors for the three car-performance scalars on the primary
+        /// (driver 1 / team-level default) malus dictionary, for inline grid editing.
+        /// </summary>
+        [JsonIgnore]
+        public double PowerScalar
+        {
+            get => Ams2CarPerformanceMalus != null && Ams2CarPerformanceMalus.TryGetValue("power_scalar", out var v) ? v : 0.0;
+            set
+            {
+                Ams2CarPerformanceMalus ??= new Dictionary<string, double>();
+                Ams2CarPerformanceMalus["power_scalar"] = value;
+            }
+        }
+
+        [JsonIgnore]
+        public double WeightScalar
+        {
+            get => Ams2CarPerformanceMalus != null && Ams2CarPerformanceMalus.TryGetValue("weight_scalar", out var v) ? v : 0.0;
+            set
+            {
+                Ams2CarPerformanceMalus ??= new Dictionary<string, double>();
+                Ams2CarPerformanceMalus["weight_scalar"] = value;
+            }
+        }
+
+        [JsonIgnore]
+        public double DragScalar
+        {
+            get => Ams2CarPerformanceMalus != null && Ams2CarPerformanceMalus.TryGetValue("drag_scalar", out var v) ? v : 0.0;
+            set
+            {
+                Ams2CarPerformanceMalus ??= new Dictionary<string, double>();
+                Ams2CarPerformanceMalus["drag_scalar"] = value;
+            }
+        }
+
         [JsonPropertyName("base_livery_driver1")]
         public string BaseLiveryDriver1 { get; set; }
 

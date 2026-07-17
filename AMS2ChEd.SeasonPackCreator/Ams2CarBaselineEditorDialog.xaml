@@ -1,0 +1,61 @@
+<Window x:Class="AMS2ChEd.SeasonPackEditor.Ams2CarBaselineEditorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AMS2 Car Baselines" Height="500" Width="520" WindowStartupLocation="CenterOwner" Background="#1A1A1A">
+    <Window.Resources>
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="8"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="30,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Unknown AMS2 Car Models" FontSize="18" FontWeight="Bold" Foreground="#E10600" Margin="0,0,0,10"/>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap" Foreground="#AAAAAA" FontSize="11" Margin="0,0,0,15"
+                   Text="These AMS2 car models are used by this season but have no recorded real-world power/weight. Enter them once - the values are reused for every season pack that uses the same car."/>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Name="CarsItemsControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding CarModel}" Foreground="White" FontWeight="SemiBold" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                            <StackPanel Grid.Column="1" Margin="10,0">
+                                <Label Content="Power (hp)" Padding="0" FontSize="11" Foreground="#AAAAAA"/>
+                                <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding PowerHpText, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <Label Content="Weight (kg)" Padding="0" FontSize="11" Foreground="#AAAAAA"/>
+                                <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding WeightKgText, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="OK" Click="OK_Click" Width="100" Margin="0,0,10,0" Background="#E10600" Foreground="White" BorderThickness="0" Padding="10" FontWeight="SemiBold"/>
+            <Button Content="Cancel" Click="Cancel_Click" Width="100" Background="#404040" Foreground="White" BorderThickness="0" Padding="10"/>
+        </StackPanel>
+    </Grid>
+</Window>

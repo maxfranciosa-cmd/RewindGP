@@ -339,6 +339,33 @@ namespace AMS2ChEd.Business.Services
         }
 
         /// <summary>
+        /// Fetch the final constructor standings for a whole season in a single call, including
+        /// points — used to derive car-performance malus from actual championship results.
+        /// </summary>
+        public async Task<List<JolpicaConstructorStanding>> GetConstructorStandingsAsync(int year)
+        {
+            var url = $"{BASE_URL}/{year}/constructorStandings.json";
+            var response = await GetWithRetryAsync(url);
+            var data = JsonSerializer.Deserialize<JolpicaRootResponse<JolpicaStandingsTable>>(response);
+
+            return data?.MRData?.StandingsTable?.StandingsLists?.FirstOrDefault()?.ConstructorStandings
+                ?? new List<JolpicaConstructorStanding>();
+        }
+
+        /// <summary>
+        /// Fetch the final driver standings for a whole season in a single call, including points.
+        /// </summary>
+        public async Task<List<JolpicaDriverStanding>> GetDriverStandingsAsync(int year)
+        {
+            var url = $"{BASE_URL}/{year}/driverStandings.json";
+            var response = await GetWithRetryAsync(url);
+            var data = JsonSerializer.Deserialize<JolpicaRootResponse<JolpicaStandingsTable>>(response);
+
+            return data?.MRData?.StandingsTable?.StandingsLists?.FirstOrDefault()?.DriverStandings
+                ?? new List<JolpicaDriverStanding>();
+        }
+
+        /// <summary>
         /// Fetch first race results to determine driver-team pairings
         /// </summary>
         private async Task<List<JolpicaResult>> FetchFirstRaceResultsAsync(int year)
@@ -566,12 +593,27 @@ namespace AMS2ChEd.Business.Services
     {
         [JsonPropertyName("position")]
         public string Position { get; set; }
+
+        [JsonPropertyName("points")]
+        public string Points { get; set; }
+
+        [JsonPropertyName("Driver")]
+        public JolpicaDriver Driver { get; set; }
+
+        [JsonPropertyName("Constructors")]
+        public List<JolpicaConstructor> Constructors { get; set; }
     }
 
     public class JolpicaConstructorStanding
     {
         [JsonPropertyName("position")]
         public string Position { get; set; }
+
+        [JsonPropertyName("points")]
+        public string Points { get; set; }
+
+        [JsonPropertyName("Constructor")]
+        public JolpicaConstructor Constructor { get; set; }
     }
 
     public class JolpicaSeasonTable

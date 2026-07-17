@@ -742,6 +742,144 @@ namespace AMS2ChEd.SeasonPackEditor
             }
         }
 
+        private async void GeneratePerformanceFromActualResults_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentProject.Season.Year <= 0)
+            {
+                MessageBox.Show("Please set a valid year before generating performance from actual results.",
+                    "Year Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var teams = _currentProject.Season.Teams.OfType<Ams2TeamEntry>().ToList();
+            if (!teams.Any())
+            {
+                MessageBox.Show("No teams to process.", "No Teams", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            int year = _currentProject.Season.Year;
+            StatusTextBlock.Text = "Fetching actual championship results...";
+
+            List<JolpicaConstructorStanding> constructorStandings;
+            try
+            {
+                var jolpica = new JolpicaF1Service();
+
+                // Exactly two Jolpica calls for the whole season - never per team.
+                var constructorStandingsTask = jolpica.GetConstructorStandingsAsync(year);
+                var driverStandingsTask = jolpica.GetDriverStandingsAsync(year);
+                await Task.WhenAll(constructorStandingsTask, driverStandingsTask);
+
+                constructorStandings = await constructorStandingsTask;
+                // Driver standings are fetched now (per the "exactly twice" contract) for a future
+                // per-driver refinement, but this team-level pass doesn't use them yet.
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to fetch championship results: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                StatusTextBlock.Text = "Ready";
+                return;
+            }
+
+            if (!constructorStandings.Any())
+            {
+                MessageBox.Show($"No constructor standings found for {year}.", "No Data", MessageBoxButton.OK, MessageBoxImage.Warning);
+                StatusTextBlock.Text = "Ready";
+                return;
+            }
+
+            // Collect real power/weight for any AMS2 car model used this season that isn't known yet.
+            var carBaselines = Ams2CarBaselineStore.Load();
+            var carModelsUsed = teams
+                .Select(t => t.Ams2Car)
+                .Where(c => !string.IsNullOrWhiteSpace(c))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+            var unknownCarModels = carModelsUsed.Where(c => !carBaselines.ContainsKey(c)).ToList();
+
+            if (unknownCarModels.Any())
+            {
+                var baselineDialog = new Ams2CarBaselineEditorDialog(unknownCarModels) { Owner = this };
+                if (baselineDialog.ShowDialog() != true)
+                {
+                    StatusTextBlock.Text = "Ready";
+                    return;
+                }
+
+                foreach (var kvp in baselineDialog.Result)
+                    carBaselines[kvp.Key] = kvp.Value;
+
+                Ams2CarBaselineStore.Save(carBaselines);
+            }
+
+            double fieldAveragePowerToWeight = carModelsUsed
+                .Where(c => carBaselines.ContainsKey(c) && carBaselines[c].PowerToWeight > 0)
+                .Select(c => carBaselines[c].PowerToWeight)
+                .DefaultIfEmpty(0)
+                .Average();
+
+            double leaderPoints = constructorStandings.Max(s => ParseDouble(s.Points));
+            int fieldSize = constructorStandings.Count;
+
+            var summaryLines = new List<string>();
+            int updatedCount = 0;
+
+            foreach (var team in teams)
+            {
+                var standing = constructorStandings.FirstOrDefault(s =>
+                    string.Equals(s.Constructor?.Name?.Trim(), team.TeamName?.Trim(), StringComparison.OrdinalIgnoreCase));
+
+                if (standing == null)
+                {
+                    // Local team names often include the engine/sponsor (e.g. "Jordan Hart") while
+                    // Jolpica's constructor name is just "Jordan" - fall back to matching on that.
+                    var firstWord = team.TeamName?.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(firstWord))
+                    {
+                        standing = constructorStandings.FirstOrDefault(s =>
+                            s.Constructor?.Name?.Contains(firstWord, StringComparison.OrdinalIgnoreCase) == true);
+                    }
+                }
+
+                if (standing == null)
+                {
+                    summaryLines.Add($"{team.TeamName}: no match in {year} Jolpica standings, skipped.");
+                    continue;
+                }
+
+                double points = ParseDouble(standing.Points);
+                int position = ParseInt(standing.Position);
+                double score = DriverPerformanceGenerator.ComputeCompetitivenessScore(points, leaderPoints, position, fieldSize);
+
+                double baseRelativeStrength = 1.0;
+                if (!string.IsNullOrWhiteSpace(team.Ams2Car) && fieldAveragePowerToWeight > 0
+                    && carBaselines.TryGetValue(team.Ams2Car, out var baseline) && baseline.PowerToWeight > 0)
+                {
+                    baseRelativeStrength = baseline.PowerToWeight / fieldAveragePowerToWeight;
+                }
+
+                team.Ams2CarPerformanceMalus = DriverPerformanceGenerator.Generate(score, baseRelativeStrength);
+                updatedCount++;
+
+                summaryLines.Add($"{team.TeamName}: P{position}, {points:0} pts -> " +
+                    $"power {team.Ams2CarPerformanceMalus["power_scalar"]:F3}, " +
+                    $"weight {team.Ams2CarPerformanceMalus["weight_scalar"]:F3}, " +
+                    $"drag {team.Ams2CarPerformanceMalus["drag_scalar"]:F3}");
+            }
+
+            RefreshUI();
+            StatusTextBlock.Text = $"Updated {updatedCount} of {teams.Count} teams from actual {year} results.";
+            MessageBox.Show(string.Join("\n", summaryLines), "Actual-Results Performance Generated",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private static double ParseDouble(string value) =>
+            double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double result) ? result : 0.0;
+
+        private static int ParseInt(string value) =>
+            int.TryParse(value, out int result) ? result : int.MaxValue;
+
         #endregion
 
         #region Absences

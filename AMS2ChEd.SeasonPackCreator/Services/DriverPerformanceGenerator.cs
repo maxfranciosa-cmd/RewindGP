@@ -70,6 +70,79 @@ namespace AMS2ChEd.SeasonPackEditor.Services
 
         private static double Lerp(double a, double b, double t) => a + (b - a) * t;
 
+        // Overall envelope spanned by the TOP_TEAM...SUPER_MINNOW buckets above - the continuous
+        // Generate(double, double) overload interpolates across this same range instead of picking
+        // one of the 5 discrete buckets.
+        private const double PowerBest = 1.030;
+        private const double PowerWorst = 0.970;
+        private const double WeightBest = 0.970;
+        private const double WeightWorst = 1.030;
+        private const double DragBest = 0.970;
+        private const double DragWorst = 1.030;
+
+        // The envelope width this system was originally tuned at (+-10%, i.e. PowerBest-PowerWorst
+        // = 0.200 back when those constants were 1.100/0.900). baseRelativeStrength correction below
+        // was calibrated against that width. If the envelope above is narrowed to compress the
+        // grid's overall spread, a fixed-magnitude baseRelativeStrength correction becomes
+        // proportionally much stronger relative to the (now smaller) competitiveness-based spread,
+        // and can dominate/invert it. CorrectionDamping scales the correction's influence down by
+        // the same ratio the envelope was narrowed, so it stays subordinate to the real
+        // competitiveness signal regardless of how wide/narrow the envelope currently is.
+        private const double ReferenceEnvelopeSpan = 0.200;
+        private static double CorrectionDamping => (PowerBest - PowerWorst) / ReferenceEnvelopeSpan;
+
+        // Wider safety bounds applied only after the baseRelativeStrength correction, so that
+        // correcting for a team's assigned AMS2 car (see Generate(double, double) below) has
+        // headroom to actually take effect instead of being clamped straight back into the same
+        // +-10% envelope used for the uncorrected score-only value.
+        private const double PowerSafetyBest = 1.20;
+        private const double PowerSafetyWorst = 0.80;
+        private const double WeightSafetyBest = 0.80;
+        private const double WeightSafetyWorst = 1.20;
+
+        /// <summary>
+        /// Normalizes a team's actual championship points into a 0 (last place) - 1 (champion)
+        /// competitiveness score, relative to the season leader's points so it stays meaningful
+        /// across eras with very different points systems. Blended evenly with final-position
+        /// fraction so a single runaway leader (e.g. a team that doubles up 2nd place) doesn't
+        /// compress every other team's points ratio toward "backmarker" territory - position
+        /// keeps a mid-table team reading as mid-table even when its points share of the leader
+        /// looks small.
+        /// </summary>
+        public static double ComputeCompetitivenessScore(double points, double leaderPoints, int position, int fieldSize)
+        {
+            double pointsShare = leaderPoints > 0 ? points / leaderPoints : 0.0;
+            double positionFraction = fieldSize > 1 ? 1.0 - (position - 1) / (double)(fieldSize - 1) : 1.0;
+            return Clamp(pointsShare * 0.5 + positionFraction * 0.5);
+        }
+
+        /// <summary>
+        /// Generates power/weight/drag scalars from a continuous competitiveness score (1.0 =
+        /// champion, 0.0 = last place) instead of a hand-picked TeamReputation bucket.
+        /// <paramref name="baseRelativeStrength"/> corrects for the team's assigned AMS2 car
+        /// already having a different real-world power-to-weight ratio than the season's field
+        /// average (&gt;1 = inherently stronger car). Power and weight move in opposite arithmetic
+        /// directions for "worse" (power down, weight up), so a car that's already stronger than
+        /// average needs power divided and weight multiplied by the same factor to end up equally
+        /// less favorable in both. Drag is not baseline-corrected (no drag baseline is collected).
+        /// </summary>
+        public static Dictionary<string, double> Generate(double competitivenessScore, double baseRelativeStrength = 1.0)
+        {
+            double weakness = Clamp(1.0 - competitivenessScore);
+            double dampedRelativeStrength = 1.0 + (baseRelativeStrength - 1.0) * CorrectionDamping;
+
+            double power = Math.Clamp(-Lerp(PowerBest, PowerWorst, weakness) / dampedRelativeStrength, -PowerSafetyBest, -PowerSafetyWorst);
+            double weight = Math.Clamp(-Lerp(WeightBest, WeightWorst, weakness) * dampedRelativeStrength, -WeightSafetyWorst, -WeightSafetyBest);
+            double drag = -Lerp(DragBest, DragWorst, weakness);
+
+            return new Dictionary<string, double>
+            {
+                ["weight_scalar"] = Convert.ToDouble(weight.ToString("N3")),
+                ["power_scalar"] = Convert.ToDouble(power.ToString("N3")),
+                ["drag_scalar"] = Convert.ToDouble(drag.ToString("N3"))
+            };
+        }
+
         public static Dictionary<string, double> Generate(DriverReputation reputation)
         {
             if (!_baseRanges.TryGetValue(reputation, out var range))
