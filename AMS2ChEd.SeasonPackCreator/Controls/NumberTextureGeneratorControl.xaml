@@ -1,0 +1,150 @@
+<UserControl x:Class="AMS2ChEd.SeasonPackEditor.Controls.NumberTextureGeneratorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Panel - Configuration -->
+        <Border Grid.Column="0" BorderThickness="0,0,1,0" Padding="15">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Number Texture Generator" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                    <!-- Font -->
+                    <GroupBox Header="Font" Margin="0,0,0,15">
+                        <StackPanel Margin="10">
+                            <ComboBox Name="cmbFont" Height="28" SelectionChanged="Field_Changed"/>
+                            <Border BorderBrush="#999" BorderThickness="1" Margin="0,8,0,0" Padding="6">
+                                <TextBlock Name="txtFontPreview" Text="0123456789" FontSize="22"
+                                           FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Colors -->
+                    <GroupBox Header="Colors" Margin="0,0,0,15">
+                        <StackPanel Margin="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="32"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Main Color -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Main Color" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" Name="txtMainColor" Text="#FFFFFF"
+                                         VerticalContentAlignment="Center" Margin="0,0,5,4"
+                                         TextChanged="Field_Changed"/>
+                                <Rectangle Grid.Row="0" Grid.Column="2" Name="previewMainColor" Fill="#FFFFFF"
+                                           Stroke="#999" StrokeThickness="1" Margin="0,0,0,4"/>
+
+                                <!-- Outline Color -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Outline Color" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" Name="txtOutlineColor" Text="#000000"
+                                         VerticalContentAlignment="Center" Margin="0,0,5,4"
+                                         TextChanged="Field_Changed"/>
+                                <Rectangle Grid.Row="1" Grid.Column="2" Name="previewOutlineColor" Fill="#000000"
+                                           Stroke="#999" StrokeThickness="1" Margin="0,0,0,4"/>
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Dimensions -->
+                    <GroupBox Header="Dimensions" Margin="0,0,0,15">
+                        <StackPanel Margin="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="32"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Digit Width (px)" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" Name="txtDigitWidth" Text="117"
+                                         VerticalContentAlignment="Center" Margin="0,0,0,4"
+                                         TextChanged="Field_Changed"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Texture Height (px)" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" Name="txtDigitHeight" Text="181"
+                                         VerticalContentAlignment="Center" Margin="0,0,0,4"
+                                         TextChanged="Field_Changed"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Outline Thickness (px)" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="2" Grid.Column="1" Name="txtOutlineThickness" Text="4"
+                                         VerticalContentAlignment="Center" Margin="0,0,0,4"
+                                         TextChanged="Field_Changed"/>
+                            </Grid>
+                            <TextBlock Text="Output image is always (Digit Width × 10) × Texture Height, so all ten cells stay exactly equal-width."
+                                       TextWrapping="Wrap" FontSize="11" Foreground="#666" Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Actions -->
+                    <StackPanel Margin="0,10,0,0">
+                        <Button Name="btnExport" Content="Export PNG..."
+                                Click="ExportPng_Click" Height="38"
+                                FontWeight="Bold"
+                                IsEnabled="False"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Right Panel - Preview -->
+        <Grid Grid.Column="1" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Preview" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+            <!-- Zoom Controls -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Zoom:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <Button Name="btnZoom100" Content="100%" Width="50" Height="26" Margin="0,0,5,0" Click="Zoom_Click" Tag="1.0" FontWeight="Bold"/>
+                <Button Name="btnZoom200" Content="200%" Width="50" Height="26" Margin="0,0,5,0" Click="Zoom_Click" Tag="2.0"/>
+                <Button Name="btnZoom400" Content="400%" Width="50" Height="26" Margin="0,0,20,0" Click="Zoom_Click" Tag="4.0"/>
+            </StackPanel>
+
+            <Border Grid.Row="2" Background="#FF2D2D2D" BorderBrush="#CCCCCC" BorderThickness="1">
+                <Grid>
+                    <TextBlock Name="txtNoPreview"
+                               Text="Choose a font, colors and dimensions to generate a preview"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontSize="14" Foreground="#999" TextAlignment="Center"
+                               TextWrapping="Wrap" Margin="20"
+                               Visibility="Visible"/>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto"
+                                  Name="previewScroll"
+                                  Visibility="Collapsed">
+                        <Image Name="imgPreview" Stretch="None" RenderTransformOrigin="0,0">
+                            <Image.RenderTransform>
+                                <ScaleTransform x:Name="previewScale" ScaleX="1.0" ScaleY="1.0"/>
+                            </Image.RenderTransform>
+                        </Image>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

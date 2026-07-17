@@ -500,6 +500,10 @@
                 <helmet:HelmetSticker3DControl />
             </TabItem>
 
+            <TabItem Header="NUMBER TEXTURE GENERATOR" Style="{StaticResource ModernTabItem}">
+                <controls:NumberTextureGeneratorControl />
+            </TabItem>
+
             <!-- Absences Tab -->
             <TabItem Header="ABSENCES" Style="{StaticResource ModernTabItem}">
                 <Grid Margin="30,20">

@@ -902,7 +902,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 var pixel = new byte[4];
                 converted.CopyPixels(new Int32Rect(originalX, originalY, 1, 1), pixel, 4, 0);
 
-                selectedPlacement.FillColor = $"#{pixel[2]:X2}{pixel[1]:X2}{pixel[0]:X2}";
+                selectedPlacement.FillColor = $"#{pixel[3]:X2}{pixel[2]:X2}{pixel[1]:X2}{pixel[0]:X2}";
 
                 NumberPlacementsDataGrid.CommitEdit(DataGridEditingUnit.Cell, true);
                 NumberPlacementsDataGrid.CommitEdit(DataGridEditingUnit.Row, true);

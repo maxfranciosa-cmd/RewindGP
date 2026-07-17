@@ -72,6 +72,28 @@ public class DdsTextureComposer
     }
 
     /// <summary>
+    /// Parses a fill color hex string, supporting both "#RRGGBB" (opaque, via
+    /// ColorTranslator) and "#AARRGGBB" (with alpha) since ColorTranslator.FromHtml
+    /// only understands the 3/6-digit forms.
+    /// </summary>
+    private static System.Drawing.Color ParseFillColor(string colorText)
+    {
+        string trimmed = colorText.Trim();
+        string hexPart = trimmed.StartsWith("#") ? trimmed.Substring(1) : trimmed;
+
+        if (hexPart.Length == 8)
+        {
+            byte a = Convert.ToByte(hexPart.Substring(0, 2), 16);
+            byte r = Convert.ToByte(hexPart.Substring(2, 2), 16);
+            byte g = Convert.ToByte(hexPart.Substring(4, 2), 16);
+            byte b = Convert.ToByte(hexPart.Substring(6, 2), 16);
+            return System.Drawing.Color.FromArgb(a, r, g, b);
+        }
+
+        return System.Drawing.ColorTranslator.FromHtml(trimmed);
+    }
+
+    /// <summary>
     /// Apply car numbers to a livery DDS texture at multiple placements
     /// </summary>
     /// <param name="baseLiveryPath">Path to the base livery DDS file</param>
@@ -116,7 +138,7 @@ public class DdsTextureComposer
             {
                 try
                 {
-                    var parsedColour = System.Drawing.ColorTranslator.FromHtml(placement.FillColor);
+                    var parsedColour = ParseFillColor(placement.FillColor);
                     var rgba = new Rgba32(parsedColour.R, parsedColour.G, parsedColour.B, parsedColour.A);
                     var fillRect = CalculatePlateFillRectangle(
                         placement.StartX, placement.StartY, placement.PlateWidth, digitHeight, placement.Rotation);

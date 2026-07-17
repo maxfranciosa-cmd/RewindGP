@@ -175,20 +175,47 @@ namespace AMS2ChEd.SeasonPackEditor
                 return false;
             }
 
-            if (!string.IsNullOrWhiteSpace(FillColorTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(FillColorTextBox.Text) && !IsValidFillColor(FillColorTextBox.Text))
+            {
+                MessageBox.Show("Fill Color must be a valid HTML color (e.g. #FF0000, #80FF0000 for translucent, or Red).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        // ColorTranslator.FromHtml only understands the 3/6-digit hex forms, so 8-digit
+        // "#AARRGGBB" (as produced by the livery preview's eyedropper) needs its own check.
+        private static bool IsValidFillColor(string text)
+        {
+            string trimmed = text.Trim();
+            string hexPart = trimmed.StartsWith("#") ? trimmed.Substring(1) : trimmed;
+
+            if (hexPart.Length == 8)
             {
                 try
                 {
-                    System.Drawing.ColorTranslator.FromHtml(FillColorTextBox.Text);
+                    Convert.ToByte(hexPart.Substring(0, 2), 16);
+                    Convert.ToByte(hexPart.Substring(2, 2), 16);
+                    Convert.ToByte(hexPart.Substring(4, 2), 16);
+                    Convert.ToByte(hexPart.Substring(6, 2), 16);
+                    return true;
                 }
                 catch
                 {
-                    MessageBox.Show("Fill Color must be a valid HTML color (e.g. #FF0000 or Red).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
             }
 
-            return true;
+            try
+            {
+                System.Drawing.ColorTranslator.FromHtml(trimmed);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
