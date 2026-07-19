@@ -70,6 +70,20 @@ namespace AMS2ChEd.SeasonPackEditor.Services
 
         private static double Lerp(double a, double b, double t) => a + (b - a) * t;
 
+        /// <summary>
+        /// Clamps a corrected power_scalar to the same safety envelope <see cref="Generate(double, double)"/>
+        /// already enforces, for callers (e.g. in-sim calibration) that adjust an existing scalar
+        /// directly instead of generating one from scratch.
+        /// </summary>
+        public static double ClampPowerScalar(double value) => Math.Clamp(value, -PowerSafetyBest, -PowerSafetyWorst);
+
+        /// <summary>
+        /// Clamps a corrected weight_scalar to the same safety envelope <see cref="Generate(double, double)"/>
+        /// already enforces, for callers (e.g. in-sim calibration) that adjust an existing scalar
+        /// directly instead of generating one from scratch.
+        /// </summary>
+        public static double ClampWeightScalar(double value) => Math.Clamp(value, -WeightSafetyWorst, -WeightSafetyBest);
+
         // Overall envelope spanned by the TOP_TEAM...SUPER_MINNOW buckets above - the continuous
         // Generate(double, double) overload interpolates across this same range instead of picking
         // one of the 5 discrete buckets.

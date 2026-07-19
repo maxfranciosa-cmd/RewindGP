@@ -1,12 +1,15 @@
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
+using Ams2ChEd.Business.AMS2.DependencyInjection;
 using Ams2ChEd.Business.AMS2.Models;
+using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.SeasonPackEditor.Services;
 using BCnEncoder.Decoder;
 using BCnEncoder.ImageSharp;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SixLabors.ImageSharp;
 using System;
@@ -819,38 +822,18 @@ namespace AMS2ChEd.SeasonPackEditor
                 .DefaultIfEmpty(0)
                 .Average();
 
-            double leaderPoints = constructorStandings.Max(s => ParseDouble(s.Points));
-            int fieldSize = constructorStandings.Count;
+            var targetScores = TeamTargetScoreService.ComputeTargetScores(teams, constructorStandings);
 
             var summaryLines = new List<string>();
             int updatedCount = 0;
 
             foreach (var team in teams)
             {
-                var standing = constructorStandings.FirstOrDefault(s =>
-                    string.Equals(s.Constructor?.Name?.Trim(), team.TeamName?.Trim(), StringComparison.OrdinalIgnoreCase));
-
-                if (standing == null)
-                {
-                    // Local team names often include the engine/sponsor (e.g. "Jordan Hart") while
-                    // Jolpica's constructor name is just "Jordan" - fall back to matching on that.
-                    var firstWord = team.TeamName?.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-                    if (!string.IsNullOrEmpty(firstWord))
-                    {
-                        standing = constructorStandings.FirstOrDefault(s =>
-                            s.Constructor?.Name?.Contains(firstWord, StringComparison.OrdinalIgnoreCase) == true);
-                    }
-                }
-
-                if (standing == null)
+                if (!targetScores.TryGetValue(team.TeamId, out var target) || !target.Matched)
                 {
                     summaryLines.Add($"{team.TeamName}: no match in {year} Jolpica standings, skipped.");
                     continue;
                 }
-
-                double points = ParseDouble(standing.Points);
-                int position = ParseInt(standing.Position);
-                double score = DriverPerformanceGenerator.ComputeCompetitivenessScore(points, leaderPoints, position, fieldSize);
 
                 double baseRelativeStrength = 1.0;
                 if (!string.IsNullOrWhiteSpace(team.Ams2Car) && fieldAveragePowerToWeight > 0
@@ -859,10 +842,10 @@ namespace AMS2ChEd.SeasonPackEditor
                     baseRelativeStrength = baseline.PowerToWeight / fieldAveragePowerToWeight;
                 }
 
-                team.Ams2CarPerformanceMalus = DriverPerformanceGenerator.Generate(score, baseRelativeStrength);
+                team.Ams2CarPerformanceMalus = DriverPerformanceGenerator.Generate(target.Score, baseRelativeStrength);
                 updatedCount++;
 
-                summaryLines.Add($"{team.TeamName}: P{position}, {points:0} pts -> " +
+                summaryLines.Add($"{team.TeamName}: P{target.Position}, {target.Points:0} pts -> " +
                     $"power {team.Ams2CarPerformanceMalus["power_scalar"]:F3}, " +
                     $"weight {team.Ams2CarPerformanceMalus["weight_scalar"]:F3}, " +
                     $"drag {team.Ams2CarPerformanceMalus["drag_scalar"]:F3}");
@@ -874,11 +857,27 @@ namespace AMS2ChEd.SeasonPackEditor
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private static double ParseDouble(string value) =>
-            double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double result) ? result : 0.0;
+        private void CalibratePerformanceInSim_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentProject.Season.Year <= 0)
+            {
+                MessageBox.Show("Please set a valid year before calibrating performance.",
+                    "Year Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-        private static int ParseInt(string value) =>
-            int.TryParse(value, out int result) ? result : int.MaxValue;
+            if (!_currentProject.Season.Teams.OfType<Ams2TeamEntry>().Any())
+            {
+                MessageBox.Show("No teams to calibrate.", "No Teams", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var ams2AppSettingsStorage = App.Services.GetRequiredService<IAms2AppSettingsStorage>();
+            var storageFactory = App.Services.GetRequiredService<Ams2StorageFactory>();
+            var dialog = new PerformanceCalibrationDialog(_currentProject, ams2AppSettingsStorage, storageFactory) { Owner = this };
+            dialog.ShowDialog();
+            RefreshUI();
+        }
 
         #endregion
 
@@ -1536,27 +1535,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 }
 
                 // Copy static assets files
-                if (_currentProject.StaticAssetFiles != null && _currentProject.StaticAssetFiles.Any())
-                {
-                    var staticAssetsDir = Path.Combine(tempDir, "static_assets");
-                    Directory.CreateDirectory(staticAssetsDir);
-
-                    foreach (var assetFile in _currentProject.StaticAssetFiles)
-                    {
-                        if (File.Exists(assetFile.FullPath))
-                        {
-                            var destPath = Path.Combine(staticAssetsDir, assetFile.FilePath);
-                            var destDir = Path.GetDirectoryName(destPath);
-
-                            if (!Directory.Exists(destDir))
-                            {
-                                Directory.CreateDirectory(destDir);
-                            }
-
-                            File.Copy(assetFile.FullPath, destPath, true);
-                        }
-                    }
-                }
+                SeasonDirectoryScaffoldService.BuildStaticAssetsOnly(_currentProject, tempDir);
 
                 // Export scenarios
                 if (_currentProject.Scenarios != null && _currentProject.Scenarios.Any())

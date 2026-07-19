@@ -3,6 +3,7 @@ using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
 using AMS2ChEd.Business.Storage.Contracts;
+using AMS2ChEd.SeasonPackEditor.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Configuration;
@@ -26,13 +27,14 @@ namespace AMS2ChEd.SeasonPackEditor
 
             var services = new ServiceCollection();
             ConfigureServices(services);
+
+            // Register Windows
+            services.AddTransient<MainWindow>();
+
             _serviceProvider = services.BuildServiceProvider();
             Services = _serviceProvider;
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
-
-            // Register Windows
-            services.AddTransient<MainWindow>();
         }
 
         private void ConfigureServices(ServiceCollection services)
@@ -42,6 +44,13 @@ namespace AMS2ChEd.SeasonPackEditor
             services.AddSingleton<ISeasonLoader<Ams2Season>, SeasonLoader>();
             services.AddSingleton<ITeamsLoader, TeamsLoader>();
             // ********** STORAGE FACTORY **************
+            // GameStorage/AccoladesLoader are required by Ams2StorageFactory's constructor but are
+            // never actually exercised from SeasonPackCreator. IAms2AppSettingsStorage's Ams2Folder is
+            // used by the in-sim calibration feature (PerformanceCalibrationDialog) to write CustomAI
+            // roster/livery files directly into a real AMS2 install - see Ams2SettingsStorage.
+            services.AddSingleton<IGameStorage, GameStorage>();
+            services.AddSingleton<IAccoladesLoader, AccoladesLoader>();
+            services.AddSingleton<IAms2AppSettingsStorage, Ams2SettingsStorage>();
             services.AddTransient<Ams2StorageFactory>();
         }
     }

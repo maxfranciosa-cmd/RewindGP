@@ -18,65 +18,12 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             var options = DefaultJsonSerializerOptions.Instance;
 
             var season = project.Season.DeepClone();
+            var resolvedTeams = SeasonPackPathResolver.ResolveTeams(season.Teams.OfType<Ams2TeamEntry>(), project);
+            season.Teams = resolvedTeams;
 
-            foreach (var teamEntry in season.Teams.OfType<Ams2TeamEntry>())
-            {
-                // Embed livery XML content
-                if (project.XmlFiles.TryGetValue(teamEntry.TeamId, out var xmlContent)
-                    && !string.IsNullOrWhiteSpace(xmlContent))
-                {
-                    teamEntry.LiveryXml = ResolveXmlTexturePaths(xmlContent);
-                }
-
-                // Resolve team-level paths
-                teamEntry.BaseLiveryDriver1 = Resolve(teamEntry.BaseLiveryDriver1, project.TextureFiles);
-                teamEntry.BaseLiveryDriver2 = Resolve(teamEntry.BaseLiveryDriver2, project.TextureFiles);
-                teamEntry.HelmetSponsors = Resolve(teamEntry.HelmetSponsors, project.TextureFiles);
-                teamEntry.VisorSponsors = Resolve(teamEntry.VisorSponsors, project.TextureFiles);
-                teamEntry.LiveryPreview = Resolve(teamEntry.LiveryPreview, project.TextureFiles);
-
-                if (teamEntry.DriversSpecificHelmet != null)
-                    teamEntry.DriversSpecificHelmet = teamEntry.DriversSpecificHelmet
-                        .ToDictionary(kvp => kvp.Key, kvp => Resolve(kvp.Value, project.TextureFiles));
-
-                if (teamEntry.NumbersPlacements != null)
-                    foreach (var p in teamEntry.NumbersPlacements)
-                        p.NumbersTexture = Resolve(p.NumbersTexture, project.TextureFiles);
-
-                if (teamEntry.LiveryOverrides != null)
-                {
-                    foreach (var ov in teamEntry.LiveryOverrides)
-                    {
-                        ov.Driver1Livery = Resolve(ov.Driver1Livery, project.TextureFiles);
-                        ov.Driver2Livery = Resolve(ov.Driver2Livery, project.TextureFiles);
-                        ov.HelmetSponsors = Resolve(ov.HelmetSponsors, project.TextureFiles);
-                        ov.VisorSponsors = Resolve(ov.VisorSponsors, project.TextureFiles);
-                        ov.LiveryPreview = Resolve(ov.LiveryPreview, project.TextureFiles);
-
-                        if (ov.DriversSpecificHelmet != null)
-                            ov.DriversSpecificHelmet = ov.DriversSpecificHelmet
-                                .ToDictionary(kvp => kvp.Key, kvp => Resolve(kvp.Value, project.TextureFiles));
-
-                        if (ov.NumbersPlacements != null)
-                            foreach (var p in ov.NumbersPlacements)
-                                p.NumbersTexture = Resolve(p.NumbersTexture, project.TextureFiles);
-                    }
-                }
-            }
-
-            var drivers = project.Drivers.DeepClone();
-
-            foreach (var driver in drivers.OfType<Ams2DriverData>())
-            {
-                driver.PictureUrl = Resolve(driver.PictureUrl, project.TextureFiles);
-                driver.BaseHelmetFile = Resolve(driver.BaseHelmetFile, project.TextureFiles);
-                driver.BaseVisorFile = Resolve(driver.BaseVisorFile, project.TextureFiles);
-                driver.BaseHelmetFile90s = Resolve(driver.BaseHelmetFile90s, project.TextureFiles);
-                driver.BaseHelmetFile80s = Resolve(driver.BaseHelmetFile80s, project.TextureFiles);
-                driver.BaseVisorFile80s = Resolve(driver.BaseVisorFile80s, project.TextureFiles);
-                driver.BaseHelmetFile70s = Resolve(driver.BaseHelmetFile70s, project.TextureFiles);
-                driver.BaseVisorFile70s = Resolve(driver.BaseVisorFile70s, project.TextureFiles);
-            }
+            var drivers = SeasonPackPathResolver.ResolveDrivers(project.Drivers.OfType<Ams2DriverData>(), project.TextureFiles)
+                .Cast<IDriverData>()
+                .ToList();
 
             // Resolve player data from the season
             var playerTeam = season.Teams.OfType<Ams2TeamEntry>().FirstOrDefault(t =>
@@ -155,26 +102,6 @@ namespace AMS2ChEd.SeasonPackEditor.Services
 
             var result = JsonSerializer.Serialize(saveGame, options);
             File.WriteAllText(outputPath, result);
-        }
-
-        private static string ResolveXmlTexturePaths(string xmlContent)
-        {
-            string sampleBodiesPath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "SampleBodies");
-
-            return System.Text.RegularExpressions.Regex.Replace(
-                xmlContent,
-                @"(?i)(PATH="")(Driver\\)([^""]*"")",
-                m => m.Groups[1].Value
-                    + Path.Combine(sampleBodiesPath, m.Groups[3].Value.TrimEnd('"'))
-                    + "\"");
-        }
-
-        private static string Resolve(string relativePath, Dictionary<string, string> textureFiles)
-        {
-            if (string.IsNullOrEmpty(relativePath)) return relativePath;
-            return textureFiles.TryGetValue(relativePath, out var absolute) ? absolute : relativePath;
         }
     }
 }

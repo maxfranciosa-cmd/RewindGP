@@ -1,6 +1,6 @@
-﻿using Ams2ChEd.Business.AMS2.Settings;
+﻿using Ams2ChEd.Business.AMS2.Helpers;
+using Ams2ChEd.Business.AMS2.Settings;
 using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
-using Microsoft.Win32;
 using System.Configuration;
 using System.IO;
 
@@ -8,8 +8,6 @@ namespace AMS2ChEd.Services
 {
     public class SettingsStorage : IAms2AppSettingsStorage
     {
-        private const string AMS2_REGISTRY_PATH = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1066890";
-        private const string DEFAULT_STEAM_PATH = @"C:\Program Files (x86)\Steam\steamapps\common\Automobilista 2";
         private const string FOLDERPATH_SETTINGS_KEY = "AMS2FolderPath";
         private const string DRIVERNAME_SETTINGS_KEY = "AMS2DriverName";
         public void SaveSettings(Ams2AppSettings settings)
@@ -82,46 +80,6 @@ namespace AMS2ChEd.Services
             return string.Empty;
         }
 
-        private string GetAMS2InstallPath()
-        {
-            try
-            {
-                // Try to get from registry
-                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(AMS2_REGISTRY_PATH))
-                {
-                    if (key != null)
-                    {
-                        string installLocation = key.GetValue("InstallLocation") as string;
-                        if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
-                        {
-                            return installLocation;
-                        }
-                    }
-                }
-
-                // Try common Steam library locations
-                string[] commonPaths = new[]
-                {
-                    DEFAULT_STEAM_PATH,
-                    @"D:\SteamLibrary\steamapps\common\Automobilista 2",
-                    @"E:\SteamLibrary\steamapps\common\Automobilista 2",
-                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86),
-                        @"Steam\steamapps\common\Automobilista 2")
-                };
-
-                foreach (var path in commonPaths)
-                {
-                    if (Directory.Exists(path))
-                    {
-                        return path;
-                    }
-                }
-                return DEFAULT_STEAM_PATH;
-            }
-            catch (Exception ex)
-            {
-                return DEFAULT_STEAM_PATH;
-            }
-        }
+        private string GetAMS2InstallPath() => Ams2InstallPathDetector.DetectInstallPath();
     }
 }

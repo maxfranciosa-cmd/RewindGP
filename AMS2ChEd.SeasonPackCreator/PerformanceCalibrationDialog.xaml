@@ -1,0 +1,70 @@
+<Window x:Class="AMS2ChEd.SeasonPackEditor.PerformanceCalibrationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Calibrate Performance In-Sim" Height="680" Width="920" WindowStartupLocation="CenterOwner" Background="#1A1A1A">
+    <Window.Resources>
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Background" Value="#E10600"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+        <Style x:Key="SecondaryActionButton" TargetType="Button" BasedOn="{StaticResource ActionButton}">
+            <Setter Property="Background" Value="#404040"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="24,18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Calibrate Performance In-Sim" FontSize="20" FontWeight="Bold" Foreground="#E10600" Margin="0,0,0,6"/>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap" Foreground="#AAAAAA" FontSize="11" Margin="0,0,0,14"
+                   Text="Compares each team's real-world (points/position) target score against lap times captured from a real AMS2 session, and suggests corrected power/weight scalars instead of guessing new numbers by hand. Exporting writes one AI car per team directly into the AMS2 install below (normal team livery, driver skill neutralised to identical generic ratings) so pace only reflects each team's scalar. Drive any car that was NOT exported for your own lap - exported cars are named '(Calibration)' so you can tell them apart on the car-select screen. This overwrites the car class's existing CustomAI roster (a .bak backup of the previous file is kept). It always targets the season's first scheduled race/track."/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="AMS2 Install Folder:" Foreground="#FFFFFF" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBox Name="Ams2FolderTextBox" Width="500" VerticalAlignment="Center" LostFocus="Ams2FolderTextBox_LostFocus"/>
+            <Button Content="Browse..." Style="{StaticResource SecondaryActionButton}" Margin="8,0,0,0" Click="BrowseAms2Folder_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="1. Fetch Target Scores" Style="{StaticResource ActionButton}" Click="FetchTargetScores_Click"/>
+            <Button Content="2. Export Calibration CustomAI" Style="{StaticResource ActionButton}" Click="ExportCalibrationCustomAi_Click"/>
+            <Button Name="ListenToggleButton" Content="3. Start Listening For Session" Style="{StaticResource ActionButton}" Click="ListenToggle_Click"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="4" Name="StatusTextBlock" Text="Ready." Foreground="#FFFFFF" FontSize="12" Margin="0,0,0,10" TextWrapping="Wrap"/>
+
+        <DataGrid Grid.Row="5" Name="ResultsDataGrid" AutoGenerateColumns="False" IsReadOnly="True"
+                  Background="#2D2D2D" Foreground="White" BorderBrush="#404040" RowBackground="#2D2D2D" AlternatingRowBackground="#262626"
+                  GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#404040" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Team" Binding="{Binding TeamName}" Width="150"/>
+                <DataGridTextColumn Header="Target" Binding="{Binding TargetScoreText}" Width="70"/>
+                <DataGridTextColumn Header="Actual" Binding="{Binding ActualScoreText}" Width="70"/>
+                <DataGridTextColumn Header="Error" Binding="{Binding ErrorText}" Width="70"/>
+                <DataGridTextColumn Header="Current Power" Binding="{Binding CurrentPowerText}" Width="100"/>
+                <DataGridTextColumn Header="Current Weight" Binding="{Binding CurrentWeightText}" Width="100"/>
+                <DataGridTextColumn Header="New Power" Binding="{Binding NewPowerText}" Width="100"/>
+                <DataGridTextColumn Header="New Weight" Binding="{Binding NewWeightText}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Grid.Row="6" Name="IterationHistoryTextBlock" Foreground="#AAAAAA" FontSize="11" Margin="0,10,0,0" TextWrapping="Wrap"/>
+
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+            <Button Content="Apply Corrections &amp; Prepare Next Session" Style="{StaticResource ActionButton}" Click="ApplyCorrections_Click"/>
+            <Button Content="Close" Style="{StaticResource SecondaryActionButton}" Click="Close_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

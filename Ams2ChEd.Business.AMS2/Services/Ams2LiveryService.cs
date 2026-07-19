@@ -120,6 +120,24 @@ namespace Ams2ChEd.Business.AMS2.Services
         }
 
         /// <summary>
+        /// Copies a file, overwriting the destination even if it was left read-only by a previous
+        /// copy (Win32's CopyFileEx refuses to overwrite a read-only destination despite bOverwrite=TRUE).
+        /// </summary>
+        private static void CopyFileOverwrite(string sourcePath, string destPath)
+        {
+            if (File.Exists(destPath))
+            {
+                var attributes = File.GetAttributes(destPath);
+                if ((attributes & FileAttributes.ReadOnly) != 0)
+                {
+                    File.SetAttributes(destPath, attributes & ~FileAttributes.ReadOnly);
+                }
+            }
+
+            File.Copy(sourcePath, destPath, overwrite: true);
+        }
+
+        /// <summary>
         /// Recursively copy directory contents
         /// </summary>
         private void CopyDirectory(string sourceDir, string destDir)
@@ -132,7 +150,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             {
                 string fileName = Path.GetFileName(file);
                 string destFile = Path.Combine(destDir, fileName);
-                File.Copy(file, destFile, overwrite: true);
+                CopyFileOverwrite(file, destFile);
                 Console.WriteLine($"  Copied: {fileName}");
             }
 
@@ -239,7 +257,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
                 if (File.Exists(specificHelmetFile))
                 {
-                    File.Copy(specificHelmetFile, outputHelmetPath, overwrite: true);
+                    CopyFileOverwrite(specificHelmetFile, outputHelmetPath);
                     Console.WriteLine($"  Copied helmet: {helmetOutputFilename}");
                 }
                 else
@@ -249,15 +267,22 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
             else if (!string.IsNullOrEmpty(resolvedHelmetSponsors) || Path.GetExtension(baseHelmetFile) != ".dds")
             {
-                DdsTextureComposer.Compose(baseHelmetFile, resolvedHelmetSponsors, outputHelmetPath);
-                Console.WriteLine($"  Generated helmet: {helmetOutputFilename}");
+                if (File.Exists(baseHelmetFile))
+                {
+                    DdsTextureComposer.Compose(baseHelmetFile, resolvedHelmetSponsors, outputHelmetPath);
+                    Console.WriteLine($"  Generated helmet: {helmetOutputFilename}");
+                }
+                else
+                {
+                    Console.WriteLine($"Warning: Base helmet file not found: {baseHelmetFile}");
+                }
             }
             else if (!string.IsNullOrEmpty(baseHelmetFile))
             {
                 // Just copy the base helmet if no sponsors
                 if (File.Exists(baseHelmetFile))
                 {
-                    File.Copy(baseHelmetFile, outputHelmetPath, overwrite: true);
+                    CopyFileOverwrite(baseHelmetFile, outputHelmetPath);
                     Console.WriteLine($"  Copied helmet: {helmetOutputFilename}");
                 }
                 else
@@ -272,8 +297,15 @@ namespace Ams2ChEd.Business.AMS2.Services
             {
                 if (!string.IsNullOrEmpty(baseVisorFile))
                 {
-                    DdsTextureComposer.Compose(baseVisorFile, resolvedVisorSponsors, outputVisorPath);
-                    Console.WriteLine($"  Generated visor: {visorOutputFilename}");
+                    if (File.Exists(baseVisorFile))
+                    {
+                        DdsTextureComposer.Compose(baseVisorFile, resolvedVisorSponsors, outputVisorPath);
+                        Console.WriteLine($"  Generated visor: {visorOutputFilename}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Warning: Base visor file not found: {baseVisorFile}");
+                    }
                 }
             }
             else if (!string.IsNullOrEmpty(baseVisorFile))
@@ -283,7 +315,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                     // Just copy the base visor if no sponsors
                     if (File.Exists(baseVisorFile))
                     {
-                        File.Copy(baseVisorFile, outputVisorPath, overwrite: true);
+                        CopyFileOverwrite(baseVisorFile, outputVisorPath);
                         Console.WriteLine($"  Copied visor: {visorOutputFilename}");
                     }
                     else
@@ -291,9 +323,13 @@ namespace Ams2ChEd.Business.AMS2.Services
                         Console.WriteLine($"Warning: Base visor file not found: {baseVisorFile}");
                     }
                 }
-                else
+                else if (File.Exists(baseVisorFile))
                 {
                     DdsTextureComposer.Compose(baseVisorFile, null, outputVisorPath);
+                }
+                else
+                {
+                    Console.WriteLine($"Warning: Base visor file not found: {baseVisorFile}");
                 }
             }
         }
@@ -315,9 +351,17 @@ namespace Ams2ChEd.Business.AMS2.Services
             string fileName = Path.GetFileName(sourcePath);
             string destPath = Path.Combine(carModelDirectory, fileName);
 
+            // When filePath is already an absolute path pointing into carModelDirectory itself
+            // (e.g. the calibration tool works directly against in-place project assets rather than
+            // a separate season directory), source and destination resolve to the same file - nothing to do.
+            if (string.Equals(Path.GetFullPath(sourcePath), Path.GetFullPath(destPath), StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
             if (Path.GetExtension(sourcePath) == ".dds")
             {
-                File.Copy(sourcePath, destPath, overwrite: true);
+                CopyFileOverwrite(sourcePath, destPath);
                 Console.WriteLine($"  Copied car livery: {fileName}");
             }
             else
@@ -438,6 +482,11 @@ namespace Ams2ChEd.Business.AMS2.Services
                 // Generate helmet/visor DDS files for this car model
                 GenerateHelmetVisorDDSForCarModel(raceId, entries, temporaryTexturesPath, seasonDirectory);
 
+                // Track preview files already copied for this car model, since LiveryPreview is a
+                // team-level field: a 2-driver team would otherwise copy the exact same source file
+                // onto the exact same destination twice back-to-back for no reason.
+                var copiedPreviewFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
                 // Process each driver slot assigned to this car model
                 foreach (var (entry, team, driverNumber, forceSolidColourFallback) in entries)
                 {
@@ -458,7 +507,10 @@ namespace Ams2ChEd.Business.AMS2.Services
                     string finalPreviewPath = Path.Combine("temporary_textures", previewFile);
                     string finalPreviewPathDirectory = Path.Combine(carModelDirectory, Path.GetDirectoryName(finalPreviewPath));
                     Directory.CreateDirectory(finalPreviewPathDirectory);
-                    CopyAsDDS(previewFile, seasonDirectory, finalPreviewPathDirectory);
+                    if (copiedPreviewFiles.Add(previewFile ?? string.Empty))
+                    {
+                        CopyAsDDS(previewFile, seasonDirectory, finalPreviewPathDirectory);
+                    }
 
                     // Process this driver's livery - load individual team XML and append
                     if (!string.IsNullOrEmpty(driverId))
