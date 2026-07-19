@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using System.Windows;
@@ -127,6 +128,8 @@ namespace AMS2ChEd
                 // Driver name cell
                 AddDriverNameCell(driverName, row, 0);
 
+                var discardedResults = ChampionshipScoringCalculator.GetDiscardedResults(driverId, saveGame.CurrentSeason, completedRaces);
+
                 // Result cells for each race
                 for (int raceIndex = 0; raceIndex < allRaces.Count; raceIndex++)
                 {
@@ -169,7 +172,9 @@ namespace AMS2ChEd
                         }
                     }
 
-                    AddResultCell(cellText, row, raceIndex + 1);
+                    bool isDiscarded = completedRace != null && discardedResults.Contains(completedRace);
+
+                    AddResultCell(cellText, row, raceIndex + 1, isDiscarded);
                 }
             }
         }
@@ -227,7 +232,7 @@ namespace AMS2ChEd
             ResultsGrid.Children.Add(border);
         }
 
-        private void AddResultCell(string text, int row, int col)
+        private void AddResultCell(string text, int row, int col, bool isDiscarded = false)
         {
             var border = new Border
             {
@@ -236,12 +241,16 @@ namespace AMS2ChEd
                 Background = row % 2 == 0 ? Brushes.White : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#fafafa"))
             };
 
+            bool showAsDiscarded = isDiscarded && !string.IsNullOrEmpty(text);
+
             var textBlock = new TextBlock
             {
                 Text = text,
                 FontFamily = new FontFamily("Courier New"),
                 FontSize = 11,
-                Foreground = string.IsNullOrEmpty(text) ? Brushes.LightGray : Brushes.Black,
+                Foreground = showAsDiscarded ? Brushes.Gray : (string.IsNullOrEmpty(text) ? Brushes.LightGray : Brushes.Black),
+                FontStyle = showAsDiscarded ? FontStyles.Italic : FontStyles.Normal,
+                TextDecorations = showAsDiscarded ? TextDecorations.Strikethrough : null,
                 FontWeight = text == "DNF" || text == "DNQ" ? FontWeights.Bold : FontWeights.Normal,
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,

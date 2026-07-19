@@ -71,6 +71,7 @@ namespace AMS2ChEd.SeasonPackEditor
             YearTextBox.Text = _currentProject.Season.Year > 0 ? _currentProject.Season.Year.ToString() : "";
             Ams2ClassTextBox.Text = (_currentProject.Season as Ams2Season)?.Ams2Class ?? "";
             PointsForFastestLapTextBox.Text = _currentProject.Season.PointsForFastestLap?.ToString() ?? "0";
+            RacesToCountTowardsChampionshipTextBox.Text = _currentProject.Season.RacesToCountTowardsChampionship?.ToString() ?? "";
 
             // Points System
             var pointsList = _currentProject.Season.PointsSystem
@@ -1367,6 +1368,11 @@ namespace AMS2ChEd.SeasonPackEditor
                             double.TryParse(PointsForFastestLapTextBox.Text, out pointsForFastestLap);
                             _currentProject.Season.PointsForFastestLap = pointsForFastestLap;
 
+                            _currentProject.Season.RacesToCountTowardsChampionship =
+                                int.TryParse(RacesToCountTowardsChampionshipTextBox.Text, out int racesToCount)
+                                    ? racesToCount
+                                    : null;
+
                             // Update the project year if it's different
                             if (_currentProject.Season.Year != year)
                             {
@@ -1810,6 +1816,11 @@ namespace AMS2ChEd.SeasonPackEditor
             {
                 ams2Season.Ams2Class = Ams2ClassTextBox.Text;
             }
+
+            _currentProject.Season.RacesToCountTowardsChampionship =
+                int.TryParse(RacesToCountTowardsChampionshipTextBox.Text, out int racesToCount)
+                    ? racesToCount
+                    : null;
 
             // Update points system from grid
             if (PointsSystemDataGrid.ItemsSource is IEnumerable<PointsSystemEntry> points)

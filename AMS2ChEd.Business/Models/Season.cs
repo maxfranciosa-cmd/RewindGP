@@ -33,6 +33,15 @@ namespace AMS2ChEd.Business.Models
 
         [JsonPropertyName("slug")]
         string? Slug { get; set; }
+
+        /// <summary>
+        /// How many of a driver's best race results count toward the drivers'
+        /// championship this season (pre-1990 "dropped scores" rules). Null means
+        /// every race counts (backward compatible default). Constructors always
+        /// count every race regardless of this value.
+        /// </summary>
+        [JsonPropertyName("races_to_count_towards_championship")]
+        int? RacesToCountTowardsChampionship { get; set; }
     }
 
     public interface ITeamEntry

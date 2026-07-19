@@ -268,10 +268,16 @@
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <Label Grid.Row="0" Grid.Column="0" Content="Points For Fastest Lap (Top 10):" VerticalAlignment="Center" Margin="0,0,0,15"/>
                             <TextBox Grid.Row="0" Grid.Column="1" Name="PointsForFastestLapTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" Content="Races Counted Towards Drivers' Championship:" VerticalAlignment="Center" Margin="0,0,0,15"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Name="RacesToCountTowardsChampionshipTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="(leave blank = all races count; constructors always count every race)"
+                                       Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" Margin="10,0,0,15"/>
                         </Grid>
 
                         <Grid>

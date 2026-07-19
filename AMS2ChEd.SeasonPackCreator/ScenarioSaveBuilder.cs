@@ -84,6 +84,7 @@ namespace AMS2ChEd.SeasonPackEditor
                     ? new Dictionary<string, int>(original.PointsSystem)
                     : new Dictionary<string, int>(),
                 PointsForFastestLap = original.PointsForFastestLap,
+                RacesToCountTowardsChampionship = original.RacesToCountTowardsChampionship,
                 Races = original.Races.ToList(),
                 Teams = teams,
                 Absences = config.Absences.ToList()

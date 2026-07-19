@@ -14,6 +14,7 @@ namespace AMS2ChEd.Business.Models.Concrete
         public IEnumerable<Absence> Absences { get; set; }
         public int? MaxDriversPerRace { get; set; }
         public string? Slug { get; set; }
+        public int? RacesToCountTowardsChampionship { get; set; }
     }
 
     public class TeamEntry : ITeamEntry

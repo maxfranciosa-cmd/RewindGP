@@ -40,14 +40,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             var driverStandingsDictionary = saveGame.CurrentDriverStandings.ToDictionary(s => s.DriverId, s => s);
             foreach (var position in result.RaceResults)
-            {   
+            {
                 var driverStanding = driverStandingsDictionary.GetValueOrDefault(position.DriverId);
 
                 if (driverStanding != null)
                 {
-                    driverStanding.Points += position.Points;
                     driverStanding.PositionsTally = driverStanding.PositionsTally ?? new PositionsTally();
-                    if (!ignoreForPositionsTally && !position.DidNotPreQualify) driverStanding.PositionsTally.AddPosition(position.Position); 
+                    if (!ignoreForPositionsTally && !position.DidNotPreQualify) driverStanding.PositionsTally.AddPosition(position.Position);
                 }
                 else
                 {
@@ -55,14 +54,25 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     var newDriverInStandings = new HistoricalDriverStandingEntry
                     {
                         DriverId = position.DriverId,
-                        Points = position.Points,
+                        Points = 0,
                         PositionsTally = new PositionsTally(),
                         TeamId = null
                     };
                     if (!ignoreForPositionsTally && !position.DidNotPreQualify) newDriverInStandings.PositionsTally.AddPosition(position.Position);
                     saveGame.CurrentDriverStandings = saveGame.CurrentDriverStandings.Append(newDriverInStandings);
                 }
-                
+
+            }
+
+            // Recompute each driver's season total from full history, honoring the
+            // season's "best N races count" rule if one is set.
+            var allResults = (saveGame.GrandPrixResults ?? Enumerable.Empty<GrandPrixResult>())
+                .Where(r => !ReferenceEquals(r, result))
+                .Append(result);
+
+            foreach (var standing in saveGame.CurrentDriverStandings)
+            {
+                standing.Points = ChampionshipScoringCalculator.CalculateDriverSeasonPoints(standing.DriverId, saveGame.CurrentSeason, allResults);
             }
 
             // Re-sort standings
