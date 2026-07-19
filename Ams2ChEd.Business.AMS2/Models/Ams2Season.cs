@@ -100,6 +100,17 @@ namespace AMS2ChEd.Business.AMS2.Models
             }
         }
 
+        /// <summary>
+        /// True if either driver's malus dictionary uses one of the physical performance
+        /// scalars (power/weight/drag) rather than (or alongside) qualifying_skill.
+        /// </summary>
+        [JsonIgnore]
+        public bool HasPerformanceScalarMalus =>
+            ContainsScalarKey(Ams2CarPerformanceMalus) || ContainsScalarKey(Ams2CarPerformanceMalusDriver2);
+
+        private static bool ContainsScalarKey(Dictionary<string, double> malus) =>
+            malus != null && (malus.ContainsKey("power_scalar") || malus.ContainsKey("weight_scalar") || malus.ContainsKey("drag_scalar"));
+
         [JsonPropertyName("base_livery_driver1")]
         public string BaseLiveryDriver1 { get; set; }
 

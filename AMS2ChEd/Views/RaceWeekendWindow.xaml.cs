@@ -176,7 +176,8 @@ namespace AMS2ChEd.Views
                     var playerNumber = playerDriverSlot == 1 ? playerTeam.Driver1Number : playerTeam.Driver2Number;
                     var numberofOpponents = (saveGame.NextGpEntryList.Sum(e => (string.IsNullOrEmpty(e.Driver1Id) ? 0 : 1) + (string.IsNullOrEmpty(e.Driver2Id) ? 0 : 1))) - 1;
                     var difficultyDelta = CalculateDifficulty(team);
-                    var raceInstructionsWindow = new RaceInstructionsWindow(saveGame.PlayerData.Name, team?.GetAms2Car(playerDriverSlot) ?? "", $"#{playerNumber} {team?.TeamName} - {saveGame.PlayerData.Name}", numberofOpponents, difficultyDelta);
+                    var usesPerformanceScalars = saveGame.CurrentSeason.Teams.OfType<Ams2TeamEntry>().Any(t => t.HasPerformanceScalarMalus);
+                    var raceInstructionsWindow = new RaceInstructionsWindow(saveGame.PlayerData.Name, team?.GetAms2Car(playerDriverSlot) ?? "", $"#{playerNumber} {team?.TeamName} - {saveGame.PlayerData.Name}", numberofOpponents, difficultyDelta, usesPerformanceScalars);
                     raceInstructionsWindow.ShowDialog();
                 }
             }

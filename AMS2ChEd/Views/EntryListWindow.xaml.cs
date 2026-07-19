@@ -316,13 +316,15 @@ namespace AMS2ChEd.Views
             var playerDriverSlot = playerEntry.Driver1Id == saveGame.PlayerData.DriverId ? 1 : 2;
 
             var difficultyDelta = CalculatePreQualiDifficulty(normalizedSeason, playerEntry.TeamId, playerDriverSlot);
+            var usesPerformanceScalars = normalizedSeason.Teams.OfType<Ams2TeamEntry>().Any(t => t.HasPerformanceScalarMalus);
 
             var instructionsWindow = RaceInstructionsWindow.CreatePreQualiWindow(
                 saveGame.PlayerData.Name,
                 carName: playerTeamData?.GetAms2Car(playerDriverSlot) ?? "",
                 liveryName: $"#{playerNumber} {playerTeamData?.TeamName} - {saveGame.PlayerData.Name}",
                 opponentsNumber: saveGame.PreQualiPoolEntries.DriverCount() - 1,
-                suggestedDifficulty: difficultyDelta);
+                suggestedDifficulty: difficultyDelta,
+                usesPerformanceScalars: usesPerformanceScalars);
 
             instructionsWindow.Owner = this;
             instructionsWindow.ShowDialog();

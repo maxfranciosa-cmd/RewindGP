@@ -4,10 +4,10 @@ namespace AMS2ChEd
 {
     public partial class RaceInstructionsWindow : Window
     {
-        public static RaceInstructionsWindow CreatePreQualiWindow(string playerName, string carName,string liveryName,int opponentsNumber,int suggestedDifficulty)
+        public static RaceInstructionsWindow CreatePreQualiWindow(string playerName, string carName,string liveryName,int opponentsNumber,int suggestedDifficulty, bool usesPerformanceScalars)
         {
             var window = new RaceInstructionsWindow(
-                playerName, carName, liveryName, opponentsNumber, suggestedDifficulty);
+                playerName, carName, liveryName, opponentsNumber, suggestedDifficulty, usesPerformanceScalars);
 
             window.TitleText.Text = "PRE-QUALIFYING SESSION";
             window.IntroText4.Text =
@@ -18,12 +18,14 @@ namespace AMS2ChEd
 
             return window;
         }
-        public RaceInstructionsWindow(string playerName, string car_name, string livery_name, int opponentsNumber, int suggestedDifficulty)
+        public RaceInstructionsWindow(string playerName, string car_name, string livery_name, int opponentsNumber, int suggestedDifficulty, bool usesPerformanceScalars)
         {
-            InitializeComponent(); 
+            InitializeComponent();
             IntroText1.Text = $"1) Ensure you SELECT THE RIGHT CAR ({car_name}) AND LIVERY. it will have your driver name on it! (in your case {livery_name})";
             IntroText2.Text = $"2) Select THE RIGHT NUMBER OF OPPONENTS (in your case {opponentsNumber})";
-            IntroText3.Text = $"3) SUGGESTED DIFFICULTY: +{suggestedDifficulty} POINTS (compared to a difficulty where you fight for wins)";
+            IntroText3.Text = usesPerformanceScalars
+                ? "3) SUGGESTED DIFFICULTY: your usual difficulty (teams should have the performance scalar so a slow car is actually going to be slower)"
+                : $"3) SUGGESTED DIFFICULTY: +{suggestedDifficulty} POINTS (compared to a difficulty where you fight for wins)";
             IntroText4.Text = "4) it doesn't matter the track or the duration of the race, but have at least A QUALIFYING SESSION and A RACE SESSION.";
         }
 
