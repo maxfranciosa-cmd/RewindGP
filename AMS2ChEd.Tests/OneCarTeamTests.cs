@@ -24,8 +24,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         {
             _mockReputationUpdater = new Mock<IReputationUpdater>();
             _mockReputationUpdater
-                .Setup(r => r.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Returns<DriverReputation, int, int, int, int, int>((rep, age, pos, pods, dnfs, races) => rep);
+                .Setup(r => r.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
+                .Returns<DriverReputation, int, int, int, int, int, int, double>((rep, age, pos, pods, dnfs, races, totalRaces, avgPos) => rep);
 
             _offSeasonMovements = new OffSeasonMovements(new DriverFirer(), new DriverHirer());
 

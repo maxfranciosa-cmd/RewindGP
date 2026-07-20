@@ -88,7 +88,9 @@ namespace AMS2ChEd.Tests
                 driver.Position,
                 driver.Podiums,
                 driver.DNFs,
-                3
+                races: 3,
+                totalSeasonRaces: 3,
+                averageRacePosition: driver.Position
             );
 
             Assert.AreEqual(driver.ExpectedReputation, newReputation,

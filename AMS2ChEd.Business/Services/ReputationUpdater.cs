@@ -171,24 +171,28 @@ namespace AMS2ChEd.Business.Services
             }
         }
 
-        public DriverReputation GetNewReputation(DriverReputation currentReputation, int age, int standings, int podiums, int dnfs, int races)
+        public DriverReputation GetNewReputation(DriverReputation currentReputation, int age, int standings, int podiums, int dnfs, int races, int totalSeasonRaces, double averageRacePosition)
         {
             if (currentReputation == DriverReputation.PAY_DRIVER_WILD_CARD)
             {
                 return EvaluateWildCard(age, podiums, dnfs, races);
             }
 
+            var effectiveStandings = (races < totalSeasonRaces / 2.0)
+                ? (int)Math.Round(averageRacePosition, MidpointRounding.AwayFromZero)
+                : standings;
+
             if (age < YOUNG_DRIVER_AGE)
             {
-                return GetNewYoungReputation(currentReputation, age, standings, podiums, dnfs);
+                return GetNewYoungReputation(currentReputation, age, effectiveStandings, podiums, dnfs);
             }
             else if (age < OLD_DRIVER_AGE)
             {
-                return GetNewPrimeReputation(currentReputation, age, standings, podiums, dnfs);
+                return GetNewPrimeReputation(currentReputation, age, effectiveStandings, podiums, dnfs);
             }
             else
             {
-                return GetNewAgeingReputation(currentReputation, age, standings, podiums, dnfs);
+                return GetNewAgeingReputation(currentReputation, age, effectiveStandings, podiums, dnfs);
             }
         }
 

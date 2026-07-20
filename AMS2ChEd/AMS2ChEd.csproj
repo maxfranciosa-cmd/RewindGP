@@ -11,8 +11,8 @@
     <ApplicationIcon>StaticFiles\rewind_gp_logo_128.ico</ApplicationIcon>
 	  <UpdaterProject>$(SolutionDir)..\AMS2ChEd.Updater\AMS2ChEd.Updater.csproj</UpdaterProject>
 	  <UpdaterBinDir>$(SolutionDir)..\AMS2ChEd.Updater\bin\$(Configuration)\net8.0-windows\win-x64\</UpdaterBinDir>
-	  <AssemblyVersion>1.6.0.0</AssemblyVersion>
-	  <FileVersion>1.6.0.0</FileVersion>
+	  <AssemblyVersion>1.7.0.0</AssemblyVersion>
+	  <FileVersion>1.7.0.0</FileVersion>
   </PropertyGroup>
 	
 <Target Name="BuildAndCopyUpdater" AfterTargets="Build">

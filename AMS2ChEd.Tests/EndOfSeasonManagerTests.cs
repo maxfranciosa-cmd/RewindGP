@@ -49,7 +49,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
             // Setup mocks
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
                 .Returns(DriverReputation.PRIME_MIDFIELD);
 
             mockOffSeasonMovements
@@ -99,7 +99,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             var fullDriverRatingsDatabase = CreateTestDriverRatingsDatabase(2025, driver);
 
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
                 .Returns(DriverReputation.YOUNG_TALENT);
 
             mockOffSeasonMovements
@@ -146,7 +146,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             var fullDriverRatingsDatabase = CreateTestDriverRatingsDatabase(2025, driver);
 
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
                 .Returns(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL);
 
             mockOffSeasonMovements
@@ -191,7 +191,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             var fullDriverRatingsDatabase = CreateTestDriverRatingsDatabase(2025, driver);
 
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
                 .Returns(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL);
 
             mockOffSeasonMovements
@@ -241,7 +241,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             AddMockedDriverStandings(saveGame);
 
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
                 .Returns(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL);
 
             // Capture the TeamSituation passed to DropDrivers
@@ -354,7 +354,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             saveGame.Drivers = new List<IDriverData> { existingDriver, existingDriver2, rookie };
 
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
                 .Returns(DriverReputation.PRIME_MIDFIELD);
 
             mockOffSeasonMovements
@@ -393,8 +393,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             var fullDriverRatingsDatabase = CreateTestDriverRatingsDatabase(2025, driver1, driver2);
 
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Returns((DriverReputation rep, int age, int pos, int pod, int dnf, int races) => rep);
+                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
+                .Returns((DriverReputation rep, int age, int pos, int pod, int dnf, int races, int totalRaces, double avgPos) => rep);
 
             mockOffSeasonMovements
                 .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>()))
@@ -442,8 +442,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             var fullDriverRatingsDatabase = CreateTestDriverRatingsDatabase(2025, driver1, driver2);
 
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Returns((DriverReputation rep, int age, int pos, int podiums, int dnfs, int races) => rep);
+                .Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
+                .Returns((DriverReputation rep, int age, int pos, int podiums, int dnfs, int races, int totalRaces, double avgPos) => rep);
 
             TeamSituation capturedTeamSituation = null;
             mockOffSeasonMovements

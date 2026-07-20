@@ -18,6 +18,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             public int DNFs { get; set; }
 
             public int Races { get; set; }
+            public double AverageRacePosition { get; set; }
         }
 
 
@@ -62,9 +63,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 var currentReputation = currentDriver.Reputation;
                 var driverSeasonRecap = seasonRecapsByDriverId.ContainsKey(currentDriver.DriverId) ? seasonRecapsByDriverId[currentDriver.DriverId] : null;
 
-                var newReputation = driverSeasonRecap == null ?
+                var newReputation = (driverSeasonRecap == null || driverSeasonRecap.Races == 0) ?
                     _reputationUpdater.GetNewReputationForInactiveDriver(currentReputation, driverAge) :
-                    _reputationUpdater.GetNewReputation(currentReputation, driverAge, driverSeasonRecap.Position, driverSeasonRecap.Podiums, driverSeasonRecap.DNFs, driverSeasonRecap.Races);
+                    _reputationUpdater.GetNewReputation(currentReputation, driverAge, driverSeasonRecap.Position, driverSeasonRecap.Podiums, driverSeasonRecap.DNFs, driverSeasonRecap.Races, saveGame.CurrentSeason.Races.Count(), driverSeasonRecap.AverageRacePosition);
 
                 if (driversNewSeasonDictionary.TryGetValue(currentDriver.DriverId, out var sameDriverWithNewSeasonRatings))
                 {
@@ -125,7 +126,11 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                             {
                                 Podiums = g.Count(r => !r.DidNotPreQualify && r.Position <= 3),
                                 DNFs = g.Count(r => r.DNF),
-                                Races = g.Count()
+                                Races = g.Count(r => !r.DidNotPreQualify),
+                                AverageRacePosition = g.Where(r => !r.DidNotPreQualify)
+                                                       .Select(r => (double)r.Position)
+                                                       .DefaultIfEmpty(0)
+                                                       .Average()
                             }
                         );
 
@@ -137,6 +142,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     Podiums = driverStats.TryGetValue(standing.DriverId, out var stats) ? stats.Podiums : 0,
                     DNFs = driverStats.TryGetValue(standing.DriverId, out var stats2) ? stats2.DNFs : 0,
                     Races = driverStats.TryGetValue(standing.DriverId, out var stats3) ? stats3.Races : 0,
+                    AverageRacePosition = driverStats.TryGetValue(standing.DriverId, out var stats4) ? stats4.AverageRacePosition : 0,
                 }
             );
 

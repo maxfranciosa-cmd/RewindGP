@@ -151,8 +151,10 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                     It.IsAny<int>(), // age
                     3, // position
                     2, // podiums
-                    1,
-                    3)) // DNFs
+                    1, // DNFs
+                    3, // races
+                    It.IsAny<int>(), // totalSeasonRaces
+                    It.IsAny<double>())) // averageRacePosition
                 .Returns(DriverReputation.PRIME_STRONG_MIDFIELD);
 
             // Act
@@ -166,7 +168,9 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                     3,
                     2,
                     1,
-                    3),
+                    3,
+                    It.IsAny<int>(),
+                    It.IsAny<double>()),
                 Times.Once,
                 "Should call GetNewReputation with season recap data");
 
@@ -220,8 +224,10 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                     It.IsAny<int>(),
                     1, // champion
                     10, // lots of podiums
-                    0,
-                    10)) // no DNFs
+                    0, // no DNFs
+                    10, // races
+                    It.IsAny<int>(), // totalSeasonRaces
+                    It.IsAny<double>())) // averageRacePosition
                 .Returns(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL);
 
             // Act
@@ -231,6 +237,194 @@ namespace AMS2ChEd.Business.Tests.GameLogic
             var driver = saveGame.Drivers.First(d => d.DriverId == "driver1");
             Assert.AreEqual(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, driver.Reputation,
                 "Champion should be promoted to championship level");
+        }
+
+        [TestMethod]
+        public void UpdateDriversPoolForNextSeason_DriverWithZeroRaces_UsesInactiveDriverReputation()
+        {
+            // Arrange
+            var currentSeasonYear = 1996;
+            var nextSeasonYear = 1997;
+            var saveGame = CreateSaveGame(currentSeasonYear);
+
+            // Driver is still in the standings but every entry this season was a did-not-prequalify
+            saveGame.GrandPrixResults = new List<GrandPrixResult>
+            {
+                new GrandPrixResult
+                {
+                    Year = currentSeasonYear,
+                    RaceResults = new List<SessionResult>
+                    {
+                        new SessionResult { DriverId = "driver1", Position = 0, DidNotPreQualify = true },
+                        new SessionResult { DriverId = "driver1", Position = 0, DidNotPreQualify = true }
+                    }
+                }
+            };
+            saveGame.CurrentDriverStandings = new List<HistoricalDriverStandingEntry>
+            {
+                new HistoricalDriverStandingEntry
+                {
+                    DriverId = "driver1",
+                    Position = 5,
+                    Points = 0,
+                    TeamId = "ferrari",
+                    PositionsTally = new PositionsTally()
+                }
+            };
+            var driversNewSeasonDictionary = new Dictionary<string, IDriverData>();
+
+            _mockReputationUpdater
+                .Setup(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>()))
+                .Returns(DriverReputation.AGEING_MIDFIELD);
+
+            // Act
+            _sut.UpdateDriversPoolForNextSeason(nextSeasonYear, saveGame, driversNewSeasonDictionary);
+
+            // Assert
+            _mockReputationUpdater.Verify(
+                x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>()),
+                Times.Once,
+                "A driver with zero real races should be treated as inactive, even if still present in the standings");
+            _mockReputationUpdater.Verify(
+                x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()),
+                Times.Never,
+                "GetNewReputation should not be called for a driver with zero real races");
+
+            var driver = saveGame.Drivers.First(d => d.DriverId == "driver1");
+            Assert.AreEqual(DriverReputation.AGEING_MIDFIELD, driver.Reputation);
+        }
+
+        [TestMethod]
+        public void UpdateDriversPoolForNextSeason_DriverWithSomeNonQualifications_ExcludesThemFromRacesCount()
+        {
+            // Arrange
+            var currentSeasonYear = 1996;
+            var nextSeasonYear = 1997;
+            var saveGame = CreateSaveGame(currentSeasonYear);
+
+            // 3 real starts (positions 2, 4, 6 -> 1 podium, average position 4.0) plus 2 did-not-prequalify entries
+            saveGame.GrandPrixResults = new List<GrandPrixResult>
+            {
+                new GrandPrixResult
+                {
+                    Year = currentSeasonYear,
+                    RaceResults = new List<SessionResult>
+                    {
+                        new SessionResult { DriverId = "driver1", Position = 2, DNF = false },
+                        new SessionResult { DriverId = "driver1", Position = 4, DNF = false },
+                        new SessionResult { DriverId = "driver1", Position = 6, DNF = false },
+                        new SessionResult { DriverId = "driver1", Position = 0, DidNotPreQualify = true },
+                        new SessionResult { DriverId = "driver1", Position = 0, DidNotPreQualify = true }
+                    }
+                }
+            };
+            saveGame.CurrentDriverStandings = new List<HistoricalDriverStandingEntry>
+            {
+                new HistoricalDriverStandingEntry
+                {
+                    DriverId = "driver1",
+                    Position = 8,
+                    Points = 30,
+                    TeamId = "ferrari",
+                    PositionsTally = new PositionsTally()
+                }
+            };
+            var driversNewSeasonDictionary = new Dictionary<string, IDriverData>();
+
+            _mockReputationUpdater
+                .Setup(x => x.GetNewReputation(
+                    DriverReputation.PRIME_MIDFIELD,
+                    It.IsAny<int>(),
+                    8,   // standings position
+                    1,   // podiums (only the P2 result counts)
+                    0,   // DNFs
+                    3,   // races (the 2 did-not-prequalify entries are excluded)
+                    It.IsAny<int>(), // totalSeasonRaces
+                    4.0)) // averageRacePosition = (2+4+6)/3, excluding the did-not-prequalify entries
+                .Returns(DriverReputation.PRIME_STRONG_MIDFIELD);
+
+            // Act
+            _sut.UpdateDriversPoolForNextSeason(nextSeasonYear, saveGame, driversNewSeasonDictionary);
+
+            // Assert
+            _mockReputationUpdater.Verify(
+                x => x.GetNewReputation(
+                    DriverReputation.PRIME_MIDFIELD,
+                    It.IsAny<int>(),
+                    8, 1, 0, 3,
+                    It.IsAny<int>(),
+                    4.0),
+                Times.Once,
+                "Did-not-prequalify entries should be excluded from the races count and the average race position");
+
+            var driver = saveGame.Drivers.First(d => d.DriverId == "driver1");
+            Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, driver.Reputation);
+        }
+
+        [TestMethod]
+        public void UpdateDriversPoolForNextSeason_DriverRacedLessThanHalfSeason_PassesAverageRacePositionAndTotalSeasonRaces()
+        {
+            // Arrange
+            var currentSeasonYear = 1996;
+            var nextSeasonYear = 1997;
+            var saveGame = CreateSaveGame(currentSeasonYear);
+
+            // A 10-race season; driver1 only started 2 of them (P2 and P4 -> average 3.0)
+            saveGame.CurrentSeason.Races = Enumerable.Range(1, 10)
+                .Select(i => new Race { RaceId = i, RaceName = $"Race {i}" })
+                .ToList();
+
+            saveGame.GrandPrixResults = new List<GrandPrixResult>
+            {
+                new GrandPrixResult
+                {
+                    Year = currentSeasonYear,
+                    RaceResults = new List<SessionResult>
+                    {
+                        new SessionResult { DriverId = "driver1", Position = 2, DNF = false },
+                        new SessionResult { DriverId = "driver1", Position = 4, DNF = false }
+                    }
+                }
+            };
+            saveGame.CurrentDriverStandings = new List<HistoricalDriverStandingEntry>
+            {
+                new HistoricalDriverStandingEntry
+                {
+                    DriverId = "driver1",
+                    Position = 15, // low in the standings, from missing 8 races
+                    Points = 20,
+                    TeamId = "ferrari",
+                    PositionsTally = new PositionsTally()
+                }
+            };
+            var driversNewSeasonDictionary = new Dictionary<string, IDriverData>();
+
+            _mockReputationUpdater
+                .Setup(x => x.GetNewReputation(
+                    DriverReputation.PRIME_MIDFIELD,
+                    It.IsAny<int>(),
+                    15, // standings position
+                    1,  // podiums (the P2 result counts)
+                    0,
+                    2,  // races driven
+                    10, // total season races
+                    3.0)) // average race position
+                .Returns(DriverReputation.PRIME_STRONG_MIDFIELD);
+
+            // Act
+            _sut.UpdateDriversPoolForNextSeason(nextSeasonYear, saveGame, driversNewSeasonDictionary);
+
+            // Assert
+            _mockReputationUpdater.Verify(
+                x => x.GetNewReputation(
+                    DriverReputation.PRIME_MIDFIELD,
+                    It.IsAny<int>(),
+                    15, 1, 0, 2, 10, 3.0),
+                Times.Once,
+                "Should pass total season races and average race position for a partial-season driver");
+
+            var driver = saveGame.Drivers.First(d => d.DriverId == "driver1");
+            Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, driver.Reputation);
         }
 
         #endregion
@@ -403,6 +597,12 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 Teams = new List<ITeamEntry>
                 {
                     CreateTeamEntry("ferrari", "driver1", "driver2")
+                },
+                Races = new List<Race>
+                {
+                    new Race { RaceId = 1, RaceName = "Race 1" },
+                    new Race { RaceId = 2, RaceName = "Race 2" },
+                    new Race { RaceId = 3, RaceName = "Race 3" }
                 }
             };
 
