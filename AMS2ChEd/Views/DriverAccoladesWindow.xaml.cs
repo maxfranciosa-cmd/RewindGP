@@ -19,6 +19,17 @@ namespace AMS2ChEd.Views
             TeamNameText.Text = teamName;
             DriverPhoto.LoadPhoto(pictureUrl, PhotoPlaceholder);
 
+            var driverData = saveGame.Drivers?.FirstOrDefault(d => d.DriverId == driverId)
+                ?? saveGame.RetiredDrivers?.FirstOrDefault(d => d.DriverId == driverId);
+            if (driverData != null && driverData.YearOfBirth > 0)
+            {
+                AgeText.Text = $"Age {saveGame.CurrentSeason.Year - driverData.YearOfBirth}";
+            }
+            else
+            {
+                AgeText.Visibility = Visibility.Collapsed;
+            }
+
             var baseAccolades = saveGame.AccoladesAtStart?.DriverAccolades?.GetValueOrDefault(driverId)
                 ?? new Accolades();
 
