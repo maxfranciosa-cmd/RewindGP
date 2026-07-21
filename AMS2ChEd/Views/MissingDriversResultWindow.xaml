@@ -15,20 +15,27 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
+        <Style x:Key="SectionHeaderText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#c41e3a"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
         <Style x:Key="RowText" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#e0e0e0"/>
             <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        <Style x:Key="PositionBox" TargetType="TextBox">
+        <Style x:Key="DriverCombo" TargetType="ComboBox">
             <Setter Property="Background" Value="#333333"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
             <Setter Property="BorderBrush" Value="#555555"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="4,4"/>
+            <Setter Property="Padding" Value="6,4"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Width" Value="46"/>
-            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style x:Key="RowCheck" TargetType="CheckBox">
             <Setter Property="Foreground" Value="#e0e0e0"/>
@@ -69,72 +76,88 @@
         </StackPanel>
 
         <TextBlock Grid.Row="1"
-                   Text="The following drivers were not detected in AMS2. Enter their finishing positions manually. Leave blank to skip a driver."
+                   Text="The following positions could not be identified in AMS2. Assign the missing driver to each position. Leave a position blank to skip it."
                    TextWrapping="Wrap"
                    Foreground="#aaaaaa"
                    FontSize="12"
                    Margin="0,0,0,16"/>
 
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <StackPanel x:Name="QualiSection" Margin="0,0,0,20">
+                    <TextBlock Text="MISSING QUALIFYING POSITIONS" Style="{StaticResource SectionHeaderText}"/>
+                    <ItemsControl x:Name="QualiPanel">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#333333" BorderThickness="0,0,0,1" Padding="0,8">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding Position, StringFormat='P{0}'}"
+                                                   Style="{StaticResource RowText}"/>
+                                        <ComboBox Grid.Column="1"
+                                                  ItemsSource="{Binding AvailableDrivers}"
+                                                  DisplayMemberPath="DisplayName"
+                                                  SelectedItem="{Binding SelectedDriver}"
+                                                  Style="{StaticResource DriverCombo}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
 
-            <!-- Column headers -->
-            <Grid Grid.Row="0" Margin="0,0,0,6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="80"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="DRIVER" Style="{StaticResource HeaderText}" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Column="1" Text="QUALI" Style="{StaticResource HeaderText}"/>
-                <TextBlock Grid.Column="2" Text="RACE" Style="{StaticResource HeaderText}"/>
-                <TextBlock Grid.Column="3" Text="DNF" Style="{StaticResource HeaderText}"/>
-                <TextBlock Grid.Column="4" Text="FASTEST LAP" Style="{StaticResource HeaderText}"/>
-            </Grid>
+                <StackPanel x:Name="RaceSection">
+                    <TextBlock Text="MISSING RACE POSITIONS" Style="{StaticResource SectionHeaderText}"/>
 
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="DriversPanel">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="#333333" BorderThickness="0,0,0,1" Padding="0,8">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="60"/>
-                                        <ColumnDefinition Width="60"/>
-                                        <ColumnDefinition Width="50"/>
-                                        <ColumnDefinition Width="80"/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding DriverName}" Style="{StaticResource RowText}"/>
-                                        <TextBlock Text="{Binding TeamName}" Foreground="#777777" FontSize="11"/>
-                                    </StackPanel>
-                                    <TextBox Grid.Column="1"
-                                             Text="{Binding QualiPositionText, UpdateSourceTrigger=PropertyChanged}"
-                                             Style="{StaticResource PositionBox}"
-                                             HorizontalAlignment="Center"/>
-                                    <TextBox Grid.Column="2"
-                                             Text="{Binding RacePositionText, UpdateSourceTrigger=PropertyChanged}"
-                                             Style="{StaticResource PositionBox}"
-                                             HorizontalAlignment="Center"/>
-                                    <CheckBox Grid.Column="3"
-                                              IsChecked="{Binding IsDnf}"
-                                              Style="{StaticResource RowCheck}"/>
-                                    <CheckBox Grid.Column="4"
-                                              IsChecked="{Binding IsFastestLap}"
-                                              Style="{StaticResource RowCheck}"/>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Text="DRIVER" Style="{StaticResource HeaderText}" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="2" Text="DNF" Style="{StaticResource HeaderText}"/>
+                        <TextBlock Grid.Column="3" Text="FASTEST LAP" Style="{StaticResource HeaderText}"/>
+                    </Grid>
+
+                    <ItemsControl x:Name="RacePanel">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#333333" BorderThickness="0,0,0,1" Padding="0,8">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding Position, StringFormat='P{0}'}"
+                                                   Style="{StaticResource RowText}"/>
+                                        <ComboBox Grid.Column="1"
+                                                  ItemsSource="{Binding AvailableDrivers}"
+                                                  DisplayMemberPath="DisplayName"
+                                                  SelectedItem="{Binding SelectedDriver}"
+                                                  Style="{StaticResource DriverCombo}"/>
+                                        <CheckBox Grid.Column="2"
+                                                  IsChecked="{Binding IsDnf}"
+                                                  Style="{StaticResource RowCheck}"/>
+                                        <CheckBox Grid.Column="3"
+                                                  IsChecked="{Binding IsFastestLap}"
+                                                  Style="{StaticResource RowCheck}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
 
         <Button Grid.Row="3"
                 Content="CONFIRM RESULTS"

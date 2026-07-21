@@ -37,8 +37,6 @@ namespace AMS2ChEd.Business.Services
             };
         }
 
-        public string[] GetMismatches() => Array.Empty<string>();
-
         public void InitializeRaceWeekend(IEnumerable<ParticipantData> participants)
         {
             _participants = participants.ToList();

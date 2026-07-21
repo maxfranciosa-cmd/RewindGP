@@ -335,16 +335,10 @@ namespace AMS2ChEd.Views
             raceDataService.IsPreQualiSession = true;
             raceDataService.InitializeRaceWeekend(participants);
 
-            // TaskCompletionSource lets us await the session finished event.
+            // TaskCompletionSource lets us await the corrected results coming out of
+            // RaceWeekendWindow (it may prompt the player to resolve missing drivers
+            // before the results are final).
             var tcs = new TaskCompletionSource<List<ParticipantData>>();
-
-            EventHandler<SessionFinishedEventArgs> preQualiHandler = null;
-            preQualiHandler = (s, e) =>
-            {
-                raceDataService.PreQualiSessionFinished -= preQualiHandler;
-                tcs.TrySetResult(e.FinalStandings);
-            };
-            raceDataService.PreQualiSessionFinished += preQualiHandler;
 
             // SimulatedRaceDataService is required by the constructor but won't be used
             // (simulateRace: false, preQualiMode: true).
@@ -360,10 +354,18 @@ namespace AMS2ChEd.Views
                 simulateRace: false,
                 preQualiMode: true);
 
+            EventHandler<List<ParticipantData>> preQualiResultsHandler = null;
+            preQualiResultsHandler = (s, results) =>
+            {
+                raceWeekendWindow.PreQualiResultsReady -= preQualiResultsHandler;
+                tcs.TrySetResult(results);
+            };
+            raceWeekendWindow.PreQualiResultsReady += preQualiResultsHandler;
+
             // Handle early closure — cancel the task so the UI doesn't hang.
             raceWeekendWindow.Closed += (s, e) =>
             {
-                raceDataService.PreQualiSessionFinished -= preQualiHandler;
+                raceWeekendWindow.PreQualiResultsReady -= preQualiResultsHandler;
                 tcs.TrySetCanceled();
             };
 

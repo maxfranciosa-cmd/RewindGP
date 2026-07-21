@@ -92,14 +92,13 @@ namespace AMS2ChEd.Views
         private Window _controlWindow;
         private GameLogicFactory _gameLogicFactory;
         private List<ParticipantData> _qualifyingResults;
-        private string[] _qualiMismatches = Array.Empty<string>();
-        private string[] _raceMismatches = Array.Empty<string>();
         private GraphicsStyle _currentStyle = GraphicsStyle.Pre94;
         private readonly bool _preQualiMode;
         private string _originalGrandPrixName = "";
         private string _originalCircuitName = "";
 
         public event EventHandler<ISaveGame> RaceCompleted;
+        public event EventHandler<List<ParticipantData>> PreQualiResultsReady;
         public RaceWeekendWindow(GameLogicFactory gameLogicFactory, ISaveGame saveGame, SimulatedRaceDataService simulatedRaceDataService, bool simulateRace, bool preQualiMode = false)
         {
             InitializeComponent();
@@ -111,6 +110,7 @@ namespace AMS2ChEd.Views
             // Subscribe to service events
             _raceDataService.SessionUpdated += OnSessionUpdated;
             _raceDataService.SessionFinished += OnSessionFinished;
+            _raceDataService.PreQualiSessionFinished += OnPreQualiSessionFinished;
 
             // Start the service
             if (!_raceDataService.IsRunning)
@@ -251,18 +251,10 @@ namespace AMS2ChEd.Views
             {
                 if (_preQualiMode)
                 {
-                    // In pre-qualifying mode only update the display for qualifying.
-                    // All other session types (practice, race) are silently dropped.
-                    // Championship handling and RaceCompleted are always blocked.
-                    if (e.CompletedSession == SessionType.Qualification)
-                    {
-                        UpdateSessionDisplay(new SessionData
-                        {
-                            SessionType = SessionType.Qualification,
-                            IsSessionFinished = true,
-                            Standings = e.FinalStandings
-                        });
-                    }
+                    // Pre-quali is fully handled by OnPreQualiSessionFinished. This guard only
+                    // matters for the mock service, which raises both SessionFinished and
+                    // PreQualiSessionFinished; the real service never raises SessionFinished
+                    // while IsPreQualiSession is true.
                     return;
                 }
 
@@ -270,13 +262,10 @@ namespace AMS2ChEd.Views
                 switch (e.CompletedSession)
                 {
                     case SessionType.Qualification:
-                        _qualiMismatches = _raceDataService.GetMismatches();
                         _qualifyingResults = e.FinalStandings;
                         break;
 
                     case SessionType.Race:
-                        _raceMismatches = _raceDataService.GetMismatches();
-
                         // Strip unrecognised placeholders from both sessions
                         var finalStandings = e.FinalStandings
                             .Where(p => p.DriverId != "driver_id")
@@ -286,12 +275,26 @@ namespace AMS2ChEd.Views
                                 .Where(p => p.DriverId != "driver_id")
                                 .ToList();
 
-                        // Combine unique missing driver IDs from both sessions
-                        var allMismatches = _qualiMismatches.Union(_raceMismatches).ToArray();
-                        if (allMismatches.Length > 0)
+                        var totalDrivers = saveGame.NextGpEntryList.DriverCount();
+                        var missingQualiPositions = FindMissingPositions(_qualifyingResults ?? new List<ParticipantData>(), totalDrivers);
+                        var missingRacePositions = FindMissingPositions(finalStandings, totalDrivers);
+
+                        if (missingQualiPositions.Any() || missingRacePositions.Any())
                         {
-                            var missingEntries = BuildMissingDriverEntries(allMismatches, _qualiMismatches, _raceMismatches);
-                            var manualWindow = new MissingDriversResultWindow(missingEntries) { Owner = this };
+                            var allDriverIds = GetEntryListDriverIds(saveGame.NextGpEntryList);
+                            var qualiPresentIds = (_qualifyingResults ?? new List<ParticipantData>())
+                                .Select(p => p.DriverId).ToHashSet();
+                            var racePresentIds = finalStandings.Select(p => p.DriverId).ToHashSet();
+
+                            var missingQualiDriverOptions = BuildMissingDriverOptions(
+                                allDriverIds.Where(id => !qualiPresentIds.Contains(id)), saveGame.NextGpEntryList);
+                            var missingRaceDriverOptions = BuildMissingDriverOptions(
+                                allDriverIds.Where(id => !racePresentIds.Contains(id)), saveGame.NextGpEntryList);
+
+                            var manualWindow = new MissingDriversResultWindow(
+                                missingQualiPositions, missingQualiDriverOptions,
+                                missingRacePositions, missingRaceDriverOptions)
+                            { Owner = this };
                             if (manualWindow.ShowDialog() == true)
                             {
                                 if (manualWindow.QualiResults?.Any() == true)
@@ -413,63 +416,97 @@ namespace AMS2ChEd.Views
             }).ToList();
         }
 
-        private List<MissingDriverEntry> BuildMissingDriverEntries(
-            string[] missingDriverIds, string[] qualiMismatches, string[] raceMismatches)
+        private static List<int> FindMissingPositions(List<ParticipantData> results, int totalDrivers)
         {
-            var qualiSet = new HashSet<string>(qualiMismatches);
-            var raceSet = new HashSet<string>(raceMismatches);
+            var presentPositions = results.Select(p => p.Position).ToHashSet();
+            return Enumerable.Range(1, totalDrivers).Where(pos => !presentPositions.Contains(pos)).ToList();
+        }
 
+        private static IEnumerable<string> GetEntryListDriverIds(IEnumerable<EntryListEntry> entryList)
+        {
+            return entryList
+                .SelectMany(e => new[] { e.Driver1Id, e.Driver2Id })
+                .Where(id => !string.IsNullOrEmpty(id));
+        }
+
+        private List<MissingDriverOption> BuildMissingDriverOptions(
+            IEnumerable<string> missingDriverIds, IEnumerable<EntryListEntry> entryList)
+        {
             return missingDriverIds.Select(driverId =>
             {
                 bool isPlayer = driverId == saveGame.PlayerData.DriverId;
 
-                MissingDriverEntry entry;
+                var teamEntry = entryList?
+                    .FirstOrDefault(e => e.Driver1Id == driverId || e.Driver2Id == driverId);
+                int number = teamEntry?.Driver1Id == driverId
+                    ? teamEntry.Driver1Number
+                    : teamEntry?.Driver2Number ?? 0;
+
                 if (isPlayer)
                 {
-                    var playerTeamEntry = saveGame.NextGpEntryList?
-                        .FirstOrDefault(e => e.Driver1Id == driverId || e.Driver2Id == driverId);
-                    int playerNumber = playerTeamEntry?.Driver1Id == driverId
-                        ? playerTeamEntry.Driver1Number
-                        : playerTeamEntry?.Driver2Number ?? 0;
-
-                    entry = new MissingDriverEntry
+                    return new MissingDriverOption
                     {
                         DriverId = driverId,
                         DriverName = saveGame.PlayerData.Name,
                         TeamId = saveGame.PlayerData.TeamId,
                         TeamName = saveGame.CurrentSeason.Teams
                             .FirstOrDefault(t => t.TeamId == saveGame.PlayerData.TeamId)?.TeamName ?? "",
-                        Number = playerNumber,
+                        Number = number,
                         IsPlayer = true
                     };
                 }
-                else
-                {
-                    var driver = saveGame.Drivers.FirstOrDefault(d => d.DriverId == driverId);
-                    var teamEntry = saveGame.NextGpEntryList?
-                        .FirstOrDefault(e => e.Driver1Id == driverId || e.Driver2Id == driverId);
-                    var team = teamEntry != null
-                        ? saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamEntry.TeamId)
-                        : null;
-                    int number = teamEntry?.Driver1Id == driverId
-                        ? teamEntry.Driver1Number
-                        : teamEntry?.Driver2Number ?? 0;
 
-                    entry = new MissingDriverEntry
+                var driver = saveGame.Drivers.FirstOrDefault(d => d.DriverId == driverId);
+                var team = teamEntry != null
+                    ? saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamEntry.TeamId)
+                    : null;
+
+                return new MissingDriverOption
+                {
+                    DriverId = driverId,
+                    DriverName = driver?.Name ?? driverId,
+                    TeamId = team?.TeamId ?? "",
+                    TeamName = team?.TeamName ?? "",
+                    Number = number,
+                    IsPlayer = false
+                };
+            }).ToList();
+        }
+
+        private void OnPreQualiSessionFinished(object sender, SessionFinishedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                UpdateSessionDisplay(new SessionData
+                {
+                    SessionType = SessionType.Qualification,
+                    IsSessionFinished = true,
+                    Standings = e.FinalStandings
+                });
+
+                var qualiStandings = e.FinalStandings.Where(p => p.DriverId != "driver_id").ToList();
+
+                var totalDrivers = saveGame.PreQualiPoolEntries.DriverCount();
+                var missingQualiPositions = FindMissingPositions(qualiStandings, totalDrivers);
+
+                if (missingQualiPositions.Any())
+                {
+                    var presentIds = qualiStandings.Select(p => p.DriverId).ToHashSet();
+                    var missingDriverOptions = BuildMissingDriverOptions(
+                        GetEntryListDriverIds(saveGame.PreQualiPoolEntries).Where(id => !presentIds.Contains(id)),
+                        saveGame.PreQualiPoolEntries);
+
+                    var manualWindow = new MissingDriversResultWindow(missingQualiPositions, missingDriverOptions, null, null)
+                    { Owner = this };
+                    if (manualWindow.ShowDialog() == true && manualWindow.QualiResults?.Any() == true)
                     {
-                        DriverId = driverId,
-                        DriverName = driver?.Name ?? driverId,
-                        TeamId = team?.TeamId ?? "",
-                        TeamName = team?.TeamName ?? "",
-                        Number = number,
-                        IsPlayer = false
-                    };
+                        qualiStandings.AddRange(manualWindow.QualiResults);
+                        qualiStandings = qualiStandings.OrderBy(p => p.Position).ToList();
+                    }
                 }
 
-                entry.MissingFromQuali = qualiSet.Contains(driverId);
-                entry.MissingFromRace = raceSet.Contains(driverId);
-                return entry;
-            }).ToList();
+                PreQualiResultsReady?.Invoke(this, qualiStandings);
+            });
         }
 
         private void LoadRaceWeekend()
@@ -871,6 +908,7 @@ namespace AMS2ChEd.Views
             // Unsubscribe from events
             _raceDataService.SessionUpdated -= OnSessionUpdated;
             _raceDataService.SessionFinished -= OnSessionFinished;
+            _raceDataService.PreQualiSessionFinished -= OnPreQualiSessionFinished;
 
             if (_preQualiMode)
                 _raceDataService.IsPreQualiSession = false;

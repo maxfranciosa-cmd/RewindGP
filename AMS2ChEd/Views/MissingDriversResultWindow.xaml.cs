@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace AMS2ChEd.Views
 {
-    public class MissingDriverEntry : INotifyPropertyChanged
+    public class MissingDriverOption
     {
         public string DriverId { get; set; }
         public string DriverName { get; set; }
@@ -14,21 +14,20 @@ namespace AMS2ChEd.Views
         public string TeamName { get; set; }
         public int Number { get; set; }
         public bool IsPlayer { get; set; }
-        public bool MissingFromQuali { get; set; }
-        public bool MissingFromRace { get; set; }
 
-        private string _qualiPositionText = "";
-        public string QualiPositionText
-        {
-            get => _qualiPositionText;
-            set { _qualiPositionText = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QualiPositionText))); }
-        }
+        public string DisplayName => IsPlayer ? $"{DriverName} (You)" : $"{DriverName} - {TeamName}";
+    }
 
-        private string _racePositionText = "";
-        public string RacePositionText
+    public class MissingPositionRow : INotifyPropertyChanged
+    {
+        public int Position { get; set; }
+        public List<MissingDriverOption> AvailableDrivers { get; set; }
+
+        private MissingDriverOption _selectedDriver;
+        public MissingDriverOption SelectedDriver
         {
-            get => _racePositionText;
-            set { _racePositionText = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RacePositionText))); }
+            get => _selectedDriver;
+            set { _selectedDriver = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedDriver))); }
         }
 
         private bool _isDnf;
@@ -50,68 +49,64 @@ namespace AMS2ChEd.Views
 
     public partial class MissingDriversResultWindow : Window
     {
-        private readonly List<MissingDriverEntry> _entries;
+        public List<MissingPositionRow> QualiRows { get; }
+        public List<MissingPositionRow> RaceRows { get; }
 
         public List<ParticipantData> QualiResults { get; private set; }
         public List<ParticipantData> RaceResults { get; private set; }
 
-        public MissingDriversResultWindow(List<MissingDriverEntry> entries)
+        public MissingDriversResultWindow(
+            List<int> missingQualiPositions, List<MissingDriverOption> qualiMissingDrivers,
+            List<int> missingRacePositions, List<MissingDriverOption> raceMissingDrivers)
         {
             InitializeComponent();
-            _entries = entries;
-            DriversPanel.ItemsSource = _entries;
+
+            QualiRows = (missingQualiPositions ?? new List<int>())
+                .Select(pos => new MissingPositionRow { Position = pos, AvailableDrivers = qualiMissingDrivers })
+                .ToList();
+
+            RaceRows = (missingRacePositions ?? new List<int>())
+                .Select(pos => new MissingPositionRow { Position = pos, AvailableDrivers = raceMissingDrivers })
+                .ToList();
+
+            QualiSection.Visibility = QualiRows.Any() ? Visibility.Visible : Visibility.Collapsed;
+            RaceSection.Visibility = RaceRows.Any() ? Visibility.Visible : Visibility.Collapsed;
+
+            QualiPanel.ItemsSource = QualiRows;
+            RacePanel.ItemsSource = RaceRows;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            var incomplete = _entries.Where(entry =>
-                (entry.MissingFromQuali && !int.TryParse(entry.QualiPositionText, out _)) ||
-                (entry.MissingFromRace && !int.TryParse(entry.RacePositionText, out _))
-            ).ToList();
-
-            if (incomplete.Any())
-            {
-                var names = string.Join("\n", incomplete.Select(entry => $"  • {entry.DriverName}"));
-                System.Windows.MessageBox.Show(
-                    $"The following drivers still need a position:\n\n{names}",
-                    "Incomplete Results",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-                return;
-            }
-
-            QualiResults = _entries
-                .Where(entry => entry.MissingFromQuali)
-                .Select(entry => new ParticipantData
-                {
-                    DriverId = entry.DriverId,
-                    DriverName = entry.DriverName,
-                    TeamId = entry.TeamId,
-                    TeamName = entry.TeamName,
-                    Number = entry.Number,
-                    IsPlayer = entry.IsPlayer,
-                    Position = int.Parse(entry.QualiPositionText)
-                })
+            QualiResults = QualiRows
+                .Where(row => row.SelectedDriver != null)
+                .Select(row => ToParticipantData(row, dnf: false, fastestLap: false))
                 .ToList();
 
-            RaceResults = _entries
-                .Where(entry => entry.MissingFromRace)
-                .Select(entry => new ParticipantData
-                {
-                    DriverId = entry.DriverId,
-                    DriverName = entry.DriverName,
-                    TeamId = entry.TeamId,
-                    TeamName = entry.TeamName,
-                    Number = entry.Number,
-                    IsPlayer = entry.IsPlayer,
-                    Position = int.Parse(entry.RacePositionText),
-                    DNF = entry.IsDnf,
-                    IsSessionBestLap = entry.IsFastestLap
-                })
+            RaceResults = RaceRows
+                .Where(row => row.SelectedDriver != null)
+                .Select(row => ToParticipantData(row, row.IsDnf, row.IsFastestLap))
                 .ToList();
 
             DialogResult = true;
             Close();
+        }
+
+        private static ParticipantData ToParticipantData(MissingPositionRow row, bool dnf, bool fastestLap)
+        {
+            var driver = row.SelectedDriver;
+            return new ParticipantData
+            {
+                DriverId = driver.DriverId,
+                DriverName = driver.DriverName,
+                TeamId = driver.TeamId,
+                TeamName = driver.TeamName,
+                Number = driver.Number,
+                IsPlayer = driver.IsPlayer,
+                Position = row.Position,
+                DNF = dnf,
+                IsSessionBestLap = fastestLap
+            };
         }
     }
 }
