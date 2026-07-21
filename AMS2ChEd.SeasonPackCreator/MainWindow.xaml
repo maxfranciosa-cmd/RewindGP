@@ -385,6 +385,7 @@
                     </DataGrid>
 
                     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                        <Button Content="Import Driver Data..." Style="{StaticResource SecondaryButton}" Click="ImportDriverData_Click" Margin="0,0,10,0"/>
                         <Button Content="Add Driver" Style="{StaticResource SecondaryButton}" Click="AddDriver_Click" Margin="0,0,10,0"/>
                         <Button Content="Edit Driver" Style="{StaticResource SecondaryButton}" Click="EditDriver_Click" Margin="0,0,10,0"/>
                         <Button Content="Remove Driver" Style="{StaticResource SecondaryButton}" Click="RemoveDriver_Click"/>

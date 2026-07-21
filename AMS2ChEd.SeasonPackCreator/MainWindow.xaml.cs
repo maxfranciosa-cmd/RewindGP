@@ -613,6 +613,149 @@ namespace AMS2ChEd.SeasonPackEditor
             }
         }
 
+        private void ImportDriverData_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentProject.Drivers == null || !_currentProject.Drivers.Any())
+            {
+                MessageBox.Show("There are no drivers in the current project to import data into.", "No Drivers", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var dialog = new OpenFileDialog
+            {
+                Filter = "drivers.json|drivers.json|JSON files (*.json)|*.json|All files (*.*)|*.*",
+                Title = "Select drivers.json to import from"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            Dictionary<string, Ams2DriverData> sourceDrivers;
+            try
+            {
+                var json = File.ReadAllText(dialog.FileName);
+                var driversDb = JsonSerializer.Deserialize<DriverRatingsDatabase>(json, DefaultJsonSerializerOptions.Instance);
+                sourceDrivers = driversDb.Drivers.Cast<Ams2DriverData>().ToDictionary(d => d.DriverId, d => d);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error importing driver data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var sourceDir = Path.GetDirectoryName(dialog.FileName);
+            var targetSeasonYear = _currentProject.Season.Year;
+
+            var matchedDrivers = _currentProject.Drivers.Where(d => sourceDrivers.ContainsKey(d.DriverId)).ToList();
+            var notFoundCount = _currentProject.Drivers.Count - matchedDrivers.Count;
+
+            if (!matchedDrivers.Any())
+            {
+                MessageBox.Show("None of the drivers in the current project were found (by ID) in the selected file.", "No Matches", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var confirmResult = MessageBox.Show(
+                $"This will overwrite Reputation, Ratings, Helmet/Visor files and Photo for {matchedDrivers.Count} matched driver(s). Continue?",
+                "Confirm Import",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (confirmResult != MessageBoxResult.Yes)
+                return;
+
+            var missingSourceFiles = new List<string>();
+
+            foreach (var targetDriver in matchedDrivers)
+            {
+                var sourceDriver = sourceDrivers[targetDriver.DriverId];
+
+                targetDriver.Reputation = sourceDriver.Reputation;
+                targetDriver.RatingValues = sourceDriver.RatingValues != null
+                    ? new Dictionary<string, double>(sourceDriver.RatingValues)
+                    : targetDriver.RatingValues;
+
+                ImportHelmetVisorField(sourceDir, sourceDriver.BaseHelmetFile, targetSeasonYear, $"{targetDriver.DriverId}.png",
+                    value => targetDriver.BaseHelmetFile = value, missingSourceFiles);
+                ImportHelmetVisorField(sourceDir, sourceDriver.BaseVisorFile, targetSeasonYear, $"{targetDriver.DriverId}_visor.png",
+                    value => targetDriver.BaseVisorFile = value, missingSourceFiles);
+                ImportHelmetVisorField(sourceDir, sourceDriver.BaseHelmetFile90s, targetSeasonYear, $"{targetDriver.DriverId}_90s.png",
+                    value => targetDriver.BaseHelmetFile90s = value, missingSourceFiles);
+                ImportHelmetVisorField(sourceDir, sourceDriver.BaseHelmetFile80s, targetSeasonYear, $"{targetDriver.DriverId}_80s.png",
+                    value => targetDriver.BaseHelmetFile80s = value, missingSourceFiles);
+                ImportHelmetVisorField(sourceDir, sourceDriver.BaseVisorFile80s, targetSeasonYear, $"{targetDriver.DriverId}_visor_80s.png",
+                    value => targetDriver.BaseVisorFile80s = value, missingSourceFiles);
+                ImportHelmetVisorField(sourceDir, sourceDriver.BaseHelmetFile70s, targetSeasonYear, $"{targetDriver.DriverId}_70s.png",
+                    value => targetDriver.BaseHelmetFile70s = value, missingSourceFiles);
+                ImportHelmetVisorField(sourceDir, sourceDriver.BaseVisorFile70s, targetSeasonYear, $"{targetDriver.DriverId}_visor_70s.png",
+                    value => targetDriver.BaseVisorFile70s = value, missingSourceFiles);
+
+                ImportPhotoField(sourceDir, sourceDriver.PictureUrl, targetSeasonYear, targetDriver.DriverId,
+                    value => targetDriver.PictureUrl = value, missingSourceFiles);
+            }
+
+            RefreshUI();
+
+            var summary = $"Imported data for {matchedDrivers.Count} driver(s).\n{notFoundCount} driver(s) had no matching ID in the selected file.";
+            if (missingSourceFiles.Any())
+            {
+                summary += $"\n\n{missingSourceFiles.Count} referenced image file(s) could not be found on disk and were skipped:\n" +
+                           string.Join("\n", missingSourceFiles.Take(10));
+                if (missingSourceFiles.Count > 10)
+                    summary += $"\n...and {missingSourceFiles.Count - 10} more.";
+            }
+
+            MessageBox.Show(summary, "Import Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+            StatusTextBlock.Text = $"Imported driver data from {Path.GetFileName(dialog.FileName)}";
+        }
+
+        private void ImportHelmetVisorField(string sourceDir, string sourceValue, int targetSeasonYear, string filename, Action<string> setTargetValue, List<string> missingSourceFiles)
+        {
+            if (string.IsNullOrWhiteSpace(sourceValue))
+                return;
+
+            var resolvedSourcePath = ResolveSourceFilePath(sourceDir, sourceValue);
+            if (!File.Exists(resolvedSourcePath))
+            {
+                missingSourceFiles.Add(resolvedSourcePath);
+                return;
+            }
+
+            var targetKey = $"../{targetSeasonYear}/helmet_liveries/{filename}";
+            _currentProject.TextureFiles[targetKey] = resolvedSourcePath;
+            setTargetValue(targetKey);
+        }
+
+        private void ImportPhotoField(string sourceDir, string sourceValue, int targetSeasonYear, string driverId, Action<string> setTargetValue, List<string> missingSourceFiles)
+        {
+            if (string.IsNullOrWhiteSpace(sourceValue))
+                return;
+
+            if (Path.IsPathRooted(sourceValue) || Uri.IsWellFormedUriString(sourceValue, UriKind.Absolute))
+            {
+                setTargetValue(sourceValue);
+                return;
+            }
+
+            var resolvedSourcePath = ResolveSourceFilePath(sourceDir, sourceValue);
+            if (!File.Exists(resolvedSourcePath))
+            {
+                missingSourceFiles.Add(resolvedSourcePath);
+                return;
+            }
+
+            var targetKey = $"../{targetSeasonYear}/portraits/{driverId}.png";
+            _currentProject.TextureFiles[targetKey] = resolvedSourcePath;
+            setTargetValue(targetKey);
+        }
+
+        private string ResolveSourceFilePath(string sourceDir, string sourceValue)
+        {
+            return Path.IsPathRooted(sourceValue)
+                ? sourceValue
+                : Path.GetFullPath(Path.Combine(sourceDir, sourceValue));
+        }
+
         private void RemoveMalusFromTeam_Click(object sender, RoutedEventArgs e)
         {
             if (sender is not MenuItem menuItem || menuItem.Tag == null)
