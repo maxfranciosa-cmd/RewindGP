@@ -55,6 +55,8 @@ namespace AMS2ChEd.SeasonPackEditor.Controls
             if (cmbFont.SelectedItem is string fontName)
             {
                 txtFontPreview.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                txtFontPreview.FontWeight = chkBold.IsChecked == true ? FontWeights.Bold : FontWeights.Normal;
+                txtFontPreview.FontStyle = chkItalic.IsChecked == true ? FontStyles.Italic : FontStyles.Normal;
             }
         }
 
@@ -93,9 +95,12 @@ namespace AMS2ChEd.SeasonPackEditor.Controls
             if (!double.TryParse(txtOutlineThickness.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out double outlineThickness) || outlineThickness < 0)
                 return;
 
+            var fontWeight = chkBold.IsChecked == true ? FontWeights.Bold : FontWeights.Normal;
+            var fontStyle = chkItalic.IsChecked == true ? FontStyles.Italic : FontStyles.Normal;
+
             try
             {
-                _currentBitmap = RenderNumbersStrip(fontName, mainColor, outlineColor, outlineThickness, digitWidth, digitHeight);
+                _currentBitmap = RenderNumbersStrip(fontName, fontWeight, fontStyle, mainColor, outlineColor, outlineThickness, digitWidth, digitHeight);
 
                 imgPreview.Source = _currentBitmap;
                 txtNoPreview.Visibility = Visibility.Collapsed;
@@ -110,6 +115,8 @@ namespace AMS2ChEd.SeasonPackEditor.Controls
 
         private RenderTargetBitmap RenderNumbersStrip(
             string fontFamilyName,
+            FontWeight fontWeight,
+            FontStyle fontStyle,
             Color mainColor,
             Color outlineColor,
             double outlineThickness,
@@ -118,8 +125,8 @@ namespace AMS2ChEd.SeasonPackEditor.Controls
         {
             var typeface = new Typeface(
                 new System.Windows.Media.FontFamily(fontFamilyName),
-                FontStyles.Normal,
-                FontWeights.Bold,
+                fontStyle,
+                fontWeight,
                 FontStretches.Normal);
 
             var fillBrush = new SolidColorBrush(mainColor);

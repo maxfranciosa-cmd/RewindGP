@@ -21,6 +21,12 @@
                     <GroupBox Header="Font" Margin="0,0,0,15">
                         <StackPanel Margin="10">
                             <ComboBox Name="cmbFont" Height="28" SelectionChanged="Field_Changed"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <CheckBox Name="chkBold" Content="Bold" Margin="0,0,15,0"
+                                          Checked="Field_Changed" Unchecked="Field_Changed"/>
+                                <CheckBox Name="chkItalic" Content="Italic"
+                                          Checked="Field_Changed" Unchecked="Field_Changed"/>
+                            </StackPanel>
                             <Border BorderBrush="#999" BorderThickness="1" Margin="0,8,0,0" Padding="6">
                                 <TextBlock Name="txtFontPreview" Text="0123456789" FontSize="22"
                                            FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center"/>
