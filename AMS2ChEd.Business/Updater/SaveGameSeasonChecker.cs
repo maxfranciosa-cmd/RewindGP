@@ -26,7 +26,7 @@ namespace AMS2ChEd.Business.Updater
 
             var seasonLastModified = _seasonLoader.GetSeasonUpdateDate(save.CurrentSeason.Year);
 
-            if (save.Timestamp < seasonLastModified)
+            if (save.Timestamp.ToUniversalTime() < seasonLastModified)
             {
                 return SaveGameSeasonCheckerResult.NeedsRefresh;
             }
