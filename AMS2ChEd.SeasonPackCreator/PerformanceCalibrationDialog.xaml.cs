@@ -3,6 +3,7 @@ using Ams2ChEd.Business.AMS2.Services;
 using Ams2ChEd.Business.AMS2.Settings;
 using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
 using AMS2ChEd.Business.AMS2.Models;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.SeasonPackEditor.Services;
 using Microsoft.Win32;
@@ -46,6 +47,11 @@ namespace AMS2ChEd.SeasonPackEditor
         }
 
         private readonly SeasonPackProject _project;
+        private readonly bool _isInstalledSeasonMode;
+        private readonly Ams2Season _installedSeason;
+        private readonly List<Ams2DriverData> _installedDrivers;
+        private readonly string _seasonDirectory;
+        private readonly string _sourceSeasonJsonPath;
         private readonly List<Ams2TeamEntry> _teams;
         private readonly ObservableCollection<ResultRow> _rows = new();
         private readonly IAms2AppSettingsStorage _ams2AppSettingsStorage;
@@ -66,6 +72,40 @@ namespace AMS2ChEd.SeasonPackEditor
             _teams = project.Season.Teams.OfType<Ams2TeamEntry>().ToList();
             ResultsDataGrid.ItemsSource = _rows;
 
+            InitializeRows();
+
+            Ams2FolderTextBox.Text = _ams2AppSettingsStorage.LoadSettings().Ams2Folder;
+            SaveSeasonJsonButton.Visibility = Visibility.Visible;
+        }
+
+        public PerformanceCalibrationDialog(
+            Ams2Season season,
+            List<Ams2DriverData> drivers,
+            string seasonDirectory,
+            string sourceSeasonJsonPath,
+            IAms2AppSettingsStorage ams2AppSettingsStorage,
+            Ams2StorageFactory storageFactory)
+        {
+            InitializeComponent();
+            _isInstalledSeasonMode = true;
+            _installedSeason = season;
+            _installedDrivers = drivers;
+            _seasonDirectory = seasonDirectory;
+            _sourceSeasonJsonPath = sourceSeasonJsonPath;
+            _ams2AppSettingsStorage = ams2AppSettingsStorage;
+            _storageFactory = storageFactory;
+            _teams = season.Teams.OfType<Ams2TeamEntry>().ToList();
+            ResultsDataGrid.ItemsSource = _rows;
+
+            InitializeRows();
+
+            Ams2FolderTextBox.Text = _ams2AppSettingsStorage.LoadSettings().Ams2Folder;
+            SaveSeasonJsonButton.Visibility = Visibility.Visible;
+            Title = $"Calibrate Performance In-Sim - {Path.GetFileName(sourceSeasonJsonPath)}";
+        }
+
+        private void InitializeRows()
+        {
             foreach (var team in _teams)
             {
                 _rows.Add(new ResultRow
@@ -75,13 +115,13 @@ namespace AMS2ChEd.SeasonPackEditor
                     CurrentMalus = team.Ams2CarPerformanceMalus ?? new Dictionary<string, double>()
                 });
             }
-
-            Ams2FolderTextBox.Text = _ams2AppSettingsStorage.LoadSettings().Ams2Folder;
         }
+
+        private int SeasonYear => _isInstalledSeasonMode ? _installedSeason.Year : _project.Season.Year;
 
         private async void FetchTargetScores_Click(object sender, RoutedEventArgs e)
         {
-            if (_project.Season.Year <= 0)
+            if (SeasonYear <= 0)
             {
                 MessageBox.Show("Please set a valid year before fetching target scores.",
                     "Year Required", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -92,7 +132,7 @@ namespace AMS2ChEd.SeasonPackEditor
             try
             {
                 var jolpica = new JolpicaF1Service();
-                var constructorStandings = await jolpica.GetConstructorStandingsAsync(_project.Season.Year);
+                var constructorStandings = await jolpica.GetConstructorStandingsAsync(SeasonYear);
                 var targetScores = TeamTargetScoreService.ComputeTargetScores(_teams, constructorStandings);
 
                 int matched = 0;
@@ -119,14 +159,18 @@ namespace AMS2ChEd.SeasonPackEditor
         {
             try
             {
-                _calibrationEntries = PerformanceCalibrationService.BuildCalibrationEntries(_teams, _project.Drivers);
+                var drivers = _isInstalledSeasonMode ? _installedDrivers : _project.Drivers;
+                _calibrationEntries = PerformanceCalibrationService.BuildCalibrationEntries(_teams, drivers);
                 if (_calibrationEntries.Count == 0)
                 {
                     MessageBox.Show("No team has a contracted seat-1 driver to calibrate with.", "Nothing To Export", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                PerformanceCalibrationService.GenerateCalibrationCustomAi(_project, _calibrationEntries, Ams2FolderTextBox.Text);
+                if (_isInstalledSeasonMode)
+                    PerformanceCalibrationService.GenerateCalibrationCustomAiForInstalledSeason(_installedSeason, _calibrationEntries, _seasonDirectory, Ams2FolderTextBox.Text);
+                else
+                    PerformanceCalibrationService.GenerateCalibrationCustomAi(_project, _calibrationEntries, Ams2FolderTextBox.Text);
 
                 PersistAms2Folder();
 
@@ -259,6 +303,31 @@ namespace AMS2ChEd.SeasonPackEditor
             ResultsDataGrid.Items.Refresh();
             IterationHistoryTextBlock.Text += $"Iteration {_iteration}: applied corrections to {applied} teams.\n";
             StatusTextBlock.Text = "Corrections applied. Export calibration CustomAI again to prepare the next session.";
+        }
+
+        private void SaveSeasonJson_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SaveFileDialog
+            {
+                Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*",
+                FileName = Path.GetFileName(_sourceSeasonJsonPath),
+                InitialDirectory = Path.GetDirectoryName(_sourceSeasonJsonPath),
+                Title = "Save season.json"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            try
+            {
+                var json = System.Text.Json.JsonSerializer.Serialize(_installedSeason, DefaultJsonSerializerOptions.Instance);
+                File.WriteAllText(dialog.FileName, json);
+                StatusTextBlock.Text = $"Saved calibrated season to {Path.GetFileName(dialog.FileName)}.";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to save season.json: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)

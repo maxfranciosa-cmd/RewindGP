@@ -441,8 +441,25 @@
                         <Button Content="Remove Team" Style="{StaticResource SecondaryButton}" Click="RemoveTeam_Click" Margin="0,0,10,0"/>
                         <Button Content="Generate Performance From Actual Results" Style="{StaticResource SecondaryButton}" Click="GeneratePerformanceFromActualResults_Click" Margin="0,0,10,0"
                                 ToolTip="Fetches the season's final constructor/driver standings from Jolpica and sets every team's power/weight/drag scalars from their real championship result."/>
-                        <Button Content="Calibrate Performance In-Sim" Style="{StaticResource SecondaryButton}" Click="CalibratePerformanceInSim_Click"
-                                ToolTip="Compares each team's target score against lap times captured from a real AMS2 session and suggests corrected power/weight scalars, instead of guessing new numbers by hand."/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- AI Calibration Tab -->
+            <TabItem Header="AI CALIBRATION" Style="{StaticResource ModernTabItem}">
+                <Grid Margin="30,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="AI Performance Calibration" FontSize="18" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,20"/>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Content="Calibrate Performance In-Sim" Style="{StaticResource SecondaryButton}" Click="CalibratePerformanceInSim_Click" Margin="0,0,10,0"
+                                ToolTip="Compares each team's target score against lap times captured from a real AMS2 session and suggests corrected power/weight scalars, instead of guessing new numbers by hand. Uses the season currently open in this editor."/>
+                        <Button Content="Calibrate Existing Installed season.json" Style="{StaticResource SecondaryButton}" Click="CalibrateInstalledSeasonJson_Click"
+                                ToolTip="Same in-sim calibration loop, but run against an already-installed season pack's season.json/drivers.json on disk instead of the project currently open in this editor."/>
                     </StackPanel>
                 </Grid>
             </TabItem>

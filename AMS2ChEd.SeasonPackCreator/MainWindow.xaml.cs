@@ -1023,6 +1023,54 @@ namespace AMS2ChEd.SeasonPackEditor
             RefreshUI();
         }
 
+        private void CalibrateInstalledSeasonJson_Click(object sender, RoutedEventArgs e)
+        {
+            var openDialog = new OpenFileDialog
+            {
+                Filter = "season.json|season.json|JSON files (*.json)|*.json|All files (*.*)|*.*",
+                Title = "Select Installed season.json"
+            };
+
+            if (openDialog.ShowDialog() != true)
+                return;
+
+            try
+            {
+                var seasonJsonPath = openDialog.FileName;
+                var seasonDirectory = Path.GetDirectoryName(seasonJsonPath);
+                var driversJsonPath = Path.Combine(seasonDirectory, "drivers.json");
+
+                if (!File.Exists(driversJsonPath))
+                {
+                    MessageBox.Show($"No drivers.json found next to the selected season.json (expected at {driversJsonPath}).",
+                        "Drivers File Missing", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var season = JsonSerializer.Deserialize<Ams2Season>(File.ReadAllText(seasonJsonPath), DefaultJsonSerializerOptions.Instance);
+
+                // Same normalization SeasonLoader.LoadSeason applies: a team with no second car is a
+                // real Driver2Contract with an empty DriverId, not a null contract.
+                if (season?.Teams != null)
+                {
+                    foreach (var team in season.Teams)
+                        team.Driver2Contract ??= new DriverContract();
+                }
+
+                var driversDb = JsonSerializer.Deserialize<DriverRatingsDatabase>(File.ReadAllText(driversJsonPath), DefaultJsonSerializerOptions.Instance);
+                var drivers = driversDb.Drivers.Select(d => (Ams2DriverData)d).ToList();
+
+                var ams2AppSettingsStorage = App.Services.GetRequiredService<IAms2AppSettingsStorage>();
+                var storageFactory = App.Services.GetRequiredService<Ams2StorageFactory>();
+                var dialog = new PerformanceCalibrationDialog(season, drivers, seasonDirectory, seasonJsonPath, ams2AppSettingsStorage, storageFactory) { Owner = this };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load season.json: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         #endregion
 
         #region Absences

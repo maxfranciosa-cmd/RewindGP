@@ -64,6 +64,7 @@
 
         <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
             <Button Content="Apply Corrections &amp; Prepare Next Session" Style="{StaticResource ActionButton}" Click="ApplyCorrections_Click"/>
+            <Button Name="SaveSeasonJsonButton" Content="Save season.json" Style="{StaticResource ActionButton}" Click="SaveSeasonJson_Click" Visibility="Collapsed"/>
             <Button Content="Close" Style="{StaticResource SecondaryActionButton}" Click="Close_Click"/>
         </StackPanel>
     </Grid>

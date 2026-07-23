@@ -151,6 +151,45 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             }
         }
 
+        /// <summary>
+        /// Same as <see cref="GenerateCalibrationCustomAi"/>, but for a season pack that already lives
+        /// on disk in the canonical Seasons/&lt;year&gt;/ layout (an installed season pack), so team/driver
+        /// livery references can be resolved straight against <paramref name="seasonDirectory"/> - no
+        /// SeasonPackPathResolver/TextureFiles lookup or temp static-assets scaffold needed.
+        /// </summary>
+        public static void GenerateCalibrationCustomAiForInstalledSeason(
+            Ams2Season season,
+            List<CalibrationEntry> calibrationEntries,
+            string seasonDirectory,
+            string ams2InstallationFolder)
+        {
+            if (string.IsNullOrWhiteSpace(ams2InstallationFolder) || !Directory.Exists(ams2InstallationFolder))
+                throw new InvalidOperationException("Configure a valid AMS2 install folder before exporting.");
+
+            var firstRace = season.Races?.FirstOrDefault();
+            if (firstRace == null)
+                throw new InvalidOperationException("Season has no races configured.");
+
+            var raceEntryList = calibrationEntries.Select(entry => new EntryListEntry
+            {
+                TeamId = entry.TeamId,
+                Driver1Id = entry.DriverId,
+                Driver1Number = entry.DriverNumber
+            }).ToList();
+
+            var teams = season.Teams.OfType<Ams2TeamEntry>().ToList();
+            var drivers = calibrationEntries.Select(e => e.Driver).ToList();
+
+            var ams2Class = season.Ams2Class;
+            var modelCapacities = new CarModelCapacityLoader().GetModelsForClass(ams2Class);
+
+            var liveryService = new Ams2LiveryService(season.Year, ams2Class, drivers, teams, modelCapacities);
+
+            BackupExistingCustomAiFile(ams2InstallationFolder, ams2Class);
+
+            liveryService.GenerateRaceFiles(firstRace.RaceId, raceEntryList, seasonDirectory, ams2InstallationFolder);
+        }
+
         private static void BackupExistingCustomAiFile(string ams2InstallationFolder, string ams2Class)
         {
             var customAiPath = Path.Combine(ams2InstallationFolder, "UserData", "CustomAIDrivers", $"{ams2Class}.xml");
