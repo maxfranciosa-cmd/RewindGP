@@ -70,6 +70,52 @@ namespace AMS2ChEd.Views
                     ChampionshipsPanel.Children.Add(CreateChampionshipBadge(year.ToString()));
                 }
             }
+
+            var seasonRows = BuildSeasonRows(saveGame, teamId);
+            SeasonsList.ItemsSource = seasonRows;
+            SeasonsList.Visibility = seasonRows.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            NoSeasonsText.Visibility = seasonRows.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private class SeasonAccoladeRow
+        {
+            public int Year { get; set; }
+            public int Position { get; set; }
+            public double Points { get; set; }
+            public int Wins { get; set; }
+            public int Podiums { get; set; }
+            public int Poles { get; set; }
+        }
+
+        private List<SeasonAccoladeRow> BuildSeasonRows(ISaveGame saveGame, string teamId)
+        {
+            var rows = new List<SeasonAccoladeRow>();
+
+            foreach (var season in saveGame.HistoricalConstructorStandings.OrderByDescending(h => h.Year))
+            {
+                var entry = season.Standing.FirstOrDefault(e => e.TeamId == teamId);
+                if (entry == null) continue;
+                rows.Add(BuildSeasonRow(saveGame, season.Year, entry.Position, entry.Points, teamId));
+            }
+
+            return rows;
+        }
+
+        private SeasonAccoladeRow BuildSeasonRow(ISaveGame saveGame, int year, int position, double points, string teamId)
+        {
+            var gp = saveGame.GrandPrixResults.Where(g => g.Year == year).ToList();
+            var raceResults = gp.SelectMany(g => g.RaceResults ?? new List<SessionResult>());
+            var qualiResults = gp.SelectMany(g => g.QualifyingResults ?? new List<SessionResult>());
+
+            return new SeasonAccoladeRow
+            {
+                Year = year,
+                Position = position,
+                Points = points,
+                Wins = raceResults.Count(r => r.TeamId == teamId && r.Position == 1),
+                Podiums = raceResults.Count(r => r.TeamId == teamId && r.Position >= 1 && r.Position <= 3),
+                Poles = qualiResults.Count(r => r.TeamId == teamId && r.Position == 1),
+            };
         }
 
         private Border CreateChampionshipBadge(string year)

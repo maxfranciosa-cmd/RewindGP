@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         x:Class="AMS2ChEd.Views.ConstructorAccoladesWindow"
         Title="Constructor Accolades"
-        Height="559" Width="520"
+        Height="699" Width="520"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Background="#1a1a1a">
@@ -18,6 +18,8 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -140,6 +142,88 @@
                            Foreground="#333333"
                            Visibility="Collapsed"/>
             </StackPanel>
+        </Border>
+
+        <!-- Previous Seasons -->
+        <Border Grid.Row="7"
+                Background="#0f0f0f"
+                BorderBrush="#2a2a2a"
+                BorderThickness="1"
+                CornerRadius="4"
+                Padding="16,14">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Text="PREVIOUS SEASONS"
+                           FontSize="11"
+                           FontWeight="Bold"
+                           Foreground="#666666"/>
+
+                <!-- Column headers -->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="YEAR" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="POS" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Text="POINTS" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="3" Text="WINS" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="4" Text="PODIUMS" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="5" Text="POLES" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
+                </Grid>
+
+                <ScrollViewer Grid.Row="4"
+                              MinHeight="160"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl x:Name="SeasonsList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#222222" BorderThickness="0,0,0,1" Padding="0,6">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="90"/>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="75"/>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Year}" FontSize="13" Foreground="White" HorizontalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Position, StringFormat=\{0\}.}" FontSize="13" Foreground="White" HorizontalAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Points}" FontSize="13" Foreground="#cccccc" HorizontalAlignment="Center"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding Wins}" FontSize="13" Foreground="#cccccc" HorizontalAlignment="Center"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding Podiums}" FontSize="13" Foreground="#cccccc" HorizontalAlignment="Center"/>
+                                        <TextBlock Grid.Column="5" Text="{Binding Poles}" FontSize="13" Foreground="#cccccc" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <TextBlock x:Name="NoSeasonsText"
+                           Grid.Row="4"
+                           Text="—"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#333333"
+                           Visibility="Collapsed"/>
+            </Grid>
         </Border>
     </Grid>
 </Window>
