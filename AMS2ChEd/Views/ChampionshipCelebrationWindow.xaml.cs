@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Extensions;
@@ -43,11 +44,30 @@ namespace AMS2ChEd.Views
                 DriverPortraitImage.LoadPhoto(championPhoto);
             }
 
+            var championDriverAccolades = AccoladesCalculator.GetDriverAccolades(saveGame, champion.DriverId, saveGame.CurrentSeason.Year);
+            var championTeamAccolades = AccoladesCalculator.GetTeamAccolades(saveGame, champion.TeamId, saveGame.CurrentSeason.Year);
+            bool isMaidenTitle = championDriverAccolades.HasBaseline && championDriverAccolades.Championships == 1;
+
             // Set the headline
-            HeadlineText.Text = $"{championName.ToUpper()} CLAIMS {saveGame.CurrentSeason.Year} WORLD CHAMPIONSHIP";
+            HeadlineText.Text = BuildHeadline(championName, saveGame.CurrentSeason.Year, isMaidenTitle);
 
             // Generate the article
-            GenerateChampionshipArticle(saveGame, championName, championTeam, championReputation, champion.Points);
+            GenerateChampionshipArticle(saveGame, championName, championTeam, championReputation, champion.Points,
+                championDriverAccolades, championTeamAccolades, isMaidenTitle);
+        }
+
+        private string BuildHeadline(string championName, int year, bool isMaidenTitle)
+        {
+            if (!isMaidenTitle)
+                return $"{championName.ToUpper()} CLAIMS {year} WORLD CHAMPIONSHIP";
+
+            var random = new Random();
+            var maidenTitleHeadlines = new[]
+            {
+                $"{championName.ToUpper()} CLAIMS MAIDEN WORLD CHAMPIONSHIP",
+                $"{championName.ToUpper()} CROWNED WORLD CHAMPION FOR THE FIRST TIME"
+            };
+            return maidenTitleHeadlines[random.Next(maidenTitleHeadlines.Length)];
         }
 
         private void GenerateChampionshipArticle(
@@ -55,7 +75,10 @@ namespace AMS2ChEd.Views
             string championName,
             string championTeam,
             DriverReputation championReputation,
-            double championPoints)
+            double championPoints,
+            AccoladeSummary championDriverAccolades,
+            AccoladeSummary championTeamAccolades,
+            bool isMaidenTitle)
         {
             string article = "";
 
@@ -66,6 +89,10 @@ namespace AMS2ChEd.Views
 
             // Championship journey based on reputation
             article += GenerateChampionshipJourney(championName, championTeam, championReputation);
+            article += "\n\n";
+
+            // Career milestone (title tally for the driver and constructor)
+            article += GenerateChampionshipMilestoneParagraph(championName, championTeam, championDriverAccolades, championTeamAccolades, isMaidenTitle);
             article += "\n\n";
 
             // Final standings
@@ -155,6 +182,61 @@ namespace AMS2ChEd.Views
                     $"Through a season of highs and lows, {championName} maintained their focus and delivered when it mattered. " +
                     $"This championship with {championTeam} is the culmination of a year-long battle and represents the perfect " +
                     $"harmony between driver ambition and team execution."
+            };
+        }
+
+        private string GenerateChampionshipMilestoneParagraph(
+            string championName,
+            string championTeam,
+            AccoladeSummary driverAccolades,
+            AccoladeSummary teamAccolades,
+            bool isMaidenTitle)
+        {
+            var random = new Random();
+
+            if (isMaidenTitle)
+            {
+                var maidenTitleVariants = new[]
+                {
+                    $"It's the first World Championship of {championName}'s career - the moment every driver dreams of.",
+                    $"A maiden title to cherish: {championName} had never before been crowned champion.",
+                    $"After years of chasing the ultimate prize, {championName} finally has it - their first World Championship."
+                };
+                return maidenTitleVariants[random.Next(maidenTitleVariants.Length)];
+            }
+
+            string driverTitlePhrase = driverAccolades.HasBaseline
+                ? $"{ToOrdinal(driverAccolades.Championships)} World Championship"
+                : $"{ToOrdinal(driverAccolades.Championships)} World Championship since {driverAccolades.StartYear}";
+
+            string teamTitlePhrase = teamAccolades.HasBaseline
+                ? $"{ToOrdinal(teamAccolades.Championships)} Constructors' title"
+                : $"{ToOrdinal(teamAccolades.Championships)} Constructors' title since {teamAccolades.StartYear}";
+
+            string driverPriorYears = driverAccolades.ChampionshipYears.Count > 1
+                ? $" (previously {string.Join(", ", driverAccolades.ChampionshipYears.Where(y => y != driverAccolades.ChampionshipYears.Max()))})"
+                : "";
+
+            var milestoneVariants = new[]
+            {
+                $"This is {championName}'s {driverTitlePhrase}{driverPriorYears}, and {championTeam}'s {teamTitlePhrase}.",
+                $"{championName} now boasts {driverAccolades.Championships} World Championships, while {championTeam} celebrates their {teamTitlePhrase}."
+            };
+
+            return milestoneVariants[random.Next(milestoneVariants.Length)];
+        }
+
+        private static string ToOrdinal(int number)
+        {
+            if (number % 100 is 11 or 12 or 13)
+                return $"{number}th";
+
+            return (number % 10) switch
+            {
+                1 => $"{number}st",
+                2 => $"{number}nd",
+                3 => $"{number}rd",
+                _ => $"{number}th"
             };
         }
 

@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Extensions;
@@ -30,39 +31,19 @@ namespace AMS2ChEd.Views
                 AgeText.Visibility = Visibility.Collapsed;
             }
 
-            var baseAccolades = saveGame.AccoladesAtStart?.DriverAccolades?.GetValueOrDefault(driverId)
-                ?? new Accolades();
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, driverId);
 
-            var allRaceResults = saveGame.GrandPrixResults.SelectMany(gp => gp.RaceResults ?? new List<SessionResult>());
-            var allQualiResults = saveGame.GrandPrixResults.SelectMany(gp => gp.QualifyingResults ?? new List<SessionResult>());
+            WinsText.Text = accolades.Wins.ToString();
+            PodiumsText.Text = accolades.Podiums.ToString();
+            PolesText.Text = accolades.PolePositions.ToString();
 
-            int wins = baseAccolades.Wins
-                + allRaceResults.Count(r => r.DriverId == driverId && r.Position == 1);
-            int podiums = baseAccolades.Podiums
-                + allRaceResults.Count(r => r.DriverId == driverId && r.Position >= 1 && r.Position <= 3);
-            int poles = baseAccolades.PolePositions
-                + allQualiResults.Count(r => r.DriverId == driverId && r.Position == 1);
-
-            var historicalChampYears = saveGame.HistoricalDriverStandings
-                .Where(s => s.Standing.Any(e => e.DriverId == driverId && e.Position == 1))
-                .Select(s => s.Year);
-
-            var allChampionships = (baseAccolades.Championships ?? new List<int>())
-                .Union(historicalChampYears)
-                .OrderBy(y => y)
-                .ToList();
-
-            WinsText.Text = wins.ToString();
-            PodiumsText.Text = podiums.ToString();
-            PolesText.Text = poles.ToString();
-
-            if (allChampionships.Count == 0)
+            if (accolades.ChampionshipYears.Count == 0)
             {
                 NoChampionshipsText.Visibility = Visibility.Visible;
             }
             else
             {
-                foreach (var year in allChampionships)
+                foreach (var year in accolades.ChampionshipYears)
                 {
                     ChampionshipsPanel.Children.Add(CreateChampionshipBadge(year.ToString()));
                 }

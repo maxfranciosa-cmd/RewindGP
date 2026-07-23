@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.Models;
+﻿using AMS2ChEd.Business.GameLogic.Concrete;
+using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Extensions;
 using System;
@@ -56,13 +57,18 @@ namespace AMS2ChEd.Views
 
             // Get driver names and teams
             string winnerName = GetDriverName(saveGame, winner.DriverId);
-
-            // Set the headline
-            HeadlineText.Text = $"{winnerName.ToUpper()} WINS THE {raceResult.Year} {raceResult.GrandPrixName.ToUpper()}";
-
-
             string winnerTeam = GetTeamName(saveGame, winner.TeamId);
             DriverReputation winnerReputation = GetDriverReputation(saveGame, winner.DriverId);
+
+            var winnerDriverAccolades = AccoladesCalculator.GetDriverAccolades(saveGame, winner.DriverId);
+            var winnerTeamAccolades = AccoladesCalculator.GetTeamAccolades(saveGame, winner.TeamId);
+            bool isMaidenWin = winnerDriverAccolades.HasBaseline && winnerDriverAccolades.Wins == 1;
+
+            bool isGrandSlam = winner.FastestLap == true &&
+                (raceResult.QualifyingResults ?? new List<SessionResult>()).Any(q => q.DriverId == winner.DriverId && q.Position == 1);
+
+            // Set the headline
+            HeadlineText.Text = BuildHeadline(winnerName, raceResult, isMaidenWin, isGrandSlam);
 
             string secondName = second != null ? GetDriverName(saveGame, second.DriverId) : "Unknown";
             string secondTeam = second != null ? GetTeamName(saveGame, second.TeamId) : "Unknown";
@@ -215,6 +221,26 @@ namespace AMS2ChEd.Views
             article += GenerateWinnerAnalysis(winnerName, winnerTeam, winnerReputation, raceResult.GrandPrixName);
             article += "\n\n";
 
+            // Grand slam (pole + win + fastest lap in the same race)
+            if (isGrandSlam)
+            {
+                article += GenerateGrandSlamParagraph(winnerName, raceResult);
+                article += "\n\n";
+            }
+
+            // Race highlights: win streak, 1-2 finish, fastest lap (when not already covered by the grand slam paragraph)
+            string highlights = GenerateRaceHighlightsParagraph(
+                saveGame, raceResult, winner, winnerName, winnerTeam, second, secondName, third, thirdName, isGrandSlam);
+            if (!string.IsNullOrEmpty(highlights))
+            {
+                article += highlights;
+                article += "\n\n";
+            }
+
+            // Career milestone (win/podium tally for the driver and constructor)
+            article += GenerateCareerMilestoneParagraph(winnerName, winnerTeam, winnerDriverAccolades, winnerTeamAccolades, isMaidenWin);
+            article += "\n\n";
+
             // Championship implications
             article += GenerateChampionshipUpdate(winnerName, winnerNewPosition, previousWinnerStandingPosition, isFirstRace, isLastRace);
             article += "\n\n";
@@ -243,6 +269,156 @@ namespace AMS2ChEd.Views
             }
 
             ArticleText.Text = article;
+        }
+
+        private string BuildHeadline(string winnerName, GrandPrixResult raceResult, bool isMaidenWin, bool isGrandSlam)
+        {
+            var random = new Random();
+            string upperName = winnerName.ToUpper();
+            string upperGp = $"{raceResult.Year} {raceResult.GrandPrixName.ToUpper()}";
+
+            if (isGrandSlam && isMaidenWin)
+            {
+                var maidenGrandSlamHeadlines = new[]
+                {
+                    $"MAIDEN WIN GRAND SLAM FOR {upperName} AT THE {upperGp}",
+                    $"{upperName} SCORES A GRAND SLAM ON MAIDEN WIN AT THE {upperGp}"
+                };
+                return maidenGrandSlamHeadlines[random.Next(maidenGrandSlamHeadlines.Length)];
+            }
+
+            if (isGrandSlam)
+            {
+                var grandSlamHeadlines = new[]
+                {
+                    $"GRAND SLAM FOR {upperName} AT THE {upperGp}",
+                    $"{upperName} SWEEPS POLE, WIN AND FASTEST LAP AT THE {upperGp}"
+                };
+                return grandSlamHeadlines[random.Next(grandSlamHeadlines.Length)];
+            }
+
+            if (isMaidenWin)
+            {
+                var maidenWinHeadlines = new[]
+                {
+                    $"MAIDEN WIN FOR {upperName} AT THE {upperGp}",
+                    $"FIRST CAREER WIN FOR {upperName} AT THE {upperGp}"
+                };
+                return maidenWinHeadlines[random.Next(maidenWinHeadlines.Length)];
+            }
+
+            return $"{upperName} WINS THE {upperGp}";
+        }
+
+        private string GenerateGrandSlamParagraph(string winnerName, GrandPrixResult raceResult)
+        {
+            var random = new Random();
+            var grandSlamVariants = new[]
+            {
+                $"In a standout display, {winnerName} claimed the full grand slam this weekend - pole position, victory, and the fastest lap of the race - a rare feat that underlines their complete dominance at the {raceResult.GrandPrixName}.",
+                $"{winnerName} swept every honor on offer at the {raceResult.GrandPrixName}: pole, the win, and the fastest lap - a grand slam performance that leaves no doubt about who had the pace this weekend.",
+                $"It was a perfect weekend for {winnerName}, who converted pole position into victory and topped it off with the fastest lap of the race - the complete grand slam."
+            };
+            return grandSlamVariants[random.Next(grandSlamVariants.Length)];
+        }
+
+        private string GenerateRaceHighlightsParagraph(
+            ISaveGame saveGame,
+            GrandPrixResult raceResult,
+            SessionResult winner,
+            string winnerName,
+            string winnerTeam,
+            SessionResult second,
+            string secondName,
+            SessionResult third,
+            string thirdName,
+            bool isGrandSlam)
+        {
+            var sentences = new List<string>();
+
+            int winStreak = AccoladesCalculator.GetDriverWinStreak(saveGame, winner.DriverId);
+            if (winStreak >= 2)
+                sentences.Add($"It's {winnerName}'s {ToOrdinal(winStreak)} win in a row.");
+
+            bool isOneTwo = second != null
+                && !string.IsNullOrWhiteSpace(winner.TeamId) && winner.TeamId != "team_id"
+                && winner.TeamId == second.TeamId;
+            if (isOneTwo)
+                sentences.Add($"{winnerTeam} celebrated a dominant 1-2 finish, with {secondName} crossing the line right behind {winnerName}.");
+
+            if (!isGrandSlam)
+            {
+                if (winner.FastestLap == true)
+                    sentences.Add($"{winnerName} also set the fastest lap of the race.");
+                else if (second?.FastestLap == true)
+                    sentences.Add($"{secondName} set the fastest lap of the race from P2.");
+                else if (third?.FastestLap == true)
+                    sentences.Add($"{thirdName} set the fastest lap of the race from P3.");
+            }
+
+            return sentences.Count > 0 ? string.Join(" ", sentences) : "";
+        }
+
+        private string GenerateCareerMilestoneParagraph(
+            string driverName,
+            string teamName,
+            AccoladeSummary driverAccolades,
+            AccoladeSummary teamAccolades,
+            bool isMaidenWin)
+        {
+            var random = new Random();
+
+            if (isMaidenWin)
+            {
+                var maidenWinVariants = new[]
+                {
+                    $"It's the first victory of {driverName}'s career - a moment they'll remember for a long time.",
+                    $"A maiden win to treasure: {driverName} had never before stood on the top step of the podium.",
+                    $"After chasing that elusive first win, {driverName} finally has it - a career-defining moment."
+                };
+                return maidenWinVariants[random.Next(maidenWinVariants.Length)];
+            }
+
+            string driverWinPhrase = driverAccolades.HasBaseline
+                ? $"{ToOrdinal(driverAccolades.Wins)} career win"
+                : $"{ToOrdinal(driverAccolades.Wins)} win since {driverAccolades.StartYear}";
+
+            string teamWinPhrase = teamAccolades.HasBaseline
+                ? $"{ToOrdinal(teamAccolades.Wins)} win"
+                : $"{ToOrdinal(teamAccolades.Wins)} win since {teamAccolades.StartYear}";
+
+            string driverPodiumPhrase = driverAccolades.HasBaseline
+                ? $"{driverAccolades.Podiums} career podiums"
+                : $"{driverAccolades.Podiums} podiums since {driverAccolades.StartYear}";
+
+            var winsOnlyVariants = new[]
+            {
+                $"It's {driverName}'s {driverWinPhrase}, and {teamName}'s {teamWinPhrase}.",
+                $"This victory marks {driverName}'s {driverWinPhrase}, while {teamName} celebrates their {teamWinPhrase}."
+            };
+
+            var winsAndPodiumsVariants = new[]
+            {
+                $"{driverName} now has {driverAccolades.Wins} wins and {driverPodiumPhrase} to their name, while {teamName} celebrates their {teamWinPhrase}.",
+                $"That's {driverName}'s {driverWinPhrase} - and {driverPodiumPhrase} overall - as {teamName} banks their {teamWinPhrase}."
+            };
+
+            var allVariants = winsOnlyVariants.Concat(winsAndPodiumsVariants).ToArray();
+            return allVariants[random.Next(allVariants.Length)];
+        }
+
+        private static string ToOrdinal(int number)
+        {
+            if (number % 100 is 11 or 12 or 13)
+                return $"{number}th";
+
+            return (number % 10) switch
+            {
+                1 => $"{number}st",
+                2 => $"{number}nd",
+                3 => $"{number}rd",
+                _ => $"{number}th"
+            };
         }
 
         private string GenerateWinnerHeadline(
