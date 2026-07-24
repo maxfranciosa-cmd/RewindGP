@@ -4,6 +4,7 @@ using Ams2ChEd.Business.AMS2.Settings;
 using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
+using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.SeasonPackEditor.Services;
 using Microsoft.Win32;
@@ -95,6 +96,9 @@ namespace AMS2ChEd.SeasonPackEditor
             _ams2AppSettingsStorage = ams2AppSettingsStorage;
             _storageFactory = storageFactory;
             _teams = season.Teams.OfType<Ams2TeamEntry>().ToList();
+
+            FilterMalusesToOnlyPerformanceScalars(_teams);
+
             ResultsDataGrid.ItemsSource = _rows;
 
             InitializeRows();
@@ -102,6 +106,32 @@ namespace AMS2ChEd.SeasonPackEditor
             Ams2FolderTextBox.Text = _ams2AppSettingsStorage.LoadSettings().Ams2Folder;
             SaveSeasonJsonButton.Visibility = Visibility.Visible;
             Title = $"Calibrate Performance In-Sim - {Path.GetFileName(sourceSeasonJsonPath)}";
+        }
+
+        private void FilterMalusesToOnlyPerformanceScalars(List<Ams2TeamEntry> teams)
+        {
+            foreach (var team in teams)
+            {
+                var newMalus = new Dictionary<string, double>()
+                {
+                    { "power_scalar", 0.0 },
+                    { "weight_scalar", 0.0 },
+                    { "drag_scalar", 0.0 }
+                };
+
+                if (team.Ams2CarPerformanceMalus != null)
+                {
+                    foreach (var scalar in newMalus.Keys)
+                    {
+                        if (team.Ams2CarPerformanceMalus.ContainsKey(scalar))
+                        {
+                            newMalus[scalar] = team.Ams2CarPerformanceMalus[scalar];
+                        }
+                    }
+                }
+
+                team.Ams2CarPerformanceMalus = newMalus;
+            }
         }
 
         private void InitializeRows()
