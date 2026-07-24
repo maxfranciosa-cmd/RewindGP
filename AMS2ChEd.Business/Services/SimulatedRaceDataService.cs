@@ -18,6 +18,7 @@ namespace AMS2ChEd.Business.Services
         public event EventHandler<SessionUpdateEventArgs> SessionUpdated;
         public event EventHandler<SessionFinishedEventArgs> SessionFinished;
         public event EventHandler<SessionFinishedEventArgs> PreQualiSessionFinished;
+        public event EventHandler<string> PollingError;
 
         public SessionData CurrentSession => _currentSession;
         public List<ParticipantData> QualificationResults { get; private set; }

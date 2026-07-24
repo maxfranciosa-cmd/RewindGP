@@ -75,6 +75,13 @@
         event EventHandler<SessionFinishedEventArgs> PreQualiSessionFinished;
 
         /// <summary>
+        /// Raised when the background poll loop catches an exception while reading shared memory
+        /// (e.g. AMS2 isn't running yet, or its shared memory block isn't available). Non-fatal -
+        /// polling continues and this may fire repeatedly until a read succeeds.
+        /// </summary>
+        event EventHandler<string> PollingError;
+
+        /// <summary>
         /// provides a look-up so that we can identify participants and teams within the session.
         /// </summary>
         /// <param name="participants">the participants of the session</param>

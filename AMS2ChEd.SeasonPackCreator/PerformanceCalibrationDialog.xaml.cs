@@ -114,9 +114,9 @@ namespace AMS2ChEd.SeasonPackEditor
             {
                 var newMalus = new Dictionary<string, double>()
                 {
-                    { "power_scalar", 0.0 },
-                    { "weight_scalar", 0.0 },
-                    { "drag_scalar", 0.0 }
+                    { "power_scalar", -1.0 },
+                    { "weight_scalar", -1.0 },
+                    { "drag_scalar", -1.0 }
                 };
 
                 if (team.Ams2CarPerformanceMalus != null)
@@ -261,6 +261,8 @@ namespace AMS2ChEd.SeasonPackEditor
                 _raceDataService = new Ams2RaceDataService(_storageFactory);
                 _raceDataService.InitializeRaceWeekend(PerformanceCalibrationService.BuildParticipantRoster(_calibrationEntries));
                 _raceDataService.SessionFinished += OnSessionFinished;
+                _raceDataService.SessionUpdated += OnSessionUpdated;
+                _raceDataService.PollingError += OnPollingError;
                 _raceDataService.Start();
 
                 ListenToggleButton.Content = "Stop Listening";
@@ -280,10 +282,29 @@ namespace AMS2ChEd.SeasonPackEditor
                 return;
 
             _raceDataService.SessionFinished -= OnSessionFinished;
+            _raceDataService.SessionUpdated -= OnSessionUpdated;
+            _raceDataService.PollingError -= OnPollingError;
             _raceDataService.Stop();
             _raceDataService = null;
             ListenToggleButton.Content = "3. Start Listening For Session";
             StatusTextBlock.Text = "Stopped listening.";
+        }
+
+        private void OnSessionUpdated(object sender, SessionUpdateEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                var data = e.SessionData;
+                StatusTextBlock.Text = $"Connected - session: {data.SessionType}, active: {data.IsSessionActive}, finished: {data.IsSessionFinished}.";
+            });
+        }
+
+        private void OnPollingError(object sender, string message)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                StatusTextBlock.Text = $"Waiting for AMS2 shared memory... (last error: {message})";
+            });
         }
 
         private void OnSessionFinished(object sender, SessionFinishedEventArgs e)

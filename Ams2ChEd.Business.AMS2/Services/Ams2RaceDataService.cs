@@ -34,6 +34,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         public event EventHandler<SessionUpdateEventArgs> SessionUpdated;
         public event EventHandler<SessionFinishedEventArgs> SessionFinished;
         public event EventHandler<SessionFinishedEventArgs> PreQualiSessionFinished;
+        public event EventHandler<string> PollingError;
 
         public SessionData CurrentSession
         {
@@ -111,6 +112,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                 {
                     // Log error but continue polling
                     System.Diagnostics.Debug.WriteLine($"Polling error: {ex.Message}");
+                    PollingError?.Invoke(this, ex.Message);
                 }
             }
         }
@@ -225,22 +227,33 @@ namespace Ams2ChEd.Business.AMS2.Services
 
         private bool IsSessionFinished(AMS2Page page)
         {
-            // Check race state (3 = finished)
+            // mRaceState (3 = finished) reflects whichever car is currently the "viewed
+            // participant" (camera focus) - not necessarily the player's own car - so treat
+            // it only as a fast path, not a requirement.
             if (page.mRaceState == 3)
                 return true;
 
-            // Check if all participants are finished or retired
-            bool anyActive = false;
+            // mRaceStates is the per-car array covering every participant regardless of
+            // camera focus, so it stays reliable even while spectating/replaying. A car that
+            // never left NOT_STARTED (e.g. the tester's own untracked car, never driven out)
+            // must not block detection forever, but "everyone still NOT_STARTED" is also the
+            // normal pre-session state, so require that at least one participant actually
+            // reached a terminal state before declaring the session over.
+            bool anyRacing = false;
+            bool anyTerminal = false;
             foreach (var raceState in page.mRaceStates)
             {
-                if (raceState > 0 && raceState < 3) // Racing or other active state
+                if (raceState == 2) // RACESTATE_RACING
                 {
-                    anyActive = true;
-                    break;
+                    anyRacing = true;
+                }
+                else if (raceState >= 3) // FINISHED, DISQUALIFIED, RETIRED or DNF
+                {
+                    anyTerminal = true;
                 }
             }
 
-            return !anyActive && page.mRaceState >= 2;
+            return !anyRacing && anyTerminal;
         }
 
         private List<ParticipantData> GetStandings(AMS2Page page)
