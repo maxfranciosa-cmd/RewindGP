@@ -532,11 +532,12 @@
 
                                             <!-- Race Number Badge -->
                                             <Border Grid.Column="1"
-                                                    Style="{StaticResource RaceNumberStyle}">
+                                                    Style="{StaticResource RaceNumberStyle}"
+                                                    Background="{Binding BadgeColor}">
                                                 <TextBlock Text="{Binding RaceNumber}"
                                                           FontSize="13"
                                                           FontWeight="Bold"
-                                                          Foreground="White"
+                                                          Foreground="{Binding BadgeTextColor}"
                                                           HorizontalAlignment="Center"
                                                           VerticalAlignment="Center"/>
                                             </Border>

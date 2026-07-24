@@ -36,6 +36,8 @@ namespace AMS2ChEd
         public bool IsPlayer { get; set; }
         public int? RaceNumber { get; set; }
         public bool IsEven { get; set; }
+        public SolidColorBrush BadgeColor { get; set; }
+        public SolidColorBrush BadgeTextColor { get; set; }
     }
 
     public class ConstructorStandingDisplay
@@ -229,6 +231,7 @@ namespace AMS2ChEd
 
                 // Get race number for this driver from their team contract
                 int raceNumber = GetDriverRaceNumber(standing.DriverId);
+                SolidColorBrush badgeColor = GetTeamColor(standing.TeamId);
 
                 displayList.Add(new DriverStandingDisplay
                 {
@@ -239,7 +242,9 @@ namespace AMS2ChEd
                     IsPlayer = standing.DriverId == saveGame.PlayerData.DriverId,
                     TeamId = standing.TeamId,
                     RaceNumber = standing.TeamId != null ? raceNumber : null,
-                    IsEven = index % 2 == 1
+                    IsEven = index % 2 == 1,
+                    BadgeColor = badgeColor,
+                    BadgeTextColor = GetContrastingTextColor(badgeColor.Color)
                 });
                 index++;
             }
@@ -315,6 +320,15 @@ namespace AMS2ChEd
 
             // Default color if no match found or color is invalid
             return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#666666"));
+        }
+
+        private SolidColorBrush GetContrastingTextColor(Color color)
+        {
+            // Perceived brightness (YIQ formula)
+            double brightness = (color.R * 299 + color.G * 587 + color.B * 114) / 1000.0;
+            return brightness >= 128
+                ? new SolidColorBrush(Colors.Black)
+                : new SolidColorBrush(Colors.White);
         }
 
         private async void NextButton_Click(object sender, RoutedEventArgs e)
