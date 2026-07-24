@@ -16,6 +16,7 @@ namespace AMS2ChEd.Views
             ISaveGame saveGame,
             GrandPrixResult raceResult,
             int previousWinnerStandingPosition,
+            List<string> previousTopThreeDriverIds,
             DateTime grandPrixDate,
             string winnerPortraitPath)
         {
@@ -32,13 +33,14 @@ namespace AMS2ChEd.Views
             }
 
             // Generate the article
-            GenerateArticle(saveGame, raceResult, previousWinnerStandingPosition);
+            GenerateArticle(saveGame, raceResult, previousWinnerStandingPosition, previousTopThreeDriverIds);
         }
 
         private void GenerateArticle(
             ISaveGame saveGame,
             GrandPrixResult raceResult,
-            int previousWinnerStandingPosition)
+            int previousWinnerStandingPosition,
+            List<string> previousTopThreeDriverIds)
         {
             // Get podium finishers
             var winner = raceResult.RaceResults.FirstOrDefault(d => d.Position == 1);
@@ -241,6 +243,22 @@ namespace AMS2ChEd.Views
             article += GenerateCareerMilestoneParagraph(winnerName, winnerTeam, winnerDriverAccolades, winnerTeamAccolades, isMaidenWin);
             article += "\n\n";
 
+            // First-ever career podium for any of today's podium finishers
+            string firstPodiumParagraph = GenerateFirstPodiumParagraph(saveGame, winner, winnerName, isMaidenWin, second, secondName, third, thirdName);
+            if (!string.IsNullOrEmpty(firstPodiumParagraph))
+            {
+                article += firstPodiumParagraph;
+                article += "\n\n";
+            }
+
+            // Bad result for a driver who came into the weekend in the championship's top 3
+            string topThreeBadResultParagraph = GenerateTopThreeBadResultParagraph(saveGame, raceResult, previousTopThreeDriverIds);
+            if (!string.IsNullOrEmpty(topThreeBadResultParagraph))
+            {
+                article += topThreeBadResultParagraph;
+                article += "\n\n";
+            }
+
             // Championship implications
             article += GenerateChampionshipUpdate(winnerName, winnerNewPosition, previousWinnerStandingPosition, isFirstRace, isLastRace);
             article += "\n\n";
@@ -405,6 +423,83 @@ namespace AMS2ChEd.Views
 
             var allVariants = winsOnlyVariants.Concat(winsAndPodiumsVariants).ToArray();
             return allVariants[random.Next(allVariants.Length)];
+        }
+
+        private string GenerateFirstPodiumParagraph(
+            ISaveGame saveGame,
+            SessionResult winner, string winnerName, bool isMaidenWin,
+            SessionResult second, string secondName,
+            SessionResult third, string thirdName)
+        {
+            var sentences = new List<string>();
+            var random = new Random();
+
+            void AddIfMaiden(SessionResult result, string name)
+            {
+                if (result == null) return;
+                var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, result.DriverId);
+                if (!(accolades.HasBaseline && accolades.Podiums == 1)) return;
+
+                var variants = new[]
+                {
+                    $"It's the first podium finish of {name}'s career.",
+                    $"{name} celebrated a maiden podium finish today.",
+                    $"That's a first career podium for {name}."
+                };
+                sentences.Add(variants[random.Next(variants.Length)]);
+            }
+
+            // Skip the winner if this was already their maiden win - that milestone is already covered above
+            if (!isMaidenWin) AddIfMaiden(winner, winnerName);
+            AddIfMaiden(second, secondName);
+            AddIfMaiden(third, thirdName);
+
+            return sentences.Count > 0 ? string.Join(" ", sentences) : "";
+        }
+
+        private string GenerateTopThreeBadResultParagraph(
+            ISaveGame saveGame,
+            GrandPrixResult raceResult,
+            List<string> previousTopThreeDriverIds)
+        {
+            if (previousTopThreeDriverIds == null) return "";
+
+            var sentences = new List<string>();
+            var random = new Random();
+
+            foreach (var driverId in previousTopThreeDriverIds)
+            {
+                var result = raceResult.RaceResults.FirstOrDefault(r => r.DriverId == driverId);
+                if (result == null || result.DidNotPreQualify) continue;
+
+                bool badResult = result.DNF || result.Position > 8;
+                if (!badResult) continue;
+
+                string name = GetDriverName(saveGame, driverId);
+
+                if (result.DNF)
+                {
+                    var dnfVariants = new[]
+                    {
+                        $"It was a day to forget for {name}, one of the championship's top three coming into the weekend, who failed to see the checkered flag.",
+                        $"There was heartbreak for {name}, forced to retire after arriving as one of the title favorites.",
+                        $"{name} endured a nightmare afternoon, retiring from the race after arriving among the championship pace-setters."
+                    };
+                    sentences.Add(dnfVariants[random.Next(dnfVariants.Length)]);
+                }
+                else
+                {
+                    var badResultVariants = new[]
+                    {
+                        $"It was a difficult weekend for {name}, one of the championship's top three coming in, who could only manage P{result.Position}.",
+                        $"{name} had little to celebrate, trailing home in P{result.Position} after arriving as one of the title favorites.",
+                        $"An afternoon to forget for {name}, who crosses the line in P{result.Position} after starting the weekend among the championship's top three."
+                    };
+                    sentences.Add(badResultVariants[random.Next(badResultVariants.Length)]);
+                }
+            }
+
+            return sentences.Count > 0 ? string.Join(" ", sentences) : "";
         }
 
         private static string ToOrdinal(int number)

@@ -333,6 +333,14 @@ namespace AMS2ChEd.Views
                                 .FirstOrDefault(s => s.DriverId == winner.DriverId);
                             previousWinnerPosition = winnerStanding?.Position ?? 1;
                         }
+
+                        // Get the top 3 championship drivers BEFORE this race is factored into the standings
+                        var previousTopThreeDriverIds = saveGame.CurrentDriverStandings
+                            .OrderBy(s => s.Position)
+                            .Take(3)
+                            .Select(s => s.DriverId)
+                            .ToList();
+
                         // Update standings
                         _gameLogicFactory.StandingsManager.UpdateStandings(saveGame, raceResult);
 
@@ -354,7 +362,7 @@ namespace AMS2ChEd.Views
                         // Show post-race newspaper
                         var winnerDriverData = saveGame.Drivers.FirstOrDefault(d => d.DriverId == winner.DriverId);
                         var winnerPhoto = winnerDriverData?.PictureUrl;
-                        var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, DateTime.ParseExact(gpDate, "yyyy-MM-dd", CultureInfo.InvariantCulture), winnerPhoto);
+                        var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, DateTime.ParseExact(gpDate, "yyyy-MM-dd", CultureInfo.InvariantCulture), winnerPhoto);
                         newsWindow.Owner = this;
                         newsWindow.ShowDialog();
 
