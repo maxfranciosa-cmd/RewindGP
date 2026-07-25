@@ -68,7 +68,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // season's "best N races count" rule if one is set.
             var allResults = (saveGame.GrandPrixResults ?? Enumerable.Empty<GrandPrixResult>())
                 .Where(r => !ReferenceEquals(r, result))
-                .Append(result);
+                .Append(result)
+                .Where(r => r.Year == saveGame.CurrentSeason.Year);
 
             foreach (var standing in saveGame.CurrentDriverStandings)
             {
