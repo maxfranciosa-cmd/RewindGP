@@ -399,15 +399,15 @@ namespace AMS2ChEd.Views
 
             string driverWinPhrase = driverAccolades.HasBaseline
                 ? $"{ToOrdinal(driverAccolades.Wins)} career win"
-                : $"{ToOrdinal(driverAccolades.Wins)} win since {driverAccolades.StartYear}";
+                : $"{ToOrdinal(driverAccolades.Wins)} win since the start of {driverAccolades.StartYear}";
 
             string teamWinPhrase = teamAccolades.HasBaseline
                 ? $"{ToOrdinal(teamAccolades.Wins)} win"
-                : $"{ToOrdinal(teamAccolades.Wins)} win since {teamAccolades.StartYear}";
+                : $"{ToOrdinal(teamAccolades.Wins)} win since the start of {teamAccolades.StartYear}";
 
             string driverPodiumPhrase = driverAccolades.HasBaseline
                 ? $"{driverAccolades.Podiums} career podiums"
-                : $"{driverAccolades.Podiums} podiums since {driverAccolades.StartYear}";
+                : $"{driverAccolades.Podiums} podiums since the start of {driverAccolades.StartYear}";
 
             var winsOnlyVariants = new[]
             {

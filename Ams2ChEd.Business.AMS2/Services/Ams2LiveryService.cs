@@ -912,6 +912,16 @@ namespace Ams2ChEd.Business.AMS2.Services
                 ratings[ratingName] = adjustedValue;
             }
 
+            // add variation to each rating to avoid AI drivers being too similar
+            // (except power_scalar, weight_scalar, drag_scalar which are team-level scalars)
+            var ratingsNotToVary = new string[] { "power_scalar", "weight_scalar", "drag_scalar" };
+            var random = new Random();
+            foreach (var ratingKey in ratings.Keys.Where(k => !ratingsNotToVary.Contains(k)))
+            {
+                var variation = Random.Shared.Next(-50, 51) / 1000.0; ; // -5% to +5% variation
+                ratings[ratingKey] = Math.Max(0.0, Math.Min(1.0, ratings[ratingKey] + Math.Round(variation, 3)));
+            }
+            
             // Create driver element
             string liveryName = $"#{driverNumber} {team.TeamName} - {driverName}";
             XElement driverElement = new XElement("driver",

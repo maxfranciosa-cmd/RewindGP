@@ -42,7 +42,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
         public static AccoladeSummary GetDriverAccolades(ISaveGame saveGame, string driverId, int? justClinchedChampionshipYear = null)
         {
-            bool hasBaseline = saveGame.AccoladesAtStart?.DriverAccolades?.ContainsKey(driverId) == true;
+            bool hasBaseline = saveGame.AccoladesAtStart?.DriverAccolades != null;
             var baseAccolades = saveGame.AccoladesAtStart?.DriverAccolades?.GetValueOrDefault(driverId) ?? new Accolades();
 
             var allRaceResults = saveGame.GrandPrixResults.SelectMany(gp => gp.RaceResults ?? new List<SessionResult>());
@@ -90,7 +90,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
         public static AccoladeSummary GetTeamAccolades(ISaveGame saveGame, string teamId, int? justClinchedChampionshipYear = null)
         {
-            bool hasBaseline = saveGame.AccoladesAtStart?.TeamsAccolades?.ContainsKey(teamId) == true;
+            bool hasBaseline = saveGame.AccoladesAtStart?.TeamsAccolades != null;
             var baseAccolades = saveGame.AccoladesAtStart?.TeamsAccolades?.GetValueOrDefault(teamId) ?? new Accolades();
 
             var allRaceResults = saveGame.GrandPrixResults.SelectMany(gp => gp.RaceResults ?? new List<SessionResult>());
