@@ -530,6 +530,21 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var driverNamesDictionary = saveGame.Drivers.Union(saveGame.RetiredDrivers ?? new List<IDriverData>()).ToDictionary(d => d.DriverId, d => d.Name);
             var teamNamesDictionary = saveGame.CurrentSeason.Teams.ToDictionary(t => t.TeamId, t => t.TeamName);
 
+            // Carry forward the race numbers teams actually raced with this season, so a team the
+            // race-number allocator leaves untouched (e.g. no champion swap involves it) keeps its
+            // real number instead of reverting to the season pack's authored default for next year.
+            var previousTeamNumbers = saveGame.CurrentSeason.Teams
+                .ToDictionary(t => t.TeamId, t => (t.Driver1Contract.DriverNumber, t.Driver2Contract.DriverNumber));
+
+            foreach (var team in newSeason.Teams)
+            {
+                if (previousTeamNumbers.TryGetValue(team.TeamId, out var numbers))
+                {
+                    team.Driver1Contract.DriverNumber = numbers.Item1;
+                    team.Driver2Contract.DriverNumber = numbers.Item2;
+                }
+            }
+
             var historicalDriverStanding = saveGame.CurrentDriverStandings.Select(e =>
                                             new HisoricalDriverStandingEntry
                                             {
