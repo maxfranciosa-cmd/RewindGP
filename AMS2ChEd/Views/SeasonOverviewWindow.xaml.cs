@@ -491,9 +491,30 @@ namespace AMS2ChEd
                 // STEP 3: Generate potential team picks and driver proposals
 
                 var newSeasonTeamEntries = originalNewSeason.Teams;
+                var previouslyRetiredDriverIds = (saveGame.RetiredDrivers ?? Enumerable.Empty<IDriverData>())
+                    .Select(d => d.DriverId)
+                    .ToHashSet();
+
                 var ballots = _gameLogicFactory.EndOfSeasonManager
                     .TeamPicksPotentialReplacementsDrivers(nextSeasonYear, saveGame, newSeasonTeamEntries, dropResults)
                     .ToList();
+
+                // STEP 3.5: Show a retirement send-off article for any driver who newly retired this off-season.
+                // saveGame.CurrentSeason is still the season that just finished at this point, so their
+                // last team can still be looked up from it before StartNewSeason (STEP 8) replaces it.
+                var newlyRetiredDrivers = (saveGame.RetiredDrivers ?? Enumerable.Empty<IDriverData>())
+                    .Where(d => !previouslyRetiredDriverIds.Contains(d.DriverId))
+                    .ToList();
+
+                foreach (var retiredDriver in newlyRetiredDrivers)
+                {
+                    var lastTeam = saveGame.CurrentSeason.Teams
+                        .FirstOrDefault(t => t.Driver1Contract.DriverId == retiredDriver.DriverId || t.Driver2Contract.DriverId == retiredDriver.DriverId);
+
+                    var retirementWindow = new RetirementNewsWindow(saveGame, retiredDriver, lastTeam?.TeamId);
+                    retirementWindow.Owner = this;
+                    retirementWindow.ShowDialog();
+                }
 
                 // STEP 4: If player needs to apply, show team selection window
                 IEnumerable<TeamHiringBallot> finalBallots = ballots;
