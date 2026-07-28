@@ -25,23 +25,32 @@ namespace AMS2ChEd.Views
             int finalYear = saveGame.CurrentSeason.Year;
             int age = finalYear - retiredDriver.YearOfBirth;
 
-            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, retiredDriver.DriverId);
+            // The season that just ended hasn't been folded into HistoricalDriverStandings yet
+            // (that happens later, in EndOfSeasonManager.StartNewSeason) - so a title clinched in
+            // this final season needs to be passed in explicitly, the same way
+            // ChampionshipCelebrationWindow does for the reigning champion.
+            int? justClinchedChampionshipYear = saveGame.CurrentDriverStandings
+                .FirstOrDefault(s => s.DriverId == retiredDriver.DriverId)?.Position == 1
+                ? finalYear
+                : (int?)null;
+
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, retiredDriver.DriverId, justClinchedChampionshipYear);
 
             HeadlineText.Text = BuildHeadline(retiredDriver.Name, retiredDriver.Reputation, accolades);
 
-            GenerateArticle(saveGame, retiredDriver, teamName, finalYear, age, accolades);
+            GenerateArticle(saveGame, retiredDriver, lastTeamId, teamName, finalYear, age, accolades);
         }
 
         private void GenerateArticle(
             ISaveGame saveGame,
             IDriverData driver,
+            string lastTeamId,
             string teamName,
             int finalYear,
             int age,
             AccoladeSummary accolades)
         {
             string name = driver.Name;
-            var (firstYear, seasons, bestFinish) = GetCareerSpan(saveGame, driver.DriverId, finalYear);
 
             string article = "";
 
@@ -54,7 +63,7 @@ namespace AMS2ChEd.Views
             article += GenerateAccoladesParagraph(name, accolades);
             article += "\n\n";
 
-            string careerRecap = GenerateCareerRecapParagraph(name, firstYear, seasons, bestFinish, accolades);
+            string careerRecap = GenerateCareerRecapParagraph(saveGame, driver.DriverId, lastTeamId, finalYear, accolades);
             if (!string.IsNullOrEmpty(careerRecap))
             {
                 article += careerRecap;
@@ -67,43 +76,63 @@ namespace AMS2ChEd.Views
         }
 
         /// <summary>
-        /// Walks the driver's completed seasons (HistoricalDriverStandings) plus the season that
-        /// just ended (CurrentDriverStandings - not yet folded into history at this point in the
-        /// off-season flow) to find their debut year in this save, number of seasons raced, and
-        /// best championship finish.
+        /// Chronological list of distinct team stints (collapsing consecutive years at the same
+        /// team) this driver had in the save, drawn from HistoricalDriverStandings plus the season
+        /// that just ended (not yet archived into history at this point in the off-season flow).
+        /// Team names use the most recent name on record for each team_id, since a team's display
+        /// name can change across years (e.g. sponsor changes) while the id stays stable.
         /// </summary>
-        private (int firstYear, int seasons, int bestFinish) GetCareerSpan(ISaveGame saveGame, string driverId, int finalYear)
+        private (int seasons, List<string> teamNames) GetCareerRecap(ISaveGame saveGame, string driverId, string finalSeasonTeamId, int finalYear)
         {
-            var years = saveGame.HistoricalDriverStandings
-                .Where(h => h.Standing.Any(e => e.DriverId == driverId))
-                .Select(h => h.Year)
-                .ToList();
+            var mostRecentTeamName = new Dictionary<string, (int year, string name)>();
 
-            if (saveGame.CurrentDriverStandings.Any(s => s.DriverId == driverId))
+            void ConsiderName(string teamId, string teamName, int year)
             {
-                years.Add(finalYear);
-            }
-
-            int seasons = years.Distinct().Count();
-            int firstYear = years.Any() ? years.Min() : finalYear;
-
-            int bestFinish = int.MaxValue;
-            foreach (var h in saveGame.HistoricalDriverStandings)
-            {
-                var entry = h.Standing.FirstOrDefault(e => e.DriverId == driverId);
-                if (entry != null)
+                if (string.IsNullOrEmpty(teamId) || string.IsNullOrEmpty(teamName)) return;
+                if (!mostRecentTeamName.TryGetValue(teamId, out var existing) || year >= existing.year)
                 {
-                    bestFinish = Math.Min(bestFinish, entry.Position);
+                    mostRecentTeamName[teamId] = (year, teamName);
                 }
             }
 
-            var currentEntry = saveGame.CurrentDriverStandings.FirstOrDefault(s => s.DriverId == driverId);
-            if (currentEntry != null)
+            var yearlyTeamIds = new List<(int Year, string TeamId)>();
+
+            foreach (var h in saveGame.HistoricalDriverStandings.OrderBy(h => h.Year))
             {
-                bestFinish = Math.Min(bestFinish, currentEntry.Position);
+                foreach (var entry in h.Standing)
+                {
+                    ConsiderName(entry.TeamId, entry.TeamName, h.Year);
+                    if (entry.DriverId == driverId)
+                    {
+                        yearlyTeamIds.Add((h.Year, entry.TeamId));
+                    }
+                }
             }
 
-            return (firstYear, seasons, bestFinish == int.MaxValue ? 0 : bestFinish);
+            // the season that just ended is the freshest source for team names, and isn't in
+            // HistoricalDriverStandings yet
+            foreach (var team in saveGame.CurrentSeason.Teams)
+            {
+                ConsiderName(team.TeamId, team.TeamName, finalYear);
+            }
+
+            if (!string.IsNullOrEmpty(finalSeasonTeamId))
+            {
+                yearlyTeamIds.Add((finalYear, finalSeasonTeamId));
+            }
+
+            var teamStints = new List<string>();
+            string lastTeamId = null;
+            foreach (var (_, teamId) in yearlyTeamIds.OrderBy(t => t.Year))
+            {
+                if (string.IsNullOrEmpty(teamId) || teamId == lastTeamId) continue;
+                teamStints.Add(mostRecentTeamName.TryGetValue(teamId, out var info) ? info.name : teamId);
+                lastTeamId = teamId;
+            }
+
+            int seasons = yearlyTeamIds.Select(t => t.Year).Distinct().Count();
+
+            return (seasons, teamStints);
         }
 
         private string BuildHeadline(string name, DriverReputation reputation, AccoladeSummary accolades)
@@ -291,28 +320,45 @@ namespace AMS2ChEd.Views
             return tallyVariants[random.Next(tallyVariants.Length)];
         }
 
-        private string GenerateCareerRecapParagraph(string name, int firstYear, int seasons, int bestFinish, AccoladeSummary accolades)
+        private string GenerateCareerRecapParagraph(ISaveGame saveGame, string driverId, string lastTeamId, int finalYear, AccoladeSummary accolades)
         {
-            if (seasons <= 0) return "";
+            var (seasons, teamNames) = GetCareerRecap(saveGame, driverId, lastTeamId, finalYear);
+            if (teamNames.Count == 0) return "";
 
             var random = new Random();
+            string teamListPhrase = FormatTeamList(teamNames);
+            string seasonsPhrase = $"{seasons} season{(seasons != 1 ? "s" : "")}";
 
             // AccoladesAtStart can carry a pre-save baseline for this driver, meaning their real
-            // career may stretch back further than the earliest season this save has on record.
-            string spanPhrase = accolades.HasBaseline
-                ? $"{seasons} more season{(seasons != 1 ? "s" : "")} on top of a career that stretches back before {firstYear}"
-                : $"{seasons} season{(seasons != 1 ? "s" : "")} on the grid, debuting in {firstYear}";
-
-            string bestFinishPhrase = bestFinish > 0 ? $", with a best championship finish of P{bestFinish}" : "";
-
-            var variants = new[]
+            // career may stretch back further than this save's own recorded history - so the team
+            // list here only covers "the last N seasons", not necessarily their whole career.
+            if (accolades.HasBaseline)
             {
-                $"It caps {spanPhrase}{bestFinishPhrase}.",
-                $"{name} competed across {spanPhrase}{bestFinishPhrase}.",
-                $"In total, that's {spanPhrase}{bestFinishPhrase} - a career that will be remembered by fans across the world."
-            };
+                var variants = new[]
+                {
+                    $"In the last {seasonsPhrase} of a longer career, they raced for {teamListPhrase}.",
+                    $"Their final {seasonsPhrase} on record saw them race for {teamListPhrase}.",
+                    $"Over their last {seasonsPhrase}, they turned out for {teamListPhrase}."
+                };
+                return variants[random.Next(variants.Length)];
+            }
+            else
+            {
+                var variants = new[]
+                {
+                    $"Across {seasonsPhrase}, they raced for {teamListPhrase}.",
+                    $"Their {seasonsPhrase} on the grid were spent racing for {teamListPhrase}.",
+                    $"Over {seasonsPhrase}, they represented {teamListPhrase}."
+                };
+                return variants[random.Next(variants.Length)];
+            }
+        }
 
-            return variants[random.Next(variants.Length)];
+        private string FormatTeamList(List<string> teamNames)
+        {
+            if (teamNames.Count == 1) return teamNames[0];
+            if (teamNames.Count == 2) return $"{teamNames[0]} and {teamNames[1]}";
+            return $"{string.Join(", ", teamNames.Take(teamNames.Count - 1))}, and {teamNames[^1]}";
         }
 
         private string GenerateClosingParagraph(string name, string teamName)
