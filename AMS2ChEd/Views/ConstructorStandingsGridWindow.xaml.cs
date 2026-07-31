@@ -142,14 +142,14 @@ namespace AMS2ChEd
             var grid = new Grid();
 
             // Create column definitions matching the team grids
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(180) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(210) });
             foreach (var race in allRaces)
             {
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(56) });
             }
 
             // Single row for headers
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(35) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(42) });
 
             // Add "TEAM" header in first column
             AddHeaderCell(grid, "TEAM", 0, 0);
@@ -179,7 +179,7 @@ namespace AMS2ChEd
                 FontFamily = new FontFamily("Courier New"),
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.Black,
-                FontSize = 12,
+                FontSize = 16,
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextAlignment = TextAlignment.Center,
@@ -197,17 +197,17 @@ namespace AMS2ChEd
             var grid = new Grid();
 
             // Create column definitions
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(180) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(210) });
             foreach (var race in allRaces)
             {
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(56) });
             }
 
             // Create row definitions: team header + one row per driver
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(32) }); // Team name row
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(40) }); // Team name row
             foreach (var driver in drivers)
             {
-                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(28) });
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(36) });
             }
 
             // Team header row
@@ -290,7 +290,7 @@ namespace AMS2ChEd
                 Text = teamName.ToUpper(),
                 FontFamily = new FontFamily("Arial Black"),
                 FontWeight = FontWeights.Black,
-                FontSize = 11,
+                FontSize = 15,
                 Foreground = Brushes.White,
                 VerticalAlignment = VerticalAlignment.Center,
                 Padding = new Thickness(8, 4, 0, 4)
@@ -316,7 +316,7 @@ namespace AMS2ChEd
             {
                 Text = name.ToUpper(),
                 FontFamily = new FontFamily("Courier New"),
-                FontSize = 11,
+                FontSize = 15,
                 Foreground = Brushes.Black,
                 VerticalAlignment = VerticalAlignment.Center,
                 Padding = new Thickness(20, 4, 0, 4) // Indent driver names under team
@@ -343,7 +343,7 @@ namespace AMS2ChEd
             {
                 Text = text,
                 FontFamily = new FontFamily("Courier New"),
-                FontSize = 11,
+                FontSize = 15,
                 Foreground = showAsDiscarded ? Brushes.Gray : (string.IsNullOrEmpty(text) ? Brushes.LightGray : Brushes.Black),
                 FontStyle = showAsDiscarded ? FontStyles.Italic : FontStyles.Normal,
                 TextDecorations = showAsDiscarded ? TextDecorations.Strikethrough : null,

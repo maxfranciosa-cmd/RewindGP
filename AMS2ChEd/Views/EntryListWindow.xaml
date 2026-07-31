@@ -17,14 +17,14 @@
         <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Courier New"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontSize" Value="24"/>
             <Setter Property="Foreground" Value="Black"/>
         </Style>
 
         <!-- Entry text style -->
         <Style x:Key="EntryTextStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Courier New"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="21"/>
             <Setter Property="Foreground" Value="Black"/>
         </Style>
 
@@ -122,11 +122,11 @@
                 <!-- Column Headers -->
                 <Grid Grid.Row="1" Margin="0,10,0,5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="70"/>
                         <!-- No. -->
-                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="280"/>
                         <!-- Driver -->
-                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="70"/>
                         <!-- Nationality -->
                         <ColumnDefinition Width="*"/>
                         <!-- Team -->
@@ -157,23 +157,23 @@
                     <ItemsControl x:Name="EntryListItems">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="Black" 
+                                <Border BorderBrush="Black"
                                         BorderThickness="0,0,0,1"
-                                        Padding="0,8">
+                                        Padding="0,10">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="60"/>
-                                            <ColumnDefinition Width="250"/>
-                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="70"/>
+                                            <ColumnDefinition Width="280"/>
+                                            <ColumnDefinition Width="70"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
                                         <!-- Driver Number -->
-                                        <TextBlock Grid.Column="0" 
+                                        <TextBlock Grid.Column="0"
                                                    Text="{Binding DriverNumber}"
                                                    Style="{StaticResource EntryTextStyle}"
                                                    FontWeight="Bold"
-                                                   FontSize="13"
+                                                   FontSize="18"
                                                    Margin="10,0,5,0"/>
 
                                         <!-- Driver Name -->

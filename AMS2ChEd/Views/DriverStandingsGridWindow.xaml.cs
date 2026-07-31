@@ -92,21 +92,21 @@ namespace AMS2ChEd
             ResultsGrid.RowDefinitions.Clear();
 
             // First column for driver names (wider)
-            ResultsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(180) });
+            ResultsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(210) });
 
             // Columns for each race (all races in season)
             foreach (var race in allRaces)
             {
-                ResultsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
+                ResultsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(56) });
             }
 
             // Header row
-            ResultsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(35) });
+            ResultsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(42) });
 
             // Row for each driver
             foreach (var driver in sortedDrivers)
             {
-                ResultsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(28) });
+                ResultsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(36) });
             }
 
             // Add header cells
@@ -194,7 +194,7 @@ namespace AMS2ChEd
                 FontFamily = new FontFamily("Courier New"),
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.Black,
-                FontSize = 12,
+                FontSize = 16,
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextAlignment = TextAlignment.Center,
@@ -220,7 +220,7 @@ namespace AMS2ChEd
             {
                 Text = name.ToUpper(),
                 FontFamily = new FontFamily("Courier New"),
-                FontSize = 11,
+                FontSize = 15,
                 Foreground = Brushes.Black,
                 VerticalAlignment = VerticalAlignment.Center,
                 Padding = new Thickness(8, 4, 0, 4)
@@ -247,7 +247,7 @@ namespace AMS2ChEd
             {
                 Text = text,
                 FontFamily = new FontFamily("Courier New"),
-                FontSize = 11,
+                FontSize = 15,
                 Foreground = showAsDiscarded ? Brushes.Gray : (string.IsNullOrEmpty(text) ? Brushes.LightGray : Brushes.Black),
                 FontStyle = showAsDiscarded ? FontStyles.Italic : FontStyles.Normal,
                 TextDecorations = showAsDiscarded ? TextDecorations.Strikethrough : null,

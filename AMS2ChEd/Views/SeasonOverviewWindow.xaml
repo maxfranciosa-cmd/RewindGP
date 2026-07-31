@@ -85,7 +85,7 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="#222222"/>
             <Setter Property="BorderThickness" Value="0,0,0,1"/>
-            <Setter Property="Height" Value="40"/>
+            <Setter Property="Height" Value="50"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsEven}" Value="True">
                     <Setter Property="Background" Value="#0f0f0f"/>
@@ -108,8 +108,8 @@
 
         <!-- Race Number Badge Style -->
         <Style x:Key="RaceNumberStyle" TargetType="{x:Type Border}">
-            <Setter Property="Width" Value="32"/>
-            <Setter Property="Height" Value="32"/>
+            <Setter Property="Width" Value="38"/>
+            <Setter Property="Height" Value="38"/>
             <Setter Property="CornerRadius" Value="16"/>
             <Setter Property="Background" Value="#dc143c"/>
             <Setter Property="Margin" Value="0,0,12,0"/>
@@ -516,16 +516,16 @@
 
                                         <Grid Margin="15,0">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="35"/>
+                                                <ColumnDefinition Width="42"/>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="80"/>
                                             </Grid.ColumnDefinitions>
 
                                             <!-- Position -->
-                                            <TextBlock Grid.Column="0" 
+                                            <TextBlock Grid.Column="0"
                                                       Text="{Binding Position, StringFormat=\{0\}.}"
-                                                      FontSize="14"
+                                                      FontSize="19"
                                                       FontWeight="Bold"
                                                       Foreground="#999999"
                                                       VerticalAlignment="Center"/>
@@ -535,7 +535,7 @@
                                                     Style="{StaticResource RaceNumberStyle}"
                                                     Background="{Binding BadgeColor}">
                                                 <TextBlock Text="{Binding RaceNumber}"
-                                                          FontSize="13"
+                                                          FontSize="17"
                                                           FontWeight="Bold"
                                                           Foreground="{Binding BadgeTextColor}"
                                                           HorizontalAlignment="Center"
@@ -543,16 +543,16 @@
                                             </Border>
 
                                             <!-- Driver Name -->
-                                            <TextBlock Grid.Column="2" 
+                                            <TextBlock Grid.Column="2"
                                                       Text="{Binding DriverName}"
-                                                      FontSize="14"
+                                                      FontSize="19"
                                                       Foreground="White"
                                                       VerticalAlignment="Center"/>
 
                                             <!-- Points -->
-                                            <TextBlock Grid.Column="3" 
+                                            <TextBlock Grid.Column="3"
                                                       Text="{Binding Points, StringFormat=\{0\}pt}"
-                                                      FontSize="15"
+                                                      FontSize="20"
                                                       FontWeight="SemiBold"
                                                       Foreground="#666666"
                                                       VerticalAlignment="Center"
@@ -660,16 +660,16 @@
 
                                         <Grid Margin="15,0">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="35"/>
+                                                <ColumnDefinition Width="42"/>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="80"/>
                                             </Grid.ColumnDefinitions>
 
                                             <!-- Position -->
-                                            <TextBlock Grid.Column="0" 
+                                            <TextBlock Grid.Column="0"
                                                       Text="{Binding Position, StringFormat=\{0\}.}"
-                                                      FontSize="14"
+                                                      FontSize="19"
                                                       FontWeight="Bold"
                                                       Foreground="#999999"
                                                       VerticalAlignment="Center"/>
@@ -681,16 +681,16 @@
                                                     Height="28"/>
 
                                             <!-- Team Name -->
-                                            <TextBlock Grid.Column="2" 
+                                            <TextBlock Grid.Column="2"
                                                       Text="{Binding TeamName}"
-                                                      FontSize="14"
+                                                      FontSize="19"
                                                       Foreground="White"
                                                       VerticalAlignment="Center"/>
 
                                             <!-- Points -->
-                                            <TextBlock Grid.Column="3" 
+                                            <TextBlock Grid.Column="3"
                                                       Text="{Binding Points, StringFormat=\{0\}pt}"
-                                                      FontSize="15"
+                                                      FontSize="20"
                                                       FontWeight="SemiBold"
                                                       Foreground="#666666"
                                                       VerticalAlignment="Center"
