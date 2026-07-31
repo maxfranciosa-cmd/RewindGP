@@ -19,6 +19,12 @@ namespace AMS2ChEd.Business.DependencyInjection
 
         string DisplayName { get; }
 
+        /// <summary>
+        /// Bare filename (not a path) of this game's downloadable-seasons catalog, resolved via
+        /// AppPaths.SeasonsManifestPath(fileName). Lets each game ship its own manifest content.
+        /// </summary>
+        string SeasonsManifestFileName { get; }
+
         void RegisterServices(IServiceCollection services, GameModuleStartupOptions options);
     }
 }

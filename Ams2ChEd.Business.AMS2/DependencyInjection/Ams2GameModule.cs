@@ -24,6 +24,8 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
 
         public string DisplayName => "Automobilista 2";
 
+        public string SeasonsManifestFileName => "seasons_manifest.json";
+
         public void RegisterServices(IServiceCollection services, GameModuleStartupOptions options)
         {
             // ********* JSON LOADERS ************

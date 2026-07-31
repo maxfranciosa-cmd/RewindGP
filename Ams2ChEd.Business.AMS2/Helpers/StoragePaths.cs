@@ -63,19 +63,6 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             }
         }
 
-        private static string _seasonsManifestPath = null;
-        public static string SeasonsManifestPath
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_seasonsManifestPath))
-                {
-                    _seasonsManifestPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "seasons_manifest.json");
-                }
-                return _seasonsManifestPath;
-            }
-        }
-
         private static string _currentVersionCheck = null;
         public static string CurrentVersionCheckPath
         {

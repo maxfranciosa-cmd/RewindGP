@@ -74,10 +74,10 @@ namespace AMS2ChEd
             // Register Windows
             services.AddTransient<MainWindow>();
 
-            SetupUpdater(services, forceAppUpdate, forceSeasonsUpdate);
+            SetupUpdater(services, gameModule, forceAppUpdate, forceSeasonsUpdate);
         }
 
-        private void SetupUpdater(ServiceCollection services, bool forceAppUpdate, bool forceSeasonsUpdate)
+        private void SetupUpdater(ServiceCollection services, IGameModule gameModule, bool forceAppUpdate, bool forceSeasonsUpdate)
         {
 
             var versionCheckStore = new JsonCurrentVersionCheckStore(AppPaths.CurrentVersionCheckPath);
@@ -87,7 +87,7 @@ namespace AMS2ChEd
                 serviceProvider.GetService<ISeasonPackInstaller>(),
                 serviceProvider.GetService<ExternalLiveriesInstaller>(),
                 serviceProvider.GetService<IExternalLiveriesPrompt>()));
-            services.AddSingleton((serviceProvider) => new SeasonManifestService(AppPaths.SeasonsFolder, AppPaths.SeasonsManifestPath, serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate));
+            services.AddSingleton((serviceProvider) => new SeasonManifestService(AppPaths.SeasonsFolder, AppPaths.SeasonsManifestPath(gameModule.SeasonsManifestFileName), serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate));
             services.AddSingleton(versionCheckStore);
             services.AddSingleton<SaveGameSeasonChecker>();
             services.AddSingleton((serviceProvider) => new VersionCheckService(versionCheckUrl, versionCheckStore, forceAppUpdate));

@@ -20,18 +20,8 @@ namespace AMS2ChEd.Business.Storage
             }
         }
 
-        private static string _seasonsManifestPath = null;
-        public static string SeasonsManifestPath
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_seasonsManifestPath))
-                {
-                    _seasonsManifestPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "seasons_manifest.json");
-                }
-                return _seasonsManifestPath;
-            }
-        }
+        public static string SeasonsManifestPath(string fileName) =>
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
 
         private static string _savesFolder = null;
         public static string SavesFolder
