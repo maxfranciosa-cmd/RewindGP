@@ -1,14 +1,11 @@
-﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
-using AMS2ChEd.Business.AMS2.GameLogic;
-using AMS2ChEd.Business.AMS2.Models;
-using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
-using AMS2ChEd.Business.DependencyInjection;
+﻿using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Services.Contracts;
+using AMS2ChEd.Business.Settings.Contracts;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Views;
@@ -66,15 +63,21 @@ namespace AMS2ChEd
     public partial class SeasonOverviewWindow : Window
     {
         private ISaveGame saveGame;
-        private Ams2StorageFactory _ams2StorageFactory;
+        private IGameDataFactory _ams2StorageFactory;
+        private IGameInstallSettingsStorage _settingsStorage;
         private GameLogicFactory _gameLogicFactory;
+        private IPlayerCosmeticsEditor _cosmeticsEditor;
+        private IOffSeasonOrchestrator _offSeasonOrchestrator;
 
-        public SeasonOverviewWindow(Ams2StorageFactory storageFactory, GameLogicFactory gameLogicFactory, ISaveGame saveGame)
+        public SeasonOverviewWindow(IGameDataFactory storageFactory, IGameInstallSettingsStorage settingsStorage, GameLogicFactory gameLogicFactory, ISaveGame saveGame, IPlayerCosmeticsEditor cosmeticsEditor = null, IOffSeasonOrchestrator offSeasonOrchestrator = null)
         {
             InitializeComponent();
             _ams2StorageFactory = storageFactory;
+            _settingsStorage = settingsStorage;
             _gameLogicFactory = gameLogicFactory;
             this.saveGame = saveGame;
+            _cosmeticsEditor = cosmeticsEditor;
+            _offSeasonOrchestrator = offSeasonOrchestrator;
             _gameLogicFactory.AbsenceManager.AbsenceOpportunityAvailable += OnAbsenceOpportunityAvailable;
             _gameLogicFactory.AbsenceManager.AbsenceDecisionMade += OnAbsenceDecisionMade;
             LoadOverview();
@@ -393,7 +396,7 @@ namespace AMS2ChEd
             _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
             // Show entry list window
-            var entryListWindow = new Views.EntryListWindow(_ams2StorageFactory, _gameLogicFactory, saveGame);
+            var entryListWindow = new Views.EntryListWindow(_ams2StorageFactory, _settingsStorage, _gameLogicFactory, saveGame);
             entryListWindow.RaceWeekendCompleted += OnRaceWeekendCompleted;
 
             entryListWindow.ShowDialog();
@@ -436,262 +439,14 @@ namespace AMS2ChEd
         {
             try
             {
-                int nextSeasonYear = saveGame.CurrentSeason.Year + 1;
-                
-                // STEP 1: Show championship celebration newspaper
-                var celebrationWindow = new ChampionshipCelebrationWindow(saveGame);
-                celebrationWindow.Owner = this;
-                celebrationWindow.ShowDialog();
-
-                await _gameLogicFactory.SeasonUpdaterOrchestrator.PrepareSeasonAsync(nextSeasonYear);
-
-                var isNextSeasonAvailable = _ams2StorageFactory.SeasonLoader.GetAvailableSeasons().Contains(nextSeasonYear.ToString());
-
-                if (!isNextSeasonAvailable)
-                {
-                    System.Windows.MessageBox.Show($"Season {nextSeasonYear} Not Available - we will re-use the current teams, liveries and GP as base", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-
-                var originalNewSeason = isNextSeasonAvailable ? LoadNewSeason(nextSeasonYear) : DuplicateCurrentSeasonAsNextSeason(saveGame.CurrentSeason, nextSeasonYear);
-
-                // Load driver ratings database
-                var newDriversSeason = isNextSeasonAvailable ? _ams2StorageFactory.DriversLoader.LoadDrivers(nextSeasonYear) : new Dictionary<string, Ams2DriverData>();
-
-                // load the new season's data   
-                _gameLogicFactory.EndOfSeasonManager.UpdateDriversPoolForNextSeason(nextSeasonYear, saveGame, newDriversSeason.ToDictionary(d => d.Key, d => (IDriverData)d.Value));
-
-                // Execute team drops
-                var dropResults = _gameLogicFactory.EndOfSeasonManager
-                    .ExecuteTeamDrops(saveGame, originalNewSeason)
-                    .ToList();
-
-
-                // STEP 2: Show player contract letter
-                var playerDropResult = GetPlayerDropResult(dropResults);
-                var playerReputation = GetPlayerCurrentReputation();
-
-                bool playerAcceptedContract = false;
-
-                //if the player is employed by a team
-                if (!string.IsNullOrEmpty(saveGame.PlayerData.TeamId))
-                {
-                    var contractWindow = new OffSeasonContractWindow(saveGame, originalNewSeason.Teams, _ams2StorageFactory, playerDropResult, playerReputation);
-                    contractWindow.Owner = this;
-                    bool? contractResult = contractWindow.ShowDialog();
-
-                    playerAcceptedContract = contractWindow.PlayerAcceptedContract;
-                }
-
-                // Update drop results if player rejected contract
-                if (!playerAcceptedContract && !playerDropResult.IsDropped())
-                {
-                    UpdateDropResultsForPlayerRejection(dropResults);
-                }
-
-                // STEP 3: Generate potential team picks and driver proposals
-
-                var newSeasonTeamEntries = originalNewSeason.Teams;
-                var previouslyRetiredDriverIds = (saveGame.RetiredDrivers ?? Enumerable.Empty<IDriverData>())
-                    .Select(d => d.DriverId)
-                    .ToHashSet();
-
-                var ballots = _gameLogicFactory.EndOfSeasonManager
-                    .TeamPicksPotentialReplacementsDrivers(nextSeasonYear, saveGame, newSeasonTeamEntries, dropResults)
-                    .ToList();
-
-                // STEP 3.5: Show a retirement send-off article for any driver who newly retired this off-season.
-                // saveGame.CurrentSeason is still the season that just finished at this point, so their
-                // last team can still be looked up from it before StartNewSeason (STEP 8) replaces it.
-                var newlyRetiredDrivers = (saveGame.RetiredDrivers ?? Enumerable.Empty<IDriverData>())
-                    .Where(d => !previouslyRetiredDriverIds.Contains(d.DriverId))
-                    .ToList();
-
-                foreach (var retiredDriver in newlyRetiredDrivers)
-                {
-                    var lastTeam = saveGame.CurrentSeason.Teams
-                        .FirstOrDefault(t => t.Driver1Contract.DriverId == retiredDriver.DriverId || t.Driver2Contract.DriverId == retiredDriver.DriverId);
-
-                    var retirementWindow = new RetirementNewsWindow(saveGame, retiredDriver, lastTeam?.TeamId);
-                    retirementWindow.Owner = this;
-                    retirementWindow.ShowDialog();
-                }
-
-                // STEP 4: If player needs to apply, show team selection window
-                IEnumerable<TeamHiringBallot> finalBallots = ballots;
-
-                if (!playerAcceptedContract)
-                {
-                    var newPlayerReputation = saveGame.Drivers.First(d => d.DriverId == saveGame.PlayerData.DriverId).Reputation;
-                    var applicationWindow = new TeamApplicationWindow(saveGame, _ams2StorageFactory, ballots, dropResults, newPlayerReputation, originalNewSeason.Teams);
-                    applicationWindow.Owner = this;
-                    applicationWindow.ShowDialog();
-                    
-                    finalBallots = applicationWindow.UpdatedBallots ?? ballots;
-                }
-
-                // STEP 5: Generate new season with hirings
-                var actualNewSeason = _gameLogicFactory.EndOfSeasonManager
-                    .GenerateNewSeasonWithNewHirings(saveGame, originalNewSeason, finalBallots);
-
-
-                // STEP 6: Show final roster newspaper
-                var rosterWindow = new NewSeasonRosterWindow(saveGame, _ams2StorageFactory, actualNewSeason);
-                rosterWindow.Owner = this;
-                rosterWindow.ShowDialog();
-
-                // STEP 7: if the player STILL hasn't got a team, ask if he'd like to create an absence
-                if (string.IsNullOrEmpty(saveGame.PlayerData.TeamId))
-                {
-                    var generateAbsenceWindow = new GenerateAbsenceWindow(GenerateAbsenceWindowType.NoTeamForNextSeason);
-                    generateAbsenceWindow.Owner = this;
-
-                    generateAbsenceWindow.ShowDialog();
-
-                    if (generateAbsenceWindow.CreateFictionalAbsence)
-                    {
-                        // if there are no absences at the first GP of the season
-                        var firstRaceId = actualNewSeason.Races.First().RaceId;
-                        if (!actualNewSeason.Absences.Any(a => a.RaceId == firstRaceId))
-                        {
-                            // create a new random absence in a midfield (or lower) team
-                            var random = new Random();
-                            var possibleTeams = actualNewSeason
-                                            .Teams
-                                            .Where(t => t.Reputation <= TeamReputation.MIDFIELD)
-                                            .ToList();
-
-                            var selectedTeam = possibleTeams.ElementAt(random.Next(possibleTeams.Count));
-
-                            var driverOut = selectedTeam.PickRandomDriverFromTheTeam();
-
-                            actualNewSeason.Absences = actualNewSeason.Absences.Concat(new[]
-                            {
-                                new Absence
-                                {
-                                    DriverOut = driverOut.DriverId,
-                                    RaceId = firstRaceId,
-                                    DriverIn = saveGame.PlayerData.DriverId,
-                                    TeamId = selectedTeam.TeamId,
-                                }
-                            });
-                        }
-                    }
-                }
-
-                // STEP 8: Start new season
-                _gameLogicFactory.EndOfSeasonManager.StartNewSeason(saveGame, actualNewSeason);
-
-                // Update player team ID if changed
-                UpdatePlayerTeamId(actualNewSeason);
-
-                // Refresh the overview
+                var uiCallbacks = new WpfOffSeasonUiCallbacks(this, _ams2StorageFactory);
+                await _offSeasonOrchestrator.RunAsync(saveGame, uiCallbacks);
                 LoadOverview();
-
-                // Save the game
-                string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
-                _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
-
             }
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show($"Error during off-season: {ex.Message}\n\n{ex.StackTrace}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private ISeason DuplicateCurrentSeasonAsNextSeason(ISeason currentSeason, int nextSeasonYear)
-        {
-            var result = LoadNewSeason(currentSeason.OriginalYear ?? currentSeason.Year).DeepClone();
-
-            result.OriginalYear = currentSeason.OriginalYear ?? currentSeason.Year;
-            result.Year = nextSeasonYear;
-
-            foreach(var race in result.Races)
-            {
-                var raceDate = DateTime.ParseExact(race.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                race.RaceDate = GetClosestSundayNextYear(raceDate).ToString("yyyy-MM-dd");
-            }
-
-            return result;
-        }
-
-        private DateTime GetClosestSundayNextYear(DateTime date)
-        {
-            var d = date.AddYears(1);
-            int next = ((int)DayOfWeek.Sunday - (int)d.DayOfWeek + 7) % 7;
-            int prev = next == 0 ? 0 : 7 - next;
-            return d.AddDays(next <= prev ? next : -prev);
-        }
-
-        // Get player's drop status from results
-        private DriverFirerOutcome GetPlayerDropResult(List<DropTeamResult> dropResults)
-        {
-            var playerTeam = saveGame.CurrentSeason.Teams.FirstOrDefault(t =>
-                t.Driver1Contract.DriverId == saveGame.PlayerData.DriverId ||
-                t.Driver2Contract.DriverId == saveGame.PlayerData.DriverId);
-
-            if (playerTeam == null)
-                return DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED;
-
-            var teamDropResult = dropResults.FirstOrDefault(d => d.TeamId == playerTeam.TeamId);
-            if (teamDropResult == null)
-                return DriverFirerOutcome.NOT_DROPPED;
-
-            // Check which driver the player is
-            if (playerTeam.Driver1Contract.DriverId == saveGame.PlayerData.DriverId)
-                return teamDropResult.DropDriver1;
-            else
-                return teamDropResult.DropDriver2;
-        }
-
-        // Get player's current reputation
-        private DriverReputation GetPlayerCurrentReputation()
-        {
-            var playerDriver = saveGame.Drivers.FirstOrDefault(d => d.DriverId == saveGame.PlayerData.DriverId);
-            if (playerDriver != null)
-            {
-                return playerDriver.Reputation;
-            }
-            return DriverReputation.PRIME_MIDFIELD;
-        }
-
-        // Update drop results if player rejects
-        private void UpdateDropResultsForPlayerRejection(List<DropTeamResult> dropResults)
-        {
-            var playerTeam = saveGame.CurrentSeason.Teams.FirstOrDefault(t =>
-                t.Driver1Contract.DriverId == saveGame.PlayerData.DriverId ||
-                t.Driver2Contract.DriverId == saveGame.PlayerData.DriverId);
-
-            if (playerTeam == null) return;
-
-            var teamDropResult = dropResults.FirstOrDefault(d => d.TeamId == playerTeam.TeamId);
-            if (teamDropResult == null) return;
-
-            if (playerTeam.Driver1Contract.DriverId == saveGame.PlayerData.DriverId)
-                teamDropResult.DropDriver1 = DriverFirerOutcome.DROPPED_PLAYER_REJECTING;
-            else
-                teamDropResult.DropDriver2 = DriverFirerOutcome.DROPPED_PLAYER_REJECTING;
-        }
-
-        // Load teams for next season
-        private ISeason LoadNewSeason(int seasonYear)
-        {
-            var teamsCache = _ams2StorageFactory.TeamsLoader.LoadTeams();
-            var seasonLoader = _ams2StorageFactory.SeasonLoader;
-            var newSeasonData = seasonLoader.LoadSeason(seasonYear);
-            return newSeasonData;
-        }
-
-        // Update player's team ID after moves
-        private void UpdatePlayerTeamId(ISeason newSeason)
-        {
-            var playerTeam = newSeason.Teams.FirstOrDefault(t =>
-                t.Driver1Contract.DriverId == saveGame.PlayerData.DriverId ||
-                t.Driver2Contract.DriverId == saveGame.PlayerData.DriverId);
-
-            if (playerTeam != null)
-            {
-                saveGame.PlayerData.TeamId = playerTeam.TeamId;
             }
         }
 
@@ -734,11 +489,11 @@ namespace AMS2ChEd
 
         private void EditPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            var editWindow = new EditPlayerDetailsWindow(saveGame.PlayerData, saveGame);
-            editWindow.Owner = this;
-            bool? result = editWindow.ShowDialog();
+            if (_cosmeticsEditor == null) return;
 
-            if (result == true)
+            bool result = _cosmeticsEditor.ShowEditor(saveGame.PlayerData, saveGame, this);
+
+            if (result)
             {
                 // save the game on disk
                 string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
@@ -761,9 +516,9 @@ namespace AMS2ChEd
     {
         private readonly Window _owner;
         private readonly ISaveGame _saveGame;
-        private readonly Ams2StorageFactory _ams2StorageFactory;
+        private readonly IGameDataFactory _ams2StorageFactory;
 
-        public WpfAbsenceDecisionProvider(Window owner, ISaveGame saveGame, Ams2StorageFactory ams2StorageFactory)
+        public WpfAbsenceDecisionProvider(Window owner, ISaveGame saveGame, IGameDataFactory ams2StorageFactory)
         {
             _owner = owner;
             _saveGame = saveGame;
@@ -910,5 +665,71 @@ namespace AMS2ChEd
             return _saveGame.CurrentSeason.Races.FirstOrDefault(r => r.RaceId == raceId);
         }
 
+    }
+
+    public class WpfOffSeasonUiCallbacks : IOffSeasonUiCallbacks
+    {
+        private readonly Window _owner;
+        private readonly IGameDataFactory _dataFactory;
+
+        public WpfOffSeasonUiCallbacks(Window owner, IGameDataFactory dataFactory)
+        {
+            _owner = owner;
+            _dataFactory = dataFactory;
+        }
+
+        public Task ShowChampionshipCelebrationAsync(ISaveGame saveGame)
+        {
+            var celebrationWindow = new ChampionshipCelebrationWindow(saveGame);
+            celebrationWindow.Owner = _owner;
+            celebrationWindow.ShowDialog();
+            return Task.CompletedTask;
+        }
+
+        public Task ShowSeasonUnavailableWarningAsync(int nextSeasonYear)
+        {
+            System.Windows.MessageBox.Show($"Season {nextSeasonYear} Not Available - we will re-use the current teams, liveries and GP as base", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            return Task.CompletedTask;
+        }
+
+        public Task<bool> ShowContractLetterAsync(ISaveGame saveGame, IEnumerable<ITeamEntry> nextSeasonTeamEntries, DriverFirerOutcome dropOutcome, DriverReputation playerReputation)
+        {
+            var contractWindow = new OffSeasonContractWindow(saveGame, nextSeasonTeamEntries, dropOutcome, playerReputation);
+            contractWindow.Owner = _owner;
+            contractWindow.ShowDialog();
+            return Task.FromResult(contractWindow.PlayerAcceptedContract);
+        }
+
+        public Task ShowRetirementNewsAsync(ISaveGame saveGame, IDriverData retiredDriver, string lastTeamId)
+        {
+            var retirementWindow = new RetirementNewsWindow(saveGame, retiredDriver, lastTeamId);
+            retirementWindow.Owner = _owner;
+            retirementWindow.ShowDialog();
+            return Task.CompletedTask;
+        }
+
+        public Task<IEnumerable<TeamHiringBallot>> ShowTeamApplicationAsync(ISaveGame saveGame, IEnumerable<TeamHiringBallot> ballots, List<DropTeamResult> dropResults, DriverReputation newPlayerReputation, IEnumerable<ITeamEntry> nextSeasonTeamEntries)
+        {
+            var applicationWindow = new TeamApplicationWindow(saveGame, ballots, dropResults, newPlayerReputation, nextSeasonTeamEntries);
+            applicationWindow.Owner = _owner;
+            applicationWindow.ShowDialog();
+            return Task.FromResult(applicationWindow.UpdatedBallots ?? ballots);
+        }
+
+        public Task ShowNewSeasonRosterAsync(ISaveGame saveGame, ISeason newSeason)
+        {
+            var rosterWindow = new NewSeasonRosterWindow(saveGame, _dataFactory, newSeason);
+            rosterWindow.Owner = _owner;
+            rosterWindow.ShowDialog();
+            return Task.CompletedTask;
+        }
+
+        public Task<bool> AskCreateFictionalAbsenceAsync()
+        {
+            var generateAbsenceWindow = new GenerateAbsenceWindow(GenerateAbsenceWindowType.NoTeamForNextSeason);
+            generateAbsenceWindow.Owner = _owner;
+            generateAbsenceWindow.ShowDialog();
+            return Task.FromResult(generateAbsenceWindow.CreateFictionalAbsence);
+        }
     }
 }

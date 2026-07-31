@@ -313,10 +313,11 @@
                               SelectionChanged="ReputationComboBox_SelectionChanged" />
 
                         <!-- Helmet Selection -->
-                        <Label Content="HELMET DESIGN:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                        <Border Background="#1a1a1a" 
-                                BorderBrush="#555555" 
-                                BorderThickness="1" 
+                        <Label x:Name="HelmetSelectionLabel" Content="HELMET DESIGN:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
+                        <Border x:Name="HelmetSelectionBorder"
+                                Background="#1a1a1a"
+                                BorderBrush="#555555"
+                                BorderThickness="1"
                                 Padding="10"
                                 Margin="0,0,0,15"
                                 Height="150">
@@ -355,7 +356,7 @@
                                                 </Border.Style>
 
                                                 <StackPanel>
-                                                    <Image Source="{Binding HelmetDesign.PreviewImage}"
+                                                    <Image Source="{Binding PreviewImagePath}"
                                                             Stretch="UniformToFill"
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Center"/>

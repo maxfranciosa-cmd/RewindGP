@@ -1,5 +1,5 @@
 ﻿using Ams2ChEd.Business.AMS2.Services;
-using AMS2ChEd.Business.AMS2.Services;
+using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Models;
 using AMS2ChEd.Dialogs;
@@ -14,18 +14,18 @@ namespace AMS2ChEd.Updater
 {
     public class WpfSeasonDownloadPrompt : ISeasonDownloadPrompt
     {
-        private readonly SeasonModInstaller _seasonModInstaller;
+        private readonly ISeasonPackInstaller _seasonPackInstaller;
         private readonly ExternalLiveriesInstaller _externalLiveriesInstaller;
         private readonly IExternalLiveriesPrompt _externalLiveriesPrompt;
         private readonly string _downloadUrlFormat;
 
         public WpfSeasonDownloadPrompt(
             string downloadUrlFormat,
-            SeasonModInstaller seasonModInstaller,
+            ISeasonPackInstaller seasonPackInstaller,
             ExternalLiveriesInstaller externalLiveriesInstaller,
             IExternalLiveriesPrompt externalLiveriesPrompt)
         {
-            _seasonModInstaller = seasonModInstaller;
+            _seasonPackInstaller = seasonPackInstaller;
             _externalLiveriesInstaller = externalLiveriesInstaller;
             _externalLiveriesPrompt = externalLiveriesPrompt;
             _downloadUrlFormat = downloadUrlFormat;
@@ -63,7 +63,7 @@ namespace AMS2ChEd.Updater
             var dialog = new OpenFileDialog
             {
                 Title = $"Locate the downloaded file for {entry.DisplayName}",
-                Filter = "Season pack files (*.rwgp;*.zip)|*.rwgp;*.zip|All files (*.*)|*.*",
+                Filter = $"Season pack files (*{_seasonPackInstaller.PackFileExtension};*.zip)|*{_seasonPackInstaller.PackFileExtension};*.zip|All files (*.*)|*.*",
                 CheckFileExists = true
             };
 
@@ -72,7 +72,7 @@ namespace AMS2ChEd.Updater
             var rwgpPath = await ResolveRwgpPathAsync(dialog.FileName);
             if (rwgpPath == null) return false;
 
-            var result = await Task.Run(() => _seasonModInstaller.InstallSeasonMod(rwgpPath));
+            var result = await Task.Run(() => _seasonPackInstaller.InstallSeasonMod(rwgpPath));
 
             if (result.Success && _externalLiveriesInstaller.HasExternalLiveries(result.SeasonYear))
             {
@@ -121,7 +121,7 @@ namespace AMS2ChEd.Updater
             var fileDialog = new OpenFileDialog
             {
                 Title = $"Locate the downloaded {year} season pack",
-                Filter = "Season pack files (*.rwgp;*.zip)|*.rwgp;*.zip|All files (*.*)|*.*",
+                Filter = $"Season pack files (*{_seasonPackInstaller.PackFileExtension};*.zip)|*{_seasonPackInstaller.PackFileExtension};*.zip|All files (*.*)|*.*",
                 CheckFileExists = true
             };
 
@@ -130,19 +130,19 @@ namespace AMS2ChEd.Updater
             var rwgpPath = await ResolveRwgpPathAsync(fileDialog.FileName);
             if (rwgpPath == null) return false;
 
-            var result = await Task.Run(() => _seasonModInstaller.InstallSeasonMod(rwgpPath));
+            var result = await Task.Run(() => _seasonPackInstaller.InstallSeasonMod(rwgpPath));
             return result.Success;
         }
 
-        private static async Task<string?> ResolveRwgpPathAsync(string selectedPath)
+        private async Task<string?> ResolveRwgpPathAsync(string selectedPath)
         {
-            if (selectedPath.EndsWith(".rwgp", StringComparison.OrdinalIgnoreCase))
+            if (selectedPath.EndsWith(_seasonPackInstaller.PackFileExtension, StringComparison.OrdinalIgnoreCase))
                 return selectedPath;
 
-            // It's a ZIP — check it contains exactly one .rwgp
+            // It's a ZIP — check it contains exactly one pack file
             using var archive = System.IO.Compression.ZipFile.OpenRead(selectedPath);
             var rwgpEntries = archive.Entries
-                .Where(e => e.FullName.EndsWith(".rwgp", StringComparison.OrdinalIgnoreCase))
+                .Where(e => e.FullName.EndsWith(_seasonPackInstaller.PackFileExtension, StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             if (rwgpEntries.Count == 0)
@@ -165,10 +165,10 @@ namespace AMS2ChEd.Updater
                 return null;
             }
 
-            // Extract the single .rwgp to temp
+            // Extract the single pack file to temp
             var tempPath = System.IO.Path.Combine(
                 System.IO.Path.GetTempPath(),
-                $"{System.IO.Path.GetFileNameWithoutExtension(rwgpEntries[0].FullName)}-{Guid.NewGuid()}.rwgp");
+                $"{System.IO.Path.GetFileNameWithoutExtension(rwgpEntries[0].FullName)}-{Guid.NewGuid()}{_seasonPackInstaller.PackFileExtension}");
 
             await Task.Run(() => rwgpEntries[0].ExtractToFile(tempPath));
             return tempPath;

@@ -4,7 +4,7 @@ using AMS2ChEd.Business.Storage.Contracts;
 
 namespace AMS2ChEd.Business.DependencyInjection
 {
-    public class StorageFactory<TDriverData, TSeason>
+    public class StorageFactory<TDriverData, TSeason> : IGameDataFactory
         where TDriverData : IDriverData
         where TSeason: ISeason
     {
@@ -17,6 +17,10 @@ namespace AMS2ChEd.Business.DependencyInjection
         public IGameStorage GameStorage { get; private set; }
 
         public IAccoladesLoader AccoladesLoader { get; private set; }
+
+        IDriversLoader IGameDataFactory.DriversLoader => DriversLoader;
+
+        ISeasonLoader IGameDataFactory.SeasonLoader => SeasonLoader;
 
         public StorageFactory(
             IDriversLoader<TDriverData> driversLoader,

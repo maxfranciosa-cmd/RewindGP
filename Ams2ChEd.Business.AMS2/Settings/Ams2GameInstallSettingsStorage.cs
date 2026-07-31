@@ -1,48 +1,46 @@
-﻿using Ams2ChEd.Business.AMS2.Helpers;
-using Ams2ChEd.Business.AMS2.Settings;
-using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
+using Ams2ChEd.Business.AMS2.Helpers;
+using AMS2ChEd.Business.Settings.Contracts;
 using System.Configuration;
-using System.IO;
 
-namespace AMS2ChEd.Services
+namespace Ams2ChEd.Business.AMS2.Settings
 {
-    public class SettingsStorage : IAms2AppSettingsStorage
+    public class Ams2GameInstallSettingsStorage : IGameInstallSettingsStorage
     {
         private const string FOLDERPATH_SETTINGS_KEY = "AMS2FolderPath";
         private const string DRIVERNAME_SETTINGS_KEY = "AMS2DriverName";
-        public void SaveSettings(Ams2AppSettings settings)
+
+        public void SaveSettings(GameInstallSettings settings)
         {
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             if (config.AppSettings.Settings[FOLDERPATH_SETTINGS_KEY] != null)
             {
-                config.AppSettings.Settings[FOLDERPATH_SETTINGS_KEY].Value = settings.Ams2Folder;
+                config.AppSettings.Settings[FOLDERPATH_SETTINGS_KEY].Value = settings.GameInstallFolder;
             }
             else
             {
-                config.AppSettings.Settings.Add(FOLDERPATH_SETTINGS_KEY, settings.Ams2Folder);
+                config.AppSettings.Settings.Add(FOLDERPATH_SETTINGS_KEY, settings.GameInstallFolder);
             }
             if (config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY] != null)
             {
-                config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY].Value = settings.Ams2InGameName;
+                config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY].Value = settings.PlayerInGameName;
             }
             else
             {
-                config.AppSettings.Settings.Add(DRIVERNAME_SETTINGS_KEY, settings.Ams2InGameName);
+                config.AppSettings.Settings.Add(DRIVERNAME_SETTINGS_KEY, settings.PlayerInGameName);
             }
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
 
-        Ams2AppSettings IAms2AppSettingsStorage.LoadSettings()
+        public GameInstallSettings LoadSettings()
         {
-            // Try to get AMS2 folder from saved settings first
             string savedPath = GetSavedPath();
             string inGameName = GetInGameName();
 
-            return new Ams2AppSettings
+            return new GameInstallSettings
             {
-                Ams2Folder = Directory.Exists(savedPath) ? savedPath : GetAMS2InstallPath(),
-                Ams2InGameName = inGameName,
+                GameInstallFolder = Directory.Exists(savedPath) ? savedPath : Ams2InstallPathDetector.DetectInstallPath(),
+                PlayerInGameName = inGameName,
             };
         }
 
@@ -79,7 +77,5 @@ namespace AMS2ChEd.Services
             }
             return string.Empty;
         }
-
-        private string GetAMS2InstallPath() => Ams2InstallPathDetector.DetectInstallPath();
     }
 }

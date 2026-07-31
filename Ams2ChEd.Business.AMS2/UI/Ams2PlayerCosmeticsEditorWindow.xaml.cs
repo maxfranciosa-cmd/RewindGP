@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
-namespace AMS2ChEd.Views
+namespace Ams2ChEd.Business.AMS2.UI
 {
     public class DefaultHelmetDesign : INotifyPropertyChanged
     {
@@ -35,7 +35,7 @@ namespace AMS2ChEd.Views
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 
-    public partial class EditPlayerDetailsWindow : Window
+    public partial class Ams2PlayerCosmeticsEditorWindow : Window
     {
         private IPlayerData _playerData;
         private ISaveGame _saveGame;
@@ -47,7 +47,7 @@ namespace AMS2ChEd.Views
         private List<DefaultHelmetDesign> _eightyHelmets;
         private List<DefaultHelmetDesign> _seventyHelmets;
 
-        public EditPlayerDetailsWindow(IPlayerData playerData, ISaveGame saveGame)
+        public Ams2PlayerCosmeticsEditorWindow(IPlayerData playerData, ISaveGame saveGame)
         {
             InitializeComponent();
             _playerData = playerData;

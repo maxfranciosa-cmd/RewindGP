@@ -1,7 +1,4 @@
-﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
-using Ams2ChEd.Business.AMS2.Settings;
-using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
-using AMS2ChEd.Business.DependencyInjection;
+using AMS2ChEd.Business.Settings.Contracts;
 using System.IO;
 using System.Windows;
 
@@ -9,19 +6,19 @@ namespace AMS2ChEd
 {
     public partial class OptionsWindow : Window
     {
-        private Ams2StorageFactory _ams2StorageFactory;
+        private IGameInstallSettingsStorage _settingsStorage;
 
-        public OptionsWindow(Ams2StorageFactory storageFactory)
+        public OptionsWindow(IGameInstallSettingsStorage settingsStorage)
         {
             InitializeComponent();
-            _ams2StorageFactory = storageFactory;
+            _settingsStorage = settingsStorage;
             LoadSettings();
         }
 
         private void LoadSettings()
         {
-            AMS2FolderTextBox.Text = _ams2StorageFactory.Ams2AppSettingsStorage.LoadSettings()?.Ams2Folder;
-            AMS2PlayerNameTextBox.Text = _ams2StorageFactory.Ams2AppSettingsStorage.LoadSettings()?.Ams2InGameName;
+            AMS2FolderTextBox.Text = _settingsStorage.LoadSettings()?.GameInstallFolder;
+            AMS2PlayerNameTextBox.Text = _settingsStorage.LoadSettings()?.PlayerInGameName;
         }
 
 
@@ -30,7 +27,7 @@ namespace AMS2ChEd
         {
             try
             {
-                _ams2StorageFactory.Ams2AppSettingsStorage.SaveSettings(new Ams2AppSettings { Ams2Folder = path, Ams2InGameName = inGameDriverName });
+                _settingsStorage.SaveSettings(new GameInstallSettings { GameInstallFolder = path, PlayerInGameName = inGameDriverName });
             }
             catch (Exception ex)
             {

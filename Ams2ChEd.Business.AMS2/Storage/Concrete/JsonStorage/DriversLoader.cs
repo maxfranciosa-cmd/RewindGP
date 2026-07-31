@@ -1,6 +1,7 @@
 ﻿using Ams2ChEd.Business.AMS2.Helpers;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
+using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
 using System.Text.Json;
@@ -26,6 +27,11 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             {
                 throw new Exception($"Error loading drivers database: {ex.Message}", ex);
             }
+        }
+
+        public Dictionary<string, IDriverData> LoadDriversBase(int seasonYear)
+        {
+            return LoadDrivers(seasonYear).ToDictionary(kv => kv.Key, kv => (IDriverData)kv.Value);
         }
     }
 }

@@ -1,12 +1,10 @@
-﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
-using Ams2ChEd.Business.AMS2.Services;
-using AMS2ChEd.Business.AMS2.Models;
-using AMS2ChEd.Business.DependencyInjection;
+﻿using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Services.Mocks;
+using AMS2ChEd.Business.Settings.Contracts;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
 using System;
@@ -50,14 +48,16 @@ namespace AMS2ChEd.Views
     {
         private ISaveGame saveGame;
         private List<EntryDisplay> _currentEntryDisplay;
-        private Ams2StorageFactory _ams2StorageFactory;
+        private IGameDataFactory _ams2StorageFactory;
+        private IGameInstallSettingsStorage _settingsStorage;
         private GameLogicFactory _gameLogicFactory;
         public event EventHandler<ISaveGame> RaceWeekendCompleted;
 
-        public EntryListWindow(Ams2StorageFactory storageFactory, GameLogicFactory gameLogicFactory, ISaveGame saveGame)
+        public EntryListWindow(IGameDataFactory storageFactory, IGameInstallSettingsStorage settingsStorage, GameLogicFactory gameLogicFactory, ISaveGame saveGame)
         {
             InitializeComponent();
             _ams2StorageFactory = storageFactory;
+            _settingsStorage = settingsStorage;
             _gameLogicFactory = gameLogicFactory;
             this.saveGame = saveGame;
             LoadEntryList();
@@ -206,15 +206,15 @@ namespace AMS2ChEd.Views
                 loadingWindow.Close();
 
                 // check if the "driver name" setting is populated
-                var settings = _ams2StorageFactory.Ams2AppSettingsStorage.LoadSettings();
+                var settings = _settingsStorage.LoadSettings();
 
-                if (string.IsNullOrEmpty(settings?.Ams2InGameName))
+                if (string.IsNullOrEmpty(settings?.PlayerInGameName))
                 {
                     bool? optionDialogResult;
                     do
                     {
-                        var optionsWindow = new OptionsWindow(_ams2StorageFactory);
-                        MessageBox.Show($"Please indicate your in-game driver name in Automobilista 2 (usually your steam name)", "Add Driver Name",
+                        var optionsWindow = new OptionsWindow(_settingsStorage);
+                        MessageBox.Show($"Please indicate your in-game driver name (usually your online/steam name)", "Add Driver Name",
                             MessageBoxButton.OK, MessageBoxImage.Information);
                         optionsWindow.Owner = this;
                         optionDialogResult = optionsWindow.ShowDialog();
@@ -283,7 +283,7 @@ namespace AMS2ChEd.Views
             loadingWindow.Show();
 
             var raceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId;
-            var normalizedSeason = NormalisePreQualiPoolEntries(saveGame.PreQualiPoolEntries);
+            var normalizedSeason = _gameLogicFactory.RaceSetupAdvisor.NormalisePreQualiPool(saveGame.CurrentSeason, saveGame.PreQualiPoolEntries);
 
             try
             {
@@ -306,7 +306,6 @@ namespace AMS2ChEd.Views
                 e.Driver1Id == saveGame.PlayerData.DriverId ||
                 e.Driver2Id == saveGame.PlayerData.DriverId);
             var playerTeamData = saveGame.CurrentSeason.Teams
-                .Cast<Ams2TeamEntry>()
                 .FirstOrDefault(t => t.TeamId == playerEntry.TeamId);
             var playerNumber = playerEntry.Driver1Id == saveGame.PlayerData.DriverId
                 ? playerEntry.Driver1Number
@@ -315,12 +314,13 @@ namespace AMS2ChEd.Views
             // Which driver slot (1 or 2) the player occupies - determines which car/malus applies
             var playerDriverSlot = playerEntry.Driver1Id == saveGame.PlayerData.DriverId ? 1 : 2;
 
-            var difficultyDelta = CalculatePreQualiDifficulty(normalizedSeason, playerEntry.TeamId, playerDriverSlot);
-            var usesPerformanceScalars = normalizedSeason.Teams.OfType<Ams2TeamEntry>().Any(t => t.HasPerformanceScalarMalus);
+            var difficultyDelta = _gameLogicFactory.RaceSetupAdvisor.GetSuggestedAiDifficulty(saveGame.CurrentSeason, playerEntry.TeamId, playerDriverSlot, saveGame.PreQualiPoolEntries);
+            var usesPerformanceScalars = _gameLogicFactory.RaceSetupAdvisor.SeasonUsesPerformanceScalars(normalizedSeason);
+            var carDisplayName = _gameLogicFactory.RaceSetupAdvisor.GetCarDisplayName(saveGame.CurrentSeason, playerEntry.TeamId, playerDriverSlot);
 
             var instructionsWindow = RaceInstructionsWindow.CreatePreQualiWindow(
                 saveGame.PlayerData.Name,
-                carName: playerTeamData?.GetAms2Car(playerDriverSlot) ?? "",
+                carName: carDisplayName,
                 liveryName: $"#{playerNumber} {playerTeamData?.TeamName} - {saveGame.PlayerData.Name}",
                 opponentsNumber: saveGame.PreQualiPoolEntries.DriverCount() - 1,
                 suggestedDifficulty: difficultyDelta,
@@ -384,74 +384,6 @@ namespace AMS2ChEd.Views
                 return RunSimulatedPreQuali();
             }
         }
-        private int CalculatePreQualiDifficulty(Ams2Season normalisedSeason, string playerTeamId, int playerDriverSlot)
-        {
-            var playerTeam = normalisedSeason.Teams
-                .OfType<Ams2TeamEntry>()
-                .FirstOrDefault(t => t.TeamId == playerTeamId);
-
-            double playerMalus = playerTeam?
-                .GetAms2CarPerformanceMalus(playerDriverSlot)?
-                .GetValueOrDefault("qualifying_skill", 0.0) ?? 0.0;
-
-            // +5 difficulty points per 0.1 malus gap from the fastest car (which is now at 0).
-            return (int)Math.Round(playerMalus / 0.1) * 5;
-        }
-
-        private Ams2Season NormalisePreQualiPoolEntries(List<EntryListEntry> poolEntries)
-        {
-            var normalisedSeason = ((Ams2Season)saveGame.CurrentSeason).DeepClone();
-
-            // Collect the malus dictionaries relevant to each driver slot actually present in the pool.
-            // A team with no second car defined returns the same dictionary instance for both slots.
-            var relevantMalusDicts = new List<Dictionary<string, double>>();
-
-            foreach (var entry in poolEntries)
-            {
-                var team = normalisedSeason.Teams
-                    .OfType<Ams2TeamEntry>()
-                    .FirstOrDefault(t => t.TeamId == entry.TeamId);
-                if (team == null) continue;
-
-                if (!string.IsNullOrEmpty(entry.Driver1Id))
-                {
-                    var malus1 = team.GetAms2CarPerformanceMalus(1);
-                    if (malus1 != null) relevantMalusDicts.Add(malus1);
-                }
-
-                if (!string.IsNullOrEmpty(entry.Driver2Id))
-                {
-                    var malus2 = team.GetAms2CarPerformanceMalus(2);
-                    if (malus2 != null) relevantMalusDicts.Add(malus2);
-                }
-            }
-
-            // Find the minimum qualifying_skill malus across every car represented in the pool.
-            var dictsWithQualifyingSkill = relevantMalusDicts
-                .Where(m => m.ContainsKey("qualifying_skill"))
-                .ToList();
-
-            if (!dictsWithQualifyingSkill.Any())
-            {
-                return normalisedSeason;
-            }
-
-            double minQualifyingSkill = dictsWithQualifyingSkill.Min(m => m["qualifying_skill"]);
-
-            // Shift all qualifying_skill values down by the minimum so the fastest car lands at 0.
-            // De-duplicate by reference so a dictionary shared between driver1/driver2
-            // (i.e. no second car defined) is only shifted once.
-            var shiftedDicts = new HashSet<Dictionary<string, double>>();
-            foreach (var malus in dictsWithQualifyingSkill)
-            {
-                if (!shiftedDicts.Add(malus)) continue;
-
-                malus["qualifying_skill"] -= minQualifyingSkill;
-            }
-
-            return normalisedSeason;
-        }
-
         private async Task FinalisePreQualiResults(List<ParticipantData> results, bool playerWasInPreQuali)
         {
             var survivorsToPick = (saveGame.CurrentSeason.MaxDriversPerRace ?? 26) - (saveGame.CurrentSeason.Teams.DriverCount() - saveGame.PreQualiPoolEntries.DriverCount());

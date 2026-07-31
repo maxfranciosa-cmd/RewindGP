@@ -1,4 +1,3 @@
-using Ams2ChEd.Business.AMS2.DependencyInjection;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
@@ -79,7 +78,6 @@ namespace AMS2ChEd.Views
 
         public TeamApplicationWindow(
             ISaveGame saveGame,
-            Ams2StorageFactory storageFactory,
             IEnumerable<TeamHiringBallot> ballots,
             List<DropTeamResult> droppedDrivers,
             DriverReputation playerReputation,

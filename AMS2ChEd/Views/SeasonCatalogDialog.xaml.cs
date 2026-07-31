@@ -1,4 +1,4 @@
-using AMS2ChEd.Business.AMS2.Services;
+using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Models;
 using System.Collections.ObjectModel;
@@ -16,7 +16,7 @@ namespace AMS2ChEd.Dialogs
     {
         private readonly SeasonManifestService _manifest;
         private readonly ObservableCollection<CatalogRow> _rows = new();
-        private readonly SeasonModInstaller _seasonModInstaller;
+        private readonly ISeasonPackInstaller _seasonPackInstaller;
         private readonly string _downloadUrlFormat;
         /// <summary>
         /// True if at least one season was installed — callers use this to
@@ -26,12 +26,12 @@ namespace AMS2ChEd.Dialogs
 
         public SeasonCatalogDialog(
             SeasonManifestService manifest,
-            SeasonModInstaller seasonModInstaller,
+            ISeasonPackInstaller seasonPackInstaller,
             string downloadUrlFormat)
         {
             InitializeComponent();
             _manifest = manifest;
-            _seasonModInstaller = seasonModInstaller;
+            _seasonPackInstaller = seasonPackInstaller;
             _downloadUrlFormat = downloadUrlFormat;
             LoadRows();
         }
@@ -102,7 +102,7 @@ namespace AMS2ChEd.Dialogs
                     var fileDialog = new OpenFileDialog
                     {
                         Title = $"Locate the downloaded file for {row.Item.DisplayName}",
-                        Filter = "Season pack files (*.rwgp)|*.rwgp|All files (*.*)|*.*",
+                        Filter = $"Season pack files (*{_seasonPackInstaller.PackFileExtension})|*{_seasonPackInstaller.PackFileExtension}|All files (*.*)|*.*",
                         CheckFileExists = true
                     };
 
@@ -110,7 +110,7 @@ namespace AMS2ChEd.Dialogs
 
                     // Step 4 — install
                     StatusLabel.Text = $"INSTALLING {row.Item.DisplayName}...";
-                    await Task.Run(() => _seasonModInstaller.InstallSeasonMod(fileDialog.FileName));
+                    await Task.Run(() => _seasonPackInstaller.InstallSeasonMod(fileDialog.FileName));
                     
                     AnyDownloaded = true;
 

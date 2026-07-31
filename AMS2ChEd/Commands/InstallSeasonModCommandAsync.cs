@@ -1,8 +1,4 @@
-﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
-using Ams2ChEd.Business.AMS2.Services;
-using AMS2ChEd.Business.AMS2.Models;
-using AMS2ChEd.Business.AMS2.Services;
-using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
+﻿using Ams2ChEd.Business.AMS2.Services;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Views;
@@ -25,7 +21,7 @@ namespace AMS2ChEd.Commands
 
     public class InstallSeasonModCommandAsync : ICommand
     {
-        private readonly SeasonModInstaller _installer;
+        private readonly ISeasonPackInstaller _installer;
         private readonly ExternalLiveriesInstaller _externalLiveriesInstaller;
         private readonly IExternalLiveriesPrompt _externalLiveriesPrompt;
         private bool _isExecuting;
@@ -33,13 +29,11 @@ namespace AMS2ChEd.Commands
         public event EventHandler<SeasonInstalledEventArgs> SeasonInstalled;
 
         public InstallSeasonModCommandAsync(
-            Ams2StorageFactory storageFactory,
+            ISeasonPackInstaller installer,
             ExternalLiveriesInstaller externalLiveriesInstaller,
             IExternalLiveriesPrompt externalLiveriesPrompt)
         {
-            var driversLoader = storageFactory.DriversLoader;
-            var teamsLoader = storageFactory.TeamsLoader;
-            _installer = new SeasonModInstaller(driversLoader, teamsLoader);
+            _installer = installer;
             _externalLiveriesInstaller = externalLiveriesInstaller;
             _externalLiveriesPrompt = externalLiveriesPrompt;
         }
@@ -69,13 +63,13 @@ namespace AMS2ChEd.Commands
             {
                 var zipFilePath = parameter as string;
 
-                if (string.IsNullOrEmpty(zipFilePath) || Path.GetExtension(zipFilePath) == ".rwgp")
+                if (string.IsNullOrEmpty(zipFilePath) || Path.GetExtension(zipFilePath) == _installer.PackFileExtension)
                 {
                     // Open file dialog
                     var openFileDialog = new OpenFileDialog
                     {
                         Title = "Select Season Mod Package",
-                        Filter = "Rewind GP Season Pack (*.rwgp)|*.rwgp",
+                        Filter = $"{_installer.PackFileFilterLabel} (*{_installer.PackFileExtension})|*{_installer.PackFileExtension}",
                         CheckFileExists = true,
                         CheckPathExists = true
                     };

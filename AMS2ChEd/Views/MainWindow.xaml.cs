@@ -19,7 +19,6 @@ using AMS2ChEd.Business.Updater.Models;
 using AMS2ChEd.Commands;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Services;
-using AMS2ChEd.ViewModels;
 using AMS2ChEd.Views;
 using System.IO;
 using System.Net.Http.Json;
@@ -56,7 +55,9 @@ namespace AMS2ChEd
 
         // Scenario-related fields
         private List<Scenario> _scenarios;
-        private List<DefaultHelmetDesign> _defaultHelmets;
+        private List<CosmeticsOptionDisplay> _defaultHelmets;
+        private IPlayerCosmeticsEditor _cosmeticsEditor;
+        private IOffSeasonOrchestrator _offSeasonOrchestrator;
         public InstallSeasonModCommandAsync InstallSeasonCommand { get; set; }
 
         public MainWindow(
@@ -66,7 +67,10 @@ namespace AMS2ChEd
             SaveGameSeasonChecker seasonChecker,
             DeveloperModeSettings developerModeSettings,
             ExternalLiveriesInstaller externalLiveriesInstaller,
-            IExternalLiveriesPrompt externalLiveriesPrompt)
+            IExternalLiveriesPrompt externalLiveriesPrompt,
+            ISeasonPackInstaller seasonPackInstaller,
+            IOffSeasonOrchestrator offSeasonOrchestrator,
+            IPlayerCosmeticsEditor cosmeticsEditor = null)
         {
             InitializeComponent();
             _ams2StorageFactory = ams2StorageFactory;
@@ -74,8 +78,10 @@ namespace AMS2ChEd
             _seasonChecker = seasonChecker;
             _manifest = manifest;
             _developerModeSettings = developerModeSettings;
+            _cosmeticsEditor = cosmeticsEditor;
+            _offSeasonOrchestrator = offSeasonOrchestrator;
 
-            InstallSeasonCommand = new InstallSeasonModCommandAsync(ams2StorageFactory, externalLiveriesInstaller, externalLiveriesPrompt);
+            InstallSeasonCommand = new InstallSeasonModCommandAsync(seasonPackInstaller, externalLiveriesInstaller, externalLiveriesPrompt);
             InstallSeasonCommand.SeasonInstalled += OnSeasonModInstalled;
 
             InitializeGameLogic();
@@ -84,6 +90,9 @@ namespace AMS2ChEd
             InitializeReputations();
             LoadSeasons();
             _scenarios = new List<Scenario>();
+
+            HelmetSelectionLabel.Visibility = _cosmeticsEditor == null ? Visibility.Collapsed : Visibility.Visible;
+            HelmetSelectionBorder.Visibility = _cosmeticsEditor == null ? Visibility.Collapsed : Visibility.Visible;
 
             DeveloperToolsButton.Visibility = _developerModeSettings.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
@@ -193,9 +202,17 @@ namespace AMS2ChEd
 
         private void LoadDefaultHelmets()
         {
+            if (_cosmeticsEditor == null)
+            {
+                _defaultHelmets = new List<CosmeticsOptionDisplay>();
+                return;
+            }
+
             string season = ((ComboBoxItem)SeasonComboBox.SelectedItem).Content.ToString();
             int seasonYear = int.Parse(season);
-            _defaultHelmets = HelmetPicker.LoadGenericHelmetDesignsPerYear(seasonYear).Select(h => new DefaultHelmetDesign { HelmetDesign = h }).ToList();
+            _defaultHelmets = _cosmeticsEditor.GetDefaultCosmeticsOptions(seasonYear)
+                .Select(o => new CosmeticsOptionDisplay { Id = o.Id, PreviewImagePath = o.PreviewImagePath })
+                .ToList();
 
             HelmetSelectionItemsControl.ItemsSource = _defaultHelmets;
 
@@ -426,7 +443,7 @@ namespace AMS2ChEd
                     _gameLogicFactory.GameEngine.LoadGame(saveGame);
 
                     // Open Season Overview window
-                    var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _gameLogicFactory, saveGame);
+                    var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _ams2StorageFactory.InstallSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
                     seasonOverviewWindow.Owner = this.Owner;
                     seasonOverviewWindow.Show();
                 }
@@ -440,7 +457,7 @@ namespace AMS2ChEd
 
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
-            var optionsWindow = new OptionsWindow(_ams2StorageFactory);
+            var optionsWindow = new OptionsWindow(_ams2StorageFactory.InstallSettingsStorage);
             optionsWindow.Owner = this;
             optionsWindow.ShowDialog();
         }
@@ -603,7 +620,7 @@ namespace AMS2ChEd
                         string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
                         // Open Season Overview window
-                        var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _gameLogicFactory, saveGame);
+                        var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _ams2StorageFactory.InstallSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
                         seasonOverviewWindow.Owner = this.Owner;
                         seasonOverviewWindow.Show();
 
@@ -635,7 +652,6 @@ namespace AMS2ChEd
 
                         // NEW: Use ContractLetterWindow but pass the game engine
                         var contractLetterWindow = new ContractLetterWindow(
-                            _ams2StorageFactory,
                             _gameLogicFactory,
                             selectedTeamName,
                             teamSelectionWindow.SelectedTeamId,
@@ -679,7 +695,7 @@ namespace AMS2ChEd
                             string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
                             // Open Season Overview window
-                            var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _gameLogicFactory, saveGame);
+                            var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _ams2StorageFactory.InstallSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
                             seasonOverviewWindow.Owner = this.Owner;
                             seasonOverviewWindow.Show();
 
@@ -709,28 +725,13 @@ namespace AMS2ChEd
 
         private void SetPlayerHelmetDesign(ISaveGame saveGame)
         {
-            var playerDriverData = saveGame.Drivers.First(d => d.DriverId == saveGame.PlayerData.DriverId) as Ams2DriverData;
-            var selectedHelmet = _defaultHelmets.FirstOrDefault(h => h.IsSelected);
+            if (_cosmeticsEditor == null) return;
 
-            if(saveGame.CurrentSeason.Year >= HelmetPicker.HELMET_MODERN_EARLIEST_YEAR)
-            {
-                playerDriverData.BaseHelmetFile = selectedHelmet.HelmetDesign.HelmetFile;
-                playerDriverData.BaseVisorFile = selectedHelmet.HelmetDesign.VisorFile;
-            }
-            else if (saveGame.CurrentSeason.Year >= HelmetPicker.HELMET_90s_EARLIEST_YEAR)
-            {
-                playerDriverData.BaseHelmetFile90s = selectedHelmet.HelmetDesign.HelmetFile;
-            }
-            else if (saveGame.CurrentSeason.Year >= HelmetPicker.HELMET_80s_EARLIEST_YEAR)
-            {
-                playerDriverData.BaseHelmetFile80s = selectedHelmet.HelmetDesign.HelmetFile;
-                playerDriverData.BaseVisorFile80s = selectedHelmet.HelmetDesign.VisorFile;
-            }
-            else
-            {
-                playerDriverData.BaseHelmetFile70s = selectedHelmet.HelmetDesign.HelmetFile;
-                playerDriverData.BaseVisorFile70s = selectedHelmet.HelmetDesign.VisorFile;
-            }
+            var playerDriverData = saveGame.Drivers.First(d => d.DriverId == saveGame.PlayerData.DriverId);
+            var selectedHelmet = _defaultHelmets.FirstOrDefault(h => h.IsSelected);
+            if (selectedHelmet == null) return;
+
+            _cosmeticsEditor.ApplySelectedCosmetics(playerDriverData, selectedHelmet.Id, saveGame.CurrentSeason.Year);
         }
 
         private async Task<bool> DownloadSeasonIfNeeded(int seasonYear)
@@ -828,7 +829,7 @@ namespace AMS2ChEd
                     string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
                     // Open Season Overview window
-                    var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _gameLogicFactory, saveGame);
+                    var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _ams2StorageFactory.InstallSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
                     seasonOverviewWindow.Owner = this.Owner;
                     seasonOverviewWindow.Show();
 
@@ -999,7 +1000,7 @@ namespace AMS2ChEd
                 string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
                 // Open Season Overview window
-                var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _gameLogicFactory, saveGame);
+                var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _ams2StorageFactory.InstallSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
                 seasonOverviewWindow.Owner = this.Owner;
                 seasonOverviewWindow.Show();
             }
@@ -1012,7 +1013,7 @@ namespace AMS2ChEd
 
         private void HelmetPreview_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Border border && border.Tag is DefaultHelmetDesign clickedDesign)
+            if (sender is Border border && border.Tag is CosmeticsOptionDisplay clickedDesign)
             {
                 // Deselect all helmets
                 foreach (var helmet in _defaultHelmets)

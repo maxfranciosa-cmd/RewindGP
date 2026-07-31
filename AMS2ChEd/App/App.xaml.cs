@@ -1,22 +1,13 @@
 ﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
-using Ams2ChEd.Business.AMS2.GameLogic;
-using Ams2ChEd.Business.AMS2.Helpers;
 using Ams2ChEd.Business.AMS2.Services;
-using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
-using AMS2ChEd.Business.AMS2.DataLoaders.Mocks;
-using AMS2ChEd.Business.AMS2.GameLogic;
-using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.AMS2.Services;
-using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
-using AMS2ChEd.Business.AMS2.Storage.Contracts;
 using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
-using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Services.Contracts;
-using AMS2ChEd.Business.Services.Mocks;
+using AMS2ChEd.Business.Storage;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Services;
@@ -24,10 +15,8 @@ using AMS2ChEd.Commands;
 using AMS2ChEd.Dialogs;
 using AMS2ChEd.Services;
 using AMS2ChEd.Updater;
-using AMS2ChEd.ViewModels;
 using AMS2ChEd.Views;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -52,25 +41,7 @@ namespace AMS2ChEd
         {
             services.AddSingleton(new DeveloperModeSettings(developerMode));
 
-            // ********* JSON LOADERS ************
-            services.AddSingleton<IDriversLoader<Ams2DriverData>, DriversLoader>();
-            services.AddSingleton<ISeasonLoader<Ams2Season>, SeasonLoader>();
-            services.AddSingleton<ISeasonLoader, SeasonLoader>();
-            services.AddSingleton<ITeamsLoader, TeamsLoader>();
-            services.AddSingleton<IAccoladesLoader, AccoladesLoader>();
-            services.AddSingleton<ICarModelCapacityLoader, CarModelCapacityLoader>();
-            // ********* MOCK LOADERS ************
-            //services.AddSingleton<IDriversLoader<Ams2DriverData>, LoaderMocks199697>();
-            //services.AddSingleton<ISeasonLoader<Ams2Season>, LoaderMocks199697>();
-            //services.AddSingleton<ISeasonLoader, LoaderMocks199697>();
-            //services.AddSingleton<ITeamsLoader, LoaderMocks199697>();
-            // ***********************************
-            services.AddSingleton<IGameStorage, GameStorage>();
-            services.AddSingleton<IAms2AppSettingsStorage, SettingsStorage>();
-            // ********** STORAGE FACTORY **************
-            services.AddTransient<Ams2StorageFactory>();
-            
-            // ************ GAME LOGIC *******************
+            // ************ GAME LOGIC (game-agnostic) *******************
             services.AddTransient<IAbsenceManager, AbsenceManager>();
             services.AddTransient<IContractNegotiationEngine, ContractNegotiationEngine>();
             services.AddTransient<IEntryListGenerator, EntryListGenerator>();
@@ -78,20 +49,8 @@ namespace AMS2ChEd
             services.AddTransient<IEndOfSeasonManager, EndOfSeasonManager>();
             services.AddTransient<IReputationUpdater, ReputationUpdater>();
             services.AddTransient<IOffSeasonMovements, OffSeasonMovements>();
-            services.AddTransient<IGameEngine, Ams2GameEngine>();
-            services.AddTransient<IRandomDriverGenerator, Ams2RandomDriverGenerator>();
             services.AddTransient<IPreQualiPoolResolver, PreQualiPoolResolver>();
-
-            if (scenarioCreatorMode)
-            {
-                services.AddTransient<IRacePreparator, StubRacePreparator>();
-                services.AddTransient<IRaceDataService, MockUserControlledRaceDataService>();
-            }
-            else
-            {
-                services.AddTransient<IRacePreparator, Ams2RacePreparator>();
-                services.AddTransient<IRaceDataService, Ams2RaceDataService>();
-            }
+            services.AddTransient<IOffSeasonOrchestrator, OffSeasonOrchestrator>();
 
             // ************ GAME LOGIC FACTORY **************
             services.AddTransient<GameLogicFactory>();
@@ -99,9 +58,17 @@ namespace AMS2ChEd
             // ************* OTHER DEPENDENCIES ***********
             services.AddTransient<DriverHirer>();
             services.AddTransient<DriverFirer>();
-            services.AddTransient<SeasonModInstaller>();
-            services.AddSingleton<ExternalLiveriesInstaller>();
             services.AddSingleton<IExternalLiveriesPrompt, WpfExternalLiveriesPrompt>();
+            // ********************************************
+
+            // ************* GAME MODULE (only place that touches Ams2ChEd.Business.AMS2) ***********
+            IGameModule gameModule = new Ams2GameModule();
+            services.AddSingleton(gameModule);
+            gameModule.RegisterServices(services, new GameModuleStartupOptions
+            {
+                ScenarioCreatorMode = scenarioCreatorMode,
+                DeveloperMode = developerMode
+            });
             // ********************************************
 
             // Register Windows
@@ -112,15 +79,15 @@ namespace AMS2ChEd
 
         private void SetupUpdater(ServiceCollection services, bool forceAppUpdate, bool forceSeasonsUpdate)
         {
-            
-            var versionCheckStore = new JsonCurrentVersionCheckStore(StoragePaths.CurrentVersionCheckPath);
+
+            var versionCheckStore = new JsonCurrentVersionCheckStore(AppPaths.CurrentVersionCheckPath);
             services.AddSingleton<SeasonUpdaterOrchestrator>();
             services.AddSingleton<ISeasonDownloadPrompt>((serviceProvider) => new WpfSeasonDownloadPrompt(
                 downloadUrlFormat,
-                serviceProvider.GetService<SeasonModInstaller>(),
+                serviceProvider.GetService<ISeasonPackInstaller>(),
                 serviceProvider.GetService<ExternalLiveriesInstaller>(),
                 serviceProvider.GetService<IExternalLiveriesPrompt>()));
-            services.AddSingleton((serviceProvider) => new SeasonManifestService(StoragePaths.SeasonsFolder, StoragePaths.SeasonsManifestPath, serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate));
+            services.AddSingleton((serviceProvider) => new SeasonManifestService(AppPaths.SeasonsFolder, AppPaths.SeasonsManifestPath, serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate));
             services.AddSingleton(versionCheckStore);
             services.AddSingleton<SaveGameSeasonChecker>();
             services.AddSingleton((serviceProvider) => new VersionCheckService(versionCheckUrl, versionCheckStore, forceAppUpdate));
@@ -148,8 +115,10 @@ namespace AMS2ChEd
         {
             if (shuttingDown) return Task.CompletedTask;
 
+            var seasonPackInstaller = _serviceProvider.GetService<ISeasonPackInstaller>();
+
             if (args.Length > 0
-                && args[0].EndsWith(".rwgp", StringComparison.OrdinalIgnoreCase)
+                && args[0].EndsWith(seasonPackInstaller.PackFileExtension, StringComparison.OrdinalIgnoreCase)
                 && File.Exists(args[0]))
             {
                 // Marshal everything UI-related back to the UI thread
@@ -161,7 +130,7 @@ namespace AMS2ChEd
                     try
                     {
                         var result = await Task.Run(() =>
-                            _serviceProvider.GetService<SeasonModInstaller>().InstallSeasonMod(args[0]));
+                            seasonPackInstaller.InstallSeasonMod(args[0]));
 
                         progressWindow.Close();
 

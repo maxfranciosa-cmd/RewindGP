@@ -42,6 +42,11 @@ namespace AMS2ChEd.Business.AMS2.DataLoaders.Mocks
             }
         }
 
+        public Dictionary<string, IDriverData> LoadDriversBase(int seasonYear)
+        {
+            return LoadDrivers(seasonYear).ToDictionary(kv => kv.Key, kv => (IDriverData)kv.Value);
+        }
+
         public Ams2Season LoadSeason(int seasonYear)
         {
             switch (seasonYear)

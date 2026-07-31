@@ -1,6 +1,4 @@
-﻿using Ams2ChEd.Business.AMS2.Services;
-using AMS2ChEd.Business.AMS2.Models;
-using AMS2ChEd.Business.DependencyInjection;
+﻿using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
@@ -171,13 +169,14 @@ namespace AMS2ChEd.Views
                 else
                 {
                     var playerTeam = saveGame.NextGpEntryList.FirstOrDefault(e => new[] { e.Driver1Id, e.Driver2Id }.Contains(saveGame.PlayerData.DriverId));
-                    var team = string.IsNullOrEmpty(playerTeam?.TeamId) ? null : saveGame.CurrentSeason.Teams.Where(t => t.TeamId == playerTeam?.TeamId)?.Cast<Ams2TeamEntry>().FirstOrDefault();
+                    var team = string.IsNullOrEmpty(playerTeam?.TeamId) ? null : saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == playerTeam?.TeamId);
                     var playerDriverSlot = playerTeam.Driver1Id == saveGame.PlayerData.DriverId ? 1 : 2;
                     var playerNumber = playerDriverSlot == 1 ? playerTeam.Driver1Number : playerTeam.Driver2Number;
                     var numberofOpponents = (saveGame.NextGpEntryList.Sum(e => (string.IsNullOrEmpty(e.Driver1Id) ? 0 : 1) + (string.IsNullOrEmpty(e.Driver2Id) ? 0 : 1))) - 1;
-                    var difficultyDelta = CalculateDifficulty(team);
-                    var usesPerformanceScalars = saveGame.CurrentSeason.Teams.OfType<Ams2TeamEntry>().Any(t => t.HasPerformanceScalarMalus);
-                    var raceInstructionsWindow = new RaceInstructionsWindow(saveGame.PlayerData.Name, team?.GetAms2Car(playerDriverSlot) ?? "", $"#{playerNumber} {team?.TeamName} - {saveGame.PlayerData.Name}", numberofOpponents, difficultyDelta, usesPerformanceScalars);
+                    var difficultyDelta = _gameLogicFactory.RaceSetupAdvisor.GetSuggestedAiDifficulty(saveGame.CurrentSeason, team?.TeamId, playerDriverSlot);
+                    var usesPerformanceScalars = _gameLogicFactory.RaceSetupAdvisor.SeasonUsesPerformanceScalars(saveGame.CurrentSeason);
+                    var carDisplayName = _gameLogicFactory.RaceSetupAdvisor.GetCarDisplayName(saveGame.CurrentSeason, team?.TeamId, playerDriverSlot);
+                    var raceInstructionsWindow = new RaceInstructionsWindow(saveGame.PlayerData.Name, carDisplayName, $"#{playerNumber} {team?.TeamName} - {saveGame.PlayerData.Name}", numberofOpponents, difficultyDelta, usesPerformanceScalars);
                     raceInstructionsWindow.ShowDialog();
                 }
             }
@@ -212,27 +211,6 @@ namespace AMS2ChEd.Views
             if (year < 2010) return GraphicsStyle.Mid2000s;
             if (year < 2018) return GraphicsStyle.Twenties2010s;
             return GraphicsStyle.Twenties2020s;
-        }
-
-        private int CalculateDifficulty(Ams2TeamEntry? team)
-        {
-            if (team == null) return 0;
-
-            switch (team.Reputation)
-            {
-                case TeamReputation.SUPER_MINNOW:
-                    return 15;
-                case TeamReputation.MINNOW:
-                    return 10;
-                case TeamReputation.MIDFIELD:
-                    return 7;
-                case TeamReputation.MIDFIELD_HIGH:
-                    return 5;
-                case TeamReputation.TOP_TEAM:
-                    return 0;
-                default:
-                    return 0;
-            }
         }
 
 

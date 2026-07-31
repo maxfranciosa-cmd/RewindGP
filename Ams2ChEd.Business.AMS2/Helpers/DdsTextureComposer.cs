@@ -7,6 +7,10 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using Point = SixLabors.ImageSharp.Point;
+using RectangleF = SixLabors.ImageSharp.RectangleF;
+using Rectangle = SixLabors.ImageSharp.Rectangle;
+using Image = SixLabors.ImageSharp.Image;
 
 public class DdsTextureComposer
 {

@@ -6,6 +6,7 @@ using AMS2ChEd.Business.Models.Concrete;
 using SixLabors.ImageSharp;
 using System.Text.Json;
 using System.Xml.Linq;
+using Image = SixLabors.ImageSharp.Image;
 
 namespace Ams2ChEd.Business.AMS2.Services
 {

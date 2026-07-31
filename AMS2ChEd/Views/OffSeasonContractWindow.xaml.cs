@@ -1,4 +1,3 @@
-using Ams2ChEd.Business.AMS2.DependencyInjection;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
@@ -15,7 +14,6 @@ namespace AMS2ChEd.Views
         public OffSeasonContractWindow(
             ISaveGame saveGame,
             IEnumerable<ITeamEntry> nextSeasonTeamEntries,
-            Ams2StorageFactory storageFactory,
             DriverFirerOutcome dropOutcome,
             DriverReputation playerReputation)
         {

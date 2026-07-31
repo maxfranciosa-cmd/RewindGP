@@ -1,6 +1,4 @@
-﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
-using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
-using AMS2ChEd.Business.DependencyInjection;
+﻿using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
@@ -47,10 +45,10 @@ namespace AMS2ChEd
         public string SelectedTeamId { get; private set; }
         public string SelectedTeamPrincipal { get; private set; }
 
-        private Ams2StorageFactory _ams2StorageFactory;
+        private IGameDataFactory _dataFactory;
 
         public TeamSelectionWindow(
-            Ams2StorageFactory ams2StorageFactory,
+            IGameDataFactory dataFactory,
             int seasonYear,
             bool allSelectable,
             Dictionary<string, IDriverData> driversCache,
@@ -59,7 +57,7 @@ namespace AMS2ChEd
             InitializeComponent();
             _allSelectable = allSelectable;
             _showFreeAgents = showFreeAgents;
-            _ams2StorageFactory = ams2StorageFactory;
+            _dataFactory = dataFactory;
             _driversCache = driversCache;
             LoadSeason(seasonYear);
         }
@@ -68,8 +66,8 @@ namespace AMS2ChEd
         {
             try
             {
-                var teamsCache = _ams2StorageFactory.TeamsLoader.LoadTeams();
-                var seasonData = _ams2StorageFactory.SeasonLoader.LoadSeason(seasonYear);
+                var teamsCache = _dataFactory.TeamsLoader.LoadTeams();
+                var seasonData = _dataFactory.SeasonLoader.LoadBaseSeason(seasonYear);
 
                 teams = new List<TeamDisplay>();
                 var assignedDriverIds = new HashSet<string>();

@@ -21,18 +21,21 @@ namespace AMS2ChEd.Business.DependencyInjection
 
         public IPreQualiPoolResolver PreQualiPoolResolver { get; private set; }
 
+        public IRaceSetupAdvisor RaceSetupAdvisor { get; private set; }
+
         public SeasonUpdaterOrchestrator SeasonUpdaterOrchestrator { get; private set; }
-        
+
         public GameLogicFactory(
-            IStandingsManager standingsManager, 
-            IAbsenceManager absenceManager, 
-            IContractNegotiationEngine contractNegotiationEngine, 
-            IEntryListGenerator entryListGenerator, 
-            IGameEngine gameEngine, 
+            IStandingsManager standingsManager,
+            IAbsenceManager absenceManager,
+            IContractNegotiationEngine contractNegotiationEngine,
+            IEntryListGenerator entryListGenerator,
+            IGameEngine gameEngine,
             IRacePreparator racePreparator,
-            IEndOfSeasonManager endOfSeasonManager, 
+            IEndOfSeasonManager endOfSeasonManager,
             IRaceDataService raceDataService,
             IPreQualiPoolResolver preQualiPoolResolver,
+            IRaceSetupAdvisor raceSetupAdvisor,
             SeasonUpdaterOrchestrator seasonUpdaterOrchestrator)
         {
             StandingsManager = standingsManager;
@@ -44,6 +47,7 @@ namespace AMS2ChEd.Business.DependencyInjection
             EndOfSeasonManager = endOfSeasonManager;
             RaceDataService = raceDataService;
             PreQualiPoolResolver = preQualiPoolResolver;
+            RaceSetupAdvisor = raceSetupAdvisor;
             SeasonUpdaterOrchestrator = seasonUpdaterOrchestrator;
         }
     }

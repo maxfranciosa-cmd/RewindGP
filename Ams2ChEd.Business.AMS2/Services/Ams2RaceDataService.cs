@@ -1,7 +1,7 @@
 ﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
-using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
 using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Services;
+using AMS2ChEd.Business.Settings.Contracts;
 using AMS2SharedMemoryNet;
 using AMS2SharedMemoryNet.Enums;
 using AMS2SharedMemoryNet.Structs;
@@ -49,7 +49,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
         public List<ParticipantData> QualificationResults { get; private set; }
         public List<ParticipantData> RaceResults { get; private set; }
-        public IAms2AppSettingsStorage SettingsStorage { get; private set;  }
+        public IGameInstallSettingsStorage SettingsStorage { get; private set;  }
         public bool IsRunning { get; private set; }
 
         public bool IsPreQualiSession { get; set; }
@@ -59,8 +59,8 @@ namespace Ams2ChEd.Business.AMS2.Services
 
         public Ams2RaceDataService(Ams2StorageFactory storageFactory)
         {
-            SettingsStorage = storageFactory.Ams2AppSettingsStorage;
-            _playerInGameNameInLowerCase = SettingsStorage.LoadSettings().Ams2InGameName.ToLower();
+            SettingsStorage = storageFactory.InstallSettingsStorage;
+            _playerInGameNameInLowerCase = SettingsStorage.LoadSettings().PlayerInGameName.ToLower();
             _currentSession = new SessionData
             {
                 SessionType = SessionType.Practice,

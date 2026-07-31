@@ -971,14 +971,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Only App\App.xaml.cs may reference Ams2ChEd.Business.AMS2 directly (via IGameModule) -
+         every other file in this project should depend solely on AMS2ChEd.Business abstractions. -->
     <ProjectReference Include="..\Ams2ChEd.Business.AMS2\Ams2ChEd.Business.AMS2.csproj" />
     <ProjectReference Include="..\AMS2ChEd.Business\AMS2ChEd.Business.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="AMS2SharedMemoryNet">
-      <HintPath>..\Ams2ChEd.Business.AMS2\ExternalDependencies\AMS2SharedMemoryNet.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

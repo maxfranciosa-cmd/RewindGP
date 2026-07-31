@@ -1,13 +1,7 @@
-﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
-using AMS2ChEd.Business.AMS2.GameLogic;
-using AMS2ChEd.Business.AMS2.Models;
-using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
-using AMS2ChEd.Business.DependencyInjection;
-using AMS2ChEd.Business.GameLogic.Concrete;
+﻿using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
-using AMS2ChEd.Business.Storage.Contracts;
 using System.Windows;
 using MessageBox = System.Windows.MessageBox;
 
@@ -18,7 +12,7 @@ namespace AMS2ChEd
         private bool isHired;
         private DriverReputation playerReputation;
         private DriverReputation replacedDriverReputation;
-        private Ams2Season currentSeason;
+        private ISeason currentSeason;
         private string playerName;
         private string playerDriverId;
         private string playerNationality;
@@ -26,11 +20,9 @@ namespace AMS2ChEd
         private string replacedDriverId;
         private string teamId;
         private IEnumerable<int> favouriteNumbers;
-        private Ams2StorageFactory _ams2StorageFactory;
         private GameLogicFactory _gameLogicFactory;
 
         public ContractLetterWindow(
-            Ams2StorageFactory ams2StorageFactory,
             GameLogicFactory gameLogicFactory,
             string teamName,
             string teamId,
@@ -45,10 +37,9 @@ namespace AMS2ChEd
             string replacedDriverId,
             DriverReputation replacedDriverReputation,
             string roleName,
-            Ams2Season season)
+            ISeason season)
         {
             InitializeComponent();
-            this._ams2StorageFactory = ams2StorageFactory;
             this._gameLogicFactory = gameLogicFactory;
             this.playerReputation = playerReputation;
             this.replacedDriverReputation = replacedDriverReputation;

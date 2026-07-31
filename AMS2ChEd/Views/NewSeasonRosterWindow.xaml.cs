@@ -1,4 +1,4 @@
-using Ams2ChEd.Business.AMS2.DependencyInjection;
+using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Extensions;
@@ -27,7 +27,7 @@ namespace AMS2ChEd.Views
 
         public NewSeasonRosterWindow(
             ISaveGame saveGame,
-            Ams2StorageFactory storageFactory,
+            IGameDataFactory storageFactory,
             ISeason newSeason)
         {
             InitializeComponent();
