@@ -133,7 +133,8 @@ namespace AMS2ChEd.SeasonPackEditor.Services
                 ams2Class,
                 resolvedDrivers,
                 resolvedTeams,
-                modelCapacities);
+                modelCapacities, 
+                aiRatingsVariation: false);
 
             BackupExistingCustomAiFile(ams2InstallationFolder, ams2Class);
 
@@ -183,7 +184,7 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             var ams2Class = season.Ams2Class;
             var modelCapacities = new CarModelCapacityLoader().GetModelsForClass(ams2Class);
 
-            var liveryService = new Ams2LiveryService(season.Year, ams2Class, drivers, teams, modelCapacities);
+            var liveryService = new Ams2LiveryService(season.Year, ams2Class, drivers, teams, modelCapacities, false);
 
             BackupExistingCustomAiFile(ams2InstallationFolder, ams2Class);
 

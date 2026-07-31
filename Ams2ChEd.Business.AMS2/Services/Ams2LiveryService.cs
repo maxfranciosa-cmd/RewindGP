@@ -20,6 +20,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         private readonly Dictionary<string, Ams2TeamEntry> teamsDict;
         private readonly Dictionary<string, Ams2DriverData> driversDict;
         private readonly IReadOnlyList<(string Model, int Slots)> modelCapacities;
+        private readonly bool aiRatingsVariation;
 
         /// <summary>
         /// Initialize the LiveryService
@@ -33,7 +34,8 @@ namespace Ams2ChEd.Business.AMS2.Services
             string ams2Class,
             IEnumerable<Ams2DriverData> driversData,
             IEnumerable<Ams2TeamEntry> teamsData,
-            IReadOnlyList<(string Model, int Slots)> modelCapacities = null)
+            IReadOnlyList<(string Model, int Slots)> modelCapacities = null,
+            bool aiRatingsVariation = true)
         {
 
             this.driversData = driversData;
@@ -41,6 +43,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             this.teamsDict = teamsData.ToDictionary(t => t.TeamId);
             this.ams2Class = ams2Class;
             this.modelCapacities = modelCapacities;
+            this.aiRatingsVariation = aiRatingsVariation;
 
             // Create driver lookup dictionary
             driversDict = driversData.ToDictionary(d => d.DriverId, d => (Ams2DriverData)d);
@@ -913,14 +916,21 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
 
             // add variation to each rating to avoid AI drivers being too similar
-            // (except power_scalar, weight_scalar, drag_scalar which are team-level scalars)
-            var ratingsNotToVary = new string[] { "power_scalar", "weight_scalar", "drag_scalar" };
-            var random = new Random();
-            foreach (var ratingKey in ratings.Keys.Where(k => !ratingsNotToVary.Contains(k)))
+            // (power_scalar, weight_scalar, drag_scalar are team-level scalars, so they have different bounds)
+            if (aiRatingsVariation)
             {
-                var variation = Random.Shared.Next(-50, 51) / 1000.0; ; // -5% to +5% variation
-                ratings[ratingKey] = Math.Max(0.0, Math.Min(1.0, ratings[ratingKey] + Math.Round(variation, 3)));
+                var scalarRatings = new string[] { "power_scalar", "weight_scalar", "drag_scalar" };
+                var random = new Random();
+                foreach (var ratingKey in ratings.Keys)
+                {
+                    var isScalarRating = scalarRatings.Contains(ratingKey);
+                    var variation = Random.Shared.Next(-50, 51) / 1000.0; ; // -5% to +5% variation
+                    var min = isScalarRating ? 0.9 : 0.0;
+                    var max = isScalarRating ? 1.1 : 1.0;
+                    ratings[ratingKey] = Math.Max(min, Math.Min(max, ratings[ratingKey] + Math.Round(variation, 3)));
+                }
             }
+            
             
             // Create driver element
             string liveryName = $"#{driverNumber} {team.TeamName} - {driverName}";
