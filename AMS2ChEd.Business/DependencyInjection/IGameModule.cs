@@ -4,8 +4,6 @@ namespace AMS2ChEd.Business.DependencyInjection
 {
     public class GameModuleStartupOptions
     {
-        public bool ScenarioCreatorMode { get; init; }
-
         public bool DeveloperMode { get; init; }
     }
 

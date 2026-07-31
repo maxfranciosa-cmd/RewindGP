@@ -47,17 +47,9 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             services.AddTransient<IRandomDriverGenerator, Ams2RandomDriverGenerator>();
             services.AddTransient<IRaceSetupAdvisor, Ams2RaceSetupAdvisor>();
             services.AddTransient<IPlayerCosmeticsEditor, Ams2PlayerCosmeticsEditor>();
-
-            if (options.ScenarioCreatorMode)
-            {
-                services.AddTransient<IRacePreparator, StubRacePreparator>();
-                services.AddTransient<IRaceDataService, MockUserControlledRaceDataService>();
-            }
-            else
-            {
-                services.AddTransient<IRacePreparator, Ams2RacePreparator>();
-                services.AddTransient<IRaceDataService, Ams2RaceDataService>();
-            }
+            services.AddTransient<IRacePreparator, Ams2RacePreparator>();
+            services.AddTransient<IRaceDataService, Ams2RaceDataService>();
+            
 
             // ************* MOD PACK / EXTERNAL CONTENT ***********
             services.AddTransient<ISeasonPackInstaller, SeasonModInstaller>();
