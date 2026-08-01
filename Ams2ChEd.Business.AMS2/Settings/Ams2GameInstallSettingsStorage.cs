@@ -1,6 +1,8 @@
 using Ams2ChEd.Business.AMS2.Helpers;
+using Ams2ChEd.Business.AMS2.UI;
 using AMS2ChEd.Business.Settings.Contracts;
 using System.Configuration;
+using System.Windows;
 
 namespace Ams2ChEd.Business.AMS2.Settings
 {
@@ -20,14 +22,6 @@ namespace Ams2ChEd.Business.AMS2.Settings
             {
                 config.AppSettings.Settings.Add(FOLDERPATH_SETTINGS_KEY, settings.GameInstallFolder);
             }
-            if (config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY] != null)
-            {
-                config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY].Value = settings.PlayerInGameName;
-            }
-            else
-            {
-                config.AppSettings.Settings.Add(DRIVERNAME_SETTINGS_KEY, settings.PlayerInGameName);
-            }
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
@@ -35,16 +29,14 @@ namespace Ams2ChEd.Business.AMS2.Settings
         public GameInstallSettings LoadSettings()
         {
             string savedPath = GetSavedPath();
-            string inGameName = GetInGameName();
 
             return new GameInstallSettings
             {
                 GameInstallFolder = Directory.Exists(savedPath) ? savedPath : Ams2InstallPathDetector.DetectInstallPath(),
-                PlayerInGameName = inGameName,
             };
         }
 
-        private string GetInGameName()
+        public string LoadInGameName()
         {
             try
             {
@@ -56,9 +48,36 @@ namespace Ams2ChEd.Business.AMS2.Settings
             }
             catch
             {
-                // Ignore errors, will use default path
+                // Ignore errors, will use default
             }
             return string.Empty;
+        }
+
+        public void SaveInGameName(string name)
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY] != null)
+            {
+                config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY].Value = name;
+            }
+            else
+            {
+                config.AppSettings.Settings.Add(DRIVERNAME_SETTINGS_KEY, name);
+            }
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        public bool NeedsPlayerSetup() => string.IsNullOrEmpty(LoadInGameName());
+
+        public bool ShowEditor(object ownerWindow)
+        {
+            var optionsWindow = new OptionsWindow(this);
+            if (ownerWindow is Window owner)
+            {
+                optionsWindow.Owner = owner;
+            }
+            return optionsWindow.ShowDialog() == true;
         }
 
         private string GetSavedPath()

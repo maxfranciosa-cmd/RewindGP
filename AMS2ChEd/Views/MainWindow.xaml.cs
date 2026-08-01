@@ -13,6 +13,7 @@ using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Services.RaceNumberSystem.Factory;
+using AMS2ChEd.Business.Settings.Contracts;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Models;
@@ -457,9 +458,7 @@ namespace AMS2ChEd
 
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
-            var optionsWindow = new OptionsWindow(_ams2StorageFactory.InstallSettingsStorage);
-            optionsWindow.Owner = this;
-            optionsWindow.ShowDialog();
+            _ams2StorageFactory.InstallSettingsStorage.ShowEditor(this);
         }
 
         private void NationalityTextBox_LostFocus(object sender, RoutedEventArgs e)

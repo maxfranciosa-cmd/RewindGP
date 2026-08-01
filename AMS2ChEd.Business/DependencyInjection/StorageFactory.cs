@@ -1,4 +1,4 @@
-﻿using AMS2ChEd.Business.GameLogic.Contracts;
+using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Storage.Contracts;
 

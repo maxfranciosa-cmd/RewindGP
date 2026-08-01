@@ -206,19 +206,15 @@ namespace AMS2ChEd.Views
                 loadingWindow.Close();
 
                 // check if the "driver name" setting is populated
-                var settings = _settingsStorage.LoadSettings();
-
-                if (string.IsNullOrEmpty(settings?.PlayerInGameName))
+                if (_settingsStorage.NeedsPlayerSetup())
                 {
-                    bool? optionDialogResult;
+                    bool optionDialogResult;
                     do
                     {
-                        var optionsWindow = new OptionsWindow(_settingsStorage);
                         MessageBox.Show($"Please indicate your in-game driver name (usually your online/steam name)", "Add Driver Name",
                             MessageBoxButton.OK, MessageBoxImage.Information);
-                        optionsWindow.Owner = this;
-                        optionDialogResult = optionsWindow.ShowDialog();
-                    } while (!(optionDialogResult ?? false));
+                        optionDialogResult = _settingsStorage.ShowEditor(this);
+                    } while (!optionDialogResult);
                 }
 
             }

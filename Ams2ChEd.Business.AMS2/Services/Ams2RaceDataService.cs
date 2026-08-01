@@ -1,4 +1,5 @@
 ﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
+using Ams2ChEd.Business.AMS2.Settings;
 using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Settings.Contracts;
@@ -60,7 +61,8 @@ namespace Ams2ChEd.Business.AMS2.Services
         public Ams2RaceDataService(Ams2StorageFactory storageFactory)
         {
             SettingsStorage = storageFactory.InstallSettingsStorage;
-            _playerInGameNameInLowerCase = SettingsStorage.LoadSettings().PlayerInGameName.ToLower();
+            var ams2SettingsStorage = SettingsStorage as Ams2GameInstallSettingsStorage;
+            _playerInGameNameInLowerCase = ams2SettingsStorage?.LoadInGameName()?.ToLower() ?? string.Empty;
             _currentSession = new SessionData
             {
                 SessionType = SessionType.Practice,

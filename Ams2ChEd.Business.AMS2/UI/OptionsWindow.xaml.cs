@@ -1,14 +1,15 @@
+using Ams2ChEd.Business.AMS2.Settings;
 using AMS2ChEd.Business.Settings.Contracts;
 using System.IO;
 using System.Windows;
 
-namespace AMS2ChEd
+namespace Ams2ChEd.Business.AMS2.UI
 {
     public partial class OptionsWindow : Window
     {
-        private IGameInstallSettingsStorage _settingsStorage;
+        private Ams2GameInstallSettingsStorage _settingsStorage;
 
-        public OptionsWindow(IGameInstallSettingsStorage settingsStorage)
+        public OptionsWindow(Ams2GameInstallSettingsStorage settingsStorage)
         {
             InitializeComponent();
             _settingsStorage = settingsStorage;
@@ -18,16 +19,15 @@ namespace AMS2ChEd
         private void LoadSettings()
         {
             AMS2FolderTextBox.Text = _settingsStorage.LoadSettings()?.GameInstallFolder;
-            AMS2PlayerNameTextBox.Text = _settingsStorage.LoadSettings()?.PlayerInGameName;
+            AMS2PlayerNameTextBox.Text = _settingsStorage.LoadInGameName();
         }
-
-
 
         private void SaveSettings(string path, string inGameDriverName)
         {
             try
             {
-                _settingsStorage.SaveSettings(new GameInstallSettings { GameInstallFolder = path, PlayerInGameName = inGameDriverName });
+                _settingsStorage.SaveSettings(new GameInstallSettings { GameInstallFolder = path });
+                _settingsStorage.SaveInGameName(inGameDriverName);
             }
             catch (Exception ex)
             {
@@ -35,7 +35,6 @@ namespace AMS2ChEd
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
