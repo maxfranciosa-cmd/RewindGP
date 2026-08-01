@@ -84,7 +84,7 @@ namespace AMS2ChEd
             services.AddSingleton<ISeasonDownloadPrompt>((serviceProvider) => new WpfSeasonDownloadPrompt(
                 downloadUrlFormat,
                 serviceProvider.GetService<ISeasonPackInstaller>(),
-                serviceProvider.GetService<ExternalLiveriesInstaller>(),
+                serviceProvider.GetService<IExternalLiveriesInstaller>(),
                 serviceProvider.GetService<IExternalLiveriesPrompt>()));
             services.AddSingleton((serviceProvider) => new SeasonManifestService(AppPaths.SeasonsFolder, AppPaths.SeasonsManifestPath(gameModule.SeasonsManifestFileName), serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate));
             services.AddSingleton(versionCheckStore);
@@ -135,7 +135,7 @@ namespace AMS2ChEd
 
                         if (result.Success)
                         {
-                            var externalLiveries = _serviceProvider.GetService<ExternalLiveriesInstaller>();
+                            var externalLiveries = _serviceProvider.GetService<IExternalLiveriesInstaller>();
                             if (externalLiveries.HasExternalLiveries(result.SeasonYear))
                             {
                                 var liveriesInstalled = await externalLiveries.InstallAsync(

@@ -1,19 +1,11 @@
-﻿using Ams2ChEd.Business.AMS2.DependencyInjection;
-using Ams2ChEd.Business.AMS2.Helpers;
-using Ams2ChEd.Business.AMS2.Services;
-using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
-using AMS2ChEd.Business.AMS2.GameLogic;
-using AMS2ChEd.Business.AMS2.Models;
-using AMS2ChEd.Business.AMS2.Services;
-using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
-using AMS2ChEd.Business.DependencyInjection;
+﻿using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
-using AMS2ChEd.Business.Services.RaceNumberSystem.Factory;
 using AMS2ChEd.Business.Settings.Contracts;
+using AMS2ChEd.Business.Storage;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Models;
@@ -22,15 +14,11 @@ using AMS2ChEd.Extensions;
 using AMS2ChEd.Services;
 using AMS2ChEd.Views;
 using System.IO;
-using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using Label = System.Windows.Controls.Label;
 
 namespace AMS2ChEd
@@ -48,7 +36,8 @@ namespace AMS2ChEd
         private Dictionary<DriverReputation, string> reputationImages;
         private Storyboard fadeInStoryboard;
 
-        private Ams2StorageFactory _ams2StorageFactory;
+        private IGameDataFactory _ams2StorageFactory;
+        private IGameInstallSettingsStorage _installSettingsStorage;
         private GameLogicFactory _gameLogicFactory;
         private SaveGameSeasonChecker _seasonChecker;
         private SeasonManifestService _manifest;
@@ -62,12 +51,13 @@ namespace AMS2ChEd
         public InstallSeasonModCommandAsync InstallSeasonCommand { get; set; }
 
         public MainWindow(
-            Ams2StorageFactory ams2StorageFactory,
+            IGameDataFactory ams2StorageFactory,
+            IGameInstallSettingsStorage installSettingsStorage,
             GameLogicFactory gameLogicFactory,
             SeasonManifestService manifest,
             SaveGameSeasonChecker seasonChecker,
             DeveloperModeSettings developerModeSettings,
-            ExternalLiveriesInstaller externalLiveriesInstaller,
+            IExternalLiveriesInstaller externalLiveriesInstaller,
             IExternalLiveriesPrompt externalLiveriesPrompt,
             ISeasonPackInstaller seasonPackInstaller,
             IOffSeasonOrchestrator offSeasonOrchestrator,
@@ -75,6 +65,7 @@ namespace AMS2ChEd
         {
             InitializeComponent();
             _ams2StorageFactory = ams2StorageFactory;
+            _installSettingsStorage = installSettingsStorage;
             _gameLogicFactory = gameLogicFactory;
             _seasonChecker = seasonChecker;
             _manifest = manifest;
@@ -319,7 +310,7 @@ namespace AMS2ChEd
             if (DevSeasonComboBox.SelectedItem == null) return;
 
             int year = int.Parse(((ComboBoxItem)DevSeasonComboBox.SelectedItem).Content.ToString());
-            var season = _ams2StorageFactory.SeasonLoader.LoadSeason(year);
+            var season = _ams2StorageFactory.SeasonLoader.LoadBaseSeason(year);
 
             foreach (var race in season.Races)
             {
@@ -380,8 +371,8 @@ namespace AMS2ChEd
             int year = int.Parse(((ComboBoxItem)DevSeasonComboBox.SelectedItem).Content.ToString());
             var race = (Race)((ComboBoxItem)DevRaceComboBox.SelectedItem).Tag;
 
-            season = _ams2StorageFactory.SeasonLoader.LoadSeason(year);
-            drivers = _ams2StorageFactory.DriversLoader.LoadDrivers(year).Values.Cast<IDriverData>();
+            season = _ams2StorageFactory.SeasonLoader.LoadBaseSeason(year);
+            drivers = _ams2StorageFactory.DriversLoader.LoadDriversBase(year).Values;
 
             // No save game in play here, so build a plain entry list straight from the season's team rosters
             // (reputation isn't read by livery/CustomAI generation, so it's left out unlike EntryListGenerator).
@@ -424,7 +415,7 @@ namespace AMS2ChEd
                 var dialog = new OpenFileDialog()
                 {
                     Title = "Select Save File",
-                    InitialDirectory = StoragePaths.SavesFolder,
+                    InitialDirectory = AppPaths.SavesFolder,
                     Filter = "json files (*.json)|*.json"
                 };
 
@@ -444,7 +435,7 @@ namespace AMS2ChEd
                     _gameLogicFactory.GameEngine.LoadGame(saveGame);
 
                     // Open Season Overview window
-                    var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _ams2StorageFactory.InstallSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
+                    var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _installSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
                     seasonOverviewWindow.Owner = this.Owner;
                     seasonOverviewWindow.Show();
                 }
@@ -458,7 +449,7 @@ namespace AMS2ChEd
 
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
-            _ams2StorageFactory.InstallSettingsStorage.ShowEditor(this);
+            _installSettingsStorage.ShowEditor(this);
         }
 
         private void NationalityTextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -546,8 +537,8 @@ namespace AMS2ChEd
                 }
 
                 // Load season drivers
-                var seasonDrivers = _ams2StorageFactory.DriversLoader.LoadDrivers(seasonYear);
-                var seasonData = _ams2StorageFactory.SeasonLoader.LoadSeason(seasonYear);
+                var seasonDrivers = _ams2StorageFactory.DriversLoader.LoadDriversBase(seasonYear);
+                var seasonData = _ams2StorageFactory.SeasonLoader.LoadBaseSeason(seasonYear);
 
                 // NEW: Check if Pay Driver Wild Card is selected
                 if (reputationItem.Reputation == DriverReputation.PAY_DRIVER_WILD_CARD)
@@ -578,7 +569,7 @@ namespace AMS2ChEd
                             season: seasonData,
                             selectedTeamId: null,
                             replacedDriverId: null,
-                            seasonDrivers: seasonDrivers.Select(d => d.Value).Cast<IDriverData>().ToList());
+                            seasonDrivers: seasonDrivers.Values.ToList());
 
                         if (createFictionalAbsence)
                         {
@@ -619,7 +610,7 @@ namespace AMS2ChEd
                         string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
                         // Open Season Overview window
-                        var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _ams2StorageFactory.InstallSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
+                        var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _installSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
                         seasonOverviewWindow.Owner = this.Owner;
                         seasonOverviewWindow.Show();
 
@@ -634,7 +625,7 @@ namespace AMS2ChEd
                 }
 
                 // Open Team Selection window
-                var teamSelectionWindow = new TeamSelectionWindow(_ams2StorageFactory, int.Parse(season), false, seasonDrivers.ToDictionary(d => d.Key, d => (IDriverData)d.Value));
+                var teamSelectionWindow = new TeamSelectionWindow(_ams2StorageFactory, int.Parse(season), false, seasonDrivers);
                 teamSelectionWindow.Owner = this;
 
                 bool teamSelected = false;
@@ -684,7 +675,7 @@ namespace AMS2ChEd
                                 season: seasonData,
                                 selectedTeamId: teamSelectionWindow.SelectedTeamId,
                                 replacedDriverId: selectedDriver.DriverId,
-                                seasonDrivers: seasonDrivers.Select(d => d.Value).Cast<IDriverData>().ToList());
+                                seasonDrivers: seasonDrivers.Values.ToList());
 
                             // add selected helmet design
                             SetPlayerHelmetDesign(saveGame);
@@ -694,7 +685,7 @@ namespace AMS2ChEd
                             string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
                             // Open Season Overview window
-                            var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _ams2StorageFactory.InstallSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
+                            var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _installSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
                             seasonOverviewWindow.Owner = this.Owner;
                             seasonOverviewWindow.Show();
 
@@ -704,7 +695,7 @@ namespace AMS2ChEd
                         else
                         {
                             // Player was rejected - create new team selection window for retry
-                            teamSelectionWindow = new TeamSelectionWindow(_ams2StorageFactory, int.Parse(season), false, seasonDrivers.ToDictionary(d => d.Key, d => (IDriverData)d.Value));
+                            teamSelectionWindow = new TeamSelectionWindow(_ams2StorageFactory, int.Parse(season), false, seasonDrivers);
                             teamSelectionWindow.Owner = this;
                         }
                     }
@@ -803,9 +794,9 @@ namespace AMS2ChEd
                             MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                var seasonDrivers = _ams2StorageFactory.DriversLoader.LoadDrivers(seasonYear);
+                var seasonDrivers = _ams2StorageFactory.DriversLoader.LoadDriversBase(seasonYear);
                 // Open Team Selection window
-                var teamSelectionWindow = new TeamSelectionWindow(_ams2StorageFactory, seasonYear, true, seasonDrivers.ToDictionary(d => d.Key, d => (IDriverData)d.Value), true);
+                var teamSelectionWindow = new TeamSelectionWindow(_ams2StorageFactory, seasonYear, true, seasonDrivers, true);
                 teamSelectionWindow.Owner = this;
 
                 if (teamSelectionWindow.ShowDialog() == true)
@@ -814,21 +805,21 @@ namespace AMS2ChEd
                     var selectedTeamId = teamSelectionWindow.SelectedTeamId;
 
                     var replacedDriverData = seasonDrivers.ContainsKey(selectedDriver.DriverId) ? seasonDrivers[selectedDriver.DriverId] : null;
-                    var seasonData = _ams2StorageFactory.SeasonLoader.LoadSeason(int.Parse(season));
+                    var seasonData = _ams2StorageFactory.SeasonLoader.LoadBaseSeason(int.Parse(season));
 
                     // NEW: Use GameEngine to create the game With existing driver
                     var saveGame = _gameLogicFactory.GameEngine.CreateNewGameWithExistingDriver(
                                                                                                 season: seasonData,
                                                                                                 selectedTeamId: selectedTeamId,
                                                                                                 driverId: selectedDriver.DriverId,
-                                                                                                seasonDrivers: seasonDrivers.Select(d => d.Value).Cast<IDriverData>().ToList());
+                                                                                                seasonDrivers: seasonDrivers.Values.ToList());
 
                     // Save the game
                     string saveName = $"{saveGame.PlayerData.Name}_{season}".Replace(" ", "_");
                     string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
                     // Open Season Overview window
-                    var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _ams2StorageFactory.InstallSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
+                    var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _installSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
                     seasonOverviewWindow.Owner = this.Owner;
                     seasonOverviewWindow.Show();
 
@@ -878,7 +869,7 @@ namespace AMS2ChEd
             _scenarios.Clear();
             ScenarioComboBox.Items.Clear();
 
-           foreach(var seasonFolder in Directory.GetDirectories(StoragePaths.SeasonsFolder))
+           foreach(var seasonFolder in Directory.GetDirectories(AppPaths.SeasonsFolder))
            {
                 var scenarioFolder = Path.Combine(seasonFolder, "scenarios");
 
@@ -999,7 +990,7 @@ namespace AMS2ChEd
                 string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
                 // Open Season Overview window
-                var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _ams2StorageFactory.InstallSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
+                var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _installSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
                 seasonOverviewWindow.Owner = this.Owner;
                 seasonOverviewWindow.Show();
             }

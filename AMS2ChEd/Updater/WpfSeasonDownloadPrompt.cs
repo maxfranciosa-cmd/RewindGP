@@ -1,5 +1,4 @@
-﻿using Ams2ChEd.Business.AMS2.Services;
-using AMS2ChEd.Business.Storage.Contracts;
+﻿using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Models;
 using AMS2ChEd.Dialogs;
@@ -15,14 +14,14 @@ namespace AMS2ChEd.Updater
     public class WpfSeasonDownloadPrompt : ISeasonDownloadPrompt
     {
         private readonly ISeasonPackInstaller _seasonPackInstaller;
-        private readonly ExternalLiveriesInstaller _externalLiveriesInstaller;
+        private readonly IExternalLiveriesInstaller _externalLiveriesInstaller;
         private readonly IExternalLiveriesPrompt _externalLiveriesPrompt;
         private readonly string _downloadUrlFormat;
 
         public WpfSeasonDownloadPrompt(
             string downloadUrlFormat,
             ISeasonPackInstaller seasonPackInstaller,
-            ExternalLiveriesInstaller externalLiveriesInstaller,
+            IExternalLiveriesInstaller externalLiveriesInstaller,
             IExternalLiveriesPrompt externalLiveriesPrompt)
         {
             _seasonPackInstaller = seasonPackInstaller;

@@ -1,5 +1,4 @@
-﻿using Ams2ChEd.Business.AMS2.Services;
-using AMS2ChEd.Business.Storage.Contracts;
+﻿using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Views;
 using Microsoft.Win32;
@@ -22,7 +21,7 @@ namespace AMS2ChEd.Commands
     public class InstallSeasonModCommandAsync : ICommand
     {
         private readonly ISeasonPackInstaller _installer;
-        private readonly ExternalLiveriesInstaller _externalLiveriesInstaller;
+        private readonly IExternalLiveriesInstaller _externalLiveriesInstaller;
         private readonly IExternalLiveriesPrompt _externalLiveriesPrompt;
         private bool _isExecuting;
 
@@ -30,7 +29,7 @@ namespace AMS2ChEd.Commands
 
         public InstallSeasonModCommandAsync(
             ISeasonPackInstaller installer,
-            ExternalLiveriesInstaller externalLiveriesInstaller,
+            IExternalLiveriesInstaller externalLiveriesInstaller,
             IExternalLiveriesPrompt externalLiveriesPrompt)
         {
             _installer = installer;

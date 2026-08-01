@@ -9,7 +9,7 @@ using SharpCompress.Common;
 
 namespace Ams2ChEd.Business.AMS2.Services
 {
-    public class ExternalLiveriesInstaller
+    public class ExternalLiveriesInstaller : IExternalLiveriesInstaller
     {
         private readonly string _baseDirectory;
 

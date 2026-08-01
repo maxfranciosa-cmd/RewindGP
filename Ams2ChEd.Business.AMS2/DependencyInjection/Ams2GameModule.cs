@@ -11,6 +11,7 @@ using AMS2ChEd.Business.Services.Contracts;
 using AMS2ChEd.Business.Services.Mocks;
 using AMS2ChEd.Business.Settings.Contracts;
 using AMS2ChEd.Business.Storage.Contracts;
+using AMS2ChEd.Business.Updater;
 using Ams2ChEd.Business.AMS2.GameLogic;
 using Ams2ChEd.Business.AMS2.Services;
 using Ams2ChEd.Business.AMS2.Settings;
@@ -54,7 +55,7 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             // ************* MOD PACK / EXTERNAL CONTENT ***********
             services.AddTransient<ISeasonPackInstaller, SeasonModInstaller>();
             services.AddTransient<SeasonModInstaller>();
-            services.AddSingleton<ExternalLiveriesInstaller>();
+            services.AddSingleton<IExternalLiveriesInstaller, ExternalLiveriesInstaller>();
         }
     }
 }
