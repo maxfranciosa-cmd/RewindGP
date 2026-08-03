@@ -1,6 +1,8 @@
+using Ams2ChEd.Business.AMS2.PakPatching.Contracts;
 using Ams2ChEd.Business.AMS2.Settings;
 using AMS2ChEd.Business.Settings.Contracts;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Ams2ChEd.Business.AMS2.UI
@@ -8,11 +10,13 @@ namespace Ams2ChEd.Business.AMS2.UI
     public partial class OptionsWindow : Window
     {
         private Ams2GameInstallSettingsStorage _settingsStorage;
+        private IVehicleLiverySlotPatcher _vehicleLiverySlotPatcher;
 
-        public OptionsWindow(Ams2GameInstallSettingsStorage settingsStorage)
+        public OptionsWindow(Ams2GameInstallSettingsStorage settingsStorage, IVehicleLiverySlotPatcher vehicleLiverySlotPatcher)
         {
             InitializeComponent();
             _settingsStorage = settingsStorage;
+            _vehicleLiverySlotPatcher = vehicleLiverySlotPatcher;
             LoadSettings();
         }
 
@@ -101,6 +105,51 @@ namespace Ams2ChEd.Business.AMS2.UI
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private async void RestoreVehicleFilesButton_Click(object sender, RoutedEventArgs e)
+        {
+            string folderPath = AMS2FolderTextBox.Text.Trim();
+
+            if (!_vehicleLiverySlotPatcher.HasBackups(folderPath))
+            {
+                System.Windows.MessageBox.Show(
+                    "No patched vehicle files were found for this install - nothing to restore.",
+                    "Nothing To Restore", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var confirm = System.Windows.MessageBox.Show(
+                "This will restore every vehicle pak file Rewind GP has patched this season back to its original state. Continue?",
+                "Restore Original Vehicle Files", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (confirm != MessageBoxResult.Yes)
+                return;
+
+            var progressWindow = new Ams2ProgressWindow("Restoring original vehicle files...");
+            progressWindow.Owner = this;
+            progressWindow.Show();
+
+            RestoreResult result;
+            try
+            {
+                result = await Task.Run(() => _vehicleLiverySlotPatcher.RestoreAll(folderPath));
+            }
+            finally
+            {
+                progressWindow.Close();
+            }
+
+            if (result.Success)
+            {
+                System.Windows.MessageBox.Show($"Restored {result.FilesRestored} file(s) to their original state.",
+                    "Restore Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                System.Windows.MessageBox.Show($"Restore did not fully complete: {result.Message}",
+                    "Restore Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

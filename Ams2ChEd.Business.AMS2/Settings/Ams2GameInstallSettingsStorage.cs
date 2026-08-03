@@ -1,4 +1,5 @@
 using Ams2ChEd.Business.AMS2.Helpers;
+using Ams2ChEd.Business.AMS2.PakPatching.Contracts;
 using Ams2ChEd.Business.AMS2.UI;
 using AMS2ChEd.Business.Settings.Contracts;
 using System.Configuration;
@@ -10,6 +11,13 @@ namespace Ams2ChEd.Business.AMS2.Settings
     {
         private const string FOLDERPATH_SETTINGS_KEY = "AMS2FolderPath";
         private const string DRIVERNAME_SETTINGS_KEY = "AMS2DriverName";
+
+        private readonly IVehicleLiverySlotPatcher _vehicleLiverySlotPatcher;
+
+        public Ams2GameInstallSettingsStorage(IVehicleLiverySlotPatcher vehicleLiverySlotPatcher)
+        {
+            _vehicleLiverySlotPatcher = vehicleLiverySlotPatcher;
+        }
 
         public void SaveSettings(GameInstallSettings settings)
         {
@@ -72,7 +80,7 @@ namespace Ams2ChEd.Business.AMS2.Settings
 
         public bool ShowEditor(object ownerWindow)
         {
-            var optionsWindow = new OptionsWindow(this);
+            var optionsWindow = new OptionsWindow(this, _vehicleLiverySlotPatcher);
             if (ownerWindow is Window owner)
             {
                 optionsWindow.Owner = owner;

@@ -90,6 +90,20 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             }
         }
 
+        private static string _vehiclePakBackupsFolder = null;
+        public static string VehiclePakBackupsFolder
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_vehiclePakBackupsFolder))
+                {
+                    _vehiclePakBackupsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                                                            "RewindGP", "vehicle_pak_backups");
+                }
+                return _vehiclePakBackupsFolder;
+            }
+        }
+
         private static string _baseHelmetLiveriesPath = null;
         public static string BaseHelmetLiveriesPath
         {

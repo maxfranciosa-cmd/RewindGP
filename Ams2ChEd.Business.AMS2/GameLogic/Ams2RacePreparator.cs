@@ -1,4 +1,5 @@
 ﻿using Ams2ChEd.Business.AMS2.Helpers;
+using Ams2ChEd.Business.AMS2.PakPatching.Contracts;
 using Ams2ChEd.Business.AMS2.Services;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.AMS2.Storage.Contracts;
@@ -13,10 +14,12 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
     {
         private IGameInstallSettingsStorage _installSettingsStorage;
         private ICarModelCapacityLoader _carModelCapacityLoader;
-        public Ams2RacePreparator(IGameInstallSettingsStorage installSettingsStorage, ICarModelCapacityLoader carModelCapacityLoader)
+        private IVehicleLiverySlotPatcher _slotPatcher;
+        public Ams2RacePreparator(IGameInstallSettingsStorage installSettingsStorage, ICarModelCapacityLoader carModelCapacityLoader, IVehicleLiverySlotPatcher slotPatcher)
         {
             _installSettingsStorage = installSettingsStorage;
             _carModelCapacityLoader = carModelCapacityLoader;
+            _slotPatcher = slotPatcher;
         }
 
         public void PrepareRace(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season)
@@ -51,7 +54,8 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 ams2Class,
                 drivers.Cast<Ams2DriverData>(),
                 season.Teams.Cast<Ams2TeamEntry>(),
-                modelCapacities);
+                modelCapacities,
+                slotPatcher: _slotPatcher);
 
             return (liveryService, seasonFileDirectory, ams2InstallationFolder);
         }

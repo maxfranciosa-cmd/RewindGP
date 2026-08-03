@@ -13,6 +13,8 @@ using AMS2ChEd.Business.Settings.Contracts;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using Ams2ChEd.Business.AMS2.GameLogic;
+using Ams2ChEd.Business.AMS2.PakPatching;
+using Ams2ChEd.Business.AMS2.PakPatching.Contracts;
 using Ams2ChEd.Business.AMS2.Services;
 using Ams2ChEd.Business.AMS2.Settings;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +40,7 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             services.AddSingleton<ICarModelCapacityLoader, CarModelCapacityLoader>();
             services.AddSingleton<IGameStorage, GameStorage>();
             services.AddSingleton<IGameInstallSettingsStorage, Ams2GameInstallSettingsStorage>();
+            services.AddSingleton<IVehicleLiverySlotPatcher, Ams2VehicleLiverySlotPatcher>();
 
             // ********** STORAGE FACTORY **************
             services.AddTransient<Ams2StorageFactory>();

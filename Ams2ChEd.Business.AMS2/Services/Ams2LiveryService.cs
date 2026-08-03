@@ -1,4 +1,6 @@
 ﻿using Ams2ChEd.Business.AMS2.Helpers;
+using Ams2ChEd.Business.AMS2.PakPatching;
+using Ams2ChEd.Business.AMS2.PakPatching.Contracts;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
@@ -22,6 +24,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         private readonly Dictionary<string, Ams2DriverData> driversDict;
         private readonly IReadOnlyList<(string Model, int Slots)> modelCapacities;
         private readonly bool aiRatingsVariation;
+        private readonly IVehicleLiverySlotPatcher slotPatcher;
 
         /// <summary>
         /// Initialize the LiveryService
@@ -30,13 +33,21 @@ namespace Ams2ChEd.Business.AMS2.Services
         /// <param name="seasonJsonPath">Path to season.json</param>
         /// <param name="ddsComposerFunction">Function to compose DDS files: (baseHelmetPath, sponsorPath, outputPath) => outputPath</param>
         /// <param name="modelCapacities">Ordered (model, slots) list for this class, or null if uncapped</param>
+        /// <param name="slotPatcher">
+        /// Optional: if provided, a model that would otherwise overflow to a sibling model (see
+        /// SlotCapacityAllocator) is first offered a chance to have its own AMS2 game files
+        /// patched with extra livery slots instead - see PakPatching\Ams2VehicleLiverySlotPatcher.
+        /// Left null by season-authoring tools (e.g. SeasonPackCreator's PerformanceCalibrationService)
+        /// that intentionally never touch a live AMS2 install.
+        /// </param>
         public Ams2LiveryService(
             int seasonYear,
             string ams2Class,
             IEnumerable<Ams2DriverData> driversData,
             IEnumerable<Ams2TeamEntry> teamsData,
             IReadOnlyList<(string Model, int Slots)> modelCapacities = null,
-            bool aiRatingsVariation = true)
+            bool aiRatingsVariation = true,
+            IVehicleLiverySlotPatcher slotPatcher = null)
         {
 
             this.driversData = driversData;
@@ -45,6 +56,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             this.ams2Class = ams2Class;
             this.modelCapacities = modelCapacities;
             this.aiRatingsVariation = aiRatingsVariation;
+            this.slotPatcher = slotPatcher;
 
             // Create driver lookup dictionary
             driversDict = driversData.ToDictionary(d => d.DriverId, d => (Ams2DriverData)d);
@@ -83,7 +95,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             string vehiclesOverridesPath = Path.Combine(ams2RootDirectory, "Vehicles", "Textures", "CustomLiveries", "Overrides");
 
             // Generate livery XMLs, copy car liveries, and generate helmets
-            GenerateLiveryXmlsAMS2(raceId, raceEntryList, vehiclesOverridesPath, seasonDirectory);
+            GenerateLiveryXmlsAMS2(raceId, raceEntryList, vehiclesOverridesPath, seasonDirectory, ams2RootDirectory);
         }
 
         /// <summary>
@@ -382,7 +394,8 @@ namespace Ams2ChEd.Business.AMS2.Services
             int raceId,
             List<EntryListEntry> raceEntryList,
             string vehiclesOverridesPath,
-            string seasonDirectory)
+            string seasonDirectory,
+            string ams2RootDirectory)
         {
 
             // Group entries by car model, per driver slot (driver1/driver2 may use different models),
@@ -418,12 +431,24 @@ namespace Ams2ChEd.Business.AMS2.Services
                 }
             }
 
+            // Before falling back to cross-model redirection for any model that would overflow
+            // its declared capacity, offer the slot patcher a chance to raise that model's own
+            // AMS2 game files to the slot count this race actually needs - if it succeeds, the
+            // allocator below sees no overflow for that model at all, so no redirection/solid-
+            // colour fallback happens for those entries. Failures here (install/pak not found,
+            // unrecognized format, patch error) leave effectiveCapacities untouched, so today's
+            // redirect-to-sibling-model behavior remains the safety net.
+            var requiredCountsByModel = allItems.GroupBy(i => i.Model).ToDictionary(g => g.Key, g => g.Count());
+            var effectiveCapacities = EffectiveCapacityResolver.Resolve(
+                requiredCountsByModel, modelCapacities, slotPatcher, ams2RootDirectory,
+                logWarning: msg => Console.WriteLine($"{msg} (race {raceId})"));
+
             // Determine the final per-model entry lists: when this class has no registered slot
             // capacities, keep today's exact unbounded behavior. Otherwise, run the 3-pass allocator
             // and mark any redirected/overflow entries so their liveries are forced to solid-colour.
             Dictionary<string, List<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber, bool forceSolidColourFallback)>> finalEntriesByCarModel;
 
-            if (modelCapacities == null || modelCapacities.Count == 0)
+            if (effectiveCapacities == null || effectiveCapacities.Count == 0)
             {
                 finalEntriesByCarModel = allItems
                     .GroupBy(i => i.Model)
@@ -433,7 +458,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
             else
             {
-                var allocation = SlotCapacityAllocator.Allocate(allItems, modelCapacities);
+                var allocation = SlotCapacityAllocator.Allocate(allItems, effectiveCapacities);
 
                 foreach (var unplaced in allocation.Unplaceable)
                 {
@@ -480,8 +505,9 @@ namespace Ams2ChEd.Business.AMS2.Services
                 XDocument combinedDoc = new XDocument(new XElement("USER_OVERRIDES"));
                 XElement rootElement = combinedDoc.Root;
 
-                // Track livery number (starts at 51)
-                int currentLiveryNumber = 51;
+                // Track livery number (must match Ams2LiveryConventions.BaseLiveryNumber, which
+                // RcfLiverySlotPatcher also uses as the floor for any new .rcf slot IDs it adds)
+                int currentLiveryNumber = Ams2LiveryConventions.BaseLiveryNumber;
 
                 // Generate helmet/visor DDS files for this car model
                 GenerateHelmetVisorDDSForCarModel(raceId, entries, temporaryTexturesPath, seasonDirectory);
