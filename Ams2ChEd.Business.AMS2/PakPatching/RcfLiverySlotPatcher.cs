@@ -7,13 +7,12 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
     /// AMS2-livery-modding-knowledge.md's "Adding a genuinely new slot" section:
     /// bump &lt;INPUT NAME="LIVERY" OPTIONS="N"&gt;, and for each new slot id, clone an
     /// existing &lt;NAME LIVERY="id"&gt; and &lt;CONDITION LIVERY="id"&gt; pair, then repoint the clone's
-    /// NEWTEXTURE at a caller-supplied path (see newSlotTexturePath below) rather than leaving it
-    /// pointed at the template's own texture. Confirmed against a real install this reuse actually
-    /// needs: a new LIVERY id whose NEWTEXTURE reuses an *existing* slot's texture reference does
-    /// not render in-game even though every other detail is otherwise correct - only a genuinely
-    /// new, distinct texture entry physically present in the pak works. Prefers the highest-id
-    /// slot that uses a plain TEXTURE replace over one using a MATERIAL replace - see the
-    /// template-selection comment below.
+    /// NEWTEXTURE at a caller-supplied path (see newSlotTexturePath below). Confirmed against a
+    /// real install that the caller-supplied path can simply be the SAME texture an existing slot
+    /// already references (see Ams2VehicleLiverySlotPatcher's class doc comment) - no new, distinct
+    /// texture entry is required for the new slot to render correctly in-game. Prefers the
+    /// highest-id slot that uses a plain TEXTURE replace over one using a MATERIAL replace - see
+    /// the template-selection comment below.
     /// </summary>
     public static class RcfLiverySlotPatcher
     {
@@ -33,9 +32,10 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
         }
 
         /// <summary>
-        /// Finds the lowest-id plain-TEXTURE-replace CONDITION's NEWTEXTURE value - used to pick a
-        /// known-working texture reference to reuse from a sibling model (Ams2VehicleLiverySlotPatcher's
-        /// sibling-texture-reuse path). Returns null if the .rcf can't be parsed or has no such slot.
+        /// Finds the lowest-id plain-TEXTURE-replace CONDITION's NEWTEXTURE value - the template
+        /// texture every new slot's own NEWTEXTURE is repointed at directly (confirmed in-game to
+        /// render correctly - see Ams2VehicleLiverySlotPatcher's class doc comment). Returns null
+        /// if the .rcf can't be parsed or has no such slot.
         /// </summary>
         public static string? TryGetReusableTexturePath(string rcfXml)
         {
@@ -51,30 +51,6 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
 
             var textureReplace = candidate?.Elements("REPLACE").FirstOrDefault(r => r.Attribute("TEXTURE") != null);
             return (string?)textureReplace?.Attribute("NEWTEXTURE");
-        }
-
-        /// <summary>
-        /// Every NEWTEXTURE value already referenced by any CONDITION in this .rcf - used to tell
-        /// an already-in-use texture apart from a genuine spare (see
-        /// Ams2VehicleLiverySlotPatcher.TryFindSpareTextures). Case-insensitive since real .rcf
-        /// paths mix case inconsistently (e.g. "Formula_Hitech_g1m3" vs "formula_hitech_g1m3").
-        /// </summary>
-        public static HashSet<string> GetUsedTexturePaths(string rcfXml)
-        {
-            var result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            XElement? root;
-            try { root = XDocument.Parse(rcfXml).Root; }
-            catch { return result; }
-            if (root == null) return result;
-
-            foreach (var value in root.Elements("CONDITION")
-                .SelectMany(c => c.Elements("REPLACE"))
-                .Select(r => (string?)r.Attribute("NEWTEXTURE"))
-                .Where(v => !string.IsNullOrEmpty(v)))
-            {
-                result.Add(value!);
-            }
-            return result;
         }
 
         // Some cars mix a plain TEXTURE-replace pattern (what the loose Overrides XML's

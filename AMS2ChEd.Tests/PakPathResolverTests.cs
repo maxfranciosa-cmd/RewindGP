@@ -67,47 +67,5 @@ namespace AMS2ChEd.Tests
 
             Assert.AreEqual(Path.Combine(InstallFolder, "Pakfiles", "Vehicles", "vehiclespersistent.bff"), result);
         }
-
-        private static string ExpectedLivery => Path.Combine(InstallFolder, "Pakfiles", "Vehicles", $"{Model}_Livery.bff");
-        private static string ExpectedHdLivery => Path.Combine(InstallFolder, "Pakfiles", "Vehicles", $"{Model}_HD_Livery.bff");
-        private static string ExpectedLdLivery => Path.Combine(InstallFolder, "Pakfiles", "Vehicles", $"{Model}_LD_Livery.bff");
-
-        [TestMethod]
-        public void GetLiveryPakPaths_OnlyBaseLiveryPakExists_ReturnsJustBaseLiveryPak()
-        {
-            var result = PakPathResolver.GetLiveryPakPaths(InstallFolder, Model, path => path == ExpectedLivery);
-
-            CollectionAssert.AreEqual(new[] { ExpectedLivery }, result.ToList());
-        }
-
-        [TestMethod]
-        public void GetLiveryPakPaths_AllThreeVariantsExist_ReturnsAllInOrder()
-        {
-            var result = PakPathResolver.GetLiveryPakPaths(InstallFolder, Model, _ => true);
-
-            CollectionAssert.AreEqual(new[] { ExpectedLivery, ExpectedHdLivery, ExpectedLdLivery }, result.ToList());
-        }
-
-        [TestMethod]
-        public void GetLiveryPakPaths_NothingExists_ReturnsEmpty()
-        {
-            var result = PakPathResolver.GetLiveryPakPaths(InstallFolder, Model, _ => false);
-
-            Assert.AreEqual(0, result.Count);
-        }
-
-        [TestMethod]
-        public void GetLiveryPakPaths_ExceptionModel_ResolvesToPakName()
-        {
-            var result = PakPathResolver.GetLiveryPakPaths(InstallFolder, "formula_v10_g2_m", _ => true);
-
-            var expected = new[]
-            {
-                Path.Combine(InstallFolder, "Pakfiles", "Vehicles", "formula_v10_m_Livery.bff"),
-                Path.Combine(InstallFolder, "Pakfiles", "Vehicles", "formula_v10_m_HD_Livery.bff"),
-                Path.Combine(InstallFolder, "Pakfiles", "Vehicles", "formula_v10_m_LD_Livery.bff"),
-            };
-            CollectionAssert.AreEqual(expected, result.ToList());
-        }
     }
 }

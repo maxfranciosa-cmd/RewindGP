@@ -11,16 +11,13 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
     /// the first write, and a failure partway through committing rolls back whatever was already
     /// committed in that attempt.
     ///
-    /// Confirmed against a real install: bumping OPTIONS/NAME/CONDITION alone is not enough for a
-    /// new slot to actually render - its NEWTEXTURE must point at a texture entry that genuinely
-    /// exists in the model's own _Livery.bff/_HD_Livery.bff/_LD_Livery.bff pak(s), not just reuse
-    /// an existing slot's reference. This class provisions that entry per new slot, preferring (in
-    /// order): a genuine spare texture already in the model's own pak (FindSpareTextures), then a
-    /// newly-inserted entry whose content is duplicated from the SAME model's own existing texture
-    /// and whose path stays inside that model's own real, already-shipped texture folder (e.g.
-    /// "...\Formula_Hitech_g1m3\f_hitech_g1m3_livery09_1.dds", not a brand-new folder), and only as
-    /// a defensive last resort a sibling model's texture (siblingModelsForTextureReuse). Injected
-    /// via BffPakEntryInserter.
+    /// Confirmed against a real install: every new slot's NEWTEXTURE can simply point at the SAME
+    /// texture entry an existing slot's plain-TEXTURE CONDITION already reuses - no genuinely new,
+    /// distinct pak entry is needed for it to render correctly in-game. This was verified in-game
+    /// after an earlier assumption (that a reused reference wouldn't render) turned out to be
+    /// confounded by an unrelated bug (the _hr.rcf naming issue - see GetCandidateRcfPaths). That
+    /// makes this the only texture-provisioning path: no _Livery.bff pak is read or written at
+    /// all, so this class only ever touches the .rcf-bearing paks (base/_LD/_HD + persistent).
     ///
     /// Note: this assumes the _LD/_HD variant paks use the same internal relative path
     /// (vehicles\{model}\{model}.rcf[_hr]) as the base pak - unverified against a real AMS2
@@ -31,14 +28,6 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
     /// </summary>
     public class Ams2VehicleLiverySlotPatcher : IVehicleLiverySlotPatcher
     {
-        /// <summary>
-        /// TEMPORARY TEST SWITCH - see the doc comment where this is used in EnsureSlotsCore.
-        /// When true, every new slot reuses the existing template texture directly (no
-        /// _Livery.bff insertion at all); when false (the prior default), spares are preferred
-        /// and insertion is the fallback. Flip back to false once the in-game test result is in.
-        /// </summary>
-        private const bool TestReuseExistingLiveryTextureDirectly = true;
-
         private readonly VehiclePakBackupManifestStore _backupStore;
 
         public Ams2VehicleLiverySlotPatcher() : this(new VehiclePakBackupManifestStore())
@@ -57,11 +46,11 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
             public required List<BffTocEntry> RcfEntries { get; init; }
         }
 
-        public SlotPatchOutcome EnsureSlots(string ams2InstallFolder, string carModel, int requiredSlotCount, IReadOnlyList<string> siblingModelsForTextureReuse)
+        public SlotPatchOutcome EnsureSlots(string ams2InstallFolder, string carModel, int requiredSlotCount)
         {
             try
             {
-                return EnsureSlotsCore(ams2InstallFolder, carModel, requiredSlotCount, siblingModelsForTextureReuse);
+                return EnsureSlotsCore(ams2InstallFolder, carModel, requiredSlotCount);
             }
             catch (Exception ex)
             {
@@ -69,7 +58,7 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
             }
         }
 
-        private SlotPatchOutcome EnsureSlotsCore(string ams2InstallFolder, string carModel, int requiredSlotCount, IReadOnlyList<string> siblingModelsForTextureReuse)
+        private SlotPatchOutcome EnsureSlotsCore(string ams2InstallFolder, string carModel, int requiredSlotCount)
         {
             if (!Directory.Exists(ams2InstallFolder))
                 return new SlotPatchOutcome { Status = SlotPatchStatus.SkippedInstallNotFound };
@@ -131,118 +120,16 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
                 Ams2LiveryConventions.BaseLiveryNumber + currentSlotCount,
                 requiredSlotCount - currentSlotCount).ToList();
 
-            // ---- Resolve this model's livery-texture paks and pick one fresh, non-colliding
-            // relative texture path per new slot, probed against the model's own base livery
-            // pak's TOC (grounded in what's actually in the pak, not parsed from .rcf text). ----
-            var liveryPakPaths = PakPathResolver.GetLiveryPakPaths(ams2InstallFolder, carModel, File.Exists);
-            if (liveryPakPaths.Count == 0)
-                return Unrecognized($"No _Livery.bff pak found for model '{carModel}' - cannot provision new slot textures.");
-
-            var liveryPakSnapshots = new List<BffPakSnapshot>(liveryPakPaths.Count);
-            foreach (var liveryPakPath in liveryPakPaths)
-            {
-                try
-                {
-                    liveryPakSnapshots.Add(BffPakReader.Read(liveryPakPath));
-                }
-                catch (Exception ex)
-                {
-                    return Unrecognized($"Could not read {liveryPakPath}: {ex.Message}");
-                }
-            }
-            BffPakSnapshot baseLiverySnapshot = liveryPakSnapshots[0];
-
+            // ---- Every new slot's NEWTEXTURE points at the same template texture an existing
+            // plain-TEXTURE CONDITION already references - confirmed in-game to render correctly,
+            // so no _Livery.bff pak is read, written, or even needs to exist. ----
             string? templatePath = RcfLiverySlotPatcher.TryGetReusableTexturePath(firstRcfXml);
             if (templatePath == null)
                 return Unrecognized($"No plain-TEXTURE CONDITION found in {targets[0].AbsolutePath} to base a new texture name/content on.");
 
             var newTexturePathsByLiveryId = new Dictionary<int, string>();
-            var idsNeedingInsertion = new List<int>();
-
-            if (TestReuseExistingLiveryTextureDirectly)
-            {
-                // ---- TEMPORARY TEST SWITCH: point every new slot's NEWTEXTURE straight at the
-                // existing, already-referenced template texture, with no _Livery.bff insertion or
-                // spare-searching at all. Now that the real root cause of "renders empty" turned
-                // out to be the _hr.rcf naming bug (every _Livery.bff-side fix - ext-info,
-                // UnknownFlag, mSectionInfoPos, folder convention - was validated in isolation
-                // while _hr.rcf silently stayed unpatched), the original "duplicate NEWTEXTURE
-                // across slots" approach may have been unfairly ruled out: it was tested before
-                // _hr.rcf was known to be broken. If this test confirms in-game that reusing an
-                // existing texture directly renders correctly, the entire insertion machinery
-                // below (BffPakEntryInserter/BffExtInfoCodec/ScribeCipher/spare-finding) becomes
-                // unnecessary complexity for the common case - see AMS2-livery-modding-knowledge.md.
-                // Intentionally left as a switch rather than deleting the insertion path, since
-                // this hasn't been confirmed yet and a car that's fully out of distinct textures to
-                // reuse would still need it.
-                foreach (int id in newIds)
-                    newTexturePathsByLiveryId[id] = templatePath;
-            }
-            else
-            {
-                // ---- Prefer genuine spare textures: files Reiza already shipped inside this
-                // model's own _Livery.bff pak(s) but that no CONDITION currently references. Only
-                // the slots left over once spares run out fall back to inserting a genuinely new
-                // pak entry - see AMS2-livery-modding-knowledge.md. ----
-                var spareTextures = FindSpareTextures(liveryPakSnapshots, firstRcfXml, newIds.Count);
-                for (int i = 0; i < newIds.Count; i++)
-                {
-                    if (i < spareTextures.Count)
-                        newTexturePathsByLiveryId[newIds[i]] = spareTextures[i];
-                    else
-                        idsNeedingInsertion.Add(newIds[i]);
-                }
-
-                // ---- New texture paths for slots still needing insertion: stay inside the
-                // model's OWN, already-shipped texture folder (e.g.
-                // "vehicles\textures\Formula_Hitech_g1m3\"), same prefix/case/numbering convention
-                // as its existing CONDITIONs (e.g. "f_hitech_g1m3_livery09_1.dds") instead of
-                // inventing a brand-new folder the engine has never indexed. ----
-                if (!TryParseLiveryTexturePattern(templatePath, out string prefix, out string originalDigits, out string extension))
-                    return Unrecognized($"Could not parse a numbered texture filename out of '{templatePath}'.");
-
-                int suffixCounter = 1;
-                foreach (int id in idsNeedingInsertion)
-                {
-                    string candidate;
-                    do
-                    {
-                        candidate = $"{prefix}{originalDigits}_{suffixCounter}{extension}";
-                        suffixCounter++;
-                    } while (BffPakReader.TryFindEntryByPath(baseLiverySnapshot, candidate) != null);
-                    newTexturePathsByLiveryId[id] = candidate;
-                }
-            }
-
-            // ---- Source texture bytes for each livery pak variant from the SAME model's own
-            // template texture (the one templatePath points at) - only needed for slots that
-            // didn't get a spare above. Falls back to a sibling model's texture (the old approach)
-            // only if this model's own variant is somehow unreadable, as a defensive last resort -
-            // see AMS2-livery-modding-knowledge.md. A variant with no usable source texture is
-            // simply left untouched - base should essentially always succeed; HD/LD degrade
-            // gracefully rather than failing the whole operation. ----
-            var sourceBytesByLiveryPak = new Dictionary<string, byte[]>();
-            if (idsNeedingInsertion.Count > 0)
-            {
-                for (int i = 0; i < liveryPakPaths.Count; i++)
-                {
-                    string liveryPakPath = liveryPakPaths[i];
-                    byte[]? bytes = TryGetOwnModelTexture(liveryPakSnapshots[i], templatePath);
-
-                    if (bytes == null)
-                    {
-                        string variantSuffix = ExtractVariantSuffix(liveryPakPath);
-                        foreach (var sibling in siblingModelsForTextureReuse)
-                        {
-                            bytes = TryGetSiblingTexture(ams2InstallFolder, sibling, variantSuffix);
-                            if (bytes != null) break;
-                        }
-                    }
-
-                    if (bytes != null)
-                        sourceBytesByLiveryPak[liveryPakPath] = bytes;
-                }
-            }
+            foreach (int id in newIds)
+                newTexturePathsByLiveryId[id] = templatePath;
 
             // ---- Decide what actually needs patching in the .rcf-bearing paks (idempotency per
             // entry, unchanged from before) - now repointing each new slot's NEWTEXTURE at the
@@ -299,15 +186,12 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
             if (!anyChange)
                 return new SlotPatchOutcome { Status = SlotPatchStatus.AlreadySufficient };
 
-            // ---- Backup every target pak up front (rcf-bearing + livery, changed or not - a
-            // currently-untouched variant might need patching next race, and we want its original
-            // saved now). ----
-            foreach (var pakPath in allPakPaths.Concat(liveryPakPaths))
+            // ---- Backup every target pak up front, changed or not - a currently-untouched
+            // variant might need patching next race, and we want its original saved now). ----
+            foreach (var pakPath in allPakPaths)
                 _backupStore.EnsureBackedUp(ams2InstallFolder, pakPath);
 
-            // ---- Repack each changed pak to a temp file, validating before commit. Livery paks
-            // chain one BffPakEntryInserter.AddEntry call per new slot through successive temp
-            // files, since each call only appends a single entry. ----
+            // ---- Repack each changed pak to a temp file, validating before commit. ----
             var tempFilesByOriginal = new Dictionary<string, string>();
             try
             {
@@ -321,46 +205,6 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
                     BffPakReader.Read(tempPath); // cheap correctness gate: must parse cleanly
 
                     tempFilesByOriginal[target.AbsolutePath] = tempPath;
-                }
-
-                foreach (var liveryPakPath in liveryPakPaths)
-                {
-                    if (idsNeedingInsertion.Count == 0)
-                        continue; // every new slot was covered by a genuine spare texture - livery pak itself is untouched
-
-                    if (!sourceBytesByLiveryPak.TryGetValue(liveryPakPath, out byte[]? sourceBytes))
-                        continue; // no sibling had a usable texture for this variant - leave it untouched
-
-                    var snapshot = liveryPakPath == liveryPakPaths[0] ? baseLiverySnapshot : BffPakReader.Read(liveryPakPath);
-                    string workingPath = liveryPakPath;
-
-                    foreach (int id in idsNeedingInsertion)
-                    {
-                        // DIAGNOSTIC: every prior attempt duplicated a source texture's bytes
-                        // EXACTLY (byte-for-byte identical to an already-loaded entry). The one
-                        // confirmed-working manual insertion did NOT - its new texture was
-                        // distinct from every existing entry, even though same-content
-                        // duplication passed every structural/offline check. Testing whether
-                        // content-based texture deduplication in the engine is the actual
-                        // blocker by perturbing one byte deep in the pixel payload (leaves the
-                        // DDS header and format completely intact) - unique per new slot so two
-                        // new slots don't collide with each other either. Cosmetically invisible;
-                        // not a real fix, just isolating this variable. See
-                        // AMS2-livery-modding-knowledge.md.
-                        byte[] uniqueBytes = (byte[])sourceBytes.Clone();
-                        uniqueBytes[^1] ^= (byte)(0xA5 ^ id);
-
-                        string outputPath = $"{liveryPakPath}.{id}.rewgp_tmp";
-                        BffPakEntryInserter.AddEntry(snapshot, newTexturePathsByLiveryId[id], uniqueBytes, compressionType: 1, outputPath);
-                        snapshot = BffPakReader.Read(outputPath); // must see this slot's entry before adding the next
-
-                        if (workingPath != liveryPakPath)
-                            TryDelete(workingPath); // clean up the prior chain link, now superseded
-
-                        workingPath = outputPath;
-                    }
-
-                    tempFilesByOriginal[liveryPakPath] = workingPath;
                 }
             }
             catch (Exception ex)
@@ -463,132 +307,6 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
                 ? Encoding.UTF8.GetString(plaintext, utf8Bom.Length, plaintext.Length - utf8Bom.Length)
                 : Encoding.UTF8.GetString(plaintext);
             return (rcfXml, hasUtf8Bom);
-        }
-
-        /// <summary>
-        /// Finds texture entries already present inside this model's own livery pak(s) that no
-        /// CONDITION currently references - "spares". Cheaper and safer than inserting a new pak
-        /// entry when one happens to exist, since it needs zero pak-structure changes at all - but
-        /// confirmed against a real install this is NOT guaranteed: formula_hitech_g1m3's true
-        /// pristine pak has no spares (every numbered livery texture it ships is already
-        /// referenced) - see AMS2-livery-modding-knowledge.md. Requires the candidate to exist in
-        /// *every* resolved livery pak variant (base/HD/LD) so a spare is never used for only some
-        /// of them.
-        /// </summary>
-        private static List<string> FindSpareTextures(IReadOnlyList<BffPakSnapshot> liveryPakSnapshots, string rcfXml, int maxNeeded)
-        {
-            var spares = new List<string>();
-            if (maxNeeded == 0 || liveryPakSnapshots.Count == 0)
-                return spares;
-
-            string? template = RcfLiverySlotPatcher.TryGetReusableTexturePath(rcfXml);
-            if (template == null)
-                return spares;
-
-            var match = System.Text.RegularExpressions.Regex.Match(template, @"^(.*?)(\d+)(\.[A-Za-z0-9]+)$");
-            if (!match.Success)
-                return spares;
-
-            string prefix = match.Groups[1].Value;
-            int digitWidth = match.Groups[2].Value.Length;
-            string extension = match.Groups[3].Value;
-
-            var used = RcfLiverySlotPatcher.GetUsedTexturePaths(rcfXml);
-
-            for (int n = 1; spares.Count < maxNeeded && n <= 99; n++)
-            {
-                string candidate = prefix + n.ToString("D" + digitWidth) + extension;
-                if (used.Contains(candidate))
-                    continue;
-                if (liveryPakSnapshots.All(s => BffPakReader.TryFindEntryByPath(s, candidate) != null))
-                    spares.Add(candidate);
-            }
-
-            return spares;
-        }
-
-        private static string ExtractVariantSuffix(string liveryPakPath)
-        {
-            string fileName = Path.GetFileName(liveryPakPath);
-            if (fileName.EndsWith("_HD_Livery.bff", StringComparison.OrdinalIgnoreCase)) return "_HD";
-            if (fileName.EndsWith("_LD_Livery.bff", StringComparison.OrdinalIgnoreCase)) return "_LD";
-            return "";
-        }
-
-        /// <summary>
-        /// Extracts a known-working texture's raw plaintext bytes from a sibling model, to reuse
-        /// for a new slot on the target model. Fails closed (returns null) on any problem - missing
-        /// files, unreadable paks, no plain-TEXTURE slot to borrow from - so the caller can simply
-        /// try the next sibling in priority order rather than aborting the whole patch attempt.
-        /// </summary>
-        private static byte[]? TryGetSiblingTexture(string ams2InstallFolder, string siblingModel, string variantSuffix)
-        {
-            try
-            {
-                string pakSiblingModel = PakModelNameExceptions.Resolve(siblingModel);
-                string vehiclesFolder = Path.Combine(ams2InstallFolder, "Pakfiles", "Vehicles");
-                string siblingRcfPakPath = Path.Combine(vehiclesFolder, $"{pakSiblingModel}{variantSuffix}.bff");
-                string siblingLiveryPakPath = Path.Combine(vehiclesFolder, $"{pakSiblingModel}{variantSuffix}_Livery.bff");
-                if (!File.Exists(siblingRcfPakPath) || !File.Exists(siblingLiveryPakPath))
-                    return null;
-
-                var rcfSnapshot = BffPakReader.Read(siblingRcfPakPath);
-                var rcfEntry = BffPakReader.TryFindEntryByPath(rcfSnapshot, Path.Combine("vehicles", pakSiblingModel, $"{pakSiblingModel}.rcf"));
-                if (rcfEntry == null)
-                    return null;
-
-                var (rcfXml, _) = DecodeRcfEntry(rcfSnapshot, rcfEntry);
-                string? texturePath = RcfLiverySlotPatcher.TryGetReusableTexturePath(rcfXml);
-                if (texturePath == null)
-                    return null;
-
-                var librarySnapshot = BffPakReader.Read(siblingLiveryPakPath);
-                var textureEntry = BffPakReader.TryFindEntryByPath(librarySnapshot, texturePath);
-                if (textureEntry == null)
-                    return null;
-
-                return BffEntryExtractor.ExtractPlaintext(librarySnapshot, textureEntry);
-            }
-            catch
-            {
-                return null; // fail closed for this sibling - caller tries the next one in priority order
-            }
-        }
-
-        /// <summary>
-        /// Extracts a known-working texture's raw plaintext bytes from THIS SAME model's own
-        /// livery pak - the preferred texture source (see the "New texture paths" comment in
-        /// EnsureSlotsCore). Fails closed (returns null) if the path isn't in this snapshot, so the
-        /// caller can fall back to a sibling model instead of aborting.
-        /// </summary>
-        private static byte[]? TryGetOwnModelTexture(BffPakSnapshot liverySnapshot, string relativePath)
-        {
-            try
-            {
-                var entry = BffPakReader.TryFindEntryByPath(liverySnapshot, relativePath);
-                return entry == null ? null : BffEntryExtractor.ExtractPlaintext(liverySnapshot, entry);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Splits a real livery texture path like "vehicles\textures\Formula_Hitech_g1m3\
-        /// f_hitech_g1m3_livery09.dds" into a prefix ("...\f_hitech_g1m3_livery"), the ORIGINAL
-        /// numeric suffix preserved verbatim ("09" - not reformatted/re-padded, unlike
-        /// FindSpareTextures's use of this same shape), and the extension (".dds"). Used to name a
-        /// newly-inserted texture as "{prefix}{originalDigits}_{N}{extension}" - staying inside the
-        /// model's own real, already-shipped folder instead of inventing a new one.
-        /// </summary>
-        private static bool TryParseLiveryTexturePattern(string templatePath, out string prefix, out string originalDigits, out string extension)
-        {
-            var match = System.Text.RegularExpressions.Regex.Match(templatePath, @"^(.*?)(\d+)(\.[A-Za-z0-9]+)$");
-            prefix = match.Success ? match.Groups[1].Value : string.Empty;
-            originalDigits = match.Success ? match.Groups[2].Value : string.Empty;
-            extension = match.Success ? match.Groups[3].Value : string.Empty;
-            return match.Success;
         }
 
         private static void TryDelete(string path)
