@@ -22,29 +22,11 @@ namespace AMS2ChEd.Business.AMS2.Models
         public Dictionary<string, double> Ams2CarPerformanceMalus { get; set; }
 
         /// <summary>
-        /// Optional second car model, used for driver 2's car if different from Ams2Car.
-        /// When null, driver 2 uses Ams2Car (backwards compatible with existing saves/seasons).
-        /// </summary>
-        [JsonPropertyName("ams2carDriver2")]
-        public string Ams2CarDriver2 { get; set; }
-
-        /// <summary>
         /// Optional performance malus for the second car. When null, driver 2 uses
         /// Ams2CarPerformanceMalus (backwards compatible with existing saves/seasons).
         /// </summary>
         [JsonPropertyName("ams2carPerformanceMalusDriver2")]
         public Dictionary<string, double> Ams2CarPerformanceMalusDriver2 { get; set; }
-
-        /// <summary>
-        /// Returns the car model that applies to the given driver slot (1 or 2),
-        /// falling back to the primary car if no second car is defined.
-        /// </summary>
-        public string GetAms2Car(int driverNumber)
-        {
-            return driverNumber == 2 && !string.IsNullOrEmpty(Ams2CarDriver2)
-                ? Ams2CarDriver2
-                : Ams2Car;
-        }
 
         /// <summary>
         /// Returns the performance malus that applies to the given driver slot (1 or 2),
@@ -56,12 +38,6 @@ namespace AMS2ChEd.Business.AMS2.Models
                 ? Ams2CarPerformanceMalusDriver2
                 : Ams2CarPerformanceMalus;
         }
-
-        /// <summary>
-        /// True if this team has a distinct car model assigned to driver 2.
-        /// </summary>
-        [JsonIgnore]
-        public bool HasSecondCar => !string.IsNullOrEmpty(Ams2CarDriver2);
 
         /// <summary>
         /// Convenience accessors for the three car-performance scalars on the primary

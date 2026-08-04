@@ -22,7 +22,7 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
             var normalisedTeam = normalisedSeason.Teams.OfType<Ams2TeamEntry>().FirstOrDefault(t => t.TeamId == teamId);
 
             double playerMalus = normalisedTeam?
-                .GetAms2CarPerformanceMalus(driverSlot)?
+                .Ams2CarPerformanceMalus?
                 .GetValueOrDefault("qualifying_skill", 0.0) ?? 0.0;
 
             // +5 difficulty points per 0.1 malus gap from the fastest car (which is now at 0).
@@ -32,7 +32,7 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
         public string GetCarDisplayName(ISeason season, string teamId, int driverSlot)
         {
             var team = season.Teams.OfType<Ams2TeamEntry>().FirstOrDefault(t => t.TeamId == teamId);
-            return team?.GetAms2Car(driverSlot) ?? "";
+            return team?.Ams2Car ?? "";
         }
 
         public bool SeasonUsesPerformanceScalars(ISeason season)
@@ -74,13 +74,13 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
 
                 if (!string.IsNullOrEmpty(entry.Driver1Id))
                 {
-                    var malus1 = team.GetAms2CarPerformanceMalus(1);
+                    var malus1 = team.Ams2CarPerformanceMalus;
                     if (malus1 != null) relevantMalusDicts.Add(malus1);
                 }
 
                 if (!string.IsNullOrEmpty(entry.Driver2Id))
                 {
-                    var malus2 = team.GetAms2CarPerformanceMalus(2);
+                    var malus2 = team.Ams2CarPerformanceMalus;
                     if (malus2 != null) relevantMalusDicts.Add(malus2);
                 }
             }

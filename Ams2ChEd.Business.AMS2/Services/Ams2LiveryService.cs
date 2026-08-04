@@ -410,7 +410,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
                 if (!string.IsNullOrEmpty(entry.Driver1Id))
                 {
-                    string carModel1 = team.GetAms2Car(1);
+                    string carModel1 = team.Ams2Car;
                     allItems.Add(new SlotCapacityAllocator.Item<(EntryListEntry, Ams2TeamEntry, int)>
                     {
                         Model = carModel1,
@@ -421,7 +421,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
                 if (!string.IsNullOrEmpty(entry.Driver2Id))
                 {
-                    string carModel2 = team.GetAms2Car(2);
+                    string carModel2 = team.Ams2Car;
                     allItems.Add(new SlotCapacityAllocator.Item<(EntryListEntry, Ams2TeamEntry, int)>
                     {
                         Model = carModel2,
