@@ -43,7 +43,14 @@ namespace Ams2ChEd.Business.AMS2.PakPatching.Contracts
     /// </summary>
     public interface IVehicleLiverySlotPatcher
     {
-        SlotPatchOutcome EnsureSlots(string ams2InstallFolder, string carModel, int requiredSlotCount);
+        /// <param name="siblingModelsForTextureReuse">
+        /// Other models (in priority order) whose existing livery textures can be reused to
+        /// provision any new slot's texture entry - a new slot's NEWTEXTURE must point at a
+        /// genuinely new, distinct pak entry to render in-game, not a reused reference to an
+        /// existing slot's own texture. Pass an empty list if no reuse source is available; new
+        /// slots will still be declared but may not have a working texture.
+        /// </param>
+        SlotPatchOutcome EnsureSlots(string ams2InstallFolder, string carModel, int requiredSlotCount, IReadOnlyList<string> siblingModelsForTextureReuse);
 
         bool HasBackups(string ams2InstallFolder);
 

@@ -35,13 +35,15 @@ namespace AMS2ChEd.Tests
             return doc.ToString();
         }
 
+        private static string NewSlotTexturePath(int liveryId) => $"new_{liveryId}.dds";
+
         [TestMethod]
         public void TryEnsureSlotCount_AlreadySufficient_ReturnsFalseAndLeavesXmlUnchanged()
         {
             string rcf = MakeRcfXml(6);
 
             bool changed = RcfLiverySlotPatcher.TryEnsureSlotCount(rcf, requiredSlotCount: 6, BaseLiveryNumber,
-                out string patchedXml, out int currentSlotCount);
+                NewSlotTexturePath, out string patchedXml, out int currentSlotCount);
 
             Assert.IsFalse(changed);
             Assert.AreEqual(6, currentSlotCount);
@@ -55,7 +57,7 @@ namespace AMS2ChEd.Tests
             string rcf = MakeRcfXml(8);
 
             bool changed = RcfLiverySlotPatcher.TryEnsureSlotCount(rcf, requiredSlotCount: 6, BaseLiveryNumber,
-                out _, out int currentSlotCount);
+                NewSlotTexturePath, out _, out int currentSlotCount);
 
             Assert.IsFalse(changed);
             Assert.AreEqual(8, currentSlotCount);
@@ -67,7 +69,7 @@ namespace AMS2ChEd.Tests
             string rcf = MakeRcfXml(6);
 
             bool changed = RcfLiverySlotPatcher.TryEnsureSlotCount(rcf, requiredSlotCount: 7, BaseLiveryNumber,
-                out string patchedXml, out int currentSlotCount);
+                NewSlotTexturePath, out string patchedXml, out int currentSlotCount);
 
             Assert.IsTrue(changed);
             Assert.AreEqual(6, currentSlotCount);
@@ -86,6 +88,8 @@ namespace AMS2ChEd.Tests
             Assert.AreEqual(7, conditions.Count);
             var newCondition = conditions.Single(c => (int)c.Attribute("LIVERY")! == 57);
             Assert.AreEqual("body_diff.dds", (string)newCondition.Element("REPLACE")!.Attribute("TEXTURE")!);
+            Assert.AreEqual("new_57.dds", (string)newCondition.Element("REPLACE")!.Attribute("NEWTEXTURE")!,
+                "NEWTEXTURE must use the caller-supplied path, not the cloned template's own value - reusing an existing slot's texture reference is exactly what doesn't render in-game.");
         }
 
         [TestMethod]
@@ -94,7 +98,7 @@ namespace AMS2ChEd.Tests
             string rcf = MakeRcfXml(6);
 
             bool changed = RcfLiverySlotPatcher.TryEnsureSlotCount(rcf, requiredSlotCount: 10, BaseLiveryNumber,
-                out string patchedXml, out _);
+                NewSlotTexturePath, out string patchedXml, out _);
 
             Assert.IsTrue(changed);
 
@@ -113,6 +117,14 @@ namespace AMS2ChEd.Tests
                 .OrderBy(id => id)
                 .ToList();
             CollectionAssert.AreEqual(newIds, newConditionIds);
+
+            // Each new slot must get its own distinct texture path, not all reuse the template's.
+            var newTexturePaths = root.Elements("CONDITION")
+                .Where(c => (int)c.Attribute("LIVERY")! >= 57)
+                .OrderBy(c => (int)c.Attribute("LIVERY")!)
+                .Select(c => (string)c.Element("REPLACE")!.Attribute("NEWTEXTURE")!)
+                .ToList();
+            CollectionAssert.AreEqual(new[] { "new_57.dds", "new_58.dds", "new_59.dds", "new_60.dds" }, newTexturePaths);
         }
 
         [TestMethod]
@@ -133,12 +145,50 @@ namespace AMS2ChEd.Tests
                         new XElement("REPLACE", new XAttribute("TEXTURE", "b.dds"), new XAttribute("NEWTEXTURE", "b1.dds")))));
 
             bool changed = RcfLiverySlotPatcher.TryEnsureSlotCount(doc.ToString(), requiredSlotCount: 3, BaseLiveryNumber,
-                out string patchedXml, out _);
+                NewSlotTexturePath, out string patchedXml, out _);
 
             Assert.IsTrue(changed);
             var root = XDocument.Parse(patchedXml).Root!;
             var newCondition = root.Elements("CONDITION").Single(c => (int)c.Attribute("LIVERY")! == 53);
             Assert.AreEqual("b.dds", (string)newCondition.Element("REPLACE")!.Attribute("TEXTURE")!, "Should have cloned slot 52 (the highest id), not slot 51.");
+            Assert.AreEqual("new_53.dds", (string)newCondition.Element("REPLACE")!.Attribute("NEWTEXTURE")!, "NEWTEXTURE must be repointed to the new slot's own path, not left as slot 52's 'b1.dds'.");
+        }
+
+        [TestMethod]
+        public void TryEnsureSlotCount_HighestSlotUsesMaterialReplace_ClonesHighestPlainTextureSlotInstead()
+        {
+            // Mirrors a real car (formula_hitech_g1m3): the last couple of slots route paint
+            // through a shared generic MATERIAL rather than a plain TEXTURE replace. The loose
+            // Overrides XML's LIVERY_OVERRIDE can only ever repoint a TEXTURE, so cloning a
+            // MATERIAL-based slot would produce a new slot whose paint can never be overridden
+            // (renders blank in-game) - the patcher must skip past it to a plain-TEXTURE slot.
+            var doc = new XDocument(
+                new XElement("REPLACEMENT_SYSTEM",
+                    new XElement("INPUTS",
+                        new XElement("INPUT", new XAttribute("NAME", "LIVERY"), new XAttribute("OPTIONS", 3))),
+                    new XElement("NAMES", new XAttribute("INPUT", "LIVERY"),
+                        new XElement("NAME", new XAttribute("LIVERY", 51), new XAttribute("NAME", "First")),
+                        new XElement("NAME", new XAttribute("LIVERY", 52), new XAttribute("NAME", "Second")),
+                        new XElement("NAME", new XAttribute("LIVERY", 53), new XAttribute("NAME", "Third"))),
+                    new XElement("CONDITION", new XAttribute("LIVERY", 51),
+                        new XElement("REPLACE", new XAttribute("TEXTURE", "a.dds"), new XAttribute("NEWTEXTURE", "a1.dds"))),
+                    new XElement("CONDITION", new XAttribute("LIVERY", 52),
+                        new XElement("REPLACE", new XAttribute("TEXTURE", "b.dds"), new XAttribute("NEWTEXTURE", "b1.dds"))),
+                    new XElement("CONDITION", new XAttribute("LIVERY", 53),
+                        new XElement("REPLACE", new XAttribute("MATERIAL", "paint"), new XAttribute("NEWMATERIAL", "generic.mtx")),
+                        new XElement("REPLACE", new XAttribute("TEXTURE", "legacy.dds"), new XAttribute("NEWTEXTURE", "legacy1.dds")))));
+
+            bool changed = RcfLiverySlotPatcher.TryEnsureSlotCount(doc.ToString(), requiredSlotCount: 4, BaseLiveryNumber,
+                NewSlotTexturePath, out string patchedXml, out _);
+
+            Assert.IsTrue(changed);
+            var root = XDocument.Parse(patchedXml).Root!;
+            var newCondition = root.Elements("CONDITION").Single(c => (int)c.Attribute("LIVERY")! == 54);
+            var replaces = newCondition.Elements("REPLACE").ToList();
+            Assert.AreEqual(1, replaces.Count, "Should have cloned slot 52's single plain-TEXTURE replace, not slot 53's MATERIAL-based one.");
+            Assert.AreEqual("b.dds", (string)replaces[0].Attribute("TEXTURE")!);
+            Assert.IsNull(replaces[0].Attribute("MATERIAL"));
+            Assert.AreEqual("new_54.dds", (string)replaces[0].Attribute("NEWTEXTURE")!);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace AMS2ChEd.Tests
         public void Resolve_ModelOverflowsAndPatchSucceeds_RaisesEffectiveCapacityToRequiredCount()
         {
             var patcher = new Mock<IVehicleLiverySlotPatcher>();
-            patcher.Setup(p => p.EnsureSlots("C:\\AMS2", "m1", 7))
+            patcher.Setup(p => p.EnsureSlots("C:\\AMS2", "m1", 7, It.IsAny<IReadOnlyList<string>>()))
                 .Returns(new SlotPatchOutcome { Status = SlotPatchStatus.Patched });
 
             var required = new Dictionary<string, int> { ["m1"] = 7, ["m2"] = 6 };
@@ -54,7 +54,7 @@ namespace AMS2ChEd.Tests
             // AlreadySufficient means the live .rcf already has enough slots (e.g. patched by an
             // earlier race this season) - the allocator should still see no overflow.
             var patcher = new Mock<IVehicleLiverySlotPatcher>();
-            patcher.Setup(p => p.EnsureSlots("C:\\AMS2", "m1", 7))
+            patcher.Setup(p => p.EnsureSlots("C:\\AMS2", "m1", 7, It.IsAny<IReadOnlyList<string>>()))
                 .Returns(new SlotPatchOutcome { Status = SlotPatchStatus.AlreadySufficient });
 
             var required = new Dictionary<string, int> { ["m1"] = 7 };
@@ -68,7 +68,7 @@ namespace AMS2ChEd.Tests
         public void Resolve_ModelOverflowsAndPatchFails_LeavesDeclaredCapacityUntouched()
         {
             var patcher = new Mock<IVehicleLiverySlotPatcher>();
-            patcher.Setup(p => p.EnsureSlots("C:\\AMS2", "m1", 7))
+            patcher.Setup(p => p.EnsureSlots("C:\\AMS2", "m1", 7, It.IsAny<IReadOnlyList<string>>()))
                 .Returns(new SlotPatchOutcome { Status = SlotPatchStatus.Failed, Message = "disk full" });
 
             var required = new Dictionary<string, int> { ["m1"] = 7 };
@@ -88,7 +88,7 @@ namespace AMS2ChEd.Tests
         public void Resolve_ModelOverflowsAndPatchSkipped_LeavesDeclaredCapacityUntouched(SlotPatchStatus status)
         {
             var patcher = new Mock<IVehicleLiverySlotPatcher>();
-            patcher.Setup(p => p.EnsureSlots("C:\\AMS2", "m1", 7)).Returns(new SlotPatchOutcome { Status = status });
+            patcher.Setup(p => p.EnsureSlots("C:\\AMS2", "m1", 7, It.IsAny<IReadOnlyList<string>>())).Returns(new SlotPatchOutcome { Status = status });
 
             var required = new Dictionary<string, int> { ["m1"] = 7 };
 
@@ -117,6 +117,25 @@ namespace AMS2ChEd.Tests
 
             Assert.IsNull(result);
             patcher.VerifyNoOtherCalls();
+        }
+
+        [TestMethod]
+        public void Resolve_ModelOverflows_PassesOtherDeclaredModelsAsTextureReuseSiblingsExcludingItself()
+        {
+            var declared = new List<(string Model, int Slots)> { ("m1", 4), ("m2", 6), ("m3", 5) };
+            IReadOnlyList<string>? capturedSiblings = null;
+
+            var patcher = new Mock<IVehicleLiverySlotPatcher>();
+            patcher.Setup(p => p.EnsureSlots("C:\\AMS2", "m1", 7, It.IsAny<IReadOnlyList<string>>()))
+                .Callback<string, string, int, IReadOnlyList<string>>((_, _, _, siblings) => capturedSiblings = siblings)
+                .Returns(new SlotPatchOutcome { Status = SlotPatchStatus.Patched });
+
+            var required = new Dictionary<string, int> { ["m1"] = 7 };
+
+            EffectiveCapacityResolver.Resolve(required, declared, patcher.Object, "C:\\AMS2", null);
+
+            Assert.IsNotNull(capturedSiblings);
+            CollectionAssert.AreEqual(new[] { "m2", "m3" }, capturedSiblings!.ToList());
         }
 
         [TestMethod]

@@ -24,7 +24,10 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
 
         public static BffPakSnapshot Read(byte[] fileBytes)
         {
-            if (fileBytes.Length < HeaderSize || fileBytes[0] != (byte)'P' || fileBytes[1] != (byte)'A' || fileBytes[2] != (byte)'K' || fileBytes[3] != (byte)' ')
+            // On disk the magic reads as the bytes ' ', 'K', 'A', 'P' (0x20 0x4B 0x41 0x50) - the
+            // ASCII "PAK " stored byte-reversed, confirmed against real Formula_Hitech_G1M3.bff/
+            // vehiclespersistent.bff files - not "P", "A", "K", " " in that literal order.
+            if (fileBytes.Length < HeaderSize || fileBytes[0] != (byte)' ' || fileBytes[1] != (byte)'K' || fileBytes[2] != (byte)'A' || fileBytes[3] != (byte)'P')
                 throw new InvalidDataException("Not a recognized .bff pak file (bad magic).");
 
             byte[] header = fileBytes.AsSpan(0, HeaderSize).ToArray();

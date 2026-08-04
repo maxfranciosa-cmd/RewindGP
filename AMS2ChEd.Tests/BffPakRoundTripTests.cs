@@ -1,4 +1,5 @@
 using System.Buffers.Binary;
+using System.Linq;
 using System.Text;
 using Ams2ChEd.Business.AMS2.PakPatching;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -45,8 +46,10 @@ namespace AMS2ChEd.Tests
 
             byte[] file = new byte[dataEnd];
 
-            // Header
-            "PAK "u8.CopyTo(file);
+            // Header - magic is "PAK " stored byte-reversed on disk (see BffPakReader.Read).
+            byte[] magic = "PAK "u8.ToArray();
+            Array.Reverse(magic);
+            magic.CopyTo(file, 0);
             BinaryPrimitives.WriteUInt32LittleEndian(file.AsSpan(0x04), 1); // version
             BinaryPrimitives.WriteUInt32LittleEndian(file.AsSpan(0x08), fileCount);
             BinaryPrimitives.WriteUInt64LittleEndian(file.AsSpan(0x0C), (ulong)rcfOffset); // dataOffset
@@ -193,6 +196,72 @@ namespace AMS2ChEd.Tests
                     .AsSpan((int)patchedEntry.DataOffset, (int)patchedEntry.PakSize).ToArray();
 
                 Assert.AreEqual(Jamcrc32.Compute(onDiskBytes), patchedEntry.Crc);
+            }
+            finally
+            {
+                if (File.Exists(tempPath)) File.Delete(tempPath);
+            }
+        }
+
+        [TestMethod]
+        public void AddEntry_AppendsNewEntry_ExistingEntriesStayByteIdenticalAndNewEntryDecodesCorrectly()
+        {
+            byte[] originalRcf = Encoding.UTF8.GetBytes(
+                "<REPLACEMENT_SYSTEM><INPUTS><INPUT NAME=\"LIVERY\" OPTIONS=\"6\" /></INPUTS></REPLACEMENT_SYSTEM>");
+            byte[] otherPlaintext = Encoding.ASCII.GetBytes("uncompressed entry data, unchanged");
+
+            byte[] fileBytes = BuildFakePak(originalRcf, otherPlaintext, out _, out _);
+            var snapshot = BffPakReader.Read(fileBytes);
+
+            const string newPath = @"vehicles\testcar\new_texture.dds";
+            byte[] newPlaintext = Encoding.ASCII.GetBytes("pretend this is compressed dds texture data");
+
+            string tempPath = Path.Combine(Path.GetTempPath(), $"bff-addentry-{Guid.NewGuid():N}.bff");
+            try
+            {
+                BffPakEntryInserter.AddEntry(snapshot, newPath, newPlaintext, compressionType: 0, tempPath);
+
+                var patchedSnapshot = BffPakReader.Read(tempPath);
+                Assert.AreEqual(3, patchedSnapshot.Entries.Count, "Should have the original 2 entries plus the new one.");
+
+                var newEntry = BffPakReader.TryFindEntryByPath(patchedSnapshot, newPath);
+                Assert.IsNotNull(newEntry);
+                CollectionAssert.AreEqual(newPlaintext, BffEntryExtractor.ExtractPlaintext(patchedSnapshot, newEntry!));
+
+                var rcfEntry = BffPakReader.TryFindEntryByPath(patchedSnapshot, RcfPath);
+                Assert.IsNotNull(rcfEntry);
+                CollectionAssert.AreEqual(originalRcf, BffEntryExtractor.ExtractPlaintext(patchedSnapshot, rcfEntry!));
+
+                var otherEntry = BffPakReader.TryFindEntryByPath(patchedSnapshot, DataPath);
+                Assert.IsNotNull(otherEntry);
+                CollectionAssert.AreEqual(otherPlaintext, BffEntryExtractor.ExtractPlaintext(patchedSnapshot, otherEntry!));
+            }
+            finally
+            {
+                if (File.Exists(tempPath)) File.Delete(tempPath);
+            }
+        }
+
+        [TestMethod]
+        public void AddEntry_PathAlreadyExists_Throws()
+        {
+            byte[] fileBytes = BuildFakePak(Encoding.UTF8.GetBytes("<x/>"), Encoding.ASCII.GetBytes("y"), out _, out _);
+            var snapshot = BffPakReader.Read(fileBytes);
+
+            string tempPath = Path.Combine(Path.GetTempPath(), $"bff-addentry-dup-{Guid.NewGuid():N}.bff");
+            try
+            {
+                bool threw = false;
+                try
+                {
+                    BffPakEntryInserter.AddEntry(snapshot, RcfPath, Encoding.ASCII.GetBytes("z"), compressionType: 0, tempPath);
+                }
+                catch (InvalidOperationException)
+                {
+                    threw = true;
+                }
+
+                Assert.IsTrue(threw, "Adding an entry at a path that already exists should throw InvalidOperationException.");
             }
             finally
             {

@@ -5,20 +5,100 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
     /// <summary>
     /// Bumps a car's .rcf "REPLACEMENT_SYSTEM" livery slot count, per
     /// AMS2-livery-modding-knowledge.md's "Adding a genuinely new slot" section:
-    /// bump &lt;INPUT NAME="LIVERY" OPTIONS="N"&gt;, and for each new slot id, clone the
-    /// highest-existing &lt;NAME LIVERY="id"&gt; and &lt;CONDITION LIVERY="id"&gt; blocks (nothing in the
-    /// schema requires the underlying texture reference to be unique, so bootstrapping a new slot
-    /// by duplicating an existing one's CONDITION is safe - the loose Overrides XML is what
-    /// actually points it at real content).
+    /// bump &lt;INPUT NAME="LIVERY" OPTIONS="N"&gt;, and for each new slot id, clone an
+    /// existing &lt;NAME LIVERY="id"&gt; and &lt;CONDITION LIVERY="id"&gt; pair, then repoint the clone's
+    /// NEWTEXTURE at a caller-supplied path (see newSlotTexturePath below) rather than leaving it
+    /// pointed at the template's own texture. Confirmed against a real install this reuse actually
+    /// needs: a new LIVERY id whose NEWTEXTURE reuses an *existing* slot's texture reference does
+    /// not render in-game even though every other detail is otherwise correct - only a genuinely
+    /// new, distinct texture entry physically present in the pak works. Prefers the highest-id
+    /// slot that uses a plain TEXTURE replace over one using a MATERIAL replace - see the
+    /// template-selection comment below.
     /// </summary>
     public static class RcfLiverySlotPatcher
     {
         private const string LiveryInputName = "LIVERY";
 
+        /// <summary>Reads a .rcf's currently-declared LIVERY slot count without patching anything.</summary>
+        public static int PeekSlotCount(string rcfXml)
+        {
+            var doc = XDocument.Parse(rcfXml);
+            var root = doc.Root ?? throw new InvalidDataException("Empty .rcf document.");
+            var inputElement = root.Element("INPUTS")?.Elements("INPUT")
+                .FirstOrDefault(e => (string?)e.Attribute("NAME") == LiveryInputName)
+                ?? throw new InvalidDataException("No <INPUT NAME=\"LIVERY\"> element found in .rcf.");
+
+            return (int?)inputElement.Attribute("OPTIONS")
+                ?? throw new InvalidDataException("<INPUT NAME=\"LIVERY\"> has no OPTIONS attribute.");
+        }
+
+        /// <summary>
+        /// Finds the lowest-id plain-TEXTURE-replace CONDITION's NEWTEXTURE value - used to pick a
+        /// known-working texture reference to reuse from a sibling model (Ams2VehicleLiverySlotPatcher's
+        /// sibling-texture-reuse path). Returns null if the .rcf can't be parsed or has no such slot.
+        /// </summary>
+        public static string? TryGetReusableTexturePath(string rcfXml)
+        {
+            XElement? root;
+            try { root = XDocument.Parse(rcfXml).Root; }
+            catch { return null; }
+            if (root == null) return null;
+
+            var candidate = root.Elements("CONDITION")
+                .Where(e => e.Attribute("LIVERY") != null && IsPlainTextureCondition(e))
+                .OrderBy(e => (int)e.Attribute("LIVERY")!)
+                .FirstOrDefault();
+
+            var textureReplace = candidate?.Elements("REPLACE").FirstOrDefault(r => r.Attribute("TEXTURE") != null);
+            return (string?)textureReplace?.Attribute("NEWTEXTURE");
+        }
+
+        /// <summary>
+        /// Every NEWTEXTURE value already referenced by any CONDITION in this .rcf - used to tell
+        /// an already-in-use texture apart from a genuine spare (see
+        /// Ams2VehicleLiverySlotPatcher.TryFindSpareTextures). Case-insensitive since real .rcf
+        /// paths mix case inconsistently (e.g. "Formula_Hitech_g1m3" vs "formula_hitech_g1m3").
+        /// </summary>
+        public static HashSet<string> GetUsedTexturePaths(string rcfXml)
+        {
+            var result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            XElement? root;
+            try { root = XDocument.Parse(rcfXml).Root; }
+            catch { return result; }
+            if (root == null) return result;
+
+            foreach (var value in root.Elements("CONDITION")
+                .SelectMany(c => c.Elements("REPLACE"))
+                .Select(r => (string?)r.Attribute("NEWTEXTURE"))
+                .Where(v => !string.IsNullOrEmpty(v)))
+            {
+                result.Add(value!);
+            }
+            return result;
+        }
+
+        // Some cars mix a plain TEXTURE-replace pattern (what the loose Overrides XML's
+        // LIVERY_OVERRIDE/<TEXTURE NAME="BODY"> actually controls) with a MATERIAL-replace pattern
+        // on their last few slots (observed on formula_hitech_g1m3's ids 55/56, which route paint
+        // through a shared Vehicles\_Generic_Materials .mtx). A plain-TEXTURE slot is both the safe
+        // clone template (see TryEnsureSlotCount) and the safe slot to borrow a texture reference
+        // from (see TryGetReusableTexturePath).
+        private static bool IsPlainTextureCondition(XElement c)
+        {
+            var replaces = c.Elements("REPLACE").ToList();
+            return replaces.Count > 0 && replaces.All(r => r.Attribute("MATERIAL") == null);
+        }
+
+        /// <param name="newSlotTexturePath">
+        /// Given a new LIVERY id, returns the NEWTEXTURE value its cloned CONDITION should use -
+        /// the caller (Ams2VehicleLiverySlotPatcher) is expected to have already ensured a texture
+        /// entry actually exists at that path in the corresponding _Livery.bff pak(s).
+        /// </param>
         public static bool TryEnsureSlotCount(
             string rcfXml,
             int requiredSlotCount,
             int baseLiveryNumber,
+            Func<int, string> newSlotTexturePath,
             out string patchedXml,
             out int currentSlotCount)
         {
@@ -50,14 +130,28 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
 
             var conditionElements = root.Elements("CONDITION").ToList();
 
-            var templateName = nameChildren
-                .OrderByDescending(e => (int?)e.Attribute("LIVERY") ?? int.MinValue)
-                .First();
-            int templateId = (int)templateName.Attribute("LIVERY")!;
+            // Pick the clone template by CONDITION shape, not just the highest LIVERY id - see
+            // IsPlainTextureCondition's doc comment. Prefer the highest-id plain-TEXTURE condition;
+            // only fall back to the overall highest id (old behavior) if every existing slot uses
+            // the MATERIAL pattern.
+            var conditionsWithId = conditionElements.Where(e => e.Attribute("LIVERY") != null).ToList();
+            var preferredConditions = conditionsWithId.Where(IsPlainTextureCondition).ToList();
 
-            var templateCondition = conditionElements
-                .FirstOrDefault(e => (int?)e.Attribute("LIVERY") == templateId)
-                ?? throw new InvalidDataException($"No <CONDITION LIVERY=\"{templateId}\"> found matching the template <NAME> slot.");
+            var templateCondition = (preferredConditions.Count > 0 ? preferredConditions : conditionsWithId)
+                .OrderByDescending(e => (int)e.Attribute("LIVERY")!)
+                .FirstOrDefault()
+                ?? throw new InvalidDataException("No <CONDITION LIVERY=\"...\"> element found to use as a clone template.");
+            int templateId = (int)templateCondition.Attribute("LIVERY")!;
+
+            var templateName = nameChildren.FirstOrDefault(e => (int?)e.Attribute("LIVERY") == templateId)
+                ?? throw new InvalidDataException($"No <NAME LIVERY=\"{templateId}\"> found matching the template <CONDITION> slot.");
+
+            // Insert new CONDITION elements right after the template (grouped with the other
+            // LIVERY conditions), not appended at the very end of root - a real .rcf interleaves
+            // CONDITION blocks for multiple INPUTs as flat root-level siblings (LIVERY conditions,
+            // then TIRE conditions, then DIRTTYPE conditions, ...), and root.Add() was dropping the
+            // new slot after all of them, physically separated from every other LIVERY condition.
+            var conditionInsertionPoint = templateCondition;
 
             for (int newId = baseLiveryNumber + currentSlotCount; newId < baseLiveryNumber + requiredSlotCount; newId++)
             {
@@ -68,7 +162,17 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
 
                 var newCondition = new XElement(templateCondition);
                 newCondition.SetAttributeValue("LIVERY", newId);
-                root.Add(newCondition);
+
+                // Both known real-world CONDITION shapes (plain-TEXTURE, and the MATERIAL-replace
+                // fallback which still ends with one TEXTURE replace targeting a legacy/placeholder
+                // asset) have exactly one REPLACE with a TEXTURE attribute - that's the one whose
+                // NEWTEXTURE needs to point at this new slot's own texture, not the template's.
+                var textureReplace = newCondition.Elements("REPLACE").FirstOrDefault(r => r.Attribute("TEXTURE") != null)
+                    ?? throw new InvalidDataException($"Template <CONDITION LIVERY=\"{templateId}\"> has no <REPLACE TEXTURE=\"...\"> element to repoint.");
+                textureReplace.SetAttributeValue("NEWTEXTURE", newSlotTexturePath(newId));
+
+                conditionInsertionPoint.AddAfterSelf(newCondition);
+                conditionInsertionPoint = newCondition;
             }
 
             inputElement.SetAttributeValue("OPTIONS", requiredSlotCount);

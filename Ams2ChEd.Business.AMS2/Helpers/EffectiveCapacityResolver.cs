@@ -32,7 +32,16 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                 if (declaredIdx < 0 || required <= effectiveCapacities[declaredIdx].Slots)
                     continue; // no overflow for this model this race - nothing to patch
 
-                var outcome = slotPatcher.EnsureSlots(ams2RootDirectory, model, required);
+                // Any other model declared for this class/season is a candidate to borrow a
+                // working texture from for the new slot(s) - same priority order
+                // SlotCapacityAllocator already uses for redirection, so texture-reuse and
+                // overflow-redirection preferences stay consistent with each other.
+                var siblingModels = effectiveCapacities
+                    .Where(m => m.Model != model)
+                    .Select(m => m.Model)
+                    .ToList();
+
+                var outcome = slotPatcher.EnsureSlots(ams2RootDirectory, model, required, siblingModels);
                 if (outcome.Status is SlotPatchStatus.Patched or SlotPatchStatus.AlreadySufficient)
                 {
                     effectiveCapacities[declaredIdx] = (model, Math.Max(effectiveCapacities[declaredIdx].Slots, required));
