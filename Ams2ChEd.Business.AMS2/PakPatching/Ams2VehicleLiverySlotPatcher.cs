@@ -438,11 +438,15 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
         /// exactly why -showLiveryIDs showed the new slot as valid while it still rendered empty:
         /// engine-relevant _hr resolution kept using the still-6-slot original.
         /// </summary>
-        private static List<string> GetCandidateRcfPaths(string carModel) => new()
+        private static List<string> GetCandidateRcfPaths(string carModel)
         {
-            Path.Combine("vehicles", carModel, $"{carModel}.rcf"),
-            Path.Combine("vehicles", carModel, $"{carModel}_hr.rcf"),
-        };
+            string pakModel = PakModelNameExceptions.Resolve(carModel);
+            return new()
+            {
+                Path.Combine("vehicles", pakModel, $"{pakModel}.rcf"),
+                Path.Combine("vehicles", pakModel, $"{pakModel}_hr.rcf"),
+            };
+        }
 
         /// <summary>
         /// Real .rcf entries are UTF-8-with-BOM (confirmed against a real install) - XDocument.Parse
@@ -521,14 +525,15 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
         {
             try
             {
+                string pakSiblingModel = PakModelNameExceptions.Resolve(siblingModel);
                 string vehiclesFolder = Path.Combine(ams2InstallFolder, "Pakfiles", "Vehicles");
-                string siblingRcfPakPath = Path.Combine(vehiclesFolder, $"{siblingModel}{variantSuffix}.bff");
-                string siblingLiveryPakPath = Path.Combine(vehiclesFolder, $"{siblingModel}{variantSuffix}_Livery.bff");
+                string siblingRcfPakPath = Path.Combine(vehiclesFolder, $"{pakSiblingModel}{variantSuffix}.bff");
+                string siblingLiveryPakPath = Path.Combine(vehiclesFolder, $"{pakSiblingModel}{variantSuffix}_Livery.bff");
                 if (!File.Exists(siblingRcfPakPath) || !File.Exists(siblingLiveryPakPath))
                     return null;
 
                 var rcfSnapshot = BffPakReader.Read(siblingRcfPakPath);
-                var rcfEntry = BffPakReader.TryFindEntryByPath(rcfSnapshot, Path.Combine("vehicles", siblingModel, $"{siblingModel}.rcf"));
+                var rcfEntry = BffPakReader.TryFindEntryByPath(rcfSnapshot, Path.Combine("vehicles", pakSiblingModel, $"{pakSiblingModel}.rcf"));
                 if (rcfEntry == null)
                     return null;
 

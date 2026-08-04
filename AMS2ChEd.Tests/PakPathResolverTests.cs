@@ -47,6 +47,20 @@ namespace AMS2ChEd.Tests
         }
 
         [TestMethod]
+        public void GetPerCarPakPaths_ExceptionModel_ResolvesToPakName()
+        {
+            var result = PakPathResolver.GetPerCarPakPaths(InstallFolder, "formula_v10_g2_b", _ => true);
+
+            var expected = new[]
+            {
+                Path.Combine(InstallFolder, "Pakfiles", "Vehicles", "formula_v10.bff"),
+                Path.Combine(InstallFolder, "Pakfiles", "Vehicles", "formula_v10_LD.bff"),
+                Path.Combine(InstallFolder, "Pakfiles", "Vehicles", "formula_v10_HD.bff"),
+            };
+            CollectionAssert.AreEqual(expected, result.ToList());
+        }
+
+        [TestMethod]
         public void GetPersistentPakPath_ReturnsExpectedPath()
         {
             string result = PakPathResolver.GetPersistentPakPath(InstallFolder);
@@ -80,6 +94,20 @@ namespace AMS2ChEd.Tests
             var result = PakPathResolver.GetLiveryPakPaths(InstallFolder, Model, _ => false);
 
             Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void GetLiveryPakPaths_ExceptionModel_ResolvesToPakName()
+        {
+            var result = PakPathResolver.GetLiveryPakPaths(InstallFolder, "formula_v10_g2_m", _ => true);
+
+            var expected = new[]
+            {
+                Path.Combine(InstallFolder, "Pakfiles", "Vehicles", "formula_v10_m_Livery.bff"),
+                Path.Combine(InstallFolder, "Pakfiles", "Vehicles", "formula_v10_m_HD_Livery.bff"),
+                Path.Combine(InstallFolder, "Pakfiles", "Vehicles", "formula_v10_m_LD_Livery.bff"),
+            };
+            CollectionAssert.AreEqual(expected, result.ToList());
         }
     }
 }

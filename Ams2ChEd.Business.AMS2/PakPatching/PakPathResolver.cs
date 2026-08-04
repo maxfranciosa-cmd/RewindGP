@@ -12,11 +12,13 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
         {
             string vehiclesFolder = Path.Combine(ams2InstallFolder, "Pakfiles", "Vehicles");
 
+            string pakModelToSearch = PakModelNameExceptions.Resolve(carModel);
+
             var candidates = new[]
             {
-                Path.Combine(vehiclesFolder, $"{carModel}.bff"),
-                Path.Combine(vehiclesFolder, $"{carModel}_LD.bff"),
-                Path.Combine(vehiclesFolder, $"{carModel}_HD.bff"),
+                Path.Combine(vehiclesFolder, $"{pakModelToSearch}.bff"),
+                Path.Combine(vehiclesFolder, $"{pakModelToSearch}_LD.bff"),
+                Path.Combine(vehiclesFolder, $"{pakModelToSearch}_HD.bff"),
             };
 
             return candidates.Where(fileExists).ToList();
@@ -35,12 +37,13 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
         public static IReadOnlyList<string> GetLiveryPakPaths(string ams2InstallFolder, string carModel, Func<string, bool> fileExists)
         {
             string vehiclesFolder = Path.Combine(ams2InstallFolder, "Pakfiles", "Vehicles");
+            string pakModelToSearch = PakModelNameExceptions.Resolve(carModel);
 
             var candidates = new[]
             {
-                Path.Combine(vehiclesFolder, $"{carModel}_Livery.bff"),
-                Path.Combine(vehiclesFolder, $"{carModel}_HD_Livery.bff"),
-                Path.Combine(vehiclesFolder, $"{carModel}_LD_Livery.bff"),
+                Path.Combine(vehiclesFolder, $"{pakModelToSearch}_Livery.bff"),
+                Path.Combine(vehiclesFolder, $"{pakModelToSearch}_HD_Livery.bff"),
+                Path.Combine(vehiclesFolder, $"{pakModelToSearch}_LD_Livery.bff"),
             };
 
             return candidates.Where(fileExists).ToList();
