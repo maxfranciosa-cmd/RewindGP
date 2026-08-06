@@ -3,6 +3,7 @@ using Ams2ChEd.Business.AMS2.Settings;
 using Ams2ChEd.Business.AMS2.Settings.Storage.Contracts;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
+using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Settings.Contracts;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.SeasonPackEditor.Services;
@@ -53,11 +54,12 @@ namespace AMS2ChEd.SeasonPackEditor
             services.AddSingleton<IGameStorage, GameStorage>();
             services.AddSingleton<IAccoladesLoader, AccoladesLoader>();
             services.AddSingleton<IAms2AppSettingsStorage, Ams2SettingsStorage>();
-            // Ams2StorageFactory's constructor requires IGameInstallSettingsStorage (post game-module
-            // decoupling refactor) - separate from IAms2AppSettingsStorage above, which older
-            // SeasonPackCreator dialogs still consume directly.
-            services.AddSingleton<IGameInstallSettingsStorage, Ams2GameInstallSettingsStorage>();
-            services.AddTransient<Ams2StorageFactory>();
+            IGameModule gameModule = new Ams2GameModule();
+            services.AddSingleton(gameModule);
+            gameModule.RegisterServices(services, new GameModuleStartupOptions
+            {
+                DeveloperMode = false
+            });
         }
     }
 }

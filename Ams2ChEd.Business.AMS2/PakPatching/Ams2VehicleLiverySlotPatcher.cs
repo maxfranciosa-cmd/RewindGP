@@ -285,10 +285,11 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
         private static List<string> GetCandidateRcfPaths(string carModel)
         {
             string pakModel = PakModelNameExceptions.Resolve(carModel);
+            string pakModelFolder = PakModelNameExceptions.ResolveRcfFolder(carModel);
             return new()
             {
-                Path.Combine("vehicles", pakModel, $"{pakModel}.rcf"),
-                Path.Combine("vehicles", pakModel, $"{pakModel}_hr.rcf"),
+                Path.Combine("vehicles", pakModelFolder, $"{pakModel}.rcf"),
+                Path.Combine("vehicles", pakModelFolder, $"{pakModel}_hr.rcf"),
             };
         }
 
