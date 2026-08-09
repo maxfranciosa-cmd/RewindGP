@@ -327,7 +327,7 @@ namespace AMS2ChEd.Views
 
             var random = new Random();
             string teamListPhrase = FormatTeamList(teamNames);
-            string seasonsPhrase = $"{seasons} season{(seasons != 1 ? "s" : "")}";
+            string seasonsPhrase = seasons != 1 ? "season" : $"{seasons} seasons";
 
             // AccoladesAtStart can carry a pre-save baseline for this driver, meaning their real
             // career may stretch back further than this save's own recorded history - so the team
@@ -346,9 +346,9 @@ namespace AMS2ChEd.Views
             {
                 var variants = new[]
                 {
-                    $"Across {seasonsPhrase}, they raced for {teamListPhrase}.",
-                    $"Their {seasonsPhrase} on the grid were spent racing for {teamListPhrase}.",
-                    $"Over {seasonsPhrase}, they represented {teamListPhrase}."
+                    $"Across {(seasons == 1 ? "a "  : " ")}{seasonsPhrase}, they raced for {teamListPhrase}.",
+                    $"Their {(seasons == 1 ? "only "  : " ")}{seasonsPhrase} on the grid were spent racing for {teamListPhrase}.",
+                    $"Over {(seasons == 1 ? "only one "  : " ")}{seasonsPhrase}, they represented {teamListPhrase}."
                 };
                 return variants[random.Next(variants.Length)];
             }

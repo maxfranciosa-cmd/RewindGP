@@ -312,7 +312,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             unemployedDrivers.AddRange(unprocessedDrivers);
 
             // remove retiring drivers from the drivers pool and add them to the retired drivers' list
-            var retiredDrivers = saveGame.Drivers.Where(d => idsOfRetiringDrivers.Contains(d.DriverId)).ToList();
+            var retiredDrivers = saveGame.Drivers.Where(d => idsOfRetiringDrivers.Contains(d.DriverId)).Cast<DriverData>().ToList();
             saveGame.Drivers = saveGame.Drivers.Except(retiredDrivers);
             saveGame.RetiredDrivers = saveGame.RetiredDrivers == null ? retiredDrivers : saveGame.RetiredDrivers.Concat(retiredDrivers);
 
