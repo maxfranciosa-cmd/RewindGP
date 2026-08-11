@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Ams2Interop</RootNamespace>
+    <AssemblyName>Ams2Interop</AssemblyName>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+
+    <!--
+      This library P/Invokes OpenProcess/ReadProcessMemory/CreateRemoteThread against a running
+      AMS2AVX.exe and is Windows-only and x64-only by construction - it reads/writes a 64-bit
+      target process's memory using fixed offsets derived from a specific game build. See
+      README.md. Consumer-agnostic on purpose: any application that needs to read/configure a
+      live AMS2 session can reference this project directly, not just AMS2ChEd.
+    -->
+  </PropertyGroup>
+
+</Project>

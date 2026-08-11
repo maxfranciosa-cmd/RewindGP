@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS2ChEd.SeasonPackCreator"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS2ChEd.Updater", "..\AMS2ChEd.Updater\AMS2ChEd.Updater.csproj", "{F9B679D4-4C49-4B6D-BF15-DCBCAEE1B107}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ams2Interop", "..\Ams2Interop\Ams2Interop.csproj", "{12E171DB-095D-472C-8340-B95414C71C87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{F9B679D4-4C49-4B6D-BF15-DCBCAEE1B107}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9B679D4-4C49-4B6D-BF15-DCBCAEE1B107}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9B679D4-4C49-4B6D-BF15-DCBCAEE1B107}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12E171DB-095D-472C-8340-B95414C71C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12E171DB-095D-472C-8340-B95414C71C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12E171DB-095D-472C-8340-B95414C71C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12E171DB-095D-472C-8340-B95414C71C87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
