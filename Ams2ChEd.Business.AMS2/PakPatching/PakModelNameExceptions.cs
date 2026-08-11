@@ -23,6 +23,7 @@ namespace Ams2ChEd.Business.AMS2.PakPatching
             {
                 ["formula_v10_g2_b"] = "formula_v10",
                 ["formula_v10_g2_m"] = "formula_v10",
+                ["formula_hitech_g1m4"] = "formula_hitech_g1m2",
             };
 
         /// <summary>Returns the pak/.rcf-internal name for a car model id, or the id unchanged if it has no known exception.</summary>
