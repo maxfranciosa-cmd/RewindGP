@@ -74,7 +74,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         {
             return new PracticeQualifySessionConfig
             {
-                DurationValue = 60, // 1 hour, in minutes - Qualifying is always time-based
+                DurationValue = 30, // 30 minutes - Qualifying is always time-based
                 StartHour = 14,     // 2pm
                 Weather = new SessionWeatherConfig { HistoricalWeather = false, Slots = [WeatherType.Random] },
             };

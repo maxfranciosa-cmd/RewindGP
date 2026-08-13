@@ -1,31 +1,39 @@
-using System.Runtime.InteropServices;
+using System.Diagnostics;
 using AMS2ChEd.Business.Settings.Contracts;
-using Steamworks;
 
 namespace Ams2ChEd.Business.AMS2.Helpers
 {
     /// <summary>
-    /// Checks DLC ownership via the Steam client (Steamworks.NET), keyed by the same dlcId strings
-    /// track_mapping.json uses. Loads steam_api64.dll straight out of the player's own AMS2 install
-    /// folder (via IGameInstallSettingsStorage) instead of bundling a copy with this app - every
-    /// Steam game ships its own copy of this DLL next to its own exe, and AMS2 is already a hard
-    /// prerequisite for this whole app, so it's guaranteed to be there.
+    /// Checks DLC ownership via the Steam client, keyed by the same dlcId strings track_mapping.json
+    /// uses. Delegates the actual Steam call to the separate AMS2ChEd.SteamDlcCheck helper process
+    /// (copied next to this app's own exe at build time, same pattern as AMS2ChEd.Updater) rather
+    /// than calling steam_api64.dll in-process.
     ///
-    /// Initializes the Steam API against AMS2's own AppID (1066890) - this app isn't itself a
-    /// registered Steamworks title, so it fakes that context via the SteamAppId env var rather than
-    /// SteamAPI_RestartAppIfNecessary (which would try to relaunch THIS app through Steam using
-    /// AMS2's AppID, which is wrong).
+    /// That's a deliberate choice, not an accident of packaging: an earlier version of this class
+    /// P/Invoked steam_api64.dll directly, faking AMS2's own AppID (1066890) via SteamAPI_Init
+    /// straight from inside Rewind GP's own process. SteamAPI_Init/SteamAPI_Shutdown does not
+    /// behave as a clean, self-contained bracket - Init registers the CALLING PROCESS with Steam as
+    /// "the one running AMS2" for as long as that process stays alive, and Shutdown does not undo
+    /// that registration. Since Rewind GP is a long-lived process, that meant Steam treated Rewind
+    /// GP itself as "running AMS2" for its entire lifetime, and `steam://run` for the real
+    /// AMS2AVX.exe then silently refused to do anything until Rewind GP was closed
+    /// (Ams2RaceLaunchAssistant's launch step would just hang/no-op). Running the check in a
+    /// throwaway helper process that exits immediately after answering means whatever Steam does to
+    /// that PID's registration dies with it - Rewind GP itself never registers as "running AMS2" at
+    /// all. See AMS2ChEd.SteamDlcCheck/Program.cs for the actual SteamAPI calls.
     ///
-    /// Fails safe: if the AMS2 install folder isn't configured yet, steam_api64.dll isn't found
-    /// there, Steam isn't running, or dlcId isn't in the map below, IsOwned returns false - the
-    /// caller (Ams2GrandPrixTrackResolver) already treats false as "fall back to DefaultTrackId",
-    /// which is the conservative behavior this class's original stub intended but didn't actually
-    /// implement.
+    /// Resolves every known DLC in one helper-process invocation (see <see cref="WarmUpAsync"/>),
+    /// not once per IsOwned call - callers that know AMS2 isn't running yet (Ams2RaceLaunchAssistant)
+    /// call that before launching it, so the (much safer, but still real) one-time Steam touch never
+    /// overlaps with AMS2's own live Steam session either.
+    ///
+    /// Fails safe: if the AMS2 install folder isn't configured yet, the helper exe is missing, Steam
+    /// isn't running, or dlcId isn't in the map below, IsOwned returns false - the caller
+    /// (Ams2GrandPrixTrackResolver) already treats false as "fall back to DefaultTrackId".
     /// </summary>
-    public sealed class Ams2DlcOwnershipChecker : IAms2DlcOwnershipChecker, IDisposable
+    public sealed class Ams2DlcOwnershipChecker : IAms2DlcOwnershipChecker
     {
-        private const uint Ams2AppId = 1066890;
-        private const string NativeLibraryName = "steam_api64"; // matches Steamworks.NET's own DllImport name
+        private static readonly TimeSpan HelperTimeout = TimeSpan.FromSeconds(15);
 
         /// <summary>
         /// dlcId (matches track_mapping.json's dlc_id field) -> every Steam AppID that grants that
@@ -34,8 +42,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         /// rather than as a proper Steam package/sub (which would already grant the individual
         /// AppID's own subscription and not need listing here). IsOwned is true if the player is
         /// subscribed to ANY of the ids for that key. Sourced from Automobilista 2's Steam store DLC
-        /// listing - spot-check against your own Steam library/SteamDB before relying on this (see
-        /// this class's own top doc comment for where to cross-check).
+        /// listing - spot-check against your own Steam library/SteamDB before relying on this.
         /// </summary>
         private static readonly Dictionary<string, uint[]> DlcSteamAppIds = new()
         {
@@ -62,72 +69,110 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         };
 
         private readonly IGameInstallSettingsStorage _installSettingsStorage;
-        private readonly bool _steamAvailable;
+        private readonly SemaphoreSlim _warmUpLock = new(1, 1);
+        private HashSet<uint> _installedAppIds; // null until WarmUpAsync/IsOwned has run once
 
         public Ams2DlcOwnershipChecker(IGameInstallSettingsStorage installSettingsStorage)
         {
             _installSettingsStorage = installSettingsStorage;
-            RegisterNativeLibraryResolver();
-            _steamAvailable = TryInitSteam();
         }
 
         public bool IsOwned(string dlcId)
         {
-            if (!_steamAvailable || string.IsNullOrEmpty(dlcId)) return false;
+            if (string.IsNullOrEmpty(dlcId)) return false;
             if (!DlcSteamAppIds.TryGetValue(dlcId, out var steamAppIds)) return false;
 
+            if (_installedAppIds == null)
+            {
+                // Caller didn't warm up ahead of time (e.g. AMS2 was already running when this got
+                // called the first time) - fall back to a blocking wait rather than reporting
+                // "not owned" outright.
+                WarmUpAsync().GetAwaiter().GetResult();
+            }
+
+            // True if the player is subscribed to ANY of the mapped AppIDs - the DLC's own, or any
+            // bundle/expansion pack confirmed to separately re-sell the same content.
+            return steamAppIds.Any(_installedAppIds.Contains);
+        }
+
+        public async Task WarmUpAsync()
+        {
+            if (_installedAppIds != null) return;
+
+            await _warmUpLock.WaitAsync().ConfigureAwait(false);
             try
             {
-                // True if the player is subscribed to ANY of the mapped AppIDs - the DLC's own, or
-                // any bundle/expansion pack confirmed to separately re-sell the same content.
-                return steamAppIds.Any(steamAppId => SteamApps.BIsSubscribedApp((AppId_t)steamAppId));
+                if (_installedAppIds != null) return;
+
+                _installedAppIds = await RunHelperAsync().ConfigureAwait(false);
             }
-            catch (DllNotFoundException)
+            finally
             {
-                return false;
+                _warmUpLock.Release();
             }
         }
 
-        /// <summary>
-        /// Redirects Steamworks.NET's "steam_api64" P/Invoke lookups to the copy sitting inside the
-        /// player's own AMS2 install folder. Returning IntPtr.Zero from the resolver falls through
-        /// to .NET's normal probing (app directory, PATH) - so a manually-placed copy still works
-        /// too, this is just the primary source. Registered once per process (SetDllImportResolver
-        /// throws if called twice for the same assembly).
-        /// </summary>
-        private void RegisterNativeLibraryResolver()
+        private async Task<HashSet<uint>> RunHelperAsync()
         {
-            NativeLibrary.SetDllImportResolver(typeof(SteamAPI).Assembly, (libraryName, assembly, searchPath) =>
+            var installed = new HashSet<uint>();
+
+            var installFolder = _installSettingsStorage.LoadSettings()?.GameInstallFolder;
+            if (string.IsNullOrEmpty(installFolder)) return installed;
+
+            var helperExe = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SteamDlcCheck", "AMS2ChEd.SteamDlcCheck.exe");
+            if (!File.Exists(helperExe)) return installed;
+
+            var appIds = DlcSteamAppIds.Values.SelectMany(ids => ids).Distinct().ToArray();
+
+            var startInfo = new ProcessStartInfo(helperExe)
             {
-                if (libraryName != NativeLibraryName) return IntPtr.Zero;
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+            };
+            startInfo.ArgumentList.Add(installFolder);
+            foreach (var appId in appIds)
+            {
+                startInfo.ArgumentList.Add(appId.ToString());
+            }
 
-                var installFolder = _installSettingsStorage.LoadSettings()?.GameInstallFolder;
-                if (string.IsNullOrEmpty(installFolder)) return IntPtr.Zero;
-
-                var candidate = Path.Combine(installFolder, "steam_api64.dll");
-                return File.Exists(candidate) && NativeLibrary.TryLoad(candidate, out var handle)
-                    ? handle
-                    : IntPtr.Zero;
-            });
-        }
-
-        private static bool TryInitSteam()
-        {
             try
             {
-                Environment.SetEnvironmentVariable("SteamAppId", Ams2AppId.ToString());
-                Environment.SetEnvironmentVariable("SteamGameId", Ams2AppId.ToString());
-                return SteamAPI.Init();
-            }
-            catch (DllNotFoundException)
-            {
-                return false; // steam_api64.dll not found (AMS2 install folder not set / missing DLL) - fail safe, not fatal
-            }
-        }
+                using var process = Process.Start(startInfo);
+                if (process == null) return installed;
 
-        public void Dispose()
-        {
-            if (_steamAvailable) SteamAPI.Shutdown();
+                var stdoutTask = process.StandardOutput.ReadToEndAsync();
+                using var cts = new CancellationTokenSource(HelperTimeout);
+                try
+                {
+                    await process.WaitForExitAsync(cts.Token).ConfigureAwait(false);
+                }
+                catch (OperationCanceledException)
+                {
+                    // Helper is hung (Steam itself unresponsive, most likely) - don't let it linger.
+                    try { process.Kill(entireProcessTree: true); } catch { /* best-effort */ }
+                    return installed;
+                }
+
+                var stdout = await stdoutTask.ConfigureAwait(false);
+                if (process.ExitCode != 0) return installed; // failed run - see Program.cs's exit codes; fail safe either way
+
+                foreach (var line in stdout.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+                {
+                    var parts = line.Split('=', 2);
+                    if (parts.Length == 2 && uint.TryParse(parts[0], out var appId) && bool.TryParse(parts[1], out var owned) && owned)
+                    {
+                        installed.Add(appId);
+                    }
+                }
+            }
+            catch (Exception ex) when (ex is InvalidOperationException or System.ComponentModel.Win32Exception)
+            {
+                // Helper couldn't be started at all - fail safe, not fatal.
+            }
+
+            return installed;
         }
     }
 }

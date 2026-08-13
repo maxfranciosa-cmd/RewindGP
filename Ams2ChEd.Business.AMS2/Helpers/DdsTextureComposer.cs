@@ -14,6 +14,16 @@ using Image = SixLabors.ImageSharp.Image;
 
 public class DdsTextureComposer
 {
+    // BcEncoder defaults Options.TaskCount to Environment.ProcessorCount and parallelizes block
+    // compression across all of them for every single EncodeToDds call. GenerateRaceFiles calls
+    // into this class once per texture per driver (livery/helmet/visor) in a sequential loop with
+    // no outer-level parallelism of its own, so at the default setting each of those calls briefly
+    // pins every logical core to 100% before the next one starts - a train of full-system CPU spikes
+    // for the whole grid rather than one contained, sustained load. Capping it to half the machine's
+    // cores (min 1) keeps each encode reasonably fast while leaving headroom for the rest of the
+    // system instead of repeatedly claiming every core.
+    private static readonly int EncoderTaskCount = Math.Max(1, Environment.ProcessorCount / 2);
+
     private static Image<Rgba32> LoadTexture(string texturePath)
     {
         var isDds = Path.GetExtension(texturePath) == ".dds";
@@ -57,6 +67,9 @@ public class DdsTextureComposer
                 Quality = CompressionQuality.Balanced,
                 DdsPreferDxt10Header = true,
                 MaxMipMapLevel = 0
+            },
+            Options = {
+                TaskCount = EncoderTaskCount
             }
         };
 
@@ -64,10 +77,6 @@ public class DdsTextureComposer
 
         // Dispose base image after encoding
         baseImage.Dispose();
-
-        // Force GC to release memory
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
 
         using (var outputStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
         {
@@ -178,6 +187,9 @@ public class DdsTextureComposer
                 Quality = CompressionQuality.Balanced,
                 DdsPreferDxt10Header = true,
                 MaxMipMapLevel = 0
+            },
+            Options = {
+                TaskCount = EncoderTaskCount
             }
         };
 
@@ -185,10 +197,6 @@ public class DdsTextureComposer
 
         // Dispose livery image immediately after encoding
         liveryImage.Dispose();
-
-        // Force GC to release large image buffers
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
 
         using (var outputStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
         {
@@ -355,13 +363,13 @@ public class DdsTextureComposer
             Quality = CompressionQuality.Balanced,
             DdsPreferDxt10Header = true,
             MaxMipMapLevel = 0
-        }
+        },
+            Options = {
+                TaskCount = EncoderTaskCount
+            }
         };
 
         var ddsFile = encoder.EncodeToDds(image);
-
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
 
         using var outputStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write);
         ddsFile.Write(outputStream);

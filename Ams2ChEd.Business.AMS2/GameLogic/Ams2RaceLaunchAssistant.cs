@@ -26,25 +26,33 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
         private readonly IAms2GrandPrixTrackResolver _trackResolver;
         private readonly IAms2HashCatalogProvider _hashCatalogProvider;
         private readonly IRaceSetupAdvisor _raceSetupAdvisor;
+        private readonly IAms2DlcOwnershipChecker _dlcOwnershipChecker;
 
         public Ams2RaceLaunchAssistant(
             IGameInstallSettingsStorage installSettingsStorage,
             IRacePreparator racePreparator,
             IAms2GrandPrixTrackResolver trackResolver,
             IAms2HashCatalogProvider hashCatalogProvider,
-            IRaceSetupAdvisor raceSetupAdvisor)
+            IRaceSetupAdvisor raceSetupAdvisor,
+            IAms2DlcOwnershipChecker dlcOwnershipChecker)
         {
             _installSettingsStorage = installSettingsStorage;
             _racePreparator = racePreparator;
             _trackResolver = trackResolver;
             _hashCatalogProvider = hashCatalogProvider;
             _raceSetupAdvisor = raceSetupAdvisor;
+            _dlcOwnershipChecker = dlcOwnershipChecker;
         }
 
         public async Task<bool> ShowSetupOverlayAsync(RaceLaunchRequest request, object ownerWindow, CancellationToken ct = default)
         {
             if (!Ams2Launcher.IsRunning())
             {
+                // Resolve DLC ownership (used later by TryAutoConfigureAsync's track resolution)
+                // now, while AMS2 is confirmed NOT running - see Ams2DlcOwnershipChecker's class
+                // doc comment for why doing this once AMS2 is already up is the thing to avoid.
+                await _dlcOwnershipChecker.WarmUpAsync().ConfigureAwait(true);
+
                 Ams2Launcher.Launch();
                 var launched = await Ams2Launcher.WaitForProcessAsync(TimeSpan.FromSeconds(60)).ConfigureAwait(true);
                 if (!launched)

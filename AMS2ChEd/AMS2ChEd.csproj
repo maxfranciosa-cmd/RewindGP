@@ -11,10 +11,12 @@
     <ApplicationIcon>StaticFiles\rewind_gp_logo_128.ico</ApplicationIcon>
 	  <UpdaterProject>$(SolutionDir)..\AMS2ChEd.Updater\AMS2ChEd.Updater.csproj</UpdaterProject>
 	  <UpdaterBinDir>$(SolutionDir)..\AMS2ChEd.Updater\bin\$(Configuration)\net8.0-windows\win-x64\</UpdaterBinDir>
+	  <SteamDlcCheckProject>$(SolutionDir)..\AMS2ChEd.SteamDlcCheck\AMS2ChEd.SteamDlcCheck.csproj</SteamDlcCheckProject>
+	  <SteamDlcCheckBinDir>$(SolutionDir)..\AMS2ChEd.SteamDlcCheck\bin\$(Configuration)\net8.0-windows\win-x64\</SteamDlcCheckBinDir>
 	  <AssemblyVersion>1.8.5.0</AssemblyVersion>
 	  <FileVersion>1.8.5.0</FileVersion>
   </PropertyGroup>
-	
+
 <Target Name="BuildAndCopyUpdater" AfterTargets="Build">
 	<MSBuild Projects="$(UpdaterProject)" Properties="Configuration=$(Configuration);Platform=AnyCPU" Targets="Build" />
 
@@ -23,6 +25,16 @@
 	</ItemGroup>
 
 	<Copy SourceFiles="@(UpdaterFiles)" DestinationFiles="@(UpdaterFiles->'$(OutputPath)Updater\%(RecursiveDir)%(Filename)%(Extension)')" />
+</Target>
+
+<Target Name="BuildAndCopySteamDlcCheck" AfterTargets="Build">
+	<MSBuild Projects="$(SteamDlcCheckProject)" Properties="Configuration=$(Configuration);Platform=AnyCPU" Targets="Build" />
+
+	<ItemGroup>
+		<SteamDlcCheckFiles Include="$(SteamDlcCheckBinDir)**\*.*" />
+	</ItemGroup>
+
+	<Copy SourceFiles="@(SteamDlcCheckFiles)" DestinationFiles="@(SteamDlcCheckFiles->'$(OutputPath)SteamDlcCheck\%(RecursiveDir)%(Filename)%(Extension)')" />
 </Target>
 	
   <ItemGroup>
