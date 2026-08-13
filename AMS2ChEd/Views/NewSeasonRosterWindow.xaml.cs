@@ -2,6 +2,7 @@ using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Extensions;
+using AMS2ChEd.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,12 +34,10 @@ namespace AMS2ChEd.Views
             InitializeComponent();
 
             DateText.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
-            HeadlineText.Text = $"THE {newSeason.Year} SEASON LINEUP REVEALED";
+            HeadlineText.Text = string.Format(Strings.NewSeasonRosterWindow_Headline_Format, newSeason.Year);
 
             // Generate intro text
-            IntroText.Text = $"As pre-season testing approaches, teams have finalized their driver lineups for the {newSeason.Year} " +
-                           $"season. The off-season saw dramatic movements across the grid, with several drivers finding new homes " +
-                           $"and fresh partnerships forming. Here's the complete roster that will contest this year's championship:";
+            IntroText.Text = string.Format(Strings.NewSeasonRosterWindow_Intro_Format, newSeason.Year);
 
             // Get previous season for comparison (if exists)
             ISeason previousSeason = saveGame.CurrentSeason;
@@ -54,7 +53,7 @@ namespace AMS2ChEd.Views
             foreach (var team in newSeason.Teams.OrderByDescending(t => t.Reputation))
             {
                 var teamData = teamsCache.ContainsKey(team.TeamId) ? teamsCache[team.TeamId] : null;
-                string teamName = team.TeamName ?? teamData?.TeamName ?? "Unknown Team";
+                string teamName = team.TeamName ?? teamData?.TeamName ?? Strings.NewSeasonRosterWindow_DefaultTeamName;
 
                 var driver1 = driversDictionary[team.Driver1Contract.DriverId];
 
@@ -82,7 +81,7 @@ namespace AMS2ChEd.Views
                         driver1.Name, driver2.Name, championDriverId, runnerUpDriverId, isUnchanged, constructorChampionTeamId);
                     descriptionText = BuildDescriptionText(driver1.Name, driver2.Name,
                         driver1Reputation, driver2Reputation);
-                    driversText = $"{driver1.Name}  •  {driver2.Name}";
+                    driversText = string.Format(Strings.NewSeasonRosterWindow_DriversText_Format, driver1.Name, driver2.Name);
                     portraitPathDriver2 = driver2.PictureUrl;
                 }
                 else
@@ -107,9 +106,7 @@ namespace AMS2ChEd.Views
             RosterList.ItemsSource = rosterItems;
 
             // Generate closing text
-            ClosingText.Text = $"With the grid now set, anticipation builds for the season opener. " +
-                             $"New partnerships will be tested, rivalries renewed, and championship dreams pursued. " +
-                             $"The {newSeason.Year} season promises to be one of the most competitive in recent memory.";
+            ClosingText.Text = string.Format(Strings.NewSeasonRosterWindow_Closing_Format, newSeason.Year);
         }
 
         private string GetChampionDriverId(ISaveGame saveGame)
@@ -150,62 +147,62 @@ namespace AMS2ChEd.Views
             if (isUnchanged && (driver1IsChamp || driver2IsChamp))
             {
                 string champName = driver1IsChamp ? driver1Name : driver2Name;
-                narratives.Add($"The defending champion {champName} continues with an unchanged lineup from last season.");
+                narratives.Add(string.Format(Strings.NewSeasonRosterWindow_Status_UnchangedChampion_Format, champName));
                 return narratives[_random.Next(narratives.Count)];
             }
 
             if (isUnchanged && (driver1IsRunnerUp || driver2IsRunnerUp))
             {
                 string runnerUpName = driver1IsRunnerUp ? driver1Name : driver2Name;
-                narratives.Add($"Last season's runner-up {runnerUpName} remains with the same teammate for another campaign.");
+                narratives.Add(string.Format(Strings.NewSeasonRosterWindow_Status_UnchangedRunnerUp_Format, runnerUpName));
                 return narratives[_random.Next(narratives.Count)];
             }
 
             // Handle championship status with new partnerships
             if (driver1IsChamp && driver2IsRunnerUp)
             {
-                return $"In a remarkable partnership, defending champion {driver1Name} joins forces with last season's runner-up {driver2Name}.";
+                return string.Format(Strings.NewSeasonRosterWindow_Status_ChampPartnersRunnerUp_Format, driver1Name, driver2Name);
             }
 
             if (driver2IsChamp && driver1IsRunnerUp)
             {
-                return $"In a remarkable partnership, defending champion {driver2Name} joins forces with last season's runner-up {driver1Name}.";
+                return string.Format(Strings.NewSeasonRosterWindow_Status_ChampPartnersRunnerUp_Format, driver2Name, driver1Name);
             }
 
             if (driver1IsChamp)
             {
-                narratives.Add($"Defending champion {driver1Name} begins a new chapter with a fresh partnership alongside {driver2Name}.");
-                narratives.Add($"The title-holder {driver1Name} forms a new alliance with {driver2Name} for the upcoming season.");
+                narratives.Add(string.Format(Strings.NewSeasonRosterWindow_Status_ChampNewPartnership1_Format, driver1Name, driver2Name));
+                narratives.Add(string.Format(Strings.NewSeasonRosterWindow_Status_ChampNewPartnership2_Format, driver1Name, driver2Name));
                 return narratives[_random.Next(narratives.Count)];
             }
 
             if (driver2IsChamp)
             {
-                narratives.Add($"Defending champion {driver2Name} begins a new chapter with a fresh partnership alongside {driver1Name}.");
-                narratives.Add($"The title-holder {driver2Name} forms a new alliance with {driver1Name} for the upcoming season.");
+                narratives.Add(string.Format(Strings.NewSeasonRosterWindow_Status_ChampNewPartnership1_Format, driver2Name, driver1Name));
+                narratives.Add(string.Format(Strings.NewSeasonRosterWindow_Status_ChampNewPartnership2_Format, driver2Name, driver1Name));
                 return narratives[_random.Next(narratives.Count)];
             }
 
             if (driver1IsRunnerUp)
             {
-                narratives.Add($"Last season's runner-up {driver1Name} looks to go one better with new teammate {driver2Name}.");
-                narratives.Add($"Having finished second last year, {driver1Name} seeks redemption alongside new partner {driver2Name}.");
+                narratives.Add(string.Format(Strings.NewSeasonRosterWindow_Status_RunnerUpNewPartnership1_Format, driver1Name, driver2Name));
+                narratives.Add(string.Format(Strings.NewSeasonRosterWindow_Status_RunnerUpNewPartnership2_Format, driver1Name, driver2Name));
                 return narratives[_random.Next(narratives.Count)];
             }
 
             if (driver2IsRunnerUp)
             {
-                narratives.Add($"Last season's runner-up {driver2Name} looks to go one better with new teammate {driver1Name}.");
-                narratives.Add($"Having finished second last year, {driver2Name} seeks redemption alongside new partner {driver1Name}.");
+                narratives.Add(string.Format(Strings.NewSeasonRosterWindow_Status_RunnerUpNewPartnership1_Format, driver2Name, driver1Name));
+                narratives.Add(string.Format(Strings.NewSeasonRosterWindow_Status_RunnerUpNewPartnership2_Format, driver2Name, driver1Name));
                 return narratives[_random.Next(narratives.Count)];
             }
 
             // Just unchanged lineup
             if (isUnchanged)
             {
-                narratives.Add("Continuity prevails as both drivers return for another season together.");
-                narratives.Add("The partnership remains intact with both drivers retained for the new campaign.");
-                narratives.Add("Stability defines this lineup as the team keeps faith with both drivers.");
+                narratives.Add(Strings.NewSeasonRosterWindow_Status_UnchangedGeneric1);
+                narratives.Add(Strings.NewSeasonRosterWindow_Status_UnchangedGeneric2);
+                narratives.Add(Strings.NewSeasonRosterWindow_Status_UnchangedGeneric3);
                 return narratives[_random.Next(narratives.Count)];
             }
 
@@ -216,13 +213,13 @@ namespace AMS2ChEd.Views
         private string BuildSoloStatusText(string driverId, string driverName, string championId, string runnerUpId, bool isUnchanged)
         {
             if (driverId == championId)
-                return $"Defending champion {driverName} continues as the team's only driver.";
+                return string.Format(Strings.NewSeasonRosterWindow_SoloStatus_Champion_Format, driverName);
 
             if (driverId == runnerUpId)
-                return $"Last season's runner-up {driverName} continues as the team's only driver.";
+                return string.Format(Strings.NewSeasonRosterWindow_SoloStatus_RunnerUp_Format, driverName);
 
             if (isUnchanged)
-                return $"{driverName} remains as the team's sole driver for another season.";
+                return string.Format(Strings.NewSeasonRosterWindow_SoloStatus_Unchanged_Format, driverName);
 
             return "";
         }
@@ -230,8 +227,8 @@ namespace AMS2ChEd.Views
         private string BuildSoloDescriptionText(string driverName, DriverReputation? rep)
         {
             return rep.HasValue
-                ? $"{driverName}, who {GetReputationDescription(rep.Value)}, carries the team as its sole driver this season."
-                : $"{driverName} carries the team as its sole driver this season.";
+                ? string.Format(Strings.NewSeasonRosterWindow_SoloDescription_WithRep_Format, driverName, GetReputationDescription(rep.Value))
+                : string.Format(Strings.NewSeasonRosterWindow_SoloDescription_NoRep_Format, driverName);
         }
 
         private string BuildDescriptionText(string driver1Name, string driver2Name,
@@ -239,13 +236,13 @@ namespace AMS2ChEd.Views
         {
             // Build a flowing narrative sentence combining both drivers
             if (!driver1Rep.HasValue && !driver2Rep.HasValue)
-                return $"{driver1Name} and {driver2Name} join forces for the upcoming campaign.";
+                return string.Format(Strings.NewSeasonRosterWindow_Description_NoReps_Format, driver1Name, driver2Name);
 
             if (!driver1Rep.HasValue)
-                return $"{driver1Name} partners with {driver2Name}, who {GetReputationDescription(driver2Rep.Value)}";
+                return string.Format(Strings.NewSeasonRosterWindow_Description_Driver1NoRep_Format, driver1Name, driver2Name, GetReputationDescription(driver2Rep.Value));
 
             if (!driver2Rep.HasValue)
-                return $"{driver1Name}, who {GetReputationDescription(driver1Rep.Value)}, is joined by {driver2Name}.";
+                return string.Format(Strings.NewSeasonRosterWindow_Description_Driver2NoRep_Format, driver1Name, GetReputationDescription(driver1Rep.Value), driver2Name);
 
             // Both have reputations - create a flowing sentence about the pairing
             return BuildPairingNarrative(driver1Name, driver2Name, driver1Rep.Value, driver2Rep.Value);
@@ -254,111 +251,119 @@ namespace AMS2ChEd.Views
         private string BuildPairingNarrative(string driver1Name, string driver2Name,
             DriverReputation driver1Rep, DriverReputation driver2Rep)
         {
+            string rep1 = GetReputationDescription(driver1Rep);
+            string rep2 = GetReputationDescription(driver2Rep);
+
             var narratives = new List<string>
             {
-                $"{driver1Name}, who {GetReputationDescription(driver1Rep)}, partners with {driver2Name}, who {GetReputationDescription(driver2Rep)}",
-                $"The pairing of {driver1Name}, who {GetReputationDescription(driver1Rep)}, alongside {driver2Name}, who {GetReputationDescription(driver2Rep)}, forms an intriguing partnership.",
-                $"{driver1Name} {GetReputationDescription(driver1Rep)}, while {driver2Name} {GetReputationDescription(driver2Rep)}"
+                string.Format(Strings.NewSeasonRosterWindow_Pairing1_Format, driver1Name, rep1, driver2Name, rep2),
+                string.Format(Strings.NewSeasonRosterWindow_Pairing2_Format, driver1Name, rep1, driver2Name, rep2),
+                string.Format(Strings.NewSeasonRosterWindow_Pairing3_Format, driver1Name, rep1, driver2Name, rep2)
             };
 
             return narratives[_random.Next(narratives.Count)];
         }
 
+        // Bare 3rd-person-singular verb-phrase fragments, no leading "who"/"che" and no trailing
+        // period - the composing templates above (SoloDescription/Description/Pairing) decide
+        // whether to prepend a relative pronoun and always supply the closing punctuation. This
+        // is what lets the same fragment slot into "{name}, who {fragment}." and "{name} {fragment},"
+        // in both English and Italian without the fragment needing two different grammatical forms.
         private string GetReputationDescription(DriverReputation reputation)
         {
             var descriptions = new Dictionary<DriverReputation, List<string>>
             {
                 [DriverReputation.PAY_DRIVER_WILD_CARD] = new List<string>
                 {
-                    "will step in as substitute whenever opportunities arise.",
-                    "remains on standby without a guaranteed race seat.",
-                    "hopes to prove their worth through substitute appearances."
+                    Strings.NewSeasonRosterWindow_RepDesc_PayDriverWildCard1,
+                    Strings.NewSeasonRosterWindow_RepDesc_PayDriverWildCard2,
+                    Strings.NewSeasonRosterWindow_RepDesc_PayDriverWildCard3
                 },
                 [DriverReputation.PAY_DRIVER_SEASON] = new List<string>
                 {
-                    "brings crucial financial backing to secure their seat.",
-                    "relies on sponsorship support to maintain their position.",
-                    "combines commercial value with racing ambitions."
+                    Strings.NewSeasonRosterWindow_RepDesc_PayDriverSeason1,
+                    Strings.NewSeasonRosterWindow_RepDesc_PayDriverSeason2,
+                    Strings.NewSeasonRosterWindow_RepDesc_PayDriverSeason3
                 },
                 [DriverReputation.AGEING_MIDFIELD] = new List<string>
                 {
-                    "brings veteran experience to the midfield battle.",
-                    "looks to extend their career with consistent performances.",
-                    "provides steady reliability in the midfield ranks."
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingMidfield1,
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingMidfield2,
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingMidfield3
                 },
                 [DriverReputation.YOUNG_TALENT] = new List<string>
                 {
-                    "arrives with high expectations and raw potential.",
-                    "represents the next generation of racing talent.",
-                    "aims to make an immediate impact in their breakthrough season."
+                    Strings.NewSeasonRosterWindow_RepDesc_YoungTalent1,
+                    Strings.NewSeasonRosterWindow_RepDesc_YoungTalent2,
+                    Strings.NewSeasonRosterWindow_RepDesc_YoungTalent3
                 },
                 [DriverReputation.PRIME_MIDFIELD] = new List<string>
                 {
-                    "is a proven midfield contender hitting their stride.",
-                    "consistently able to deliver strong points finishes.",
-                    "has established themselves as a reliable performer."
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeMidfield1,
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeMidfield2,
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeMidfield3
                 },
                 [DriverReputation.AGEING_STRONG_MIDFIELD] = new List<string>
                 {
-                    "combines years of experience with competitive pace.",
-                    "remains a formidable force despite advancing years.",
-                    "continues to extract maximum performance from the machinery."
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingStrongMidfield1,
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingStrongMidfield2,
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingStrongMidfield3
                 },
                 [DriverReputation.PRIME_STRONG_MIDFIELD] = new List<string>
                 {
-                    "proved to be at peak performance in the midfield's upper echelons.",
-                    "regularly challenges for podium positions.",
-                    "has emerged as a serious contender for top results."
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeStrongMidfield1,
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeStrongMidfield2,
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeStrongMidfield3
                 },
                 [DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED] = new List<string>
                 {
-                    "seeks to recapture past championship-winning form.",
-                    "faces questions about whether they can rediscover their peak.",
-                    "hopes experience can compensate for diminished pace."
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingChampionshipWashed1,
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingChampionshipWashed2,
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingChampionshipWashed3
                 },
                 [DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED] = new List<string>
                 {
-                    "looks to rebuild their reputation after recent struggles.",
-                    "attempts to prove their championship credentials remain intact.",
-                    "faces pressure to justify their elite status."
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeChampionshipWashed1,
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeChampionshipWashed2,
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeChampionshipWashed3
                 },
                 [DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN] = new List<string>
                 {
-                    "possesses championship-caliber talent waiting to be unleashed.",
-                    "has shown flashes of brilliance but lacks consistency.",
-                    "stands on the cusp of greatness with untapped potential."
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeChampionshipUnproven1,
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeChampionshipUnproven2,
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeChampionshipUnproven3
                 },
                 [DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN] = new List<string>
                 {
-                    "bursts onto the scene with electrifying potential.",
-                    "is widely tipped as a future world champion.",
-                    "brings youthful exuberance and blistering pace."
+                    Strings.NewSeasonRosterWindow_RepDesc_YoungChampionshipUnproven1,
+                    Strings.NewSeasonRosterWindow_RepDesc_YoungChampionshipUnproven2,
+                    Strings.NewSeasonRosterWindow_RepDesc_YoungChampionshipUnproven3
                 },
                 [DriverReputation.AGEING_CHAMPIONSHIP_LEVEL] = new List<string>
                 {
-                    "remains a title contender despite advancing years.",
-                    "combines championship experience with enduring competitiveness.",
-                    "proves age is no barrier to championship ambitions."
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingChampionship1,
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingChampionship2,
+                    Strings.NewSeasonRosterWindow_RepDesc_AgeingChampionship3
                 },
                 [DriverReputation.PRIME_CHAMPIONSHIP_LEVEL] = new List<string>
                 {
-                    "enters as a genuine championship favorite.",
-                    "operates at the absolute peak of their powers.",
-                    "stands among the grid's elite title contenders."
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeChampionship1,
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeChampionship2,
+                    Strings.NewSeasonRosterWindow_RepDesc_PrimeChampionship3
                 },
                 [DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL] = new List<string>
                 {
-                    "combines youth with proven championship credentials.",
-                    "has already demonstrated title-winning capability.",
-                    "represents the sport's brightest star for years to come."
+                    Strings.NewSeasonRosterWindow_RepDesc_YoungChampionship1,
+                    Strings.NewSeasonRosterWindow_RepDesc_YoungChampionship2,
+                    Strings.NewSeasonRosterWindow_RepDesc_YoungChampionship3
                 },
                 [DriverReputation.JUST_ONE_LAST_DANCE] = new List<string>
                 {
-                    "returns for one final season to end their storied career.",
-                    "embarks on a farewell campaign to close an illustrious chapter.",
-                    "seeks a fitting conclusion to their legendary tenure in the sport.",
-                    "comes back for one last shot at glory before retirement.",
-                    "makes a nostalgic return to say a proper goodbye to racing."
+                    Strings.NewSeasonRosterWindow_RepDesc_LastDance1,
+                    Strings.NewSeasonRosterWindow_RepDesc_LastDance2,
+                    Strings.NewSeasonRosterWindow_RepDesc_LastDance3,
+                    Strings.NewSeasonRosterWindow_RepDesc_LastDance4,
+                    Strings.NewSeasonRosterWindow_RepDesc_LastDance5
                 }
             };
 
@@ -368,7 +373,7 @@ namespace AMS2ChEd.Views
                 return options[_random.Next(options.Count)];
             }
 
-            return "joins the grid for the upcoming season.";
+            return Strings.NewSeasonRosterWindow_RepDesc_Default;
         }
 
         private BitmapImage LoadDriverPortrait(string portraitPath)

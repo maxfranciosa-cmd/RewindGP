@@ -2,6 +2,8 @@
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Extensions;
+using AMS2ChEd.Localization;
+using AMS2ChEd.Resources;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -49,7 +51,7 @@ namespace AMS2ChEd.Views
 
             if (winner == null)
             {
-                ArticleText.Text = "Race results not available.";
+                ArticleText.Text = Strings.PostRaceNewsWindow_NoResults;
                 return;
             }
 
@@ -72,11 +74,11 @@ namespace AMS2ChEd.Views
             // Set the headline
             HeadlineText.Text = BuildHeadline(winnerName, raceResult, isMaidenWin, isGrandSlam);
 
-            string secondName = second != null ? GetDriverName(saveGame, second.DriverId) : "Unknown";
-            string secondTeam = second != null ? GetTeamName(saveGame, second.TeamId) : "Unknown";
+            string secondName = second != null ? GetDriverName(saveGame, second.DriverId) : Strings.PostRaceNewsWindow_UnknownName;
+            string secondTeam = second != null ? GetTeamName(saveGame, second.TeamId) : Strings.PostRaceNewsWindow_UnknownName;
 
-            string thirdName = third != null ? GetDriverName(saveGame, third.DriverId) : "Unknown";
-            string thirdTeam = third != null ? GetTeamName(saveGame, third.TeamId) : "Unknown";
+            string thirdName = third != null ? GetDriverName(saveGame, third.DriverId) : Strings.PostRaceNewsWindow_UnknownName;
+            string thirdTeam = third != null ? GetTeamName(saveGame, third.TeamId) : Strings.PostRaceNewsWindow_UnknownName;
 
             // Get winner's new standing position
             var winnerStanding = saveGame.CurrentDriverStandings
@@ -87,38 +89,24 @@ namespace AMS2ChEd.Views
             string article = "";
             var random = new Random();
 
-            // Opening paragraph with podium
+            // Opening paragraph with podium. Argument order standardized across every variant as
+            // (year, gpName, winnerName, winnerTeam, secondName, secondTeam, thirdName, thirdTeam)
+            // regardless of English word order, so each language's resx template can freely reorder.
+            object[] openingArgs = { raceResult.Year, raceResult.GrandPrixName, winnerName, winnerTeam, secondName, secondTeam, thirdName, thirdTeam };
+
             if (isFirstRace)
             {
                 var firstRaceOpenings = new[]
                 {
-                    // Variant 1 - Spectacular opening
-                    $"The {raceResult.Year} season opened in spectacular fashion as {winnerName} claimed victory at the {raceResult.GrandPrixName}, " +
-                    $"giving {winnerTeam} the perfect start to the championship. " +
-                    $"{secondName} finished second for {secondTeam}, while {thirdName} completed the opening podium for {thirdTeam}.\n\n",
-                    
-                    // Variant 2 - Championship launch
-                    $"The {raceResult.Year} championship burst into life at the {raceResult.GrandPrixName} with {winnerName} seizing the early initiative. " +
-                    $"{winnerTeam} couldn't have asked for a better start, with {secondName} trailing home for {secondTeam} ahead of {thirdName} in third for {thirdTeam}.\n\n",
-                    
-                    // Variant 3 - Season kickoff
-                    $"{winnerName} fired the opening shot in the {raceResult.Year} championship battle with victory at the {raceResult.GrandPrixName}. " +
-                    $"The {winnerTeam} driver heads the standings after the opening round, pursued by {secondName} of {secondTeam} and {thirdName} for {thirdTeam}.\n\n",
-                    
-                    // Variant 4 - Drawing first blood
-                    $"Drawing first blood in the {raceResult.Year} season, {winnerName} dominated the {raceResult.GrandPrixName} to give {winnerTeam} the early championship lead. " +
-                    $"{secondName} claimed second for {secondTeam}, with {thirdName} rounding out the season-opening podium for {thirdTeam}.\n\n",
-                    
-                    // Variant 5 - Bold statement
-                    $"{winnerName} made a bold statement of intent to open the {raceResult.Year} season, commanding the {raceResult.GrandPrixName} from start to finish. " +
-                    $"{winnerTeam} leads the championship after round one, ahead of {secondName} for {secondTeam} and {thirdName} for {thirdTeam} who completed the podium.\n\n",
-                    
-                    // Variant 6 - New season dawn
-                    $"As the {raceResult.Year} season dawned at the {raceResult.GrandPrixName}, {winnerName} struck gold for {winnerTeam} with a commanding opening victory. " +
-                    $"{secondName} finished runner-up for {secondTeam}, while {thirdName} claimed the final podium spot for {thirdTeam} in the championship opener.\n\n"
+                    Strings.PostRaceNewsWindow_Opening_FirstRace1_Format,
+                    Strings.PostRaceNewsWindow_Opening_FirstRace2_Format,
+                    Strings.PostRaceNewsWindow_Opening_FirstRace3_Format,
+                    Strings.PostRaceNewsWindow_Opening_FirstRace4_Format,
+                    Strings.PostRaceNewsWindow_Opening_FirstRace5_Format,
+                    Strings.PostRaceNewsWindow_Opening_FirstRace6_Format
                 };
 
-                article += firstRaceOpenings[random.Next(firstRaceOpenings.Length)];
+                article += string.Format(firstRaceOpenings[random.Next(firstRaceOpenings.Length)], openingArgs) + "\n\n";
             }
             else if (isLastRace)
             {
@@ -129,90 +117,42 @@ namespace AMS2ChEd.Views
                 {
                     var championFinaleOpenings = new[]
                     {
-                        // Variant 1 - Perfect ending
-                        $"The {raceResult.Year} season concluded in perfect fashion as {winnerName} claimed victory at the {raceResult.GrandPrixName}, " +
-                        $"crowning a championship-winning campaign with {winnerTeam}. " +
-                        $"{secondName} finished second for {secondTeam}, while {thirdName} completed the final podium of the season for {thirdTeam}.\n\n",
-                        
-                        // Variant 2 - Title sealed
-                        $"{winnerName} sealed the {raceResult.Year} Drivers' Championship in style, dominating the season finale at the {raceResult.GrandPrixName}. " +
-                        $"The {winnerTeam} driver's victory confirmed what had been building all season, with {secondName} taking second for {secondTeam} and {thirdName} third for {thirdTeam}.\n\n",
-                        
-                        // Variant 3 - Coronation
-                        $"In a coronation worthy of champions, {winnerName} took the checkered flag at the {raceResult.GrandPrixName} to cap an extraordinary {raceResult.Year} season. " +
-                        $"The {winnerTeam} driver's final victory put the exclamation point on their title triumph, ahead of {secondName} for {secondTeam} and {thirdName} for {thirdTeam}.\n\n",
-                        
-                        // Variant 4 - Emphatic conclusion
-                        $"An emphatic season finale victory for {winnerName} at the {raceResult.GrandPrixName} sealed the {raceResult.Year} title in the most dominant fashion. " +
-                        $"{winnerTeam} celebrated championship glory as {secondName} claimed second for {secondTeam}, with {thirdName} rounding out the podium for {thirdTeam}.\n\n"
+                        Strings.PostRaceNewsWindow_Opening_FinaleChampion1_Format,
+                        Strings.PostRaceNewsWindow_Opening_FinaleChampion2_Format,
+                        Strings.PostRaceNewsWindow_Opening_FinaleChampion3_Format,
+                        Strings.PostRaceNewsWindow_Opening_FinaleChampion4_Format
                     };
 
-                    article += championFinaleOpenings[random.Next(championFinaleOpenings.Length)];
+                    article += string.Format(championFinaleOpenings[random.Next(championFinaleOpenings.Length)], openingArgs) + "\n\n";
                 }
                 else
                 {
                     var finaleOpenings = new[]
                     {
-                        // Variant 1 - Season curtain
-                        $"The curtain fell on the {raceResult.Year} season as {winnerName} claimed a memorable victory at the {raceResult.GrandPrixName}, " +
-                        $"giving {winnerTeam} a perfect way to sign off the year. " +
-                        $"{secondName} finished second for {secondTeam}, while {thirdName} completed the final podium for {thirdTeam}.\n\n",
-                        
-                        // Variant 2 - Final flourish
-                        $"{winnerName} produced a final flourish at the {raceResult.GrandPrixName}, ending the {raceResult.Year} season on a high note for {winnerTeam}. " +
-                        $"The season finale saw {secondName} take second for {secondTeam}, ahead of {thirdName} who claimed the last podium of the year for {thirdTeam}.\n\n",
-                        
-                        // Variant 3 - Last word
-                        $"Having the last word in the {raceResult.Year} season, {winnerName} dominated the {raceResult.GrandPrixName} to give {winnerTeam} a season-ending victory. " +
-                        $"{secondName} secured second place for {secondTeam}, while {thirdName} rounded out the final rostrum for {thirdTeam}.\n\n",
-                        
-                        // Variant 4 - Season bookend
-                        $"As the {raceResult.Year} season reached its conclusion at the {raceResult.GrandPrixName}, {winnerName} delivered a commanding performance for {winnerTeam}. " +
-                        $"The finale podium was completed by {secondName} in second for {secondTeam} and {thirdName} taking third for {thirdTeam}.\n\n"
+                        Strings.PostRaceNewsWindow_Opening_FinaleNonChampion1_Format,
+                        Strings.PostRaceNewsWindow_Opening_FinaleNonChampion2_Format,
+                        Strings.PostRaceNewsWindow_Opening_FinaleNonChampion3_Format,
+                        Strings.PostRaceNewsWindow_Opening_FinaleNonChampion4_Format
                     };
 
-                    article += finaleOpenings[random.Next(finaleOpenings.Length)];
+                    article += string.Format(finaleOpenings[random.Next(finaleOpenings.Length)], openingArgs) + "\n\n";
                 }
             }
             else
             {
                 var standardOpenings = new[]
                 {
-                    // Variant 1 - Thrilling display
-                    $"In a thrilling display of motorsport at its finest, {winnerName} claimed victory at the {raceResult.GrandPrixName}, " +
-                    $"leading {winnerTeam} to a well-earned triumph. " +
-                    $"{secondName} secured second place for {secondTeam}, while {thirdName} completed the podium for {thirdTeam}.\n\n",
-                    
-                    // Variant 2 - Commanding performance
-                    $"{winnerName} delivered a commanding performance at the {raceResult.GrandPrixName}, steering {winnerTeam} to victory in dominant fashion. " +
-                    $"The podium was completed by {secondName} in second for {secondTeam} and {thirdName} taking third for {thirdTeam}.\n\n",
-                    
-                    // Variant 3 - Checkered flag
-                    $"The checkered flag fell at the {raceResult.GrandPrixName} with {winnerName} taking the honors for {winnerTeam}. " +
-                    $"Behind the victor, {secondName} claimed a solid second place for {secondTeam}, ahead of {thirdName} who secured the final podium position for {thirdTeam}.\n\n",
-                    
-                    // Variant 4 - Masterful drive
-                    $"A masterful drive from {winnerName} secured victory for {winnerTeam} at the {raceResult.GrandPrixName} today. " +
-                    $"{secondName} put in a strong performance for second with {secondTeam}, while {thirdName} rounded out the top three for {thirdTeam}.\n\n",
-                    
-                    // Variant 5 - Lights to flag
-                    $"{winnerName} controlled the {raceResult.GrandPrixName} to claim victory for {winnerTeam} in convincing style. " +
-                    $"{secondName} followed the winner home in second place for {secondTeam}, with {thirdName} completing the podium for {thirdTeam}.\n\n",
-                    
-                    // Variant 6 - Hard-fought triumph
-                    $"After a hard-fought battle at the {raceResult.GrandPrixName}, {winnerName} emerged victorious to deliver crucial points for {winnerTeam}. " +
-                    $"The podium positions were completed by {secondName} for {secondTeam} in second and {thirdName} for {thirdTeam} in third.\n\n",
-                    
-                    // Variant 7 - Circuit mastery
-                    $"{winnerName} mastered the {raceResult.GrandPrixName} circuit to secure a well-deserved victory for {winnerTeam}. " +
-                    $"Second place went to {secondName} of {secondTeam}, while {thirdName} stood on the third step of the podium for {thirdTeam}.\n\n",
-                    
-                    // Variant 8 - Clinical precision
-                    $"With clinical precision, {winnerName} navigated the {raceResult.GrandPrixName} to deliver {winnerTeam}'s latest triumph. " +
-                    $"{secondName} drove strongly to second for {secondTeam}, ahead of third-placed {thirdName} representing {thirdTeam}.\n\n"
+                    Strings.PostRaceNewsWindow_Opening_Standard1_Format,
+                    Strings.PostRaceNewsWindow_Opening_Standard2_Format,
+                    Strings.PostRaceNewsWindow_Opening_Standard3_Format,
+                    Strings.PostRaceNewsWindow_Opening_Standard4_Format,
+                    Strings.PostRaceNewsWindow_Opening_Standard5_Format,
+                    Strings.PostRaceNewsWindow_Opening_Standard6_Format,
+                    Strings.PostRaceNewsWindow_Opening_Standard7_Format,
+                    Strings.PostRaceNewsWindow_Opening_Standard8_Format
                 };
 
-                article += standardOpenings[random.Next(standardOpenings.Length)];
+                article += string.Format(standardOpenings[random.Next(standardOpenings.Length)], openingArgs) + "\n\n";
             }
 
             // Winner's performance headline based on reputation
@@ -264,7 +204,8 @@ namespace AMS2ChEd.Views
             article += "\n\n";
 
             // Current championship standings (top 3)
-            article += "CHAMPIONSHIP STANDINGS (TOP 3):\n\n";
+            article += Strings.PostRaceNewsWindow_StandingsHeader;
+            article += "\n\n";
             var topThree = saveGame.CurrentDriverStandings
                 .OrderBy(s => s.Position)
                 .Take(3);
@@ -272,18 +213,23 @@ namespace AMS2ChEd.Views
             foreach (var standing in topThree)
             {
                 string driverName = GetDriverName(saveGame, standing.DriverId);
-                article += $"{standing.Position}. {driverName} - {standing.Points} points\n";
+                string pointsWord = standing.Points != 1
+                    ? Strings.PostRaceNewsWindow_PointsWord_Plural
+                    : Strings.PostRaceNewsWindow_PointsWord_Singular;
+                article += string.Format(Strings.PostRaceNewsWindow_StandingsLine_Format,
+                    standing.Position, driverName, standing.Points, pointsWord);
+                article += "\n";
             }
 
             article += "\n";
 
             if (isFirstRace)
             {
-                article += $"The championship has been set in motion, with all eyes now turning to the next race as teams and drivers look to build on their opening performances.";
+                article += Strings.PostRaceNewsWindow_Closing_FirstRace;
             }
             else
             {
-                article += $"The championship battle continues to intensify as teams and drivers prepare for the next round of this captivating season.";
+                article += Strings.PostRaceNewsWindow_Closing_Standard;
             }
 
             ArticleText.Text = article;
@@ -299,33 +245,33 @@ namespace AMS2ChEd.Views
             {
                 var maidenGrandSlamHeadlines = new[]
                 {
-                    $"MAIDEN WIN GRAND SLAM FOR {upperName} AT THE {upperGp}",
-                    $"{upperName} SCORES A GRAND SLAM ON MAIDEN WIN AT THE {upperGp}"
+                    Strings.PostRaceNewsWindow_Headline_MaidenGrandSlam1_Format,
+                    Strings.PostRaceNewsWindow_Headline_MaidenGrandSlam2_Format
                 };
-                return maidenGrandSlamHeadlines[random.Next(maidenGrandSlamHeadlines.Length)];
+                return string.Format(maidenGrandSlamHeadlines[random.Next(maidenGrandSlamHeadlines.Length)], upperName, upperGp);
             }
 
             if (isGrandSlam)
             {
                 var grandSlamHeadlines = new[]
                 {
-                    $"GRAND SLAM FOR {upperName} AT THE {upperGp}",
-                    $"{upperName} SWEEPS POLE, WIN AND FASTEST LAP AT THE {upperGp}"
+                    Strings.PostRaceNewsWindow_Headline_GrandSlam1_Format,
+                    Strings.PostRaceNewsWindow_Headline_GrandSlam2_Format
                 };
-                return grandSlamHeadlines[random.Next(grandSlamHeadlines.Length)];
+                return string.Format(grandSlamHeadlines[random.Next(grandSlamHeadlines.Length)], upperName, upperGp);
             }
 
             if (isMaidenWin)
             {
                 var maidenWinHeadlines = new[]
                 {
-                    $"MAIDEN WIN FOR {upperName} AT THE {upperGp}",
-                    $"FIRST CAREER WIN FOR {upperName} AT THE {upperGp}"
+                    Strings.PostRaceNewsWindow_Headline_MaidenWin1_Format,
+                    Strings.PostRaceNewsWindow_Headline_MaidenWin2_Format
                 };
-                return maidenWinHeadlines[random.Next(maidenWinHeadlines.Length)];
+                return string.Format(maidenWinHeadlines[random.Next(maidenWinHeadlines.Length)], upperName, upperGp);
             }
 
-            return $"{upperName} WINS THE {upperGp}";
+            return string.Format(Strings.PostRaceNewsWindow_Headline_Standard_Format, upperName, upperGp);
         }
 
         private string GenerateGrandSlamParagraph(string winnerName, GrandPrixResult raceResult)
@@ -333,11 +279,11 @@ namespace AMS2ChEd.Views
             var random = new Random();
             var grandSlamVariants = new[]
             {
-                $"In a standout display, {winnerName} claimed the full grand slam this weekend - pole position, victory, and the fastest lap of the race - a rare feat that underlines their complete dominance at the {raceResult.GrandPrixName}.",
-                $"{winnerName} swept every honor on offer at the {raceResult.GrandPrixName}: pole, the win, and the fastest lap - a grand slam performance that leaves no doubt about who had the pace this weekend.",
-                $"It was a perfect weekend for {winnerName}, who converted pole position into victory and topped it off with the fastest lap of the race - the complete grand slam."
+                Strings.PostRaceNewsWindow_GrandSlam1_Format,
+                Strings.PostRaceNewsWindow_GrandSlam2_Format,
+                Strings.PostRaceNewsWindow_GrandSlam3_Format
             };
-            return grandSlamVariants[random.Next(grandSlamVariants.Length)];
+            return string.Format(grandSlamVariants[random.Next(grandSlamVariants.Length)], winnerName, raceResult.GrandPrixName);
         }
 
         private string GenerateRaceHighlightsParagraph(
@@ -356,22 +302,22 @@ namespace AMS2ChEd.Views
 
             int winStreak = AccoladesCalculator.GetDriverWinStreak(saveGame, winner.DriverId);
             if (winStreak >= 2)
-                sentences.Add($"It's {winnerName}'s {ToOrdinal(winStreak)} win in a row.");
+                sentences.Add(string.Format(Strings.PostRaceNewsWindow_WinStreak_Format, winnerName, OrdinalFormatter.Format(winStreak)));
 
             bool isOneTwo = second != null
                 && !string.IsNullOrWhiteSpace(winner.TeamId) && winner.TeamId != "team_id"
                 && winner.TeamId == second.TeamId;
             if (isOneTwo)
-                sentences.Add($"{winnerTeam} celebrated a dominant 1-2 finish, with {secondName} crossing the line right behind {winnerName}.");
+                sentences.Add(string.Format(Strings.PostRaceNewsWindow_OneTwo_Format, winnerTeam, secondName, winnerName));
 
             if (!isGrandSlam)
             {
                 if (winner.FastestLap == true)
-                    sentences.Add($"{winnerName} also set the fastest lap of the race.");
+                    sentences.Add(string.Format(Strings.PostRaceNewsWindow_WinnerFastestLap_Format, winnerName));
                 else if (second?.FastestLap == true)
-                    sentences.Add($"{secondName} set the fastest lap of the race from P2.");
+                    sentences.Add(string.Format(Strings.PostRaceNewsWindow_OtherFastestLap_Format, secondName, 2));
                 else if (third?.FastestLap == true)
-                    sentences.Add($"{thirdName} set the fastest lap of the race from P3.");
+                    sentences.Add(string.Format(Strings.PostRaceNewsWindow_OtherFastestLap_Format, thirdName, 3));
             }
 
             return sentences.Count > 0 ? string.Join(" ", sentences) : "";
@@ -390,35 +336,35 @@ namespace AMS2ChEd.Views
             {
                 var maidenWinVariants = new[]
                 {
-                    $"It's the first victory of {driverName}'s career - a moment they'll remember for a long time.",
-                    $"A maiden win to treasure: {driverName} had never before stood on the top step of the podium.",
-                    $"After chasing that elusive first win, {driverName} finally has it - a career-defining moment."
+                    Strings.PostRaceNewsWindow_MaidenWinMilestone1_Format,
+                    Strings.PostRaceNewsWindow_MaidenWinMilestone2_Format,
+                    Strings.PostRaceNewsWindow_MaidenWinMilestone3_Format
                 };
-                return maidenWinVariants[random.Next(maidenWinVariants.Length)];
+                return string.Format(maidenWinVariants[random.Next(maidenWinVariants.Length)], driverName);
             }
 
             string driverWinPhrase = driverAccolades.HasBaseline
-                ? $"{ToOrdinal(driverAccolades.Wins)} career win"
-                : $"{ToOrdinal(driverAccolades.Wins)} win since the start of {driverAccolades.StartYear}";
+                ? string.Format(Strings.PostRaceNewsWindow_DriverWinPhrase_Baseline_Format, OrdinalFormatter.Format(driverAccolades.Wins))
+                : string.Format(Strings.PostRaceNewsWindow_DriverWinPhrase_SinceYear_Format, OrdinalFormatter.Format(driverAccolades.Wins), driverAccolades.StartYear);
 
             string teamWinPhrase = teamAccolades.HasBaseline
-                ? $"{ToOrdinal(teamAccolades.Wins)} win"
-                : $"{ToOrdinal(teamAccolades.Wins)} win since the start of {teamAccolades.StartYear}";
+                ? string.Format(Strings.PostRaceNewsWindow_TeamWinPhrase_Baseline_Format, OrdinalFormatter.Format(teamAccolades.Wins))
+                : string.Format(Strings.PostRaceNewsWindow_TeamWinPhrase_SinceYear_Format, OrdinalFormatter.Format(teamAccolades.Wins), teamAccolades.StartYear);
 
             string driverPodiumPhrase = driverAccolades.HasBaseline
-                ? $"{driverAccolades.Podiums} career podiums"
-                : $"{driverAccolades.Podiums} podiums since the start of {driverAccolades.StartYear}";
+                ? string.Format(Strings.PostRaceNewsWindow_DriverPodiumPhrase_Baseline_Format, driverAccolades.Podiums)
+                : string.Format(Strings.PostRaceNewsWindow_DriverPodiumPhrase_SinceYear_Format, driverAccolades.Podiums, driverAccolades.StartYear);
 
             var winsOnlyVariants = new[]
             {
-                $"It's {driverName}'s {driverWinPhrase}, and {teamName}'s {teamWinPhrase}.",
-                $"This victory marks {driverName}'s {driverWinPhrase}, while {teamName} celebrates their {teamWinPhrase}."
+                string.Format(Strings.PostRaceNewsWindow_WinsOnly1_Format, driverName, driverWinPhrase, teamName, teamWinPhrase),
+                string.Format(Strings.PostRaceNewsWindow_WinsOnly2_Format, driverName, driverWinPhrase, teamName, teamWinPhrase)
             };
 
             var winsAndPodiumsVariants = new[]
             {
-                $"{driverName} now has {driverAccolades.Wins} wins and {driverPodiumPhrase} to their name, while {teamName} celebrates their {teamWinPhrase}.",
-                $"That's {driverName}'s {driverWinPhrase} - and {driverPodiumPhrase} overall - as {teamName} banks their {teamWinPhrase}."
+                string.Format(Strings.PostRaceNewsWindow_WinsAndPodiums1_Format, driverName, driverAccolades.Wins, driverPodiumPhrase, teamName, teamWinPhrase),
+                string.Format(Strings.PostRaceNewsWindow_WinsAndPodiums2_Format, driverName, driverWinPhrase, driverPodiumPhrase, teamName, teamWinPhrase)
             };
 
             var allVariants = winsOnlyVariants.Concat(winsAndPodiumsVariants).ToArray();
@@ -442,11 +388,11 @@ namespace AMS2ChEd.Views
 
                 var variants = new[]
                 {
-                    $"It's the first podium finish of {name}'s career.",
-                    $"{name} celebrated a maiden podium finish today.",
-                    $"That's a first career podium for {name}."
+                    Strings.PostRaceNewsWindow_FirstPodium1_Format,
+                    Strings.PostRaceNewsWindow_FirstPodium2_Format,
+                    Strings.PostRaceNewsWindow_FirstPodium3_Format
                 };
-                sentences.Add(variants[random.Next(variants.Length)]);
+                sentences.Add(string.Format(variants[random.Next(variants.Length)], name));
             }
 
             // Skip the winner if this was already their maiden win - that milestone is already covered above
@@ -481,39 +427,25 @@ namespace AMS2ChEd.Views
                 {
                     var dnfVariants = new[]
                     {
-                        $"It was a day to forget for {name}, one of the championship's top three coming into the weekend, who failed to see the checkered flag.",
-                        $"There was heartbreak for {name}, forced to retire after arriving as one of the title favorites.",
-                        $"{name} endured a nightmare afternoon, retiring from the race after arriving among the championship pace-setters."
+                        Strings.PostRaceNewsWindow_Dnf1_Format,
+                        Strings.PostRaceNewsWindow_Dnf2_Format,
+                        Strings.PostRaceNewsWindow_Dnf3_Format
                     };
-                    sentences.Add(dnfVariants[random.Next(dnfVariants.Length)]);
+                    sentences.Add(string.Format(dnfVariants[random.Next(dnfVariants.Length)], name));
                 }
                 else
                 {
                     var badResultVariants = new[]
                     {
-                        $"It was a difficult weekend for {name}, one of the championship's top three coming in, who could only manage P{result.Position}.",
-                        $"{name} had little to celebrate, trailing home in P{result.Position} after arriving as one of the title favorites.",
-                        $"An afternoon to forget for {name}, who crosses the line in P{result.Position} after starting the weekend among the championship's top three."
+                        Strings.PostRaceNewsWindow_BadResult1_Format,
+                        Strings.PostRaceNewsWindow_BadResult2_Format,
+                        Strings.PostRaceNewsWindow_BadResult3_Format
                     };
-                    sentences.Add(badResultVariants[random.Next(badResultVariants.Length)]);
+                    sentences.Add(string.Format(badResultVariants[random.Next(badResultVariants.Length)], name, result.Position));
                 }
             }
 
             return sentences.Count > 0 ? string.Join(" ", sentences) : "";
-        }
-
-        private static string ToOrdinal(int number)
-        {
-            if (number % 100 is 11 or 12 or 13)
-                return $"{number}th";
-
-            return (number % 10) switch
-            {
-                1 => $"{number}st",
-                2 => $"{number}nd",
-                3 => $"{number}rd",
-                _ => $"{number}th"
-            };
         }
 
         private string GenerateWinnerHeadline(
@@ -524,107 +456,109 @@ namespace AMS2ChEd.Views
             int previousPosition,
             bool isFirstRace)
         {
-            int positionChange = previousPosition - newPosition;
             var random = new Random();
 
+            // Argument order standardized as (winner, team, newPosition) even for cases whose
+            // English prose doesn't use every placeholder, so every language's resx template can
+            // freely reorder or drop any of them.
             switch (reputation)
             {
                 case DriverReputation.PAY_DRIVER_WILD_CARD:
                     var payDriverWildCardVariants = new[]
                     {
-                        $"{winner} defied expectations with a stunning victory for {team}, proving doubters wrong with a masterful drive.",
-                        $"Against all odds, {winner} silenced the skeptics with a commanding performance that validated {team}'s faith in them.",
-                        $"{winner} shocked the paddock with a brilliant victory, demonstrating that raw pace transcends funding concerns."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PayDriverWildCard1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PayDriverWildCard2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PayDriverWildCard3_Format
                     };
-                    return payDriverWildCardVariants[random.Next(payDriverWildCardVariants.Length)];
+                    return string.Format(payDriverWildCardVariants[random.Next(payDriverWildCardVariants.Length)], winner, team, newPosition);
 
                 case DriverReputation.PAY_DRIVER_SEASON:
                     var payDriverSeasonVariants = new[]
                     {
-                        $"In a remarkable turn of events, {winner} silenced critics with a commanding performance, delivering {team}'s first win of the partnership.",
-                        $"{winner} answered every question with authority, proving their {team} seat was earned through speed, not sponsorship.",
-                        $"The critics are eating their words as {winner} delivered a masterclass for {team}, justifying their place on the grid with undeniable skill."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PayDriverSeason1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PayDriverSeason2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PayDriverSeason3_Format
                     };
-                    return payDriverSeasonVariants[random.Next(payDriverSeasonVariants.Length)];
+                    return string.Format(payDriverSeasonVariants[random.Next(payDriverSeasonVariants.Length)], winner, team, newPosition);
 
                 case DriverReputation.YOUNG_TALENT:
                     var youngTalentVariants = new[]
                     {
-                        $"Rising star {winner} announced their arrival on the big stage with a brilliant victory, showcasing the raw talent that {team} bet on.",
-                        $"The future arrived early as {winner} claimed a memorable first victory, giving {team} a glimpse of what's to come.",
-                        $"{winner} showed maturity beyond their years, delivering a composed victory that marks them as a star in the making."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_YoungTalent1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_YoungTalent2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_YoungTalent3_Format
                     };
-                    return youngTalentVariants[random.Next(youngTalentVariants.Length)];
+                    return string.Format(youngTalentVariants[random.Next(youngTalentVariants.Length)], winner, team, newPosition);
 
                 case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN:
                     var youngChampUnprovenVariants = new[]
                     {
-                        $"{winner} surged to P{newPosition} in the standings with a dominant display, edging closer to proving their championship credentials.",
-                        $"The potential became reality as {winner} delivered a statement win, moving to P{newPosition} with championship-caliber pace.",
-                        $"{winner} took another step toward greatness, claiming victory and rising to P{newPosition} in a performance that silenced any remaining doubters."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_YoungChampUnproven1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_YoungChampUnproven2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_YoungChampUnproven3_Format
                     };
-                    return youngChampUnprovenVariants[random.Next(youngChampUnprovenVariants.Length)];
+                    return string.Format(youngChampUnprovenVariants[random.Next(youngChampUnprovenVariants.Length)], winner, team, newPosition);
 
                 case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL:
                     if (newPosition == 1)
                     {
                         var youngChampLeaderVariants = new[]
                         {
-                            $"{winner} extended their championship lead with a flawless performance, showing why they're the driver to beat this season.",
-                            $"Championship leader {winner} tightened their grip on the title with another clinical victory, putting pressure on their rivals.",
-                            $"{winner} continues to set the pace, stretching their championship advantage with a display of pure dominance."
+                            Strings.PostRaceNewsWindow_WinnerHeadline_YoungChampLeader1_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_YoungChampLeader2_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_YoungChampLeader3_Format
                         };
-                        return youngChampLeaderVariants[random.Next(youngChampLeaderVariants.Length)];
+                        return string.Format(youngChampLeaderVariants[random.Next(youngChampLeaderVariants.Length)], winner, team, newPosition);
                     }
                     else
                     {
                         var youngChampChaserVariants = new[]
                         {
-                            $"{winner} fought back brilliantly, moving to P{newPosition} in the standings with a statement victory.",
-                            $"Refusing to surrender, {winner} claimed a crucial win and climbed to P{newPosition}, keeping championship hopes alive.",
-                            $"{winner} struck back with authority, rising to P{newPosition} with a victory that reshapes the title battle."
+                            Strings.PostRaceNewsWindow_WinnerHeadline_YoungChampChaser1_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_YoungChampChaser2_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_YoungChampChaser3_Format
                         };
-                        return youngChampChaserVariants[random.Next(youngChampChaserVariants.Length)];
+                        return string.Format(youngChampChaserVariants[random.Next(youngChampChaserVariants.Length)], winner, team, newPosition);
                     }
 
                 case DriverReputation.PRIME_MIDFIELD:
                     var primeMidfieldVariants = new[]
                     {
-                        $"{winner} delivered the drive of their career, elevating themselves and {team} with an unexpected but thoroughly deserved victory.",
-                        $"Lightning struck as {winner} seized their moment of glory, rewarding {team}'s faith with a fairytale triumph.",
-                        $"{winner} broke through in spectacular fashion, claiming a maiden victory that validates years of solid midfield performances."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PrimeMidfield1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PrimeMidfield2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PrimeMidfield3_Format
                     };
-                    return primeMidfieldVariants[random.Next(primeMidfieldVariants.Length)];
+                    return string.Format(primeMidfieldVariants[random.Next(primeMidfieldVariants.Length)], winner, team, newPosition);
 
                 case DriverReputation.PRIME_STRONG_MIDFIELD:
                     var primeStrongMidfieldVariants = new[]
                     {
-                        $"{winner} seized the opportunity with both hands, converting {team}'s strong package into a memorable triumph.",
-                        $"Years of consistency paid off as {winner} delivered a polished victory, proving they belong among the elite.",
-                        $"{winner} graduated from solid performer to race winner, giving {team} a triumph built on unwavering reliability."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PrimeStrongMidfield1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PrimeStrongMidfield2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PrimeStrongMidfield3_Format
                     };
-                    return primeStrongMidfieldVariants[random.Next(primeStrongMidfieldVariants.Length)];
+                    return string.Format(primeStrongMidfieldVariants[random.Next(primeStrongMidfieldVariants.Length)], winner, team, newPosition);
 
                 case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN:
                     if (newPosition <= 3)
                     {
                         var primeChampUnprovenTopVariants = new[]
                         {
-                            $"{winner} moved into championship contention at P{newPosition}, delivering the breakthrough performance that could define their season.",
-                            $"Now at P{newPosition}, {winner} has firmly entered the title conversation with a victory that showcased championship credentials.",
-                            $"{winner} announced their arrival as a genuine title threat, climbing to P{newPosition} with a commanding display of speed and racecraft."
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampUnprovenTop1_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampUnprovenTop2_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampUnprovenTop3_Format
                         };
-                        return primeChampUnprovenTopVariants[random.Next(primeChampUnprovenTopVariants.Length)];
+                        return string.Format(primeChampUnprovenTopVariants[random.Next(primeChampUnprovenTopVariants.Length)], winner, team, newPosition);
                     }
                     else
                     {
                         var primeChampUnprovenVariants = new[]
                         {
-                            $"{winner} announced their title intentions with authority, moving to P{newPosition} after a masterclass in race craft.",
-                            $"A statement victory propels {winner} to P{newPosition}, proving they have the speed to challenge for the championship.",
-                            $"{winner} delivered a performance worthy of champions, rising to P{newPosition} with a display of pure class."
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampUnproven1_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampUnproven2_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampUnproven3_Format
                         };
-                        return primeChampUnprovenVariants[random.Next(primeChampUnprovenVariants.Length)];
+                        return string.Format(primeChampUnprovenVariants[random.Next(primeChampUnprovenVariants.Length)], winner, team, newPosition);
                     }
 
                 case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL:
@@ -632,98 +566,98 @@ namespace AMS2ChEd.Views
                     {
                         var primeChampLeaderVariants = new[]
                         {
-                            $"Championship leader {winner} demonstrated why they're at the top, extending their advantage with another clinical victory.",
-                            $"{winner} maintained their stranglehold on the championship, adding another win to their growing tally with ruthless efficiency.",
-                            $"Unstoppable at the front, {winner} stretched their championship lead with a masterful performance that demoralized the opposition."
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampLeader1_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampLeader2_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampLeader3_Format
                         };
-                        return primeChampLeaderVariants[random.Next(primeChampLeaderVariants.Length)];
+                        return string.Format(primeChampLeaderVariants[random.Next(primeChampLeaderVariants.Length)], winner, team, newPosition);
                     }
                     else
                     {
                         var primeChampChaserVariants = new[]
                         {
-                            $"{winner} refused to give up the fight, moving to P{newPosition} with a champion's drive that keeps their title hopes alive.",
-                            $"The championship battle intensifies as {winner} strikes back, climbing to P{newPosition} with a victory that keeps the pressure on.",
-                            $"{winner} demonstrated true champion mentality, fighting to P{newPosition} with a win that reignites their title challenge."
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampChaser1_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampChaser2_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampChaser3_Format
                         };
-                        return primeChampChaserVariants[random.Next(primeChampChaserVariants.Length)];
+                        return string.Format(primeChampChaserVariants[random.Next(primeChampChaserVariants.Length)], winner, team, newPosition);
                     }
 
                 case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED:
                     var primeChampWashedVariants = new[]
                     {
-                        $"{winner} turned back the clock with a vintage performance, proving there's still fire in the belly of this former champion.",
-                        $"Reports of {winner}'s decline were greatly exaggerated, as the former champion delivered a reminder of their championship pedigree.",
-                        $"{winner} silenced the critics with a commanding victory, showing flashes of the brilliance that once dominated the sport."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampWashed1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampWashed2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_PrimeChampWashed3_Format
                     };
-                    return primeChampWashedVariants[random.Next(primeChampWashedVariants.Length)];
+                    return string.Format(primeChampWashedVariants[random.Next(primeChampWashedVariants.Length)], winner, team, newPosition);
 
                 case DriverReputation.AGEING_MIDFIELD:
                     var ageingMidfieldVariants = new[]
                     {
-                        $"Veteran {winner} showed that experience counts, delivering a calculated drive that maximized every opportunity.",
-                        $"{winner} proved there's life in the old dog yet, combining cunning with speed to claim an unlikely victory.",
-                        $"Age and treachery beat youth and skill as {winner} crafted a tactical masterpiece to secure an impressive win."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_AgeingMidfield1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_AgeingMidfield2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_AgeingMidfield3_Format
                     };
-                    return ageingMidfieldVariants[random.Next(ageingMidfieldVariants.Length)];
+                    return string.Format(ageingMidfieldVariants[random.Next(ageingMidfieldVariants.Length)], winner, team, newPosition);
 
                 case DriverReputation.AGEING_STRONG_MIDFIELD:
                     var ageingStrongMidfieldVariants = new[]
                     {
-                        $"{winner} combined experience with pace to perfection, adding another chapter to an illustrious career with a well-earned victory.",
-                        $"The veteran showed the youngsters how it's done, with {winner} delivering a clinic in racecraft and precision.",
-                        $"{winner} demonstrated that class is permanent, claiming a victory that proves experience remains invaluable in Formula 1."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_AgeingStrongMidfield1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_AgeingStrongMidfield2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_AgeingStrongMidfield3_Format
                     };
-                    return ageingStrongMidfieldVariants[random.Next(ageingStrongMidfieldVariants.Length)];
+                    return string.Format(ageingStrongMidfieldVariants[random.Next(ageingStrongMidfieldVariants.Length)], winner, team, newPosition);
 
                 case DriverReputation.AGEING_CHAMPIONSHIP_LEVEL:
                     if (newPosition <= 2)
                     {
                         var ageingChampTopVariants = new[]
                         {
-                            $"{winner} proved age is just a number, moving to P{newPosition} in the standings with a performance that belied their years.",
-                            $"Still competitive at P{newPosition}, {winner} showed the younger generation they're far from finished with a commanding victory.",
-                            $"The old master remains at the sharp end, with {winner} rising to P{newPosition} through a display of timeless racecraft."
+                            Strings.PostRaceNewsWindow_WinnerHeadline_AgeingChampTop1_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_AgeingChampTop2_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_AgeingChampTop3_Format
                         };
-                        return ageingChampTopVariants[random.Next(ageingChampTopVariants.Length)];
+                        return string.Format(ageingChampTopVariants[random.Next(ageingChampTopVariants.Length)], winner, team, newPosition);
                     }
                     else
                     {
                         var ageingChampVariants = new[]
                         {
-                            $"The veteran {winner} showed the youngsters how it's done, claiming victory with the racecraft that comes only with years of experience.",
-                            $"{winner} demonstrated that speed isn't everything, using decades of knowledge to outthink and outrace the opposition.",
-                            $"Experience triumphed over youth as {winner} delivered a masterclass, proving their championship mettle remains intact."
+                            Strings.PostRaceNewsWindow_WinnerHeadline_AgeingChamp1_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_AgeingChamp2_Format,
+                            Strings.PostRaceNewsWindow_WinnerHeadline_AgeingChamp3_Format
                         };
-                        return ageingChampVariants[random.Next(ageingChampVariants.Length)];
+                        return string.Format(ageingChampVariants[random.Next(ageingChampVariants.Length)], winner, team, newPosition);
                     }
 
                 case DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED:
                     var ageingChampWashedVariants = new[]
                     {
-                        $"In a stunning resurgence, {winner} recaptured past glory with a victory that shocked the paddock and delighted fans.",
-                        $"Like a phoenix from the ashes, {winner} rose to claim an emotional victory that reignited memories of championship glory.",
-                        $"{winner} wound back the years with a performance that proved champions never forget how to win, regardless of recent struggles."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_AgeingChampWashed1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_AgeingChampWashed2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_AgeingChampWashed3_Format
                     };
-                    return ageingChampWashedVariants[random.Next(ageingChampWashedVariants.Length)];
+                    return string.Format(ageingChampWashedVariants[random.Next(ageingChampWashedVariants.Length)], winner, team, newPosition);
 
                 case DriverReputation.JUST_ONE_LAST_DANCE:
                     var lastDanceVariants = new[]
                     {
-                        $"In what may be their final season, {winner} delivered a poignant reminder of their brilliance, savoring a victory that transcends the championship standings.",
-                        $"{winner} added another golden memory to a storied career, claiming a bittersweet victory in their swansong season.",
-                        $"Racing against the sunset, {winner} proved the magic hasn't faded, delivering a triumphant farewell performance that fans will treasure forever."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_LastDance1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_LastDance2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_LastDance3_Format
                     };
-                    return lastDanceVariants[random.Next(lastDanceVariants.Length)];
+                    return string.Format(lastDanceVariants[random.Next(lastDanceVariants.Length)], winner, team, newPosition);
 
                 default:
                     var defaultVariants = new[]
                     {
-                        $"{winner} claimed a well-deserved victory for {team}, moving to P{newPosition} in the championship standings.",
-                        $"A commanding performance from {winner} secured victory for {team}, advancing to P{newPosition} in the points.",
-                        $"{winner} delivered a polished drive to win for {team}, now sitting at P{newPosition} in the championship."
+                        Strings.PostRaceNewsWindow_WinnerHeadline_Default1_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_Default2_Format,
+                        Strings.PostRaceNewsWindow_WinnerHeadline_Default3_Format
                     };
-                    return defaultVariants[random.Next(defaultVariants.Length)];
+                    return string.Format(defaultVariants[random.Next(defaultVariants.Length)], winner, team, newPosition);
             }
         }
 
@@ -741,125 +675,97 @@ namespace AMS2ChEd.Views
                 case DriverReputation.PAY_DRIVER_SEASON:
                     var payDriverVariants = new[]
                     {
-                        $"Despite questions about their credentials, {winner} delivered a flawless performance that silenced doubters. " +
-                        $"The {team} driver controlled the race from start to finish, demonstrating that talent, not just funding, earned them this result.",
-                        $"{winner} answered every criticism with pace and precision today. The {team} driver's racecraft was exemplary, " +
-                        $"proving conclusively that they deserve their place on merit alone.",
-                        $"Money may open doors, but {winner} showed that only skill wins races. The {team} driver's performance was clinical, " +
-                        $"leaving no doubt that speed, not sponsorship, delivered this triumph."
+                        Strings.PostRaceNewsWindow_Analysis_PayDriver1_Format,
+                        Strings.PostRaceNewsWindow_Analysis_PayDriver2_Format,
+                        Strings.PostRaceNewsWindow_Analysis_PayDriver3_Format
                     };
-                    return payDriverVariants[random.Next(payDriverVariants.Length)];
+                    return string.Format(payDriverVariants[random.Next(payDriverVariants.Length)], winner, team);
 
                 case DriverReputation.YOUNG_TALENT:
                     var youngTalentVariants = new[]
                     {
-                        $"The youngster showed maturity beyond their years, making no mistakes under pressure. " +
-                        $"While there's still room to grow, this performance suggests {winner} could be a future championship contender.",
-                        $"{winner} handled the pressure of leading like a seasoned veteran, never putting a wheel wrong. " +
-                        $"This breakthrough victory marks the arrival of a major talent on the world stage.",
-                        $"Raw speed met composure under pressure as {winner} delivered a faultless performance. " +
-                        $"The {team} driver's potential is clear - this may be just the first of many victories to come."
+                        Strings.PostRaceNewsWindow_Analysis_YoungTalent1_Format,
+                        Strings.PostRaceNewsWindow_Analysis_YoungTalent2_Format,
+                        Strings.PostRaceNewsWindow_Analysis_YoungTalent3_Format
                     };
-                    return youngTalentVariants[random.Next(youngTalentVariants.Length)];
+                    return string.Format(youngTalentVariants[random.Next(youngTalentVariants.Length)], winner, team);
 
                 case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN:
                 case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL:
                     var youngChampVariants = new[]
                     {
-                        $"{winner}'s pace was relentless from lights to flag. The {team} driver handled pressure from behind with composure, " +
-                        $"executing a race strategy that maximized their machinery's potential.",
-                        $"From pole to checkered flag, {winner} dominated with a display of pure speed. The {team} driver left nothing to chance, " +
-                        $"controlling the race with the confidence of a future champion.",
-                        $"{winner} made it look easy, but this victory required perfection. Every overtake, every defensive move, " +
-                        $"every stint was executed flawlessly by the {team} driver who continues to impress."
+                        Strings.PostRaceNewsWindow_Analysis_YoungChamp1_Format,
+                        Strings.PostRaceNewsWindow_Analysis_YoungChamp2_Format,
+                        Strings.PostRaceNewsWindow_Analysis_YoungChamp3_Format
                     };
-                    return youngChampVariants[random.Next(youngChampVariants.Length)];
+                    return string.Format(youngChampVariants[random.Next(youngChampVariants.Length)], winner, team);
 
                 case DriverReputation.PRIME_MIDFIELD:
                 case DriverReputation.PRIME_STRONG_MIDFIELD:
                     var primeMidfieldVariants = new[]
                     {
-                        $"This victory represents the culmination of years of solid performances. {winner} seized the moment when it arrived, " +
-                        $"driving with a confidence that suggests this may not be their last trip to the top step.",
-                        $"{winner} has consistently delivered strong results, and today those efforts were rewarded with ultimate glory. " +
-                        $"The {team} driver's consistency and speed combined perfectly when it mattered most.",
-                        $"Patience and persistence paid dividends as {winner} finally claimed the victory their performances have long deserved. " +
-                        $"The {team} driver showed that steady improvement eventually reaches the summit."
+                        Strings.PostRaceNewsWindow_Analysis_PrimeMidfield1_Format,
+                        Strings.PostRaceNewsWindow_Analysis_PrimeMidfield2_Format,
+                        Strings.PostRaceNewsWindow_Analysis_PrimeMidfield3_Format
                     };
-                    return primeMidfieldVariants[random.Next(primeMidfieldVariants.Length)];
+                    return string.Format(primeMidfieldVariants[random.Next(primeMidfieldVariants.Length)], winner, team);
 
                 case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN:
                 case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL:
                     var primeChampVariants = new[]
                     {
-                        $"As expected from a driver of {winner}'s caliber, there were no gifts today. " +
-                        $"Pure speed combined with strategic brilliance earned {team} a victory that looked comfortable but required perfection.",
-                        $"{winner} dominated from start to finish with ruthless efficiency. The {team} driver gave a masterclass in race management, " +
-                        $"controlling every aspect with championship-winning precision.",
-                        $"This is what elite-level performance looks like. {winner} extracted every tenth from the {team} machinery, " +
-                        $"combining qualifying pace with race management in a display that left rivals with no answers."
+                        Strings.PostRaceNewsWindow_Analysis_PrimeChamp1_Format,
+                        Strings.PostRaceNewsWindow_Analysis_PrimeChamp2_Format,
+                        Strings.PostRaceNewsWindow_Analysis_PrimeChamp3_Format
                     };
-                    return primeChampVariants[random.Next(primeChampVariants.Length)];
+                    return string.Format(primeChampVariants[random.Next(primeChampVariants.Length)], winner, team);
 
                 case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED:
                     var primeChampWashedVariants = new[]
                     {
-                        $"Critics who wrote off {winner} were silenced today. The {team} driver showed flashes of the form that once made them champion, " +
-                        $"suggesting rumors of their decline may have been premature.",
-                        $"{winner} reminded everyone why they were once at the top, delivering a performance that recaptured their peak form. " +
-                        $"The speed and racecraft that defined their championship years returned when it mattered most.",
-                        $"Perhaps reports of {winner}'s demise were exaggerated. The {team} driver rolled back the years with a vintage display, " +
-                        $"proving the instincts of a champion never truly disappear."
+                        Strings.PostRaceNewsWindow_Analysis_PrimeChampWashed1_Format,
+                        Strings.PostRaceNewsWindow_Analysis_PrimeChampWashed2_Format,
+                        Strings.PostRaceNewsWindow_Analysis_PrimeChampWashed3_Format
                     };
-                    return primeChampWashedVariants[random.Next(primeChampWashedVariants.Length)];
+                    return string.Format(primeChampWashedVariants[random.Next(primeChampWashedVariants.Length)], winner, team);
 
                 case DriverReputation.AGEING_MIDFIELD:
                 case DriverReputation.AGEING_STRONG_MIDFIELD:
                     var ageingMidfieldVariants = new[]
                     {
-                        $"Experience proved invaluable as {winner} navigated a complex race with veteran savvy. " +
-                        $"Where younger drivers might have made mistakes, the {team} driver's composure was key to victory.",
-                        $"{winner} demonstrated that racecraft improves with age. The {team} driver read the race perfectly, " +
-                        $"positioning themselves ideally at every critical moment through superior tactical awareness.",
-                        $"While the young guns brought speed, {winner} brought wisdom. The {team} veteran exploited every opportunity with the cunning " +
-                        $"that comes only from years of experience at the highest level."
+                        Strings.PostRaceNewsWindow_Analysis_AgeingMidfield1_Format,
+                        Strings.PostRaceNewsWindow_Analysis_AgeingMidfield2_Format,
+                        Strings.PostRaceNewsWindow_Analysis_AgeingMidfield3_Format
                     };
-                    return ageingMidfieldVariants[random.Next(ageingMidfieldVariants.Length)];
+                    return string.Format(ageingMidfieldVariants[random.Next(ageingMidfieldVariants.Length)], winner, team);
 
                 case DriverReputation.AGEING_CHAMPIONSHIP_LEVEL:
                 case DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED:
                     var ageingChampVariants = new[]
                     {
-                        $"Age may bring physical challenges, but {winner} demonstrated that racecraft and strategic thinking can overcome pure speed. " +
-                        $"This victory adds another highlight to an already storied career.",
-                        $"{winner} showed that champions are made of more than just reflexes. The {team} driver's ability to read a race " +
-                        $"and execute perfectly under pressure proved that experience remains Formula 1's most valuable asset.",
-                        $"The veteran {winner} delivered a clinic in race management, proving that decades of knowledge trump raw speed. " +
-                        $"Every decision, every defensive move was executed with the confidence of a driver who's seen it all before."
+                        Strings.PostRaceNewsWindow_Analysis_AgeingChamp1_Format,
+                        Strings.PostRaceNewsWindow_Analysis_AgeingChamp2_Format,
+                        Strings.PostRaceNewsWindow_Analysis_AgeingChamp3_Format
                     };
-                    return ageingChampVariants[random.Next(ageingChampVariants.Length)];
+                    return string.Format(ageingChampVariants[random.Next(ageingChampVariants.Length)], winner, team);
 
                 case DriverReputation.JUST_ONE_LAST_DANCE:
                     var lastDanceVariants = new[]
                     {
-                        $"Racing against time in their farewell season, {winner} showed they still have the fire and skill that defined their career. " +
-                        $"Every lap, every corner carried the weight of finality, yet the {team} driver performed with the joy of someone who knows each moment counts. " +
-                        $"This is racing at its most pure - a champion refusing to go quietly into the night.",
-                        $"There's something magical about {winner}'s swansong season. Each race carries extra meaning, and today the veteran delivered " +
-                        $"a performance filled with the passion of someone savoring every final moment. The {team} driver proved that legends never lose their touch.",
-                        $"In their final act, {winner} reminded us all why we fell in love with their racing. The {team} driver raced with freedom and joy, " +
-                        $"unburdened by championship pressure, producing a pure display of skill that will be remembered long after they hang up the helmet."
+                        Strings.PostRaceNewsWindow_Analysis_LastDance1_Format,
+                        Strings.PostRaceNewsWindow_Analysis_LastDance2_Format,
+                        Strings.PostRaceNewsWindow_Analysis_LastDance3_Format
                     };
-                    return lastDanceVariants[random.Next(lastDanceVariants.Length)];
+                    return string.Format(lastDanceVariants[random.Next(lastDanceVariants.Length)], winner, team);
 
                 default:
                     var defaultVariants = new[]
                     {
-                        $"{winner} drove with precision and pace throughout, never putting a wheel wrong on the way to a commanding victory.",
-                        $"A professional performance from {winner} saw the {team} driver control the race with consistent pace and smart strategy.",
-                        $"{winner} delivered exactly what {team} needed - a clean, mistake-free drive that maximized the machinery's potential."
+                        Strings.PostRaceNewsWindow_Analysis_Default1_Format,
+                        Strings.PostRaceNewsWindow_Analysis_Default2_Format,
+                        Strings.PostRaceNewsWindow_Analysis_Default3_Format
                     };
-                    return defaultVariants[random.Next(defaultVariants.Length)];
+                    return string.Format(defaultVariants[random.Next(defaultVariants.Length)], winner, team);
             }
         }
 
@@ -872,27 +778,20 @@ namespace AMS2ChEd.Views
                 {
                     var championClinchVariants = new[]
                     {
-                        $"{winner} claims the championship title with this season-ending victory, capping a dominant campaign in style. " +
-                        $"The title may have been inevitable, but the final flourish underscores their superiority throughout the year.",
-
-                        $"The championship is sealed as {winner} takes the checkered flag in the season finale. " +
-                        $"This victory crowns a remarkable year and cements their place in the record books.",
-
-                        $"With this final victory, {winner} concludes a championship-winning season that will be remembered for years to come. " +
-                        $"The title triumph is complete, the legacy secured."
+                        Strings.PostRaceNewsWindow_ChampClinch1_Format,
+                        Strings.PostRaceNewsWindow_ChampClinch2_Format,
+                        Strings.PostRaceNewsWindow_ChampClinch3_Format
                     };
                     var random = new Random();
-                    return championClinchVariants[random.Next(championClinchVariants.Length)];
+                    return string.Format(championClinchVariants[random.Next(championClinchVariants.Length)], winner);
                 }
                 else if (newPosition <= 3)
                 {
-                    return $"{winner} finishes the season in P{newPosition}, a respectable final standing that reflects consistent performances throughout the year. " +
-                           $"While the title eluded them, there's much to build on for next season.";
+                    return string.Format(Strings.PostRaceNewsWindow_ChampFinaleTop3_Format, winner, newPosition);
                 }
                 else
                 {
-                    return $"{winner} concludes the championship in P{newPosition}, ending the season on a high note with this victory. " +
-                           $"Though the final standings may not reflect it, today's performance shows promise for the future.";
+                    return string.Format(Strings.PostRaceNewsWindow_ChampFinaleOther_Format, winner, newPosition);
                 }
             }
 
@@ -901,18 +800,15 @@ namespace AMS2ChEd.Views
             {
                 if (newPosition == 1)
                 {
-                    return $"{winner} takes the early championship lead, drawing first blood in what promises to be a season-long battle. " +
-                           $"The momentum from this opening victory could prove crucial as the championship unfolds.";
+                    return string.Format(Strings.PostRaceNewsWindow_ChampFirstRaceLeader_Format, winner);
                 }
                 else if (newPosition <= 3)
                 {
-                    return $"{winner} starts the championship in P{newPosition}, a solid opening result that keeps them in early contention. " +
-                           $"With a long season ahead, this foundation could prove valuable in the title fight.";
+                    return string.Format(Strings.PostRaceNewsWindow_ChampFirstRaceTop3_Format, winner, newPosition);
                 }
                 else
                 {
-                    return $"{winner} opens their championship account with a victory from P{newPosition}, proving that early points can come from anywhere. " +
-                           $"This result establishes them as a dark horse in the championship battle.";
+                    return string.Format(Strings.PostRaceNewsWindow_ChampFirstRaceOther_Format, winner, newPosition);
                 }
             }
 
@@ -923,29 +819,24 @@ namespace AMS2ChEd.Views
             {
                 if (previousPosition == 1)
                 {
-                    return $"With this victory, {winner} extends their championship lead, putting further pressure on rivals to respond. " +
-                           $"The momentum is firmly with them as the season progresses.";
+                    return string.Format(Strings.PostRaceNewsWindow_ChampLeaderContinues_Format, winner);
                 }
                 else
                 {
-                    return $"This result propels {winner} to the top of the championship standings - " +
-                           $"From P{previousPosition} to P1 - a remarkable turnaround that reshapes the title battle.";
+                    return string.Format(Strings.PostRaceNewsWindow_ChampNewLeader_Format, winner, previousPosition);
                 }
             }
             else if (positionChange > 0)
             {
-                return $"The victory elevates {winner} from P{previousPosition} to P{newPosition} in the championship, " +
-                       $"keeping them firmly in the hunt for the title with races still to come.";
+                return string.Format(Strings.PostRaceNewsWindow_ChampPositionUp_Format, winner, previousPosition, newPosition);
             }
             else if (positionChange < 0)
             {
-                return $"Despite the win, {winner} slips from P{previousPosition} to P{newPosition} in the standings, " +
-                       $"highlighting the fierce competition at the top of the championship table.";
+                return string.Format(Strings.PostRaceNewsWindow_ChampPositionDown_Format, winner, previousPosition, newPosition);
             }
             else
             {
-                return $"{winner} maintains their P{newPosition} position in the championship, but this victory adds crucial points " +
-                       $"and momentum in what promises to be a closely fought title battle.";
+                return string.Format(Strings.PostRaceNewsWindow_ChampPositionSame_Format, winner, newPosition);
             }
         }
 
@@ -955,13 +846,13 @@ namespace AMS2ChEd.Views
                 return saveGame.PlayerData.Name;
 
             var driver = saveGame.Drivers.FirstOrDefault(d => d.DriverId == driverId);
-            return driver?.Name ?? "Unknown Driver";
+            return driver?.Name ?? Strings.PostRaceNewsWindow_DefaultDriverName;
         }
 
         private string GetTeamName(ISaveGame saveGame, string teamId)
         {
             var team = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
-            return team?.TeamName ?? "Unknown Team";
+            return team?.TeamName ?? Strings.PostRaceNewsWindow_DefaultTeamName;
         }
 
         private DriverReputation GetDriverReputation(ISaveGame saveGame, string driverId)

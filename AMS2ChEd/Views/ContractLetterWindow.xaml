@@ -1,7 +1,8 @@
 ﻿<Window x:Class="AMS2ChEd.ContractLetterWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Contract Offer" 
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        Title="{loc:Loc ContractLetterWindow_Title}"
         Height="1200" Width="1200"
         WindowStartupLocation="CenterScreen"
         Background="#f5f5dc"
@@ -52,7 +53,7 @@
                                HorizontalAlignment="Center"
                                Margin="0,0,0,5"/>
 
-                    <TextBlock Text="Formula Racing Team"
+                    <TextBlock Text="{loc:Loc ContractLetterWindow_Subtitle}"
                                FontSize="22" 
                                Foreground="#666666"
                                HorizontalAlignment="Center"
@@ -71,7 +72,7 @@
                                Margin="0,0,40,0"/>
 
                     <!-- Signature -->
-                    <TextBlock Text="Sincerely,"
+                    <TextBlock Text="{loc:Loc ContractLetterWindow_Signoff}"
                                FontSize="24"
                                Foreground="#2c2c2c"
                                FontFamily="Georgia"
@@ -98,12 +99,12 @@
                     HorizontalAlignment="Right"
                     Margin="0,0,40,30">
             <Button x:Name="NextButton"
-                    Content="NEXT" 
+                    Content="{loc:Loc ContractLetterWindow_NextButton}"
                     Style="{StaticResource NextButtonStyle}"
                     Click="NextButton_Click"
                     Margin="0,0,10,0"/>
             <Button x:Name="ChooseAnotherTeamButton"
-                    Content="CHOOSE ANOTHER TEAM"
+                    Content="{loc:Loc ContractLetterWindow_ChooseAnotherTeamButton}"
                     Width="220"
                     Height="45"
                     Background="#555555"

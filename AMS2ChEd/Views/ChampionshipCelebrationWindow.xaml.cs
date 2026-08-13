@@ -2,6 +2,8 @@ using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Extensions;
+using AMS2ChEd.Localization;
+using AMS2ChEd.Resources;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -26,8 +28,8 @@ namespace AMS2ChEd.Views
 
             if (champion == null)
             {
-                HeadlineText.Text = "SEASON COMPLETE";
-                ArticleText.Text = "The season has concluded.";
+                HeadlineText.Text = Strings.ChampionshipCelebrationWindow_SeasonComplete_Headline;
+                ArticleText.Text = Strings.ChampionshipCelebrationWindow_SeasonComplete_Article;
                 return;
             }
 
@@ -58,16 +60,18 @@ namespace AMS2ChEd.Views
 
         private string BuildHeadline(string championName, int year, bool isMaidenTitle)
         {
+            string upperName = championName.ToUpper();
+
             if (!isMaidenTitle)
-                return $"{championName.ToUpper()} CLAIMS {year} WORLD CHAMPIONSHIP";
+                return string.Format(Strings.ChampionshipCelebrationWindow_Headline_Standard_Format, upperName, year);
 
             var random = new Random();
             var maidenTitleHeadlines = new[]
             {
-                $"{championName.ToUpper()} CLAIMS MAIDEN WORLD CHAMPIONSHIP",
-                $"{championName.ToUpper()} CROWNED WORLD CHAMPION FOR THE FIRST TIME"
+                Strings.ChampionshipCelebrationWindow_Headline_Maiden1_Format,
+                Strings.ChampionshipCelebrationWindow_Headline_Maiden2_Format
             };
-            return maidenTitleHeadlines[random.Next(maidenTitleHeadlines.Length)];
+            return string.Format(maidenTitleHeadlines[random.Next(maidenTitleHeadlines.Length)], upperName);
         }
 
         private void GenerateChampionshipArticle(
@@ -83,9 +87,9 @@ namespace AMS2ChEd.Views
             string article = "";
 
             // Opening paragraph
-            article += $"The {saveGame.CurrentSeason.Year} championship has reached its thrilling conclusion, with {championName} " +
-                      $"claiming the world title for {championTeam}. ";
-            article += $"With a final tally of {championPoints} points, {championName} has secured motorsport's ultimate prize.\n\n";
+            article += string.Format(Strings.ChampionshipCelebrationWindow_Opening_Format,
+                saveGame.CurrentSeason.Year, championName, championTeam, championPoints);
+            article += "\n\n";
 
             // Championship journey based on reputation
             article += GenerateChampionshipJourney(championName, championTeam, championReputation);
@@ -96,7 +100,8 @@ namespace AMS2ChEd.Views
             article += "\n\n";
 
             // Final standings
-            article += "FINAL CHAMPIONSHIP STANDINGS (TOP 5):\n\n";
+            article += Strings.ChampionshipCelebrationWindow_StandingsHeader;
+            article += "\n\n";
             var topFive = saveGame.CurrentDriverStandings
                 .OrderBy(s => s.Position)
                 .Take(5);
@@ -104,85 +109,68 @@ namespace AMS2ChEd.Views
             foreach (var standing in topFive)
             {
                 string driverName = GetDriverName(saveGame, standing.DriverId);
-                article += $"{standing.Position}. {driverName} - {standing.Points} points\n";
+                string pointsWord = standing.Points != 1
+                    ? Strings.ChampionshipCelebrationWindow_StandingsPointsWord_Plural
+                    : Strings.ChampionshipCelebrationWindow_StandingsPointsWord_Singular;
+                article += string.Format(Strings.ChampionshipCelebrationWindow_StandingsLine_Format,
+                    standing.Position, driverName, standing.Points, pointsWord);
+                article += "\n";
             }
 
             article += "\n";
-            article += $"As the champagne dries and the celebrations continue, attention now turns to the future. " +
-                      $"Contract negotiations begin in earnest as teams and drivers prepare for the next chapter in this " +
-                      $"ever-evolving sport.";
+            article += Strings.ChampionshipCelebrationWindow_Closing;
 
             ArticleText.Text = article;
         }
 
+        // Argument order standardized as (championName, championTeam) regardless of whether a
+        // given case's English prose actually uses the team name, so every language's resx
+        // template can freely reorder or drop placeholders.
         private string GenerateChampionshipJourney(
             string championName,
             string championTeam,
             DriverReputation reputation)
         {
-            return reputation switch
+            string template = reputation switch
             {
                 DriverReputation.PAY_DRIVER_WILD_CARD or DriverReputation.PAY_DRIVER_SEASON =>
-                    $"In what can only be described as the ultimate underdog story, {championName} silenced every critic " +
-                    $"who doubted their credentials. What began as questions about their funding has ended with their name " +
-                    $"etched in motorsport history. This championship proves that determination and talent can overcome any narrative.",
+                    Strings.ChampionshipCelebrationWindow_Journey_PayDriver_Format,
 
                 DriverReputation.YOUNG_TALENT or DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN =>
-                    $"The young sensation has announced their arrival on the world stage in emphatic fashion. {championName}'s " +
-                    $"championship victory represents not just personal triumph, but signals a changing of the guard in motorsport. " +
-                    $"The future arrived early, and it drives for {championTeam}.",
+                    Strings.ChampionshipCelebrationWindow_Journey_YoungTalent_Format,
 
                 DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL =>
-                    $"From prodigy to champion - {championName}'s coronation was inevitable, but no less spectacular. " +
-                    $"This championship confirms what many have known for years: we are witnessing the emergence of a generational talent. " +
-                    $"The question now is not whether they can win, but how many more titles will follow.",
+                    Strings.ChampionshipCelebrationWindow_Journey_YoungChampionshipLevel_Format,
 
                 DriverReputation.PRIME_MIDFIELD or DriverReputation.PRIME_STRONG_MIDFIELD =>
-                    $"Years of consistent performances have culminated in this ultimate reward. {championName} proved that " +
-                    $"patience, dedication, and unwavering belief can overcome the odds. This championship validates a career " +
-                    $"built on solid foundations and represents the perfect union of driver and machine.",
+                    Strings.ChampionshipCelebrationWindow_Journey_PrimeMidfield_Format,
 
                 DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN =>
-                    $"The monkey is finally off {championName}'s back. After years of 'what ifs' and near-misses, they have " +
-                    $"delivered when it mattered most. This championship transforms them from talented contender to proven champion, " +
-                    $"and their partnership with {championTeam} has been the key to unlocking their full potential.",
+                    Strings.ChampionshipCelebrationWindow_Journey_PrimeChampionshipUnproven_Format,
 
                 DriverReputation.PRIME_CHAMPIONSHIP_LEVEL =>
-                    $"Another title to add to an already glittering career. {championName} continues to demonstrate why they " +
-                    $"rank among the all-time greats. This championship, secured with {championTeam}, reinforces their status " +
-                    $"as the standard-bearer of their generation. Excellence, it seems, never goes out of style.",
+                    Strings.ChampionshipCelebrationWindow_Journey_PrimeChampionship_Format,
 
                 DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED =>
-                    $"Written off by many as past their prime, {championName} has authored the comeback story of the decade. " +
-                    $"This championship proves that class is permanent and that reports of their decline were greatly exaggerated. " +
-                    $"In partnership with {championTeam}, they have reclaimed their place at the pinnacle of the sport.",
+                    Strings.ChampionshipCelebrationWindow_Journey_PrimeChampionshipWashed_Format,
 
                 DriverReputation.AGEING_MIDFIELD or DriverReputation.AGEING_STRONG_MIDFIELD =>
-                    $"Experience triumphed over youth in a season that will be remembered for years to come. {championName} " +
-                    $"demonstrated that racecraft and consistency can overcome raw speed. This late-career championship adds a " +
-                    $"fairy-tale ending to a story of perseverance and dedication.",
+                    Strings.ChampionshipCelebrationWindow_Journey_AgeingMidfield_Format,
 
                 DriverReputation.AGEING_CHAMPIONSHIP_LEVEL =>
-                    $"The veteran champion has proven they still have what it takes. {championName}'s latest title showcases " +
-                    $"a driver at the peak of their powers, combining years of experience with the fire of youth. Age, it seems, " +
-                    $"is indeed just a number when you have the skill set of a true champion.",
+                    Strings.ChampionshipCelebrationWindow_Journey_AgeingChampionship_Format,
 
                 DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED =>
-                    $"From the brink of retirement to world champion - {championName}'s journey this season has been nothing " +
-                    $"short of miraculous. This championship represents redemption, resilience, and a refusal to accept limitations. " +
-                    $"It stands as a testament to the human spirit and the enduring power of self-belief.",
+                    Strings.ChampionshipCelebrationWindow_Journey_AgeingChampionshipWashed_Format,
 
                 DriverReputation.JUST_ONE_LAST_DANCE =>
-                    $"In what may be the greatest final act in motorsport history, {championName} has defied time itself. " +
-                    $"Doubted, dismissed, and written off as past their sell-by date, they have silenced every critic with " +
-                    $"a championship performance that will echo through the ages. This isn't just a title - it's the perfect " +
-                    $"ending to a legendary career, a reminder that greatness knows no expiration date.",
+                    Strings.ChampionshipCelebrationWindow_Journey_LastDance_Format,
 
                 _ =>
-                    $"Through a season of highs and lows, {championName} maintained their focus and delivered when it mattered. " +
-                    $"This championship with {championTeam} is the culmination of a year-long battle and represents the perfect " +
-                    $"harmony between driver ambition and team execution."
+                    Strings.ChampionshipCelebrationWindow_Journey_Default_Format
             };
+
+            return string.Format(template, championName, championTeam);
         }
 
         private string GenerateChampionshipMilestoneParagraph(
@@ -198,46 +186,39 @@ namespace AMS2ChEd.Views
             {
                 var maidenTitleVariants = new[]
                 {
-                    $"It's the first World Championship of {championName}'s career - the moment every driver dreams of.",
-                    $"A maiden title to cherish: {championName} had never before been crowned champion.",
-                    $"After years of chasing the ultimate prize, {championName} finally has it - their first World Championship."
+                    Strings.ChampionshipCelebrationWindow_Milestone_Maiden1_Format,
+                    Strings.ChampionshipCelebrationWindow_Milestone_Maiden2_Format,
+                    Strings.ChampionshipCelebrationWindow_Milestone_Maiden3_Format
                 };
-                return maidenTitleVariants[random.Next(maidenTitleVariants.Length)];
+                return string.Format(maidenTitleVariants[random.Next(maidenTitleVariants.Length)], championName);
             }
 
             string driverTitlePhrase = driverAccolades.HasBaseline
-                ? $"{ToOrdinal(driverAccolades.Championships)} World Championship"
-                : $"{ToOrdinal(driverAccolades.Championships)} World Championship since {driverAccolades.StartYear}";
+                ? string.Format(Strings.ChampionshipCelebrationWindow_Milestone_DriverTitlePhrase_Baseline_Format, OrdinalFormatter.Format(driverAccolades.Championships))
+                : string.Format(Strings.ChampionshipCelebrationWindow_Milestone_DriverTitlePhrase_SinceYear_Format, OrdinalFormatter.Format(driverAccolades.Championships), driverAccolades.StartYear);
 
             string teamTitlePhrase = teamAccolades.HasBaseline
-                ? $"{ToOrdinal(teamAccolades.Championships)} Constructors' title"
-                : $"{ToOrdinal(teamAccolades.Championships)} Constructors' title since {teamAccolades.StartYear}";
+                ? string.Format(Strings.ChampionshipCelebrationWindow_Milestone_TeamTitlePhrase_Baseline_Format, OrdinalFormatter.Format(teamAccolades.Championships))
+                : string.Format(Strings.ChampionshipCelebrationWindow_Milestone_TeamTitlePhrase_SinceYear_Format, OrdinalFormatter.Format(teamAccolades.Championships), teamAccolades.StartYear);
 
             string driverPriorYears = driverAccolades.ChampionshipYears.Count > 1
-                ? $" (previously {string.Join(", ", driverAccolades.ChampionshipYears.Where(y => y != driverAccolades.ChampionshipYears.Max()))})"
+                ? string.Format(Strings.ChampionshipCelebrationWindow_Milestone_PriorYears_Format,
+                    string.Join(", ", driverAccolades.ChampionshipYears.Where(y => y != driverAccolades.ChampionshipYears.Max())))
                 : "";
+
+            string championshipWord = driverAccolades.Championships != 1
+                ? Strings.ChampionshipCelebrationWindow_Milestone_ChampionshipWord_Plural
+                : Strings.ChampionshipCelebrationWindow_Milestone_ChampionshipWord_Singular;
 
             var milestoneVariants = new[]
             {
-                $"This is {championName}'s {driverTitlePhrase}{driverPriorYears}, and {championTeam}'s {teamTitlePhrase}.",
-                $"{championName} now boasts {driverAccolades.Championships} World Championships, while {championTeam} celebrates their {teamTitlePhrase}."
+                string.Format(Strings.ChampionshipCelebrationWindow_Milestone_Variant1_Format,
+                    championName, driverTitlePhrase, driverPriorYears, championTeam, teamTitlePhrase),
+                string.Format(Strings.ChampionshipCelebrationWindow_Milestone_Variant2_Format,
+                    championName, driverAccolades.Championships, championshipWord, championTeam, teamTitlePhrase)
             };
 
             return milestoneVariants[random.Next(milestoneVariants.Length)];
-        }
-
-        private static string ToOrdinal(int number)
-        {
-            if (number % 100 is 11 or 12 or 13)
-                return $"{number}th";
-
-            return (number % 10) switch
-            {
-                1 => $"{number}st",
-                2 => $"{number}nd",
-                3 => $"{number}rd",
-                _ => $"{number}th"
-            };
         }
 
         private string GetDriverName(ISaveGame saveGame, string driverId)
@@ -246,13 +227,13 @@ namespace AMS2ChEd.Views
                 return saveGame.PlayerData.Name;
 
             var driver = saveGame.Drivers.FirstOrDefault(d => d.DriverId == driverId);
-            return driver?.Name ?? "Unknown Driver";
+            return driver?.Name ?? Strings.ChampionshipCelebrationWindow_UnknownDriver;
         }
 
         private string GetTeamName(ISaveGame saveGame, string teamId)
         {
             var team = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
-            return team?.TeamName ?? "Unknown Team";
+            return team?.TeamName ?? Strings.ChampionshipCelebrationWindow_UnknownTeam;
         }
 
         private DriverReputation GetDriverReputation(ISaveGame saveGame, string driverId)

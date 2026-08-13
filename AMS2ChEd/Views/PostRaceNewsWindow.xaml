@@ -1,7 +1,8 @@
 ﻿<Window x:Class="AMS2ChEd.Views.PostRaceNewsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Breaking News" 
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        Title="{loc:Loc PostRaceNewsWindow_Title}"
         Height="1200" Width="1200"
         WindowStartupLocation="CenterScreen"
         Background="#f5f5dc"
@@ -46,7 +47,7 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Margin="0,0,0,20">
-                    <TextBlock Text="MOTORSPORT GAZETTE"
+                    <TextBlock Text="{loc:Loc PostRaceNewsWindow_Masthead}"
                                FontSize="42" 
                                FontWeight="Black" 
                                FontFamily="Times New Roman"
@@ -69,7 +70,7 @@
                         Background="#c41e3a" 
                         Padding="10,5"
                         Margin="0,0,0,15">
-                    <TextBlock Text="BREAKING NEWS"
+                    <TextBlock Text="{loc:Loc PostRaceNewsWindow_BreakingNewsBanner}"
                                FontSize="34" 
                                FontWeight="Bold" 
                                FontFamily="Times New Roman"
@@ -123,7 +124,7 @@
 
                 <Button x:Name="CloseButton"
                         Grid.Row="4"
-                        Content="CLOSE"
+                        Content="{loc:Loc PostRaceNewsWindow_CloseButton}"
                         Style="{StaticResource ButtonStyle}"
                         HorizontalAlignment="Center"
                         Margin="0,20,0,0"

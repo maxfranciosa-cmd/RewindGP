@@ -1057,4 +1057,1756 @@ Click OK when you have downloaded the file.</value>
   <data name="UpdateAvailableDialog_FileFilter" xml:space="preserve">
     <value>ZIP files (*.zip)|*.zip|All files (*.*)|*.*</value>
   </data>
+
+  <!-- Wave 4: deferred news/letter windows - static chrome only (titles, mastheads, buttons).
+       The dynamically-generated narrative prose (headlines, article bodies, letter contents) stays
+       English-only for now - see the localization plan. -->
+
+  <!-- PostRaceNewsWindow -->
+  <data name="PostRaceNewsWindow_Title" xml:space="preserve">
+    <value>Breaking News</value>
+  </data>
+  <data name="PostRaceNewsWindow_Masthead" xml:space="preserve">
+    <value>MOTORSPORT GAZETTE</value>
+  </data>
+  <data name="PostRaceNewsWindow_BreakingNewsBanner" xml:space="preserve">
+    <value>BREAKING NEWS</value>
+  </data>
+  <data name="PostRaceNewsWindow_CloseButton" xml:space="preserve">
+    <value>CLOSE</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_NoResults" xml:space="preserve">
+    <value>Race results not available.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Opening_FirstRace1_Format" xml:space="preserve">
+    <value>The {0} season opened in spectacular fashion as {2} claimed victory at the {1}, giving {3} the perfect start to the championship. {4} finished second for {5}, while {6} completed the opening podium for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FirstRace2_Format" xml:space="preserve">
+    <value>The {0} championship burst into life at the {1} with {2} seizing the early initiative. {3} couldn't have asked for a better start, with {4} trailing home for {5} ahead of {6} in third for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FirstRace3_Format" xml:space="preserve">
+    <value>{2} fired the opening shot in the {0} championship battle with victory at the {1}. The {3} driver heads the standings after the opening round, pursued by {4} of {5} and {6} for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FirstRace4_Format" xml:space="preserve">
+    <value>Drawing first blood in the {0} season, {2} dominated the {1} to give {3} the early championship lead. {4} claimed second for {5}, with {6} rounding out the season-opening podium for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FirstRace5_Format" xml:space="preserve">
+    <value>{2} made a bold statement of intent to open the {0} season, commanding the {1} from start to finish. {3} leads the championship after round one, ahead of {4} for {5} and {6} for {7} who completed the podium.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FirstRace6_Format" xml:space="preserve">
+    <value>As the {0} season dawned at the {1}, {2} struck gold for {3} with a commanding opening victory. {4} finished runner-up for {5}, while {6} claimed the final podium spot for {7} in the championship opener.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Opening_FinaleChampion1_Format" xml:space="preserve">
+    <value>The {0} season concluded in perfect fashion as {2} claimed victory at the {1}, crowning a championship-winning campaign with {3}. {4} finished second for {5}, while {6} completed the final podium of the season for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FinaleChampion2_Format" xml:space="preserve">
+    <value>{2} sealed the {0} Drivers' Championship in style, dominating the season finale at the {1}. The {3} driver's victory confirmed what had been building all season, with {4} taking second for {5} and {6} third for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FinaleChampion3_Format" xml:space="preserve">
+    <value>In a coronation worthy of champions, {2} took the checkered flag at the {1} to cap an extraordinary {0} season. The {3} driver's final victory put the exclamation point on their title triumph, ahead of {4} for {5} and {6} for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FinaleChampion4_Format" xml:space="preserve">
+    <value>An emphatic season finale victory for {2} at the {1} sealed the {0} title in the most dominant fashion. {3} celebrated championship glory as {4} claimed second for {5}, with {6} rounding out the podium for {7}.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Opening_FinaleNonChampion1_Format" xml:space="preserve">
+    <value>The curtain fell on the {0} season as {2} claimed a memorable victory at the {1}, giving {3} a perfect way to sign off the year. {4} finished second for {5}, while {6} completed the final podium for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FinaleNonChampion2_Format" xml:space="preserve">
+    <value>{2} produced a final flourish at the {1}, ending the {0} season on a high note for {3}. The season finale saw {4} take second for {5}, ahead of {6} who claimed the last podium of the year for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FinaleNonChampion3_Format" xml:space="preserve">
+    <value>Having the last word in the {0} season, {2} dominated the {1} to give {3} a season-ending victory. {4} secured second place for {5}, while {6} rounded out the final rostrum for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_FinaleNonChampion4_Format" xml:space="preserve">
+    <value>As the {0} season reached its conclusion at the {1}, {2} delivered a commanding performance for {3}. The finale podium was completed by {4} in second for {5} and {6} taking third for {7}.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Opening_Standard1_Format" xml:space="preserve">
+    <value>In a thrilling display of motorsport at its finest, {2} claimed victory at the {1}, leading {3} to a well-earned triumph. {4} secured second place for {5}, while {6} completed the podium for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_Standard2_Format" xml:space="preserve">
+    <value>{2} delivered a commanding performance at the {1}, steering {3} to victory in dominant fashion. The podium was completed by {4} in second for {5} and {6} taking third for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_Standard3_Format" xml:space="preserve">
+    <value>The checkered flag fell at the {1} with {2} taking the honors for {3}. Behind the victor, {4} claimed a solid second place for {5}, ahead of {6} who secured the final podium position for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_Standard4_Format" xml:space="preserve">
+    <value>A masterful drive from {2} secured victory for {3} at the {1} today. {4} put in a strong performance for second with {5}, while {6} rounded out the top three for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_Standard5_Format" xml:space="preserve">
+    <value>{2} controlled the {1} to claim victory for {3} in convincing style. {4} followed the winner home in second place for {5}, with {6} completing the podium for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_Standard6_Format" xml:space="preserve">
+    <value>After a hard-fought battle at the {1}, {2} emerged victorious to deliver crucial points for {3}. The podium positions were completed by {4} for {5} in second and {6} for {7} in third.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_Standard7_Format" xml:space="preserve">
+    <value>{2} mastered the {1} circuit to secure a well-deserved victory for {3}. Second place went to {4} of {5}, while {6} stood on the third step of the podium for {7}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Opening_Standard8_Format" xml:space="preserve">
+    <value>With clinical precision, {2} navigated the {1} to deliver {3}'s latest triumph. {4} drove strongly to second for {5}, ahead of third-placed {6} representing {7}.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Headline_MaidenGrandSlam1_Format" xml:space="preserve">
+    <value>MAIDEN WIN GRAND SLAM FOR {0} AT THE {1}</value>
+  </data>
+  <data name="PostRaceNewsWindow_Headline_MaidenGrandSlam2_Format" xml:space="preserve">
+    <value>{0} SCORES A GRAND SLAM ON MAIDEN WIN AT THE {1}</value>
+  </data>
+  <data name="PostRaceNewsWindow_Headline_GrandSlam1_Format" xml:space="preserve">
+    <value>GRAND SLAM FOR {0} AT THE {1}</value>
+  </data>
+  <data name="PostRaceNewsWindow_Headline_GrandSlam2_Format" xml:space="preserve">
+    <value>{0} SWEEPS POLE, WIN AND FASTEST LAP AT THE {1}</value>
+  </data>
+  <data name="PostRaceNewsWindow_Headline_MaidenWin1_Format" xml:space="preserve">
+    <value>MAIDEN WIN FOR {0} AT THE {1}</value>
+  </data>
+  <data name="PostRaceNewsWindow_Headline_MaidenWin2_Format" xml:space="preserve">
+    <value>FIRST CAREER WIN FOR {0} AT THE {1}</value>
+  </data>
+  <data name="PostRaceNewsWindow_Headline_Standard_Format" xml:space="preserve">
+    <value>{0} WINS THE {1}</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_GrandSlam1_Format" xml:space="preserve">
+    <value>In a standout display, {0} claimed the full grand slam this weekend - pole position, victory, and the fastest lap of the race - a rare feat that underlines their complete dominance at the {1}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_GrandSlam2_Format" xml:space="preserve">
+    <value>{0} swept every honor on offer at the {1}: pole, the win, and the fastest lap - a grand slam performance that leaves no doubt about who had the pace this weekend.</value>
+  </data>
+  <data name="PostRaceNewsWindow_GrandSlam3_Format" xml:space="preserve">
+    <value>It was a perfect weekend for {0}, who converted pole position into victory and topped it off with the fastest lap of the race - the complete grand slam.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinStreak_Format" xml:space="preserve">
+    <value>It's {0}'s {1} win in a row.</value>
+  </data>
+  <data name="PostRaceNewsWindow_OneTwo_Format" xml:space="preserve">
+    <value>{0} celebrated a dominant 1-2 finish, with {1} crossing the line right behind {2}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerFastestLap_Format" xml:space="preserve">
+    <value>{0} also set the fastest lap of the race.</value>
+  </data>
+  <data name="PostRaceNewsWindow_OtherFastestLap_Format" xml:space="preserve">
+    <value>{0} set the fastest lap of the race from P{1}.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_MaidenWinMilestone1_Format" xml:space="preserve">
+    <value>It's the first victory of {0}'s career - a moment they'll remember for a long time.</value>
+  </data>
+  <data name="PostRaceNewsWindow_MaidenWinMilestone2_Format" xml:space="preserve">
+    <value>A maiden win to treasure: {0} had never before stood on the top step of the podium.</value>
+  </data>
+  <data name="PostRaceNewsWindow_MaidenWinMilestone3_Format" xml:space="preserve">
+    <value>After chasing that elusive first win, {0} finally has it - a career-defining moment.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_DriverWinPhrase_Baseline_Format" xml:space="preserve">
+    <value>{0} career win</value>
+  </data>
+  <data name="PostRaceNewsWindow_DriverWinPhrase_SinceYear_Format" xml:space="preserve">
+    <value>{0} win since the start of {1}</value>
+  </data>
+  <data name="PostRaceNewsWindow_TeamWinPhrase_Baseline_Format" xml:space="preserve">
+    <value>{0} win</value>
+  </data>
+  <data name="PostRaceNewsWindow_TeamWinPhrase_SinceYear_Format" xml:space="preserve">
+    <value>{0} win since the start of {1}</value>
+  </data>
+  <data name="PostRaceNewsWindow_DriverPodiumPhrase_Baseline_Format" xml:space="preserve">
+    <value>{0} career podiums</value>
+  </data>
+  <data name="PostRaceNewsWindow_DriverPodiumPhrase_SinceYear_Format" xml:space="preserve">
+    <value>{0} podiums since the start of {1}</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinsOnly1_Format" xml:space="preserve">
+    <value>It's {0}'s {1}, and {2}'s {3}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinsOnly2_Format" xml:space="preserve">
+    <value>This victory marks {0}'s {1}, while {2} celebrates their {3}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinsAndPodiums1_Format" xml:space="preserve">
+    <value>{0} now has {1} wins and {2} to their name, while {3} celebrates their {4}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinsAndPodiums2_Format" xml:space="preserve">
+    <value>That's {0}'s {1} - and {2} overall - as {3} banks their {4}.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_FirstPodium1_Format" xml:space="preserve">
+    <value>It's the first podium finish of {0}'s career.</value>
+  </data>
+  <data name="PostRaceNewsWindow_FirstPodium2_Format" xml:space="preserve">
+    <value>{0} celebrated a maiden podium finish today.</value>
+  </data>
+  <data name="PostRaceNewsWindow_FirstPodium3_Format" xml:space="preserve">
+    <value>That's a first career podium for {0}.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Dnf1_Format" xml:space="preserve">
+    <value>It was a day to forget for {0}, one of the championship's top three coming into the weekend, who failed to see the checkered flag.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Dnf2_Format" xml:space="preserve">
+    <value>There was heartbreak for {0}, forced to retire after arriving as one of the title favorites.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Dnf3_Format" xml:space="preserve">
+    <value>{0} endured a nightmare afternoon, retiring from the race after arriving among the championship pace-setters.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_BadResult1_Format" xml:space="preserve">
+    <value>It was a difficult weekend for {0}, one of the championship's top three coming in, who could only manage P{1}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_BadResult2_Format" xml:space="preserve">
+    <value>{0} had little to celebrate, trailing home in P{1} after arriving as one of the title favorites.</value>
+  </data>
+  <data name="PostRaceNewsWindow_BadResult3_Format" xml:space="preserve">
+    <value>An afternoon to forget for {0}, who crosses the line in P{1} after starting the weekend among the championship's top three.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_PayDriverWildCard1_Format" xml:space="preserve">
+    <value>{0} defied expectations with a stunning victory for {1}, proving doubters wrong with a masterful drive.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PayDriverWildCard2_Format" xml:space="preserve">
+    <value>Against all odds, {0} silenced the skeptics with a commanding performance that validated {1}'s faith in them.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PayDriverWildCard3_Format" xml:space="preserve">
+    <value>{0} shocked the paddock with a brilliant victory, demonstrating that raw pace transcends funding concerns.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_PayDriverSeason1_Format" xml:space="preserve">
+    <value>In a remarkable turn of events, {0} silenced critics with a commanding performance, delivering {1}'s first win of the partnership.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PayDriverSeason2_Format" xml:space="preserve">
+    <value>{0} answered every question with authority, proving their {1} seat was earned through speed, not sponsorship.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PayDriverSeason3_Format" xml:space="preserve">
+    <value>The critics are eating their words as {0} delivered a masterclass for {1}, justifying their place on the grid with undeniable skill.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungTalent1_Format" xml:space="preserve">
+    <value>Rising star {0} announced their arrival on the big stage with a brilliant victory, showcasing the raw talent that {1} bet on.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungTalent2_Format" xml:space="preserve">
+    <value>The future arrived early as {0} claimed a memorable first victory, giving {1} a glimpse of what's to come.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungTalent3_Format" xml:space="preserve">
+    <value>{0} showed maturity beyond their years, delivering a composed victory that marks them as a star in the making.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampUnproven1_Format" xml:space="preserve">
+    <value>{0} surged to P{2} in the standings with a dominant display, edging closer to proving their championship credentials.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampUnproven2_Format" xml:space="preserve">
+    <value>The potential became reality as {0} delivered a statement win, moving to P{2} with championship-caliber pace.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampUnproven3_Format" xml:space="preserve">
+    <value>{0} took another step toward greatness, claiming victory and rising to P{2} in a performance that silenced any remaining doubters.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampLeader1_Format" xml:space="preserve">
+    <value>{0} extended their championship lead with a flawless performance, showing why they're the driver to beat this season.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampLeader2_Format" xml:space="preserve">
+    <value>Championship leader {0} tightened their grip on the title with another clinical victory, putting pressure on their rivals.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampLeader3_Format" xml:space="preserve">
+    <value>{0} continues to set the pace, stretching their championship advantage with a display of pure dominance.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampChaser1_Format" xml:space="preserve">
+    <value>{0} fought back brilliantly, moving to P{2} in the standings with a statement victory.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampChaser2_Format" xml:space="preserve">
+    <value>Refusing to surrender, {0} claimed a crucial win and climbed to P{2}, keeping championship hopes alive.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampChaser3_Format" xml:space="preserve">
+    <value>{0} struck back with authority, rising to P{2} with a victory that reshapes the title battle.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeMidfield1_Format" xml:space="preserve">
+    <value>{0} delivered the drive of their career, elevating themselves and {1} with an unexpected but thoroughly deserved victory.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeMidfield2_Format" xml:space="preserve">
+    <value>Lightning struck as {0} seized their moment of glory, rewarding {1}'s faith with a fairytale triumph.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeMidfield3_Format" xml:space="preserve">
+    <value>{0} broke through in spectacular fashion, claiming a maiden victory that validates years of solid midfield performances.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeStrongMidfield1_Format" xml:space="preserve">
+    <value>{0} seized the opportunity with both hands, converting {1}'s strong package into a memorable triumph.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeStrongMidfield2_Format" xml:space="preserve">
+    <value>Years of consistency paid off as {0} delivered a polished victory, proving they belong among the elite.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeStrongMidfield3_Format" xml:space="preserve">
+    <value>{0} graduated from solid performer to race winner, giving {1} a triumph built on unwavering reliability.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampUnprovenTop1_Format" xml:space="preserve">
+    <value>{0} moved into championship contention at P{2}, delivering the breakthrough performance that could define their season.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampUnprovenTop2_Format" xml:space="preserve">
+    <value>Now at P{2}, {0} has firmly entered the title conversation with a victory that showcased championship credentials.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampUnprovenTop3_Format" xml:space="preserve">
+    <value>{0} announced their arrival as a genuine title threat, climbing to P{2} with a commanding display of speed and racecraft.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampUnproven1_Format" xml:space="preserve">
+    <value>{0} announced their title intentions with authority, moving to P{2} after a masterclass in race craft.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampUnproven2_Format" xml:space="preserve">
+    <value>A statement victory propels {0} to P{2}, proving they have the speed to challenge for the championship.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampUnproven3_Format" xml:space="preserve">
+    <value>{0} delivered a performance worthy of champions, rising to P{2} with a display of pure class.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampLeader1_Format" xml:space="preserve">
+    <value>Championship leader {0} demonstrated why they're at the top, extending their advantage with another clinical victory.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampLeader2_Format" xml:space="preserve">
+    <value>{0} maintained their stranglehold on the championship, adding another win to their growing tally with ruthless efficiency.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampLeader3_Format" xml:space="preserve">
+    <value>Unstoppable at the front, {0} stretched their championship lead with a masterful performance that demoralized the opposition.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampChaser1_Format" xml:space="preserve">
+    <value>{0} refused to give up the fight, moving to P{2} with a champion's drive that keeps their title hopes alive.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampChaser2_Format" xml:space="preserve">
+    <value>The championship battle intensifies as {0} strikes back, climbing to P{2} with a victory that keeps the pressure on.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampChaser3_Format" xml:space="preserve">
+    <value>{0} demonstrated true champion mentality, fighting to P{2} with a win that reignites their title challenge.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampWashed1_Format" xml:space="preserve">
+    <value>{0} turned back the clock with a vintage performance, proving there's still fire in the belly of this former champion.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampWashed2_Format" xml:space="preserve">
+    <value>Reports of {0}'s decline were greatly exaggerated, as the former champion delivered a reminder of their championship pedigree.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampWashed3_Format" xml:space="preserve">
+    <value>{0} silenced the critics with a commanding victory, showing flashes of the brilliance that once dominated the sport.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingMidfield1_Format" xml:space="preserve">
+    <value>Veteran {0} showed that experience counts, delivering a calculated drive that maximized every opportunity.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingMidfield2_Format" xml:space="preserve">
+    <value>{0} proved there's life in the old dog yet, combining cunning with speed to claim an unlikely victory.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingMidfield3_Format" xml:space="preserve">
+    <value>Age and treachery beat youth and skill as {0} crafted a tactical masterpiece to secure an impressive win.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingStrongMidfield1_Format" xml:space="preserve">
+    <value>{0} combined experience with pace to perfection, adding another chapter to an illustrious career with a well-earned victory.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingStrongMidfield2_Format" xml:space="preserve">
+    <value>The veteran showed the youngsters how it's done, with {0} delivering a clinic in racecraft and precision.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingStrongMidfield3_Format" xml:space="preserve">
+    <value>{0} demonstrated that class is permanent, claiming a victory that proves experience remains invaluable in Formula 1.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChampTop1_Format" xml:space="preserve">
+    <value>{0} proved age is just a number, moving to P{2} in the standings with a performance that belied their years.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChampTop2_Format" xml:space="preserve">
+    <value>Still competitive at P{2}, {0} showed the younger generation they're far from finished with a commanding victory.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChampTop3_Format" xml:space="preserve">
+    <value>The old master remains at the sharp end, with {0} rising to P{2} through a display of timeless racecraft.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChamp1_Format" xml:space="preserve">
+    <value>The veteran {0} showed the youngsters how it's done, claiming victory with the racecraft that comes only with years of experience.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChamp2_Format" xml:space="preserve">
+    <value>{0} demonstrated that speed isn't everything, using decades of knowledge to outthink and outrace the opposition.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChamp3_Format" xml:space="preserve">
+    <value>Experience triumphed over youth as {0} delivered a masterclass, proving their championship mettle remains intact.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChampWashed1_Format" xml:space="preserve">
+    <value>In a stunning resurgence, {0} recaptured past glory with a victory that shocked the paddock and delighted fans.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChampWashed2_Format" xml:space="preserve">
+    <value>Like a phoenix from the ashes, {0} rose to claim an emotional victory that reignited memories of championship glory.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChampWashed3_Format" xml:space="preserve">
+    <value>{0} wound back the years with a performance that proved champions never forget how to win, regardless of recent struggles.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_LastDance1_Format" xml:space="preserve">
+    <value>In what may be their final season, {0} delivered a poignant reminder of their brilliance, savoring a victory that transcends the championship standings.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_LastDance2_Format" xml:space="preserve">
+    <value>{0} added another golden memory to a storied career, claiming a bittersweet victory in their swansong season.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_LastDance3_Format" xml:space="preserve">
+    <value>Racing against the sunset, {0} proved the magic hasn't faded, delivering a triumphant farewell performance that fans will treasure forever.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_WinnerHeadline_Default1_Format" xml:space="preserve">
+    <value>{0} claimed a well-deserved victory for {1}, moving to P{2} in the championship standings.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_Default2_Format" xml:space="preserve">
+    <value>A commanding performance from {0} secured victory for {1}, advancing to P{2} in the points.</value>
+  </data>
+  <data name="PostRaceNewsWindow_WinnerHeadline_Default3_Format" xml:space="preserve">
+    <value>{0} delivered a polished drive to win for {1}, now sitting at P{2} in the championship.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Analysis_PayDriver1_Format" xml:space="preserve">
+    <value>Despite questions about their credentials, {0} delivered a flawless performance that silenced doubters. The {1} driver controlled the race from start to finish, demonstrating that talent, not just funding, earned them this result.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_PayDriver2_Format" xml:space="preserve">
+    <value>{0} answered every criticism with pace and precision today. The {1} driver's racecraft was exemplary, proving conclusively that they deserve their place on merit alone.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_PayDriver3_Format" xml:space="preserve">
+    <value>Money may open doors, but {0} showed that only skill wins races. The {1} driver's performance was clinical, leaving no doubt that speed, not sponsorship, delivered this triumph.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Analysis_YoungTalent1_Format" xml:space="preserve">
+    <value>The youngster showed maturity beyond their years, making no mistakes under pressure. While there's still room to grow, this performance suggests {0} could be a future championship contender.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_YoungTalent2_Format" xml:space="preserve">
+    <value>{0} handled the pressure of leading like a seasoned veteran, never putting a wheel wrong. This breakthrough victory marks the arrival of a major talent on the world stage.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_YoungTalent3_Format" xml:space="preserve">
+    <value>Raw speed met composure under pressure as {0} delivered a faultless performance. The {1} driver's potential is clear - this may be just the first of many victories to come.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Analysis_YoungChamp1_Format" xml:space="preserve">
+    <value>{0}'s pace was relentless from lights to flag. The {1} driver handled pressure from behind with composure, executing a race strategy that maximized their machinery's potential.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_YoungChamp2_Format" xml:space="preserve">
+    <value>From pole to checkered flag, {0} dominated with a display of pure speed. The {1} driver left nothing to chance, controlling the race with the confidence of a future champion.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_YoungChamp3_Format" xml:space="preserve">
+    <value>{0} made it look easy, but this victory required perfection. Every overtake, every defensive move, every stint was executed flawlessly by the {1} driver who continues to impress.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Analysis_PrimeMidfield1_Format" xml:space="preserve">
+    <value>This victory represents the culmination of years of solid performances. {0} seized the moment when it arrived, driving with a confidence that suggests this may not be their last trip to the top step.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_PrimeMidfield2_Format" xml:space="preserve">
+    <value>{0} has consistently delivered strong results, and today those efforts were rewarded with ultimate glory. The {1} driver's consistency and speed combined perfectly when it mattered most.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_PrimeMidfield3_Format" xml:space="preserve">
+    <value>Patience and persistence paid dividends as {0} finally claimed the victory their performances have long deserved. The {1} driver showed that steady improvement eventually reaches the summit.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Analysis_PrimeChamp1_Format" xml:space="preserve">
+    <value>As expected from a driver of {0}'s caliber, there were no gifts today. Pure speed combined with strategic brilliance earned {1} a victory that looked comfortable but required perfection.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_PrimeChamp2_Format" xml:space="preserve">
+    <value>{0} dominated from start to finish with ruthless efficiency. The {1} driver gave a masterclass in race management, controlling every aspect with championship-winning precision.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_PrimeChamp3_Format" xml:space="preserve">
+    <value>This is what elite-level performance looks like. {0} extracted every tenth from the {1} machinery, combining qualifying pace with race management in a display that left rivals with no answers.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Analysis_PrimeChampWashed1_Format" xml:space="preserve">
+    <value>Critics who wrote off {0} were silenced today. The {1} driver showed flashes of the form that once made them champion, suggesting rumors of their decline may have been premature.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_PrimeChampWashed2_Format" xml:space="preserve">
+    <value>{0} reminded everyone why they were once at the top, delivering a performance that recaptured their peak form. The speed and racecraft that defined their championship years returned when it mattered most.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_PrimeChampWashed3_Format" xml:space="preserve">
+    <value>Perhaps reports of {0}'s demise were exaggerated. The {1} driver rolled back the years with a vintage display, proving the instincts of a champion never truly disappear.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Analysis_AgeingMidfield1_Format" xml:space="preserve">
+    <value>Experience proved invaluable as {0} navigated a complex race with veteran savvy. Where younger drivers might have made mistakes, the {1} driver's composure was key to victory.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_AgeingMidfield2_Format" xml:space="preserve">
+    <value>{0} demonstrated that racecraft improves with age. The {1} driver read the race perfectly, positioning themselves ideally at every critical moment through superior tactical awareness.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_AgeingMidfield3_Format" xml:space="preserve">
+    <value>While the young guns brought speed, {0} brought wisdom. The {1} veteran exploited every opportunity with the cunning that comes only from years of experience at the highest level.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Analysis_AgeingChamp1_Format" xml:space="preserve">
+    <value>Age may bring physical challenges, but {0} demonstrated that racecraft and strategic thinking can overcome pure speed. This victory adds another highlight to an already storied career.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_AgeingChamp2_Format" xml:space="preserve">
+    <value>{0} showed that champions are made of more than just reflexes. The {1} driver's ability to read a race and execute perfectly under pressure proved that experience remains Formula 1's most valuable asset.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_AgeingChamp3_Format" xml:space="preserve">
+    <value>The veteran {0} delivered a clinic in race management, proving that decades of knowledge trump raw speed. Every decision, every defensive move was executed with the confidence of a driver who's seen it all before.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Analysis_LastDance1_Format" xml:space="preserve">
+    <value>Racing against time in their farewell season, {0} showed they still have the fire and skill that defined their career. Every lap, every corner carried the weight of finality, yet the {1} driver performed with the joy of someone who knows each moment counts. This is racing at its most pure - a champion refusing to go quietly into the night.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_LastDance2_Format" xml:space="preserve">
+    <value>There's something magical about {0}'s swansong season. Each race carries extra meaning, and today the veteran delivered a performance filled with the passion of someone savoring every final moment. The {1} driver proved that legends never lose their touch.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_LastDance3_Format" xml:space="preserve">
+    <value>In their final act, {0} reminded us all why we fell in love with their racing. The {1} driver raced with freedom and joy, unburdened by championship pressure, producing a pure display of skill that will be remembered long after they hang up the helmet.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Analysis_Default1_Format" xml:space="preserve">
+    <value>{0} drove with precision and pace throughout, never putting a wheel wrong on the way to a commanding victory.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_Default2_Format" xml:space="preserve">
+    <value>A professional performance from {0} saw the {1} driver control the race with consistent pace and smart strategy.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Analysis_Default3_Format" xml:space="preserve">
+    <value>{0} delivered exactly what {1} needed - a clean, mistake-free drive that maximized the machinery's potential.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_ChampClinch1_Format" xml:space="preserve">
+    <value>{0} claims the championship title with this season-ending victory, capping a dominant campaign in style. The title may have been inevitable, but the final flourish underscores their superiority throughout the year.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampClinch2_Format" xml:space="preserve">
+    <value>The championship is sealed as {0} takes the checkered flag in the season finale. This victory crowns a remarkable year and cements their place in the record books.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampClinch3_Format" xml:space="preserve">
+    <value>With this final victory, {0} concludes a championship-winning season that will be remembered for years to come. The title triumph is complete, the legacy secured.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampFinaleTop3_Format" xml:space="preserve">
+    <value>{0} finishes the season in P{1}, a respectable final standing that reflects consistent performances throughout the year. While the title eluded them, there's much to build on for next season.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampFinaleOther_Format" xml:space="preserve">
+    <value>{0} concludes the championship in P{1}, ending the season on a high note with this victory. Though the final standings may not reflect it, today's performance shows promise for the future.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampFirstRaceLeader_Format" xml:space="preserve">
+    <value>{0} takes the early championship lead, drawing first blood in what promises to be a season-long battle. The momentum from this opening victory could prove crucial as the championship unfolds.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampFirstRaceTop3_Format" xml:space="preserve">
+    <value>{0} starts the championship in P{1}, a solid opening result that keeps them in early contention. With a long season ahead, this foundation could prove valuable in the title fight.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampFirstRaceOther_Format" xml:space="preserve">
+    <value>{0} opens their championship account with a victory from P{1}, proving that early points can come from anywhere. This result establishes them as a dark horse in the championship battle.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampLeaderContinues_Format" xml:space="preserve">
+    <value>With this victory, {0} extends their championship lead, putting further pressure on rivals to respond. The momentum is firmly with them as the season progresses.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampNewLeader_Format" xml:space="preserve">
+    <value>This result propels {0} to the top of the championship standings - From P{1} to P1 - a remarkable turnaround that reshapes the title battle.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampPositionUp_Format" xml:space="preserve">
+    <value>The victory elevates {0} from P{1} to P{2} in the championship, keeping them firmly in the hunt for the title with races still to come.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampPositionDown_Format" xml:space="preserve">
+    <value>Despite the win, {0} slips from P{1} to P{2} in the standings, highlighting the fierce competition at the top of the championship table.</value>
+  </data>
+  <data name="PostRaceNewsWindow_ChampPositionSame_Format" xml:space="preserve">
+    <value>{0} maintains their P{1} position in the championship, but this victory adds crucial points and momentum in what promises to be a closely fought title battle.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_StandingsHeader" xml:space="preserve">
+    <value>CHAMPIONSHIP STANDINGS (TOP 3):</value>
+  </data>
+  <data name="PostRaceNewsWindow_StandingsLine_Format" xml:space="preserve">
+    <value>{0}. {1} - {2} {3}</value>
+  </data>
+  <data name="PostRaceNewsWindow_PointsWord_Singular" xml:space="preserve">
+    <value>point</value>
+  </data>
+  <data name="PostRaceNewsWindow_PointsWord_Plural" xml:space="preserve">
+    <value>points</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_Closing_FirstRace" xml:space="preserve">
+    <value>The championship has been set in motion, with all eyes now turning to the next race as teams and drivers look to build on their opening performances.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Closing_Standard" xml:space="preserve">
+    <value>The championship battle continues to intensify as teams and drivers prepare for the next round of this captivating season.</value>
+  </data>
+
+  <data name="PostRaceNewsWindow_UnknownName" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="PostRaceNewsWindow_DefaultDriverName" xml:space="preserve">
+    <value>Unknown Driver</value>
+  </data>
+  <data name="PostRaceNewsWindow_DefaultTeamName" xml:space="preserve">
+    <value>Unknown Team</value>
+  </data>
+
+  <!-- ContractLetterWindow -->
+  <data name="ContractLetterWindow_Title" xml:space="preserve">
+    <value>Contract Offer</value>
+  </data>
+  <data name="ContractLetterWindow_Subtitle" xml:space="preserve">
+    <value>Formula Racing Team</value>
+  </data>
+  <data name="ContractLetterWindow_Signoff" xml:space="preserve">
+    <value>Sincerely,</value>
+  </data>
+  <data name="ContractLetterWindow_NextButton" xml:space="preserve">
+    <value>NEXT</value>
+  </data>
+  <data name="ContractLetterWindow_ChooseAnotherTeamButton" xml:space="preserve">
+    <value>CHOOSE ANOTHER TEAM</value>
+  </data>
+
+  <data name="ContractLetterWindow_SignatureTitle_Format" xml:space="preserve">
+    <value>Team Principal, {0}</value>
+  </data>
+
+  <data name="ContractLetterWindow_YoungDriver_VeryYoung_Format" xml:space="preserve">
+    <value>Dear {0},
+
+Thank you for your wonderful letter to {1}! It made everyone in our office smile to hear from such a young racing fan.
+
+We think it's absolutely brilliant that you dream of being a racing driver! At {2} years old, you have so much time to learn and grow. Right now, the best thing you can do is:
+
+Watch lots of races with your family, play with your toy racing cars and learn how they work, draw pictures of racing cars and tracks, and most importantly, work hard at school because racing drivers need to be smart too!
+
+When you're a bit older, maybe you can try go-karting with your parents. That's how all the best drivers start their journey.
+
+Keep dreaming big, {0}. Who knows? Maybe one day we'll see you on the starting grid!
+
+Your friend in racing,</value>
+  </data>
+  <data name="ContractLetterWindow_YoungDriver_Karting_Format" xml:space="preserve">
+    <value>Dear {0},
+
+Thank you so much for your letter expressing interest in driving for {1}. It's wonderful to see young people like yourself showing such enthusiasm for motor racing at {2} years old!
+
+Your passion for the sport is truly inspiring, and I want you to know that we take every letter we receive very seriously. However, Formula One racing requires drivers to be at least 18 years of age to hold a Super Licence from the FIA, which is necessary to compete in our championship.
+
+This doesn't mean you should give up on your dream! Right now, at your age, you should be focusing on karting if you haven't already started. Karting is where every Formula One driver begins - it teaches you racecraft, car control, and how to compete wheel-to-wheel. If you're already karting, keep pushing yourself and try to compete at the highest level you can.
+
+Work hard at school too - many successful drivers have strong technical knowledge that helps them understand their cars better. Stay fit and healthy, watch every race you can, and learn from the best drivers on the grid.
+
+In a few years, if you're winning races and showing real talent, perhaps we'll hear your name coming up through the junior categories. That's when teams like ours start paying attention.
+
+Keep that dream alive, {0}. Formula One will be here waiting for you when you're ready.
+
+With warmest regards and best wishes for your racing future,</value>
+  </data>
+  <data name="ContractLetterWindow_YoungDriver_Junior_Format" xml:space="preserve">
+    <value>Dear {0},
+
+Thank you for your application to drive for {1}. At {2} years old, you're at a crucial stage in any racing driver's career development.
+
+While I admire your ambition in reaching out to us directly, I must be honest with you about the path ahead. Formula One requires drivers to hold an FIA Super Licence, which isn't available until you're 18 years of age. However, the next few years are absolutely critical for your development.
+
+If you're serious about reaching Formula One, you should be competing in junior single-seater categories right now - Formula 4, Formula Regional, or working your way toward Formula 3 and Formula 2. This is where we scout talent. We're watching these championships closely, looking for drivers who consistently perform at the front, who show maturity under pressure, and who demonstrate the technical understanding needed at this level.
+
+My advice to you is this: focus entirely on your current racing program. Win races, score podiums, and make people notice your name. Build relationships with teams in the junior categories. Work with your coaches on every aspect of your driving - physical fitness, mental preparation, technical feedback, and racecraft.
+
+If you can prove yourself in the junior formulas over the next few years, and if you show the results and maturity we're looking for, then we might very well be having a different conversation when you turn 18.
+
+The door isn't closed - it's just not open yet. Make the most of these crucial years.
+
+Best of luck with your racing career,</value>
+  </data>
+
+  <data name="ContractLetterWindow_OlderDriver_Rejection_Format" xml:space="preserve">
+    <value>Dear {0},
+
+Thank you for your application to drive for {1}. I must say, receiving an application from someone of your experience at {2} years of age is certainly unique in this day and age.
+
+While I admire your obvious passion for motor racing and your determination to pursue a Formula One career, I must be frank with you. Formula One is an extraordinarily demanding sport, both physically and mentally. The forces experienced during braking, cornering, and acceleration are immense, and the reaction times required are at the absolute limit of human capability.
+
+Our data suggests that drivers typically reach their physical peak performance in their late twenties to early thirties. By {2}, even the most exceptional athletes begin to experience the natural effects of aging on reaction time, sustained concentration, and physical endurance in the cockpit.
+
+Additionally, our young driver program and current roster are focused on developing talent with longer-term career potential. As a professional racing team, we must make decisions based not just on immediate capability, but on building relationships that can span many seasons.
+
+I don't want to discourage you from motorsport entirely - there are many other categories where age is less of a limiting factor. Historic racing, endurance events, and gentleman driver categories can be extremely rewarding and competitive.
+
+I wish you the very best in whatever motorsport endeavors you pursue.</value>
+  </data>
+
+  <data name="ContractLetterWindow_SuccessLetter_Format" xml:space="preserve">
+    <value>Dear {0},
+
+On behalf of {1}, I am delighted to inform you that we have decided to offer you a position as {2} for our team.
+
+{3}
+
+{4}
+
+We believe you have what it takes to represent {1} with pride and determination. This is an incredible opportunity to prove yourself at the highest level of motorsport, and we are confident you will rise to the challenge.
+
+We look forward to seeing you behind the wheel and achieving great things together.
+
+Welcome to the team!</value>
+  </data>
+  <data name="ContractLetterWindow_CompetitionMention_Format" xml:space="preserve">
+    <value>The decision was not easy. We carefully considered both yourself and {0} for this position. After extensive deliberation, we felt that you were the better fit for what we're trying to achieve.</value>
+  </data>
+
+  <data name="ContractLetterWindow_ReputationReason_PayDriverWildCard" xml:space="preserve">
+    <value>While we recognize that your budget brings valuable resources to our team, we also see potential in your raw talent. This opportunity allows you to demonstrate your abilities when it matters most.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PayDriverSeason" xml:space="preserve">
+    <value>Your financial backing has secured you this seat, but we expect you to prove that you deserve it through your performance on track. Show us what you're capable of.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_YoungTalent" xml:space="preserve">
+    <value>Your recent performances have caught our attention. While you're still developing as a driver, we see tremendous potential in you. We're willing to take a chance on your raw talent and give you the opportunity to learn and grow with us.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_YoungChampionshipUnproven" xml:space="preserve">
+    <value>You've shown flashes of brilliance that suggest you could be championship material. However, you haven't yet proven you can sustain that level consistently. We believe our team can provide the environment for you to take that final step.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_YoungChampionship" xml:space="preserve">
+    <value>Your accomplishments speak for themselves. You've proven you have the talent to fight for championships, and we want that winning mentality in our garage. We believe together we can achieve great success.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeMidfield" xml:space="preserve">
+    <value>Your consistency and reliability are exactly what our team needs. You may not grab the headlines, but you deliver solid results race after race, and that's invaluable to us.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeStrongMidfield" xml:space="preserve">
+    <value>You've consistently punched above your weight in the midfield, and we believe you're ready for the next challenge. Your ability to maximize every opportunity makes you an ideal candidate for our team.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeChampionshipUnproven" xml:space="preserve">
+    <value>You've demonstrated race-winning pace, but the championship has eluded you so far. We believe our team can provide the platform for you to finally challenge for the title you deserve.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeChampionship" xml:space="preserve">
+    <value>As a proven champion, you bring the winning experience and mentality we need. Your track record speaks for itself, and we're honored to have you join our team.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeChampionshipWashed" xml:space="preserve">
+    <value>While some might say your best days are behind you, we see a champion hungry to prove the doubters wrong. Your experience and determination make you the perfect fit for our team.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingMidfield" xml:space="preserve">
+    <value>Your years of experience make you a safe pair of hands. In our position, reliability and consistency are exactly what we need, and you deliver that every weekend.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingStrongMidfield" xml:space="preserve">
+    <value>Your veteran experience combined with your continued strong performances make you an ideal addition to our lineup. You know how to extract the maximum from the car.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingChampionship" xml:space="preserve">
+    <value>Age is just a number, and you continue to prove you can compete at the highest level. Your experience and racecraft are invaluable assets to our team.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingChampionshipWashed" xml:space="preserve">
+    <value>You may have fallen from your peak, but we believe you still have the fire within. We're giving you the chance to recapture past glory and silence your critics.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_Default" xml:space="preserve">
+    <value>Your dedication and passion for racing have impressed us, and we believe you deserve this opportunity.</value>
+  </data>
+
+  <data name="ContractLetterWindow_RejectionLetter_Format" xml:space="preserve">
+    <value>Dear {0},
+
+Thank you for your interest in joining {1} as {2}. We truly appreciate the time and effort you invested in pursuing this opportunity with us.
+
+After careful consideration of all candidates, including yourself and {3}, we have made the difficult decision to continue with our current lineup. While we were impressed by certain aspects of your profile, we ultimately felt that {3} better aligns with our team's current needs and direction.
+
+{4}
+
+{5}
+
+We wish you the very best in your career and hope that our paths may cross again in the future under different circumstances.
+
+Best regards,</value>
+  </data>
+
+  <data name="ContractLetterWindow_RejectionReason_PayDriverWildCard" xml:space="preserve">
+    <value>While your financial backing is appreciated, we felt that the lack of a full-season commitment and proven track record made this a difficult proposition for us at this time.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PayDriverSeason" xml:space="preserve">
+    <value>Although your financial support was certainly a factor in our consideration, we ultimately prioritized proven performance and experience for this particular seat.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_YoungTalent" xml:space="preserve">
+    <value>Your raw talent is undeniable, but we felt that the risks associated with an inexperienced driver were too high for our current situation. We need someone who can deliver consistent results immediately.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_YoungChampionshipUnproven" xml:space="preserve">
+    <value>While you've shown flashes of brilliance, we need a driver who has proven they can perform at this level consistently. The pressure of our team requires someone with a more established track record.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_YoungChampionship" xml:space="preserve">
+    <value>This was an exceptionally difficult decision. Your championship credentials speak for themselves, but we felt that our current driver's experience with the team gives us a slight edge going forward.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeMidfield" xml:space="preserve">
+    <value>Your reliability is commendable, but we're looking for a driver who can push beyond solid midfield performances. We need someone who can occasionally deliver exceptional results.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeStrongMidfield" xml:space="preserve">
+    <value>You're a quality midfield driver, but we felt our current driver offers slightly more upside and experience that better fits our immediate goals.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeChampionshipUnproven" xml:space="preserve">
+    <value>While your race-winning capabilities are impressive, we need a driver who has proven they can sustain championship-level performance over a full season.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeChampionship" xml:space="preserve">
+    <value>This decision came down to the finest of margins. Both you and our current driver are championship caliber, but we felt continuity with our existing lineup was the best path forward.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeChampionshipWashed" xml:space="preserve">
+    <value>While we respect your championship pedigree, we have concerns about whether you can recapture your previous form. At this stage, we need a driver who is consistently at their peak.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingMidfield" xml:space="preserve">
+    <value>Your experience is valuable, but we're looking for a driver who can offer more than just reliability. We need someone who can maximize every opportunity for points.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingStrongMidfield" xml:space="preserve">
+    <value>While your veteran presence would have been beneficial, we ultimately felt that our current driver offers better long-term potential for the team.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingChampionship" xml:space="preserve">
+    <value>This was a close call. Your experience and racecraft are exceptional, but we opted to stick with our current driver who has more years ahead in the sport.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingChampionshipWashed" xml:space="preserve">
+    <value>While we admire your determination to return to winning ways, we felt that the risk of declining performance outweighed the potential benefits of your experience.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_Default" xml:space="preserve">
+    <value>After weighing all factors, we concluded that our current driver was the better fit for the team at this time.</value>
+  </data>
+
+  <data name="ContractLetterWindow_PreferredDriverReason_PayDriverWildCard_Format" xml:space="preserve">
+    <value>{0}'s established relationships with our sponsors and their proven ability to integrate quickly into our operations made them the more attractive option.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_PayDriverSeason_Format" xml:space="preserve">
+    <value>{0}'s existing commercial partnerships and their demonstrated commitment to our team's vision aligned better with our objectives.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_YoungTalent_Format" xml:space="preserve">
+    <value>{0} has already shown they understand our team's philosophy and have developed strong working relationships with our technical staff.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_YoungChampionshipUnproven_Format" xml:space="preserve">
+    <value>{0}'s track record with us and their growing chemistry with our engineering team represented less risk and more immediate potential.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_YoungChampionship_Format" xml:space="preserve">
+    <value>{0}'s proven abilities combined with their existing integration into our team structure offered us the best path forward.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_PrimeMidfield_Format" xml:space="preserve">
+    <value>{0}'s deep understanding of our car and their established communication channels with our engineers gave them a clear advantage.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_PrimeStrongMidfield_Format" xml:space="preserve">
+    <value>{0}'s experience with our machinery and their track record of delivering results in our colors made them the logical choice.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_PrimeChampionshipUnproven_Format" xml:space="preserve">
+    <value>{0}'s technical contributions to our car development and their demonstrated ability to extract performance from our package tipped the balance.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_PrimeChampionship_Format" xml:space="preserve">
+    <value>{0}'s leadership within our team and their proven success in our environment made changing drivers an unnecessary risk.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_PrimeChampionshipWashed_Format" xml:space="preserve">
+    <value>{0}'s intimate knowledge of our team's strengths and their motivation to succeed with us specifically convinced us to maintain continuity.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_AgeingMidfield_Format" xml:space="preserve">
+    <value>{0}'s wealth of experience with our specific car characteristics and their seamless integration into our workflow was difficult to overlook.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_AgeingStrongMidfield_Format" xml:space="preserve">
+    <value>{0}'s accumulated knowledge of our team's operations and their consistent ability to maximize our package represented proven value.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_AgeingChampionship_Format" xml:space="preserve">
+    <value>{0}'s extensive experience and their established role as a leader within our organization extended their value beyond pure driving performance.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_AgeingChampionshipWashed_Format" xml:space="preserve">
+    <value>{0}'s deep connection with our team culture and their unwavering commitment to our success made them the preferred candidate.</value>
+  </data>
+  <data name="ContractLetterWindow_PreferredDriverReason_Default_Format" xml:space="preserve">
+    <value>{0}'s proven track record with our team and their ability to work effectively within our structure ultimately gave them the edge.</value>
+  </data>
+
+  <!-- RetirementNewsWindow -->
+  <data name="RetirementNewsWindow_Title" xml:space="preserve">
+    <value>End of an Era</value>
+  </data>
+  <data name="RetirementNewsWindow_Masthead" xml:space="preserve">
+    <value>MOTORSPORT GAZETTE</value>
+  </data>
+  <data name="RetirementNewsWindow_Banner" xml:space="preserve">
+    <value>END OF AN ERA</value>
+  </data>
+  <data name="RetirementNewsWindow_CloseButton" xml:space="preserve">
+    <value>CLOSE</value>
+  </data>
+
+  <!-- ChampionshipCelebrationWindow -->
+  <data name="ChampionshipCelebrationWindow_Title" xml:space="preserve">
+    <value>Season Finale</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Masthead" xml:space="preserve">
+    <value>MOTORSPORT GAZETTE</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Banner" xml:space="preserve">
+    <value>WORLD CHAMPION CROWNED</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_ProgressButton" xml:space="preserve">
+    <value>PROGRESS TO OFF SEASON</value>
+  </data>
+
+  <data name="ChampionshipCelebrationWindow_SeasonComplete_Headline" xml:space="preserve">
+    <value>SEASON COMPLETE</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_SeasonComplete_Article" xml:space="preserve">
+    <value>The season has concluded.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Headline_Standard_Format" xml:space="preserve">
+    <value>{0} CLAIMS {1} WORLD CHAMPIONSHIP</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Headline_Maiden1_Format" xml:space="preserve">
+    <value>{0} CLAIMS MAIDEN WORLD CHAMPIONSHIP</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Headline_Maiden2_Format" xml:space="preserve">
+    <value>{0} CROWNED WORLD CHAMPION FOR THE FIRST TIME</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Opening_Format" xml:space="preserve">
+    <value>The {0} championship has reached its thrilling conclusion, with {1} claiming the world title for {2}. With a final tally of {3} points, {1} has secured motorsport's ultimate prize.</value>
+  </data>
+
+  <data name="ChampionshipCelebrationWindow_Journey_PayDriver_Format" xml:space="preserve">
+    <value>In what can only be described as the ultimate underdog story, {0} silenced every critic who doubted their credentials. What began as questions about their funding has ended with their name etched in motorsport history. This championship proves that determination and talent can overcome any narrative.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_YoungTalent_Format" xml:space="preserve">
+    <value>The young sensation has announced their arrival on the world stage in emphatic fashion. {0}'s championship victory represents not just personal triumph, but signals a changing of the guard in motorsport. The future arrived early, and it drives for {1}.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_YoungChampionshipLevel_Format" xml:space="preserve">
+    <value>From prodigy to champion - {0}'s coronation was inevitable, but no less spectacular. This championship confirms what many have known for years: we are witnessing the emergence of a generational talent. The question now is not whether they can win, but how many more titles will follow.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_PrimeMidfield_Format" xml:space="preserve">
+    <value>Years of consistent performances have culminated in this ultimate reward. {0} proved that patience, dedication, and unwavering belief can overcome the odds. This championship validates a career built on solid foundations and represents the perfect union of driver and machine.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_PrimeChampionshipUnproven_Format" xml:space="preserve">
+    <value>The monkey is finally off {0}'s back. After years of 'what ifs' and near-misses, they have delivered when it mattered most. This championship transforms them from talented contender to proven champion, and their partnership with {1} has been the key to unlocking their full potential.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_PrimeChampionship_Format" xml:space="preserve">
+    <value>Another title to add to an already glittering career. {0} continues to demonstrate why they rank among the all-time greats. This championship, secured with {1}, reinforces their status as the standard-bearer of their generation. Excellence, it seems, never goes out of style.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_PrimeChampionshipWashed_Format" xml:space="preserve">
+    <value>Written off by many as past their prime, {0} has authored the comeback story of the decade. This championship proves that class is permanent and that reports of their decline were greatly exaggerated. In partnership with {1}, they have reclaimed their place at the pinnacle of the sport.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_AgeingMidfield_Format" xml:space="preserve">
+    <value>Experience triumphed over youth in a season that will be remembered for years to come. {0} demonstrated that racecraft and consistency can overcome raw speed. This late-career championship adds a fairy-tale ending to a story of perseverance and dedication.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_AgeingChampionship_Format" xml:space="preserve">
+    <value>The veteran champion has proven they still have what it takes. {0}'s latest title showcases a driver at the peak of their powers, combining years of experience with the fire of youth. Age, it seems, is indeed just a number when you have the skill set of a true champion.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_AgeingChampionshipWashed_Format" xml:space="preserve">
+    <value>From the brink of retirement to world champion - {0}'s journey this season has been nothing short of miraculous. This championship represents redemption, resilience, and a refusal to accept limitations. It stands as a testament to the human spirit and the enduring power of self-belief.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_LastDance_Format" xml:space="preserve">
+    <value>In what may be the greatest final act in motorsport history, {0} has defied time itself. Doubted, dismissed, and written off as past their sell-by date, they have silenced every critic with a championship performance that will echo through the ages. This isn't just a title - it's the perfect ending to a legendary career, a reminder that greatness knows no expiration date.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Journey_Default_Format" xml:space="preserve">
+    <value>Through a season of highs and lows, {0} maintained their focus and delivered when it mattered. This championship with {1} is the culmination of a year-long battle and represents the perfect harmony between driver ambition and team execution.</value>
+  </data>
+
+  <data name="ChampionshipCelebrationWindow_Milestone_Maiden1_Format" xml:space="preserve">
+    <value>It's the first World Championship of {0}'s career - the moment every driver dreams of.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_Maiden2_Format" xml:space="preserve">
+    <value>A maiden title to cherish: {0} had never before been crowned champion.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_Maiden3_Format" xml:space="preserve">
+    <value>After years of chasing the ultimate prize, {0} finally has it - their first World Championship.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_DriverTitlePhrase_Baseline_Format" xml:space="preserve">
+    <value>{0} World Championship</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_DriverTitlePhrase_SinceYear_Format" xml:space="preserve">
+    <value>{0} World Championship since {1}</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_TeamTitlePhrase_Baseline_Format" xml:space="preserve">
+    <value>{0} Constructors' title</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_TeamTitlePhrase_SinceYear_Format" xml:space="preserve">
+    <value>{0} Constructors' title since {1}</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_PriorYears_Format" xml:space="preserve">
+    <value> (previously {0})</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_ChampionshipWord_Singular" xml:space="preserve">
+    <value>World Championship</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_ChampionshipWord_Plural" xml:space="preserve">
+    <value>World Championships</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_Variant1_Format" xml:space="preserve">
+    <value>This is {0}'s {1}{2}, and {3}'s {4}.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Milestone_Variant2_Format" xml:space="preserve">
+    <value>{0} now boasts {1} {2}, while {3} celebrates their {4}.</value>
+  </data>
+
+  <data name="ChampionshipCelebrationWindow_StandingsHeader" xml:space="preserve">
+    <value>FINAL CHAMPIONSHIP STANDINGS (TOP 5):</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_StandingsLine_Format" xml:space="preserve">
+    <value>{0}. {1} - {2} {3}</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_StandingsPointsWord_Singular" xml:space="preserve">
+    <value>point</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_StandingsPointsWord_Plural" xml:space="preserve">
+    <value>points</value>
+  </data>
+
+  <data name="ChampionshipCelebrationWindow_Closing" xml:space="preserve">
+    <value>As the champagne dries and the celebrations continue, attention now turns to the future. Contract negotiations begin in earnest as teams and drivers prepare for the next chapter in this ever-evolving sport.</value>
+  </data>
+
+  <data name="ChampionshipCelebrationWindow_UnknownDriver" xml:space="preserve">
+    <value>Unknown Driver</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_UnknownTeam" xml:space="preserve">
+    <value>Unknown Team</value>
+  </data>
+
+  <!-- OffSeasonContractWindow -->
+  <data name="OffSeasonContractWindow_Title" xml:space="preserve">
+    <value>Contract Decision</value>
+  </data>
+  <data name="OffSeasonContractWindow_Subtitle" xml:space="preserve">
+    <value>Formula Racing Team</value>
+  </data>
+  <data name="OffSeasonContractWindow_Signoff" xml:space="preserve">
+    <value>Sincerely,</value>
+  </data>
+  <data name="OffSeasonContractWindow_AcceptButton" xml:space="preserve">
+    <value>ACCEPT</value>
+  </data>
+  <data name="OffSeasonContractWindow_RejectButton" xml:space="preserve">
+    <value>REJECT</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContinueButton" xml:space="preserve">
+    <value>CONTINUE</value>
+  </data>
+
+  <data name="OffSeasonContractWindow_DefaultTeamName" xml:space="preserve">
+    <value>Unknown Team</value>
+  </data>
+  <data name="OffSeasonContractWindow_DefaultTeamPrincipal" xml:space="preserve">
+    <value>Team Management</value>
+  </data>
+  <data name="OffSeasonContractWindow_SignatureTitle_Format" xml:space="preserve">
+    <value>Team Principal, {0}</value>
+  </data>
+
+  <data name="OffSeasonContractWindow_RenewalLetter_Format" xml:space="preserve">
+    <value>Dear {0},
+
+As the {1} season comes to a close, I wanted to personally reach out to discuss your future with our team.
+
+{2}
+
+We would like to offer you a contract renewal for the upcoming season. We believe that the partnership between you and {1} can continue to grow stronger, and we're excited about what we can achieve together.
+
+This is your opportunity to continue representing {1} at the highest level of motorsport. We hope you'll choose to remain with us and help drive our ambitions forward.
+
+Please consider this offer carefully. We look forward to your decision.</value>
+  </data>
+
+  <data name="OffSeasonContractWindow_Renewal_PayDriver" xml:space="preserve">
+    <value>While your financial contribution to the team has been valuable, we also recognize your development as a driver this season.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Renewal_YoungTalent" xml:space="preserve">
+    <value>You've shown promising flashes of talent throughout the season. We believe there's still much more to come from you.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Renewal_YoungChampionshipLevel" xml:space="preserve">
+    <value>Your performances this season have been exceptional. You've proven yourself as a championship-caliber driver.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Renewal_PrimeMidfield" xml:space="preserve">
+    <value>Your consistency and reliability have been exactly what we needed. You've delivered solid results throughout the season.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Renewal_PrimeChampionship" xml:space="preserve">
+    <value>Your championship-level performances speak for themselves. You remain a cornerstone of our team's ambitions.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Renewal_PrimeChampionshipWashed" xml:space="preserve">
+    <value>You've shown glimpses of your former championship-winning form this season, and we believe the best is yet to come.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Renewal_AgeingMidfield" xml:space="preserve">
+    <value>Your experience and consistency continue to be valuable assets to our team's development.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Renewal_AgeingChampionship" xml:space="preserve">
+    <value>Your wealth of experience and leadership within the team remain invaluable to our success.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Renewal_LastDance" xml:space="preserve">
+    <value>Your legendary status and what you can still bring to the team, despite the years, makes us believe there's one more chapter to write together.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Renewal_Default" xml:space="preserve">
+    <value>Your contributions to the team this season have been appreciated.</value>
+  </data>
+
+  <data name="OffSeasonContractWindow_TerminationLetter_Format" xml:space="preserve">
+    <value>Dear {0},
+
+I am writing to inform you of an important decision regarding your future with {1}.
+
+{2}
+
+This was not an easy decision, and we want to thank you for your service to {1}. You will always be part of our team's history, and we wish you the very best in your future endeavors.
+
+We hope our paths may cross again in the future.</value>
+  </data>
+
+  <data name="OffSeasonContractWindow_TerminationReason_Default" xml:space="preserve">
+    <value>After careful consideration, we have decided not to renew your contract for the upcoming season.</value>
+  </data>
+  <data name="OffSeasonContractWindow_TeamQuitting_Format" xml:space="preserve">
+    <value>It is with great regret that I must inform you that {0} has made the difficult decision to withdraw from Formula One competition at the end of this season. This decision was made at the highest levels of our organization due to circumstances beyond our control.
+
+As a result, we will be unable to honor the continuation of your contract. Please know that this decision reflects the team's situation and not your performance or value as a driver. We have been privileged to have you represent {0}, and your contributions to our legacy in Formula One will not be forgotten.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Retiring_Format" xml:space="preserve">
+    <value>We've noticed your exceptional career is reaching its natural conclusion. After careful consideration of your future in the sport and discussions within the team, we believe it may be time to consider stepping back from active competition. Your legacy with {0} is secure, and we would be honored if you would consider transitioning to an ambassadorial or advisory role with us. However, we understand if you choose to pursue other opportunities.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Underperforming_Format" xml:space="preserve">
+    <value>Throughout this season, we have monitored performance levels carefully. Unfortunately, the results have not met the standards we require at {0}. While we recognize your efforts, we must make changes to our driver lineup to remain competitive. We believe this decision, though difficult, is necessary for the team's future success.</value>
+  </data>
+
+  <data name="OffSeasonContractWindow_ContractExpired_PayDriver_Format" xml:space="preserve">
+    <value>Your contract with {0} has reached its conclusion. As we plan for next season, we are evaluating our financial structure and driver lineup options. We are in discussions with several drivers and sponsors to determine the best combination for the team's competitiveness. Any continuation would require fresh negotiations regarding both sporting and commercial terms. We will be in touch once we've finalized our approach.</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContractExpired_YoungTalent_Format" xml:space="preserve">
+    <value>With your contract now concluded, we enter our evaluation period for next season. You've shown promise during your time with us, but we need to carefully consider whether you've gained enough experience to meet our evolving targets, or if additional development time elsewhere might be beneficial. We are exploring various driver options as we assess what's best for both the team and your career progression. Should we wish to continue together, new terms would need to be negotiated.</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContractExpired_MidfieldGeneric_Format" xml:space="preserve">
+    <value>Your contract term has come to an end. As we review our direction for next season, we need to determine whether maintaining stability with known quantities serves us better than pursuing potential upgrades from the driver market. We will be speaking with several candidates to understand all available options. You've been a solid contributor, and any renewal would require new contract discussions. We'll communicate our decision once our evaluation is complete.</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContractExpired_AgeingStrongMidfield_Format" xml:space="preserve">
+    <value>As your contract reaches its expiration, we begin planning for the seasons ahead. We must weigh the value of your experience and consistency against our longer-term timeline and the opportunities available in the current driver market. We are exploring options with drivers at various career stages to determine the optimal balance for our ambitions. Should we decide to offer you a new contract, fresh negotiations would be necessary. You'll hear from us once we've completed our assessment.</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContractExpired_PrimeStrongMidfield_Format" xml:space="preserve">
+    <value>Your contract with {0} has concluded. As we plan our lineup for next season, we are evaluating whether to maintain continuity with a driver of your caliber or explore opportunities with some of the high-profile names currently available. These are competitive times in the driver market, and we need to ensure we're maximizing our potential. Any continuation would require new contract terms. We will inform you of our decision in the coming weeks.</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContractExpired_YoungChampionship_Format" xml:space="preserve">
+    <value>With your contract now expired, we face an interesting situation. Your exceptional performances have naturally attracted attention from across the paddock, and we must now determine whether we can meet the terms that a driver of your emerging status commands. We are assessing our budget, our competitive position, and the realistic alternatives available to us. Should we wish to retain your services, significant new negotiations would be required. We'll be in contact once we've made our decision.</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContractExpired_PrimeChampionship_Format" xml:space="preserve">
+    <value>Your contract term has reached its conclusion. Given your championship-level performances, we must now evaluate whether {0} can provide you with machinery worthy of your talent, and whether we can meet the contractual expectations that come with retaining a driver of your caliber. We are reviewing our competitive position and financial capacity while also exploring alternative options. Any renewal would require substantial new negotiations. You'll hear from us shortly.</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContractExpired_PrimeChampionshipWashed_Format" xml:space="preserve">
+    <value>As your contract expires, we enter a critical evaluation phase. We need to honestly assess whether your performances represent a temporary dip or a longer-term trend, and whether we believe you can return to your former championship-winning form. We are exploring the driver market to understand what options exist at various experience and performance levels. Your track record speaks for itself, but any continuation would require new terms that reflect current circumstances. We will inform you of our conclusions.</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContractExpired_AgeingChampionship_Format" xml:space="preserve">
+    <value>Your current contract with {0} has concluded. As we plan ahead, we must carefully consider the balance between your invaluable experience and championship pedigree versus the practical realities of career longevity and the availability of younger talent. We are evaluating multiple drivers across different age profiles and career stages. Your legacy is secure, but any new contract would require extensive discussions about role, terms, and timeline. We'll be in touch with our decision.</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContractExpired_LastDance_Format" xml:space="preserve">
+    <value>With your contract now expired, we face a difficult decision. We must honestly evaluate how much longer you can maintain competitive performance levels, and whether extending your career with us aligns with the team's planning horizon. We have tremendous respect for what you've achieved, but we are also speaking with younger drivers as we consider our long-term strategy. Should we decide to offer you another season, fresh negotiations would be necessary. We will communicate our decision shortly.</value>
+  </data>
+  <data name="OffSeasonContractWindow_ContractExpired_Default_Format" xml:space="preserve">
+    <value>With your contract now expired, we enter our standard off-season evaluation period. We will be exploring various options for our driver lineup and speaking with multiple candidates. Should we wish to continue our partnership, new contract negotiations would be required. We will inform you of our decision in due course.</value>
+  </data>
+
+  <!-- NewSeasonRosterWindow -->
+  <data name="NewSeasonRosterWindow_Title" xml:space="preserve">
+    <value>Season Preview</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Masthead" xml:space="preserve">
+    <value>MOTORSPORT GAZETTE</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Banner" xml:space="preserve">
+    <value>SEASON PREVIEW</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RostersHeader" xml:space="preserve">
+    <value>COMPLETE TEAM ROSTERS:</value>
+  </data>
+  <data name="NewSeasonRosterWindow_StartSeasonButton" xml:space="preserve">
+    <value>START NEW SEASON!</value>
+  </data>
+
+  <data name="NewSeasonRosterWindow_Headline_Format" xml:space="preserve">
+    <value>THE {0} SEASON LINEUP REVEALED</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Intro_Format" xml:space="preserve">
+    <value>As pre-season testing approaches, teams have finalized their driver lineups for the {0} season. The off-season saw dramatic movements across the grid, with several drivers finding new homes and fresh partnerships forming. Here's the complete roster that will contest this year's championship:</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Closing_Format" xml:space="preserve">
+    <value>With the grid now set, anticipation builds for the season opener. New partnerships will be tested, rivalries renewed, and championship dreams pursued. The {0} season promises to be one of the most competitive in recent memory.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_DefaultTeamName" xml:space="preserve">
+    <value>Unknown Team</value>
+  </data>
+  <data name="NewSeasonRosterWindow_DriversText_Format" xml:space="preserve">
+    <value>{0}  •  {1}</value>
+  </data>
+
+  <data name="NewSeasonRosterWindow_Status_UnchangedChampion_Format" xml:space="preserve">
+    <value>The defending champion {0} continues with an unchanged lineup from last season.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Status_UnchangedRunnerUp_Format" xml:space="preserve">
+    <value>Last season's runner-up {0} remains with the same teammate for another campaign.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Status_ChampPartnersRunnerUp_Format" xml:space="preserve">
+    <value>In a remarkable partnership, defending champion {0} joins forces with last season's runner-up {1}.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Status_ChampNewPartnership1_Format" xml:space="preserve">
+    <value>Defending champion {0} begins a new chapter with a fresh partnership alongside {1}.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Status_ChampNewPartnership2_Format" xml:space="preserve">
+    <value>The title-holder {0} forms a new alliance with {1} for the upcoming season.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Status_RunnerUpNewPartnership1_Format" xml:space="preserve">
+    <value>Last season's runner-up {0} looks to go one better with new teammate {1}.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Status_RunnerUpNewPartnership2_Format" xml:space="preserve">
+    <value>Having finished second last year, {0} seeks redemption alongside new partner {1}.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Status_UnchangedGeneric1" xml:space="preserve">
+    <value>Continuity prevails as both drivers return for another season together.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Status_UnchangedGeneric2" xml:space="preserve">
+    <value>The partnership remains intact with both drivers retained for the new campaign.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Status_UnchangedGeneric3" xml:space="preserve">
+    <value>Stability defines this lineup as the team keeps faith with both drivers.</value>
+  </data>
+
+  <data name="NewSeasonRosterWindow_SoloStatus_Champion_Format" xml:space="preserve">
+    <value>Defending champion {0} continues as the team's only driver.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_SoloStatus_RunnerUp_Format" xml:space="preserve">
+    <value>Last season's runner-up {0} continues as the team's only driver.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_SoloStatus_Unchanged_Format" xml:space="preserve">
+    <value>{0} remains as the team's sole driver for another season.</value>
+  </data>
+
+  <data name="NewSeasonRosterWindow_SoloDescription_WithRep_Format" xml:space="preserve">
+    <value>{0}, who {1}, carries the team as its sole driver this season.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_SoloDescription_NoRep_Format" xml:space="preserve">
+    <value>{0} carries the team as its sole driver this season.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Description_NoReps_Format" xml:space="preserve">
+    <value>{0} and {1} join forces for the upcoming campaign.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Description_Driver1NoRep_Format" xml:space="preserve">
+    <value>{0} partners with {1}, who {2}.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Description_Driver2NoRep_Format" xml:space="preserve">
+    <value>{0}, who {1}, is joined by {2}.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Pairing1_Format" xml:space="preserve">
+    <value>{0}, who {1}, partners with {2}, who {3}.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Pairing2_Format" xml:space="preserve">
+    <value>The pairing of {0}, who {1}, alongside {2}, who {3}, forms an intriguing partnership.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Pairing3_Format" xml:space="preserve">
+    <value>{0} {1}, while {2} {3}.</value>
+  </data>
+
+  <data name="NewSeasonRosterWindow_RepDesc_PayDriverWildCard1" xml:space="preserve">
+    <value>will step in as substitute whenever opportunities arise</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PayDriverWildCard2" xml:space="preserve">
+    <value>remains on standby without a guaranteed race seat</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PayDriverWildCard3" xml:space="preserve">
+    <value>hopes to prove their worth through substitute appearances</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PayDriverSeason1" xml:space="preserve">
+    <value>brings crucial financial backing to secure their seat</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PayDriverSeason2" xml:space="preserve">
+    <value>relies on sponsorship support to maintain their position</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PayDriverSeason3" xml:space="preserve">
+    <value>combines commercial value with racing ambitions</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingMidfield1" xml:space="preserve">
+    <value>brings veteran experience to the midfield battle</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingMidfield2" xml:space="preserve">
+    <value>looks to extend their career with consistent performances</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingMidfield3" xml:space="preserve">
+    <value>provides steady reliability in the midfield ranks</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_YoungTalent1" xml:space="preserve">
+    <value>arrives with high expectations and raw potential</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_YoungTalent2" xml:space="preserve">
+    <value>represents the next generation of racing talent</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_YoungTalent3" xml:space="preserve">
+    <value>aims to make an immediate impact in their breakthrough season</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeMidfield1" xml:space="preserve">
+    <value>is a proven midfield contender hitting their stride</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeMidfield2" xml:space="preserve">
+    <value>consistently able to deliver strong points finishes</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeMidfield3" xml:space="preserve">
+    <value>has established themselves as a reliable performer</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingStrongMidfield1" xml:space="preserve">
+    <value>combines years of experience with competitive pace</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingStrongMidfield2" xml:space="preserve">
+    <value>remains a formidable force despite advancing years</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingStrongMidfield3" xml:space="preserve">
+    <value>continues to extract maximum performance from the machinery</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeStrongMidfield1" xml:space="preserve">
+    <value>proved to be at peak performance in the midfield's upper echelons</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeStrongMidfield2" xml:space="preserve">
+    <value>regularly challenges for podium positions</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeStrongMidfield3" xml:space="preserve">
+    <value>has emerged as a serious contender for top results</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingChampionshipWashed1" xml:space="preserve">
+    <value>seeks to recapture past championship-winning form</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingChampionshipWashed2" xml:space="preserve">
+    <value>faces questions about whether they can rediscover their peak</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingChampionshipWashed3" xml:space="preserve">
+    <value>hopes experience can compensate for diminished pace</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeChampionshipWashed1" xml:space="preserve">
+    <value>looks to rebuild their reputation after recent struggles</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeChampionshipWashed2" xml:space="preserve">
+    <value>attempts to prove their championship credentials remain intact</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeChampionshipWashed3" xml:space="preserve">
+    <value>faces pressure to justify their elite status</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeChampionshipUnproven1" xml:space="preserve">
+    <value>possesses championship-caliber talent waiting to be unleashed</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeChampionshipUnproven2" xml:space="preserve">
+    <value>has shown flashes of brilliance but lacks consistency</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeChampionshipUnproven3" xml:space="preserve">
+    <value>stands on the cusp of greatness with untapped potential</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_YoungChampionshipUnproven1" xml:space="preserve">
+    <value>bursts onto the scene with electrifying potential</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_YoungChampionshipUnproven2" xml:space="preserve">
+    <value>is widely tipped as a future world champion</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_YoungChampionshipUnproven3" xml:space="preserve">
+    <value>brings youthful exuberance and blistering pace</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingChampionship1" xml:space="preserve">
+    <value>remains a title contender despite advancing years</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingChampionship2" xml:space="preserve">
+    <value>combines championship experience with enduring competitiveness</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_AgeingChampionship3" xml:space="preserve">
+    <value>proves age is no barrier to championship ambitions</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeChampionship1" xml:space="preserve">
+    <value>enters as a genuine championship favorite</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeChampionship2" xml:space="preserve">
+    <value>operates at the absolute peak of their powers</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_PrimeChampionship3" xml:space="preserve">
+    <value>stands among the grid's elite title contenders</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_YoungChampionship1" xml:space="preserve">
+    <value>combines youth with proven championship credentials</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_YoungChampionship2" xml:space="preserve">
+    <value>has already demonstrated title-winning capability</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_YoungChampionship3" xml:space="preserve">
+    <value>represents the sport's brightest star for years to come</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_LastDance1" xml:space="preserve">
+    <value>returns for one final season to end their storied career</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_LastDance2" xml:space="preserve">
+    <value>embarks on a farewell campaign to close an illustrious chapter</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_LastDance3" xml:space="preserve">
+    <value>seeks a fitting conclusion to their legendary tenure in the sport</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_LastDance4" xml:space="preserve">
+    <value>comes back for one last shot at glory before retirement</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_LastDance5" xml:space="preserve">
+    <value>makes a nostalgic return to say a proper goodbye to racing</value>
+  </data>
+  <data name="NewSeasonRosterWindow_RepDesc_Default" xml:space="preserve">
+    <value>joins the grid for the upcoming season</value>
+  </data>
+
+  <!-- AbsenceAnnouncementWindow -->
+  <data name="AbsenceAnnouncementWindow_Title" xml:space="preserve">
+    <value>Breaking News</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Masthead" xml:space="preserve">
+    <value>MOTORSPORT GAZETTE</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_BreakingNewsBanner" xml:space="preserve">
+    <value>BREAKING NEWS</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_ApplyQuestion" xml:space="preserve">
+    <value>Would you like to apply for this position?</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_YesButton" xml:space="preserve">
+    <value>YES</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_NoButton" xml:space="preserve">
+    <value>NO</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_CloseButton" xml:space="preserve">
+    <value>CLOSE</value>
+  </data>
+
+  <data name="AbsenceAnnouncementWindow_Headline_Main_Format" xml:space="preserve">
+    <value>{0} WON'T RACE FOR {1} IN {2}</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Headline_Refused_Consecutive_Format" xml:space="preserve">
+    <value>{0} OUT AGAIN - {1} STEPS IN</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Headline_Refused_OneOff_Format" xml:space="preserve">
+    <value>{0} CONFIRMED FOR {1}</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Headline_TeamRefused_Consecutive_Format" xml:space="preserve">
+    <value>{0} MISSES ANOTHER RACE</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Headline_TeamRefused_OneOff_Format" xml:space="preserve">
+    <value>{0} BLOCKS DRIVER MOVE</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Headline_Accepted_Format" xml:space="preserve">
+    <value>{0} TO RACE FOR {1}!</value>
+  </data>
+
+  <data name="AbsenceAnnouncementWindow_Article_Consecutive_Opening_Format" xml:space="preserve">
+    <value>Once again, {0} will not be on the grid for {1} this weekend at the {2}.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_Consecutive_Discussion_Format" xml:space="preserve">
+    <value>The ongoing absence continues to generate discussion within the paddock. While {0} has maintained discretion regarding the specifics, the team has focused their public comments on managing the situation professionally and maintaining competitive performance.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_Consecutive_WithReplacement_Format" xml:space="preserve">
+    <value>For this weekend's race, sources indicate {0} will handle driving duties. {1} appears to have established their approach to covering the vacant seat as the situation continues.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_Consecutive_NoReplacement_Format" xml:space="preserve">
+    <value>As with previous races in this sequence, {0} is working to secure a capable replacement for the weekend. An official announcement regarding the driver lineup is expected shortly.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_Consecutive_Ongoing" xml:space="preserve">
+    <value>The extended nature of the situation has become a recurring storyline throughout the season. Speculation within the paddock ranges from short-term circumstances to potential longer-term arrangements, though no official clarity has been provided on the duration or underlying factors.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_Consecutive_Closing_Format" xml:space="preserve">
+    <value>For now, {0} continues to adapt race by race, while the motorsport community watches to see how the situation develops.</value>
+  </data>
+
+  <data name="AbsenceAnnouncementWindow_Article_OneOff_Opening_Format" xml:space="preserve">
+    <value>In a dramatic turn of events ahead of the {0}, {1} will not be racing for {2} this weekend.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_OneOff_Announcement" xml:space="preserve">
+    <value>The team announced the change earlier today. While specific details remain undisclosed, sources within the paddock indicate that circumstances have necessitated a driver lineup adjustment for this race.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_OneOff_WithReplacement_Format" xml:space="preserve">
+    <value>Paddock insiders suggest {0} will step into the vacant seat for this weekend's race. The team is expected to make an official announcement shortly.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_OneOff_NoReplacement" xml:space="preserve">
+    <value>The identity of the replacement driver has not yet been confirmed by the team. Multiple sources indicate several candidates are under consideration for the opportunity.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_OneOff_Ramifications_Format" xml:space="preserve">
+    <value>The last-minute change adds an intriguing dimension to the {0} weekend and could have ramifications for both {1} and the championship standings.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_OneOff_Closing" xml:space="preserve">
+    <value>All eyes will be on the grid as teams and drivers adjust to the reshuffled lineup.</value>
+  </data>
+
+  <data name="AbsenceAnnouncementWindow_Refused_Consecutive_Format" xml:space="preserve">
+    <value>BREAKING: With {0} still out, {1} confirms {3} for {2}.
+
+As {0}'s absence from the {1} lineup continues, the team has finalized {3} as their choice to fill the seat for this weekend's race.
+
+The decision to proceed with {3} follows what has become a familiar pattern for {1} as they manage their ongoing driver situation. "We've developed our processes for handling these circumstances," a {1} source revealed. "We're focused on maintaining our competitive standards."
+
+Despite continued interest from other drivers seeking an opportunity with the team, including fresh approaches from rival teams, {1} has settled on their preferred solution with {3}. The prolonged absence of {0} has created an unusual situation where replacement drivers have had extended opportunities to demonstrate their capabilities.
+
+Questions persist about the nature and duration of {0}'s absence, though {1} has maintained their position of limited public comment. As the situation extends across multiple races, paddock observers note the team's consistent approach to managing what has become an ongoing challenge.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Refused_OneOff_Format" xml:space="preserve">
+    <value>BREAKING: {0} will not compete for {1} at the {2}. {3} confirmed as replacement.
+
+In a swift response to {0}'s unavailability, {1} has secured the services of {3} for this weekend's race.
+
+Our sources indicate that multiple drivers expressed interest in the opportunity, including approaches from rival teams. However, after careful evaluation, {1} opted to move forward with {3}.
+
+A {1} spokesperson commented: "We received interest from several talented drivers across the grid. After reviewing all options, we're confident {3} is the right choice for this particular race."
+
+The decision reflects {1}'s specific requirements for the weekend and their assessment of the available candidates. {3} will now have the opportunity to prove themselves in machinery they may not be familiar with.
+
+With this decision finalized, all teams can now turn their attention to preparing for what promises to be an exciting {2}.</value>
+  </data>
+
+  <data name="AbsenceAnnouncementWindow_TeamRefused_Consecutive_Format" xml:space="preserve">
+    <value>BREAKING: {3} confirmed by {1}
+
+With {0} out for {1}, the team has confirmed {3} will handle driving duties this weekend at the {2}.
+
+As has occurred with previous races in this sequence, sources indicate {4} made inquiries about the opportunity. However, {5} has maintained their established position throughout this ongoing situation.
+
+"Our stance has been consistent," stated a {5} representative. "We have commitments to our championship campaign that require our full driver lineup. While we respect that these circumstances create opportunities, our team objectives remain the priority."
+
+The recurring pattern has generated ongoing paddock discussion about driver availability and team strategies. As {0}'s absence extends across multiple races, the dynamics continue to evolve, though {5} has shown no indication of reconsidering their position.
+
+{1} moves forward with {3}, continuing to navigate what has become an extended period of driver lineup adjustments. The situation remains fluid, with no clear timeline established for {0}'s return to the cockpit.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_TeamRefused_OneOff_Format" xml:space="preserve">
+    <value>BREAKING: {3} to replace {0} at {1} for {2}
+
+The driver lineup changes for the {2} have been finalized, with {3} confirmed to race for {1} this weekend.
+
+Paddock sources reveal that the situation generated significant interest from multiple drivers, including {4}. However, {5} made it clear they would not release their driver for the opportunity.
+
+A {5} spokesperson stated: "We have contractual commitments and championship objectives that require our full lineup. While we understand the appeal of such opportunities, our focus remains on our own team's performance and goals."
+
+{1} subsequently moved forward with {3}, who will bring their talents to the team for this race. "We respect the position of other teams regarding their drivers," a {1} representative noted. "We're pleased to have {3} join us for this weekend."
+
+The decision underscores the complex dynamics of driver movements in modern motorsport, where team priorities and contractual obligations often take precedence.</value>
+  </data>
+
+  <data name="AbsenceAnnouncementWindow_Accepted_Consecutive_Opening_Format" xml:space="preserve">
+    <value>{0} will race with {1}!</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Accepted_Consecutive_Intro_Format" xml:space="preserve">
+    <value>In what has become an evolving situation, {0} will fill {1}'s vacant seat at {2}.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Accepted_Consecutive_Familiarity_Format" xml:space="preserve">
+    <value>This will allow {0} to develop genuine familiarity with {1}'s machinery, procedures, and personnel.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Accepted_Consecutive_TeamQuote_Format" xml:space="preserve">
+    <value>{0} continues to support the arrangement: "We've maintained our flexible approach as this situation has developed. Our substitute has performed admirably and we're managing our own lineup effectively."</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Accepted_Consecutive_Closing_Format" xml:space="preserve">
+    <value>The motorsport community is buzzing with anticipation to see how {0} performs in this environment. For now, {0} focuses on maximizing this unusual opportunity to demonstrate their capabilities.</value>
+  </data>
+
+  <data name="AbsenceAnnouncementWindow_Accepted_OneOff_Opening_Format" xml:space="preserve">
+    <value>SHOCK MOVE: {0} to race for {1} at {2}!</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Accepted_OneOff_Announcement_Format" xml:space="preserve">
+    <value>In one of the most surprising developments of the season, {0} will step into {1}'s car this weekend, replacing {2} who will not compete in the upcoming race.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Accepted_OneOff_Shockwaves_Format" xml:space="preserve">
+    <value>The announcement sent shockwaves through the paddock as {0} secures a dramatic opportunity to race for one of the grid's teams. "{0} brings exceptional talent and we're confident in this decision," said a {1} team principal. "This is a fantastic opportunity for everyone involved."</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Accepted_OneOff_TeamQuote_Format" xml:space="preserve">
+    <value>{0} released a statement confirming the temporary arrangement: "We've agreed to release {1} for this race. It's an exciting opportunity and we wish them well. We've secured a capable substitute to fill our seat for the weekend."</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Accepted_OneOff_Anticipation_Format" xml:space="preserve">
+    <value>The motorsport community is buzzing with anticipation to see how {0} performs in their new environment. This unexpected twist adds a fascinating storyline to the {1} weekend.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Accepted_OneOff_Closing_Format" xml:space="preserve">
+    <value>All eyes will be on {0} as they prepare for what could be a career-defining race.</value>
+  </data>
+
+  <!-- RetirementNewsWindow - narrative content (headline/article generators). Argument order is
+       standardized per method regardless of English word order, so each language's template can
+       reorder placeholders freely. Pluralized nouns use dedicated singular/plural word keys rather
+       than an English-style suffix, since Italian pluralizes by changing the word ending. -->
+  <data name="RetirementNewsWindow_Headline_Champion1" xml:space="preserve">
+    <value>{0} HANGS UP THE HELMET AFTER TITLE-WINNING CAREER</value>
+  </data>
+  <data name="RetirementNewsWindow_Headline_Champion2" xml:space="preserve">
+    <value>CHAMPION {0} CALLS TIME ON RACING CAREER</value>
+  </data>
+  <data name="RetirementNewsWindow_Headline_Champion3" xml:space="preserve">
+    <value>{0} RETIRES AS A CHAMPION OF THE SPORT</value>
+  </data>
+  <data name="RetirementNewsWindow_Headline_LastDance1" xml:space="preserve">
+    <value>{0} BOWS OUT AFTER FAREWELL SEASON</value>
+  </data>
+  <data name="RetirementNewsWindow_Headline_LastDance2" xml:space="preserve">
+    <value>THE FINAL CHEQUERED FLAG FALLS FOR {0}</value>
+  </data>
+  <data name="RetirementNewsWindow_Headline_LastDance3" xml:space="preserve">
+    <value>{0}'S LAST DANCE COMES TO AN END</value>
+  </data>
+  <data name="RetirementNewsWindow_Headline_Standard1" xml:space="preserve">
+    <value>{0} ANNOUNCES RETIREMENT FROM MOTORSPORT</value>
+  </data>
+  <data name="RetirementNewsWindow_Headline_Standard2" xml:space="preserve">
+    <value>{0} CALLS TIME ON RACING CAREER</value>
+  </data>
+  <data name="RetirementNewsWindow_Headline_Standard3" xml:space="preserve">
+    <value>THE CHEQUERED FLAG FALLS ON {0}'S CAREER</value>
+  </data>
+
+  <data name="RetirementNewsWindow_Opening1" xml:space="preserve">
+    <value>{0} has announced their retirement from motorsport, bringing the curtain down on a career that reaches its conclusion at the end of the {2} season. The {3}-year-old departs {1} for the final time, closing a chapter that leaves a lasting mark on the sport.</value>
+  </data>
+  <data name="RetirementNewsWindow_Opening2" xml:space="preserve">
+    <value>After careful consideration, {0} has confirmed they will not return to the grid next season. The announcement ends the {3}-year-old's time with {1}, drawing a career to a close following the {2} campaign.</value>
+  </data>
+  <data name="RetirementNewsWindow_Opening3" xml:space="preserve">
+    <value>It's official: {0} is stepping away from competitive racing. The {3}-year-old's final race for {1} came at the end of the {2} season, and with it, an accomplished career reaches its natural conclusion.</value>
+  </data>
+  <data name="RetirementNewsWindow_Opening4" xml:space="preserve">
+    <value>The paddock bids farewell to {0}, who has confirmed their retirement following the conclusion of the {2} season. {1} will now need to find a replacement for the {3}-year-old, whose career passes into the history books.</value>
+  </data>
+
+  <data name="RetirementNewsWindow_PayDriver1" xml:space="preserve">
+    <value>{0}'s time in the sport was never about outright pace, and that was never really the point. What they brought to {1} - and to every garage they passed through - went beyond the stopwatch.</value>
+  </data>
+  <data name="RetirementNewsWindow_PayDriver2" xml:space="preserve">
+    <value>Few expected {0} to top many timesheets, but their commitment to the craft earned quiet respect throughout the paddock during their time with {1}.</value>
+  </data>
+  <data name="RetirementNewsWindow_PayDriver3" xml:space="preserve">
+    <value>{0} made the absolute most of every opportunity afforded to them, and {1} - among others - are grateful for it.</value>
+  </data>
+  <data name="RetirementNewsWindow_Young1" xml:space="preserve">
+    <value>It's a retirement that catches the paddock off guard - {0} was widely tipped for a long and successful future, and few saw this call coming from {1}'s garage.</value>
+  </data>
+  <data name="RetirementNewsWindow_Young2" xml:space="preserve">
+    <value>There's a sense of unfinished business to {0}'s departure. The talent that made them one of the grid's brightest prospects never got the chance to fully bloom.</value>
+  </data>
+  <data name="RetirementNewsWindow_Young3" xml:space="preserve">
+    <value>{0} leaves with the paddock still wondering what might have been. Potential of this magnitude rarely walks away from the sport this early.</value>
+  </data>
+  <data name="RetirementNewsWindow_PrimeMidfield1" xml:space="preserve">
+    <value>{0} was never the fastest driver on the grid, but few could match their consistency. That reliability made them a valuable asset to every team they drove for, {1} included.</value>
+  </data>
+  <data name="RetirementNewsWindow_PrimeMidfield2" xml:space="preserve">
+    <value>A model of dependability throughout their career, {0} built a reputation as a driver teams could count on race after race - a trait that will be missed at {1}.</value>
+  </data>
+  <data name="RetirementNewsWindow_PrimeMidfield3" xml:space="preserve">
+    <value>{0}'s career was defined by steady, unspectacular excellence - the kind that rarely makes headlines but always earns respect within the paddock.</value>
+  </data>
+  <data name="RetirementNewsWindow_PrimeChamp1" xml:space="preserve">
+    <value>Perhaps the most striking part of this announcement is the timing: {0} walks away from {1} while still firmly among the fastest drivers on the grid.</value>
+  </data>
+  <data name="RetirementNewsWindow_PrimeChamp2" xml:space="preserve">
+    <value>{0} leaves the sport at the peak of their powers, still capable of fighting at the front - a rare case of a driver choosing to go out on their own terms.</value>
+  </data>
+  <data name="RetirementNewsWindow_PrimeChamp3" xml:space="preserve">
+    <value>There will be no gentle fade into the midfield for {0}. They bow out from {1} as one of the standard-bearers of their generation, undiminished.</value>
+  </data>
+  <data name="RetirementNewsWindow_Washed1" xml:space="preserve">
+    <value>The {0} of recent seasons was a shadow of the driver who once dominated the sport, but nobody who saw them at their peak will ever forget it.</value>
+  </data>
+  <data name="RetirementNewsWindow_Washed2" xml:space="preserve">
+    <value>It's a quiet ending to what was once a glittering career. {0}'s best days were behind them by the time they left {1}, but the glory years remain untouchable.</value>
+  </data>
+  <data name="RetirementNewsWindow_Washed3" xml:space="preserve">
+    <value>Time catches up with everyone eventually, and {0} is no exception. Still, the heights they once reached ensure their name will endure long after this final season with {1}.</value>
+  </data>
+  <data name="RetirementNewsWindow_AgeingMidfield1" xml:space="preserve">
+    <value>{0} leaves the sport as a respected veteran, the kind of driver every team wants in the garage even when the results don't always show it.</value>
+  </data>
+  <data name="RetirementNewsWindow_AgeingMidfield2" xml:space="preserve">
+    <value>There's no fanfare to {0}'s exit, just the quiet satisfaction of a long career built on graft and professionalism at {1} and beyond.</value>
+  </data>
+  <data name="RetirementNewsWindow_AgeingMidfield3" xml:space="preserve">
+    <value>{0} never chased the spotlight, and their retirement is much the same - a low-key end to a career built on hard work rather than headlines.</value>
+  </data>
+  <data name="RetirementNewsWindow_AgeingChamp1" xml:space="preserve">
+    <value>Few drivers get to leave the sport still competing at the very top, but {0} has managed exactly that, bowing out from {1} as one of the grid's elder statesmen.</value>
+  </data>
+  <data name="RetirementNewsWindow_AgeingChamp2" xml:space="preserve">
+    <value>{0} departs with their reputation fully intact - a driver who remained relevant deep into the twilight of their career.</value>
+  </data>
+  <data name="RetirementNewsWindow_AgeingChamp3" xml:space="preserve">
+    <value>There's a rare symmetry to {0}'s career: still winning, still respected, still feared on their way out the door.</value>
+  </data>
+  <data name="RetirementNewsWindow_LastDanceNarrative1" xml:space="preserve">
+    <value>This retirement comes as no surprise - {0}'s farewell season with {1} was always going to be their last, and the paddock made sure to savor every moment of it.</value>
+  </data>
+  <data name="RetirementNewsWindow_LastDanceNarrative2" xml:space="preserve">
+    <value>Exactly as billed, {0}'s one last dance has reached its final bow. It was a fitting send-off for a career that gave the sport so much.</value>
+  </data>
+  <data name="RetirementNewsWindow_LastDanceNarrative3" xml:space="preserve">
+    <value>The farewell tour is complete. {0} leaves {1} - and the sport - on their own terms, precisely as planned.</value>
+  </data>
+  <data name="RetirementNewsWindow_DefaultNarrative1" xml:space="preserve">
+    <value>{0}'s career with {1} and beyond will be remembered fondly by fans and colleagues alike.</value>
+  </data>
+  <data name="RetirementNewsWindow_DefaultNarrative2" xml:space="preserve">
+    <value>It's the end of an era for {0}, whose contribution to the sport goes beyond any single result.</value>
+  </data>
+  <data name="RetirementNewsWindow_DefaultNarrative3" xml:space="preserve">
+    <value>{0} leaves the grid having given everything to the sport across a long and varied career.</value>
+  </data>
+
+  <data name="RetirementNewsWindow_NoWin1" xml:space="preserve">
+    <value>Though a World Championship - or even a race win - never came {0}'s way, their contribution to the grid over the years will not be forgotten.</value>
+  </data>
+  <data name="RetirementNewsWindow_NoWin2" xml:space="preserve">
+    <value>Victory may have proven elusive across {0}'s career, but their presence on the grid earned respect from teammates and rivals alike.</value>
+  </data>
+  <data name="RetirementNewsWindow_NoWin3" xml:space="preserve">
+    <value>{0} leaves the sport without a race win to their name, but their commitment to the craft over many seasons speaks for itself.</value>
+  </data>
+  <data name="RetirementNewsWindow_ChampionshipPhrase_Singular" xml:space="preserve">
+    <value>{0} World Championship ({1}), </value>
+  </data>
+  <data name="RetirementNewsWindow_ChampionshipPhrase_Plural" xml:space="preserve">
+    <value>{0} World Championships ({1}), </value>
+  </data>
+  <data name="RetirementNewsWindow_CareerSpan_Baseline" xml:space="preserve">
+    <value>career</value>
+  </data>
+  <data name="RetirementNewsWindow_CareerSpan_SinceYear_Format" xml:space="preserve">
+    <value>career since {0} (as recorded)</value>
+  </data>
+  <data name="RetirementNewsWindow_WinWord_Singular" xml:space="preserve">
+    <value>race win</value>
+  </data>
+  <data name="RetirementNewsWindow_WinWord_Plural" xml:space="preserve">
+    <value>race wins</value>
+  </data>
+  <data name="RetirementNewsWindow_PodiumWord_Singular" xml:space="preserve">
+    <value>podium</value>
+  </data>
+  <data name="RetirementNewsWindow_PodiumWord_Plural" xml:space="preserve">
+    <value>podiums</value>
+  </data>
+  <data name="RetirementNewsWindow_PoleWord_Singular" xml:space="preserve">
+    <value>pole position</value>
+  </data>
+  <data name="RetirementNewsWindow_PoleWord_Plural" xml:space="preserve">
+    <value>pole positions</value>
+  </data>
+  <data name="RetirementNewsWindow_Tally1" xml:space="preserve">
+    <value>{0} retires with {1}{2} {3}, {4} {5}, and {6} {7} across their {8}.</value>
+  </data>
+  <data name="RetirementNewsWindow_Tally2" xml:space="preserve">
+    <value>The numbers tell their own story: {1}{2} {3}, {4} {5}, and {6} {7} across a {8} that spanned the grid.</value>
+  </data>
+  <data name="RetirementNewsWindow_Tally3" xml:space="preserve">
+    <value>Looking back on a {8} that yielded {1}{2} {3} and {4} {5}, {0} leaves with a record few can match.</value>
+  </data>
+
+  <data name="RetirementNewsWindow_SeasonsPhrase_Singular" xml:space="preserve">
+    <value>one season</value>
+  </data>
+  <data name="RetirementNewsWindow_SeasonsPhrase_Plural_Format" xml:space="preserve">
+    <value>{0} seasons</value>
+  </data>
+  <data name="RetirementNewsWindow_CareerRecapBaseline1" xml:space="preserve">
+    <value>In the last {0} of a longer career, they raced for {1}.</value>
+  </data>
+  <data name="RetirementNewsWindow_CareerRecapBaseline2" xml:space="preserve">
+    <value>Their final {0} on record saw them race for {1}.</value>
+  </data>
+  <data name="RetirementNewsWindow_CareerRecapBaseline3" xml:space="preserve">
+    <value>Over their last {0}, they turned out for {1}.</value>
+  </data>
+  <data name="RetirementNewsWindow_CareerRecapFull1" xml:space="preserve">
+    <value>Across {0}, they raced for {1}.</value>
+  </data>
+  <data name="RetirementNewsWindow_CareerRecapFull2" xml:space="preserve">
+    <value>Their {0} on the grid were spent racing for {1}.</value>
+  </data>
+  <data name="RetirementNewsWindow_CareerRecapFull3" xml:space="preserve">
+    <value>Over {0}, they represented {1}.</value>
+  </data>
+  <data name="RetirementNewsWindow_TeamList_TwoFormat" xml:space="preserve">
+    <value>{0} and {1}</value>
+  </data>
+  <data name="RetirementNewsWindow_TeamList_ManyFormat" xml:space="preserve">
+    <value>{0}, and {1}</value>
+  </data>
+
+  <data name="RetirementNewsWindow_Closing1" xml:space="preserve">
+    <value>{0} will now turn its attention to finding a replacement, but {1}'s legacy on the grid is secure. The paddock wishes them well in whatever comes next.</value>
+  </data>
+  <data name="RetirementNewsWindow_Closing2" xml:space="preserve">
+    <value>As {0} begins the search for a new driver, tributes continue to pour in for {1} from across the motorsport world.</value>
+  </data>
+  <data name="RetirementNewsWindow_Closing3" xml:space="preserve">
+    <value>The grid will feel a little different without {1} next season, but their story is one that will be told for years to come.</value>
+  </data>
+
+  <data name="RetirementNewsWindow_DefaultTeamName" xml:space="preserve">
+    <value>their team</value>
+  </data>
 </root>
