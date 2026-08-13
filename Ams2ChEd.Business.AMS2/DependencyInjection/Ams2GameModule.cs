@@ -60,7 +60,7 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             services.AddTransient<IRaceLaunchAssistant, Ams2RaceLaunchAssistant>();
             services.AddSingleton<ITrackMappingLoader, Ams2TrackMappingLoader>();
             services.AddSingleton<IAms2HashCatalogProvider, Ams2InteropHashCatalogLoader>();
-            services.AddTransient<IAms2DlcOwnershipChecker, Ams2DlcOwnershipChecker>();
+            services.AddSingleton<IAms2DlcOwnershipChecker, Ams2DlcOwnershipChecker>();
             services.AddTransient<IAms2GrandPrixTrackResolver, Ams2GrandPrixTrackResolver>();
 
             // ************* MOD PACK / EXTERNAL CONTENT ***********
