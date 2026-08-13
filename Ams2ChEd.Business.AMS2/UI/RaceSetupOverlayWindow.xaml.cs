@@ -1,3 +1,4 @@
+using Ams2ChEd.Business.AMS2.Resources;
 using System.Windows;
 using System.Windows.Input;
 
@@ -75,15 +76,15 @@ namespace Ams2ChEd.Business.AMS2.UI
             WaitingPanel.Visibility = Visibility.Collapsed;
             ErrorPanel.Visibility = Visibility.Collapsed;
 
-            ManualInstructionsTitle.Text = isPreQuali ? "PRE-QUALIFYING SESSION" : "SET UP MANUALLY";
-            ManualStep1.Text = $"1) Ensure you SELECT THE RIGHT CAR ({carName}) AND LIVERY. it will have your driver name on it! (in your case {liveryName})";
-            ManualStep2.Text = $"2) Select THE RIGHT NUMBER OF OPPONENTS (in your case {opponentsNumber})";
+            ManualInstructionsTitle.Text = isPreQuali ? Strings.RaceSetupOverlayWindow_PreQualiSessionTitle : Strings.RaceSetupOverlayWindow_ManualSetupTitle;
+            ManualStep1.Text = string.Format(Strings.RaceSetupOverlayWindow_ManualStep1_Format, carName, liveryName);
+            ManualStep2.Text = string.Format(Strings.RaceSetupOverlayWindow_ManualStep2_Format, opponentsNumber);
             ManualStep3.Text = usesPerformanceScalars
-                ? "3) SUGGESTED DIFFICULTY: your usual difficulty (teams should have the performance scalar so a slow car is actually going to be slower)"
-                : $"3) SUGGESTED DIFFICULTY: +{suggestedDifficulty} POINTS (compared to a difficulty where you fight for wins)";
+                ? Strings.RaceSetupOverlayWindow_ManualStep3_UsesScalars
+                : string.Format(Strings.RaceSetupOverlayWindow_ManualStep3_Format, suggestedDifficulty);
             ManualStep4.Text = isPreQuali
-                ? "4) Run A QUALIFYING SESSION ONLY — do not start the race. Rewind GP will read your qualifying result automatically."
-                : "4) it doesn't matter the track or the duration of the race, but have at least A QUALIFYING SESSION and A RACE SESSION.";
+                ? Strings.RaceSetupOverlayWindow_ManualStep4_PreQuali
+                : Strings.RaceSetupOverlayWindow_ManualStep4_Normal;
 
             ManualInstructionsPanel.Visibility = Visibility.Visible;
 

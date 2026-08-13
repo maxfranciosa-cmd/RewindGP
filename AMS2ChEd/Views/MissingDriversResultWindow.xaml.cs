@@ -1,4 +1,5 @@
 using AMS2ChEd.Business.Services;
+using AMS2ChEd.Resources;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace AMS2ChEd.Views
         public int Number { get; set; }
         public bool IsPlayer { get; set; }
 
-        public string DisplayName => IsPlayer ? $"{DriverName} (You)" : $"{DriverName} - {TeamName}";
+        public string DisplayName => IsPlayer ? string.Format(Strings.MissingDriversResultWindow_PlayerSuffix, DriverName) : $"{DriverName} - {TeamName}";
     }
 
     public class MissingPositionRow : INotifyPropertyChanged

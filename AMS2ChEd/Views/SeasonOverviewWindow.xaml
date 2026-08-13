@@ -2,10 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        mc:Ignorable="d" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        mc:Ignorable="d"
         x:Class="AMS2ChEd.SeasonOverviewWindow"
-        Title="Season Overview" 
+        Title="{loc:Loc SeasonOverviewWindow_Title}"
         Height="900" Width="1200"
         WindowStartupLocation="CenterScreen"
         Background="#1a1a1a">
@@ -180,8 +181,7 @@
                 <Grid>
                     <!-- Season text - larger and more prominent -->
                     <TextBlock x:Name="SeasonText"
-                   Text="Season: {Year}"
-                   FontSize="42" 
+                   FontSize="42"
                    FontWeight="Bold" 
                    Foreground="White"
                    HorizontalAlignment="Center"
@@ -198,7 +198,7 @@
                 BorderBrush="#444444"
                 BorderThickness="1"
                 Cursor="Hand"
-                ToolTip="View historical championship standings from previous seasons">
+                ToolTip="{loc:Loc SeasonOverviewWindow_HistoricalStandingsTooltip}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Background="{TemplateBinding Background}"
@@ -280,7 +280,7 @@
                     <!-- Player Info -->
                     <StackPanel Grid.Column="1">
                         <!-- Header -->
-                        <TextBlock Text="PLAYER"
+                        <TextBlock Text="{loc:Loc SeasonOverviewWindow_PlayerHeader}"
                                    FontSize="11"
                                    FontWeight="Bold"
                                    Foreground="#c41e3a"
@@ -293,7 +293,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                                       Text="Name:"
+                                       Text="{loc:Loc SeasonOverviewWindow_NameLabel}"
                                        FontSize="12"
                                        Foreground="#666666"
                                        Margin="0,0,10,0"/>
@@ -312,7 +312,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                                       Text="Team:"
+                                       Text="{loc:Loc SeasonOverviewWindow_TeamLabel}"
                                        FontSize="12"
                                        Foreground="#666666"
                                        Margin="0,0,10,0"/>
@@ -331,7 +331,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                                       Text="Reputation:"
+                                       Text="{loc:Loc SeasonOverviewWindow_ReputationLabel}"
                                        FontSize="12"
                                        Foreground="#666666"
                                        Margin="0,0,10,0"/>
@@ -347,7 +347,7 @@
                         <Button x:Name="EditPlayerButton"
                                 Click="EditPlayerButton_Click"
                                 Style="{StaticResource PlayerInfoButtonStyle}"
-                                Content="Edit Details"
+                                Content="{loc:Loc SeasonOverviewWindow_EditDetailsButton}"
                                 FontSize="11"
                                 FontWeight="SemiBold"/>
                     </StackPanel>
@@ -377,7 +377,7 @@
                 <StackPanel Grid.Column="0" 
                             VerticalAlignment="Center"
                             Margin="40,0">
-                    <TextBlock Text="NEXT GRAND PRIX"
+                    <TextBlock Text="{loc:Loc SeasonOverviewWindow_NextGrandPrixLabel}"
                                FontSize="11"
                                Foreground="#999999"
                                Margin="0,0,0,8"/>
@@ -406,7 +406,7 @@
                         Margin="0,0,40,0"
                         VerticalAlignment="Center">
                     <StackPanel>
-                        <TextBlock Text="PROCEED"
+                        <TextBlock Text="{loc:Loc SeasonOverviewWindow_ProceedButton}"
                                    FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Center"/>
@@ -443,7 +443,7 @@
                     <Border Grid.Row="0" 
                             Style="{StaticResource StandingsHeaderStyle}">
                         <Grid>
-                            <TextBlock Text="DRIVER STANDINGS" 
+                            <TextBlock Text="{loc:Loc SeasonOverviewWindow_DriverStandingsHeader}"
                                        FontSize="16" 
                                        FontWeight="Bold" 
                                        Foreground="White"
@@ -462,7 +462,7 @@
                                     BorderBrush="#555555"
                                     BorderThickness="1"
                                     Cursor="Hand"
-                                    ToolTip="View race-by-race grid">
+                                    ToolTip="{loc:Loc SeasonOverviewWindow_GridViewTooltip}">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Border Background="{TemplateBinding Background}"
@@ -587,7 +587,7 @@
                     <Border Grid.Row="0" 
                             Style="{StaticResource StandingsHeaderStyle}">
                         <Grid>
-                            <TextBlock Text="CONSTRUCTOR STANDINGS" 
+                            <TextBlock Text="{loc:Loc SeasonOverviewWindow_ConstructorStandingsHeader}"
                                        FontSize="16" 
                                        FontWeight="Bold" 
                                        Foreground="White"
@@ -606,7 +606,7 @@
                                     BorderBrush="#555555"
                                     BorderThickness="1"
                                     Cursor="Hand"
-                                    ToolTip="View race-by-race grid">
+                                    ToolTip="{loc:Loc SeasonOverviewWindow_GridViewTooltip}">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Border Background="{TemplateBinding Background}"

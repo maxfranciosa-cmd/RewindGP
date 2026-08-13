@@ -2,6 +2,7 @@ using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Services.Contracts;
+using AMS2ChEd.Resources;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -66,11 +67,11 @@ namespace AMS2ChEd.Views
 
             return outcome switch
             {
-                DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED => $"{driverName}'s contract expired",
-                DriverFirerOutcome.DROPPED_UNDERPERFORMING => $"{driverName} was dropped for underperformance",
-                DriverFirerOutcome.DROPPED_RETIRING => $"{driverName} is retiring from racing",
-                DriverFirerOutcome.DROPPED_TEAM_QUITTING => $"{driverName} left (team disbanded)",
-                DriverFirerOutcome.DROPPED_PLAYER_REJECTING => $"{driverName} declined contract offer",
+                DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED => string.Format(Strings.TeamApplicationWindow_DropReason_ContractExpired, driverName),
+                DriverFirerOutcome.DROPPED_UNDERPERFORMING => string.Format(Strings.TeamApplicationWindow_DropReason_Underperforming, driverName),
+                DriverFirerOutcome.DROPPED_RETIRING => string.Format(Strings.TeamApplicationWindow_DropReason_Retiring, driverName),
+                DriverFirerOutcome.DROPPED_TEAM_QUITTING => string.Format(Strings.TeamApplicationWindow_DropReason_TeamQuitting, driverName),
+                DriverFirerOutcome.DROPPED_PLAYER_REJECTING => string.Format(Strings.TeamApplicationWindow_DropReason_PlayerRejecting, driverName),
                 DriverFirerOutcome.NOT_DROPPED => null,
                 _ => null
             };
@@ -112,13 +113,13 @@ namespace AMS2ChEd.Views
                     : null;
 
                 var teamEntry = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == ballot.OriginalTeamHiring.TeamId);
-                string teamName = teamData?.TeamName ?? teamEntry?.TeamName ?? "Unknown Team";
+                string teamName = teamData?.TeamName ?? teamEntry?.TeamName ?? Strings.TeamApplicationWindow_UnknownTeam;
                 string teamColor = teamData?.Color ?? teamEntry?.Color ?? "000000";
 
                 bool teamAlreadyInterested = ballot.OriginalTeamHiring?.DriverId == _playerDriverId;
                 string roleDescription = ballot.OriginalTeamHiring.Role == DriverRole.FIRST_DRIVER
-                    ? "First Driver"
-                    : "Second Driver";
+                    ? Strings.TeamApplicationWindow_FirstDriverRole
+                    : Strings.TeamApplicationWindow_SecondDriverRole;
 
                 // Check if there's a dropped driver for this team/role combination
                 string dropReasonText = null;
@@ -156,8 +157,8 @@ namespace AMS2ChEd.Views
                     RoleDescription = roleDescription,
                     IsDisabled = false,
                     StatusMessage = teamAlreadyInterested
-                        ? "✓ This team has already expressed interest in you for this role."
-                        : "Click to apply for this position",
+                        ? Strings.TeamApplicationWindow_AlreadyInterestedStatus
+                        : Strings.TeamApplicationWindow_ClickToApplyStatus,
                     Ballot = ballot,
                     IsSelected = false,
                     TeamReputation = teamEntry?.Reputation ?? TeamReputation.MINNOW,
@@ -184,8 +185,8 @@ namespace AMS2ChEd.Views
                     if (!item.IsSelected && currentCount >= MAX_APPLICATIONS)
                     {
                         MessageBox.Show(
-                            $"You can apply to a maximum of {MAX_APPLICATIONS} roles.",
-                            "Maximum Applications Reached",
+                            string.Format(Strings.TeamApplicationWindow_MaxApplications_Message, MAX_APPLICATIONS),
+                            Strings.TeamApplicationWindow_MaxApplications_Title,
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
                         return;
@@ -201,8 +202,8 @@ namespace AMS2ChEd.Views
         {
             int count = _teamItems.Count(t => t.IsSelected);
             SelectionCountText.Text = count == 1
-                ? $"1 role selected (max {MAX_APPLICATIONS})"
-                : $"{count} roles selected (max {MAX_APPLICATIONS})";
+                ? string.Format(Strings.TeamApplicationWindow_SelectionCount_Singular, MAX_APPLICATIONS)
+                : string.Format(Strings.TeamApplicationWindow_SelectionCount_Plural, count, MAX_APPLICATIONS);
         }
 
         private void ContinueButton_Click(object sender, RoutedEventArgs e)

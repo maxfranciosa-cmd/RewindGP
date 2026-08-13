@@ -2,6 +2,7 @@ using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Extensions;
+using AMS2ChEd.Resources;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -24,7 +25,7 @@ namespace AMS2ChEd.Views
                 ?? saveGame.RetiredDrivers?.FirstOrDefault(d => d.DriverId == driverId);
             if (driverData != null && driverData.YearOfBirth > 0)
             {
-                AgeText.Text = $"Age {saveGame.CurrentSeason.Year - driverData.YearOfBirth}";
+                AgeText.Text = string.Format(Strings.DriverAccoladesWindow_AgeText_Format, saveGame.CurrentSeason.Year - driverData.YearOfBirth);
             }
             else
             {

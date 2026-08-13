@@ -11,6 +11,7 @@ using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Models;
 using AMS2ChEd.Commands;
 using AMS2ChEd.Extensions;
+using AMS2ChEd.Resources;
 using AMS2ChEd.Services;
 using AMS2ChEd.Views;
 using System.IO;
@@ -19,7 +20,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using Label = System.Windows.Controls.Label;
 
 namespace AMS2ChEd
 {
@@ -177,29 +177,31 @@ namespace AMS2ChEd
         {
             Dispatcher.Invoke(() =>
             {
-                System.Windows.MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(errorMessage, Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
             });
         }
 
         private void InitializeReputations()
         {
+            // Static gameplay copy, not part of the deferred procedural news/letter generators
+            // (those stay English-only for now - see the localization plan).
             reputationList = new List<ReputationItem>
             {
-                new ReputationItem { Reputation = DriverReputation.PAY_DRIVER_WILD_CARD, Name = "Pay Driver - Wild Card", Description = "You are a pay driver, but without enough budget for the whole season. You will substitute existing drivers when they cannot participate in a race. This will be your opportunity to show your talent and hopefully get a full-time seat for the next season." },
-                new ReputationItem { Reputation = DriverReputation.PAY_DRIVER_SEASON, Name = "Pay Driver - Full Season", Description = "You are a pay driver with enough budget to cover the season. You can race in F1 but can't be too picky about which team you join. Prove your talent to gain a drive for better teams." },
-                new ReputationItem { Reputation = DriverReputation.YOUNG_TALENT, Name = "Young Talent", Description = "You're a potential young star, but still a rough diamond. Teams hiring you are betting on your raw talent, taking into account you might make some mistakes. Bigger teams are still not ready to bet on you." },
-                new ReputationItem { Reputation = DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, Name = "Young Unproven Championship Level Driver", Description = "You've demonstrated that in the right car, you can get wins, but you've not been proven a champion yet." },
-                new ReputationItem { Reputation = DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, Name = "Young Championship Level Driver", Description = "You are an accomplished young driver, able to fight for a championship." },
-                new ReputationItem { Reputation = DriverReputation.PRIME_MIDFIELD, Name = "Midfield Driver", Description = "You're a reliable midfield driver, able to consistently bring the car to the finish line, but without showing any great flashes." },
-                new ReputationItem { Reputation = DriverReputation.PRIME_STRONG_MIDFIELD, Name = "High Midfield Driver", Description = "You are a solid midfield driver, able to fight consistently for points and podiums in the right situation. You might also be able to fight for a spot in a top team (if they're really in need)." },
-                new ReputationItem { Reputation = DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN, Name = "Unproven Championship Level Driver", Description = "You've demonstrated you're able to fight for wins consistently, but you're not in the fight for championship yet." },
-                new ReputationItem { Reputation = DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, Name = "Championship Level Driver", Description = "You are an accomplished champion that consistently fights for championships." },
-                new ReputationItem { Reputation = DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED, Name = "Washed Championship Level Driver", Description = "You are a former champion that has fallen a bit, but you're eager to be back for a title fight." },
-                new ReputationItem { Reputation = DriverReputation.AGEING_MIDFIELD, Name = "Veteran Midfield Driver", Description = "For a midfield team, you're a safe bet. An experienced driver that can bring solid results." },
-                new ReputationItem { Reputation = DriverReputation.AGEING_STRONG_MIDFIELD, Name = "Veteran High Midfield Driver", Description = "You are a solid and reliable veteran driver that can fight consistently for points." },
-                new ReputationItem { Reputation = DriverReputation.AGEING_CHAMPIONSHIP_LEVEL, Name = "Veteran Championship Level Driver", Description = "You are an experienced driver that can still fight for the title." },
-                new ReputationItem { Reputation = DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED, Name = "Washed Veteran Championship Level Driver", Description = "You are a former champion that has fallen from grace, but you're still hungry for success." },
-                new ReputationItem { Reputation = DriverReputation.JUST_ONE_LAST_DANCE, Name = "Just One Last Dance", Description = "You are a legendary former champion well past your prime, but the fire still burns. This is your final chance to add one more chapter to an already storied career. Teams know you're a risk, but your name still carries weight." }
+                new ReputationItem { Reputation = DriverReputation.PAY_DRIVER_WILD_CARD, Name = Strings.MainWindow_Reputation_PayDriverWildCard_Name, Description = Strings.MainWindow_Reputation_PayDriverWildCard_Description },
+                new ReputationItem { Reputation = DriverReputation.PAY_DRIVER_SEASON, Name = Strings.MainWindow_Reputation_PayDriverSeason_Name, Description = Strings.MainWindow_Reputation_PayDriverSeason_Description },
+                new ReputationItem { Reputation = DriverReputation.YOUNG_TALENT, Name = Strings.MainWindow_Reputation_YoungTalent_Name, Description = Strings.MainWindow_Reputation_YoungTalent_Description },
+                new ReputationItem { Reputation = DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, Name = Strings.MainWindow_Reputation_YoungChampionshipUnproven_Name, Description = Strings.MainWindow_Reputation_YoungChampionshipUnproven_Description },
+                new ReputationItem { Reputation = DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, Name = Strings.MainWindow_Reputation_YoungChampionship_Name, Description = Strings.MainWindow_Reputation_YoungChampionship_Description },
+                new ReputationItem { Reputation = DriverReputation.PRIME_MIDFIELD, Name = Strings.MainWindow_Reputation_PrimeMidfield_Name, Description = Strings.MainWindow_Reputation_PrimeMidfield_Description },
+                new ReputationItem { Reputation = DriverReputation.PRIME_STRONG_MIDFIELD, Name = Strings.MainWindow_Reputation_PrimeStrongMidfield_Name, Description = Strings.MainWindow_Reputation_PrimeStrongMidfield_Description },
+                new ReputationItem { Reputation = DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN, Name = Strings.MainWindow_Reputation_PrimeChampionshipUnproven_Name, Description = Strings.MainWindow_Reputation_PrimeChampionshipUnproven_Description },
+                new ReputationItem { Reputation = DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, Name = Strings.MainWindow_Reputation_PrimeChampionship_Name, Description = Strings.MainWindow_Reputation_PrimeChampionship_Description },
+                new ReputationItem { Reputation = DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED, Name = Strings.MainWindow_Reputation_PrimeChampionshipWashed_Name, Description = Strings.MainWindow_Reputation_PrimeChampionshipWashed_Description },
+                new ReputationItem { Reputation = DriverReputation.AGEING_MIDFIELD, Name = Strings.MainWindow_Reputation_AgeingMidfield_Name, Description = Strings.MainWindow_Reputation_AgeingMidfield_Description },
+                new ReputationItem { Reputation = DriverReputation.AGEING_STRONG_MIDFIELD, Name = Strings.MainWindow_Reputation_AgeingStrongMidfield_Name, Description = Strings.MainWindow_Reputation_AgeingStrongMidfield_Description },
+                new ReputationItem { Reputation = DriverReputation.AGEING_CHAMPIONSHIP_LEVEL, Name = Strings.MainWindow_Reputation_AgeingChampionship_Name, Description = Strings.MainWindow_Reputation_AgeingChampionship_Description },
+                new ReputationItem { Reputation = DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED, Name = Strings.MainWindow_Reputation_AgeingChampionshipWashed_Name, Description = Strings.MainWindow_Reputation_AgeingChampionshipWashed_Description },
+                new ReputationItem { Reputation = DriverReputation.JUST_ONE_LAST_DANCE, Name = Strings.MainWindow_Reputation_JustOneLastDance_Name, Description = Strings.MainWindow_Reputation_JustOneLastDance_Description }
             };
 
             UpdateReputationComboBox();
@@ -280,15 +282,15 @@ namespace AMS2ChEd
                 }
                 else
                 {
-                    SeasonComboBox.Items.Add(new ComboBoxItem { Content = "No Seasons Available" });
+                    SeasonComboBox.Items.Add(new ComboBoxItem { Content = Strings.MainWindow_NoSeasonsAvailable });
                     SeasonComboBox.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error loading seasons: {ex.Message}", "Error",
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_LoadSeasonsError_Message, ex.Message), Strings.MainWindow_GenericError_Title,
                     MessageBoxButton.OK, MessageBoxImage.Error);
-                SeasonComboBox.Items.Add(new ComboBoxItem { Content = "Error Loading Seasons" });
+                SeasonComboBox.Items.Add(new ComboBoxItem { Content = Strings.MainWindow_ErrorLoadingSeasonsItem });
                 SeasonComboBox.SelectedIndex = 0;
             }
         }
@@ -337,18 +339,18 @@ namespace AMS2ChEd
         {
             if (!TryBuildDevExportContext(out var raceId, out var entryList, out var drivers, out var season, out var error))
             {
-                System.Windows.MessageBox.Show(error, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(error, Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             try
             {
                 _gameLogicFactory.RacePreparator.PrepareCustomAi(raceId, entryList, drivers, season);
-                System.Windows.MessageBox.Show("Custom AI exported.", "Developer Mode", MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Windows.MessageBox.Show(Strings.MainWindow_CustomAiExported_Message, Strings.MainWindow_DeveloperMode_Title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error exporting Custom AI: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_ExportCustomAiError_Message, ex.Message), Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -356,18 +358,18 @@ namespace AMS2ChEd
         {
             if (!TryBuildDevExportContext(out var raceId, out var entryList, out var drivers, out var season, out var error))
             {
-                System.Windows.MessageBox.Show(error, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(error, Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             try
             {
                 _gameLogicFactory.RacePreparator.PrepareLiveries(raceId, entryList, drivers, season);
-                System.Windows.MessageBox.Show("Liveries exported.", "Developer Mode", MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Windows.MessageBox.Show(Strings.MainWindow_LiveriesExported_Message, Strings.MainWindow_DeveloperMode_Title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error exporting liveries: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_ExportLiveriesError_Message, ex.Message), Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -377,7 +379,7 @@ namespace AMS2ChEd
 
             if (DevSeasonComboBox.SelectedItem == null || DevRaceComboBox.SelectedItem == null)
             {
-                error = "Select a season and a race first.";
+                error = Strings.MainWindow_SelectSeasonAndRaceFirst_Message;
                 return false;
             }
 
@@ -427,7 +429,7 @@ namespace AMS2ChEd
             {
                 var dialog = new OpenFileDialog()
                 {
-                    Title = "Select Save File",
+                    Title = Strings.MainWindow_LoadGame_DialogTitle,
                     InitialDirectory = AppPaths.SavesFolder,
                     Filter = "json files (*.json)|*.json"
                 };
@@ -441,7 +443,7 @@ namespace AMS2ChEd
 
                     if (result == SaveGameSeasonCheckerResult.NeedsRefresh)
                     {
-                        System.Windows.MessageBox.Show("it seems that you've installed a new version of this season. we will update driver ratings, liveries, team names and driver names for the curren season.", "Mod out of date", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        System.Windows.MessageBox.Show(Strings.MainWindow_ModOutOfDate_Message, Strings.MainWindow_ModOutOfDate_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
                         _gameLogicFactory.GameEngine.UpdateSeasonInsideSave(saveGame);
                     }
 
@@ -455,8 +457,8 @@ namespace AMS2ChEd
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error loading the game: {ex.Message}",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_LoadGameError_Message, ex.Message),
+                    Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -527,7 +529,7 @@ namespace AMS2ChEd
 
                 if (string.IsNullOrEmpty(driverName) || string.IsNullOrEmpty(nationality) || string.IsNullOrEmpty(DriverAgeTextBox.Text.Trim()))
                 {
-                    System.Windows.MessageBox.Show("Please fill in all required fields!", "Validation Error",
+                    System.Windows.MessageBox.Show(Strings.MainWindow_RequiredFieldsMissing_Message, Strings.MainWindow_ValidationError_Title,
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
@@ -544,7 +546,7 @@ namespace AMS2ChEd
 
                 if (!_ams2StorageFactory.SeasonLoader.GetAvailableSeasons().Any(s => s == season))
                 {
-                    System.Windows.MessageBox.Show($"Season {season} not installed, cannot proceed.", "Validation Error",
+                    System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_SeasonNotInstalled_Message, season), Strings.MainWindow_ValidationError_Title,
                             MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
@@ -558,7 +560,7 @@ namespace AMS2ChEd
                 {
                     if (driverAge < 18 || driverAge > 42)
                     {
-                        System.Windows.MessageBox.Show("for a pay driver, you must be 18 AND at most 42 years old.", "Validation Error",
+                        System.Windows.MessageBox.Show(Strings.MainWindow_PayDriverAgeInvalid_Message, Strings.MainWindow_ValidationError_Title,
                             MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
@@ -721,8 +723,8 @@ namespace AMS2ChEd
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error creating the game: {ex.Message}",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_CreateGameError_Message, ex.Message),
+                    Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
             } 
         }
 
@@ -759,14 +761,7 @@ namespace AMS2ChEd
             SeasonComboBox.Visibility = Visibility.Visible;
 
             // Show season label again
-            foreach (var child in ((StackPanel)NewGamePanel).Children)
-            {
-                if (child is Label label && label.Content.ToString() == "SELECT SEASON:")
-                {
-                    label.Visibility = Visibility.Visible;
-                    break;
-                }
-            }
+            SelectSeasonLabel.Visibility = Visibility.Visible;
 
             // Clear fields
             DriverNameTextBox.Clear();
@@ -803,7 +798,7 @@ namespace AMS2ChEd
 
                 if (!_ams2StorageFactory.SeasonLoader.GetAvailableSeasons().Any(s => s == season))
                 {
-                    System.Windows.MessageBox.Show($"Season {season} not installed, cannot proceed.", "Validation Error",
+                    System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_SeasonNotInstalled_Message, season), Strings.MainWindow_ValidationError_Title,
                             MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
@@ -841,8 +836,8 @@ namespace AMS2ChEd
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error creating the game: {ex.Message}",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_CreateGameError_Message, ex.Message),
+                    Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
         }
@@ -862,15 +857,8 @@ namespace AMS2ChEd
 
             // Hide season selection (not needed for scenarios)
             SeasonComboBox.Visibility = Visibility.Collapsed;
-            // Find and hide the season label
-            foreach (var child in ((StackPanel)NewGamePanel).Children)
-            {
-                if (child is Label label && label.Content.ToString() == "SELECT SEASON:")
-                {
-                    label.Visibility = Visibility.Collapsed;
-                    break;
-                }
-            }
+            // Hide the season label
+            SelectSeasonLabel.Visibility = Visibility.Collapsed;
 
             // Load scenarios
             LoadScenarios();
@@ -900,13 +888,13 @@ namespace AMS2ChEd
                             if (scenario != null)
                             {
                                 _scenarios.Add(scenario);
-                                ScenarioComboBox.Items.Add($"Season {Path.GetFileName(seasonFolder)}: \"{scenario.Name}\"");
+                                ScenarioComboBox.Items.Add(string.Format(Strings.MainWindow_ScenarioListItem_Format, Path.GetFileName(seasonFolder), scenario.Name));
                             }
                         }
                         catch (Exception ex)
                         {
-                            System.Windows.MessageBox.Show($"Error loading scenario from {Path.GetFileName(file)}: {ex.Message}",
-                                "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_LoadScenarioError_Message, Path.GetFileName(file), ex.Message),
+                                Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
                     }
                 }
@@ -918,7 +906,7 @@ namespace AMS2ChEd
             }
             else
             {
-                System.Windows.MessageBox.Show("No scenarios available.", "Information",
+                System.Windows.MessageBox.Show(Strings.MainWindow_NoScenariosAvailable_Message, Strings.MainWindow_Information_Title,
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -979,7 +967,7 @@ namespace AMS2ChEd
             {
                 if (ScenarioComboBox.SelectedIndex < 0 || ScenarioComboBox.SelectedIndex >= _scenarios.Count)
                 {
-                    System.Windows.MessageBox.Show("Please select a scenario first.", "Error",
+                    System.Windows.MessageBox.Show(Strings.MainWindow_SelectScenarioFirst_Message, Strings.MainWindow_GenericError_Title,
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
@@ -994,7 +982,7 @@ namespace AMS2ChEd
 
                 if (result == SaveGameSeasonCheckerResult.NeedsRefresh)
                 {
-                    System.Windows.MessageBox.Show("it seems that you've installed a new version of this season. we will update driver ratings, liveries, team names and driver names for the curren season.", "Mod out of date", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    System.Windows.MessageBox.Show(Strings.MainWindow_ModOutOfDate_Message, Strings.MainWindow_ModOutOfDate_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
                     _gameLogicFactory.GameEngine.UpdateSeasonInsideSave(saveGame);
                 }
 
@@ -1009,8 +997,8 @@ namespace AMS2ChEd
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error creating the game: {ex.Message}",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_CreateGameError_Message, ex.Message),
+                    Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

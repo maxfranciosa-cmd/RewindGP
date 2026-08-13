@@ -1,7 +1,8 @@
 <Window x:Class="Ams2ChEd.Business.AMS2.UI.PrerequisiteSetupWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Before you race..."
+        xmlns:loc="clr-namespace:Ams2ChEd.Business.AMS2.Localization"
+        Title="{loc:Loc PrerequisiteSetupWindow_Title}"
         Height="430" Width="560"
         WindowStartupLocation="CenterScreen"
         Background="#1a1a1a"
@@ -33,7 +34,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
-                   Text="BEFORE YOU RACE"
+                   Text="{loc:Loc PrerequisiteSetupWindow_Header}"
                    FontSize="26"
                    FontWeight="Bold"
                    Foreground="White"
@@ -41,35 +42,22 @@
                    Margin="0,0,0,20"/>
 
         <StackPanel Grid.Row="1">
-            <TextBlock Foreground="#cccccc" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,15">
-                To let Rewind GP automatically set up your races and overlay controls on top of the
-                game, two things need to be configured in AMS2 first:
-            </TextBlock>
-            <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" FontWeight="Bold" Margin="0,0,0,8">
-                1) Set Telemetry Output to "Project Cars 2"
-            </TextBlock>
-            <TextBlock Foreground="#cccccc" FontSize="13" TextWrapping="Wrap" Margin="0,0,0,15">
-                In AMS2's Options &gt; Controls (or Gameplay) menu, set the UDP/Telemetry output
-                format to "Project Cars 2" so Rewind GP can read live session data.
-            </TextBlock>
-            <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" FontWeight="Bold" Margin="0,0,0,8">
-                2) Enable Borderless Window mode
-            </TextBlock>
-            <TextBlock Foreground="#cccccc" FontSize="13" TextWrapping="Wrap">
-                In AMS2's Options &gt; Video menu, set the display mode to "Borderless Window" so
-                Rewind GP's overlay can appear on top of the game.
-            </TextBlock>
+            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Intro}" Foreground="#cccccc" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,15"/>
+            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step1Header}" Foreground="White" FontSize="14" TextWrapping="Wrap" FontWeight="Bold" Margin="0,0,0,8"/>
+            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step1Body}" Foreground="#cccccc" FontSize="13" TextWrapping="Wrap" Margin="0,0,0,15"/>
+            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step2Header}" Foreground="White" FontSize="14" TextWrapping="Wrap" FontWeight="Bold" Margin="0,0,0,8"/>
+            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step2Body}" Foreground="#cccccc" FontSize="13" TextWrapping="Wrap"/>
         </StackPanel>
 
         <CheckBox x:Name="DontShowAgainCheckBox"
                   Grid.Row="2"
-                  Content="Don't show this again"
+                  Content="{loc:Loc PrerequisiteSetupWindow_DontShowAgain}"
                   Foreground="#cccccc"
                   FontSize="13"
                   Margin="0,15,0,10"/>
 
         <Button Grid.Row="3"
-                Content="GOT IT"
+                Content="{loc:Loc PrerequisiteSetupWindow_GotItButton}"
                 Width="150"
                 HorizontalAlignment="Center"
                 Style="{StaticResource MenuButtonStyle}"

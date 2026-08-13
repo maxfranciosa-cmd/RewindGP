@@ -1,4 +1,5 @@
 using Ams2ChEd.Business.AMS2.Helpers;
+using Ams2ChEd.Business.AMS2.Resources;
 using Ams2ChEd.Business.AMS2.Services;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Models;
@@ -277,8 +278,8 @@ namespace Ams2ChEd.Business.AMS2.UI
         {
             var dlg = new OpenFileDialog
             {
-                Title = "Select Player Photo",
-                Filter = "Image Files (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp|All Files (*.*)|*.*",
+                Title = Strings.Ams2PlayerCosmeticsEditorWindow_SelectPhotoTitle,
+                Filter = Strings.Ams2PlayerCosmeticsEditorWindow_ImageFileFilter,
                 CheckFileExists = true
             };
 
@@ -293,8 +294,8 @@ namespace Ams2ChEd.Business.AMS2.UI
         {
             var dlg = new OpenFileDialog
             {
-                Title = "Select Helmet Texture",
-                Filter = "PNG Files (*.png)|*.png|DDS Files (*.dds)|*.dds|All Files (*.*)|*.*",
+                Title = Strings.Ams2PlayerCosmeticsEditorWindow_SelectHelmetTextureTitle,
+                Filter = Strings.Ams2PlayerCosmeticsEditorWindow_TextureFileFilter,
                 CheckFileExists = true
             };
 
@@ -314,8 +315,8 @@ namespace Ams2ChEd.Business.AMS2.UI
         {
             var dlg = new OpenFileDialog
             {
-                Title = "Select Visor Texture",
-                Filter = "PNG Files (*.png)|*.png|DDS Files (*.dds)|*.dds|All Files (*.*)|*.*",
+                Title = Strings.Ams2PlayerCosmeticsEditorWindow_SelectVisorTextureTitle,
+                Filter = Strings.Ams2PlayerCosmeticsEditorWindow_TextureFileFilter,
                 CheckFileExists = true
             };
 
@@ -336,7 +337,7 @@ namespace Ams2ChEd.Business.AMS2.UI
         {
             if (string.IsNullOrWhiteSpace(PlayerNameTextBox.Text))
             {
-                System.Windows.MessageBox.Show("Please enter a player name.", "Validation Error",
+                System.Windows.MessageBox.Show(Strings.Ams2PlayerCosmeticsEditorWindow_NameRequired_Message, Strings.Ams2PlayerCosmeticsEditorWindow_ValidationError_Title,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
@@ -344,8 +345,8 @@ namespace Ams2ChEd.Business.AMS2.UI
             var nationality = NationalityTextBox.Text.Trim().ToUpper();
             if (!string.IsNullOrEmpty(nationality) && nationality.Length != 3)
             {
-                System.Windows.MessageBox.Show("Nationality must be exactly 3 characters (e.g., GBR, USA, ITA).",
-                    "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                System.Windows.MessageBox.Show(Strings.Ams2PlayerCosmeticsEditorWindow_NationalityLength_Message,
+                    Strings.Ams2PlayerCosmeticsEditorWindow_ValidationError_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

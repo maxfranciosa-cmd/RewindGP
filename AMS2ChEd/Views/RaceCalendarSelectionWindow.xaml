@@ -4,9 +4,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
         x:Class="AMS2ChEd.RaceCalendarSelectionWindow"
-        Title="Calendar Selection" 
+        Title="{loc:Loc RaceCalendarSelectionWindow_Title}"
         Height="900" Width="1000"
         WindowStartupLocation="CenterScreen"
         Background="#1a1a1a"
@@ -158,14 +159,14 @@
                 </TextBlock.Effect>
             </TextBlock>
 
-            <TextBlock Text="CALENDAR SELECTION"
+            <TextBlock Text="{loc:Loc RaceCalendarSelectionWindow_Header}"
                        FontSize="16"
                        FontWeight="SemiBold"
                        Foreground="#dc143c"
                        HorizontalAlignment="Center"
                        Margin="0,0,0,10"/>
 
-            <TextBlock Text="Select which races to remove from the calendar"
+            <TextBlock Text="{loc:Loc RaceCalendarSelectionWindow_Subtitle}"
                        FontSize="11"
                        Foreground="#999999"
                        HorizontalAlignment="Center"/>
@@ -181,13 +182,13 @@
                 Margin="0,0,0,20">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock FontSize="14" Foreground="White" VerticalAlignment="Center">
-                    <Run Text="Races Selected:" FontWeight="SemiBold"/>
+                    <Run Text="{loc:Loc RaceCalendarSelectionWindow_RacesSelectedLabel}" FontWeight="SemiBold"/>
                     <Run x:Name="SelectedCountText" Text="0" Foreground="#dc143c" FontWeight="Bold"/>
                     <Run Text="/" FontWeight="Normal"/>
                     <Run x:Name="TotalCountText" Text="0" FontWeight="Normal"/>
                 </TextBlock>
-                <TextBlock x:Name="WarningText" 
-                           Text="⚠ At least one race must remain in the calendar"
+                <TextBlock x:Name="WarningText"
+                           Text="{loc:Loc RaceCalendarSelectionWindow_WarningText}"
                            FontSize="13"
                            Foreground="#ff6b6b"
                            FontWeight="SemiBold"
@@ -225,36 +226,36 @@
                             <ColumnDefinition Width="75"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" 
-                                   Text="ROUND" 
+                        <TextBlock Grid.Column="0"
+                                   Text="{loc:Loc RaceCalendarSelectionWindow_RoundColumnHeader}"
                                    FontSize="13" 
                                    FontWeight="Bold" 
                                    Foreground="White"
                                    VerticalAlignment="Center"/>
 
-                        <TextBlock Grid.Column="1" 
-                                   Text="GRAND PRIX" 
+                        <TextBlock Grid.Column="1"
+                                   Text="{loc:Loc RaceCalendarSelectionWindow_GrandPrixColumnHeader}"
                                    FontSize="13" 
                                    FontWeight="Bold" 
                                    Foreground="White"
                                    VerticalAlignment="Center"/>
 
-                        <TextBlock Grid.Column="2" 
-                                   Text="CIRCUIT" 
+                        <TextBlock Grid.Column="2"
+                                   Text="{loc:Loc RaceCalendarSelectionWindow_CircuitColumnHeader}"
                                    FontSize="13" 
                                    FontWeight="Bold" 
                                    Foreground="White"
                                    VerticalAlignment="Center"/>
 
-                        <TextBlock Grid.Column="3" 
-                                   Text="DATE" 
+                        <TextBlock Grid.Column="3"
+                                   Text="{loc:Loc RaceCalendarSelectionWindow_DateColumnHeader}"
                                    FontSize="13" 
                                    FontWeight="Bold" 
                                    Foreground="White"
                                    VerticalAlignment="Center"/>
 
-                        <TextBlock Grid.Column="4" 
-                                   Text="INCLUDE" 
+                        <TextBlock Grid.Column="4"
+                                   Text="{loc:Loc RaceCalendarSelectionWindow_IncludeColumnHeader}"
                                    FontSize="13" 
                                    FontWeight="Bold" 
                                    Foreground="White"
@@ -326,7 +327,7 @@
         <!-- Confirm Button -->
         <Button Grid.Row="3"
                 x:Name="ConfirmButton"
-                Content="CONFIRM CALENDAR"
+                Content="{loc:Loc RaceCalendarSelectionWindow_ConfirmButton}"
                 Style="{StaticResource ConfirmButtonStyle}"
                 Margin="0,20,0,0"
                 Click="ConfirmButton_Click"/>

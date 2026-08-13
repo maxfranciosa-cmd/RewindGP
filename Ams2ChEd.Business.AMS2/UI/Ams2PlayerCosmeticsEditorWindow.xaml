@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Edit Player Details"
+        xmlns:loc="clr-namespace:Ams2ChEd.Business.AMS2.Localization"
+        Title="{loc:Loc Ams2PlayerCosmeticsEditorWindow_Title}"
         Height="750" Width="650"
         WindowStartupLocation="CenterOwner"
         Background="#1a1a1a"
@@ -236,7 +237,7 @@
 
             <!-- Header -->
             <Border Grid.Row="0" Background="#c41e3a" Padding="20,15">
-                <TextBlock Text="EDIT PLAYER DETAILS"
+                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_Header}"
                            FontSize="18"
                            FontWeight="Bold"
                            Foreground="White"
@@ -249,7 +250,7 @@
 
                     <!-- Player Name -->
                     <StackPanel Margin="0,0,0,20">
-                        <TextBlock Text="Player Name" Style="{StaticResource InputLabelStyle}"/>
+                        <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_PlayerNameLabel}" Style="{StaticResource InputLabelStyle}"/>
                         <TextBox x:Name="PlayerNameTextBox"
                                  Style="{StaticResource InputTextBoxStyle}"
                                  MaxLength="50"/>
@@ -257,8 +258,8 @@
 
                     <!-- Nationality -->
                     <StackPanel Margin="0,0,0,20">
-                        <TextBlock Text="Nationality (3-letter code)" Style="{StaticResource InputLabelStyle}"/>
-                        <TextBlock Text="Enter a 3-character nationality code (e.g., GBR, USA, ITA)"
+                        <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_NationalityLabel}" Style="{StaticResource InputLabelStyle}"/>
+                        <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_NationalityHelp}"
                                    FontSize="10"
                                    Foreground="#666666"
                                    Margin="0,0,0,6"/>
@@ -270,8 +271,8 @@
 
                     <!-- Photo File -->
                     <StackPanel Margin="0,0,0,20">
-                        <TextBlock Text="Photo File" Style="{StaticResource InputLabelStyle}"/>
-                        <TextBlock Text="Path to your player photo (JPG, PNG, or BMP format)"
+                        <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_PhotoFileLabel}" Style="{StaticResource InputLabelStyle}"/>
+                        <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_PhotoFileHelp}"
                                    FontSize="10"
                                    Foreground="#666666"
                                    Margin="0,0,0,6"/>
@@ -289,14 +290,14 @@
                                     x:Name="BrowsePhotoButton"
                                     Click="BrowsePhotoButton_Click"
                                     Style="{StaticResource BrowseButtonStyle}"
-                                    Content="Browse..."/>
+                                    Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}"/>
                         </Grid>
                     </StackPanel>
 
                     <!-- Photo URL -->
                     <StackPanel Margin="0,0,0,20">
-                        <TextBlock Text="Photo URL" Style="{StaticResource InputLabelStyle}"/>
-                        <TextBlock Text="Alternative: URL to an online photo (e.g., https://example.com/photo.jpg)"
+                        <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_PhotoUrlLabel}" Style="{StaticResource InputLabelStyle}"/>
+                        <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_PhotoUrlHelp}"
                                    FontSize="10"
                                    Foreground="#666666"
                                    Margin="0,0,0,6"/>
@@ -312,7 +313,7 @@
                             Padding="15"
                             Margin="0,0,0,20">
                         <StackPanel>
-                            <TextBlock Text="Helmet Design"
+                            <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetDesignLabel}"
                                        Style="{StaticResource InputLabelStyle}"
                                        FontSize="13"
                                        Foreground="#c41e3a"
@@ -324,17 +325,17 @@
                                         SelectionChanged="EraTabControl_SelectionChanged">
 
                                 <!-- ═══ MODERN TAB ═══ -->
-                                <TabItem Header="MODERN" Style="{StaticResource EraTabItemStyle}" Tag="Modern">
+                                <TabItem Header="{loc:Loc Ams2PlayerCosmeticsEditorWindow_ModernTab}" Style="{StaticResource EraTabItemStyle}" Tag="Modern">
                                     <StackPanel Margin="0,15,0,0">
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                                             <RadioButton x:Name="UseDefaultHelmetRadio_Modern"
-                                                         Content="Use Default Helmet Design"
+                                                         Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_UseDefaultHelmetOption}"
                                                          Style="{StaticResource RadioButtonStyle}"
                                                          GroupName="HelmetMode_Modern"
                                                          IsChecked="True"
                                                          Checked="HelmetModeChanged_Modern"/>
                                             <RadioButton x:Name="UseCustomHelmetRadio_Modern"
-                                                         Content="Use Custom Files"
+                                                         Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_UseCustomFilesOption}"
                                                          Style="{StaticResource RadioButtonStyle}"
                                                          GroupName="HelmetMode_Modern"
                                                          Checked="HelmetModeChanged_Modern"/>
@@ -342,7 +343,7 @@
 
                                         <!-- Default Helmets -->
                                         <StackPanel x:Name="DefaultHelmetPanel_Modern" Visibility="Visible">
-                                            <TextBlock Text="Select Helmet Design"
+                                            <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel}"
                                                        FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
                                             <ItemsControl x:Name="DefaultHelmetItemsControl_Modern"
                                                           ItemTemplate="{StaticResource HelmetItemTemplate}">
@@ -357,7 +358,7 @@
                                         <!-- Custom Files -->
                                         <StackPanel x:Name="CustomHelmetPanel_Modern" Visibility="Collapsed">
                                             <StackPanel Margin="0,0,0,15">
-                                                <TextBlock Text="Helmet File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -366,11 +367,11 @@
                                                     <TextBox x:Name="HelmetFileTextBox_Modern" Grid.Column="0"
                                                              Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
                                                     <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
-                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Modern"/>
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Modern"/>
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Text="Visor File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_VisorFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -379,7 +380,7 @@
                                                     <TextBox x:Name="VisorFileTextBox_Modern" Grid.Column="0"
                                                              Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
                                                     <Button Grid.Column="1" Click="BrowseVisorButton_Click"
-                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Modern"/>
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Modern"/>
                                                 </Grid>
                                             </StackPanel>
                                         </StackPanel>
@@ -387,17 +388,17 @@
                                 </TabItem>
 
                                 <!-- ═══ 1990s TAB ═══ -->
-                                <TabItem Header="1990s" Style="{StaticResource EraTabItemStyle}" Tag="Nineties">
+                                <TabItem Header="{loc:Loc Ams2PlayerCosmeticsEditorWindow_NinetiesTab}" Style="{StaticResource EraTabItemStyle}" Tag="Nineties">
                                     <StackPanel Margin="0,15,0,0">
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                                             <RadioButton x:Name="UseDefaultHelmetRadio_90s"
-                                                         Content="Use Default Helmet Design"
+                                                         Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_UseDefaultHelmetOption}"
                                                          Style="{StaticResource RadioButtonStyle}"
                                                          GroupName="HelmetMode_90s"
                                                          IsChecked="True"
                                                          Checked="HelmetModeChanged_90s"/>
                                             <RadioButton x:Name="UseCustomHelmetRadio_90s"
-                                                         Content="Use Custom Files"
+                                                         Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_UseCustomFilesOption}"
                                                          Style="{StaticResource RadioButtonStyle}"
                                                          GroupName="HelmetMode_90s"
                                                          Checked="HelmetModeChanged_90s"/>
@@ -405,7 +406,7 @@
 
                                         <!-- Default Helmets -->
                                         <StackPanel x:Name="DefaultHelmetPanel_90s" Visibility="Visible">
-                                            <TextBlock Text="Select Helmet Design"
+                                            <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel}"
                                                        FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
                                             <ItemsControl x:Name="DefaultHelmetItemsControl_90s"
                                                           ItemTemplate="{StaticResource HelmetItemTemplate}">
@@ -420,7 +421,7 @@
                                         <!-- Custom Files (90s only has helmet, no visor) -->
                                         <StackPanel x:Name="CustomHelmetPanel_90s" Visibility="Collapsed">
                                             <StackPanel Margin="0,0,0,15">
-                                                <TextBlock Text="Helmet File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -429,27 +430,27 @@
                                                     <TextBox x:Name="HelmetFileTextBox_90s" Grid.Column="0"
                                                              Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
                                                     <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
-                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Nineties"/>
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Nineties"/>
                                                 </Grid>
                                             </StackPanel>
-                                            <TextBlock Text="Note: The 1990s era uses a single helmet texture with no separate visor file."
+                                            <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_NinetiesNoVisorNote}"
                                                        FontSize="10" Foreground="#666666" FontStyle="Italic"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </TabItem>
 
                                 <!-- ═══ 1980s TAB ═══ -->
-                                <TabItem Header="1980s" Style="{StaticResource EraTabItemStyle}" Tag="Eighties">
+                                <TabItem Header="{loc:Loc Ams2PlayerCosmeticsEditorWindow_EightiesTab}" Style="{StaticResource EraTabItemStyle}" Tag="Eighties">
                                     <StackPanel Margin="0,15,0,0">
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                                             <RadioButton x:Name="UseDefaultHelmetRadio_80s"
-                                                         Content="Use Default Helmet Design"
+                                                         Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_UseDefaultHelmetOption}"
                                                          Style="{StaticResource RadioButtonStyle}"
                                                          GroupName="HelmetMode_80s"
                                                          IsChecked="True"
                                                          Checked="HelmetModeChanged_80s"/>
                                             <RadioButton x:Name="UseCustomHelmetRadio_80s"
-                                                         Content="Use Custom Files"
+                                                         Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_UseCustomFilesOption}"
                                                          Style="{StaticResource RadioButtonStyle}"
                                                          GroupName="HelmetMode_80s"
                                                          Checked="HelmetModeChanged_80s"/>
@@ -457,7 +458,7 @@
 
                                         <!-- Default Helmets -->
                                         <StackPanel x:Name="DefaultHelmetPanel_80s" Visibility="Visible">
-                                            <TextBlock Text="Select Helmet Design"
+                                            <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel}"
                                                        FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
                                             <ItemsControl x:Name="DefaultHelmetItemsControl_80s"
                                                           ItemTemplate="{StaticResource HelmetItemTemplate}">
@@ -472,7 +473,7 @@
                                         <!-- Custom Files -->
                                         <StackPanel x:Name="CustomHelmetPanel_80s" Visibility="Collapsed">
                                             <StackPanel Margin="0,0,0,15">
-                                                <TextBlock Text="Helmet File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -481,11 +482,11 @@
                                                     <TextBox x:Name="HelmetFileTextBox_80s" Grid.Column="0"
                                                              Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
                                                     <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
-                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Eighties"/>
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Eighties"/>
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Text="Visor File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_VisorFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -494,7 +495,7 @@
                                                     <TextBox x:Name="VisorFileTextBox_80s" Grid.Column="0"
                                                              Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
                                                     <Button Grid.Column="1" Click="BrowseVisorButton_Click"
-                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Eighties"/>
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Eighties"/>
                                                 </Grid>
                                             </StackPanel>
                                         </StackPanel>
@@ -502,17 +503,17 @@
                                 </TabItem>
 
                                 <!-- ═══ 1970s TAB ═══ -->
-                                <TabItem Header="1970s" Style="{StaticResource EraTabItemStyle}" Tag="Seventies">
+                                <TabItem Header="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SeventiesTab}" Style="{StaticResource EraTabItemStyle}" Tag="Seventies">
                                     <StackPanel Margin="0,15,0,0">
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                                             <RadioButton x:Name="UseDefaultHelmetRadio_70s"
-                                                         Content="Use Default Helmet Design"
+                                                         Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_UseDefaultHelmetOption}"
                                                          Style="{StaticResource RadioButtonStyle}"
                                                          GroupName="HelmetMode_70s"
                                                          IsChecked="True"
                                                          Checked="HelmetModeChanged_70s"/>
                                             <RadioButton x:Name="UseCustomHelmetRadio_70s"
-                                                         Content="Use Custom Files"
+                                                         Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_UseCustomFilesOption}"
                                                          Style="{StaticResource RadioButtonStyle}"
                                                          GroupName="HelmetMode_70s"
                                                          Checked="HelmetModeChanged_70s"/>
@@ -520,7 +521,7 @@
 
                                         <!-- Default Helmets -->
                                         <StackPanel x:Name="DefaultHelmetPanel_70s" Visibility="Visible">
-                                            <TextBlock Text="Select Helmet Design"
+                                            <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel}"
                                                        FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
                                             <ItemsControl x:Name="DefaultHelmetItemsControl_70s"
                                                           ItemTemplate="{StaticResource HelmetItemTemplate}">
@@ -535,7 +536,7 @@
                                         <!-- Custom Files -->
                                         <StackPanel x:Name="CustomHelmetPanel_70s" Visibility="Collapsed">
                                             <StackPanel Margin="0,0,0,15">
-                                                <TextBlock Text="Helmet File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -544,11 +545,11 @@
                                                     <TextBox x:Name="HelmetFileTextBox_70s" Grid.Column="0"
                                                              Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
                                                     <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
-                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Seventies"/>
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Seventies"/>
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Text="Visor File (DDS)" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_VisorFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -557,7 +558,7 @@
                                                     <TextBox x:Name="VisorFileTextBox_70s" Grid.Column="0"
                                                              Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
                                                     <Button Grid.Column="1" Click="BrowseVisorButton_Click"
-                                                            Style="{StaticResource BrowseButtonStyle}" Content="Browse..." Tag="Seventies"/>
+                                                            Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Seventies"/>
                                                 </Grid>
                                             </StackPanel>
                                         </StackPanel>
@@ -589,13 +590,13 @@
                             x:Name="CancelButton"
                             Click="CancelButton_Click"
                             Style="{StaticResource DialogButtonStyle}"
-                            Content="Cancel"/>
+                            Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_CancelButton}"/>
 
                     <Button Grid.Column="3"
                             x:Name="SaveButton"
                             Click="SaveButton_Click"
                             Style="{StaticResource PrimaryButtonStyle}"
-                            Content="Save Changes"/>
+                            Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SaveButton}"/>
                 </Grid>
             </Border>
         </Grid>

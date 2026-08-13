@@ -175,4 +175,212 @@
   <data name="OptionsWindow_RestoreFailed_Message" xml:space="preserve">
     <value>Il ripristino non è stato completato del tutto: {0}</value>
   </data>
+
+  <!-- PrerequisiteSetupWindow -->
+  <data name="PrerequisiteSetupWindow_Title" xml:space="preserve">
+    <value>Prima di correre...</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Header" xml:space="preserve">
+    <value>PRIMA DI CORRERE</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Intro" xml:space="preserve">
+    <value>Per permettere a Rewind GP di configurare automaticamente le tue gare e sovrapporre i controlli al gioco, è necessario configurare prima due cose in AMS2:</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Step1Header" xml:space="preserve">
+    <value>1) Imposta l'Output Telemetria su "Project Cars 2"</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Step1Body" xml:space="preserve">
+    <value>Nel menu Opzioni &gt; Controlli (o Gameplay) di AMS2, imposta il formato di output UDP/Telemetria su "Project Cars 2" così Rewind GP potrà leggere i dati di sessione in tempo reale.</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Step2Header" xml:space="preserve">
+    <value>2) Attiva la modalità Finestra Senza Bordi</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Step2Body" xml:space="preserve">
+    <value>Nel menu Opzioni &gt; Video di AMS2, imposta la modalità di visualizzazione su "Finestra Senza Bordi" così l'overlay di Rewind GP potrà apparire sopra il gioco.</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_DontShowAgain" xml:space="preserve">
+    <value>Non mostrare più questo messaggio</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_GotItButton" xml:space="preserve">
+    <value>HO CAPITO</value>
+  </data>
+
+  <!-- RaceReturnOverlayWindow -->
+  <data name="RaceReturnOverlayWindow_SessionFinished" xml:space="preserve">
+    <value>Sessione terminata!</value>
+  </data>
+  <data name="RaceReturnOverlayWindow_ReturnButton" xml:space="preserve">
+    <value>TORNA A REWIND GP</value>
+  </data>
+
+  <!-- RaceSetupOverlayWindow -->
+  <data name="RaceSetupOverlayWindow_PromptText" xml:space="preserve">
+    <value>Vai su GARA SINGOLA, poi clicca qui sotto per configurare la gara automaticamente.</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ConfigureButton" xml:space="preserve">
+    <value>CONFIGURA GARA AUTOMATICAMENTE</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_SkipLink" xml:space="preserve">
+    <value>Salta — la configuro io manualmente</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_WaitingText" xml:space="preserve">
+    <value>Attendere — applicazione delle impostazioni di gara in corso...</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_SuccessText" xml:space="preserve">
+    <value>Gara configurata automaticamente! Puoi comunque cambiare il circuito, la durata delle sessioni di qualifica/gara, o qualsiasi altra impostazione prima di iniziare, se lo desideri.</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_SuccessOkButton" xml:space="preserve">
+    <value>OK, HO CAPITO</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ContinueManuallyButton" xml:space="preserve">
+    <value>CONTINUA MANUALMENTE</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualSetupTitle" xml:space="preserve">
+    <value>CONFIGURAZIONE MANUALE</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_PreQualiSessionTitle" xml:space="preserve">
+    <value>SESSIONE DI PRE-QUALIFICA</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualInstructionsOkButton" xml:space="preserve">
+    <value>HO CAPITO</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep1_Format" xml:space="preserve">
+    <value>1) Assicurati di SELEZIONARE LA VETTURA GIUSTA ({0}) E LA LIVREA GIUSTA. avrà il tuo nome pilota sopra! (nel tuo caso {1})</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep2_Format" xml:space="preserve">
+    <value>2) Seleziona IL NUMERO GIUSTO DI AVVERSARI (nel tuo caso {0})</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep3_UsesScalars" xml:space="preserve">
+    <value>3) DIFFICOLTÀ CONSIGLIATA: la tua difficoltà abituale (i team dovrebbero avere lo scalar di performance attivo, quindi una vettura lenta sarà effettivamente più lenta)</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep3_Format" xml:space="preserve">
+    <value>3) DIFFICOLTÀ CONSIGLIATA: +{0} PUNTI (rispetto a una difficoltà in cui lotti per la vittoria)</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep4_PreQuali" xml:space="preserve">
+    <value>4) Svolgi SOLO UNA SESSIONE DI QUALIFICA — non avviare la gara. Rewind GP leggerà automaticamente il tuo risultato di qualifica.</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep4_Normal" xml:space="preserve">
+    <value>4) non importa il circuito o la durata della gara, ma svolgi almeno UNA SESSIONE DI QUALIFICA e UNA SESSIONE DI GARA.</value>
+  </data>
+
+  <!-- Ams2RaceLaunchAssistant -->
+  <data name="Ams2RaceLaunchAssistant_ProcessLost" xml:space="preserve">
+    <value>AMS2 non è più in esecuzione.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_RaceNotFound" xml:space="preserve">
+    <value>Impossibile trovare questa gara nella stagione attuale.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_TrackNotConfigured_Format" xml:space="preserve">
+    <value>Nessun circuito è ancora configurato per "{0}".</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_TrackNotInCatalog_Format" xml:space="preserve">
+    <value>Il circuito "{0}" non è ancora nel catalogo circuiti.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_CarSelectionFailed" xml:space="preserve">
+    <value>Impossibile determinare la tua vettura/livrea per questa gara.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_CarNotInCatalog_Format" xml:space="preserve">
+    <value>La vettura "{0}" non è ancora nel catalogo vetture.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_AttachFailed" xml:space="preserve">
+    <value>Impossibile collegarsi ad AMS2 - assicurati che sia in esecuzione e che tu sia nella schermata Gara Personalizzata.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_ApplyFailed" xml:space="preserve">
+    <value>Alcune impostazioni di gara non sono state applicate automaticamente - controllale nel gioco.</value>
+  </data>
+
+  <!-- Ams2PlayerCosmeticsEditorWindow -->
+  <data name="Ams2PlayerCosmeticsEditorWindow_Title" xml:space="preserve">
+    <value>Modifica Dettagli Pilota</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_Header" xml:space="preserve">
+    <value>MODIFICA DETTAGLI PILOTA</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_PlayerNameLabel" xml:space="preserve">
+    <value>Nome Pilota</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NationalityLabel" xml:space="preserve">
+    <value>Nazionalità (codice a 3 lettere)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NationalityHelp" xml:space="preserve">
+    <value>Inserisci un codice di nazionalità di 3 caratteri (es. GBR, USA, ITA)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_PhotoFileLabel" xml:space="preserve">
+    <value>File Foto</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_PhotoFileHelp" xml:space="preserve">
+    <value>Percorso della tua foto pilota (formato JPG, PNG o BMP)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_BrowseButton" xml:space="preserve">
+    <value>Sfoglia...</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_PhotoUrlLabel" xml:space="preserve">
+    <value>URL Foto</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_PhotoUrlHelp" xml:space="preserve">
+    <value>In alternativa: URL di una foto online (es. https://example.com/photo.jpg)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_HelmetDesignLabel" xml:space="preserve">
+    <value>Design Casco</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_ModernTab" xml:space="preserve">
+    <value>MODERNA</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NinetiesTab" xml:space="preserve">
+    <value>Anni '90</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_EightiesTab" xml:space="preserve">
+    <value>Anni '80</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SeventiesTab" xml:space="preserve">
+    <value>Anni '70</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_UseDefaultHelmetOption" xml:space="preserve">
+    <value>Usa Design Casco Predefinito</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_UseCustomFilesOption" xml:space="preserve">
+    <value>Usa File Personalizzati</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel" xml:space="preserve">
+    <value>Seleziona Design Casco</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel" xml:space="preserve">
+    <value>File Casco (DDS)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_VisorFileLabel" xml:space="preserve">
+    <value>File Visiera (DDS)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NinetiesNoVisorNote" xml:space="preserve">
+    <value>Nota: l'era anni '90 usa un'unica texture per il casco, senza file visiera separato.</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_CancelButton" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SaveButton" xml:space="preserve">
+    <value>Salva Modifiche</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SelectPhotoTitle" xml:space="preserve">
+    <value>Seleziona Foto Pilota</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_ImageFileFilter" xml:space="preserve">
+    <value>File Immagine (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp|Tutti i File (*.*)|*.*</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SelectHelmetTextureTitle" xml:space="preserve">
+    <value>Seleziona Texture Casco</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SelectVisorTextureTitle" xml:space="preserve">
+    <value>Seleziona Texture Visiera</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_TextureFileFilter" xml:space="preserve">
+    <value>File PNG (*.png)|*.png|File DDS (*.dds)|*.dds|Tutti i File (*.*)|*.*</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NameRequired_Message" xml:space="preserve">
+    <value>Inserisci un nome pilota.</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_ValidationError_Title" xml:space="preserve">
+    <value>Errore di Convalida</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NationalityLength_Message" xml:space="preserve">
+    <value>La nazionalità deve essere di esattamente 3 caratteri (es. GBR, USA, ITA).</value>
+  </data>
 </root>

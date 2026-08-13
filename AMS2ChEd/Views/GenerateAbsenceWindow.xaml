@@ -2,7 +2,8 @@
 <Window x:Class="AMS2ChEd.GenerateAbsenceWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Pay Driver - Wild Card" 
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        Title="{loc:Loc GenerateAbsenceWindow_WindowTitle}"
         Height="700" Width="650"
         WindowStartupLocation="CenterScreen"
         Background="#1a1a1a"
@@ -54,7 +55,7 @@
         <!-- Header -->
         <StackPanel Grid.Row="0" Margin="0,0,0,25">
             <TextBlock x:Name="TitleText"
-                       Text="PAY DRIVER - WILD CARD"
+                       Text="{loc:Loc GenerateAbsenceWindow_PayDriverTitle}"
                        FontSize="28"
                        FontWeight="Bold"
                        Foreground="#c41e3a"
@@ -77,15 +78,15 @@
                                Foreground="#e0e0e0"
                                LineHeight="26"
                                TextAlignment="Left">
-                        <Run x:Name="IntroText1" Text="You are a pay driver wild card. This means that you can't secure a full season seat with a team yet, and you need to step in whenever one of the official drivers is absent."/>
+                        <Run x:Name="IntroText1" Text="{loc:Loc GenerateAbsenceWindow_PayDriver_Intro1}"/>
                         <LineBreak/><LineBreak/>
-                        <Run x:Name="IntroText2" Text="You need to seize every single opportunity you get in order to prove your worth and secure a full-season seat for next season."/>
+                        <Run x:Name="IntroText2" Text="{loc:Loc GenerateAbsenceWindow_PayDriver_Intro2}"/>
                         <LineBreak/><LineBreak/>
-                        <Run x:Name="IntroText3" Text="However, drivers might go a full season without any absences, so your opportunities may be limited or non-existent."/>
+                        <Run x:Name="IntroText3" Text="{loc:Loc GenerateAbsenceWindow_Intro3}"/>
                         <LineBreak/><LineBreak/>
-                        <Run x:Name="QuestionText" FontWeight="Bold" Foreground="#c41e3a" Text="Would you like to create a fictional absence for a random low/midlevel team driver in the next race?"/>
+                        <Run x:Name="QuestionText" FontWeight="Bold" Foreground="#c41e3a" Text="{loc:Loc GenerateAbsenceWindow_QuestionText}"/>
                         <LineBreak/><LineBreak/>
-                        <Run FontStyle="Italic" Foreground="#999999" Text="This will guarantee you at least one race to prove yourself this season."/>
+                        <Run FontStyle="Italic" Foreground="#999999" Text="{loc:Loc GenerateAbsenceWindow_FooterNote}"/>
                     </TextBlock>
                 </StackPanel>
             </ScrollViewer>
@@ -97,16 +98,16 @@
                     HorizontalAlignment="Center"
                     Margin="0,30,0,0">
             <Button x:Name="YesButton"
-                    Content="YES, CREATE ABSENCE"
+                    Content="{loc:Loc GenerateAbsenceWindow_YesButton}"
                     Style="{StaticResource PrimaryButtonStyle}"
                     Click="YesButton_Click"
                     Margin="0,0,15,0"/>
             <Button x:Name="NoButton"
-                    Content="NO"
+                    Content="{loc:Loc GenerateAbsenceWindow_NoButton}"
                     Style="{StaticResource SecondaryButtonStyle}"
                     Click="NoButton_Click"/>
             <Button x:Name="BackButton"
-                    Content="CHOOSE OTHER REPUTATION"
+                    Content="{loc:Loc GenerateAbsenceWindow_BackButton}"
                     Style="{StaticResource SecondaryButtonStyle}"
                     Margin="15,0,0,0" Click="BackButton_Click"/>
         </StackPanel>

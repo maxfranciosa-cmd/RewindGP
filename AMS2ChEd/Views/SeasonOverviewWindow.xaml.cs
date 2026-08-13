@@ -8,6 +8,7 @@ using AMS2ChEd.Business.Services.Contracts;
 using AMS2ChEd.Business.Settings.Contracts;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
+using AMS2ChEd.Resources;
 using AMS2ChEd.Views;
 using System.Formats.Tar;
 using System.Globalization;
@@ -101,7 +102,7 @@ namespace AMS2ChEd
             }
 
             // Set season and next GP
-            SeasonText.Text = $"Season: {saveGame.CurrentSeason.Year}";
+            SeasonText.Text = string.Format(Strings.SeasonOverviewWindow_SeasonText_Format, saveGame.CurrentSeason.Year);
 
             // Load player data
             LoadPlayerData();
@@ -119,11 +120,11 @@ namespace AMS2ChEd
 
                 // Format race info with round number and date
                 DateTime raceDate = DateTime.ParseExact(nextRace.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                RaceInfoText.Text = $"ROUND {saveGame.NextGpIndex + 1} - {raceDate:d MMMM yyyy}".ToUpper();
+                RaceInfoText.Text = string.Format(Strings.SeasonOverviewWindow_RoundInfo_Format, saveGame.NextGpIndex + 1, raceDate.ToString("d MMMM yyyy")).ToUpper();
             }
             else
             {
-                NextGPText.Text = "SEASON COMPLETE";
+                NextGPText.Text = Strings.SeasonOverviewWindow_SeasonComplete;
                 RaceInfoText.Text = "";
             }
         }
@@ -138,7 +139,7 @@ namespace AMS2ChEd
                 t.Driver1Contract.DriverId == saveGame.PlayerData.DriverId ||
                 t.Driver2Contract.DriverId == saveGame.PlayerData.DriverId);
 
-            PlayerTeamText.Text = playerTeam?.TeamName ?? "No Team";
+            PlayerTeamText.Text = playerTeam?.TeamName ?? Strings.SeasonOverviewWindow_NoTeam;
 
             // Set player reputation
             var playerReputation = GetPlayerReputation();
@@ -161,26 +162,28 @@ namespace AMS2ChEd
             return DriverReputation.PRIME_MIDFIELD;
         }
 
+        // Reuses MainWindow's reputation display-name keys (same semantic content shown in both
+        // windows, must stay consistent app-wide) rather than duplicating separate translations.
         private string FormatReputation(DriverReputation reputation)
         {
             return reputation switch
             {
-                DriverReputation.PAY_DRIVER_WILD_CARD => "Pay Driver - Wild Card",
-                DriverReputation.PAY_DRIVER_SEASON => "Pay Driver - Full Season",
-                DriverReputation.AGEING_MIDFIELD => "Veteran Midfield Driver",
-                DriverReputation.YOUNG_TALENT => "Young Talent",
-                DriverReputation.PRIME_MIDFIELD => "Midfield Driver",
-                DriverReputation.AGEING_STRONG_MIDFIELD => "Veteran High Midfield Driver",
-                DriverReputation.JUST_ONE_LAST_DANCE => "Just One Last Dance",
-                DriverReputation.PRIME_STRONG_MIDFIELD => "High Midfield Driver",
-                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED => "Washed Veteran Championship Level Driver",
-                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED => "Washed Championship Level Driver",
-                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN => "Unproven Championship Level Driver",
-                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN => "Young Unproven Championship Level Driver",
-                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL => "Veteran Championship Level Driver",
-                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL => "Championship Level Driver",
-                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL => "Young Championship Level Driver",
-                _ => "Unknown"
+                DriverReputation.PAY_DRIVER_WILD_CARD => Strings.MainWindow_Reputation_PayDriverWildCard_Name,
+                DriverReputation.PAY_DRIVER_SEASON => Strings.MainWindow_Reputation_PayDriverSeason_Name,
+                DriverReputation.AGEING_MIDFIELD => Strings.MainWindow_Reputation_AgeingMidfield_Name,
+                DriverReputation.YOUNG_TALENT => Strings.MainWindow_Reputation_YoungTalent_Name,
+                DriverReputation.PRIME_MIDFIELD => Strings.MainWindow_Reputation_PrimeMidfield_Name,
+                DriverReputation.AGEING_STRONG_MIDFIELD => Strings.MainWindow_Reputation_AgeingStrongMidfield_Name,
+                DriverReputation.JUST_ONE_LAST_DANCE => Strings.MainWindow_Reputation_JustOneLastDance_Name,
+                DriverReputation.PRIME_STRONG_MIDFIELD => Strings.MainWindow_Reputation_PrimeStrongMidfield_Name,
+                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED => Strings.MainWindow_Reputation_AgeingChampionshipWashed_Name,
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED => Strings.MainWindow_Reputation_PrimeChampionshipWashed_Name,
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN => Strings.MainWindow_Reputation_PrimeChampionshipUnproven_Name,
+                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN => Strings.MainWindow_Reputation_YoungChampionshipUnproven_Name,
+                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL => Strings.MainWindow_Reputation_AgeingChampionship_Name,
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL => Strings.MainWindow_Reputation_PrimeChampionship_Name,
+                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL => Strings.MainWindow_Reputation_YoungChampionship_Name,
+                _ => Strings.SeasonOverviewWindow_UnknownReputation
             };
         }
 
@@ -230,7 +233,7 @@ namespace AMS2ChEd
             foreach (var standing in saveGame.CurrentDriverStandings.OrderBy(s => s.Position))
             {
                 var driver = saveGame.Drivers.FirstOrDefault(d => d.DriverId == standing.DriverId);
-                string driverName = driver?.Name ?? "Unknown Driver";
+                string driverName = driver?.Name ?? Strings.SeasonOverviewWindow_UnknownDriver;
 
                 // Get race number for this driver from their team contract
                 int raceNumber = GetDriverRaceNumber(standing.DriverId);
@@ -285,7 +288,7 @@ namespace AMS2ChEd
                     ? teamsCache[standing.TeamId]
                     : null;
 
-                string teamName = teamEntry?.TeamName ?? team?.TeamName ?? "Unknown Team";
+                string teamName = teamEntry?.TeamName ?? team?.TeamName ?? Strings.SeasonOverviewWindow_UnknownTeam;
                 SolidColorBrush teamColor = GetTeamColor(standing.TeamId);
 
                 displayList.Add(new ConstructorStandingDisplay
@@ -349,7 +352,7 @@ namespace AMS2ChEd
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error preparing GP: {ex.Message}", "Error",
+                System.Windows.MessageBox.Show(string.Format(Strings.SeasonOverviewWindow_PrepareGpError_Message, ex.Message), Strings.SeasonOverviewWindow_GenericError_Title,
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -445,7 +448,7 @@ namespace AMS2ChEd
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error during off-season: {ex.Message}\n\n{ex.StackTrace}", "Error",
+                System.Windows.MessageBox.Show(string.Format(Strings.SeasonOverviewWindow_OffSeasonError_Message, ex.Message, ex.StackTrace), Strings.SeasonOverviewWindow_GenericError_Title,
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -537,7 +540,7 @@ namespace AMS2ChEd
             var newsWindow = new AbsenceAnnouncementWindow(
                 driverOutName,
                 teamName,
-                gp?.RaceName ?? "Grand Prix",
+                gp?.RaceName ?? Strings.SeasonOverviewWindow_GrandPrixFallback,
                 driverInName,
                 DateTime.ParseExact(gp.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 askPlayerToApply: !playerAlreadySteppedIn && opportunity.DriverIn != _saveGame.PlayerData.DriverId,
@@ -647,7 +650,7 @@ namespace AMS2ChEd
                 return _saveGame.PlayerData.Name;
 
             var driver = _saveGame.Drivers.FirstOrDefault(d => d.DriverId == driverId);
-            return driver?.Name ?? "Unknown Driver";
+            return driver?.Name ?? Strings.SeasonOverviewWindow_UnknownDriver;
         }
 
         private string GetTeamName(string teamId)
@@ -657,7 +660,7 @@ namespace AMS2ChEd
             var teamEntry = _saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
             var team = teamsCache.ContainsKey(teamId) ? teamsCache[teamId] : null;
 
-            return teamEntry?.TeamName ?? team?.TeamName ?? "Unknown Team";
+            return teamEntry?.TeamName ?? team?.TeamName ?? Strings.SeasonOverviewWindow_UnknownTeam;
         }
 
         private Race GetGrandPrix(int raceId)
@@ -688,7 +691,7 @@ namespace AMS2ChEd
 
         public Task ShowSeasonUnavailableWarningAsync(int nextSeasonYear)
         {
-            System.Windows.MessageBox.Show($"Season {nextSeasonYear} Not Available - we will re-use the current teams, liveries and GP as base", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            System.Windows.MessageBox.Show(string.Format(Strings.SeasonOverviewWindow_SeasonUnavailable_Message, nextSeasonYear), Strings.SeasonOverviewWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Information);
             return Task.CompletedTask;
         }
 

@@ -57,5 +57,76 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string OptionsWindow_RestoreComplete_Message => ResourceManager.GetString(nameof(OptionsWindow_RestoreComplete_Message))!;
         public static string OptionsWindow_RestoreFailed_Title => ResourceManager.GetString(nameof(OptionsWindow_RestoreFailed_Title))!;
         public static string OptionsWindow_RestoreFailed_Message => ResourceManager.GetString(nameof(OptionsWindow_RestoreFailed_Message))!;
+
+        public static string PrerequisiteSetupWindow_Title => ResourceManager.GetString(nameof(PrerequisiteSetupWindow_Title))!;
+        public static string PrerequisiteSetupWindow_Header => ResourceManager.GetString(nameof(PrerequisiteSetupWindow_Header))!;
+        public static string PrerequisiteSetupWindow_Intro => ResourceManager.GetString(nameof(PrerequisiteSetupWindow_Intro))!;
+        public static string PrerequisiteSetupWindow_Step1Header => ResourceManager.GetString(nameof(PrerequisiteSetupWindow_Step1Header))!;
+        public static string PrerequisiteSetupWindow_Step1Body => ResourceManager.GetString(nameof(PrerequisiteSetupWindow_Step1Body))!;
+        public static string PrerequisiteSetupWindow_Step2Header => ResourceManager.GetString(nameof(PrerequisiteSetupWindow_Step2Header))!;
+        public static string PrerequisiteSetupWindow_Step2Body => ResourceManager.GetString(nameof(PrerequisiteSetupWindow_Step2Body))!;
+        public static string PrerequisiteSetupWindow_DontShowAgain => ResourceManager.GetString(nameof(PrerequisiteSetupWindow_DontShowAgain))!;
+        public static string PrerequisiteSetupWindow_GotItButton => ResourceManager.GetString(nameof(PrerequisiteSetupWindow_GotItButton))!;
+
+        public static string RaceReturnOverlayWindow_SessionFinished => ResourceManager.GetString(nameof(RaceReturnOverlayWindow_SessionFinished))!;
+        public static string RaceReturnOverlayWindow_ReturnButton => ResourceManager.GetString(nameof(RaceReturnOverlayWindow_ReturnButton))!;
+
+        public static string RaceSetupOverlayWindow_PromptText => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_PromptText))!;
+        public static string RaceSetupOverlayWindow_ConfigureButton => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ConfigureButton))!;
+        public static string RaceSetupOverlayWindow_SkipLink => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_SkipLink))!;
+        public static string RaceSetupOverlayWindow_WaitingText => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_WaitingText))!;
+        public static string RaceSetupOverlayWindow_SuccessText => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_SuccessText))!;
+        public static string RaceSetupOverlayWindow_SuccessOkButton => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_SuccessOkButton))!;
+        public static string RaceSetupOverlayWindow_ContinueManuallyButton => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ContinueManuallyButton))!;
+        public static string RaceSetupOverlayWindow_ManualSetupTitle => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ManualSetupTitle))!;
+        public static string RaceSetupOverlayWindow_PreQualiSessionTitle => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_PreQualiSessionTitle))!;
+        public static string RaceSetupOverlayWindow_ManualInstructionsOkButton => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ManualInstructionsOkButton))!;
+        public static string RaceSetupOverlayWindow_ManualStep1_Format => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ManualStep1_Format))!;
+        public static string RaceSetupOverlayWindow_ManualStep2_Format => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ManualStep2_Format))!;
+        public static string RaceSetupOverlayWindow_ManualStep3_UsesScalars => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ManualStep3_UsesScalars))!;
+        public static string RaceSetupOverlayWindow_ManualStep3_Format => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ManualStep3_Format))!;
+        public static string RaceSetupOverlayWindow_ManualStep4_PreQuali => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ManualStep4_PreQuali))!;
+        public static string RaceSetupOverlayWindow_ManualStep4_Normal => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ManualStep4_Normal))!;
+
+        public static string Ams2RaceLaunchAssistant_ProcessLost => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_ProcessLost))!;
+        public static string Ams2RaceLaunchAssistant_RaceNotFound => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_RaceNotFound))!;
+        public static string Ams2RaceLaunchAssistant_TrackNotConfigured_Format => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_TrackNotConfigured_Format))!;
+        public static string Ams2RaceLaunchAssistant_TrackNotInCatalog_Format => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_TrackNotInCatalog_Format))!;
+        public static string Ams2RaceLaunchAssistant_CarSelectionFailed => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_CarSelectionFailed))!;
+        public static string Ams2RaceLaunchAssistant_CarNotInCatalog_Format => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_CarNotInCatalog_Format))!;
+        public static string Ams2RaceLaunchAssistant_AttachFailed => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_AttachFailed))!;
+        public static string Ams2RaceLaunchAssistant_ApplyFailed => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_ApplyFailed))!;
+
+        public static string Ams2PlayerCosmeticsEditorWindow_Title => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_Title))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_Header => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_Header))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_PlayerNameLabel => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_PlayerNameLabel))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_NationalityLabel => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_NationalityLabel))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_NationalityHelp => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_NationalityHelp))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_PhotoFileLabel => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_PhotoFileLabel))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_PhotoFileHelp => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_PhotoFileHelp))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_BrowseButton => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_BrowseButton))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_PhotoUrlLabel => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_PhotoUrlLabel))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_PhotoUrlHelp => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_PhotoUrlHelp))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_HelmetDesignLabel => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_HelmetDesignLabel))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_ModernTab => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_ModernTab))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_NinetiesTab => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_NinetiesTab))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_EightiesTab => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_EightiesTab))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_SeventiesTab => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_SeventiesTab))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_UseDefaultHelmetOption => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_UseDefaultHelmetOption))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_UseCustomFilesOption => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_UseCustomFilesOption))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_VisorFileLabel => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_VisorFileLabel))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_NinetiesNoVisorNote => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_NinetiesNoVisorNote))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_CancelButton => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_CancelButton))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_SaveButton => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_SaveButton))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_SelectPhotoTitle => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_SelectPhotoTitle))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_ImageFileFilter => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_ImageFileFilter))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_SelectHelmetTextureTitle => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_SelectHelmetTextureTitle))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_SelectVisorTextureTitle => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_SelectVisorTextureTitle))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_TextureFileFilter => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_TextureFileFilter))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_NameRequired_Message => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_NameRequired_Message))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_ValidationError_Title => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_ValidationError_Title))!;
+        public static string Ams2PlayerCosmeticsEditorWindow_NationalityLength_Message => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_NationalityLength_Message))!;
     }
 }

@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
+using AMS2ChEd.Resources;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
@@ -61,13 +62,13 @@ namespace AMS2ChEd.Views
             int qualifiedCount = Math.Min(_passCount, _results.Count);
             int eliminatedCount = Math.Max(0, _results.Count - _passCount);
 
-            SessionSummaryText.Text =
-                $"{qualifiedCount} driver{(qualifiedCount != 1 ? "s" : "")} qualified  •  " +
-                $"{eliminatedCount} did not pre-qualify";
+            SessionSummaryText.Text = string.Format(
+                qualifiedCount == 1 ? Strings.PreQualiResultsWindow_SessionSummary_Singular : Strings.PreQualiResultsWindow_SessionSummary_Plural,
+                qualifiedCount, eliminatedCount);
 
             FooterText.Text = seasonYear > 0
-                ? $"Official pre-qualifying results — {seasonYear} Formula One World Championship."
-                : "Official pre-qualifying results — Formula One World Championship.";
+                ? string.Format(Strings.PreQualiResultsWindow_Footer_WithYear, seasonYear)
+                : Strings.PreQualiResultsWindow_Footer_NoYear;
 
             // Build display entries
             var entries = new List<PreQualiResultEntry>();
@@ -103,7 +104,7 @@ namespace AMS2ChEd.Views
                         : new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88)),
 
                     // Status badge
-                    StatusText = qualified ? "QUALIFIED" : "DNPQ",
+                    StatusText = qualified ? Strings.PreQualiResultsWindow_StatusQualified : Strings.PreQualiResultsWindow_StatusDnpq,
 
                     StatusBackground = qualified
                         ? new SolidColorBrush(Color.FromRgb(0xFF, 0xD7, 0x00)) // gold

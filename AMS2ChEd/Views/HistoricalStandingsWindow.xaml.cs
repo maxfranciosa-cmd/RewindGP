@@ -1,5 +1,6 @@
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Resources;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -57,7 +58,7 @@ namespace AMS2ChEd.Views
                 // No historical data available
                 var noDataText = new TextBlock
                 {
-                    Text = "No historical standings data available",
+                    Text = Strings.HistoricalStandingsWindow_NoDataMessage,
                     FontSize = 14,
                     Foreground = new SolidColorBrush(Colors.Gray),
                     Margin = new Thickness(5)

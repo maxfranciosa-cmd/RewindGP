@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Models;
+using AMS2ChEd.Resources;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -91,8 +92,8 @@ namespace AMS2ChEd.Dialogs
 
                     // Step 2 — wait for user to confirm download
                     var confirmed = MessageBox.Show(
-                        $"Please download {row.Item.DisplayName} from the browser window that just opened.\n\nClick OK when you have downloaded the file.",
-                        "Download Season Pack",
+                        string.Format(Strings.SeasonCatalogDialog_DownloadPrompt_Message, row.Item.DisplayName),
+                        Strings.SeasonCatalogDialog_DownloadPrompt_Title,
                         MessageBoxButton.OKCancel,
                         MessageBoxImage.Information);
 
@@ -101,15 +102,15 @@ namespace AMS2ChEd.Dialogs
                     // Step 3 — locate file
                     var fileDialog = new OpenFileDialog
                     {
-                        Title = $"Locate the downloaded file for {row.Item.DisplayName}",
-                        Filter = $"Season pack files (*{_seasonPackInstaller.PackFileExtension})|*{_seasonPackInstaller.PackFileExtension}|All files (*.*)|*.*",
+                        Title = string.Format(Strings.SeasonCatalogDialog_LocateFile_Title, row.Item.DisplayName),
+                        Filter = string.Format(Strings.SeasonCatalogDialog_FileFilter_Format, _seasonPackInstaller.PackFileExtension),
                         CheckFileExists = true
                     };
 
                     if (fileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) continue;
 
                     // Step 4 — install
-                    StatusLabel.Text = $"INSTALLING {row.Item.DisplayName}...";
+                    StatusLabel.Text = string.Format(Strings.SeasonCatalogDialog_Installing_Format, row.Item.DisplayName);
                     await Task.Run(() => _seasonPackInstaller.InstallSeasonMod(fileDialog.FileName));
                     
                     AnyDownloaded = true;
@@ -122,8 +123,8 @@ namespace AMS2ChEd.Dialogs
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    $"Installation failed:\n\n{ex.Message}",
-                    "Install Error",
+                    string.Format(Strings.SeasonCatalogDialog_InstallError_Message, ex.Message),
+                    Strings.SeasonCatalogDialog_InstallError_Title,
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }

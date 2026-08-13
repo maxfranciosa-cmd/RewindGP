@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Resources;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -20,7 +21,7 @@ namespace AMS2ChEd
             // Set season year in header
             if (saveGame?.CurrentSeason != null)
             {
-                SeasonYearText.Text = $"{saveGame.CurrentSeason.Year} Season";
+                SeasonYearText.Text = string.Format(Strings.DriverStandingsGridWindow_SeasonYear_Format, saveGame.CurrentSeason.Year);
             }
 
             PopulateGrid(saveGame);
@@ -110,7 +111,7 @@ namespace AMS2ChEd
             }
 
             // Add header cells
-            AddHeaderCell("DRIVER", 0, 0);
+            AddHeaderCell(Strings.DriverStandingsGridWindow_DriverColumnHeader, 0, 0);
 
             for (int i = 0; i < allRaces.Count; i++)
             {

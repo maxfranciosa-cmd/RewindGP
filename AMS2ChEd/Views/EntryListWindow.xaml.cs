@@ -7,6 +7,7 @@ using AMS2ChEd.Business.Services.Mocks;
 using AMS2ChEd.Business.Settings.Contracts;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
+using AMS2ChEd.Resources;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -68,16 +69,16 @@ namespace AMS2ChEd.Views
             bool isPreQuali = saveGame.PreQualiStatus == PreQualiStatus.Pending;
 
             EntryListTitleText.Text = isPreQuali
-                ? "PRE-QUALIFYING ENTRY LIST"
-                : "OFFICIAL ENTRY LIST";
+                ? Strings.EntryListWindow_PreQualiTitle
+                : Strings.EntryListWindow_OfficialTitle;
 
             PreQualiBanner.Visibility = isPreQuali
                 ? Visibility.Visible
                 : Visibility.Collapsed;
 
             ContinueButton.Content = isPreQuali
-                ? "PROCEED TO PRE-QUALIFYING"
-                : "CONTINUE TO RACE WEEKEND";
+                ? Strings.EntryListWindow_PreQualiContinueButton
+                : Strings.EntryListWindow_OfficialContinueButton;
 
             // Set Grand Prix name and load race poster
             if (saveGame.NextGpIndex < saveGame.CurrentSeason.Races.Count())
@@ -90,12 +91,12 @@ namespace AMS2ChEd.Views
                 RacePosterImage.LoadPhoto(nextRace.CoverPictureUrl);
 
                 FooterText.Text = isPreQuali
-                                    ? $"Pre-qualifying entry list for the {saveGame.CurrentSeason.Year} {nextRace.RaceName}."
-                                    : $"This document is the official entry list for the {saveGame.CurrentSeason.Year} season.";
+                                    ? string.Format(Strings.EntryListWindow_PreQualiFooter_Format, saveGame.CurrentSeason.Year, nextRace.RaceName)
+                                    : string.Format(Strings.EntryListWindow_OfficialFooter_Format, saveGame.CurrentSeason.Year);
             }
 
             // Set footer
-            FooterText.Text = $"This document is the official entry list for the {saveGame.CurrentSeason.Year} season.";
+            FooterText.Text = string.Format(Strings.EntryListWindow_OfficialFooter_Format, saveGame.CurrentSeason.Year);
 
             // Build entry display list
             var displayList = new List<EntryDisplay>();
@@ -168,7 +169,7 @@ namespace AMS2ChEd.Views
             var teamEntry = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
             var team = teamsCache.ContainsKey(teamId) ? teamsCache[teamId] : null;
 
-            var teamName = teamEntry?.TeamName ?? team?.TeamName ?? "Unknown Team";
+            var teamName = teamEntry?.TeamName ?? team?.TeamName ?? Strings.EntryListWindow_UnknownTeam;
             return teamName;
         }
 
@@ -188,7 +189,7 @@ namespace AMS2ChEd.Views
             if (playerParticipating)
             {
                 // REAL RACE - Apply liveries and run actual race
-                var loadingWindow = new ProgressWindow("Applying liveries and Custom AI...");
+                var loadingWindow = new ProgressWindow(Strings.EntryListWindow_ApplyingLiveries_Message);
                 loadingWindow.Show();
 
                 try
@@ -197,7 +198,7 @@ namespace AMS2ChEd.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error applying liveries: {ex.Message}", "Error",
+                    MessageBox.Show(string.Format(Strings.EntryListWindow_ApplyLiveriesError_Message, ex.Message), Strings.EntryListWindow_GenericError_Title,
                         MessageBoxButton.OK, MessageBoxImage.Error);
                     loadingWindow.Close();
                     return;
@@ -211,7 +212,7 @@ namespace AMS2ChEd.Views
                     bool optionDialogResult;
                     do
                     {
-                        MessageBox.Show($"Please indicate your in-game driver name (usually your online/steam name)", "Add Driver Name",
+                        MessageBox.Show(Strings.EntryListWindow_AddDriverName_Message, Strings.EntryListWindow_AddDriverName_Title,
                             MessageBoxButton.OK, MessageBoxImage.Information);
                         optionDialogResult = _settingsStorage.ShowEditor(this);
                     } while (!optionDialogResult);
@@ -275,7 +276,7 @@ namespace AMS2ChEd.Views
         private async Task<List<ParticipantData>> RunPlayerDrivenPreQuali()
         {
             // Apply liveries for pool drivers only.
-            var loadingWindow = new ProgressWindow("Applying Pre-Qualifying liveries and Custom AI...");
+            var loadingWindow = new ProgressWindow(Strings.EntryListWindow_ApplyingPreQualiLiveries_Message);
             loadingWindow.Show();
 
             var raceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId;
@@ -289,7 +290,7 @@ namespace AMS2ChEd.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error applying liveries: {ex.Message}", "Error",
+                MessageBox.Show(string.Format(Strings.EntryListWindow_ApplyLiveriesError_Message, ex.Message), Strings.EntryListWindow_GenericError_Title,
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 loadingWindow.Close();
                 return RunSimulatedPreQuali();
@@ -518,10 +519,8 @@ namespace AMS2ChEd.Views
             {
                 var raceName = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceName;
                 MessageBox.Show(
-                    $"You did not pre-qualify for the {raceName}.\n\n" +
-                    "Your result has been recorded as Did Not Qualify (DNQ). " +
-                    "The race weekend will be simulated without you.",
-                    "Did Not Qualify",
+                    string.Format(Strings.EntryListWindow_DidNotPreQualify_Message, raceName),
+                    Strings.EntryListWindow_DidNotPreQualify_Title,
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }

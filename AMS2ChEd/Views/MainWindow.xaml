@@ -1,7 +1,8 @@
 ﻿<Window x:Class="AMS2ChEd.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Welcome - Rewind GP" 
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        Title="{loc:Loc MainWindow_Title}"
         Height="950" Width="1000"
         WindowStartupLocation="CenterScreen"
         Background="#1a1a1a">
@@ -191,39 +192,39 @@
             <Grid Grid.Column="0">
                 <!-- Main Menu Panel -->
                 <StackPanel x:Name="MainMenuPanel" Visibility="Visible">
-                    <Button x:Name="NewGameButton" 
-                            Content="NEW GAME - CUSTOM DRIVER" 
+                    <Button x:Name="NewGameButton"
+                            Content="{loc:Loc MainWindow_NewGameButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Click="NewGameButton_Click"/>
 
-                    <Button x:Name="NewGameReplaceDriverButton" 
-                            Content="NEW GAME - EXISTING DRIVER" 
+                    <Button x:Name="NewGameReplaceDriverButton"
+                            Content="{loc:Loc MainWindow_NewGameReplaceDriverButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Click="NewGameReplaceDriverButton_Click"/>
 
-                    <Button x:Name="NewGameScenarioModeButton" 
-                            Content="NEW GAME - SCENARIO" 
+                    <Button x:Name="NewGameScenarioModeButton"
+                            Content="{loc:Loc MainWindow_NewGameScenarioModeButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Click="NewGameScenarioModeButton_Click"/>
 
-                    <Button x:Name="LoadGameButton" 
-                            Content="LOAD GAME" 
+                    <Button x:Name="LoadGameButton"
+                            Content="{loc:Loc MainWindow_LoadGameButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Click="LoadGameButton_Click"/>
 
-                    <Button x:Name="OptionsButton" 
-                            Content="OPTIONS" 
+                    <Button x:Name="OptionsButton"
+                            Content="{loc:Loc MainWindow_OptionsButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Click="OptionsButton_Click"/>
 
                     <Button x:Name="InstallSeasonModButto"
-                            Content="INSTALL SEASON"
+                            Content="{loc:Loc MainWindow_InstallSeasonModButton}"
                             Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=InstallSeasonCommand}"
                             Style="{StaticResource MenuButtonStyle}"
                             />
 
                     <Button x:Name="DeveloperToolsButton"
-                            Content="DEVELOPER TOOLS"
+                            Content="{loc:Loc MainWindow_DeveloperToolsButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Click="DeveloperToolsButton_Click"
                             Visibility="Collapsed"/>
@@ -232,41 +233,41 @@
 
                 <!-- Developer Tools Panel -->
                 <StackPanel x:Name="DeveloperToolsPanel" Visibility="Collapsed">
-                    <Label Content="SELECT SEASON:" Style="{StaticResource LabelStyle}"/>
+                    <Label Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource LabelStyle}"/>
                     <ComboBox x:Name="DevSeasonComboBox"
                               Style="{StaticResource ComboBoxStyle}"
                               SelectionChanged="DevSeasonComboBox_SelectionChanged"/>
 
-                    <Label Content="SELECT RACE:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
+                    <Label Content="{loc:Loc MainWindow_SelectRaceLabel}" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
                     <ComboBox x:Name="DevRaceComboBox"
                               Style="{StaticResource ComboBoxStyle}"/>
 
                     <Button x:Name="DevExportCustomAiButton"
-                            Content="EXPORT CUSTOM AI"
+                            Content="{loc:Loc MainWindow_ExportCustomAiButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Margin="0,20,0,10"
                             Click="DevExportCustomAiButton_Click"/>
 
                     <Button x:Name="DevExportLiveriesButton"
-                            Content="EXPORT LIVERIES"
+                            Content="{loc:Loc MainWindow_ExportLiveriesButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Margin="0,0,0,10"
                             Click="DevExportLiveriesButton_Click"/>
 
-                    <Button Content="BACK"
+                    <Button Content="{loc:Loc MainWindow_BackButton}"
                             Style="{StaticResource SecondaryButtonStyle}"
                             Click="DevToolsBackButton_Click"/>
                 </StackPanel>
 
                 <!-- New Game Panel -->
                 <StackPanel x:Name="NewGamePanel" Visibility="Collapsed">
-                    <Label Content="SELECT SEASON:" Style="{StaticResource LabelStyle}"/>
-                    <ComboBox x:Name="SeasonComboBox" 
+                    <Label x:Name="SelectSeasonLabel" Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource LabelStyle}"/>
+                    <ComboBox x:Name="SeasonComboBox"
                               Style="{StaticResource ComboBoxStyle}"
                               SelectionChanged="SeasonComboBox_SelectionChanged"/>
 
                     <StackPanel x:Name="CustomDriverPanel" Visibility="Collapsed">
-                        <Label Content="DRIVER NAME:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
+                        <Label Content="{loc:Loc MainWindow_DriverNameLabel}" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
                         <TextBox x:Name="DriverNameTextBox" Style="{StaticResource TextBoxStyle}"/>
 
                         <!-- Compact Row: Nationality, Age, Favourite Numbers -->
@@ -276,44 +277,44 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            
+
                             <!-- Nationality -->
                             <StackPanel Grid.Column="0" Margin="0,0,5,0">
-                                <Label Content="NATIONALITY:" Style="{StaticResource LabelStyle}"/>
-                                <TextBox x:Name="NationalityTextBox" 
+                                <Label Content="{loc:Loc MainWindow_NationalityLabel}" Style="{StaticResource LabelStyle}"/>
+                                <TextBox x:Name="NationalityTextBox"
                                          Style="{StaticResource TextBoxStyle}"
                                          MaxLength="3"
                                          Margin="0"
                                          LostFocus="NationalityTextBox_LostFocus"/>
                             </StackPanel>
-                            
+
                             <!-- Driver Age -->
                             <StackPanel Grid.Column="1" Margin="5,0,5,0">
-                                <Label Content="AGE:" Style="{StaticResource LabelStyle}"/>
-                                <TextBox x:Name="DriverAgeTextBox" 
+                                <Label Content="{loc:Loc MainWindow_AgeLabel}" Style="{StaticResource LabelStyle}"/>
+                                <TextBox x:Name="DriverAgeTextBox"
                                          Style="{StaticResource TextBoxStyle}"
                                          Margin="0"
                                          PreviewTextInput="DriverAgeTextBox_PreviewTextInput"
                                          TextChanged="DriverAgeTextBox_TextChanged"/>
                             </StackPanel>
-                            
+
                             <!-- Favourite Numbers -->
                             <StackPanel Grid.Column="2" Margin="5,0,0,0">
-                                <Label Content="FAV. NUMBERS:" Style="{StaticResource LabelStyle}"/>
-                                <TextBox x:Name="FavouriteNumbersTextBox" 
+                                <Label Content="{loc:Loc MainWindow_FavouriteNumbersLabel}" Style="{StaticResource LabelStyle}"/>
+                                <TextBox x:Name="FavouriteNumbersTextBox"
                                          Style="{StaticResource TextBoxStyle}"
                                          Margin="0"
-                                         ToolTip="Enter up to 3 numbers separated by commas (e.g., 7, 13, 44)"/>
+                                         ToolTip="{loc:Loc MainWindow_FavouriteNumbersToolTip}"/>
                             </StackPanel>
                         </Grid>
 
-                        <Label Content="REPUTATION:" Style="{StaticResource LabelStyle}"/>
-                        <ComboBox x:Name="ReputationComboBox" 
+                        <Label Content="{loc:Loc MainWindow_ReputationLabel}" Style="{StaticResource LabelStyle}"/>
+                        <ComboBox x:Name="ReputationComboBox"
                               Style="{StaticResource ComboBoxStyle}"
                               SelectionChanged="ReputationComboBox_SelectionChanged" />
 
                         <!-- Helmet Selection -->
-                        <Label x:Name="HelmetSelectionLabel" Content="HELMET DESIGN:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
+                        <Label x:Name="HelmetSelectionLabel" Content="{loc:Loc MainWindow_HelmetDesignLabel}" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
                         <Border x:Name="HelmetSelectionBorder"
                                 Background="#1a1a1a"
                                 BorderBrush="#555555"
@@ -368,30 +369,30 @@
                             </ScrollViewer>
                         </Border>
 
-                        <Button x:Name="CreateGameButton" 
-                            Content="CREATE GAME" 
+                        <Button x:Name="CreateGameButton"
+                            Content="{loc:Loc MainWindow_CreateGameButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Margin="0,20,0,10"
                             Click="CreateGameButton_Click"/>
                     </StackPanel>
 
                     <StackPanel x:Name="ReplaceDriverPanel" Visibility="Collapsed">
-                        <Button x:Name="CreateGameReplaceDriverButton" 
-                            Content="CREATE GAME" 
+                        <Button x:Name="CreateGameReplaceDriverButton"
+                            Content="{loc:Loc MainWindow_CreateGameButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Margin="0,20,0,10"
                             Click="CreateGameReplaceDriverButton_Click" />
                     </StackPanel>
 
                     <StackPanel x:Name="ScenarioPanel" Visibility="Collapsed">
- 
-                        <Label Content="SELECT SCENARIO:" Style="{StaticResource LabelStyle}"/>
-                        <ComboBox x:Name="ScenarioComboBox" 
+
+                        <Label Content="{loc:Loc MainWindow_SelectScenarioLabel}" Style="{StaticResource LabelStyle}"/>
+                        <ComboBox x:Name="ScenarioComboBox"
                                   Style="{StaticResource ComboBoxStyle}"
                                   SelectionChanged="ScenarioComboBox_SelectionChanged"/>
 
-                        <Button x:Name="CreateGameScenarioButton" 
-                            Content="START SCENARIO" 
+                        <Button x:Name="CreateGameScenarioButton"
+                            Content="{loc:Loc MainWindow_StartScenarioButton}"
                             Style="{StaticResource MenuButtonStyle}"
                             Margin="0,20,0,10"
                             Click="CreateGameScenarioButton_Click"
@@ -400,7 +401,7 @@
 
                     </StackPanel>
 
-                    <Button Content="BACK" 
+                    <Button Content="{loc:Loc MainWindow_BackButton}"
                             Style="{StaticResource SecondaryButtonStyle}"
                             Click="BackButton_Click"/>
                 </StackPanel>

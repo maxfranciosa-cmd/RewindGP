@@ -1,4 +1,5 @@
 using AMS2ChEd.Business.Updater.Models;
+using AMS2ChEd.Resources;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -43,8 +44,8 @@ namespace AMS2ChEd.Dialogs
         {
             var dialog = new OpenFileDialog
             {
-                Title = "Locate the downloaded Rewind GP ZIP file",
-                Filter = "ZIP files (*.zip)|*.zip|All files (*.*)|*.*",
+                Title = Strings.UpdateAvailableDialog_LocateFileTitle,
+                Filter = Strings.UpdateAvailableDialog_FileFilter,
                 CheckFileExists = true
             };
 

@@ -1,3 +1,4 @@
+using AMS2ChEd.Resources;
 using System.Windows;
 
 namespace AMS2ChEd
@@ -29,12 +30,12 @@ namespace AMS2ChEd
                 BackButton.Visibility = Visibility.Collapsed;
 
                 // Change title to be more generic
-                TitleText.Text = "NO TEAM FOR NEXT SEASON";
+                TitleText.Text = Strings.GenerateAbsenceWindow_NoTeamSeasonTitle;
 
                 // Update content for mid-career scenario
-                IntroText1.Text = "You don't have a team for the next season. You need to step in whenever one of the official drivers is absent.";
-                IntroText2.Text = "You need to seize every single opportunity you get in order to prove your worth and secure a seat for the following season.";
-                IntroText3.Text = "However, drivers might go a full season without any absences, so your opportunities may be limited or non-existent.";
+                IntroText1.Text = Strings.GenerateAbsenceWindow_NoTeamSeason_Intro1;
+                IntroText2.Text = Strings.GenerateAbsenceWindow_SeekOpportunity_Intro2;
+                IntroText3.Text = Strings.GenerateAbsenceWindow_Intro3;
 
                 return;
             }
@@ -49,12 +50,12 @@ namespace AMS2ChEd
                 BackButton.Visibility = Visibility.Collapsed;
 
                 // Change title to be more generic
-                TitleText.Text = "NO TEAM FOR NEXT RACE";
+                TitleText.Text = Strings.GenerateAbsenceWindow_NoTeamRaceTitle;
 
                 // Update content for mid-career scenario
-                IntroText1.Text = "You don't have a team for the next race. the following race will be simulated.";
-                IntroText2.Text = "You need to seize every single opportunity you get in order to prove your worth and secure a seat for the following season.";
-                IntroText3.Text = "However, drivers might go a full season without any absences, so your opportunities may be limited or non-existent.";
+                IntroText1.Text = Strings.GenerateAbsenceWindow_NoTeamRace_Intro1;
+                IntroText2.Text = Strings.GenerateAbsenceWindow_SeekOpportunity_Intro2;
+                IntroText3.Text = Strings.GenerateAbsenceWindow_Intro3;
 
                 return;
             }

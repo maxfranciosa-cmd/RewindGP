@@ -5,6 +5,7 @@ using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Services.Mocks;
 using AMS2ChEd.Business.Services.RaceNumberSystem.Factory;
+using AMS2ChEd.Resources;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -189,8 +190,8 @@ namespace AMS2ChEd.Views
 
             if (preQualiMode)
             {
-                SessionLabelText.Text = "PRE-QUALIFYING:";
-                SessionText.Text = "QUALIFYING SESSION";
+                SessionLabelText.Text = Strings.RaceWeekendWindow_PreQualiSessionLabel;
+                SessionText.Text = Strings.RaceWeekendWindow_PreQualiSessionName;
             }
         }
 
@@ -563,7 +564,7 @@ namespace AMS2ChEd.Views
             {
                 var nextRace = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
                 _originalGrandPrixName = nextRace.RaceName;
-                _originalCircuitName = nextRace.Circuit ?? "CIRCUIT";
+                _originalCircuitName = nextRace.Circuit ?? Strings.RaceWeekendWindow_DefaultCircuitName;
 
                 UpdateRaceHeaders();
             }
@@ -596,8 +597,8 @@ namespace AMS2ChEd.Views
 
             // Update "CURRENT SESSION: " label text
             SessionLabelText.Text = (_currentStyle == GraphicsStyle.Mid2000s || _currentStyle == GraphicsStyle.Twenties2010s || _currentStyle == GraphicsStyle.Twenties2020s)
-                ? "Current Session: "
-                : "CURRENT SESSION: ";
+                ? Strings.RaceWeekendWindow_SessionLabel_Modern
+                : Strings.RaceWeekendWindow_SessionLabel_Classic;
 
             // Check if we have valid data
             bool hasData = sessionData.Standings != null && sessionData.Standings.Any();
@@ -910,20 +911,20 @@ namespace AMS2ChEd.Views
             {
                 return sessionType switch
                 {
-                    SessionType.Practice => "Practice",
-                    SessionType.Qualification => "Qualification",
-                    SessionType.Race => "Race",
-                    _ => "Unknown Session"
+                    SessionType.Practice => Strings.RaceWeekendWindow_Session_Practice_Modern,
+                    SessionType.Qualification => Strings.RaceWeekendWindow_Session_Qualification_Modern,
+                    SessionType.Race => Strings.RaceWeekendWindow_Session_Race_Modern,
+                    _ => Strings.RaceWeekendWindow_Session_Unknown_Modern
                 };
             }
             else
             {
                 return sessionType switch
                 {
-                    SessionType.Practice => "PRACTICE",
-                    SessionType.Qualification => "QUALIFICATION",
-                    SessionType.Race => "RACE",
-                    _ => "UNKNOWN SESSION"
+                    SessionType.Practice => Strings.RaceWeekendWindow_Session_Practice_Classic,
+                    SessionType.Qualification => Strings.RaceWeekendWindow_Session_Qualification_Classic,
+                    SessionType.Race => Strings.RaceWeekendWindow_Session_Race_Classic,
+                    _ => Strings.RaceWeekendWindow_Session_Unknown_Classic
                 };
             }
         }
@@ -934,7 +935,7 @@ namespace AMS2ChEd.Views
 
             if (currentSession.IsSessionActive)
             {
-                MessageBox.Show("Please finish the current session first!", "Info",
+                MessageBox.Show(Strings.RaceWeekendWindow_FinishSessionFirst_Message, Strings.RaceWeekendWindow_Info_Title,
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -942,7 +943,7 @@ namespace AMS2ChEd.Views
             // For user controlled mock service, the control window handles session progression
             if (_raceDataService is MockUserControlledRaceDataService)
             {
-                MessageBox.Show("Use the Race Control window to advance sessions.", "Info",
+                MessageBox.Show(Strings.RaceWeekendWindow_UseControlWindow_Message, Strings.RaceWeekendWindow_Info_Title,
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }

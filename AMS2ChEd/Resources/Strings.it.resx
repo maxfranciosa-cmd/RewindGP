@@ -64,4 +64,996 @@
   <data name="ProgressWindow_DefaultMessage" xml:space="preserve">
     <value>Elaborazione in corso...</value>
   </data>
+
+  <!-- MainWindow -->
+  <data name="MainWindow_Title" xml:space="preserve">
+    <value>Benvenuto - Rewind GP</value>
+  </data>
+  <data name="MainWindow_NewGameButton" xml:space="preserve">
+    <value>NUOVA PARTITA - PILOTA PERSONALIZZATO</value>
+  </data>
+  <data name="MainWindow_NewGameReplaceDriverButton" xml:space="preserve">
+    <value>NUOVA PARTITA - PILOTA ESISTENTE</value>
+  </data>
+  <data name="MainWindow_NewGameScenarioModeButton" xml:space="preserve">
+    <value>NUOVA PARTITA - SCENARIO</value>
+  </data>
+  <data name="MainWindow_LoadGameButton" xml:space="preserve">
+    <value>CARICA PARTITA</value>
+  </data>
+  <data name="MainWindow_OptionsButton" xml:space="preserve">
+    <value>OPZIONI</value>
+  </data>
+  <data name="MainWindow_InstallSeasonModButton" xml:space="preserve">
+    <value>INSTALLA STAGIONE</value>
+  </data>
+  <data name="MainWindow_DeveloperToolsButton" xml:space="preserve">
+    <value>STRUMENTI SVILUPPATORE</value>
+  </data>
+  <data name="MainWindow_SelectSeasonLabel" xml:space="preserve">
+    <value>SELEZIONA STAGIONE:</value>
+  </data>
+  <data name="MainWindow_SelectRaceLabel" xml:space="preserve">
+    <value>SELEZIONA GARA:</value>
+  </data>
+  <data name="MainWindow_ExportCustomAiButton" xml:space="preserve">
+    <value>ESPORTA IA PERSONALIZZATA</value>
+  </data>
+  <data name="MainWindow_ExportLiveriesButton" xml:space="preserve">
+    <value>ESPORTA LIVREE</value>
+  </data>
+  <data name="MainWindow_BackButton" xml:space="preserve">
+    <value>INDIETRO</value>
+  </data>
+  <data name="MainWindow_DriverNameLabel" xml:space="preserve">
+    <value>NOME PILOTA:</value>
+  </data>
+  <data name="MainWindow_NationalityLabel" xml:space="preserve">
+    <value>NAZIONALITÀ:</value>
+  </data>
+  <data name="MainWindow_AgeLabel" xml:space="preserve">
+    <value>ETÀ:</value>
+  </data>
+  <data name="MainWindow_FavouriteNumbersLabel" xml:space="preserve">
+    <value>NUMERI PREFERITI:</value>
+  </data>
+  <data name="MainWindow_FavouriteNumbersToolTip" xml:space="preserve">
+    <value>Inserisci fino a 3 numeri separati da virgole (es. 7, 13, 44)</value>
+  </data>
+  <data name="MainWindow_ReputationLabel" xml:space="preserve">
+    <value>REPUTAZIONE:</value>
+  </data>
+  <data name="MainWindow_HelmetDesignLabel" xml:space="preserve">
+    <value>DESIGN CASCO:</value>
+  </data>
+  <data name="MainWindow_CreateGameButton" xml:space="preserve">
+    <value>CREA PARTITA</value>
+  </data>
+  <data name="MainWindow_SelectScenarioLabel" xml:space="preserve">
+    <value>SELEZIONA SCENARIO:</value>
+  </data>
+  <data name="MainWindow_StartScenarioButton" xml:space="preserve">
+    <value>AVVIA SCENARIO</value>
+  </data>
+
+  <data name="MainWindow_GenericError_Title" xml:space="preserve">
+    <value>Errore</value>
+  </data>
+  <data name="MainWindow_ValidationError_Title" xml:space="preserve">
+    <value>Errore di Convalida</value>
+  </data>
+  <data name="MainWindow_DeveloperMode_Title" xml:space="preserve">
+    <value>Modalità Sviluppatore</value>
+  </data>
+  <data name="MainWindow_Information_Title" xml:space="preserve">
+    <value>Informazione</value>
+  </data>
+  <data name="MainWindow_ModOutOfDate_Title" xml:space="preserve">
+    <value>Mod non aggiornata</value>
+  </data>
+
+  <data name="MainWindow_NoSeasonsAvailable" xml:space="preserve">
+    <value>Nessuna Stagione Disponibile</value>
+  </data>
+  <data name="MainWindow_ErrorLoadingSeasonsItem" xml:space="preserve">
+    <value>Errore Caricamento Stagioni</value>
+  </data>
+  <data name="MainWindow_LoadSeasonsError_Message" xml:space="preserve">
+    <value>Errore durante il caricamento delle stagioni: {0}</value>
+  </data>
+  <data name="MainWindow_CustomAiExported_Message" xml:space="preserve">
+    <value>IA personalizzata esportata.</value>
+  </data>
+  <data name="MainWindow_ExportCustomAiError_Message" xml:space="preserve">
+    <value>Errore durante l'esportazione dell'IA personalizzata: {0}</value>
+  </data>
+  <data name="MainWindow_LiveriesExported_Message" xml:space="preserve">
+    <value>Livree esportate.</value>
+  </data>
+  <data name="MainWindow_ExportLiveriesError_Message" xml:space="preserve">
+    <value>Errore durante l'esportazione delle livree: {0}</value>
+  </data>
+  <data name="MainWindow_SelectSeasonAndRaceFirst_Message" xml:space="preserve">
+    <value>Seleziona prima una stagione e una gara.</value>
+  </data>
+  <data name="MainWindow_LoadGame_DialogTitle" xml:space="preserve">
+    <value>Seleziona File di Salvataggio</value>
+  </data>
+  <data name="MainWindow_ModOutOfDate_Message" xml:space="preserve">
+    <value>sembra che tu abbia installato una nuova versione di questa stagione. aggiorneremo le valutazioni dei piloti, le livree, i nomi dei team e i nomi dei piloti per la stagione corrente.</value>
+  </data>
+  <data name="MainWindow_LoadGameError_Message" xml:space="preserve">
+    <value>Errore durante il caricamento della partita: {0}</value>
+  </data>
+  <data name="MainWindow_RequiredFieldsMissing_Message" xml:space="preserve">
+    <value>Compila tutti i campi obbligatori!</value>
+  </data>
+  <data name="MainWindow_SeasonNotInstalled_Message" xml:space="preserve">
+    <value>Stagione {0} non installata, impossibile procedere.</value>
+  </data>
+  <data name="MainWindow_PayDriverAgeInvalid_Message" xml:space="preserve">
+    <value>per un pay driver, devi avere almeno 18 e al massimo 42 anni.</value>
+  </data>
+  <data name="MainWindow_CreateGameError_Message" xml:space="preserve">
+    <value>Errore durante la creazione della partita: {0}</value>
+  </data>
+  <data name="MainWindow_LoadScenarioError_Message" xml:space="preserve">
+    <value>Errore durante il caricamento dello scenario da {0}: {1}</value>
+  </data>
+  <data name="MainWindow_NoScenariosAvailable_Message" xml:space="preserve">
+    <value>Nessuno scenario disponibile.</value>
+  </data>
+  <data name="MainWindow_SelectScenarioFirst_Message" xml:space="preserve">
+    <value>Seleziona prima uno scenario.</value>
+  </data>
+  <data name="MainWindow_ScenarioListItem_Format" xml:space="preserve">
+    <value>Stagione {0}: "{1}"</value>
+  </data>
+
+  <!-- MainWindow reputation list -->
+  <data name="MainWindow_Reputation_PayDriverWildCard_Name" xml:space="preserve">
+    <value>Pay Driver - Wild Card</value>
+  </data>
+  <data name="MainWindow_Reputation_PayDriverWildCard_Description" xml:space="preserve">
+    <value>Sei un pay driver, ma senza budget sufficiente per l'intera stagione. Sostituirai i piloti titolari quando non potranno partecipare a una gara. Sarà la tua occasione per dimostrare il tuo talento e, si spera, ottenere un sedile fisso per la stagione successiva.</value>
+  </data>
+  <data name="MainWindow_Reputation_PayDriverSeason_Name" xml:space="preserve">
+    <value>Pay Driver - Stagione Completa</value>
+  </data>
+  <data name="MainWindow_Reputation_PayDriverSeason_Description" xml:space="preserve">
+    <value>Sei un pay driver con budget sufficiente per coprire l'intera stagione. Puoi correre in F1, ma non puoi essere troppo esigente sul team a cui unirti. Dimostra il tuo talento per ottenere un sedile in team migliori.</value>
+  </data>
+  <data name="MainWindow_Reputation_YoungTalent_Name" xml:space="preserve">
+    <value>Giovane Talento</value>
+  </data>
+  <data name="MainWindow_Reputation_YoungTalent_Description" xml:space="preserve">
+    <value>Sei una potenziale giovane stella, ma ancora un diamante grezzo. I team che ti ingaggiano scommettono sul tuo talento naturale, sapendo che potresti commettere qualche errore. I team più grandi non sono ancora pronti a puntare su di te.</value>
+  </data>
+  <data name="MainWindow_Reputation_YoungChampionshipUnproven_Name" xml:space="preserve">
+    <value>Giovane Pilota di Livello Campionato Non Ancora Affermato</value>
+  </data>
+  <data name="MainWindow_Reputation_YoungChampionshipUnproven_Description" xml:space="preserve">
+    <value>Hai dimostrato che, con la macchina giusta, sei in grado di vincere, ma non hai ancora dimostrato di essere un campione.</value>
+  </data>
+  <data name="MainWindow_Reputation_YoungChampionship_Name" xml:space="preserve">
+    <value>Giovane Pilota di Livello Campionato</value>
+  </data>
+  <data name="MainWindow_Reputation_YoungChampionship_Description" xml:space="preserve">
+    <value>Sei un giovane pilota affermato, in grado di lottare per un campionato.</value>
+  </data>
+  <data name="MainWindow_Reputation_PrimeMidfield_Name" xml:space="preserve">
+    <value>Pilota di Centro Gruppo</value>
+  </data>
+  <data name="MainWindow_Reputation_PrimeMidfield_Description" xml:space="preserve">
+    <value>Sei un affidabile pilota di centro gruppo, capace di portare costantemente la vettura al traguardo, senza però mostrare grandi lampi di classe.</value>
+  </data>
+  <data name="MainWindow_Reputation_PrimeStrongMidfield_Name" xml:space="preserve">
+    <value>Pilota di Alto Centro Gruppo</value>
+  </data>
+  <data name="MainWindow_Reputation_PrimeStrongMidfield_Description" xml:space="preserve">
+    <value>Sei un solido pilota di centro gruppo, in grado di lottare costantemente per punti e podi nella situazione giusta. Potresti anche essere in corsa per un posto in un top team (se sono davvero in difficoltà).</value>
+  </data>
+  <data name="MainWindow_Reputation_PrimeChampionshipUnproven_Name" xml:space="preserve">
+    <value>Pilota di Livello Campionato Non Ancora Affermato</value>
+  </data>
+  <data name="MainWindow_Reputation_PrimeChampionshipUnproven_Description" xml:space="preserve">
+    <value>Hai dimostrato di essere in grado di lottare costantemente per la vittoria, ma non sei ancora in lotta per il campionato.</value>
+  </data>
+  <data name="MainWindow_Reputation_PrimeChampionship_Name" xml:space="preserve">
+    <value>Pilota di Livello Campionato</value>
+  </data>
+  <data name="MainWindow_Reputation_PrimeChampionship_Description" xml:space="preserve">
+    <value>Sei un campione affermato che lotta costantemente per i campionati.</value>
+  </data>
+  <data name="MainWindow_Reputation_PrimeChampionshipWashed_Name" xml:space="preserve">
+    <value>Ex Pilota di Livello Campionato in Declino</value>
+  </data>
+  <data name="MainWindow_Reputation_PrimeChampionshipWashed_Description" xml:space="preserve">
+    <value>Sei un ex campione un po' in declino, ma non vedi l'ora di tornare a lottare per il titolo.</value>
+  </data>
+  <data name="MainWindow_Reputation_AgeingMidfield_Name" xml:space="preserve">
+    <value>Pilota Veterano di Centro Gruppo</value>
+  </data>
+  <data name="MainWindow_Reputation_AgeingMidfield_Description" xml:space="preserve">
+    <value>Per un team di centro gruppo sei una scommessa sicura. Un pilota esperto in grado di portare risultati solidi.</value>
+  </data>
+  <data name="MainWindow_Reputation_AgeingStrongMidfield_Name" xml:space="preserve">
+    <value>Pilota Veterano di Alto Centro Gruppo</value>
+  </data>
+  <data name="MainWindow_Reputation_AgeingStrongMidfield_Description" xml:space="preserve">
+    <value>Sei un pilota veterano solido e affidabile, in grado di lottare costantemente per i punti.</value>
+  </data>
+  <data name="MainWindow_Reputation_AgeingChampionship_Name" xml:space="preserve">
+    <value>Pilota Veterano di Livello Campionato</value>
+  </data>
+  <data name="MainWindow_Reputation_AgeingChampionship_Description" xml:space="preserve">
+    <value>Sei un pilota esperto ancora in grado di lottare per il titolo.</value>
+  </data>
+  <data name="MainWindow_Reputation_AgeingChampionshipWashed_Name" xml:space="preserve">
+    <value>Pilota Veterano di Livello Campionato in Declino</value>
+  </data>
+  <data name="MainWindow_Reputation_AgeingChampionshipWashed_Description" xml:space="preserve">
+    <value>Sei un ex campione caduto in disgrazia, ma sei ancora affamato di successo.</value>
+  </data>
+  <data name="MainWindow_Reputation_JustOneLastDance_Name" xml:space="preserve">
+    <value>Solo Un'Ultima Danza</value>
+  </data>
+  <data name="MainWindow_Reputation_JustOneLastDance_Description" xml:space="preserve">
+    <value>Sei un leggendario ex campione ben oltre il tuo periodo migliore, ma il fuoco brucia ancora. Questa è la tua ultima occasione per aggiungere un altro capitolo a una carriera già leggendaria. I team sanno che sei un rischio, ma il tuo nome ha ancora peso.</value>
+  </data>
+
+  <!-- DriverStandingsGridWindow -->
+  <data name="DriverStandingsGridWindow_Title" xml:space="preserve">
+    <value>Classifica Piloti - Risultati Stagione</value>
+  </data>
+  <data name="DriverStandingsGridWindow_Header" xml:space="preserve">
+    <value>CLASSIFICA PILOTI</value>
+  </data>
+  <data name="DriverStandingsGridWindow_SeasonYear_Format" xml:space="preserve">
+    <value>Stagione {0}</value>
+  </data>
+  <data name="DriverStandingsGridWindow_FooterText" xml:space="preserve">
+    <value>Risultati compilati dai dati di gara</value>
+  </data>
+  <data name="DriverStandingsGridWindow_DriverColumnHeader" xml:space="preserve">
+    <value>PILOTA</value>
+  </data>
+
+  <!-- ConstructorStandingsGridWindow -->
+  <data name="ConstructorStandingsGridWindow_Title" xml:space="preserve">
+    <value>Classifica Costruttori - Risultati Stagione</value>
+  </data>
+  <data name="ConstructorStandingsGridWindow_Header" xml:space="preserve">
+    <value>CLASSIFICA COSTRUTTORI</value>
+  </data>
+  <data name="ConstructorStandingsGridWindow_SeasonYear_Format" xml:space="preserve">
+    <value>Stagione {0}</value>
+  </data>
+  <data name="ConstructorStandingsGridWindow_FooterText" xml:space="preserve">
+    <value>Risultati compilati dai dati di gara</value>
+  </data>
+  <data name="ConstructorStandingsGridWindow_TeamColumnHeader" xml:space="preserve">
+    <value>TEAM</value>
+  </data>
+
+  <!-- HistoricalStandingsWindow -->
+  <data name="HistoricalStandingsWindow_Title" xml:space="preserve">
+    <value>Classifiche Storiche del Campionato</value>
+  </data>
+  <data name="HistoricalStandingsWindow_Header" xml:space="preserve">
+    <value>CLASSIFICHE STORICHE DEL CAMPIONATO</value>
+  </data>
+  <data name="HistoricalStandingsWindow_SelectSeasonLabel" xml:space="preserve">
+    <value>SELEZIONA STAGIONE:</value>
+  </data>
+  <data name="HistoricalStandingsWindow_DriversChampionshipHeader" xml:space="preserve">
+    <value>CAMPIONATO PILOTI</value>
+  </data>
+  <data name="HistoricalStandingsWindow_ConstructorsChampionshipHeader" xml:space="preserve">
+    <value>CAMPIONATO COSTRUTTORI</value>
+  </data>
+  <data name="HistoricalStandingsWindow_NoDataMessage" xml:space="preserve">
+    <value>Nessun dato storico sulle classifiche disponibile</value>
+  </data>
+
+  <!-- MissingDriversResultWindow -->
+  <data name="MissingDriversResultWindow_Title" xml:space="preserve">
+    <value>Piloti Mancanti</value>
+  </data>
+  <data name="MissingDriversResultWindow_Header" xml:space="preserve">
+    <value>INSERIMENTO MANUALE RISULTATI</value>
+  </data>
+  <data name="MissingDriversResultWindow_Description" xml:space="preserve">
+    <value>Le seguenti posizioni non sono state identificate nei dati di gara. Assegna il pilota mancante a ciascuna posizione. Lascia una posizione vuota per saltarla.</value>
+  </data>
+  <data name="MissingDriversResultWindow_MissingQualifyingHeader" xml:space="preserve">
+    <value>POSIZIONI QUALIFICA MANCANTI</value>
+  </data>
+  <data name="MissingDriversResultWindow_MissingRaceHeader" xml:space="preserve">
+    <value>POSIZIONI GARA MANCANTI</value>
+  </data>
+  <data name="MissingDriversResultWindow_DriverColumnHeader" xml:space="preserve">
+    <value>PILOTA</value>
+  </data>
+  <data name="MissingDriversResultWindow_FastestLapColumnHeader" xml:space="preserve">
+    <value>GIRO PIÙ VELOCE</value>
+  </data>
+  <data name="MissingDriversResultWindow_ConfirmButton" xml:space="preserve">
+    <value>CONFERMA RISULTATI</value>
+  </data>
+  <data name="MissingDriversResultWindow_PlayerSuffix" xml:space="preserve">
+    <value>{0} (Tu)</value>
+  </data>
+
+  <!-- PreQualiResultsWindow -->
+  <data name="PreQualiResultsWindow_Title" xml:space="preserve">
+    <value>Risultati Pre-Qualifica</value>
+  </data>
+  <data name="PreQualiResultsWindow_SessionBanner" xml:space="preserve">
+    <value>SESSIONE DI PRE-QUALIFICA</value>
+  </data>
+  <data name="PreQualiResultsWindow_OfficialResultsHeader" xml:space="preserve">
+    <value>RISULTATI UFFICIALI</value>
+  </data>
+  <data name="PreQualiResultsWindow_PositionColumnHeader" xml:space="preserve">
+    <value>P</value>
+  </data>
+  <data name="PreQualiResultsWindow_NumberColumnHeader" xml:space="preserve">
+    <value>N.</value>
+  </data>
+  <data name="PreQualiResultsWindow_DriverColumnHeader" xml:space="preserve">
+    <value>PILOTA</value>
+  </data>
+  <data name="PreQualiResultsWindow_TeamColumnHeader" xml:space="preserve">
+    <value>TEAM</value>
+  </data>
+  <data name="PreQualiResultsWindow_BestLapColumnHeader" xml:space="preserve">
+    <value>MIGLIOR GIRO</value>
+  </data>
+  <data name="PreQualiResultsWindow_StatusColumnHeader" xml:space="preserve">
+    <value>STATO</value>
+  </data>
+  <data name="PreQualiResultsWindow_DidNotPreQualifyBanner" xml:space="preserve">
+    <value>NON PRE-QUALIFICATO</value>
+  </data>
+  <data name="PreQualiResultsWindow_ContinueButton" xml:space="preserve">
+    <value>CONTINUA ALL'ELENCO ISCRITTI</value>
+  </data>
+  <data name="PreQualiResultsWindow_SessionSummary_Singular" xml:space="preserve">
+    <value>{0} pilota qualificato  •  {1} non pre-qualificati</value>
+  </data>
+  <data name="PreQualiResultsWindow_SessionSummary_Plural" xml:space="preserve">
+    <value>{0} piloti qualificati  •  {1} non pre-qualificati</value>
+  </data>
+  <data name="PreQualiResultsWindow_Footer_WithYear" xml:space="preserve">
+    <value>Risultati ufficiali di pre-qualifica — Campionato del Mondo di Formula Uno {0}.</value>
+  </data>
+  <data name="PreQualiResultsWindow_Footer_NoYear" xml:space="preserve">
+    <value>Risultati ufficiali di pre-qualifica — Campionato del Mondo di Formula Uno.</value>
+  </data>
+  <data name="PreQualiResultsWindow_StatusQualified" xml:space="preserve">
+    <value>QUALIFICATO</value>
+  </data>
+  <data name="PreQualiResultsWindow_StatusDnpq" xml:space="preserve">
+    <value>NPQ</value>
+  </data>
+
+  <!-- SeasonOverviewWindow -->
+  <data name="SeasonOverviewWindow_Title" xml:space="preserve">
+    <value>Panoramica Stagione</value>
+  </data>
+  <data name="SeasonOverviewWindow_HistoricalStandingsTooltip" xml:space="preserve">
+    <value>Visualizza le classifiche storiche del campionato delle stagioni precedenti</value>
+  </data>
+  <data name="SeasonOverviewWindow_PlayerHeader" xml:space="preserve">
+    <value>PILOTA</value>
+  </data>
+  <data name="SeasonOverviewWindow_NameLabel" xml:space="preserve">
+    <value>Nome:</value>
+  </data>
+  <data name="SeasonOverviewWindow_TeamLabel" xml:space="preserve">
+    <value>Team:</value>
+  </data>
+  <data name="SeasonOverviewWindow_ReputationLabel" xml:space="preserve">
+    <value>Reputazione:</value>
+  </data>
+  <data name="SeasonOverviewWindow_EditDetailsButton" xml:space="preserve">
+    <value>Modifica Dettagli</value>
+  </data>
+  <data name="SeasonOverviewWindow_NextGrandPrixLabel" xml:space="preserve">
+    <value>PROSSIMO GRAN PREMIO</value>
+  </data>
+  <data name="SeasonOverviewWindow_ProceedButton" xml:space="preserve">
+    <value>PROCEDI</value>
+  </data>
+  <data name="SeasonOverviewWindow_GridViewTooltip" xml:space="preserve">
+    <value>Visualizza la griglia gara per gara</value>
+  </data>
+  <data name="SeasonOverviewWindow_DriverStandingsHeader" xml:space="preserve">
+    <value>CLASSIFICA PILOTI</value>
+  </data>
+  <data name="SeasonOverviewWindow_ConstructorStandingsHeader" xml:space="preserve">
+    <value>CLASSIFICA COSTRUTTORI</value>
+  </data>
+  <data name="SeasonOverviewWindow_SeasonText_Format" xml:space="preserve">
+    <value>Stagione: {0}</value>
+  </data>
+  <data name="SeasonOverviewWindow_RoundInfo_Format" xml:space="preserve">
+    <value>TAPPA {0} - {1}</value>
+  </data>
+  <data name="SeasonOverviewWindow_SeasonComplete" xml:space="preserve">
+    <value>STAGIONE COMPLETATA</value>
+  </data>
+  <data name="SeasonOverviewWindow_NoTeam" xml:space="preserve">
+    <value>Nessun Team</value>
+  </data>
+  <data name="SeasonOverviewWindow_UnknownReputation" xml:space="preserve">
+    <value>Sconosciuta</value>
+  </data>
+  <data name="SeasonOverviewWindow_UnknownDriver" xml:space="preserve">
+    <value>Pilota Sconosciuto</value>
+  </data>
+  <data name="SeasonOverviewWindow_UnknownTeam" xml:space="preserve">
+    <value>Team Sconosciuto</value>
+  </data>
+  <data name="SeasonOverviewWindow_GrandPrixFallback" xml:space="preserve">
+    <value>Gran Premio</value>
+  </data>
+  <data name="SeasonOverviewWindow_PrepareGpError_Message" xml:space="preserve">
+    <value>Errore durante la preparazione del GP: {0}</value>
+  </data>
+  <data name="SeasonOverviewWindow_OffSeasonError_Message" xml:space="preserve">
+    <value>Errore durante il fuori stagione: {0}
+
+{1}</value>
+  </data>
+  <data name="SeasonOverviewWindow_SeasonUnavailable_Message" xml:space="preserve">
+    <value>Stagione {0} non disponibile - riutilizzeremo i team, le livree e i GP attuali come base</value>
+  </data>
+  <data name="SeasonOverviewWindow_GenericError_Title" xml:space="preserve">
+    <value>Errore</value>
+  </data>
+
+  <!-- DriverAccoladesWindow -->
+  <data name="DriverAccoladesWindow_Title" xml:space="preserve">
+    <value>Palmarès Pilota</value>
+  </data>
+  <data name="DriverAccoladesWindow_WinsLabel" xml:space="preserve">
+    <value>VITTORIE</value>
+  </data>
+  <data name="DriverAccoladesWindow_PodiumsLabel" xml:space="preserve">
+    <value>PODI</value>
+  </data>
+  <data name="DriverAccoladesWindow_PolesLabel" xml:space="preserve">
+    <value>POLE</value>
+  </data>
+  <data name="DriverAccoladesWindow_ChampionshipsLabel" xml:space="preserve">
+    <value>CAMPIONATI</value>
+  </data>
+  <data name="DriverAccoladesWindow_PreviousSeasonsLabel" xml:space="preserve">
+    <value>STAGIONI PRECEDENTI</value>
+  </data>
+  <data name="DriverAccoladesWindow_YearColumnHeader" xml:space="preserve">
+    <value>ANNO</value>
+  </data>
+  <data name="DriverAccoladesWindow_PositionColumnHeader" xml:space="preserve">
+    <value>POS</value>
+  </data>
+  <data name="DriverAccoladesWindow_TeamColumnHeader" xml:space="preserve">
+    <value>TEAM</value>
+  </data>
+  <data name="DriverAccoladesWindow_RacesColumnHeader" xml:space="preserve">
+    <value>GARE</value>
+  </data>
+  <data name="DriverAccoladesWindow_WinsColumnHeader" xml:space="preserve">
+    <value>VITTORIE</value>
+  </data>
+  <data name="DriverAccoladesWindow_PodiumsColumnHeader" xml:space="preserve">
+    <value>PODI</value>
+  </data>
+  <data name="DriverAccoladesWindow_PolesColumnHeader" xml:space="preserve">
+    <value>POLE</value>
+  </data>
+  <data name="DriverAccoladesWindow_PointsColumnHeader" xml:space="preserve">
+    <value>PUNTI</value>
+  </data>
+  <data name="DriverAccoladesWindow_AgeText_Format" xml:space="preserve">
+    <value>Età {0}</value>
+  </data>
+
+  <!-- ConstructorAccoladesWindow -->
+  <data name="ConstructorAccoladesWindow_Title" xml:space="preserve">
+    <value>Palmarès Costruttore</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_WinsLabel" xml:space="preserve">
+    <value>VITTORIE</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_PodiumsLabel" xml:space="preserve">
+    <value>PODI</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_PolesLabel" xml:space="preserve">
+    <value>POLE</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_ChampionshipsLabel" xml:space="preserve">
+    <value>CAMPIONATI</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_PreviousSeasonsLabel" xml:space="preserve">
+    <value>STAGIONI PRECEDENTI</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_YearColumnHeader" xml:space="preserve">
+    <value>ANNO</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_PositionColumnHeader" xml:space="preserve">
+    <value>POS</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_PointsColumnHeader" xml:space="preserve">
+    <value>PUNTI</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_WinsColumnHeader" xml:space="preserve">
+    <value>VITTORIE</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_PodiumsColumnHeader" xml:space="preserve">
+    <value>PODI</value>
+  </data>
+  <data name="ConstructorAccoladesWindow_PolesColumnHeader" xml:space="preserve">
+    <value>POLE</value>
+  </data>
+
+  <!-- RaceInstructionsWindow -->
+  <data name="RaceInstructionsWindow_Title" xml:space="preserve">
+    <value>Pay Driver - Wild Card</value>
+  </data>
+  <data name="RaceInstructionsWindow_ReadyHeader" xml:space="preserve">
+    <value>PRONTI VIA!</value>
+  </data>
+  <data name="RaceInstructionsWindow_AutoSaveNote" xml:space="preserve">
+    <value>l'app salverà automaticamente i risultati delle qualifiche e della gara.</value>
+  </data>
+  <data name="RaceInstructionsWindow_OkButton" xml:space="preserve">
+    <value>OK, SONO PRONTO!</value>
+  </data>
+  <data name="RaceInstructionsWindow_Intro1_Format" xml:space="preserve">
+    <value>1) Assicurati di SELEZIONARE LA VETTURA GIUSTA ({0}) E LA LIVREA GIUSTA. avrà il tuo nome pilota sopra! (nel tuo caso {1})</value>
+  </data>
+  <data name="RaceInstructionsWindow_Intro2_Format" xml:space="preserve">
+    <value>2) Seleziona IL NUMERO GIUSTO DI AVVERSARI (nel tuo caso {0})</value>
+  </data>
+  <data name="RaceInstructionsWindow_Intro3_UsesScalars" xml:space="preserve">
+    <value>3) DIFFICOLTÀ CONSIGLIATA: la tua difficoltà abituale (i team dovrebbero avere lo scalar di performance attivo, quindi una vettura lenta sarà effettivamente più lenta)</value>
+  </data>
+  <data name="RaceInstructionsWindow_Intro3_Format" xml:space="preserve">
+    <value>3) DIFFICOLTÀ CONSIGLIATA: +{0} PUNTI (rispetto a una difficoltà in cui lotti per la vittoria)</value>
+  </data>
+  <data name="RaceInstructionsWindow_Intro4" xml:space="preserve">
+    <value>4) non importa il circuito o la durata della gara, ma svolgi almeno UNA SESSIONE DI QUALIFICA e UNA SESSIONE DI GARA.</value>
+  </data>
+  <data name="RaceInstructionsWindow_PreQuali_Title" xml:space="preserve">
+    <value>SESSIONE DI PRE-QUALIFICA</value>
+  </data>
+  <data name="RaceInstructionsWindow_PreQuali_Intro4" xml:space="preserve">
+    <value>4) Svolgi SOLO UNA SESSIONE DI QUALIFICA — non avviare la gara. Rewind GP leggerà automaticamente il tuo risultato di qualifica. Solo i primi 2 piloti avanzeranno al weekend di gara.</value>
+  </data>
+  <data name="RaceInstructionsWindow_PreQuali_OkButton" xml:space="preserve">
+    <value>SONO PRONTO PER LA PRE-QUALIFICA!</value>
+  </data>
+
+  <!-- RaceCalendarSelectionWindow -->
+  <data name="RaceCalendarSelectionWindow_Title" xml:space="preserve">
+    <value>Selezione Calendario</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_Header" xml:space="preserve">
+    <value>SELEZIONE CALENDARIO</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_Subtitle" xml:space="preserve">
+    <value>Seleziona quali gare rimuovere dal calendario</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_RacesSelectedLabel" xml:space="preserve">
+    <value>Gare Selezionate:</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_WarningText" xml:space="preserve">
+    <value>⚠ Deve rimanere almeno una gara nel calendario</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_RoundColumnHeader" xml:space="preserve">
+    <value>TAPPA</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_GrandPrixColumnHeader" xml:space="preserve">
+    <value>GRAN PREMIO</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_CircuitColumnHeader" xml:space="preserve">
+    <value>CIRCUITO</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_DateColumnHeader" xml:space="preserve">
+    <value>DATA</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_IncludeColumnHeader" xml:space="preserve">
+    <value>INCLUDI</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_ConfirmButton" xml:space="preserve">
+    <value>CONFERMA CALENDARIO</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_SeasonText_Format" xml:space="preserve">
+    <value>Stagione {0}</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_InvalidSelection_Message" xml:space="preserve">
+    <value>Deve rimanere almeno una gara nel calendario.</value>
+  </data>
+  <data name="RaceCalendarSelectionWindow_InvalidSelection_Title" xml:space="preserve">
+    <value>Selezione Non Valida</value>
+  </data>
+
+  <!-- EntryListWindow -->
+  <data name="EntryListWindow_Title" xml:space="preserve">
+    <value>Elenco Iscritti Ufficiale</value>
+  </data>
+  <data name="EntryListWindow_PreQualiBanner" xml:space="preserve">
+    <value>SESSIONE DI PRE-QUALIFICA</value>
+  </data>
+  <data name="EntryListWindow_NumberColumnHeader" xml:space="preserve">
+    <value>N.</value>
+  </data>
+  <data name="EntryListWindow_DriverColumnHeader" xml:space="preserve">
+    <value>PILOTA</value>
+  </data>
+  <data name="EntryListWindow_NationalityColumnHeader" xml:space="preserve">
+    <value>NAZ.</value>
+  </data>
+  <data name="EntryListWindow_TeamColumnHeader" xml:space="preserve">
+    <value>TEAM</value>
+  </data>
+  <data name="EntryListWindow_OfficialTitle" xml:space="preserve">
+    <value>ELENCO ISCRITTI UFFICIALE</value>
+  </data>
+  <data name="EntryListWindow_PreQualiTitle" xml:space="preserve">
+    <value>ELENCO ISCRITTI PRE-QUALIFICA</value>
+  </data>
+  <data name="EntryListWindow_OfficialContinueButton" xml:space="preserve">
+    <value>CONTINUA AL WEEKEND DI GARA</value>
+  </data>
+  <data name="EntryListWindow_PreQualiContinueButton" xml:space="preserve">
+    <value>PROCEDI ALLA PRE-QUALIFICA</value>
+  </data>
+  <data name="EntryListWindow_PreQualiFooter_Format" xml:space="preserve">
+    <value>Elenco iscritti pre-qualifica per il {0} {1}.</value>
+  </data>
+  <data name="EntryListWindow_OfficialFooter_Format" xml:space="preserve">
+    <value>Questo documento è l'elenco iscritti ufficiale per la stagione {0}.</value>
+  </data>
+  <data name="EntryListWindow_UnknownTeam" xml:space="preserve">
+    <value>Team Sconosciuto</value>
+  </data>
+  <data name="EntryListWindow_ApplyingLiveries_Message" xml:space="preserve">
+    <value>Applicazione di livree e IA personalizzata in corso...</value>
+  </data>
+  <data name="EntryListWindow_ApplyingPreQualiLiveries_Message" xml:space="preserve">
+    <value>Applicazione di livree e IA personalizzata per la pre-qualifica in corso...</value>
+  </data>
+  <data name="EntryListWindow_ApplyLiveriesError_Message" xml:space="preserve">
+    <value>Errore durante l'applicazione delle livree: {0}</value>
+  </data>
+  <data name="EntryListWindow_GenericError_Title" xml:space="preserve">
+    <value>Errore</value>
+  </data>
+  <data name="EntryListWindow_AddDriverName_Message" xml:space="preserve">
+    <value>Indica il tuo nome pilota in-game (di solito il tuo nome utente online/Steam)</value>
+  </data>
+  <data name="EntryListWindow_AddDriverName_Title" xml:space="preserve">
+    <value>Aggiungi Nome Pilota</value>
+  </data>
+  <data name="EntryListWindow_DidNotPreQualify_Message" xml:space="preserve">
+    <value>Non ti sei pre-qualificato per il {0}.
+
+Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di gara verrà simulato senza di te.</value>
+  </data>
+  <data name="EntryListWindow_DidNotPreQualify_Title" xml:space="preserve">
+    <value>Non Qualificato</value>
+  </data>
+
+  <!-- RaceWeekendWindow -->
+  <data name="RaceWeekendWindow_Title" xml:space="preserve">
+    <value>Weekend di Gara</value>
+  </data>
+  <data name="RaceWeekendWindow_WaitingMessage" xml:space="preserve">
+    <value>In Attesa dei Dati dal Simulatore...</value>
+  </data>
+  <data name="RaceWeekendWindow_PositionColumnHeader" xml:space="preserve">
+    <value>P</value>
+  </data>
+  <data name="RaceWeekendWindow_NumberColumnHeader" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="RaceWeekendWindow_NameColumnHeader" xml:space="preserve">
+    <value>NOME</value>
+  </data>
+  <data name="RaceWeekendWindow_NationalityColumnHeader" xml:space="preserve">
+    <value>NAZ</value>
+  </data>
+  <data name="RaceWeekendWindow_TeamColumnHeader" xml:space="preserve">
+    <value>TEAM</value>
+  </data>
+  <data name="RaceWeekendWindow_BestLapColumnHeader" xml:space="preserve">
+    <value>MIGLIOR GIRO</value>
+  </data>
+  <data name="RaceWeekendWindow_EndRaceButton" xml:space="preserve">
+    <value>TERMINA GARA ▶</value>
+  </data>
+  <data name="RaceWeekendWindow_PreQualiSessionLabel" xml:space="preserve">
+    <value>PRE-QUALIFICA:</value>
+  </data>
+  <data name="RaceWeekendWindow_PreQualiSessionName" xml:space="preserve">
+    <value>SESSIONE DI QUALIFICA</value>
+  </data>
+  <data name="RaceWeekendWindow_SessionLabel_Modern" xml:space="preserve">
+    <value>Sessione Attuale: </value>
+  </data>
+  <data name="RaceWeekendWindow_SessionLabel_Classic" xml:space="preserve">
+    <value>SESSIONE ATTUALE: </value>
+  </data>
+  <data name="RaceWeekendWindow_Session_Practice_Modern" xml:space="preserve">
+    <value>Prove Libere</value>
+  </data>
+  <data name="RaceWeekendWindow_Session_Qualification_Modern" xml:space="preserve">
+    <value>Qualifica</value>
+  </data>
+  <data name="RaceWeekendWindow_Session_Race_Modern" xml:space="preserve">
+    <value>Gara</value>
+  </data>
+  <data name="RaceWeekendWindow_Session_Unknown_Modern" xml:space="preserve">
+    <value>Sessione Sconosciuta</value>
+  </data>
+  <data name="RaceWeekendWindow_Session_Practice_Classic" xml:space="preserve">
+    <value>PROVE LIBERE</value>
+  </data>
+  <data name="RaceWeekendWindow_Session_Qualification_Classic" xml:space="preserve">
+    <value>QUALIFICA</value>
+  </data>
+  <data name="RaceWeekendWindow_Session_Race_Classic" xml:space="preserve">
+    <value>GARA</value>
+  </data>
+  <data name="RaceWeekendWindow_Session_Unknown_Classic" xml:space="preserve">
+    <value>SESSIONE SCONOSCIUTA</value>
+  </data>
+  <data name="RaceWeekendWindow_FinishSessionFirst_Message" xml:space="preserve">
+    <value>Termina prima la sessione attuale!</value>
+  </data>
+  <data name="RaceWeekendWindow_Info_Title" xml:space="preserve">
+    <value>Informazioni</value>
+  </data>
+  <data name="RaceWeekendWindow_UseControlWindow_Message" xml:space="preserve">
+    <value>Usa la finestra di controllo gara per avanzare le sessioni.</value>
+  </data>
+  <data name="RaceWeekendWindow_DefaultCircuitName" xml:space="preserve">
+    <value>CIRCUITO</value>
+  </data>
+
+  <!-- GenerateAbsenceWindow -->
+  <data name="GenerateAbsenceWindow_WindowTitle" xml:space="preserve">
+    <value>Pay Driver - Wild Card</value>
+  </data>
+  <data name="GenerateAbsenceWindow_PayDriverTitle" xml:space="preserve">
+    <value>PAY DRIVER - WILD CARD</value>
+  </data>
+  <data name="GenerateAbsenceWindow_NoTeamSeasonTitle" xml:space="preserve">
+    <value>NESSUN TEAM PER LA PROSSIMA STAGIONE</value>
+  </data>
+  <data name="GenerateAbsenceWindow_NoTeamRaceTitle" xml:space="preserve">
+    <value>NESSUN TEAM PER LA PROSSIMA GARA</value>
+  </data>
+  <data name="GenerateAbsenceWindow_PayDriver_Intro1" xml:space="preserve">
+    <value>Sei un pay driver wild card. Questo significa che non puoi ancora assicurarti un sedile fisso per l'intera stagione con un team, e devi subentrare ogni volta che uno dei piloti ufficiali è assente.</value>
+  </data>
+  <data name="GenerateAbsenceWindow_PayDriver_Intro2" xml:space="preserve">
+    <value>Devi cogliere ogni singola opportunità che ti si presenta per dimostrare il tuo valore e assicurarti un sedile per l'intera stagione successiva.</value>
+  </data>
+  <data name="GenerateAbsenceWindow_Intro3" xml:space="preserve">
+    <value>Tuttavia, i piloti potrebbero completare un'intera stagione senza assenze, quindi le tue opportunità potrebbero essere limitate o inesistenti.</value>
+  </data>
+  <data name="GenerateAbsenceWindow_QuestionText" xml:space="preserve">
+    <value>Vuoi creare un'assenza fittizia per un pilota casuale di un team di basso/medio livello nella prossima gara?</value>
+  </data>
+  <data name="GenerateAbsenceWindow_FooterNote" xml:space="preserve">
+    <value>Questo ti garantirà almeno una gara per dimostrare il tuo valore in questa stagione.</value>
+  </data>
+  <data name="GenerateAbsenceWindow_YesButton" xml:space="preserve">
+    <value>SÌ, CREA ASSENZA</value>
+  </data>
+  <data name="GenerateAbsenceWindow_NoButton" xml:space="preserve">
+    <value>NO</value>
+  </data>
+  <data name="GenerateAbsenceWindow_BackButton" xml:space="preserve">
+    <value>SCEGLI UN'ALTRA REPUTAZIONE</value>
+  </data>
+  <data name="GenerateAbsenceWindow_NoTeamSeason_Intro1" xml:space="preserve">
+    <value>Non hai un team per la prossima stagione. Devi subentrare ogni volta che uno dei piloti ufficiali è assente.</value>
+  </data>
+  <data name="GenerateAbsenceWindow_SeekOpportunity_Intro2" xml:space="preserve">
+    <value>Devi cogliere ogni singola opportunità che ti si presenta per dimostrare il tuo valore e assicurarti un sedile per la stagione successiva.</value>
+  </data>
+  <data name="GenerateAbsenceWindow_NoTeamRace_Intro1" xml:space="preserve">
+    <value>Non hai un team per la prossima gara. la prossima gara verrà simulata.</value>
+  </data>
+
+  <!-- TeamSelectionWindow -->
+  <data name="TeamSelectionWindow_Title" xml:space="preserve">
+    <value>Seleziona Team</value>
+  </data>
+  <data name="TeamSelectionWindow_Header" xml:space="preserve">
+    <value>SELEZIONA RUOLO DA SOSTITUIRE</value>
+  </data>
+  <data name="TeamSelectionWindow_FreeAgentsHeader" xml:space="preserve">
+    <value>SVINCOLATI</value>
+  </data>
+  <data name="TeamSelectionWindow_ConfirmButton" xml:space="preserve">
+    <value>CONFERMA</value>
+  </data>
+  <data name="TeamSelectionWindow_BackButton" xml:space="preserve">
+    <value>INDIETRO</value>
+  </data>
+  <data name="TeamSelectionWindow_FirstDriverRole" xml:space="preserve">
+    <value>1° pilota</value>
+  </data>
+  <data name="TeamSelectionWindow_SecondDriverRole" xml:space="preserve">
+    <value>2° pilota</value>
+  </data>
+  <data name="TeamSelectionWindow_FreeAgentRole" xml:space="preserve">
+    <value>Svincolato</value>
+  </data>
+  <data name="TeamSelectionWindow_LoadError_Message" xml:space="preserve">
+    <value>Errore durante il caricamento dei dati della stagione: {0}
+
+{1}</value>
+  </data>
+  <data name="TeamSelectionWindow_LoadError_Title" xml:space="preserve">
+    <value>Errore</value>
+  </data>
+  <data name="TeamSelectionWindow_NoDriverSelected_Message" xml:space="preserve">
+    <value>Seleziona un pilota da sostituire.</value>
+  </data>
+  <data name="TeamSelectionWindow_NoDriverSelected_Title" xml:space="preserve">
+    <value>Nessun Pilota Selezionato</value>
+  </data>
+
+  <!-- TeamApplicationWindow -->
+  <data name="TeamApplicationWindow_Title" xml:space="preserve">
+    <value>Candidati per i Posti Liberi</value>
+  </data>
+  <data name="TeamApplicationWindow_Header" xml:space="preserve">
+    <value>MERCATO PILOTI</value>
+  </data>
+  <data name="TeamApplicationWindow_Subtitle" xml:space="preserve">
+    <value>Seleziona per quali ruoli vuoi candidarti per la prossima stagione</value>
+  </data>
+  <data name="TeamApplicationWindow_InstructionText" xml:space="preserve">
+    <value>Clicca su un ruolo pilota per candidarti. I team mostrati con bordo rosso sono già selezionati.</value>
+  </data>
+  <data name="TeamApplicationWindow_ContinueButton" xml:space="preserve">
+    <value>CONTINUA</value>
+  </data>
+  <data name="TeamApplicationWindow_UnknownTeam" xml:space="preserve">
+    <value>Team Sconosciuto</value>
+  </data>
+  <data name="TeamApplicationWindow_FirstDriverRole" xml:space="preserve">
+    <value>Primo Pilota</value>
+  </data>
+  <data name="TeamApplicationWindow_SecondDriverRole" xml:space="preserve">
+    <value>Secondo Pilota</value>
+  </data>
+  <data name="TeamApplicationWindow_AlreadyInterestedStatus" xml:space="preserve">
+    <value>✓ Questo team ha già espresso interesse per te in questo ruolo.</value>
+  </data>
+  <data name="TeamApplicationWindow_ClickToApplyStatus" xml:space="preserve">
+    <value>Clicca per candidarti a questa posizione</value>
+  </data>
+  <data name="TeamApplicationWindow_MaxApplications_Message" xml:space="preserve">
+    <value>Puoi candidarti per un massimo di {0} ruoli.</value>
+  </data>
+  <data name="TeamApplicationWindow_MaxApplications_Title" xml:space="preserve">
+    <value>Numero Massimo di Candidature Raggiunto</value>
+  </data>
+  <data name="TeamApplicationWindow_SelectionCount_Singular" xml:space="preserve">
+    <value>1 ruolo selezionato (max {0})</value>
+  </data>
+  <data name="TeamApplicationWindow_SelectionCount_Plural" xml:space="preserve">
+    <value>{0} ruoli selezionati (max {1})</value>
+  </data>
+  <data name="TeamApplicationWindow_DropReason_ContractExpired" xml:space="preserve">
+    <value>Il contratto di {0} è scaduto</value>
+  </data>
+  <data name="TeamApplicationWindow_DropReason_Underperforming" xml:space="preserve">
+    <value>{0} è stato scartato per scarso rendimento</value>
+  </data>
+  <data name="TeamApplicationWindow_DropReason_Retiring" xml:space="preserve">
+    <value>{0} si sta ritirando dalle corse</value>
+  </data>
+  <data name="TeamApplicationWindow_DropReason_TeamQuitting" xml:space="preserve">
+    <value>{0} ha lasciato (team sciolto)</value>
+  </data>
+  <data name="TeamApplicationWindow_DropReason_PlayerRejecting" xml:space="preserve">
+    <value>{0} ha rifiutato l'offerta di contratto</value>
+  </data>
+
+  <!-- SeasonCatalogDialog -->
+  <data name="SeasonCatalogDialog_Title" xml:space="preserve">
+    <value>Pacchetti Stagione</value>
+  </data>
+  <data name="SeasonCatalogDialog_Header" xml:space="preserve">
+    <value>PACCHETTI STAGIONE</value>
+  </data>
+  <data name="SeasonCatalogDialog_Description" xml:space="preserve">
+    <value>Seleziona i pacchetti stagione da scaricare. Le pagine di download si apriranno nel tuo browser — individua ciascun file dopo averlo scaricato.</value>
+  </data>
+  <data name="SeasonCatalogDialog_SeasonColumnHeader" xml:space="preserve">
+    <value>STAGIONE</value>
+  </data>
+  <data name="SeasonCatalogDialog_StatusColumnHeader" xml:space="preserve">
+    <value>STATO</value>
+  </data>
+  <data name="SeasonCatalogDialog_SizeColumnHeader" xml:space="preserve">
+    <value>DIMENSIONE</value>
+  </data>
+  <data name="SeasonCatalogDialog_CloseButton" xml:space="preserve">
+    <value>CHIUDI</value>
+  </data>
+  <data name="SeasonCatalogDialog_DownloadButton" xml:space="preserve">
+    <value>SCARICA SELEZIONATI</value>
+  </data>
+  <data name="SeasonCatalogDialog_DownloadPrompt_Message" xml:space="preserve">
+    <value>Scarica {0} dalla finestra del browser che si è appena aperta.
+
+Clicca OK quando hai scaricato il file.</value>
+  </data>
+  <data name="SeasonCatalogDialog_DownloadPrompt_Title" xml:space="preserve">
+    <value>Scarica Pacchetto Stagione</value>
+  </data>
+  <data name="SeasonCatalogDialog_LocateFile_Title" xml:space="preserve">
+    <value>Individua il file scaricato per {0}</value>
+  </data>
+  <data name="SeasonCatalogDialog_FileFilter_Format" xml:space="preserve">
+    <value>File pacchetto stagione (*{0})|*{0}|Tutti i file (*.*)|*.*</value>
+  </data>
+  <data name="SeasonCatalogDialog_Installing_Format" xml:space="preserve">
+    <value>INSTALLAZIONE DI {0}...</value>
+  </data>
+  <data name="SeasonCatalogDialog_InstallError_Message" xml:space="preserve">
+    <value>Installazione non riuscita:
+
+{0}</value>
+  </data>
+  <data name="SeasonCatalogDialog_InstallError_Title" xml:space="preserve">
+    <value>Errore di Installazione</value>
+  </data>
+
+  <!-- UpdateAvailableDialog -->
+  <data name="UpdateAvailableDialog_Title" xml:space="preserve">
+    <value>Aggiornamento Disponibile</value>
+  </data>
+  <data name="UpdateAvailableDialog_Header" xml:space="preserve">
+    <value>AGGIORNAMENTO DISPONIBILE</value>
+  </data>
+  <data name="UpdateAvailableDialog_CurrentLabel" xml:space="preserve">
+    <value>ATTUALE</value>
+  </data>
+  <data name="UpdateAvailableDialog_NewVersionLabel" xml:space="preserve">
+    <value>NUOVA VERSIONE</value>
+  </data>
+  <data name="UpdateAvailableDialog_Step1Description" xml:space="preserve">
+    <value>Una nuova versione di Rewind GP è disponibile su overtake.gg. Clicca il pulsante qui sotto per aprire la pagina di download, scarica il file ZIP, poi torna qui.</value>
+  </data>
+  <data name="UpdateAvailableDialog_NotNowButton" xml:space="preserve">
+    <value>NON ORA</value>
+  </data>
+  <data name="UpdateAvailableDialog_GoToDownloadPageButton" xml:space="preserve">
+    <value>VAI ALLA PAGINA DI DOWNLOAD</value>
+  </data>
+  <data name="UpdateAvailableDialog_Step2Description" xml:space="preserve">
+    <value>Una volta scaricato il file ZIP, clicca il pulsante qui sotto per individuarlo. Rewind GP si chiuderà e l'aggiornamento verrà applicato automaticamente.</value>
+  </data>
+  <data name="UpdateAvailableDialog_DownloadedItButton" xml:space="preserve">
+    <value>L'HO SCARICATO</value>
+  </data>
+  <data name="UpdateAvailableDialog_LocateFileTitle" xml:space="preserve">
+    <value>Individua il file ZIP di Rewind GP scaricato</value>
+  </data>
+  <data name="UpdateAvailableDialog_FileFilter" xml:space="preserve">
+    <value>File ZIP (*.zip)|*.zip|Tutti i file (*.*)|*.*</value>
+  </data>
 </root>

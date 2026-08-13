@@ -2,6 +2,7 @@
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
+using AMS2ChEd.Resources;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -89,7 +90,7 @@ namespace AMS2ChEd
                     var driver1 = new Driver
                     {
                         DriverId = driver1Data.DriverId,
-                        RoleName = "1st driver",
+                        RoleName = Strings.TeamSelectionWindow_FirstDriverRole,
                         Name = driver1Data.Name,
                         Nationality = string.IsNullOrEmpty(driver1Data.Nationality) ? "N/A" : driver1Data.Nationality,
                         Number = teamEntry.Driver1Contract.DriverNumber,
@@ -115,7 +116,7 @@ namespace AMS2ChEd
                         driver2 = new Driver
                         {
                             DriverId = driver2Data.DriverId,
-                            RoleName = "2nd driver",
+                            RoleName = Strings.TeamSelectionWindow_SecondDriverRole,
                             Name = driver2Data.Name,
                             Nationality = string.IsNullOrEmpty(driver2Data.Nationality) ? "N/A" : driver2Data.Nationality,
                             Number = teamEntry.Driver2Contract.DriverNumber,
@@ -155,7 +156,7 @@ namespace AMS2ChEd
                             return new Driver
                             {
                                 DriverId = d.DriverId,
-                                RoleName = "Free Agent",
+                                RoleName = Strings.TeamSelectionWindow_FreeAgentRole,
                                 Name = d.Name,
                                 Nationality = string.IsNullOrEmpty(d.Nationality) ? "N/A" : d.Nationality,
                                 Number = 0,
@@ -175,8 +176,8 @@ namespace AMS2ChEd
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error loading season data: {ex.Message}\n\n{ex.StackTrace}",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(string.Format(Strings.TeamSelectionWindow_LoadError_Message, ex.Message, ex.StackTrace),
+                    Strings.TeamSelectionWindow_LoadError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
                 LoadMockData();
             }
         }
@@ -239,7 +240,7 @@ namespace AMS2ChEd
         {
             if (selectedDriver == null)
             {
-                System.Windows.MessageBox.Show("Please select a driver to replace.", "No Driver Selected",
+                System.Windows.MessageBox.Show(Strings.TeamSelectionWindow_NoDriverSelected_Message, Strings.TeamSelectionWindow_NoDriverSelected_Title,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }

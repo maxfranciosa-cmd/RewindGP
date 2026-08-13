@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:AMS2ChEd.Views"
-        Title="Race Weekend"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        Title="{loc:Loc RaceWeekendWindow_Title}"
         Height="800" Width="1000"
         WindowStartupLocation="CenterScreen"
         ShowActivated="False"
@@ -35,7 +36,6 @@
 
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
                             <TextBlock x:Name="GrandPrixHeader"
-                                       Text="MONACO GRAND PRIX 2024"
                                        FontFamily="Calibri"
                                        FontSize="28"
                                        FontWeight="Bold"
@@ -44,7 +44,6 @@
                                        Margin="0,0,0,5"/>
 
                             <TextBlock x:Name="CircuitHeader"
-                                       Text="CIRCUIT DE MONACO"
                                        FontFamily="Calibri"
                                        FontSize="16"
                                        Foreground="White"
@@ -63,13 +62,11 @@
                         Margin="0,0,0,20">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock x:Name="SessionLabelText"
-                                   Text="CURRENT SESSION: "
                                    FontFamily="Calibri"
                                    FontWeight="Bold"
                                    FontSize="18"
                                    Foreground="Black"/>
                         <TextBlock x:Name="SessionText"
-                                   Text="PRACTICE 1"
                                    FontFamily="Calibri"
                                    FontWeight="Bold"
                                    FontSize="18"
@@ -82,7 +79,7 @@
                     <Grid>
                         <!-- Waiting Message - Visible when no data -->
                         <TextBlock x:Name="WaitingMessage"
-                                   Text="Waiting For Simulator Data..."
+                                   Text="{loc:Loc RaceWeekendWindow_WaitingMessage}"
                                    FontFamily="Calibri"
                                    FontSize="24"
                                    FontWeight="Bold"
@@ -112,7 +109,7 @@
 
                                 <TextBlock Grid.Column="0"
                                            x:Name="PositionColumnHeader"
-                                           Text="P" 
+                                           Text="{loc:Loc RaceWeekendWindow_PositionColumnHeader}"
                                            FontFamily="Calibri"
                                            FontWeight="Bold"
                                            FontSize="16"
@@ -120,7 +117,7 @@
                                            Margin="5,0"/>
                                 <TextBlock Grid.Column="1"
                                            x:Name="NumberColumnHeader"
-                                           Text="#"
+                                           Text="{loc:Loc RaceWeekendWindow_NumberColumnHeader}"
                                            FontFamily="Calibri"
                                            FontWeight="Bold"
                                            FontSize="16"
@@ -128,7 +125,7 @@
                                            Margin="5,0"/>
                                 <TextBlock Grid.Column="2"
                                            x:Name="NameColumnHeader"
-                                           Text="NAME"
+                                           Text="{loc:Loc RaceWeekendWindow_NameColumnHeader}"
                                            FontFamily="Calibri"
                                            FontWeight="Bold"
                                            FontSize="16"
@@ -136,7 +133,7 @@
                                            Margin="5,0"/>
                                 <TextBlock Grid.Column="3"
                                            x:Name="NationalityColumnHeader"
-                                           Text="NAT"
+                                           Text="{loc:Loc RaceWeekendWindow_NationalityColumnHeader}"
                                            FontFamily="Calibri"
                                            FontWeight="Bold"
                                            FontSize="16"
@@ -144,7 +141,7 @@
                                            Margin="5,0"/>
                                 <TextBlock Grid.Column="4"
                                            x:Name="TeamColumnHeader"
-                                           Text="TEAM"
+                                           Text="{loc:Loc RaceWeekendWindow_TeamColumnHeader}"
                                            FontFamily="Calibri"
                                            FontWeight="Bold"
                                            FontSize="16"
@@ -152,7 +149,7 @@
                                            Margin="5,0"/>
                                 <TextBlock Grid.Column="5"
                                            x:Name="LapColumnHeader"
-                                           Text="BEST LAP"
+                                           Text="{loc:Loc RaceWeekendWindow_BestLapColumnHeader}"
                                            FontFamily="Calibri"
                                            FontWeight="Bold"
                                            FontSize="16"
@@ -547,7 +544,7 @@
                 <!-- Bottom Button -->
                 <Button x:Name="EndRaceButton"
                         Grid.Row="3" 
-                        Content="END RACE ▶"
+                        Content="{loc:Loc RaceWeekendWindow_EndRaceButton}"
                         Width="200"
                         Height="45"
                         FontFamily="Calibri"

@@ -1,4 +1,5 @@
 using Ams2ChEd.Business.AMS2.Helpers;
+using Ams2ChEd.Business.AMS2.Resources;
 using Ams2ChEd.Business.AMS2.Settings;
 using Ams2ChEd.Business.AMS2.UI;
 using Ams2Interop;
@@ -65,7 +66,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
             var overlay = new RaceSetupOverlayWindow();
             var tracker = new Ams2WindowTracker(overlay);
-            tracker.ProcessLost += (_, _) => overlay.ShowError("AMS2 isn't running anymore.");
+            tracker.ProcessLost += (_, _) => overlay.ShowError(Strings.Ams2RaceLaunchAssistant_ProcessLost);
 
             overlay.Show();
             tracker.Start();
@@ -156,7 +157,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             var race = request.Season.Races.FirstOrDefault(r => r.RaceId == request.RaceId);
             if (race == null)
             {
-                overlay.ShowError("Couldn't find this race in the current season.");
+                overlay.ShowError(Strings.Ams2RaceLaunchAssistant_RaceNotFound);
                 return false;
             }
 
@@ -164,13 +165,13 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             var trackResolution = _trackResolver.ResolveTrack(race.RaceName, race.RaceShortName, seasonYear);
             if (trackResolution == null)
             {
-                overlay.ShowError($"No track is configured yet for \"{race.RaceName}\".");
+                overlay.ShowError(string.Format(Strings.Ams2RaceLaunchAssistant_TrackNotConfigured_Format, race.RaceName));
                 return false;
             }
 
             if (!_hashCatalogProvider.TrackHashes.ContainsKey(trackResolution.TrackId))
             {
-                overlay.ShowError($"Track \"{trackResolution.TrackId}\" isn't in the track catalog yet.");
+                overlay.ShowError(string.Format(Strings.Ams2RaceLaunchAssistant_TrackNotInCatalog_Format, trackResolution.TrackId));
                 return false;
             }
 
@@ -178,13 +179,13 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 request.RaceId, request.EntryList, request.Drivers, request.Season, request.PlayerDriverId);
             if (carSelection == null)
             {
-                overlay.ShowError("Couldn't resolve your car/livery for this race.");
+                overlay.ShowError(Strings.Ams2RaceLaunchAssistant_CarSelectionFailed);
                 return false;
             }
 
             if (!_hashCatalogProvider.CarHashes.ContainsKey(carSelection.Value.CarModel))
             {
-                overlay.ShowError($"Car \"{carSelection.Value.CarModel}\" isn't in the car catalog yet.");
+                overlay.ShowError(string.Format(Strings.Ams2RaceLaunchAssistant_CarNotInCatalog_Format, carSelection.Value.CarModel));
                 return false;
             }
 
@@ -199,7 +200,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             using var configurator = new Ams2RaceConfigurator(_hashCatalogProvider.CarHashes, _hashCatalogProvider.TrackHashes);
             if (!await configurator.AttachAsync(ct).ConfigureAwait(true))
             {
-                overlay.ShowError("Couldn't attach to AMS2 - make sure it's running and you're on the Custom Race screen.");
+                overlay.ShowError(Strings.Ams2RaceLaunchAssistant_AttachFailed);
                 return false;
             }
 
@@ -215,7 +216,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
             if (!result.Success)
             {
-                overlay.ShowError("Some race settings couldn't be applied automatically - please double check them in-game.");
+                overlay.ShowError(Strings.Ams2RaceLaunchAssistant_ApplyFailed);
                 return false;
             }
 

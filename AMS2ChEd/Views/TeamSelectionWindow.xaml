@@ -1,7 +1,8 @@
 ﻿<Window x:Class="AMS2ChEd.TeamSelectionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Select Team" 
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        Title="{loc:Loc TeamSelectionWindow_Title}"
         Height="700" Width="800"
         WindowStartupLocation="CenterScreen"
         Background="#1a1a1a"
@@ -66,7 +67,7 @@
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Background="#0d0d0d" Margin="20">
-            <TextBlock Text="SELECT ROLE TO REPLACE" 
+            <TextBlock Text="{loc:Loc TeamSelectionWindow_Header}"
                        FontSize="32" 
                        FontWeight="Bold" 
                        Foreground="White" 
@@ -304,7 +305,7 @@
                         </Grid.ColumnDefinitions>
                         <Rectangle Grid.Column="0" Height="1" Fill="#444444" VerticalAlignment="Center"/>
                         <TextBlock Grid.Column="1"
-                                   Text="FREE AGENTS"
+                                   Text="{loc:Loc TeamSelectionWindow_FreeAgentsHeader}"
                                    FontSize="14"
                                    FontWeight="Bold"
                                    Foreground="#888888"
@@ -411,12 +412,12 @@
                     Orientation="Horizontal" 
                     HorizontalAlignment="Center"
                     Margin="20">
-            <Button Content="CONFIRM" 
+            <Button Content="{loc:Loc TeamSelectionWindow_ConfirmButton}"
                     Width="150"
                     Margin="0,0,10,0"
                     Style="{StaticResource MenuButtonStyle}"
                     Click="ConfirmButton_Click"/>
-            <Button Content="BACK" 
+            <Button Content="{loc:Loc TeamSelectionWindow_BackButton}"
                     Width="150"
                     Style="{StaticResource SecondaryButtonStyle}"
                     Click="BackButton_Click"/>

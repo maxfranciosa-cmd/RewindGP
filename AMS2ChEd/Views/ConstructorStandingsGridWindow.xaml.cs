@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Resources;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace AMS2ChEd
             // Set season year in header
             if (saveGame?.CurrentSeason != null)
             {
-                SeasonYearText.Text = $"{saveGame.CurrentSeason.Year} Season";
+                SeasonYearText.Text = string.Format(Strings.ConstructorStandingsGridWindow_SeasonYear_Format, saveGame.CurrentSeason.Year);
             }
 
             PopulateTeams(saveGame);
@@ -152,7 +153,7 @@ namespace AMS2ChEd
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(42) });
 
             // Add "TEAM" header in first column
-            AddHeaderCell(grid, "TEAM", 0, 0);
+            AddHeaderCell(grid, Strings.ConstructorStandingsGridWindow_TeamColumnHeader, 0, 0);
 
             // Add race abbreviation headers
             for (int i = 0; i < allRaces.Count; i++)

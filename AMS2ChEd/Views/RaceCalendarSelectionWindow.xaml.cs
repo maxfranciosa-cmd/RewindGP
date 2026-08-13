@@ -1,5 +1,6 @@
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Resources;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
@@ -50,7 +51,7 @@ namespace AMS2ChEd
         {
             InitializeComponent();
 
-            SeasonText.Text = $"{seasonYear} Season";
+            SeasonText.Text = string.Format(Strings.RaceCalendarSelectionWindow_SeasonText_Format, seasonYear);
 
             // Create observable collection for races
             _raceItems = new ObservableCollection<RaceSelectionItem>();
@@ -90,6 +91,8 @@ namespace AMS2ChEd
             if (DateTime.TryParseExact(dateString, "yyyy-MM-dd", CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime date))
             {
+                // No explicit culture argument - picks up CurrentCulture (set at startup) so this
+                // localizes automatically, same as the DateTime.ToString(format) calls elsewhere.
                 return date.ToString("d MMM yyyy");
             }
             return dateString;
@@ -130,8 +133,8 @@ namespace AMS2ChEd
             int selectedCount = _raceItems.Count(r => r.IsSelected);
             if (selectedCount == 0)
             {
-                MessageBox.Show("At least one race must remain in the calendar.",
-                    "Invalid Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Strings.RaceCalendarSelectionWindow_InvalidSelection_Message,
+                    Strings.RaceCalendarSelectionWindow_InvalidSelection_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
