@@ -13,8 +13,9 @@ namespace AMS2ChEd.Tests
         {
             GrandPrixNamePatterns = new List<string> { "Brazilian", "do Brasil" },
             Year = year,
-            BestTrackId = "interlagos_2020",
-            DlcId = dlcId,
+            TrackOptions = dlcId != null
+                ? new List<Ams2TrackOption> { new Ams2TrackOption { TrackId = "interlagos_2020", DlcId = dlcId } }
+                : null,
             DefaultTrackId = "interlagos_1990s",
             DefaultNumberOfLaps = 71,
         };
@@ -149,7 +150,7 @@ namespace AMS2ChEd.Tests
             {
                 GrandPrixNamePatterns = new List<string> { "Australian" },
                 Year = 0,
-                DlcId = null,
+                TrackOptions = null,
                 DefaultTrackId = null,
                 DefaultNumberOfLaps = 58,
             };
@@ -158,6 +159,92 @@ namespace AMS2ChEd.Tests
             var result = resolver.ResolveTrack("Australian Grand Prix", "AUS", seasonYear: 1996);
 
             Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void ResolveTrack_FirstOptionNotOwnedSecondIs_PicksSecondOption()
+        {
+            var entry = new Ams2TrackMappingEntry
+            {
+                GrandPrixNamePatterns = new List<string> { "Belgian" },
+                Year = 2004,
+                TrackOptions = new List<Ams2TrackOption>
+                {
+                    new Ams2TrackOption { TrackId = "spa-francorchamps_2005", DlcId = "historical_tracks_3" },
+                    new Ams2TrackOption { TrackId = "spa-francorchamps_1993", DlcId = "spa_pack" },
+                },
+                DefaultTrackId = "montrealmodern",
+                DefaultNumberOfLaps = 44,
+            };
+            var loader = new Mock<ITrackMappingLoader>();
+            loader.Setup(l => l.GetAll()).Returns(new List<Ams2TrackMappingEntry> { entry });
+
+            var dlcChecker = new Mock<IAms2DlcOwnershipChecker>();
+            dlcChecker.Setup(c => c.IsOwned("historical_tracks_3")).Returns(false);
+            dlcChecker.Setup(c => c.IsOwned("spa_pack")).Returns(true);
+
+            var resolver = new Ams2GrandPrixTrackResolver(loader.Object, dlcChecker.Object);
+
+            var result = resolver.ResolveTrack("Belgian Grand Prix", "BEL", seasonYear: 2005);
+
+            Assert.AreEqual("spa-francorchamps_1993", result.TrackId);
+        }
+
+        [TestMethod]
+        public void ResolveTrack_FirstOptionOwned_PreferredOverLaterOwnedOption()
+        {
+            var entry = new Ams2TrackMappingEntry
+            {
+                GrandPrixNamePatterns = new List<string> { "Belgian" },
+                Year = 2004,
+                TrackOptions = new List<Ams2TrackOption>
+                {
+                    new Ams2TrackOption { TrackId = "spa-francorchamps_2005", DlcId = "historical_tracks_3" },
+                    new Ams2TrackOption { TrackId = "spa-francorchamps_1993", DlcId = "spa_pack" },
+                },
+                DefaultTrackId = "montrealmodern",
+                DefaultNumberOfLaps = 44,
+            };
+            var loader = new Mock<ITrackMappingLoader>();
+            loader.Setup(l => l.GetAll()).Returns(new List<Ams2TrackMappingEntry> { entry });
+
+            var dlcChecker = new Mock<IAms2DlcOwnershipChecker>();
+            dlcChecker.Setup(c => c.IsOwned("historical_tracks_3")).Returns(true);
+            dlcChecker.Setup(c => c.IsOwned("spa_pack")).Returns(true);
+
+            var resolver = new Ams2GrandPrixTrackResolver(loader.Object, dlcChecker.Object);
+
+            var result = resolver.ResolveTrack("Belgian Grand Prix", "BEL", seasonYear: 2005);
+
+            Assert.AreEqual("spa-francorchamps_2005", result.TrackId);
+        }
+
+        [TestMethod]
+        public void ResolveTrack_NoOptionOwned_FallsBackToDefaultTrackId()
+        {
+            var entry = new Ams2TrackMappingEntry
+            {
+                GrandPrixNamePatterns = new List<string> { "Belgian" },
+                Year = 2004,
+                TrackOptions = new List<Ams2TrackOption>
+                {
+                    new Ams2TrackOption { TrackId = "spa-francorchamps_2005", DlcId = "historical_tracks_3" },
+                    new Ams2TrackOption { TrackId = "spa-francorchamps_1993", DlcId = "spa_pack" },
+                },
+                DefaultTrackId = "montrealmodern",
+                DefaultNumberOfLaps = 44,
+            };
+            var loader = new Mock<ITrackMappingLoader>();
+            loader.Setup(l => l.GetAll()).Returns(new List<Ams2TrackMappingEntry> { entry });
+
+            var dlcChecker = new Mock<IAms2DlcOwnershipChecker>();
+            dlcChecker.Setup(c => c.IsOwned(It.IsAny<string>())).Returns(false);
+
+            var resolver = new Ams2GrandPrixTrackResolver(loader.Object, dlcChecker.Object);
+
+            var result = resolver.ResolveTrack("Belgian Grand Prix", "BEL", seasonYear: 2005);
+
+            Assert.AreEqual("montrealmodern", result.TrackId);
         }
     }
 }

@@ -16,8 +16,9 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         /// against the configured GrandPrixNamePatterns (case-insensitive substring match), then,
         /// among the entries that match, picking the one with the largest Year that is still
         /// &lt;= <paramref name="seasonYear"/> (so a venue/GP with several dated entries resolves to
-        /// whichever era applies to this season), then picking BestTrackId or DefaultTrackId based
-        /// on DLC ownership. Returns null if no entry matches or none of the matches' Year is
+        /// whichever era applies to this season), then walking that entry's TrackOptions in order
+        /// and picking the first one whose DlcId is owned, falling back to DefaultTrackId if none
+        /// are. Returns null if no entry matches or none of the matches' Year is
         /// &lt;= seasonYear - callers should fall back to manual instructions in that case, since
         /// Ams2RaceConfigurator.ApplyRaceConfigAsync requires a track for its single SetCar call.
         /// </summary>
@@ -46,9 +47,10 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                 return null;
             }
 
-            string trackId = string.IsNullOrEmpty(entry.DlcId)
-                ? entry.DefaultTrackId
-                : (_dlcOwnershipChecker.IsOwned(entry.DlcId) ? entry.BestTrackId : entry.DefaultTrackId);
+            string trackId = entry.TrackOptions?
+                .FirstOrDefault(o => !string.IsNullOrEmpty(o.DlcId) && _dlcOwnershipChecker.IsOwned(o.DlcId))
+                ?.TrackId
+                ?? entry.DefaultTrackId;
 
             // An entry can legitimately have no usable track yet (default_track_id: null in the
             // registry, e.g. a Grand Prix whose venue isn't in the installed track catalog) -

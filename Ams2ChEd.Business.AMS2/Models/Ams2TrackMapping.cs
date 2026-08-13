@@ -8,6 +8,22 @@ namespace AMS2ChEd.Business.AMS2.Models
         public List<Ams2TrackMappingEntry> Mappings { get; set; }
     }
 
+    /// <summary>
+    /// One DLC-gated track candidate inside an Ams2TrackMappingEntry's TrackOptions list.
+    /// </summary>
+    public class Ams2TrackOption
+    {
+        [JsonPropertyName("track_id")]
+        public string TrackId { get; set; }
+
+        /// <summary>
+        /// The id checked via IAms2DlcOwnershipChecker (Ams2ChEd.Business.AMS2.Helpers) to decide
+        /// whether this option's TrackId can be used.
+        /// </summary>
+        [JsonPropertyName("dlc_id")]
+        public string DlcId { get; set; }
+    }
+
     public class Ams2TrackMappingEntry
     {
         /// <summary>
@@ -28,18 +44,16 @@ namespace AMS2ChEd.Business.AMS2.Models
         public int Year { get; set; }
 
         /// <summary>
-        /// The preferred track id, only used if <see cref="DlcId"/> is set and owned.
+        /// DLC-gated track candidates, most preferred first. The resolver picks the first one whose
+        /// DlcId is owned; DefaultTrackId is used only if none of these are owned (or this list is
+        /// null/empty). A single-candidate entry is just a one-element list - e.g. for a venue where
+        /// more than one DLC can plausibly supply an equivalent-or-close track for the same era
+        /// (say, an exact-era layout gated behind one pack, with a same-venue-but-different-era
+        /// layout from a second pack as a still-much-better-than-default fallback), list the more
+        /// historically-accurate option first.
         /// </summary>
-        [JsonPropertyName("best_track_id")]
-        public string BestTrackId { get; set; }
-
-        /// <summary>
-        /// Null if there's no DLC-gated alternative to the default track for this race.
-        /// Otherwise, the id checked via IAms2DlcOwnershipChecker (Ams2ChEd.Business.AMS2.Helpers)
-        /// to decide between <see cref="BestTrackId"/> and <see cref="DefaultTrackId"/>.
-        /// </summary>
-        [JsonPropertyName("dlc_id")]
-        public string DlcId { get; set; }
+        [JsonPropertyName("track_options")]
+        public List<Ams2TrackOption> TrackOptions { get; set; }
 
         [JsonPropertyName("default_track_id")]
         public string DefaultTrackId { get; set; }
