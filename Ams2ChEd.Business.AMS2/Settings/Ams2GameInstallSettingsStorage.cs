@@ -11,6 +11,7 @@ namespace Ams2ChEd.Business.AMS2.Settings
     {
         private const string FOLDERPATH_SETTINGS_KEY = "AMS2FolderPath";
         private const string DRIVERNAME_SETTINGS_KEY = "AMS2DriverName";
+        private const string RACELENGTH_SETTINGS_KEY = "AMS2RaceLength";
 
         private readonly IVehicleLiverySlotPatcher _vehicleLiverySlotPatcher;
 
@@ -71,6 +72,39 @@ namespace Ams2ChEd.Business.AMS2.Settings
             else
             {
                 config.AppSettings.Settings.Add(DRIVERNAME_SETTINGS_KEY, name);
+            }
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        public Ams2RaceLength LoadRaceLength()
+        {
+            try
+            {
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var value = config.AppSettings.Settings[RACELENGTH_SETTINGS_KEY]?.Value;
+                if (!string.IsNullOrEmpty(value) && Enum.TryParse<Ams2RaceLength>(value, out var parsed))
+                {
+                    return parsed;
+                }
+            }
+            catch
+            {
+                // Ignore errors, will use default
+            }
+            return Ams2RaceLength.Default;
+        }
+
+        public void SaveRaceLength(Ams2RaceLength raceLength)
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (config.AppSettings.Settings[RACELENGTH_SETTINGS_KEY] != null)
+            {
+                config.AppSettings.Settings[RACELENGTH_SETTINGS_KEY].Value = raceLength.ToString();
+            }
+            else
+            {
+                config.AppSettings.Settings.Add(RACELENGTH_SETTINGS_KEY, raceLength.ToString());
             }
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");

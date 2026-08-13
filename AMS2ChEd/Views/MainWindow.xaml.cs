@@ -48,6 +48,7 @@ namespace AMS2ChEd
         private List<CosmeticsOptionDisplay> _defaultHelmets;
         private IPlayerCosmeticsEditor _cosmeticsEditor;
         private IOffSeasonOrchestrator _offSeasonOrchestrator;
+        private IPrerequisiteWindow _prerequisiteWindow;
         public InstallSeasonModCommandAsync InstallSeasonCommand { get; set; }
 
         public MainWindow(
@@ -61,7 +62,8 @@ namespace AMS2ChEd
             IExternalLiveriesPrompt externalLiveriesPrompt,
             ISeasonPackInstaller seasonPackInstaller,
             IOffSeasonOrchestrator offSeasonOrchestrator,
-            IPlayerCosmeticsEditor cosmeticsEditor = null)
+            IPlayerCosmeticsEditor cosmeticsEditor = null,
+            IPrerequisiteWindow prerequisiteWindow = null)
         {
             InitializeComponent();
             _ams2StorageFactory = ams2StorageFactory;
@@ -72,6 +74,7 @@ namespace AMS2ChEd
             _developerModeSettings = developerModeSettings;
             _cosmeticsEditor = cosmeticsEditor;
             _offSeasonOrchestrator = offSeasonOrchestrator;
+            _prerequisiteWindow = prerequisiteWindow;
 
             InstallSeasonCommand = new InstallSeasonModCommandAsync(seasonPackInstaller, externalLiveriesInstaller, externalLiveriesPrompt);
             InstallSeasonCommand.SeasonInstalled += OnSeasonModInstalled;
@@ -87,6 +90,16 @@ namespace AMS2ChEd
             HelmetSelectionBorder.Visibility = _cosmeticsEditor == null ? Visibility.Collapsed : Visibility.Visible;
 
             DeveloperToolsButton.Visibility = _developerModeSettings.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        // Must be called only after this window has been shown (e.g. right after MainWindow.Show()) —
+        // Window.Owner cannot be set to a window that hasn't been shown yet (its HWND doesn't exist).
+        public void ShowPrerequisiteIfNeeded()
+        {
+            // One-time, game-specific "here's what you need to set up before racing" prompt (e.g.
+            // AMS2's telemetry/borderless-window requirements for the race-launch overlay). No-op
+            // if already dismissed with "don't show again", or if the active game module has none.
+            _prerequisiteWindow?.ShowIfNeeded(this);
         }
 
 

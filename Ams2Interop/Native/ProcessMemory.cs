@@ -41,6 +41,21 @@ public sealed class ProcessMemory : IDisposable
         return true;
     }
 
+    /// <summary>
+    /// Raw WriteProcessMemory of a 4-byte value - NOT part of the production write path
+    /// (SlotWriter deliberately goes through AMS2's own setter, never pokes memory directly, since
+    /// a raw poke crashes on some fields). Exists only for fields with no property-node/setter
+    /// path at all (e.g. VM498's packed date field - see Native/Vm498PackedDate.cs) - use with the
+    /// same caution WriteRaw's callers already apply.
+    /// </summary>
+    public bool TryWriteInt32(long address, int value) =>
+        WriteRaw(address, BitConverter.GetBytes(value));
+
+    /// <summary>Raw WriteProcessMemory into the target process - see TryWriteInt32's doc comment for the caveats.</summary>
+    public bool WriteRaw(long address, byte[] buffer) =>
+        NativeMethods.WriteProcessMemory(Handle, (IntPtr)address, buffer, buffer.Length, out var written) &&
+        (long)written == buffer.Length;
+
     /// <summary>Raw ReadProcessMemory into a caller-sized buffer - used by the region scanner.</summary>
     public bool ReadRaw(long address, int length, out byte[] buffer)
     {

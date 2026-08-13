@@ -388,16 +388,17 @@ namespace Ams2ChEd.Business.AMS2.Services
         }
 
         /// <summary>
-        /// Generate livery XML files using AMS2 folder structure by loading and combining individual team XMLs
+        /// Groups race entries by AMS2 car model (per driver slot) and resolves slot-capacity
+        /// overflow/redirection, in the exact order <see cref="GenerateLiveryXmlsAMS2"/> processes
+        /// them - shared with <see cref="GetPlayerCarSelection"/> so the sequential livery numbers
+        /// handed out here and the ones AMS2 actually gets written into the game files can never
+        /// disagree.
         /// </summary>
-        private void GenerateLiveryXmlsAMS2(
+        private Dictionary<string, List<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber, bool forceSolidColourFallback)>> BuildFinalEntriesByCarModel(
             int raceId,
             List<EntryListEntry> raceEntryList,
-            string vehiclesOverridesPath,
-            string seasonDirectory,
             string ams2RootDirectory)
         {
-
             // Group entries by car model, per driver slot (driver1/driver2 may use different models),
             // while also tracking each slot's original position for deterministic overflow ordering.
             var allItems = new List<SlotCapacityAllocator.Item<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber)>>();
@@ -474,6 +475,57 @@ namespace Ams2ChEd.Business.AMS2.Services
                         .ToList();
                 }
             }
+
+            return finalEntriesByCarModel;
+        }
+
+        /// <summary>
+        /// Resolves the AMS2 car model key + livery slot number a driver will end up with for a
+        /// given race, without writing any files - for callers (e.g. the race-launch overlay) that
+        /// need to pass these into Ams2RaceConfigurator.ApplyRaceConfigAsync. Mirrors the exact
+        /// grouping/numbering <see cref="GenerateLiveryXmlsAMS2"/> uses (both call
+        /// <see cref="BuildFinalEntriesByCarModel"/> and number sequentially from
+        /// Ams2LiveryConventions.BaseLiveryNumber per car-model group), so the two can never disagree.
+        /// Returns null if the driver isn't found in raceEntryList (e.g. no livery slot available).
+        /// </summary>
+        public (string CarModel, int LiveryNumber)? GetPlayerCarSelection(
+            int raceId,
+            List<EntryListEntry> raceEntryList,
+            string playerDriverId,
+            string ams2RootDirectory)
+        {
+            var finalEntriesByCarModel = BuildFinalEntriesByCarModel(raceId, raceEntryList, ams2RootDirectory);
+
+            foreach (var carModelGroup in finalEntriesByCarModel)
+            {
+                int currentLiveryNumber = Ams2LiveryConventions.BaseLiveryNumber;
+                foreach (var (entry, _, driverNumber, _) in carModelGroup.Value)
+                {
+                    string driverId = driverNumber == 1 ? entry.Driver1Id : entry.Driver2Id;
+                    if (string.IsNullOrEmpty(driverId))
+                        continue;
+
+                    if (driverId == playerDriverId)
+                        return (carModelGroup.Key, currentLiveryNumber);
+
+                    currentLiveryNumber++;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Generate livery XML files using AMS2 folder structure by loading and combining individual team XMLs
+        /// </summary>
+        private void GenerateLiveryXmlsAMS2(
+            int raceId,
+            List<EntryListEntry> raceEntryList,
+            string vehiclesOverridesPath,
+            string seasonDirectory,
+            string ams2RootDirectory)
+        {
+            var finalEntriesByCarModel = BuildFinalEntriesByCarModel(raceId, raceEntryList, ams2RootDirectory);
 
             // Process each car model
             foreach (var carModelGroup in finalEntriesByCarModel)

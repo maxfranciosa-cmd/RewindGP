@@ -310,20 +310,57 @@ namespace AMS2ChEd.Views
             // Which driver slot (1 or 2) the player occupies - determines which car/malus applies
             var playerDriverSlot = playerEntry.Driver1Id == saveGame.PlayerData.DriverId ? 1 : 2;
 
-            var difficultyDelta = _gameLogicFactory.RaceSetupAdvisor.GetSuggestedAiDifficulty(saveGame.CurrentSeason, playerEntry.TeamId, playerDriverSlot, saveGame.PreQualiPoolEntries);
-            var usesPerformanceScalars = _gameLogicFactory.RaceSetupAdvisor.SeasonUsesPerformanceScalars(normalizedSeason);
-            var carDisplayName = _gameLogicFactory.RaceSetupAdvisor.GetCarDisplayName(saveGame.CurrentSeason, playerEntry.TeamId, playerDriverSlot);
+            if (_gameLogicFactory.RaceLaunchAssistant != null)
+            {
+                var launchRequest = new RaceLaunchRequest
+                {
+                    RaceId = raceId,
+                    Season = normalizedSeason,
+                    EntryList = saveGame.PreQualiPoolEntries,
+                    Drivers = saveGame.Drivers,
+                    PlayerTeamId = playerEntry.TeamId,
+                    PlayerDriverId = saveGame.PlayerData.DriverId,
+                    PlayerDriverSlot = playerDriverSlot,
+                    IsPreQuali = true,
+                };
+                // Whether this comes back true (auto-configured) or false (skipped, or the player
+                // dismissed the "set it up yourself" instructions the overlay itself now shows),
+                // there's nothing further to do here - the overlay owns that whole interaction.
+                //
+                // Unlike the normal race-weekend flow (which closes EntryListWindow before its
+                // RaceWeekendWindow ever opens the overlay), this window is still open and modal
+                // here (shown via ShowDialog from SeasonOverviewWindow). The overlay itself has no
+                // Owner, so when it closes, Windows falls back to reactivating whatever top-level
+                // window was still live beforehand - this window's whole owner chain (this ->
+                // SeasonOverviewWindow -> MainWindow) - which is what briefly pops in front of the
+                // game. Hide this window (restored in the finally below, once the whole player-driven
+                // pre-quali session - overlay AND the quali session in RaceWeekendWindow that follows,
+                // which doesn't need this window visible either - is done) so there's nothing live to
+                // reactivate; Ams2WindowTracker.RestoreGameFocus (in ShowSetupOverlayAsync's finally)
+                // then hands OS focus back to AMS2 as usual. Hide()/Show() don't affect the
+                // ShowDialog modal loop, so it's safe to do this mid-flow.
+                this.Hide();
+                await _gameLogicFactory.RaceLaunchAssistant.ShowSetupOverlayAsync(launchRequest, this);
+            }
+            else
+            {
+                // No game-specific launch assistant registered for this game module - fall back to
+                // the standalone instructions window.
+                var difficultyDelta = _gameLogicFactory.RaceSetupAdvisor.GetSuggestedAiDifficulty(saveGame.CurrentSeason, playerEntry.TeamId, playerDriverSlot, saveGame.PreQualiPoolEntries);
+                var usesPerformanceScalars = _gameLogicFactory.RaceSetupAdvisor.SeasonUsesPerformanceScalars(normalizedSeason);
+                var carDisplayName = _gameLogicFactory.RaceSetupAdvisor.GetCarDisplayName(saveGame.CurrentSeason, playerEntry.TeamId, playerDriverSlot);
 
-            var instructionsWindow = RaceInstructionsWindow.CreatePreQualiWindow(
-                saveGame.PlayerData.Name,
-                carName: carDisplayName,
-                liveryName: $"#{playerNumber} {playerTeamData?.TeamName} - {saveGame.PlayerData.Name}",
-                opponentsNumber: saveGame.PreQualiPoolEntries.DriverCount() - 1,
-                suggestedDifficulty: difficultyDelta,
-                usesPerformanceScalars: usesPerformanceScalars);
+                var instructionsWindow = RaceInstructionsWindow.CreatePreQualiWindow(
+                    saveGame.PlayerData.Name,
+                    carName: carDisplayName,
+                    liveryName: $"#{playerNumber} {playerTeamData?.TeamName} - {saveGame.PlayerData.Name}",
+                    opponentsNumber: saveGame.PreQualiPoolEntries.DriverCount() - 1,
+                    suggestedDifficulty: difficultyDelta,
+                    usesPerformanceScalars: usesPerformanceScalars);
 
-            instructionsWindow.Owner = this;
-            instructionsWindow.ShowDialog();
+                instructionsWindow.Owner = this;
+                instructionsWindow.ShowDialog();
+            }
 
             // Initialise real race data service in pre-qualifying mode.
             var participants = BuildParticipantsFromEntryList(saveGame.PreQualiPoolEntries);
@@ -365,7 +402,11 @@ namespace AMS2ChEd.Views
                 tcs.TrySetCanceled();
             };
 
+            // raceWeekendWindow.Owner still works fine while this window is Hidden (see the Hide()
+            // call above) - the owner just needs a live HWND, which a previously-shown-then-hidden
+            // window still has.
             raceWeekendWindow.Owner = this;
+            raceWeekendWindow.ShowActivated = false;
             raceWeekendWindow.Show();
 
             try
@@ -378,6 +419,13 @@ namespace AMS2ChEd.Views
             {
                 // Player closed the window before qualifying finished — fall back to simulation.
                 return RunSimulatedPreQuali();
+            }
+            finally
+            {
+                // Restore visibility now that the quali session (and, before it, the overlay) are
+                // done and control is genuinely handing back to this window - see the Hide() call
+                // above for why this was hidden in the first place.
+                this.Show();
             }
         }
         private async Task FinalisePreQualiResults(List<ParticipantData> results, bool playerWasInPreQuali)

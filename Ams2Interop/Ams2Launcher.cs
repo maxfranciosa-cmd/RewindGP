@@ -46,4 +46,44 @@ public static class Ams2Launcher
         }
         return false;
     }
+
+    /// <summary>
+    /// Best-effort close of AMS2AVX.exe - tries a graceful WM_CLOSE first (CloseMainWindow) and
+    /// only force-kills the process if it doesn't exit within <paramref name="gracePeriod"/>.
+    /// Never throws - a process that's already gone, or one we don't have permission to touch, is
+    /// treated the same as a successful close.
+    /// </summary>
+    public static async Task CloseAsync(TimeSpan? gracePeriod = null)
+    {
+        var grace = gracePeriod ?? TimeSpan.FromSeconds(5);
+
+        foreach (var process in Process.GetProcessesByName(ProcessName))
+        {
+            try
+            {
+                if (process.CloseMainWindow())
+                {
+                    using var cts = new CancellationTokenSource(grace);
+                    try
+                    {
+                        await process.WaitForExitAsync(cts.Token).ConfigureAwait(false);
+                        continue;
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // Didn't exit within the grace period - fall through to force-kill.
+                    }
+                }
+
+                if (!process.HasExited)
+                {
+                    process.Kill();
+                }
+            }
+            catch
+            {
+                // Best-effort - the process may have already exited, or access could be denied.
+            }
+        }
+    }
 }

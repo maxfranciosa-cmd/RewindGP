@@ -23,6 +23,12 @@ namespace AMS2ChEd.Business.DependencyInjection
 
         public IRaceSetupAdvisor RaceSetupAdvisor { get; private set; }
 
+        /// <summary>
+        /// Optional (may be null if the active game module doesn't support live-process race
+        /// configuration - see <see cref="IRaceLaunchAssistant"/>).
+        /// </summary>
+        public IRaceLaunchAssistant RaceLaunchAssistant { get; private set; }
+
         public SeasonUpdaterOrchestrator SeasonUpdaterOrchestrator { get; private set; }
 
         public GameLogicFactory(
@@ -36,7 +42,8 @@ namespace AMS2ChEd.Business.DependencyInjection
             IRaceDataService raceDataService,
             IPreQualiPoolResolver preQualiPoolResolver,
             IRaceSetupAdvisor raceSetupAdvisor,
-            SeasonUpdaterOrchestrator seasonUpdaterOrchestrator)
+            SeasonUpdaterOrchestrator seasonUpdaterOrchestrator,
+            IRaceLaunchAssistant raceLaunchAssistant = null)
         {
             StandingsManager = standingsManager;
             AbsenceManager = absenceManager;
@@ -49,6 +56,7 @@ namespace AMS2ChEd.Business.DependencyInjection
             PreQualiPoolResolver = preQualiPoolResolver;
             RaceSetupAdvisor = raceSetupAdvisor;
             SeasonUpdaterOrchestrator = seasonUpdaterOrchestrator;
+            RaceLaunchAssistant = raceLaunchAssistant;
         }
     }
 }

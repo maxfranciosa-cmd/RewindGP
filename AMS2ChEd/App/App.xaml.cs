@@ -88,6 +88,7 @@ namespace AMS2ChEd
                 serviceProvider.GetService<IExternalLiveriesPrompt>()));
             services.AddSingleton((serviceProvider) => new SeasonManifestService(AppPaths.SeasonsFolder, AppPaths.SeasonsManifestPath(gameModule.SeasonsManifestFileName), serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate));
             services.AddSingleton(versionCheckStore);
+            services.AddSingleton<ICurrentVersionCheckStore>(versionCheckStore);
             services.AddSingleton<SaveGameSeasonChecker>();
             services.AddSingleton((serviceProvider) => new VersionCheckService(versionCheckUrl, versionCheckStore, forceAppUpdate));
         }
@@ -103,6 +104,7 @@ namespace AMS2ChEd
             Services = _serviceProvider; // Make it static for easy access
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
+            mainWindow.ShowPrerequisiteIfNeeded();
 
             var shuttingDown = false;
             Application.Current.Exit += (s, _) => shuttingDown = true;

@@ -977,7 +977,9 @@ namespace AMS2ChEd.Views
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            // This window is shown non-modally (Show(), not ShowDialog()) by RaceWeekendWindow, so
+            // DialogResult can't be set here - doing so throws InvalidOperationException and crashes
+            // the app.
             this.Close();
         }
     }

@@ -13,6 +13,7 @@ using AMS2ChEd.Business.Settings.Contracts;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
 using Ams2ChEd.Business.AMS2.GameLogic;
+using Ams2ChEd.Business.AMS2.Helpers;
 using Ams2ChEd.Business.AMS2.PakPatching;
 using Ams2ChEd.Business.AMS2.PakPatching.Contracts;
 using Ams2ChEd.Business.AMS2.Services;
@@ -53,7 +54,14 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             services.AddTransient<IPlayerCosmeticsEditor, Ams2PlayerCosmeticsEditor>();
             services.AddTransient<IRacePreparator, Ams2RacePreparator>();
             services.AddTransient<IRaceDataService, Ams2RaceDataService>();
-            
+
+            // ************* RACE LAUNCH / OVERLAY *******************
+            services.AddTransient<IPrerequisiteWindow, Ams2PrerequisiteWindow>();
+            services.AddTransient<IRaceLaunchAssistant, Ams2RaceLaunchAssistant>();
+            services.AddSingleton<ITrackMappingLoader, Ams2TrackMappingLoader>();
+            services.AddSingleton<IAms2HashCatalogProvider, Ams2InteropHashCatalogLoader>();
+            services.AddTransient<IAms2DlcOwnershipChecker, Ams2DlcOwnershipChecker>();
+            services.AddTransient<IAms2GrandPrixTrackResolver, Ams2GrandPrixTrackResolver>();
 
             // ************* MOD PACK / EXTERNAL CONTENT ***********
             services.AddTransient<ISeasonPackInstaller, SeasonModInstaller>();

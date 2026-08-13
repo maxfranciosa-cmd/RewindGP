@@ -40,6 +40,19 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             liveryService.GenerateLiveriesOnly(raceId, raceEntryList.ToList(), seasonFileDirectory, ams2InstallationFolder);
         }
 
+        /// <summary>
+        /// AMS2-concrete-only extension beyond IRacePreparator: resolves the player's AMS2 car
+        /// model key + livery slot number for a race, for callers (the race-launch overlay) that
+        /// need to pass these into Ams2Interop's Ams2RaceConfigurator.ApplyRaceConfigAsync. Must be
+        /// called after PrepareRace/PrepareLiveries has already generated this race's livery files,
+        /// so the returned livery number matches what's actually on disk.
+        /// </summary>
+        public (string CarModel, int LiveryNumber)? GetPlayerCarSelection(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season, string playerDriverId)
+        {
+            var (liveryService, _, ams2InstallationFolder) = BuildLiveryService(drivers, season);
+            return liveryService.GetPlayerCarSelection(raceId, raceEntryList.ToList(), playerDriverId, ams2InstallationFolder);
+        }
+
         private (Ams2LiveryService liveryService, string seasonFileDirectory, string ams2InstallationFolder) BuildLiveryService(IEnumerable<IDriverData> drivers, ISeason season)
         {
             var seasonFilePath = StoragePaths.SeasonFilePath(season.OriginalYear ?? season.Year);

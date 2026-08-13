@@ -4,6 +4,7 @@ using AMS2ChEd.Business.Settings.Contracts;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Ams2ChEd.Business.AMS2.UI
 {
@@ -24,6 +25,17 @@ namespace Ams2ChEd.Business.AMS2.UI
         {
             AMS2FolderTextBox.Text = _settingsStorage.LoadSettings()?.GameInstallFolder;
             AMS2PlayerNameTextBox.Text = _settingsStorage.LoadInGameName();
+
+            var raceLength = _settingsStorage.LoadRaceLength();
+            foreach (ComboBoxItem item in RaceLengthComboBox.Items)
+            {
+                if ((string)item.Tag == raceLength.ToString())
+                {
+                    RaceLengthComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+            RaceLengthComboBox.SelectedItem ??= RaceLengthComboBox.Items[0];
         }
 
         private void SaveSettings(string path, string inGameDriverName)
@@ -32,6 +44,12 @@ namespace Ams2ChEd.Business.AMS2.UI
             {
                 _settingsStorage.SaveSettings(new GameInstallSettings { GameInstallFolder = path });
                 _settingsStorage.SaveInGameName(inGameDriverName);
+
+                if (RaceLengthComboBox.SelectedItem is ComboBoxItem selected
+                    && Enum.TryParse<Ams2RaceLength>((string)selected.Tag, out var raceLength))
+                {
+                    _settingsStorage.SaveRaceLength(raceLength);
+                }
             }
             catch (Exception ex)
             {

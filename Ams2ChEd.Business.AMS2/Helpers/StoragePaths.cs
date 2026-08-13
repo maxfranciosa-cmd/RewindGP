@@ -90,6 +90,45 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             }
         }
 
+        private static string _trackMappingFilePath = null;
+        public static string TrackMappingFilePath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_trackMappingFilePath))
+                {
+                    _trackMappingFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tracks", "track_mapping.json");
+                }
+                return _trackMappingFilePath;
+            }
+        }
+
+        private static string _ams2TrackHashesFilePath = null;
+        public static string Ams2TrackHashesFilePath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_ams2TrackHashesFilePath))
+                {
+                    _ams2TrackHashesFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tracks", "ams2_track_hashes.json");
+                }
+                return _ams2TrackHashesFilePath;
+            }
+        }
+
+        private static string _ams2CarHashesFilePath = null;
+        public static string Ams2CarHashesFilePath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_ams2CarHashesFilePath))
+                {
+                    _ams2CarHashesFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CarModels", "ams2_car_hashes.json");
+                }
+                return _ams2CarHashesFilePath;
+            }
+        }
+
         private static string _vehiclePakBackupsFolder = null;
         public static string VehiclePakBackupsFolder
         {

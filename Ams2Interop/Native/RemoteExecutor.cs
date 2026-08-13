@@ -81,9 +81,50 @@ public sealed class RemoteExecutor : IDisposable
         0xC3,                                     // ret
     };
 
+    /// <summary>
+    /// Third stub, identical to StubBytes except it writes the callee's RAX back into the
+    /// parameter block before returning - needed for calls whose RETURN VALUE is what's wanted
+    /// (e.g. FUN_1403f2dd0, AMS2AVX.exe's own per-session-name VM pointer getter - see
+    /// Native/SessionVmResolver.cs), as opposed to Call's fire-and-verify-by-reading-memory-after
+    /// pattern. CreateRemoteThread's own exit code can't be used for this: a thread's exit code is
+    /// a 32-bit DWORD, which would silently truncate a 64-bit pointer - this stub avoids that by
+    /// writing the full 64-bit RAX into the (always 64-bit-wide) parameter block instead.
+    ///
+    /// Invoked with RCX = pointer to a { long Arg1; long Arg2; long Target; long Result; } block
+    /// (32 bytes - Result is written by the stub, not read):
+    ///
+    ///   push rbx
+    ///   mov  rbx, rcx             ; keep the param block pointer alive across the call (rbx is
+    ///                              ; callee-saved, unlike rcx/rdx which the call will clobber)
+    ///   sub  rsp, 0x20             ; shadow space only - already 16-aligned after the push
+    ///   mov  rax, [rbx+0x10]      ; rax = Target
+    ///   mov  rdx, [rbx+0x08]      ; rdx = Arg2
+    ///   mov  rcx, [rbx]           ; rcx = Arg1
+    ///   call rax
+    ///   mov  [rbx+0x18], rax      ; Result = return value
+    ///   add  rsp, 0x20
+    ///   pop  rbx
+    ///   ret
+    /// </summary>
+    private static readonly byte[] CallWithReturnStubBytes =
+    {
+        0x53,                                     // push rbx
+        0x48, 0x89, 0xCB,                         // mov rbx, rcx
+        0x48, 0x83, 0xEC, 0x20,                   // sub rsp, 0x20
+        0x48, 0x8B, 0x43, 0x10,                   // mov rax, [rbx+0x10]
+        0x48, 0x8B, 0x53, 0x08,                   // mov rdx, [rbx+0x08]
+        0x48, 0x8B, 0x0B,                         // mov rcx, [rbx]
+        0xFF, 0xD0,                               // call rax
+        0x48, 0x89, 0x43, 0x18,                   // mov [rbx+0x18], rax
+        0x48, 0x83, 0xC4, 0x20,                   // add rsp, 0x20
+        0x5B,                                     // pop rbx
+        0xC3,                                     // ret
+    };
+
     private readonly ProcessMemory _mem;
     private IntPtr _stubAddress;
     private IntPtr _setCarStubAddress;
+    private IntPtr _callWithReturnStubAddress;
 
     public RemoteExecutor(ProcessMemory mem) => _mem = mem;
 
@@ -97,6 +138,12 @@ public sealed class RemoteExecutor : IDisposable
     {
         if (_setCarStubAddress != IntPtr.Zero) return;
         _setCarStubAddress = InstallStub(SetCarStubBytes, "SetCar stub");
+    }
+
+    private void EnsureCallWithReturnStubInstalled()
+    {
+        if (_callWithReturnStubAddress != IntPtr.Zero) return;
+        _callWithReturnStubAddress = InstallStub(CallWithReturnStubBytes, "CallWithReturn stub");
     }
 
     /// <summary>
@@ -213,6 +260,53 @@ public sealed class RemoteExecutor : IDisposable
         }
     }
 
+    /// <summary>
+    /// Calls targetAbsoluteAddress(arg1, arg2) inside the target process and captures its RAX
+    /// return value in full (see CallWithReturnStubBytes's doc comment for why Call's own
+    /// thread-exit-code approach can't be reused for this). Returns false if the call couldn't be
+    /// made or the result couldn't be read back afterward - result is 0 in that case.
+    /// </summary>
+    public bool CallWithReturn(long targetAbsoluteAddress, long arg1, long arg2, out long result, TimeSpan? timeout = null)
+    {
+        EnsureCallWithReturnStubInstalled();
+        result = 0;
+
+        var paramBlock = new byte[32]; // Arg1, Arg2, Target, Result(written by the stub, not us)
+        BitConverter.GetBytes(arg1).CopyTo(paramBlock, 0);
+        BitConverter.GetBytes(arg2).CopyTo(paramBlock, 8);
+        BitConverter.GetBytes(targetAbsoluteAddress).CopyTo(paramBlock, 16);
+
+        var paramAddress = NativeMethods.VirtualAllocEx(_mem.Handle, IntPtr.Zero, (uint)paramBlock.Length,
+            NativeMethods.MEM_COMMIT | NativeMethods.MEM_RESERVE, NativeMethods.PAGE_READWRITE);
+        if (paramAddress == IntPtr.Zero) return false;
+
+        try
+        {
+            if (!NativeMethods.WriteProcessMemory(_mem.Handle, paramAddress, paramBlock, paramBlock.Length, out _))
+                return false;
+
+            var thread = NativeMethods.CreateRemoteThread(_mem.Handle, IntPtr.Zero, 0, _callWithReturnStubAddress, paramAddress, 0, out _);
+            if (thread == IntPtr.Zero) return false;
+
+            bool signaled;
+            try
+            {
+                var waitMs = (uint)(timeout ?? TimeSpan.FromSeconds(5)).TotalMilliseconds;
+                signaled = NativeMethods.WaitForSingleObject(thread, waitMs) == NativeMethods.WAIT_OBJECT_0;
+            }
+            finally
+            {
+                NativeMethods.CloseHandle(thread);
+            }
+
+            return signaled && _mem.TryReadInt64((long)paramAddress + 24, out result);
+        }
+        finally
+        {
+            NativeMethods.VirtualFreeEx(_mem.Handle, paramAddress, 0, NativeMethods.MEM_RELEASE);
+        }
+    }
+
     public void Dispose()
     {
         if (_stubAddress != IntPtr.Zero)
@@ -224,6 +318,11 @@ public sealed class RemoteExecutor : IDisposable
         {
             NativeMethods.VirtualFreeEx(_mem.Handle, _setCarStubAddress, 0, NativeMethods.MEM_RELEASE);
             _setCarStubAddress = IntPtr.Zero;
+        }
+        if (_callWithReturnStubAddress != IntPtr.Zero)
+        {
+            NativeMethods.VirtualFreeEx(_mem.Handle, _callWithReturnStubAddress, 0, NativeMethods.MEM_RELEASE);
+            _callWithReturnStubAddress = IntPtr.Zero;
         }
     }
 }

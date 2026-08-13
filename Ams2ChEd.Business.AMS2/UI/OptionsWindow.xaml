@@ -78,6 +78,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!-- AMS2 Folder Section -->
@@ -130,8 +131,24 @@
                 </Grid>
             </StackPanel>
 
+            <!-- Race Length Section -->
+            <StackPanel Grid.Row="2" VerticalAlignment="Top">
+                <Label Content="RACE LENGTH (AUTO-SETUP):" Style="{StaticResource LabelStyle}"/>
+                <ComboBox x:Name="RaceLengthComboBox"
+                          Height="35"
+                          FontSize="14"
+                          VerticalContentAlignment="Center"
+                          HorizontalAlignment="Left"
+                          Width="200">
+                    <ComboBoxItem Content="Default" Tag="Default"/>
+                    <ComboBoxItem Content="1/3 distance" Tag="OneThird"/>
+                    <ComboBoxItem Content="1/2 distance" Tag="Half"/>
+                    <ComboBoxItem Content="Full distance" Tag="Full"/>
+                </ComboBox>
+            </StackPanel>
+
             <!-- Buttons -->
-            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="SAVE"
                         Width="150"
                         Margin="0,0,10,0"

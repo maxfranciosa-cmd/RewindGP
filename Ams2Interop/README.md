@@ -53,6 +53,19 @@ application already drives) before calling `ApplyRaceConfigAsync`.
   can re-initialize state shortly after opening and silently undo an early write.
 - `Ams2Launcher`: detect whether AMS2 is running and launch the game
   through Steam so the resulting process can actually be attached to afterward.
+- **RaceDate now applies reliably** — writing VM550's day/month/year slots alone left the field
+  visibly stale (updated internally, didn't reach the actual race). Confirmed fix: also raw-write
+  VM498's own packed date field (`Native/Vm498PackedDate.cs`) in the same call. **Confirmed live**:
+  the actual race data lands correctly with both writes together; AMS2's own Custom Race menu
+  display can still lag until the submenu is re-visited, which is cosmetic only.
+- **EXPERIMENTAL, not live-confirmed**: Practice/Qualifying session on/off, duration, start hour,
+  and per-session weather (`practice`/`qualifying` parameters, `PracticeQualifySessionConfig`,
+  `SessionWeatherConfig`). These aren't VM498/VM550 slots at all (confirmed live: toggling them in
+  AMS2's UI produces zero VM498/VM550 diffs) — they're separate, structurally-identical VM550
+  instances reached through AMS2's own per-session-name lookup function (see
+  `Native/SessionVmResolver.cs` and `Ams2Constants.SessionVmGetterRva`'s doc comments for the full
+  trail). Resolving a session VM costs real remote-call round-trips per candidate (not just memory
+  reads like everything else here) — expect the first resolve to be noticeably slower.
 
 ## What's a known simplification
 
@@ -62,6 +75,18 @@ application already drives) before calling `ApplyRaceConfigAsync`.
   doesn't know where AMS2 stores the *result* of a car/track/livery change to read it back and
   confirm. `ApplyRaceConfigAsync` only reports whether the remote `SetCar` call executed and
   returned, not whether AMS2 accepted the values.
+- **`CommitRva` (the "commit" call) is CONFIRMED unrelated to RaceDate/session fields** — see its
+  doc comment in `Ams2Constants.cs`. Its body is AI-opponent vehicle-class-count bookkeeping: looks
+  up a class by hash off VM498, counts matching `vehiclelist.lst` entries, writes the counts
+  through the generic setter. It's kept wired into `ApplyRaceConfigAsync` for that actual purpose;
+  it does nothing for `RaceDate` or session fields. The real `RaceDate` fix is the VM498
+  packed-date write described above.
+- **Practice/Qualifying `Enabled`/weather are confirmed by analysis, not live-tested by this
+  library** — see the EXPERIMENTAL bullet above. `Enabled` replicates a 3-slot write pattern
+  (`Vm550Slot.SessionEnabled`/`SessionEnabledPaired1`/`SessionEnabledPaired2`). Weather has one
+  known open question: whether writing slot values alone is sufficient, or whether — mirroring
+  `RaceDate` needing `DateType=Custom` — there's a separate RealHistoric-vs-Custom mode slot that
+  also needs setting first. No such slot was identified by static analysis.
 
 ## Usage
 

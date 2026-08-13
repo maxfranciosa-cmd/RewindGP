@@ -952,6 +952,15 @@
     <None Update="CarModels\car_model_capacities.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Tracks\track_mapping.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Tracks\ams2_track_hashes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CarModels\ams2_car_hashes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="StaticFiles\rewind_gp_logo_128.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

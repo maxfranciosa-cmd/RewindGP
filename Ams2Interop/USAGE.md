@@ -68,7 +68,10 @@ var result = await configurator.ApplyRaceConfigAsync(
         DurationValue = 25,
         StartHour = 14,
         RollingStart = StartType.Rolling,
-    });
+    },
+    // EXPERIMENTAL - see README.md's status notes before relying on these.
+    practice: new PracticeQualifySessionConfig { Enabled = OnOff.On, DurationValue = 20, StartHour = 10 },
+    qualifying: new PracticeQualifySessionConfig { Enabled = OnOff.On, DurationValue = 15, StartHour = 12 });
 
 // See "Interpreting RaceConfigResult" below - result.Success covers everything this library can
 // verify, but SetCar (car/track/livery) has no read-back check, so it can be true even if the
@@ -132,8 +135,16 @@ Task<RaceConfigResult> ApplyRaceConfigAsync(
     string track,
     OpponentsConfig? opponents = null,
     SessionRulesConfig? sessionRules = null,
+    PracticeQualifySessionConfig? practice = null,
+    PracticeQualifySessionConfig? qualifying = null,
     CancellationToken ct = default)
 ```
+
+`practice`/`qualifying` are EXPERIMENTAL and not live-confirmed by this library — see
+`PracticeQualifySessionConfig` below and README.md's status notes before relying on them.
+Resolving either one costs real remote-call round-trips (not just memory reads like everything
+else this library does), so only pass the ones you're actually testing — leave the other `null`
+to skip that cost.
 
 Applies `opponents`/`sessionRules` to whatever `VM498`/`VM550` currently resolve to, and
 `car`/`track`/`livery` via a single `SetCar` call, all against the currently-open Custom Race
@@ -172,7 +183,7 @@ is left alone**.
 | Property | Type | Valid range | Notes |
 |---|---|---|---|
 | `NumOpponentsType` | `NumOpponentsType?` | `MaxAvailable`, `Custom`, `ManualGrid` | |
-| `OpponentsType` | `OpponentsTypeKind?` | `Identical`, `SameClass`, `Multiclass` | |
+| `OpponentsType` | `OpponentsTypeKind?` | `Identical`, `SameClass` | |
 | `OpponentCount` | `int?` | unbounded in this library | no numeric ceiling is enforced here — you're relying on AMS2 itself to reject an absurd value, not this library |
 | `Skill` | `int?` | **70–120** | out-of-range values are rejected (reported via `UnverifiedFields`, not written) rather than clamped |
 | `AiWetWeatherSkill` | `int?` | **0–200** | same rejection behavior |
@@ -196,6 +207,39 @@ Same nullable = don't-force convention.
 | `RaceDate` | `DateTime?` | — | writes day/month/year, but **only takes effect when `DateType` is `Custom`** (matching AMS2's own field grouping); if `DateType` isn't `Custom`, it's ignored and reported via `UnverifiedFields` instead of silently written |
 | `DurationType` | `DurationType?` | `LapBased`, `TimeBased` | must be set together with `DurationValue` — either alone is a no-op |
 | `DurationValue` | `int?` | — | laps if `DurationType` is `LapBased`, minutes if `TimeBased` |
+| `Weather` | `SessionWeatherConfig?` | — | race session's weather — see below |
+
+### `PracticeQualifySessionConfig` — EXPERIMENTAL, not live-confirmed
+
+Used for both the `practice` and `qualifying` parameters — same shape, same nullable = don't-force
+convention. Applied against that session's own separately-resolved VM pointer (NOT the main
+VM550), reusing the same `Vm550Slot` numbers on the theory that Practice1/Qualifying1 are
+structurally-identical VM550 instances. See `Native/SessionVmResolver.cs`'s doc comment for what's
+confirmed vs. not before depending on it.
+
+| Property | Type | Notes |
+|---|---|---|
+| `Enabled` | `OnOff?` | on/off — writes three slots as a group (`Vm550Slot.SessionEnabled`/`SessionEnabledPaired1`/`SessionEnabledPaired2`), not a single flag |
+| `DurationValue` | `int?` | minutes — Practice/Qualifying are always time-based in AMS2 (no lap-based option), so unlike `SessionRulesConfig` there's no paired `DurationType`; `DurationTypeFlag` (slot 7) is written as `TimeBased` automatically |
+| `StartHour` | `int?` | 0–23 — UNCONFIRMED whether Practice1/Qualifying1 have their own meaningful Hour slot independent of the race session's |
+| `Weather` | `SessionWeatherConfig?` | this session's weather — see below |
+
+### `SessionWeatherConfig` — CONFIRMED slot layout, UNCONFIRMED whether it's sufficient alone
+
+Used by `SessionRulesConfig.Weather` (race) and `PracticeQualifySessionConfig.Weather` (practice/
+qualifying) — same shape either way, applied against whichever VM that config targets.
+
+| Property | Type | Notes |
+|---|---|---|
+| `Slots` | `IReadOnlyList<WeatherType>?` | 1–4 slots, in order. AMS2 itself repeats the last slot when fewer than 4 are given — this library doesn't pre-fill the rest. More than 4 is rejected (`UnverifiedFields`), not truncated. |
+
+`WeatherType` values are AMS2's own catalogue: `Clear`, `LightClouds`, `MediumClouds`,
+`HeavyClouds`, `Overcast`, `LightRain`, `Rain`, `Storm`, `Thunderstorm`, `Hazy`, `FogWithRain`,
+`HeavyFog`, `HeavyFogWithRain`, `Fog`, `Random`.
+
+**Open question**: whether writing slot values alone actually changes the weather AMS2 uses, or
+whether — mirroring `RaceDate` needing `DateType=Custom` first — there's a separate RealHistoric-
+vs-Custom mode slot that also needs setting. No such slot was found by static analysis.
 
 ## Interpreting `RaceConfigResult`
 

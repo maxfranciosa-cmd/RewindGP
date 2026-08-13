@@ -92,6 +92,7 @@ namespace AMS2ChEd.Views
         private List<ParticipantData> _qualifyingResults;
         private GraphicsStyle _currentStyle = GraphicsStyle.Pre94;
         private readonly bool _preQualiMode;
+        private bool _showRaceSetupAfterLoad;
         private string _originalGrandPrixName = "";
         private string _originalCircuitName = "";
 
@@ -100,6 +101,7 @@ namespace AMS2ChEd.Views
         public RaceWeekendWindow(GameLogicFactory gameLogicFactory, ISaveGame saveGame, SimulatedRaceDataService simulatedRaceDataService, bool simulateRace, bool preQualiMode = false)
         {
             InitializeComponent();
+            Loaded += RaceWeekendWindow_Loaded;
             this.saveGame = saveGame;
             _preQualiMode = preQualiMode;
             this._raceDataService = simulateRace ? simulatedRaceDataService : gameLogicFactory.RaceDataService;
@@ -168,16 +170,10 @@ namespace AMS2ChEd.Views
                 }
                 else
                 {
-                    var playerTeam = saveGame.NextGpEntryList.FirstOrDefault(e => new[] { e.Driver1Id, e.Driver2Id }.Contains(saveGame.PlayerData.DriverId));
-                    var team = string.IsNullOrEmpty(playerTeam?.TeamId) ? null : saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == playerTeam?.TeamId);
-                    var playerDriverSlot = playerTeam.Driver1Id == saveGame.PlayerData.DriverId ? 1 : 2;
-                    var playerNumber = playerDriverSlot == 1 ? playerTeam.Driver1Number : playerTeam.Driver2Number;
-                    var numberofOpponents = (saveGame.NextGpEntryList.Sum(e => (string.IsNullOrEmpty(e.Driver1Id) ? 0 : 1) + (string.IsNullOrEmpty(e.Driver2Id) ? 0 : 1))) - 1;
-                    var difficultyDelta = _gameLogicFactory.RaceSetupAdvisor.GetSuggestedAiDifficulty(saveGame.CurrentSeason, team?.TeamId, playerDriverSlot);
-                    var usesPerformanceScalars = _gameLogicFactory.RaceSetupAdvisor.SeasonUsesPerformanceScalars(saveGame.CurrentSeason);
-                    var carDisplayName = _gameLogicFactory.RaceSetupAdvisor.GetCarDisplayName(saveGame.CurrentSeason, team?.TeamId, playerDriverSlot);
-                    var raceInstructionsWindow = new RaceInstructionsWindow(saveGame.PlayerData.Name, carDisplayName, $"#{playerNumber} {team?.TeamName} - {saveGame.PlayerData.Name}", numberofOpponents, difficultyDelta, usesPerformanceScalars);
-                    raceInstructionsWindow.ShowDialog();
+                    // Deferred to Loaded (see RaceWeekendWindow_Loaded) since auto-configuring the
+                    // race via IRaceLaunchAssistant is async - the manual RaceInstructionsWindow
+                    // fallback still runs synchronously from there if auto-configure isn't available.
+                    _showRaceSetupAfterLoad = true;
                 }
             }
 
@@ -195,6 +191,51 @@ namespace AMS2ChEd.Views
             {
                 SessionLabelText.Text = "PRE-QUALIFYING:";
                 SessionText.Text = "QUALIFYING SESSION";
+            }
+        }
+
+        private async void RaceWeekendWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= RaceWeekendWindow_Loaded;
+            if (!_showRaceSetupAfterLoad)
+                return;
+
+            var playerTeam = saveGame.NextGpEntryList.FirstOrDefault(en => new[] { en.Driver1Id, en.Driver2Id }.Contains(saveGame.PlayerData.DriverId));
+            var team = string.IsNullOrEmpty(playerTeam?.TeamId) ? null : saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == playerTeam?.TeamId);
+            var playerDriverSlot = playerTeam.Driver1Id == saveGame.PlayerData.DriverId ? 1 : 2;
+
+            if (_gameLogicFactory.RaceLaunchAssistant != null)
+            {
+                var request = new RaceLaunchRequest
+                {
+                    RaceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId,
+                    Season = saveGame.CurrentSeason,
+                    EntryList = saveGame.NextGpEntryList,
+                    Drivers = saveGame.Drivers,
+                    PlayerTeamId = team?.TeamId,
+                    PlayerDriverId = saveGame.PlayerData.DriverId,
+                    PlayerDriverSlot = playerDriverSlot,
+                    IsPreQuali = false,
+                };
+                // Whether this comes back true (auto-configured) or false (skipped, or the player
+                // dismissed the "set it up yourself" instructions the overlay itself now shows),
+                // there's nothing further to do here - the overlay owns that whole interaction.
+                await _gameLogicFactory.RaceLaunchAssistant.ShowSetupOverlayAsync(request, this);
+            }
+            else
+            {
+                // No game-specific launch assistant registered for this game module - fall back to
+                // the standalone instructions window.
+                var playerNumber = playerDriverSlot == 1 ? playerTeam.Driver1Number : playerTeam.Driver2Number;
+                var numberofOpponents = saveGame.NextGpEntryList.DriverCount() - 1;
+                var difficultyDelta = _gameLogicFactory.RaceSetupAdvisor.GetSuggestedAiDifficulty(saveGame.CurrentSeason, team?.TeamId, playerDriverSlot);
+                var usesPerformanceScalars = _gameLogicFactory.RaceSetupAdvisor.SeasonUsesPerformanceScalars(saveGame.CurrentSeason);
+                var carDisplayName = _gameLogicFactory.RaceSetupAdvisor.GetCarDisplayName(saveGame.CurrentSeason, team?.TeamId, playerDriverSlot);
+                var raceInstructionsWindow = new RaceInstructionsWindow(saveGame.PlayerData.Name, carDisplayName, $"#{playerNumber} {team?.TeamName} - {saveGame.PlayerData.Name}", numberofOpponents, difficultyDelta, usesPerformanceScalars)
+                {
+                    Owner = this
+                };
+                raceInstructionsWindow.ShowDialog();
             }
         }
 
@@ -225,7 +266,7 @@ namespace AMS2ChEd.Views
 
         private void OnSessionFinished(object sender, SessionFinishedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(async () =>
             {
                 if (_preQualiMode)
                 {
@@ -244,6 +285,16 @@ namespace AMS2ChEd.Views
                         break;
 
                     case SessionType.Race:
+                        // Let the player know they can come back to Rewind GP now, without having
+                        // to alt-tab out of the game themselves. Await this before showing any of
+                        // our own windows/dialogs below - otherwise they pop up behind the
+                        // still-foregrounded game, and the modal ones among them block this whole
+                        // dispatcher callback invisibly until the player alt-tabs.
+                        if (_gameLogicFactory.RaceLaunchAssistant != null)
+                        {
+                            await _gameLogicFactory.RaceLaunchAssistant.ShowReturnOverlayAsync(this);
+                        }
+
                         // Strip unrecognised placeholders from both sessions
                         var finalStandings = e.FinalStandings
                             .Where(p => p.DriverId != "driver_id")
@@ -342,7 +393,7 @@ namespace AMS2ChEd.Views
                         var winnerPhoto = winnerDriverData?.PictureUrl;
                         var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, DateTime.ParseExact(gpDate, "yyyy-MM-dd", CultureInfo.InvariantCulture), winnerPhoto);
                         newsWindow.Owner = this;
-                        newsWindow.ShowDialog();
+                        newsWindow.Show();
 
                         // Keep the race results visible after stopping the service
                         Dispatcher.Invoke(() =>
@@ -461,8 +512,18 @@ namespace AMS2ChEd.Views
 
         private void OnPreQualiSessionFinished(object sender, SessionFinishedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(async () =>
             {
+                // Pre-quali is just a qualifying session with no race to follow, so the return
+                // prompt belongs here rather than in OnSessionFinished's Race case. Await it before
+                // raising PreQualiResultsReady below - EntryListWindow reacts to that synchronously
+                // with a modal MessageBox/results dialog, which would otherwise pop up behind the
+                // still-foregrounded game and sit there invisibly blocking the UI thread.
+                if (_gameLogicFactory.RaceLaunchAssistant != null)
+                {
+                    await _gameLogicFactory.RaceLaunchAssistant.ShowReturnOverlayAsync(this);
+                }
+
                 UpdateSessionDisplay(new SessionData
                 {
                     SessionType = SessionType.Qualification,
