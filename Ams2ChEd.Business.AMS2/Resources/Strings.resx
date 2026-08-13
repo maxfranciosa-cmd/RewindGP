@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="Ams2ProgressWindow_Title" xml:space="preserve">
+    <value>Please Wait</value>
+  </data>
+  <data name="Ams2ProgressWindow_DefaultMessage" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+
+  <data name="OptionsWindow_Title" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="OptionsWindow_HeaderText" xml:space="preserve">
+    <value>OPTIONS</value>
+  </data>
+  <data name="OptionsWindow_Ams2FolderLabel" xml:space="preserve">
+    <value>AMS2 FOLDER:</value>
+  </data>
+  <data name="OptionsWindow_BrowseButton" xml:space="preserve">
+    <value>BROWSE</value>
+  </data>
+  <data name="OptionsWindow_InGamePlayerNameLabel" xml:space="preserve">
+    <value>IN-GAME PLAYER NAME:</value>
+  </data>
+  <data name="OptionsWindow_RaceLengthLabel" xml:space="preserve">
+    <value>RACE LENGTH (AUTO-SETUP):</value>
+  </data>
+  <data name="OptionsWindow_RaceLength_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="OptionsWindow_RaceLength_OneThird" xml:space="preserve">
+    <value>1/3 distance</value>
+  </data>
+  <data name="OptionsWindow_RaceLength_Half" xml:space="preserve">
+    <value>1/2 distance</value>
+  </data>
+  <data name="OptionsWindow_RaceLength_Full" xml:space="preserve">
+    <value>Full distance</value>
+  </data>
+  <data name="OptionsWindow_LanguageLabel" xml:space="preserve">
+    <value>LANGUAGE:</value>
+  </data>
+  <data name="OptionsWindow_SaveButton" xml:space="preserve">
+    <value>SAVE</value>
+  </data>
+  <data name="OptionsWindow_RestoreVehicleFilesButton" xml:space="preserve">
+    <value>RESTORE ORIGINAL VEHICLE FILES</value>
+  </data>
+  <data name="OptionsWindow_CloseButton" xml:space="preserve">
+    <value>CLOSE</value>
+  </data>
+  <data name="OptionsWindow_BrowseDialog_Description" xml:space="preserve">
+    <value>Select AMS2 Installation Folder</value>
+  </data>
+
+  <data name="OptionsWindow_FolderPathRequired_Title" xml:space="preserve">
+    <value>Validation Error</value>
+  </data>
+  <data name="OptionsWindow_FolderPathRequired_Message" xml:space="preserve">
+    <value>Please specify the AMS2 folder path.</value>
+  </data>
+  <data name="OptionsWindow_FolderNotFound_Title" xml:space="preserve">
+    <value>Folder Not Found</value>
+  </data>
+  <data name="OptionsWindow_FolderNotFound_Message" xml:space="preserve">
+    <value>The specified folder does not exist. Do you want to save it anyway?</value>
+  </data>
+  <data name="OptionsWindow_PlayerNameRequired_Title" xml:space="preserve">
+    <value>Validation Error</value>
+  </data>
+  <data name="OptionsWindow_PlayerNameRequired_Message" xml:space="preserve">
+    <value>Please specify your in-game driver Name.</value>
+  </data>
+  <data name="OptionsWindow_SettingsSaved_Title" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="OptionsWindow_SettingsSaved_Message" xml:space="preserve">
+    <value>Settings saved successfully!</value>
+  </data>
+  <data name="OptionsWindow_LanguageChangeRequiresRestart_Title" xml:space="preserve">
+    <value>Language Changed</value>
+  </data>
+  <data name="OptionsWindow_LanguageChangeRequiresRestart_Message" xml:space="preserve">
+    <value>The new language will take effect the next time you launch the app.</value>
+  </data>
+  <data name="OptionsWindow_SaveError_Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="OptionsWindow_SaveError_Message" xml:space="preserve">
+    <value>Error saving settings: {0}</value>
+  </data>
+  <data name="OptionsWindow_NothingToRestore_Title" xml:space="preserve">
+    <value>Nothing To Restore</value>
+  </data>
+  <data name="OptionsWindow_NothingToRestore_Message" xml:space="preserve">
+    <value>No patched vehicle files were found for this install - nothing to restore.</value>
+  </data>
+  <data name="OptionsWindow_RestoreConfirm_Title" xml:space="preserve">
+    <value>Restore Original Vehicle Files</value>
+  </data>
+  <data name="OptionsWindow_RestoreConfirm_Message" xml:space="preserve">
+    <value>This will restore every vehicle pak file Rewind GP has patched this season back to its original state. Continue?</value>
+  </data>
+  <data name="OptionsWindow_RestoringFiles_Message" xml:space="preserve">
+    <value>Restoring original vehicle files...</value>
+  </data>
+  <data name="OptionsWindow_RestoreComplete_Title" xml:space="preserve">
+    <value>Restore Complete</value>
+  </data>
+  <data name="OptionsWindow_RestoreComplete_Message" xml:space="preserve">
+    <value>Restored {0} file(s) to their original state.</value>
+  </data>
+  <data name="OptionsWindow_RestoreFailed_Title" xml:space="preserve">
+    <value>Restore Failed</value>
+  </data>
+  <data name="OptionsWindow_RestoreFailed_Message" xml:space="preserve">
+    <value>Restore did not fully complete: {0}</value>
+  </data>
+</root>

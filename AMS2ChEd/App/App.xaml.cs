@@ -7,6 +7,7 @@ using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Services.Contracts;
+using AMS2ChEd.Business.Settings;
 using AMS2ChEd.Business.Storage;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
@@ -18,9 +19,12 @@ using AMS2ChEd.Updater;
 using AMS2ChEd.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Threading;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -96,7 +100,9 @@ namespace AMS2ChEd
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var exePath = Process.GetCurrentProcess().MainModule!.FileName; 
+            ApplyCulture(e.Args);
+
+            var exePath = Process.GetCurrentProcess().MainModule!.FileName;
             FileAssociationHelper.Register(exePath, exePath);
             var services = new ServiceCollection();
             ConfigureServices(services, e.Args.Contains("--forceupdate"), e.Args.Contains("--forceseasonsupdate"), e.Args.Contains("--developermode"));
@@ -175,6 +181,43 @@ namespace AMS2ChEd
             return Task.CompletedTask;
 
         }, TaskScheduler.Default);
+        }
+
+        /// <summary>
+        /// Sets the UI culture for the whole process, before any window is constructed. Language
+        /// switching is restart-based (no live-switching library, e.g. WPFLocalizeExtension, is
+        /// used), so this is the only place culture ever gets set. The saved preference lives in
+        /// AppLanguageSettings (game-agnostic - a UI language isn't an AMS2-specific concern), with
+        /// a "--culture=xx" arg override for fast iteration while converting windows.
+        /// </summary>
+        private static void ApplyCulture(string[] args)
+        {
+            const string cultureArgPrefix = "--culture=";
+            var cultureArg = args.FirstOrDefault(a => a.StartsWith(cultureArgPrefix, StringComparison.OrdinalIgnoreCase));
+            var languageCode = cultureArg != null
+                ? cultureArg.Substring(cultureArgPrefix.Length)
+                : AppLanguageSettings.LoadLanguageCode();
+
+            CultureInfo culture;
+            try
+            {
+                culture = new CultureInfo(languageCode);
+            }
+            catch (CultureNotFoundException)
+            {
+                culture = new CultureInfo("en");
+            }
+
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+
+            // FrameworkElement.Language defaults to en-US regardless of thread culture unless
+            // overridden - several windows use culture-sensitive StringFormat bindings that read it.
+            FrameworkElement.LanguageProperty.OverrideMetadata(
+                typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
         }
 
         private async Task RunStartupChecksAsync(MainWindow mainWindow, VersionCheckService versionCheck, string[] originalArgs)

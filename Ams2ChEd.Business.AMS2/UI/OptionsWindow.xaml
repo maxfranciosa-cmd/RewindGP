@@ -1,7 +1,8 @@
 <Window x:Class="Ams2ChEd.Business.AMS2.UI.OptionsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Options"
+        xmlns:loc="clr-namespace:Ams2ChEd.Business.AMS2.Localization"
+        Title="{loc:Loc OptionsWindow_Title}"
         Height="600" Width="720"
         WindowStartupLocation="CenterScreen"
         Background="#1a1a1a"
@@ -64,7 +65,7 @@
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Background="#0d0d0d" Margin="20">
-            <TextBlock Text="OPTIONS"
+            <TextBlock Text="{loc:Loc OptionsWindow_HeaderText}"
                        FontSize="32"
                        FontWeight="Bold"
                        Foreground="White"
@@ -83,7 +84,7 @@
 
             <!-- AMS2 Folder Section -->
             <StackPanel Grid.Row="0">
-                <Label Content="AMS2 FOLDER:" Style="{StaticResource LabelStyle}"/>
+                <Label Content="{loc:Loc OptionsWindow_Ams2FolderLabel}" Style="{StaticResource LabelStyle}"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -94,7 +95,7 @@
                              Style="{StaticResource TextBoxStyle}"
                              Margin="0,0,10,0"/>
                     <Button Grid.Column="1"
-                            Content="BROWSE"
+                            Content="{loc:Loc OptionsWindow_BrowseButton}"
                             Width="100"
                             Height="35"
                             Background="#666666"
@@ -118,7 +119,7 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1">
-                <Label Content="IN-GAME PLAYER NAME:" Style="{StaticResource LabelStyle}"/>
+                <Label Content="{loc:Loc OptionsWindow_InGamePlayerNameLabel}" Style="{StaticResource LabelStyle}"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -133,34 +134,50 @@
 
             <!-- Race Length Section -->
             <StackPanel Grid.Row="2" VerticalAlignment="Top">
-                <Label Content="RACE LENGTH (AUTO-SETUP):" Style="{StaticResource LabelStyle}"/>
+                <Label Content="{loc:Loc OptionsWindow_RaceLengthLabel}" Style="{StaticResource LabelStyle}"/>
                 <ComboBox x:Name="RaceLengthComboBox"
                           Height="35"
                           FontSize="14"
                           VerticalContentAlignment="Center"
                           HorizontalAlignment="Left"
                           Width="200">
-                    <ComboBoxItem Content="Default" Tag="Default"/>
-                    <ComboBoxItem Content="1/3 distance" Tag="OneThird"/>
-                    <ComboBoxItem Content="1/2 distance" Tag="Half"/>
-                    <ComboBoxItem Content="Full distance" Tag="Full"/>
+                    <ComboBoxItem Content="{loc:Loc OptionsWindow_RaceLength_Default}" Tag="Default"/>
+                    <ComboBoxItem Content="{loc:Loc OptionsWindow_RaceLength_OneThird}" Tag="OneThird"/>
+                    <ComboBoxItem Content="{loc:Loc OptionsWindow_RaceLength_Half}" Tag="Half"/>
+                    <ComboBoxItem Content="{loc:Loc OptionsWindow_RaceLength_Full}" Tag="Full"/>
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Language Section -->
+            <StackPanel Grid.Row="3" VerticalAlignment="Top">
+                <Label Content="{loc:Loc OptionsWindow_LanguageLabel}" Style="{StaticResource LabelStyle}"/>
+                <!-- Language names are shown in their own language, not translated - standard
+                     convention, and avoids a resx round-trip just to list languages. -->
+                <ComboBox x:Name="LanguageComboBox"
+                          Height="35"
+                          FontSize="14"
+                          VerticalContentAlignment="Center"
+                          HorizontalAlignment="Left"
+                          Width="200">
+                    <ComboBoxItem Content="English" Tag="en"/>
+                    <ComboBoxItem Content="Italiano" Tag="it"/>
                 </ComboBox>
             </StackPanel>
 
             <!-- Buttons -->
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="SAVE"
+                <Button Content="{loc:Loc OptionsWindow_SaveButton}"
                         Width="150"
                         Margin="0,0,10,0"
                         Style="{StaticResource MenuButtonStyle}"
                         Click="SaveButton_Click"/>
-                <Button Content="RESTORE ORIGINAL VEHICLE FILES"
+                <Button Content="{loc:Loc OptionsWindow_RestoreVehicleFilesButton}"
                         Width="270"
                         Margin="0,0,10,0"
                         FontSize="12"
                         Style="{StaticResource SecondaryButtonStyle}"
                         Click="RestoreVehicleFilesButton_Click"/>
-                <Button Content="CLOSE"
+                <Button Content="{loc:Loc OptionsWindow_CloseButton}"
                         Width="150"
                         Style="{StaticResource SecondaryButtonStyle}"
                         Click="CloseButton_Click"/>

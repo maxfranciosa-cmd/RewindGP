@@ -1,7 +1,8 @@
 <Window x:Class="Ams2ChEd.Business.AMS2.UI.Ams2ProgressWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Please Wait"
+        xmlns:loc="clr-namespace:Ams2ChEd.Business.AMS2.Localization"
+        Title="{loc:Loc Ams2ProgressWindow_Title}"
         Height="120"
         Width="350"
         WindowStartupLocation="CenterScreen"
@@ -19,7 +20,7 @@
 
         <TextBlock x:Name="MessageText"
                    Grid.Row="0"
-                   Text="Processing..."
+                   Text="{loc:Loc Ams2ProgressWindow_DefaultMessage}"
                    FontSize="14"
                    HorizontalAlignment="Center"/>
 

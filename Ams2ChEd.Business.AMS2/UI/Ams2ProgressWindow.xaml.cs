@@ -10,10 +10,16 @@ namespace Ams2ChEd.Business.AMS2.UI
     /// </summary>
     public partial class Ams2ProgressWindow : Window
     {
-        public Ams2ProgressWindow(string message = "Processing...")
+        public Ams2ProgressWindow(string message = null)
         {
             InitializeComponent();
-            MessageText.Text = message;
+            // Null keeps the localized default message already set by the XAML's {loc:Loc}
+            // binding; callers passing a custom message still supply it hardcoded in English,
+            // except OptionsWindow's own call site, which now uses a resx key (see OptionsWindow.xaml.cs).
+            if (message != null)
+            {
+                MessageText.Text = message;
+            }
         }
     }
 }
