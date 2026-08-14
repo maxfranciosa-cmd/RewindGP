@@ -320,7 +320,7 @@ namespace AMS2ChEd.Business.Services
                         return DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN;
                     else if (standings <= 10)
                         return DriverReputation.PRIME_STRONG_MIDFIELD;
-                    else if (dnfs <= 2)
+                    else if (dnfs <= 2 && standings <= 18)
                         return DriverReputation.PRIME_MIDFIELD;
                     else
                         return DriverReputation.PAY_DRIVER_SEASON;
