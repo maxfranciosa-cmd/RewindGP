@@ -239,7 +239,7 @@ namespace AMS2ChEd.Views
         {
             var random = new Random();
             string upperName = winnerName.ToUpper();
-            string upperGp = $"{raceResult.Year} {raceResult.GrandPrixName.ToUpper()}";
+            string upperGp = string.Format(Strings.PostRaceNewsWindow_Headline_GpName_Format, raceResult.GrandPrixName, raceResult.Year).ToUpper();
 
             if (isGrandSlam && isMaidenWin)
             {

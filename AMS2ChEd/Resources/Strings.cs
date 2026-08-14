@@ -387,6 +387,7 @@ namespace AMS2ChEd.Resources
         public static string PostRaceNewsWindow_Headline_MaidenWin1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_MaidenWin1_Format))!;
         public static string PostRaceNewsWindow_Headline_MaidenWin2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_MaidenWin2_Format))!;
         public static string PostRaceNewsWindow_Headline_Standard_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_Standard_Format))!;
+        public static string PostRaceNewsWindow_Headline_GpName_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_GpName_Format))!;
         public static string PostRaceNewsWindow_GrandSlam1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_GrandSlam1_Format))!;
         public static string PostRaceNewsWindow_GrandSlam2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_GrandSlam2_Format))!;
         public static string PostRaceNewsWindow_GrandSlam3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_GrandSlam3_Format))!;
