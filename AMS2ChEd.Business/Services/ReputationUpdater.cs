@@ -215,8 +215,10 @@ namespace AMS2ChEd.Business.Services
                 case DriverReputation.PRIME_MIDFIELD:
                     if (standings <= 8)
                         return DriverReputation.AGEING_STRONG_MIDFIELD;
-                    else
+                    else if (standings <= 16)
                         return DriverReputation.AGEING_MIDFIELD;
+                    else
+                        return DriverReputation.PAY_DRIVER_SEASON;
 
                 case DriverReputation.PRIME_STRONG_MIDFIELD:
                     if (standings <= 8)
@@ -249,22 +251,28 @@ namespace AMS2ChEd.Business.Services
                         return DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED;
                     else if (standings <= 8)
                         return DriverReputation.AGEING_STRONG_MIDFIELD;
-                    else
+                    else if (standings <= 16)
                         return DriverReputation.AGEING_MIDFIELD;
+                    else
+                        return DriverReputation.PAY_DRIVER_SEASON;
 
                 case DriverReputation.AGEING_MIDFIELD:
                     if (standings <= 8)
                         return DriverReputation.AGEING_STRONG_MIDFIELD;
-                    else
+                    else if (standings <= 16)
                         return DriverReputation.AGEING_MIDFIELD;
+                    else
+                        return DriverReputation.PAY_DRIVER_SEASON;
 
                 case DriverReputation.AGEING_STRONG_MIDFIELD:
                     if (standings <= 3)
                         return DriverReputation.AGEING_CHAMPIONSHIP_LEVEL;
                     else if (standings <= 8)
                         return DriverReputation.AGEING_STRONG_MIDFIELD;
-                    else
+                    else if (standings <= 16)
                         return DriverReputation.AGEING_MIDFIELD;
+                    else
+                        return DriverReputation.PAY_DRIVER_SEASON;
 
                 case DriverReputation.AGEING_CHAMPIONSHIP_LEVEL:
                     if (age > 40)
