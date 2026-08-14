@@ -22,6 +22,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         private Mock<IReputationUpdater> _mockReputationUpdater;
         private Mock<IRandomDriverGenerator> _mockRandomDriverGenerator;
         private OffSeasonMovements _offSeasonMovements;
+        private int _generatedDriverCounter;
 
         [TestInitialize]
         public void Setup()
@@ -31,7 +32,22 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 .Setup(r => r.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
                 .Returns<DriverReputation, int, int, int, int, int, int, double>((rep, age, pos, pods, dnfs, races, totalRaces, avgPos) => rep);
 
+            _generatedDriverCounter = 0;
             _mockRandomDriverGenerator = new Mock<IRandomDriverGenerator>();
+            // Some job ads can legitimately end up with no available candidate in the unemployment
+            // pool (e.g. every remaining driver is excluded for that specific team) - when that
+            // happens, TeamPicksPotentialReplacementsDrivers falls back to generating a brand new
+            // driver for the seat. Without this setup the mock returns null and the fallback crashes
+            // with a NullReferenceException, so give it a real (if generic) driver to hand back.
+            _mockRandomDriverGenerator
+                .Setup(g => g.GenerateDriver(It.IsAny<IEnumerable<IDriverData>>(), It.IsAny<int>()))
+                .Returns<IEnumerable<IDriverData>, int>((existingDrivers, year) => new DriverData
+                {
+                    DriverId = $"GENERATED_{++_generatedDriverCounter}",
+                    Name = $"Generated Driver {_generatedDriverCounter}",
+                    YearOfBirth = year - 25,
+                    Reputation = DriverReputation.YOUNG_TALENT
+                });
 
             var driverFirer = new DriverFirer();
             var driverHirer = new DriverHirer();

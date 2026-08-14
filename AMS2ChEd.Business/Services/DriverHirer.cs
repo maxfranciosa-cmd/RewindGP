@@ -151,12 +151,34 @@ namespace AMS2ChEd.Business.Services
 
         public DriverResume? PickBestCandidate(IEnumerable<DriverResume> drivers, DriverRole role, TeamReputation teamReputation)
         {
-            var result = drivers?
-                    .OrderByDescending(d => teamPolicies[teamReputation][role].Select(p => p.Item1).Contains(d.Reputation))
-                    .ThenByDescending(d => d.Reputation)
+            if (drivers == null)
+                return null;
+
+            var rnd = new Random();
+            // Group by fit tier (not exact reputation) so every driver within the same tier -
+            // e.g. all PerfectFit reputations for this role/team - has an equal chance of being picked,
+            // rather than always defaulting to whichever has the highest reputation value.
+            var result = drivers
+                    .GroupBy(d => GetFitWeight(DoesDriverFitTeamPolicy(d.Reputation, role, teamReputation)))
+                    .OrderByDescending(g => g.Key)
+                    .SelectMany(g => g.OrderBy(x => rnd.Next()))
                     .FirstOrDefault();
 
             return result;
+        }
+
+        public static int GetFitWeight(DriverPolicyFit fit)
+        {
+            switch (fit)
+            {
+                case DriverPolicyFit.OverQualified:
+                case DriverPolicyFit.PerfectFit:
+                    return 2;
+                case DriverPolicyFit.GoodFit:
+                    return 1;
+                default:
+                    return 0;
+            }
         }
 
         public DriverResume PickWinner(DriverResume driverPickedByTeam, DriverResume driverWhoIsProposingToTeam)

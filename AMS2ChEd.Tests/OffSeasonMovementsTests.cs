@@ -1370,6 +1370,47 @@ namespace AMS2ChEd.Tests.Business.Services
             Assert.AreEqual(0, results.Count);
         }
 
+        [TestMethod]
+        public void FinalBallotResults_DifferentReputationsSameFitTier_GivesEachCandidateAFairChance()
+        {
+            // YOUNG_CHAMPIONSHIP_LEVEL and PRIME_CHAMPIONSHIP_LEVEL are both PerfectFit for a
+            // TOP_TEAM first driver (see DriverHirer.teamPolicies) despite being different
+            // DriverReputation values. bestCandidateResume's selection within a fit tier should be
+            // fair - not always default to whichever candidate appeared first in the ballot's
+            // Candidates list.
+            var wins = new HashSet<string>();
+
+            for (int i = 0; i < 500; i++)
+            {
+                var ballots = new[]
+                {
+                    new TeamHiringBallot
+                    {
+                        OriginalTeamHiring = new TeamHiring
+                        {
+                            TeamId = "T1",
+                            DriverId = "TEMP",
+                            Role = DriverRole.FIRST_DRIVER,
+                            TeamReputation = TeamReputation.TOP_TEAM,
+                            DriverReputation = DriverReputation.PAY_DRIVER_SEASON
+                        },
+                        Candidates = new List<TeamHiringBallotCandidate>
+                        {
+                            new TeamHiringBallotCandidate { DriverId = "A_YOUNG_CHAMP", DriverReputation = DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL },
+                            new TeamHiringBallotCandidate { DriverId = "B_PRIME_CHAMP", DriverReputation = DriverReputation.PRIME_CHAMPIONSHIP_LEVEL }
+                        }
+                    }
+                };
+
+                var results = _offSeasonMovements.FinalBallotResults(ballots).ToList();
+                wins.Add(results[0].DriverId);
+            }
+
+            Assert.AreEqual(2, wins.Count,
+                "Both same-tier candidates should win at least once across 500 trials if selection is fair; " +
+                "seeing only one winner suggests the tie is being broken deterministically again.");
+        }
+
         #endregion
     }
 }

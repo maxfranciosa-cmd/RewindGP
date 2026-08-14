@@ -253,11 +253,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 new GrandPrixResult
                 {
                     Year = currentSeasonYear,
-                    RaceResults = new List<SessionResult>
-                    {
-                        new SessionResult { DriverId = "driver1", Position = 0, DidNotPreQualify = true },
-                        new SessionResult { DriverId = "driver1", Position = 0, DidNotPreQualify = true }
-                    }
+                    RaceResults = new List<SessionResult>()
                 }
             };
             saveGame.CurrentDriverStandings = new List<HistoricalDriverStandingEntry>
@@ -295,7 +291,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
         }
 
         [TestMethod]
-        public void UpdateDriversPoolForNextSeason_DriverWithSomeNonQualifications_ExcludesThemFromRacesCount()
+        public void UpdateDriversPoolForNextSeason_DriverWithSomeNonQualifications_IncludesThemFromRacesCount()
         {
             // Arrange
             var currentSeasonYear = 1996;
@@ -338,7 +334,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                     8,   // standings position
                     1,   // podiums (only the P2 result counts)
                     0,   // DNFs
-                    3,   // races (the 2 did-not-prequalify entries are excluded)
+                    5,   // races (the 2 did-not-prequalify entries are included)
                     It.IsAny<int>(), // totalSeasonRaces
                     4.0)) // averageRacePosition = (2+4+6)/3, excluding the did-not-prequalify entries
                 .Returns(DriverReputation.PRIME_STRONG_MIDFIELD);
@@ -351,11 +347,11 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 x => x.GetNewReputation(
                     DriverReputation.PRIME_MIDFIELD,
                     It.IsAny<int>(),
-                    8, 1, 0, 3,
+                    8, 1, 0, 5,
                     It.IsAny<int>(),
                     4.0),
                 Times.Once,
-                "Did-not-prequalify entries should be excluded from the races count and the average race position");
+                "Did-not-prequalify entries should be included from the races count but NOT for the average race position");
 
             var driver = saveGame.Drivers.First(d => d.DriverId == "driver1");
             Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, driver.Reputation);

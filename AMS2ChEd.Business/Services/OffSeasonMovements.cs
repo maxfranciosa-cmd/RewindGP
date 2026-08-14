@@ -176,22 +176,12 @@ namespace AMS2ChEd.Business.Services
                 var weightFit = (DriverReputation driverReputation) =>
                 {
                     var fit = _driverHirer.DoesDriverFitTeamPolicy(driverReputation, ballot.OriginalTeamHiring.Role, ballot.OriginalTeamHiring.TeamReputation);
-
-                    switch (fit)
-                    {
-                        case DriverHirer.DriverPolicyFit.OverQualified:
-                        case DriverHirer.DriverPolicyFit.PerfectFit:
-                            return 2;
-                        case DriverHirer.DriverPolicyFit.GoodFit:
-                            return 1;
-                        default:
-                            return 0;
-                    }
+                    return DriverHirer.GetFitWeight(fit);
                 };
 
                 var bestCandidateResume = availableCandidates
-                                            .GroupBy(x => x.DriverReputation)
-                                            .OrderByDescending(g => weightFit(g.Key))
+                                            .GroupBy(x => weightFit(x.DriverReputation))
+                                            .OrderByDescending(g => g.Key)
                                             .SelectMany(g => g.OrderBy(x => rnd.Next()))
                                             .Select(g => new DriverResume { Id = g.DriverId, Reputation = g.DriverReputation })
                                             .OrderBy(d => ballot.OriginalTeamHiring.ExcludeDriverIds?.Contains(d.Id))

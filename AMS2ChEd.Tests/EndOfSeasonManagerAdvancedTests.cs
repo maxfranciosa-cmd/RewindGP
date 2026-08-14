@@ -150,9 +150,15 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
             // Assert
             Assert.AreEqual(1, ballots.Count);
-            Assert.AreEqual("D2", ballots[0].OriginalTeamHiring.DriverId,
-                "Top team should pick the best championship-level driver");
-            Assert.AreEqual(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, ballots[0].OriginalTeamHiring.DriverReputation);
+
+            // D2 (YOUNG_CHAMPIONSHIP_LEVEL) and D3 (PRIME_CHAMPIONSHIP_LEVEL) are both a PerfectFit
+            // for a TOP_TEAM first driver (see DriverHirer.teamPolicies) - either is an equally valid
+            // pick, not just whichever has the (arbitrary, enum-ordinal) higher reputation.
+            Assert.IsTrue(ballots[0].OriginalTeamHiring.DriverId == "D2" || ballots[0].OriginalTeamHiring.DriverId == "D3",
+                "Top team should pick one of the championship-level (PerfectFit) drivers, not the midfield one");
+            Assert.IsTrue(
+                ballots[0].OriginalTeamHiring.DriverReputation == DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL ||
+                ballots[0].OriginalTeamHiring.DriverReputation == DriverReputation.PRIME_CHAMPIONSHIP_LEVEL);
         }
 
         [TestMethod]
