@@ -126,7 +126,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                             {
                                 Podiums = g.Count(r => !r.DidNotPreQualify && r.Position <= 3),
                                 DNFs = g.Count(r => r.DNF),
-                                Races = g.Count(r => !r.DidNotPreQualify),
+                                Races = g.Count(),
                                 AverageRacePosition = g.Where(r => !r.DidNotPreQualify)
                                                        .Select(r => (double)r.Position)
                                                        .DefaultIfEmpty(0)
