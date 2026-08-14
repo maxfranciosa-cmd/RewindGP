@@ -242,8 +242,9 @@ namespace AMS2ChEd.Views
 
         private bool ThereAreNoAbsencesTheNextRaceWhereThePlayerCanFillIn()
         {
-            var absencesForTheNextRace = saveGame.CurrentSeason.Absences.Where(a => a.RaceId == saveGame.NextGpIndex).ToList();
-            return _gameLogicFactory.AbsenceManager.IsDriverInAnyAbsence(saveGame.PlayerData.DriverId, absencesForTheNextRace);
+            var nextRaceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex + 1).RaceId;
+            var absencesForTheNextRace = saveGame.CurrentSeason.Absences.Where(a => a.RaceId == nextRaceId).ToList();
+            return !_gameLogicFactory.AbsenceManager.IsDriverInAnyAbsence(saveGame.PlayerData.DriverId, absencesForTheNextRace);
         }
 
         private GraphicsStyle SelectStyle(int year)
