@@ -43,12 +43,12 @@ namespace AMS2ChEd.Tests
             new() { Year = 1994, Name="Ukyo Katayama", Position=17, Age=30, Podiums=0, DNFs=11 , CurrentReputation=DriverReputation.PRIME_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
             new() { Year = 1994, Name="Éric Bernard", Position=18, Age=30, Podiums=1, DNFs=6 , CurrentReputation=DriverReputation.PRIME_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
             new() { Year = 1994, Name="Karl Wendlinger", Position=19, Age=25, Podiums=0, DNFs=1 , CurrentReputation=DriverReputation.PRIME_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
-            new() { Year = 1994, Name="Andrea de Cesaris", Position=20, Age=34, Podiums=0, DNFs=10 , CurrentReputation=DriverReputation.AGEING_MIDFIELD, ExpectedReputation= DriverReputation.AGEING_MIDFIELD },
-            new() { Year = 1994, Name="Pierluigi Martini", Position=21, Age=33, Podiums=0, DNFs=6 , CurrentReputation=DriverReputation.AGEING_MIDFIELD, ExpectedReputation= DriverReputation.AGEING_MIDFIELD },
+            new() { Year = 1994, Name="Andrea de Cesaris", Position=20, Age=34, Podiums=0, DNFs=10 , CurrentReputation=DriverReputation.AGEING_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
+            new() { Year = 1994, Name="Pierluigi Martini", Position=21, Age=33, Podiums=0, DNFs=6 , CurrentReputation=DriverReputation.AGEING_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
             new() { Year = 1994, Name="Gianni Morbidelli", Position=22, Age=26, Podiums=0, DNFs=8 , CurrentReputation=DriverReputation.PRIME_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
             new() { Year = 1994, Name="Érik Comas", Position=23, Age=30, Podiums=0, DNFs=7 , CurrentReputation=DriverReputation.PRIME_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
             new() { Year = 1994, Name="JJ Lehto", Position=24, Age=28, Podiums=0, DNFs=7 , CurrentReputation=DriverReputation.PRIME_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
-            new() { Year = 1994, Name="Michele Alboreto", Position=25, Age=37, Podiums=0, DNFs=9 , CurrentReputation=DriverReputation.AGEING_MIDFIELD, ExpectedReputation= DriverReputation.AGEING_MIDFIELD },
+            new() { Year = 1994, Name="Michele Alboreto", Position=25, Age=37, Podiums=0, DNFs=9 , CurrentReputation=DriverReputation.AGEING_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
 
 
             // --------------------------

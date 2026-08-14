@@ -127,13 +127,12 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     if (!actualNewSeason.Absences.Any(a => a.RaceId == firstRaceId))
                     {
                         // create a new random absence in a midfield (or lower) team
-                        var random = new Random();
                         var possibleTeams = actualNewSeason
                                         .Teams
                                         .Where(t => t.Reputation <= TeamReputation.MIDFIELD)
                                         .ToList();
 
-                        var selectedTeam = possibleTeams.ElementAt(random.Next(possibleTeams.Count));
+                        var selectedTeam = possibleTeams.ElementAt(Random.Shared.Next(possibleTeams.Count));
 
                         var driverOut = selectedTeam.PickRandomDriverFromTheTeam();
 
