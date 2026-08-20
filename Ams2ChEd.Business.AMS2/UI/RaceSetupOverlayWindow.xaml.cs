@@ -35,7 +35,33 @@ namespace Ams2ChEd.Business.AMS2.UI
         {
             PromptPanel.Visibility = Visibility.Collapsed;
             ErrorPanel.Visibility = Visibility.Collapsed;
+            WaitingText.Text = Strings.RaceSetupOverlayWindow_WaitingText;
             WaitingPanel.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Shows the overlay's initial state, before the player can interact with anything -
+        /// reuses the "waiting" panel (with different text) to cover the span where AMS2 itself is
+        /// still starting up, so the overlay has something to show the moment it's created instead
+        /// of staying hidden/nonexistent until the process is confirmed running.
+        /// </summary>
+        public void ShowLaunching()
+        {
+            PromptPanel.Visibility = Visibility.Collapsed;
+            ErrorPanel.Visibility = Visibility.Collapsed;
+            WaitingText.Text = Strings.RaceSetupOverlayWindow_LaunchingText;
+            WaitingPanel.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Switches from the launching state to the interactive Configure/Skip prompt, once AMS2's
+        /// window has been found and given a moment to settle.
+        /// </summary>
+        public void ShowPrompt()
+        {
+            WaitingPanel.Visibility = Visibility.Collapsed;
+            ErrorPanel.Visibility = Visibility.Collapsed;
+            PromptPanel.Visibility = Visibility.Visible;
         }
 
         /// <summary>

@@ -13,8 +13,8 @@
 	  <UpdaterBinDir>$(SolutionDir)..\AMS2ChEd.Updater\bin\$(Configuration)\net8.0-windows\win-x64\</UpdaterBinDir>
 	  <SteamDlcCheckProject>$(SolutionDir)..\AMS2ChEd.SteamDlcCheck\AMS2ChEd.SteamDlcCheck.csproj</SteamDlcCheckProject>
 	  <SteamDlcCheckBinDir>$(SolutionDir)..\AMS2ChEd.SteamDlcCheck\bin\$(Configuration)\net8.0-windows\win-x64\</SteamDlcCheckBinDir>
-	  <AssemblyVersion>1.8.5.0</AssemblyVersion>
-	  <FileVersion>1.8.5.0</FileVersion>
+	  <AssemblyVersion>2.0.0.0</AssemblyVersion>
+	  <FileVersion>2.0.0.0</FileVersion>
   </PropertyGroup>
 
 <Target Name="BuildAndCopyUpdater" AfterTargets="Build">

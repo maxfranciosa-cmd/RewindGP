@@ -22,6 +22,11 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
     /// </summary>
     public class Ams2RaceLaunchAssistant : IRaceLaunchAssistant
     {
+        // How long to keep a freshly-launched overlay hidden before revealing it - gives AMS2 time
+        // to actually come to the foreground first, instead of the overlay flashing up over its own
+        // loading/menu screens the moment the window is created.
+        private static readonly TimeSpan OverlayRevealDelay = TimeSpan.FromSeconds(10);
+
         private readonly IGameInstallSettingsStorage _installSettingsStorage;
         private readonly IRacePreparator _racePreparator;
         private readonly IAms2GrandPrixTrackResolver _trackResolver;
@@ -47,32 +52,46 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
         public async Task<bool> ShowSetupOverlayAsync(RaceLaunchRequest request, object ownerWindow, CancellationToken ct = default)
         {
-            if (!Ams2Launcher.IsRunning())
-            {
-                // Resolve DLC ownership (used later by TryAutoConfigureAsync's track resolution)
-                // now, while AMS2 is confirmed NOT running - see Ams2DlcOwnershipChecker's class
-                // doc comment for why doing this once AMS2 is already up is the thing to avoid.
-                await _dlcOwnershipChecker.WarmUpAsync().ConfigureAwait(true);
-
-                Ams2Launcher.Launch();
-                var launched = await Ams2Launcher.WaitForProcessAsync(TimeSpan.FromSeconds(60)).ConfigureAwait(true);
-                if (!launched)
-                {
-                    // AMS2 never came up - don't show the overlay at all, let the caller fall back
-                    // to its manual-instructions path instead.
-                    return false;
-                }
-            }
-
+            // Show the overlay immediately, in its "launching" state, rather than only creating it
+            // once AMS2's process is confirmed running - otherwise there's nothing on screen at all
+            // between the caller's liveries-exported progress window closing and the process-launch
+            // wait below (which can take up to a minute) resolving.
             var overlay = new RaceSetupOverlayWindow();
-            var tracker = new Ams2WindowTracker(overlay);
-            tracker.ProcessLost += (_, _) => overlay.ShowError(Strings.Ams2RaceLaunchAssistant_ProcessLost);
-
+            overlay.ShowLaunching();
             overlay.Show();
-            tracker.Start();
 
+            Ams2WindowTracker tracker = null;
             try
             {
+                if (!Ams2Launcher.IsRunning())
+                {
+                    // Resolve DLC ownership (used later by TryAutoConfigureAsync's track resolution)
+                    // now, while AMS2 is confirmed NOT running - see Ams2DlcOwnershipChecker's class
+                    // doc comment for why doing this once AMS2 is already up is the thing to avoid.
+                    await _dlcOwnershipChecker.WarmUpAsync().ConfigureAwait(true);
+
+                    Ams2Launcher.Launch();
+                    var launched = await Ams2Launcher.WaitForProcessAsync(TimeSpan.FromSeconds(60)).ConfigureAwait(true);
+                    if (!launched)
+                    {
+                        // AMS2 never came up - close the overlay (in the finally below) and let the
+                        // caller fall back to its manual-instructions path instead.
+                        return false;
+                    }
+                }
+
+                // Only start tracking/positioning the overlay once AMS2's process is confirmed
+                // running - starting any earlier would make Ams2WindowTracker.UpdatePosition find no
+                // process and immediately fire ProcessLost.
+                tracker = new Ams2WindowTracker(overlay);
+                tracker.ProcessLost += (_, _) => overlay.ShowError(Strings.Ams2RaceLaunchAssistant_ProcessLost);
+                tracker.Start();
+
+                // Keep the launching message up a little longer once AMS2's window is found, so the
+                // Configure/Skip prompt doesn't pop up over AMS2's own loading/menu transition.
+                await Task.Delay(OverlayRevealDelay, ct).ConfigureAwait(true);
+                overlay.ShowPrompt();
+
                 var action = await overlay.WaitForUserActionAsync().WaitAsync(ct).ConfigureAwait(true);
                 if (action == RaceSetupOverlayAction.Skip)
                 {
@@ -97,9 +116,9 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             }
             finally
             {
-                tracker.Dispose();
+                tracker?.Dispose();
                 overlay.Close();
-                tracker.RestoreGameFocus();
+                tracker?.RestoreGameFocus();
             }
         }
 
@@ -147,9 +166,22 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             overlay.Closed += (_, _) => tracker.Dispose();
 
             overlay.Show();
+            overlay.Visibility = Visibility.Hidden;
             tracker.Start();
 
-            await overlay.WaitForDismissedAsync().ConfigureAwait(true);
+            var dismissed = overlay.WaitForDismissedAsync();
+
+            // Same reveal delay as the setup overlay - avoid flashing up over AMS2's own
+            // post-session screens the instant the session-finished event comes in. If the overlay
+            // gets dismissed on its own during the wait (e.g. ProcessLost firing), don't bother
+            // revealing it at all.
+            await Task.WhenAny(dismissed, Task.Delay(OverlayRevealDelay)).ConfigureAwait(true);
+            if (!dismissed.IsCompleted)
+            {
+                overlay.Visibility = Visibility.Visible;
+            }
+
+            await dismissed.ConfigureAwait(true);
         }
 
         private async Task<bool> TryAutoConfigureAsync(RaceLaunchRequest request, RaceSetupOverlayWindow overlay, CancellationToken ct)

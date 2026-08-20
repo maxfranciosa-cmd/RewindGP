@@ -75,6 +75,7 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string RaceSetupOverlayWindow_ConfigureButton => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ConfigureButton))!;
         public static string RaceSetupOverlayWindow_SkipLink => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_SkipLink))!;
         public static string RaceSetupOverlayWindow_WaitingText => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_WaitingText))!;
+        public static string RaceSetupOverlayWindow_LaunchingText => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_LaunchingText))!;
         public static string RaceSetupOverlayWindow_SuccessText => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_SuccessText))!;
         public static string RaceSetupOverlayWindow_SuccessOkButton => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_SuccessOkButton))!;
         public static string RaceSetupOverlayWindow_ContinueManuallyButton => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ContinueManuallyButton))!;
