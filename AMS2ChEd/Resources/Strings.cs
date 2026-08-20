@@ -352,6 +352,12 @@ namespace AMS2ChEd.Resources
         public static string UpdateAvailableDialog_DownloadedItButton => ResourceManager.GetString(nameof(UpdateAvailableDialog_DownloadedItButton))!;
         public static string UpdateAvailableDialog_LocateFileTitle => ResourceManager.GetString(nameof(UpdateAvailableDialog_LocateFileTitle))!;
         public static string UpdateAvailableDialog_FileFilter => ResourceManager.GetString(nameof(UpdateAvailableDialog_FileFilter))!;
+        public static string UpdateAvailableDialog_AutoDescription => ResourceManager.GetString(nameof(UpdateAvailableDialog_AutoDescription))!;
+        public static string UpdateAvailableDialog_DownloadAndInstallButton => ResourceManager.GetString(nameof(UpdateAvailableDialog_DownloadAndInstallButton))!;
+        public static string UpdateAvailableDialog_ManualFallbackLink => ResourceManager.GetString(nameof(UpdateAvailableDialog_ManualFallbackLink))!;
+        public static string UpdateAvailableDialog_DownloadingMessage => ResourceManager.GetString(nameof(UpdateAvailableDialog_DownloadingMessage))!;
+        public static string UpdateAvailableDialog_DownloadFailedTitle => ResourceManager.GetString(nameof(UpdateAvailableDialog_DownloadFailedTitle))!;
+        public static string UpdateAvailableDialog_DownloadFailedMessage => ResourceManager.GetString(nameof(UpdateAvailableDialog_DownloadFailedMessage))!;
 
         public static string PostRaceNewsWindow_Title => ResourceManager.GetString(nameof(PostRaceNewsWindow_Title))!;
         public static string PostRaceNewsWindow_Masthead => ResourceManager.GetString(nameof(PostRaceNewsWindow_Masthead))!;
