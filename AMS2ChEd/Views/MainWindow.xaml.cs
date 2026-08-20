@@ -155,6 +155,16 @@ namespace AMS2ChEd
             _gameLogicFactory.GameEngine.GameStateChanged -= OnGameStateChanged;
             _gameLogicFactory.GameEngine.SeasonProgressed -= OnSeasonProgressed;
             _gameLogicFactory.GameEngine.ErrorOccurred -= OnErrorOccurred;
+
+            // The app's default ShutdownMode is OnLastWindowClose, not OnMainWindowClose - without
+            // this, closing MainWindow while any other window (RaceWeekendWindow, EntryListWindow,
+            // overlays, dialogs, etc.) is still open would leave those dangling with no way back to
+            // MainWindow instead of ending the app. Close everything else too; once the last one
+            // goes, the app shuts down on its own as usual.
+            foreach (var window in System.Windows.Application.Current.Windows.OfType<Window>().Where(w => w != this).ToList())
+            {
+                window.Close();
+            }
         }
 
         private void OnGameStateChanged(object sender, GameStateChangedEventArgs e)

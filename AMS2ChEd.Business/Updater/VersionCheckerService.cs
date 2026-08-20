@@ -63,9 +63,9 @@ namespace AMS2ChEd.Business.Updater.Services
             var lastCheck = _currentVersionCheckStore.GetDateTime(CacheKeyLastCheck);
             var cachedVersion = _currentVersionCheckStore.GetString(CacheKeyLatestVer);
 
-            if (lastCheck.HasValue
+            if (_forceUpdate || (lastCheck.HasValue
                 && cachedVersion != null
-                && DateTime.UtcNow - lastCheck.Value < CacheDuration)
+                && DateTime.UtcNow - lastCheck.Value < CacheDuration))
             {
                 return BuildResult(current, cachedVersion,
                     _currentVersionCheckStore.GetString(CacheKeyPageUrl) ?? _pageUrl, _forceUpdate);
