@@ -1,49 +1,51 @@
-﻿
+
 using AMS2ChEd.Business.Updater.Models;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 
 namespace AMS2ChEd.Business.Updater.Services
 {
     /// <summary>
-    /// Checks whether a newer version of RewindGP is available by scraping the
-    /// overtake.gg download page and reading the version from the embedded
-    /// JSON-LD script tag (application/ld+json → mainEntity.version).
+    /// Checks whether a newer version of RewindGP is available by reading the
+    /// latest GitHub Release for this project's repo (GET .../releases/latest)
+    /// and comparing its tag against the running assembly's version.
     ///
-    /// Results are cached for 24 hours so the page is not fetched on every launch.
+    /// Results are cached for 24 hours so the endpoint is not hit on every launch.
     /// </summary>
     public class VersionCheckService
     {
         private const string CacheKeyLastCheck = "UpdateCheck_LastCheck";
         private const string CacheKeyLatestVer = "UpdateCheck_LatestVersion";
         private const string CacheKeyPageUrl = "UpdateCheck_PageUrl";
+        private const string CacheKeyDownloadUrl = "UpdateCheck_DownloadUrl";
 
         private static readonly TimeSpan CacheDuration = TimeSpan.FromHours(24);
 
-        // Regex to extract the JSON-LD block from the page HTML
-        private static readonly Regex JsonLdRegex = new(
-            @"<script\s+type=""application/ld\+json""[^>]*>(.*?)</script>",
-            RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-        private readonly string _pageUrl;
+        private readonly string _releasesApiUrl;
         private readonly ICurrentVersionCheckStore _currentVersionCheckStore;
         private readonly HttpClient _http;
         private readonly Func<string> _getCurrentVersion;
         private readonly bool _forceUpdate;
 
         public VersionCheckService(
-            string pageUrl,
+            string releasesApiUrl,
             ICurrentVersionCheckStore currentVersionCheckStore,
             bool forceUpdate,
             HttpClient? http = null,
             Func<string>? getCurrentVersion = null)
         {
-            _pageUrl = pageUrl;
+            _releasesApiUrl = releasesApiUrl;
             _currentVersionCheckStore = currentVersionCheckStore;
             _http = http ?? new HttpClient();
             _forceUpdate = forceUpdate;
-            
+
+            // GitHub's API rejects anonymous requests with no User-Agent header.
+            if (_http.DefaultRequestHeaders.UserAgent.Count == 0)
+                _http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("RewindGP-UpdateChecker", "1.0"));
+            if (!_http.DefaultRequestHeaders.Accept.Any(a => a.MediaType == "application/vnd.github+json"))
+                _http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
+
             // Default: read AssemblyInformationalVersion so "0.83" style versions
             // work without needing a full four-part assembly version string.
             _getCurrentVersion = getCurrentVersion
@@ -68,23 +70,26 @@ namespace AMS2ChEd.Business.Updater.Services
                 && DateTime.UtcNow - lastCheck.Value < CacheDuration))
             {
                 return BuildResult(current, cachedVersion,
-                    _currentVersionCheckStore.GetString(CacheKeyPageUrl) ?? _pageUrl, _forceUpdate);
+                    _currentVersionCheckStore.GetString(CacheKeyPageUrl) ?? "",
+                    _currentVersionCheckStore.GetString(CacheKeyDownloadUrl) ?? "",
+                    _forceUpdate);
             }
 
-            // Scrape overtake.gg page
+            // Query the GitHub Releases API
             try
             {
-                var html = await _http.GetStringAsync(_pageUrl);
-                var version = ExtractVersion(html);
+                var json = await _http.GetStringAsync(_releasesApiUrl);
+                var release = ParseRelease(json);
 
-                if (version == null)
+                if (release == null)
                     return new UpdateCheckResult { CheckFailed = true, CurrentVersion = current };
 
                 _currentVersionCheckStore.SetDateTime(CacheKeyLastCheck, DateTime.UtcNow);
-                _currentVersionCheckStore.SetString(CacheKeyLatestVer, version);
-                _currentVersionCheckStore.SetString(CacheKeyPageUrl, _pageUrl);
+                _currentVersionCheckStore.SetString(CacheKeyLatestVer, release.Value.Version);
+                _currentVersionCheckStore.SetString(CacheKeyPageUrl, release.Value.PageUrl);
+                _currentVersionCheckStore.SetString(CacheKeyDownloadUrl, release.Value.DownloadUrl);
 
-                return BuildResult(current, version, _pageUrl, _forceUpdate);
+                return BuildResult(current, release.Value.Version, release.Value.PageUrl, release.Value.DownloadUrl, _forceUpdate);
             }
             catch
             {
@@ -102,28 +107,60 @@ namespace AMS2ChEd.Business.Updater.Services
         // Parsing
         // -------------------------------------------------------------------------
 
-        internal static string? ExtractVersion(string html)
-        {
-            foreach (Match match in JsonLdRegex.Matches(html))
-            {
-                var json = match.Groups[1].Value.Trim();
-                try
-                {
-                    using var doc = JsonDocument.Parse(json);
-                    var root = doc.RootElement;
+        internal readonly record struct ParsedRelease(string Version, string PageUrl, string DownloadUrl);
 
-                    if (root.TryGetProperty("mainEntity", out var mainEntity)
-                        && mainEntity.TryGetProperty("version", out var versionEl))
+        /// <summary>
+        /// Parses a GitHub "releases/latest" API response. Returns null if the tag can't be
+        /// read as a version, or if the release has no .zip asset attached (nothing to install).
+        /// </summary>
+        internal static ParsedRelease? ParseRelease(string json)
+        {
+            try
+            {
+                using var doc = JsonDocument.Parse(json);
+                var root = doc.RootElement;
+
+                if (!root.TryGetProperty("tag_name", out var tagEl))
+                    return null;
+
+                var tag = tagEl.GetString();
+                if (string.IsNullOrWhiteSpace(tag))
+                    return null;
+
+                var trimmedTag = tag.Trim();
+                if (trimmedTag.StartsWith("v", StringComparison.OrdinalIgnoreCase))
+                    trimmedTag = trimmedTag.Substring(1);
+
+                if (!TryParseVersion(trimmedTag, out var version))
+                    return null;
+
+                var pageUrl = root.TryGetProperty("html_url", out var htmlUrlEl) ? htmlUrlEl.GetString() ?? "" : "";
+
+                string downloadUrl = "";
+                if (root.TryGetProperty("assets", out var assetsEl) && assetsEl.ValueKind == JsonValueKind.Array)
+                {
+                    foreach (var asset in assetsEl.EnumerateArray())
                     {
-                        var version = versionEl.GetString();
-                        if (!string.IsNullOrWhiteSpace(version))
-                            return version.Trim();
+                        var name = asset.TryGetProperty("name", out var nameEl) ? nameEl.GetString() : null;
+                        if (name != null && name.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+                        {
+                            downloadUrl = asset.TryGetProperty("browser_download_url", out var urlEl) ? urlEl.GetString() ?? "" : "";
+                            break;
+                        }
                     }
                 }
-                catch (JsonException) { /* malformed block — try next */ }
-            }
 
-            return null;
+                if (string.IsNullOrEmpty(downloadUrl))
+                    return null;
+
+                // Normalize to "major.minor" so it matches the exact string comparison
+                // AMS2ChEd.Updater does against the extracted exe's FileVersion.
+                return new ParsedRelease($"{version.Major}.{version.Minor}", pageUrl, downloadUrl);
+            }
+            catch (JsonException)
+            {
+                return null;
+            }
         }
 
         // -------------------------------------------------------------------------
@@ -131,13 +168,14 @@ namespace AMS2ChEd.Business.Updater.Services
         // -------------------------------------------------------------------------
 
         private static UpdateCheckResult BuildResult(
-            string current, string latest, string pageUrl, bool forceUpdate) =>
+            string current, string latest, string pageUrl, string downloadUrl, bool forceUpdate) =>
             new UpdateCheckResult
             {
                 IsUpdateAvailable = forceUpdate || IsNewer(latest, current),
                 CurrentVersion = current,
                 LatestVersion = latest,
-                PageUrl = pageUrl
+                PageUrl = pageUrl,
+                DownloadUrl = downloadUrl
             };
 
         /// <summary>

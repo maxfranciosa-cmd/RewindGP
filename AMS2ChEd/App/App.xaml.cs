@@ -37,7 +37,7 @@ namespace AMS2ChEd
     public partial class App : System.Windows.Application
     {
         private ServiceProvider _serviceProvider;
-        private readonly string versionCheckUrl = "https://www.overtake.gg/downloads/rewind-gp.82303";
+        private readonly string releasesApiUrl = "https://api.github.com/repos/maxfranciosa-cmd/RewindGP/releases/latest";
         private readonly string downloadUrlFormat = "https://www.overtake.gg/downloads/{0}";
         public static ServiceProvider Services { get; private set; }
 
@@ -94,7 +94,7 @@ namespace AMS2ChEd
             services.AddSingleton(versionCheckStore);
             services.AddSingleton<ICurrentVersionCheckStore>(versionCheckStore);
             services.AddSingleton<SaveGameSeasonChecker>();
-            services.AddSingleton((serviceProvider) => new VersionCheckService(versionCheckUrl, versionCheckStore, forceAppUpdate));
+            services.AddSingleton((serviceProvider) => new VersionCheckService(releasesApiUrl, versionCheckStore, forceAppUpdate));
         }
 
 

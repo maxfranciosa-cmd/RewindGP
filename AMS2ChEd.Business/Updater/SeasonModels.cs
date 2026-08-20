@@ -136,6 +136,7 @@ namespace AMS2ChEd.Business.Updater.Models
         public string CurrentVersion { get; set; } = string.Empty;
         public string LatestVersion { get; set; } = string.Empty;
         public string PageUrl { get; set; } = string.Empty;
+        public string DownloadUrl { get; set; } = string.Empty;
         public bool CheckFailed { get; set; }
     }
 }

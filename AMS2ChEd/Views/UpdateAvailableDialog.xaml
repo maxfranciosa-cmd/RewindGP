@@ -70,8 +70,27 @@
 
         <Rectangle Height="2" Fill="#c41e3a" Margin="0,0,0,20"/>
 
-        <!-- Step 1: prompt to go to download page -->
-        <StackPanel x:Name="Step1Panel">
+        <!-- Default: automatic download & install -->
+        <StackPanel x:Name="AutoPanel">
+            <TextBlock Text="{loc:Loc UpdateAvailableDialog_AutoDescription}" TextWrapping="Wrap" FontSize="13" Foreground="#cccccc" LineHeight="20" Margin="0,0,0,20"/>
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="{loc:Loc UpdateAvailableDialog_NotNowButton}" Style="{StaticResource SecondaryButton}" Click="OnSkipClicked"/>
+                <Button Grid.Column="2" Content="{loc:Loc UpdateAvailableDialog_DownloadAndInstallButton}" Style="{StaticResource PrimaryButton}" Click="OnDownloadAndInstallClicked"/>
+            </Grid>
+            <TextBlock HorizontalAlignment="Center">
+                <Hyperlink Click="OnManualFallbackClicked" Foreground="#999999">
+                    <Run Text="{loc:Loc UpdateAvailableDialog_ManualFallbackLink}"/>
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
+        <!-- Manual fallback step 1: prompt to go to download page -->
+        <StackPanel x:Name="Step1Panel" Visibility="Collapsed">
             <TextBlock Text="{loc:Loc UpdateAvailableDialog_Step1Description}" TextWrapping="Wrap" FontSize="13" Foreground="#cccccc" LineHeight="20" Margin="0,0,0,20"/>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -84,7 +103,7 @@
             </Grid>
         </StackPanel>
 
-        <!-- Step 2: locate the downloaded file -->
+        <!-- Manual fallback step 2: locate the downloaded file -->
         <StackPanel x:Name="Step2Panel" Visibility="Collapsed">
             <TextBlock Text="{loc:Loc UpdateAvailableDialog_Step2Description}" TextWrapping="Wrap" FontSize="13" Foreground="#cccccc" LineHeight="20" Margin="0,0,0,20"/>
             <Grid>

@@ -1,7 +1,9 @@
 using AMS2ChEd.Business.Updater.Models;
 using AMS2ChEd.Resources;
+using AMS2ChEd.Views;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Windows;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -24,8 +26,64 @@ namespace AMS2ChEd.Dialogs
         }
 
         // -------------------------------------------------------------------------
-        // Step 1 — open download page in browser
+        // Automatic download & install
         // -------------------------------------------------------------------------
+
+        private async void OnDownloadAndInstallClicked(object sender, RoutedEventArgs e)
+        {
+            AutoPanel.IsEnabled = false;
+
+            var progressWindow = new ProgressWindow(Strings.UpdateAvailableDialog_DownloadingMessage);
+            progressWindow.Owner = this;
+            progressWindow.Show();
+
+            var tempZipPath = Path.Combine(Path.GetTempPath(), $"RewindGP-Update-{Guid.NewGuid()}.zip");
+
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    using var http = new HttpClient();
+                    using var response = await http.GetAsync(_update.DownloadUrl, HttpCompletionOption.ResponseHeadersRead);
+                    response.EnsureSuccessStatusCode();
+
+                    await using var contentStream = await response.Content.ReadAsStreamAsync();
+                    await using var fileStream = File.Create(tempZipPath);
+                    await contentStream.CopyToAsync(fileStream);
+                });
+
+                progressWindow.Close();
+                LaunchUpdater(tempZipPath);
+            }
+            catch (Exception ex)
+            {
+                if (progressWindow.IsLoaded)
+                    progressWindow.Close();
+
+                if (File.Exists(tempZipPath))
+                {
+                    try { File.Delete(tempZipPath); } catch { /* best effort */ }
+                }
+
+                AutoPanel.IsEnabled = true;
+
+                MessageBox.Show(
+                    $"{Strings.UpdateAvailableDialog_DownloadFailedMessage}\n\n{ex.Message}",
+                    Strings.UpdateAvailableDialog_DownloadFailedTitle,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        // -------------------------------------------------------------------------
+        // Manual fallback — Step 1: open download page in browser
+        // -------------------------------------------------------------------------
+
+        private void OnManualFallbackClicked(object sender, RoutedEventArgs e)
+        {
+            AutoPanel.Visibility = Visibility.Collapsed;
+            Step1Panel.Visibility = Visibility.Visible;
+        }
 
         private void OnGoToDownloadPageClicked(object sender, RoutedEventArgs e)
         {
@@ -37,7 +95,7 @@ namespace AMS2ChEd.Dialogs
         }
 
         // -------------------------------------------------------------------------
-        // Step 2 — locate downloaded file and launch updater
+        // Manual fallback — Step 2: locate downloaded file and launch updater
         // -------------------------------------------------------------------------
 
         private void OnLocateFileClicked(object sender, RoutedEventArgs e)
@@ -51,7 +109,15 @@ namespace AMS2ChEd.Dialogs
 
             if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
 
-            var zipPath = dialog.FileName;
+            LaunchUpdater(dialog.FileName);
+        }
+
+        // -------------------------------------------------------------------------
+        // Shared: hand a downloaded/located zip off to AMS2ChEd.Updater
+        // -------------------------------------------------------------------------
+
+        private void LaunchUpdater(string zipPath)
+        {
             var installDir = AppDomain.CurrentDomain.BaseDirectory;
             var updaterDir = Path.Combine(installDir, "Updater");
 
