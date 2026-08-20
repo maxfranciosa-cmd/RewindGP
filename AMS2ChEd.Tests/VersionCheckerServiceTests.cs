@@ -1,4 +1,4 @@
-﻿using AMS2ChEd.Business.Updater;
+using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Services;
 using System.Net;
 using System.Text;
@@ -8,33 +8,29 @@ namespace AMS2ChEd.Tests
     [TestClass]
     public class VersionCheckerServiceTests
     {
-        private const string PageUrl = "https://www.overtake.gg/downloads/rewind-gp.test/";
+        private const string ApiUrl = "https://api.github.com/repos/maxfranciosa-cmd/RewindGP/releases/latest";
+        private const string DefaultHtmlUrl = "https://github.com/maxfranciosa-cmd/RewindGP/releases/tag/test";
+        private const string DefaultDownloadUrl = "https://github.com/maxfranciosa-cmd/RewindGP/releases/download/test/RewindGP.zip";
 
         // -------------------------------------------------------------------------
-        // HTML stub helpers
+        // JSON stub helpers
         // -------------------------------------------------------------------------
 
         /// <summary>
-        /// Produces a minimal HTML page containing a JSON-LD block with
-        /// mainEntity.version, matching what VersionCheckService.ExtractVersion parses.
+        /// Produces a minimal GitHub "releases/latest" API response body, matching
+        /// what VersionCheckService.ParseRelease parses.
         /// </summary>
-        private static string MakeHtmlPage(string version) => $@"<!DOCTYPE html>
-<html>
-<head>
-<script type=""application/ld+json"">
-{{
-  ""@context"": ""https://schema.org"",
-  ""@type"": ""WebPage"",
-  ""mainEntity"": {{
-    ""@type"": ""SoftwareApplication"",
-    ""name"": ""Rewind GP"",
-    ""version"": ""{version}""
-  }}
-}}
-</script>
-</head>
-<body><p>Download page</p></body>
-</html>";
+        private static string MakeReleaseJson(
+            string tagName,
+            string htmlUrl = DefaultHtmlUrl,
+            string? assetName = "RewindGP.zip",
+            string downloadUrl = DefaultDownloadUrl) => $@"{{
+  ""tag_name"": ""{tagName}"",
+  ""html_url"": ""{htmlUrl}"",
+  ""assets"": [
+    {(assetName == null ? "" : $@"{{ ""name"": ""{assetName}"", ""browser_download_url"": ""{downloadUrl}"" }}")}
+  ]
+}}";
 
         private static HttpClient MakeHttpClient(string responseBody, HttpStatusCode status = HttpStatusCode.OK)
         {
@@ -51,14 +47,15 @@ namespace AMS2ChEd.Tests
         {
             var prefs = new InMemoryCurrentVersionCheckStore();
             var svc = new VersionCheckService(
-                PageUrl, prefs, false,
-                MakeHttpClient(MakeHtmlPage("2.0.0")),
+                ApiUrl, prefs, false,
+                MakeHttpClient(MakeReleaseJson("2.0.0")),
                 () => "1.0.0");
 
             var result = await svc.CheckAsync();
 
             Assert.IsTrue(result.IsUpdateAvailable);
-            Assert.AreEqual("2.0.0", result.LatestVersion);
+            Assert.AreEqual("2.0", result.LatestVersion);
+            Assert.AreEqual(DefaultDownloadUrl, result.DownloadUrl);
             Assert.IsFalse(result.CheckFailed);
         }
 
@@ -67,8 +64,8 @@ namespace AMS2ChEd.Tests
         {
             var prefs = new InMemoryCurrentVersionCheckStore();
             var svc = new VersionCheckService(
-                PageUrl, prefs, false,
-                MakeHttpClient(MakeHtmlPage("1.0.0")),
+                ApiUrl, prefs, false,
+                MakeHttpClient(MakeReleaseJson("1.0.0")),
                 () => "1.0.0");
 
             var result = await svc.CheckAsync();
@@ -82,8 +79,8 @@ namespace AMS2ChEd.Tests
         {
             var prefs = new InMemoryCurrentVersionCheckStore();
             var svc = new VersionCheckService(
-                PageUrl, prefs, false,
-                MakeHttpClient(MakeHtmlPage("0.9.0")),
+                ApiUrl, prefs, false,
+                MakeHttpClient(MakeReleaseJson("0.9.0")),
                 () => "1.0.0");
 
             var result = await svc.CheckAsync();
@@ -97,14 +94,29 @@ namespace AMS2ChEd.Tests
         {
             var prefs = new InMemoryCurrentVersionCheckStore();
             var svc = new VersionCheckService(
-                PageUrl, prefs, forceUpdate: true,
-                MakeHttpClient(MakeHtmlPage("1.0.0")),
+                ApiUrl, prefs, forceUpdate: true,
+                MakeHttpClient(MakeReleaseJson("1.0.0")),
                 () => "1.0.0");
 
             var result = await svc.CheckAsync();
 
             Assert.IsTrue(result.IsUpdateAvailable);
             Assert.IsFalse(result.CheckFailed);
+        }
+
+        [TestMethod]
+        public async Task CheckAsync_VPrefixedTag_NormalizesCorrectly()
+        {
+            var prefs = new InMemoryCurrentVersionCheckStore();
+            var svc = new VersionCheckService(
+                ApiUrl, prefs, false,
+                MakeHttpClient(MakeReleaseJson("v2.1")),
+                () => "1.0.0");
+
+            var result = await svc.CheckAsync();
+
+            Assert.IsTrue(result.IsUpdateAvailable);
+            Assert.AreEqual("2.1", result.LatestVersion);
         }
 
         // -------------------------------------------------------------------------
@@ -116,8 +128,8 @@ namespace AMS2ChEd.Tests
         {
             var prefs = new InMemoryCurrentVersionCheckStore();
             var svc = new VersionCheckService(
-                PageUrl, prefs, false,
-                MakeHttpClient("<html/>", HttpStatusCode.InternalServerError),
+                ApiUrl, prefs, false,
+                MakeHttpClient("{}", HttpStatusCode.InternalServerError),
                 () => "1.0.0");
 
             var result = await svc.CheckAsync();
@@ -128,12 +140,27 @@ namespace AMS2ChEd.Tests
         }
 
         [TestMethod]
-        public async Task CheckAsync_HtmlWithNoVersionData_ReturnsCheckFailed()
+        public async Task CheckAsync_MalformedJson_ReturnsCheckFailed()
         {
             var prefs = new InMemoryCurrentVersionCheckStore();
             var svc = new VersionCheckService(
-                PageUrl, prefs, false,
-                MakeHttpClient("<html><body>no json-ld here</body></html>"),
+                ApiUrl, prefs, false,
+                MakeHttpClient("not json"),
+                () => "1.0.0");
+
+            var result = await svc.CheckAsync();
+
+            Assert.IsTrue(result.CheckFailed);
+            Assert.IsFalse(result.IsUpdateAvailable);
+        }
+
+        [TestMethod]
+        public async Task CheckAsync_NoZipAsset_ReturnsCheckFailed()
+        {
+            var prefs = new InMemoryCurrentVersionCheckStore();
+            var svc = new VersionCheckService(
+                ApiUrl, prefs, false,
+                MakeHttpClient(MakeReleaseJson("2.0.0", assetName: null)),
                 () => "1.0.0");
 
             var result = await svc.CheckAsync();
@@ -150,8 +177,8 @@ namespace AMS2ChEd.Tests
         public async Task CheckAsync_WithinCacheWindow_DoesNotHitNetwork()
         {
             var prefs = new InMemoryCurrentVersionCheckStore();
-            var handler = new CountingStubHandler(MakeHtmlPage("2.0.0"));
-            var svc = new VersionCheckService(PageUrl, prefs, false, new HttpClient(handler), () => "1.0.0");
+            var handler = new CountingStubHandler(MakeReleaseJson("2.0.0"));
+            var svc = new VersionCheckService(ApiUrl, prefs, false, new HttpClient(handler), () => "1.0.0");
 
             // First call — hits network
             await svc.CheckAsync();
@@ -169,15 +196,16 @@ namespace AMS2ChEd.Tests
             // Seed cache with an expired timestamp and a stale version
             prefs.SetDateTime("UpdateCheck_LastCheck", DateTime.UtcNow.AddHours(-25));
             prefs.SetString("UpdateCheck_LatestVersion", "1.5.0");
-            prefs.SetString("UpdateCheck_PageUrl", PageUrl);
+            prefs.SetString("UpdateCheck_PageUrl", DefaultHtmlUrl);
+            prefs.SetString("UpdateCheck_DownloadUrl", DefaultDownloadUrl);
 
-            var handler = new CountingStubHandler(MakeHtmlPage("2.0.0"));
-            var svc = new VersionCheckService(PageUrl, prefs, false, new HttpClient(handler), () => "1.0.0");
+            var handler = new CountingStubHandler(MakeReleaseJson("2.0.0"));
+            var svc = new VersionCheckService(ApiUrl, prefs, false, new HttpClient(handler), () => "1.0.0");
 
             var result = await svc.CheckAsync();
 
             Assert.AreEqual(1, handler.CallCount);
-            Assert.AreEqual("2.0.0", result.LatestVersion);
+            Assert.AreEqual("2.0", result.LatestVersion);
         }
 
         [TestMethod]
@@ -186,38 +214,43 @@ namespace AMS2ChEd.Tests
             var prefs = new InMemoryCurrentVersionCheckStore();
             prefs.SetDateTime("UpdateCheck_LastCheck", DateTime.UtcNow);
             prefs.SetString("UpdateCheck_LatestVersion", "3.0.0");
-            prefs.SetString("UpdateCheck_PageUrl", PageUrl);
+            prefs.SetString("UpdateCheck_PageUrl", DefaultHtmlUrl);
+            prefs.SetString("UpdateCheck_DownloadUrl", DefaultDownloadUrl);
 
             // HTTP client that would fail if called
             var svc = new VersionCheckService(
-                PageUrl, prefs, false,
-                MakeHttpClient("<html/>", HttpStatusCode.InternalServerError),
+                ApiUrl, prefs, false,
+                MakeHttpClient("{}", HttpStatusCode.InternalServerError),
                 () => "1.0.0");
 
             var result = await svc.CheckAsync();
 
             Assert.IsTrue(result.IsUpdateAvailable);
             Assert.AreEqual("3.0.0", result.LatestVersion);
+            Assert.AreEqual(DefaultDownloadUrl, result.DownloadUrl);
             Assert.IsFalse(result.CheckFailed);
         }
 
         [TestMethod]
-        public async Task CheckAsync_CacheHit_PageUrlPrefersCachedUrl()
+        public async Task CheckAsync_CacheHit_PageUrlAndDownloadUrlPreferCached()
         {
-            const string cachedUrl = "https://www.overtake.gg/downloads/rewind-gp.cached/";
+            const string cachedPageUrl = "https://github.com/maxfranciosa-cmd/RewindGP/releases/tag/cached";
+            const string cachedDownloadUrl = "https://github.com/maxfranciosa-cmd/RewindGP/releases/download/cached/RewindGP.zip";
             var prefs = new InMemoryCurrentVersionCheckStore();
             prefs.SetDateTime("UpdateCheck_LastCheck", DateTime.UtcNow);
             prefs.SetString("UpdateCheck_LatestVersion", "2.0.0");
-            prefs.SetString("UpdateCheck_PageUrl", cachedUrl);
+            prefs.SetString("UpdateCheck_PageUrl", cachedPageUrl);
+            prefs.SetString("UpdateCheck_DownloadUrl", cachedDownloadUrl);
 
             var svc = new VersionCheckService(
-                PageUrl, prefs, false,
-                MakeHttpClient("<html/>", HttpStatusCode.InternalServerError),
+                ApiUrl, prefs, false,
+                MakeHttpClient("{}", HttpStatusCode.InternalServerError),
                 () => "1.0.0");
 
             var result = await svc.CheckAsync();
 
-            Assert.AreEqual(cachedUrl, result.PageUrl);
+            Assert.AreEqual(cachedPageUrl, result.PageUrl);
+            Assert.AreEqual(cachedDownloadUrl, result.DownloadUrl);
         }
 
         // -------------------------------------------------------------------------
@@ -228,8 +261,8 @@ namespace AMS2ChEd.Tests
         public async Task InvalidateCache_ForcesNetworkCallOnNextCheck()
         {
             var prefs = new InMemoryCurrentVersionCheckStore();
-            var handler = new CountingStubHandler(MakeHtmlPage("2.0.0"));
-            var svc = new VersionCheckService(PageUrl, prefs, false, new HttpClient(handler), () => "1.0.0");
+            var handler = new CountingStubHandler(MakeReleaseJson("2.0.0"));
+            var svc = new VersionCheckService(ApiUrl, prefs, false, new HttpClient(handler), () => "1.0.0");
 
             await svc.CheckAsync(); // populates cache
             Assert.AreEqual(1, handler.CallCount);
@@ -261,7 +294,7 @@ namespace AMS2ChEd.Tests
         {
             var response = new HttpResponseMessage(_statusCode)
             {
-                Content = new StringContent(_responseBody, Encoding.UTF8, "text/html")
+                Content = new StringContent(_responseBody, Encoding.UTF8, "application/json")
             };
             return Task.FromResult(response);
         }
@@ -280,7 +313,7 @@ namespace AMS2ChEd.Tests
             CallCount++;
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(_responseBody, Encoding.UTF8, "text/html")
+                Content = new StringContent(_responseBody, Encoding.UTF8, "application/json")
             };
             return Task.FromResult(response);
         }
