@@ -216,6 +216,7 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                     <Button Content="New Project" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" Click="NewSeason_Click"/>
                     <Button Content="Load Project" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" Click="LoadSeason_Click"/>
+                    <Button Content="Import Season Folder" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" Click="ImportSeasonFolder_Click" ToolTip="Load an existing Seasons/&lt;year&gt;/ folder (e.g. an installed or extracted season pack) so it can be edited and re-exported"/>
                     <Button Content="Save Project" Style="{StaticResource SecondaryButton}" Click="SaveSeason_Click"/>
                 </StackPanel>
             </Grid>

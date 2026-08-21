@@ -210,6 +210,69 @@ namespace AMS2ChEd.SeasonPackEditor
             }
         }
 
+        private void ImportSeasonFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var confirm = MessageBox.Show(
+                "Importing a season folder will replace the currently loaded project. Any unsaved changes will be lost. Continue?",
+                "Import Season Folder",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (confirm != MessageBoxResult.Yes)
+                return;
+
+            // Trick to make OpenFileDialog select a folder instead of a file (same pattern used for
+            // static assets / external liveries elsewhere in this window).
+            var folderDialog = new OpenFileDialog
+            {
+                Title = "Select the season folder to import (must contain season.json and drivers.json)",
+                CheckFileExists = false,
+                CheckPathExists = true,
+                FileName = "Select Folder",
+                Filter = "Folders|*.none",
+                ValidateNames = false
+            };
+
+            if (folderDialog.ShowDialog() != true)
+                return;
+
+            var seasonFolder = Path.GetDirectoryName(folderDialog.FileName);
+            if (string.IsNullOrEmpty(seasonFolder))
+                return;
+
+            try
+            {
+                var importResult = SeasonFolderImportService.ImportFromFolder(seasonFolder);
+                _currentProject = importResult.Project;
+                _staticAssetsSourceFolder = null;
+                RefreshUI();
+
+                StatusTextBlock.Text = $"Imported season from {seasonFolder}";
+
+                var missing = importResult.MissingSourceFiles.Distinct().ToList();
+                if (missing.Any())
+                {
+                    var missingList = string.Join("\n", missing.Take(20));
+                    if (missing.Count > 20)
+                        missingList += $"\n...and {missing.Count - 20} more.";
+
+                    MessageBox.Show(
+                        $"Season imported, but {missing.Count} referenced file(s) could not be found on disk and were left unresolved:\n\n{missingList}\n\n" +
+                        "These can be relinked by hand via the relevant \"Browse...\" buttons, or left as-is if they're not needed.",
+                        "Import Complete With Warnings", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("Season imported successfully. It can now be edited and re-exported.", "Import Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error importing season folder: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                StatusTextBlock.Text = "Import failed";
+            }
+        }
+
         private void SaveSeason_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new SaveFileDialog
