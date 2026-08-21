@@ -586,7 +586,7 @@ namespace AMS2ChEd.SeasonPackEditor
 
         private void AddLiveryOverride_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new LiveryOverrideDialog(_races, _textureFiles, _team.TeamId, _externalLiveriesConfig);
+            var dialog = new LiveryOverrideDialog(_races, _textureFiles, _team.TeamId, _externalLiveriesConfig, baseNumbersPlacements: _team.NumbersPlacements);
             if (dialog.ShowDialog() == true)
             {
                 var overrides = _team.LiveryOverrides.ToList();
@@ -602,7 +602,7 @@ namespace AMS2ChEd.SeasonPackEditor
         {
             if (LiveryOverridesDataGrid.SelectedItem is LiveryOverride selected)
             {
-                var dialog = new LiveryOverrideDialog(_races, _textureFiles, _team.TeamId, _externalLiveriesConfig, selected);
+                var dialog = new LiveryOverrideDialog(_races, _textureFiles, _team.TeamId, _externalLiveriesConfig, selected, _team.NumbersPlacements);
                 if (dialog.ShowDialog() == true)
                 {
                     var overrides = _team.LiveryOverrides.ToList();
@@ -1209,7 +1209,7 @@ namespace AMS2ChEd.SeasonPackEditor
                     staticTexturePaths.Select(path => new ExternalLiveriesEntry
                     {
                         SourcePath = ExternalLiveryXmlImportHelper.ComputeExternalSourcePath(xmlDirectory, ExternalLiveryXmlImportHelper.ResolveXmlRelativePath(xmlDirectory, path)),
-                        DestinationPath = $"static_assets/veichles/Textures/CustomLiveries/Overrides/{_team.Ams2Car}/{path}"
+                        DestinationPath = $"static_assets/Vehicles/Textures/CustomLiveries/Overrides/{_team.Ams2Car}/{path}"
                     })
                 );
 

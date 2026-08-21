@@ -22,8 +22,10 @@ namespace AMS2ChEd.SeasonPackEditor
         private readonly bool _isEditMode;
         private readonly LiveryOverride _originalOverride;
         private readonly ExternalLiveriesConfig _externalLiveriesConfig;
+        private readonly IEnumerable<NumbersPlacement> _baseNumbersPlacements;
+        private List<NumbersPlacement> _numbersPlacements;
 
-        public LiveryOverrideDialog(IEnumerable<Race> races, Dictionary<string, string> textureFiles, string teamId, ExternalLiveriesConfig externalLiveriesConfig = null, LiveryOverride liveryOverride = null)
+        public LiveryOverrideDialog(IEnumerable<Race> races, Dictionary<string, string> textureFiles, string teamId, ExternalLiveriesConfig externalLiveriesConfig = null, LiveryOverride liveryOverride = null, IEnumerable<NumbersPlacement> baseNumbersPlacements = null)
         {
             InitializeComponent();
 
@@ -33,8 +35,12 @@ namespace AMS2ChEd.SeasonPackEditor
             _externalLiveriesConfig = externalLiveriesConfig ?? new ExternalLiveriesConfig();
             _isEditMode = liveryOverride != null;
             _originalOverride = liveryOverride;
+            _baseNumbersPlacements = baseNumbersPlacements ?? Enumerable.Empty<NumbersPlacement>();
 
             LoadRaceCheckBoxes();
+
+            _numbersPlacements = liveryOverride?.NumbersPlacements?.ToList() ?? new List<NumbersPlacement>();
+            NumberPlacementsDataGrid.ItemsSource = _numbersPlacements;
 
             if (liveryOverride != null)
             {
@@ -312,6 +318,77 @@ namespace AMS2ChEd.SeasonPackEditor
 
         #endregion
 
+        #region Number Placements
+
+        private void AddNumberPlacement_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new NumberPlacementDialog(_teamId, _textureFiles);
+            if (dialog.ShowDialog() == true)
+            {
+                _numbersPlacements.Add(dialog.NumberPlacement);
+                RefreshNumberPlacementsGrid();
+            }
+        }
+
+        private void EditNumberPlacement_Click(object sender, RoutedEventArgs e)
+        {
+            if (NumberPlacementsDataGrid.SelectedItem is NumbersPlacement selected)
+            {
+                var dialog = new NumberPlacementDialog(_teamId, _textureFiles, selected);
+                if (dialog.ShowDialog() == true)
+                {
+                    RefreshNumberPlacementsGrid();
+                }
+            }
+        }
+
+        private void RemoveNumberPlacement_Click(object sender, RoutedEventArgs e)
+        {
+            if (NumberPlacementsDataGrid.SelectedItem is NumbersPlacement selected)
+            {
+                _numbersPlacements.Remove(selected);
+                RefreshNumberPlacementsGrid();
+            }
+        }
+
+        private void CloneFromBaseLivery_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_baseNumbersPlacements.Any())
+            {
+                MessageBox.Show("The base livery has no number placements to clone.",
+                    "Nothing to Clone", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (_numbersPlacements.Count > 0)
+            {
+                var confirm = MessageBox.Show(
+                    "This will replace the current number placements for this override with a copy of the base livery's placements. Continue?",
+                    "Clone from Base Livery", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (confirm != MessageBoxResult.Yes)
+                    return;
+            }
+
+            _numbersPlacements = _baseNumbersPlacements.Select(p => new NumbersPlacement
+            {
+                NumbersTexture = p.NumbersTexture,
+                NumberPlateWidth = p.NumberPlateWidth,
+                StartingPoint = p.StartingPoint,
+                NumberRotation = p.NumberRotation,
+                FillColor = p.FillColor
+            }).ToList();
+
+            RefreshNumberPlacementsGrid();
+        }
+
+        private void RefreshNumberPlacementsGrid()
+        {
+            NumberPlacementsDataGrid.ItemsSource = null;
+            NumberPlacementsDataGrid.ItemsSource = _numbersPlacements;
+        }
+
+        #endregion
+
         #region Browse Methods
 
         private void BrowseDriver1Livery_Click(object sender, RoutedEventArgs e)
@@ -527,6 +604,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 liveryoverride.HelmetSponsors = string.IsNullOrWhiteSpace(HelmetSponsorsTextBox.Text) ? null : HelmetSponsorsTextBox.Text;
                 liveryoverride.VisorSponsors = string.IsNullOrWhiteSpace(VisorSponsorsTextBox.Text) ? null : VisorSponsorsTextBox.Text;
                 liveryoverride.LiveryPreview = string.IsNullOrWhiteSpace(LiveryPreviewTextBox.Text) ? null : LiveryPreviewTextBox.Text;
+                liveryoverride.NumbersPlacements = _numbersPlacements.Count > 0 ? _numbersPlacements.ToList() : null;
                 return liveryoverride;
             }).ToList();
 
@@ -558,7 +636,8 @@ namespace AMS2ChEd.SeasonPackEditor
                            !string.IsNullOrWhiteSpace(Driver2LiveryTextBox.Text) ||
                            !string.IsNullOrWhiteSpace(HelmetSponsorsTextBox.Text) ||
                            !string.IsNullOrWhiteSpace(VisorSponsorsTextBox.Text) ||
-                           !string.IsNullOrWhiteSpace(LiveryPreviewTextBox.Text);
+                           !string.IsNullOrWhiteSpace(LiveryPreviewTextBox.Text) ||
+                           _numbersPlacements.Count > 0;
 
 
             if (!hasAnyData)
