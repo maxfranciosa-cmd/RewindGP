@@ -109,7 +109,6 @@ namespace AMS2ChEd.SeasonPackEditor
                     Stamina = GetRatingDisplayValue(values, "stamina"),
                     StartReactions = GetRatingDisplayValue(values, "start_reactions"),
                     TyreManagement = GetRatingDisplayValue(values, "tyre_management"),
-                    VehicleReliability = GetRatingDisplayValue(values, "vehicle_reliability"),
                     WeatherTyreChanges = GetRatingDisplayValue(values, "weather_tyre_changes"),
                     WetSkill = GetRatingDisplayValue(values, "wet_skill")
                 };
@@ -1055,7 +1054,8 @@ namespace AMS2ChEd.SeasonPackEditor
                 summaryLines.Add($"{team.TeamName}: P{target.Position}, {target.Points:0} pts -> " +
                     $"power {team.Ams2CarPerformanceMalus["power_scalar"]:F3}, " +
                     $"weight {team.Ams2CarPerformanceMalus["weight_scalar"]:F3}, " +
-                    $"drag {team.Ams2CarPerformanceMalus["drag_scalar"]:F3}");
+                    $"drag {team.Ams2CarPerformanceMalus["drag_scalar"]:F3}, " +
+                    $"reliability {team.Ams2CarPerformanceMalus["weichle_reliability"]:F3}");
             }
 
             RefreshUI();
@@ -2297,18 +2297,6 @@ namespace AMS2ChEd.SeasonPackEditor
                     _tyreManagement = value;
                     UpdateDriverRating("tyre_management", value);
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TyreManagement)));
-                }
-            }
-
-            private string _vehicleReliability;
-            public string VehicleReliability
-            {
-                get => _vehicleReliability;
-                set
-                {
-                    _vehicleReliability = value;
-                    UpdateDriverRating("vehicle_reliability", value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VehicleReliability)));
                 }
             }
 

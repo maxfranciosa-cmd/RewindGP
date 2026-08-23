@@ -379,7 +379,6 @@
                             <DataGridTextColumn Header="Stam" Binding="{Binding Stamina, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="70"/>
                             <DataGridTextColumn Header="Start" Binding="{Binding StartReactions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="70"/>
                             <DataGridTextColumn Header="Tyre" Binding="{Binding TyreManagement, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="70"/>
-                            <DataGridTextColumn Header="VehR" Binding="{Binding VehicleReliability, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="70"/>
                             <DataGridTextColumn Header="WTC" Binding="{Binding WeatherTyreChanges, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="70"/>
                             <DataGridTextColumn Header="Wet" Binding="{Binding WetSkill, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="70"/>
                         </DataGrid.Columns>
@@ -432,6 +431,7 @@
                             <DataGridTextColumn Header="Power" Binding="{Binding PowerScalar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=F3}" Width="70"/>
                             <DataGridTextColumn Header="Weight" Binding="{Binding WeightScalar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=F3}" Width="70"/>
                             <DataGridTextColumn Header="Drag" Binding="{Binding DragScalar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=F3}" Width="70"/>
+                            <DataGridTextColumn Header="Reliability" Binding="{Binding VehicleReliability, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=F3}" Width="70"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

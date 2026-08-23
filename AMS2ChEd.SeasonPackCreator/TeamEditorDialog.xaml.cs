@@ -231,6 +231,7 @@ namespace AMS2ChEd.SeasonPackEditor
             MalusWeightScalarTextBox.Text = ratings["weight_scalar"].ToString("F3");
             MalusDragScalarTextBox.Text = ratings["drag_scalar"].ToString("F3");
             MalusPowerScalarTextBox.Text = ratings["power_scalar"].ToString("F3");
+            MalusVeichleReliabilityTextBox.Text = ratings["vehicle_reliability"].ToString("F3");
         }
 
         private bool ValidateInput()

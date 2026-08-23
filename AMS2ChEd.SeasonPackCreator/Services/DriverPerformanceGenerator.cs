@@ -50,21 +50,22 @@ namespace AMS2ChEd.SeasonPackEditor.Services
         {
             double t = _random.NextDouble();
 
-            var (weightMin, weightMax, powerMin, powerMax, dragMin, dragMax) = reputation switch
+            var (weightMin, weightMax, powerMin, powerMax, dragMin, dragMax, veichle_reliability) = reputation switch
             {
-                TeamReputation.TOP_TEAM => (0.988, 0.996, 1.004, 1.012, 0.988, 0.996),
-                TeamReputation.MIDFIELD_HIGH => (1.000, 1.005, 0.995, 1.000, 1.000, 1.005),
-                TeamReputation.MIDFIELD => (1.007, 1.013, 0.984, 0.991, 1.007, 1.013),
-                TeamReputation.MINNOW => (1.016, 1.022, 0.972, 0.980, 1.016, 1.022),
-                TeamReputation.SUPER_MINNOW => (1.026, 1.035, 0.958, 0.968, 1.026, 1.035),
-                _ => (1.026, 1.035, 0.958, 0.968, 1.026, 1.035)
+                TeamReputation.TOP_TEAM => (0.988, 0.996, 1.004, 1.012, 0.988, 0.996, 0.5),
+                TeamReputation.MIDFIELD_HIGH => (1.000, 1.005, 0.995, 1.000, 1.000, 1.005, 0.4),
+                TeamReputation.MIDFIELD => (1.007, 1.013, 0.984, 0.991, 1.007, 1.013, 0.3),
+                TeamReputation.MINNOW => (1.016, 1.022, 0.972, 0.980, 1.016, 1.022, 0.3),
+                TeamReputation.SUPER_MINNOW => (1.026, 1.035, 0.958, 0.968, 1.026, 1.035, 0.2),
+                _ => (1.026, 1.035, 0.958, 0.968, 1.026, 1.035, 0.2)
             };
 
             return new Dictionary<string, double>
             {
                 ["weight_scalar"] = -Lerp(weightMin, weightMax, t),
                 ["power_scalar"] = -Lerp(powerMax, powerMin, t),  // inverted: higher t = weaker car
-                ["drag_scalar"] = -Lerp(dragMin, dragMax, t)
+                ["drag_scalar"] = -Lerp(dragMin, dragMax, t),
+                ["vehicle_reliability"] = -veichle_reliability
             };
         }
 
@@ -93,6 +94,8 @@ namespace AMS2ChEd.SeasonPackEditor.Services
         private const double WeightWorst = 1.030;
         private const double DragBest = 0.970;
         private const double DragWorst = 1.030;
+        private const double ReliabilityBest = 0.5;
+        private const double ReliabilityWorst = 0.2;
 
         // The envelope width this system was originally tuned at (+-10%, i.e. PowerBest-PowerWorst
         // = 0.200 back when those constants were 1.100/0.900). baseRelativeStrength correction below
@@ -148,12 +151,14 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             double power = Math.Clamp(-Lerp(PowerBest, PowerWorst, weakness) / dampedRelativeStrength, -PowerSafetyBest, -PowerSafetyWorst);
             double weight = Math.Clamp(-Lerp(WeightBest, WeightWorst, weakness) * dampedRelativeStrength, -WeightSafetyWorst, -WeightSafetyBest);
             double drag = -Lerp(DragBest, DragWorst, weakness);
+            double reliability = -Lerp(ReliabilityBest, ReliabilityWorst, weakness);
 
             return new Dictionary<string, double>
             {
                 ["weight_scalar"] = Convert.ToDouble(weight.ToString("N3")),
                 ["power_scalar"] = Convert.ToDouble(power.ToString("N3")),
-                ["drag_scalar"] = Convert.ToDouble(drag.ToString("N3"))
+                ["drag_scalar"] = Convert.ToDouble(drag.ToString("N3")),
+                ["vehicle_reliability"] = Convert.ToDouble(reliability.ToString("N3"))
             };
         }
 
@@ -167,6 +172,9 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             // Generate base value
             double baseValue = range.Min + _random.NextDouble() * (range.Max - range.Min);
 
+            // Generate base value for consistency
+            double baseValueConsistency = 0.2 + _random.NextDouble() * (0.5 - 0.2);
+
             var ratings = new Dictionary<string, double>();
 
             // Generate all AMS2 ratings with slight variations from base
@@ -175,7 +183,7 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             ratings["aggression"] = Vary(baseValue, range.Variance * 1.5); // More variance
             ratings["defending"] = Vary(baseValue, range.Variance);
             ratings["stamina"] = Vary(baseValue, range.Variance);
-            ratings["consistency"] = Vary(baseValue, range.Variance * 0.8); // Less variance
+            ratings["consistency"] = Vary(baseValueConsistency, range.Variance * 0.8); // Less variance
             ratings["start_reactions"] = Vary(baseValue, range.Variance);
             ratings["wet_skill"] = Vary(baseValue, range.Variance * 1.2);
             ratings["tyre_management"] = Vary(baseValue, range.Variance);
@@ -184,7 +192,6 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             ratings["weather_tyre_changes"] = Vary(baseValue, range.Variance);
             ratings["avoidance_of_mistakes"] = Vary(baseValue, range.Variance);
             ratings["avoidance_of_forced_mistakes"] = Vary(baseValue, range.Variance);
-            ratings["vehicle_reliability"] = Vary(baseValue, range.Variance * 0.5); // Very little variance
 
             // Apply reputation-specific adjustments
             ApplyReputationModifiers(ratings, reputation, baseValue);
@@ -201,7 +208,7 @@ namespace AMS2ChEd.SeasonPackEditor.Services
                 case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN:
                 case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL:
                     ratings["aggression"] = Math.Min(1.0, ratings["aggression"] + 0.05);
-                    ratings["consistency"] = Math.Max(0.0, ratings["consistency"] - 0.03);
+                    ratings["consistency"] = Math.Max(0.2, ratings["consistency"] - 0.03);
                     ratings["tyre_management"] = Math.Max(0.0, ratings["tyre_management"] - 0.02);
                     ratings["fuel_management"] = Math.Max(0.0, ratings["fuel_management"] - 0.02);
                     break;
@@ -212,7 +219,7 @@ namespace AMS2ChEd.SeasonPackEditor.Services
                 case DriverReputation.AGEING_CHAMPIONSHIP_LEVEL:
                 case DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED:
                 case DriverReputation.JUST_ONE_LAST_DANCE:
-                    ratings["consistency"] = Math.Min(1.0, ratings["consistency"] + 0.04);
+                    ratings["consistency"] = Math.Min(0.5, ratings["consistency"] + 0.04);
                     ratings["tyre_management"] = Math.Min(1.0, ratings["tyre_management"] + 0.03);
                     ratings["fuel_management"] = Math.Min(1.0, ratings["fuel_management"] + 0.03);
                     ratings["stamina"] = Math.Max(0.0, ratings["stamina"] - 0.04);

@@ -66,7 +66,6 @@ namespace AMS2ChEd.SeasonPackEditor
                 StaminaTextBox.Text = GetRatingValue(Driver.RatingValues, "stamina");
                 StartReactionsTextBox.Text = GetRatingValue(Driver.RatingValues, "start_reactions");
                 TyreManagementTextBox.Text = GetRatingValue(Driver.RatingValues, "tyre_management");
-                VehicleReliabilityTextBox.Text = GetRatingValue(Driver.RatingValues, "vehicle_reliability");
                 WeatherTyreChangesTextBox.Text = GetRatingValue(Driver.RatingValues, "weather_tyre_changes");
                 WetSkillTextBox.Text = GetRatingValue(Driver.RatingValues, "wet_skill");
             }
@@ -251,7 +250,6 @@ namespace AMS2ChEd.SeasonPackEditor
                 { "stamina", ParseRating(StaminaTextBox.Text) },
                 { "start_reactions", ParseRating(StartReactionsTextBox.Text) },
                 { "tyre_management", ParseRating(TyreManagementTextBox.Text) },
-                { "vehicle_reliability", ParseRating(VehicleReliabilityTextBox.Text) },
                 { "weather_tyre_changes", ParseRating(WeatherTyreChangesTextBox.Text) },
                 { "wet_skill", ParseRating(WetSkillTextBox.Text) }
             };
@@ -302,7 +300,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 BlueFlagConcedingTextBox, ConsistencyTextBox, DefendingTextBox,
                 FuelManagementTextBox, QualifyingSkillTextBox, RaceSkillTextBox,
                 StaminaTextBox, StartReactionsTextBox, TyreManagementTextBox,
-                VehicleReliabilityTextBox, WeatherTyreChangesTextBox, WetSkillTextBox
+                WeatherTyreChangesTextBox, WetSkillTextBox
             };
 
             foreach (var field in ratingFields)
@@ -347,7 +345,6 @@ namespace AMS2ChEd.SeasonPackEditor
             StaminaTextBox.Text = ratings["stamina"].ToString("F3");
             StartReactionsTextBox.Text = ratings["start_reactions"].ToString("F3");
             TyreManagementTextBox.Text = ratings["tyre_management"].ToString("F3");
-            VehicleReliabilityTextBox.Text = ratings["vehicle_reliability"].ToString("F3");
             WeatherTyreChangesTextBox.Text = ratings["weather_tyre_changes"].ToString("F3");
             WetSkillTextBox.Text = ratings["wet_skill"].ToString("F3");
         }

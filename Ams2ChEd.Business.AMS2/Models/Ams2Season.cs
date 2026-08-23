@@ -76,6 +76,17 @@ namespace AMS2ChEd.Business.AMS2.Models
             }
         }
 
+        [JsonIgnore]
+        public double VehicleReliability
+        {
+            get => Ams2CarPerformanceMalus != null && Ams2CarPerformanceMalus.TryGetValue("vehicle_reliability", out var v) ? v : 0.0;
+            set
+            {
+                Ams2CarPerformanceMalus ??= new Dictionary<string, double>();
+                Ams2CarPerformanceMalus["vehicle_reliability"] = value;
+            }
+        }
+
         /// <summary>
         /// True if either driver's malus dictionary uses one of the physical performance
         /// scalars (power/weight/drag) rather than (or alongside) qualifying_skill.
