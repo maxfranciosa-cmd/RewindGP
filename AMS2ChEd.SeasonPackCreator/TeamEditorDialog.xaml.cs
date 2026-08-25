@@ -128,7 +128,7 @@ namespace AMS2ChEd.SeasonPackEditor
             ReputationComboBox.SelectedItem = Team.Reputation;
             Driver1ComboBox.SelectedItem = Team.Driver1Contract?.DriverId;
             Driver1NumberTextBox.Text = Team.Driver1Contract?.DriverNumber.ToString();
-            Driver1RacesContractTextBox.Text = Team.Driver2Contract?.Races.ToString();
+            Driver1RacesContractTextBox.Text = Team.Driver1Contract?.Races.ToString();
             Driver2ComboBox.SelectedItem = string.IsNullOrEmpty(Team.Driver2Contract?.DriverId)
                 ? NoSecondDriverPlaceholder
                 : Team.Driver2Contract.DriverId;
