@@ -21,7 +21,7 @@ namespace AMS2ChEd.Business.Services
             {  DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD } },
             {  DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD } },
             {  DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD } },
-            {  DriverReputation.AGEING_CHAMPIONSHIP_LEVEL , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD } },
+            {  DriverReputation.AGEING_CHAMPIONSHIP_LEVEL , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD_HIGH } },
             {  DriverReputation.PRIME_CHAMPIONSHIP_LEVEL , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD_HIGH } },
             {  DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD_HIGH } },
         };

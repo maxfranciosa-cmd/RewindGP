@@ -43,8 +43,8 @@ namespace AMS2ChEd.Business.Services
                                                      } 
                     },
                     { DriverRole.SECOND_DRIVER, new[] {
-                                                        Tuple.Create(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, DriverPolicyFit.PerfectFit),
-                                                        Tuple.Create(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, DriverPolicyFit.PerfectFit),
+                                                        Tuple.Create(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, DriverPolicyFit.GoodFit),
+                                                        Tuple.Create(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, DriverPolicyFit.GoodFit),
                                                         Tuple.Create(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN, DriverPolicyFit.PerfectFit),
                                                         Tuple.Create(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, DriverPolicyFit.PerfectFit),
                                                         Tuple.Create(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL, DriverPolicyFit.GoodFit),
