@@ -944,7 +944,8 @@ namespace Ams2ChEd.Business.AMS2.Services
             string driverName;
             string nationality;
             Dictionary<string, double> ratings;
-
+            var scalarRatings = new string[] { "power_scalar", "weight_scalar", "drag_scalar" };
+            var carSpecificRatings = new string[] { "power_scalar", "weight_scalar", "drag_scalar", "vehicle_reliability" };
             // Use AI driver data with team performance malus
             if (!driversDict.TryGetValue(driverId, out var driver)) return;
 
@@ -977,6 +978,11 @@ namespace Ams2ChEd.Business.AMS2.Services
             else
             {
                 ratings = new Dictionary<string, double>(driver.RatingValues);
+                //remove vehicle-specific scalars and vehicle_reliability as it's purely set up via the team performance malus
+                foreach(var scalar in carSpecificRatings)
+                {
+                    ratings.Remove(scalar);
+                }
             }
 
             // Apply team performance malus if exists (driver-2-specific car malus if defined)
@@ -1001,7 +1007,6 @@ namespace Ams2ChEd.Business.AMS2.Services
             // (power_scalar, weight_scalar, drag_scalar are team-level scalars, so they have different bounds)
             if (aiRatingsVariation)
             {
-                var scalarRatings = new string[] { "power_scalar", "weight_scalar", "drag_scalar" };
                 var random = new Random();
                 foreach (var ratingKey in ratings.Keys)
                 {
