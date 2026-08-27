@@ -158,6 +158,24 @@ namespace AMS2ChEd.Business.AMS2.Models
         [JsonPropertyName("numbers_texture")]
         public string NumbersTexture { get; set; }
 
+        /// <summary>
+        /// Optional numbers texture for the second car. When null, driver 2 uses
+        /// NumbersTexture (backwards compatible with existing saves/seasons).
+        /// </summary>
+        [JsonPropertyName("numbers_texture_driver2")]
+        public string NumbersTextureDriver2 { get; set; }
+
+        /// <summary>
+        /// Returns the numbers texture that applies to the given driver slot (1 or 2),
+        /// falling back to NumbersTexture if no driver-2-specific texture is defined.
+        /// </summary>
+        public string GetNumbersTexture(int driverNumber)
+        {
+            return driverNumber == 2 && !string.IsNullOrEmpty(NumbersTextureDriver2)
+                ? NumbersTextureDriver2
+                : NumbersTexture;
+        }
+
         [JsonPropertyName("number_plate_width")]
         public int NumberPlateWidth { get; set; }
 

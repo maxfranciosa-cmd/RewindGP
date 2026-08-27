@@ -744,9 +744,10 @@ namespace AMS2ChEd.SeasonPackEditor
                 // Render number placements
                 if (_team.NumbersPlacements != null && int.TryParse(TestNumberTextBox.Text, out int testNumber))
                 {
+                    int previewDriverNumber = PreviewSourceComboBox.SelectedIndex == 1 ? 2 : 1;
                     foreach (var placement in _team.NumbersPlacements)
                     {
-                        RenderNumberPlacement(placement, testNumber.ToString());
+                        RenderNumberPlacement(placement, testNumber.ToString(), previewDriverNumber);
                     }
                 }
             }
@@ -756,11 +757,11 @@ namespace AMS2ChEd.SeasonPackEditor
             }
         }
 
-        private void RenderNumberPlacement(NumbersPlacement placement, string number)
+        private void RenderNumberPlacement(NumbersPlacement placement, string number, int driverNumber)
         {
             // Create a visual representation of where the number would be placed
 
-            var textureHeight = GetTextureHeight(placement.NumbersTexture);
+            var textureHeight = GetTextureHeight(placement.GetNumbersTexture(driverNumber));
 
             // Apply scaling to dimensions
             var scaledWidth = placement.NumberPlateWidth * _previewScale;

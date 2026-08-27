@@ -118,7 +118,10 @@ namespace AMS2ChEd.SeasonPackEditor.Services
 
                 if (team.NumbersPlacements != null)
                     foreach (var placement in team.NumbersPlacements)
+                    {
                         Track(placement.NumbersTexture);
+                        Track(placement.NumbersTextureDriver2);
+                    }
 
                 if (team.LiveryOverrides != null)
                 {
@@ -136,7 +139,10 @@ namespace AMS2ChEd.SeasonPackEditor.Services
 
                         if (overrideEntry.NumbersPlacements != null)
                             foreach (var placement in overrideEntry.NumbersPlacements)
+                            {
                                 Track(placement.NumbersTexture);
+                                Track(placement.NumbersTextureDriver2);
+                            }
                     }
                 }
 

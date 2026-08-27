@@ -372,6 +372,7 @@ namespace AMS2ChEd.SeasonPackEditor
             _numbersPlacements = _baseNumbersPlacements.Select(p => new NumbersPlacement
             {
                 NumbersTexture = p.NumbersTexture,
+                NumbersTextureDriver2 = p.NumbersTextureDriver2,
                 NumberPlateWidth = p.NumberPlateWidth,
                 StartingPoint = p.StartingPoint,
                 NumberRotation = p.NumberRotation,

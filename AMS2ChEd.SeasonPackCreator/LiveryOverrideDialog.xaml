@@ -275,6 +275,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Texture" Binding="{Binding NumbersTexture}" Width="120"/>
+                        <DataGridTextColumn Header="Driver 2 Texture" Binding="{Binding NumbersTextureDriver2}" Width="120"/>
                         <DataGridTextColumn Header="Width" Binding="{Binding NumberPlateWidth}" Width="60"/>
                         <DataGridTextColumn Header="X" Binding="{Binding StartingPoint.X}" Width="50"/>
                         <DataGridTextColumn Header="Y" Binding="{Binding StartingPoint.Y}" Width="50"/>

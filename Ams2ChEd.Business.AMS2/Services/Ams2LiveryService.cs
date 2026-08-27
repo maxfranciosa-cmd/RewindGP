@@ -719,7 +719,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                         team.TeamId,
                         seasonYear,
                         seasonDirectory,
-                        temporaryTexturesPath);
+                        temporaryTexturesPath,
+                        driverNumber);
                 }
 
                 finalLiveryPath = Path.Combine("temporary_textures", fallbackFilename);
@@ -733,7 +734,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                     team.TeamId,
                     seasonYear,
                     seasonDirectory,
-                    temporaryTexturesPath);
+                    temporaryTexturesPath,
+                    driverNumber);
             }
             else
             {
@@ -823,7 +825,8 @@ namespace Ams2ChEd.Business.AMS2.Services
             string teamId,
             int seasonYear,
             string seasonDirectory,
-            string temporaryTexturesPath)
+            string temporaryTexturesPath,
+            int driverNumber)
         {
             // Resolve base livery path
             string resolvedLiveryPath = Path.IsPathRooted(baseLiveryPath)
@@ -857,7 +860,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
                 placements.Add(new DdsTextureComposer.NumberPlacementData
                 {
-                    NumbersTexture = placement.NumbersTexture,
+                    NumbersTexture = placement.GetNumbersTexture(driverNumber),
                     PlateWidth = placement.NumberPlateWidth,
                     StartX = placement.StartingPoint.X,
                     StartY = placement.StartingPoint.Y,

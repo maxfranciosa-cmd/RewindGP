@@ -47,6 +47,12 @@ namespace AMS2ChEd.SeasonPackEditor
         private void LoadPlacementData()
         {
             NumbersTextureTextBox.Text = NumberPlacement.NumbersTexture;
+
+            bool hasDriver2Texture = !string.IsNullOrEmpty(NumberPlacement.NumbersTextureDriver2);
+            NumbersTextureDriver2TextBox.Text = NumberPlacement.NumbersTextureDriver2;
+            UseDriver2TextureCheckBox.IsChecked = hasDriver2Texture;
+            Driver2TexturePanel.Visibility = hasDriver2Texture ? Visibility.Visible : Visibility.Collapsed;
+
             NumberPlateWidthTextBox.Text = NumberPlacement.NumberPlateWidth.ToString();
             StartXTextBox.Text = NumberPlacement.StartingPoint.X.ToString();
             StartYTextBox.Text = NumberPlacement.StartingPoint.Y.ToString();
@@ -89,6 +95,35 @@ namespace AMS2ChEd.SeasonPackEditor
             }
         }
 
+        private void UseDriver2Texture_Changed(object sender, RoutedEventArgs e)
+        {
+            bool isChecked = UseDriver2TextureCheckBox.IsChecked == true;
+            Driver2TexturePanel.Visibility = isChecked ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void BrowseNumbersTextureDriver2_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Image files (*.dds;*.png)|*.dds;*.png|All files (*.*)|*.*",
+                Title = "Select Driver 2 Numbers Texture"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                var filename = System.IO.Path.GetFileName(dialog.FileName);
+                var fileNamePngNoExt = Path.GetFileNameWithoutExtension(filename);
+                // Suffix with "_driver2" so this doesn't collide with the primary texture's
+                // destination key if the user picks a source file with the same name.
+                var fileNamePng = $"{fileNamePngNoExt}_driver2.png";
+                var relativePath = $"car_liveries/{_teamId}/{fileNamePng}";
+                NumbersTextureDriver2TextBox.Text = relativePath;
+
+                // Track the file for export
+                _textureFiles[relativePath] = dialog.FileName;
+            }
+        }
+
         private (int width, int height) GetImageDimensions(string filePath)
         {
             string extension = Path.GetExtension(filePath).ToLowerInvariant();
@@ -125,6 +160,9 @@ namespace AMS2ChEd.SeasonPackEditor
             }
 
             NumberPlacement.NumbersTexture = NumbersTextureTextBox.Text;
+            NumberPlacement.NumbersTextureDriver2 = UseDriver2TextureCheckBox.IsChecked == true
+                ? NumbersTextureDriver2TextBox.Text
+                : null;
             NumberPlacement.NumberPlateWidth = int.Parse(NumberPlateWidthTextBox.Text);
             NumberPlacement.StartingPoint = new Point(
                 int.Parse(StartXTextBox.Text),
@@ -148,6 +186,12 @@ namespace AMS2ChEd.SeasonPackEditor
             if (string.IsNullOrWhiteSpace(NumbersTextureTextBox.Text))
             {
                 MessageBox.Show("Numbers Texture is required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (UseDriver2TextureCheckBox.IsChecked == true && string.IsNullOrWhiteSpace(NumbersTextureDriver2TextBox.Text))
+            {
+                MessageBox.Show("Driver 2 Numbers Texture is required when the override is enabled.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 

@@ -81,6 +81,7 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
                 foreach (var placement in teamEntry.NumbersPlacements)
                 {
                     placement.NumbersTexture = Prefix(placement.NumbersTexture);
+                    placement.NumbersTextureDriver2 = Prefix(placement.NumbersTextureDriver2);
                 }
             }
 
@@ -105,6 +106,7 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
                         foreach (var placement in liveryOverride.NumbersPlacements)
                         {
                             placement.NumbersTexture = Prefix(placement.NumbersTexture);
+                            placement.NumbersTextureDriver2 = Prefix(placement.NumbersTextureDriver2);
                         }
                     }
                 }

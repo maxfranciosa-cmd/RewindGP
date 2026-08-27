@@ -42,7 +42,10 @@ namespace AMS2ChEd.SeasonPackEditor.Services
 
                 if (teamEntry.NumbersPlacements != null)
                     foreach (var p in teamEntry.NumbersPlacements)
+                    {
                         p.NumbersTexture = Resolve(p.NumbersTexture, project.TextureFiles);
+                        p.NumbersTextureDriver2 = Resolve(p.NumbersTextureDriver2, project.TextureFiles);
+                    }
 
                 if (teamEntry.LiveryOverrides != null)
                 {
@@ -60,7 +63,10 @@ namespace AMS2ChEd.SeasonPackEditor.Services
 
                         if (ov.NumbersPlacements != null)
                             foreach (var p in ov.NumbersPlacements)
+                            {
                                 p.NumbersTexture = Resolve(p.NumbersTexture, project.TextureFiles);
+                                p.NumbersTextureDriver2 = Resolve(p.NumbersTextureDriver2, project.TextureFiles);
+                            }
                     }
                 }
             }
