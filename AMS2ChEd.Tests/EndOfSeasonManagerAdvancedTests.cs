@@ -28,7 +28,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             _offSeasonMovements = new OffSeasonMovements(_driverFirer, _driverHirer);
             _mockRandomDriverGenerator = new Mock<IRandomDriverGenerator>();
             var reputationUpdater = new ReputationUpdater();
-            _endOfSeasonManager = new EndOfSeasonManager(reputationUpdater, _offSeasonMovements, _mockRandomDriverGenerator.Object);
+            _endOfSeasonManager = new EndOfSeasonManager(reputationUpdater, _offSeasonMovements, _mockRandomDriverGenerator.Object, _driverHirer);
         }
 
         #region TeamPicksPotentialReplacementsDrivers Tests
@@ -385,56 +385,24 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 "Second driver should remain unchanged");
         }
 
+        // All rows use TeamReputation.MIDFIELD so only the driver's fit tier varies between rows.
+        // Per DriverHirer's MIDFIELD/FIRST_DRIVER policy: PRIME_STRONG_MIDFIELD is a PerfectFit,
+        // AGEING_CHAMPIONSHIP_LEVEL_WASHED is above the table's max (OverQualified), PRIME_MIDFIELD
+        // is a GoodFit, and PAY_DRIVER_WILD_CARD is below the table (UnderQualified).
         [TestMethod]
-        public void GenerateNewSeasonWithNewHirings_ChampionshipDriverGetsMultiYearContract()
-        {
-            // Arrange
-            var teamOldEntry = CreateTestTeamEntry("T1", TeamReputation.TOP_TEAM, "OLD", "KEEPER");
-
-            var saveGame = CreateTestSaveGame(2024, new List<ITeamEntry> { teamOldEntry });
-            var championDriver = CreateTestDriver("CHAMP", "Champion", 1990, DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, 2025);
-
-            saveGame.Drivers = new List<IDriverData> { championDriver };
-
-            var team = CreateTestTeamEntry("T1", TeamReputation.TOP_TEAM, "OLD", "KEEPER");
-
-            var newSeason = CreateTestSeason(2025, new List<ITeamEntry> { team });
-
-            var ballots = new List<TeamHiringBallot>
-            {
-                new TeamHiringBallot
-                {
-                    OriginalTeamHiring = new TeamHiring
-                    {
-                        TeamId = "T1",
-                        DriverId = "CHAMP",
-                        Role = DriverRole.FIRST_DRIVER,
-                        DriverReputation = DriverReputation.PRIME_CHAMPIONSHIP_LEVEL,
-                        TeamReputation = TeamReputation.TOP_TEAM
-                    },
-                    Candidates = new List<TeamHiringBallotCandidate>()
-                }
-            };
-
-            // Act
-            var resultSeason = _endOfSeasonManager.GenerateNewSeasonWithNewHirings(saveGame, newSeason, ballots);
-
-            // Assert
-            var updatedTeam = resultSeason.Teams.First(t => t.TeamId == "T1");
-            int expectedRaces = 3 + 1; // season races + 1 for championship level
-            Assert.AreEqual(expectedRaces, updatedTeam.Driver1Contract.Races,
-                "Championship-level driver should get multi-year contract (races + 1)");
-        }
-
-        [TestMethod]
-        public void GenerateNewSeasonWithNewHirings_RegularDriverGetsSingleYearContract()
+        [DataRow(DriverReputation.PRIME_STRONG_MIDFIELD, true, DisplayName = "PerfectFit")]
+        [DataRow(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED, true, DisplayName = "OverQualified")]
+        [DataRow(DriverReputation.PRIME_MIDFIELD, false, DisplayName = "GoodFit")]
+        [DataRow(DriverReputation.PAY_DRIVER_WILD_CARD, false, DisplayName = "UnderQualified")]
+        public void GenerateNewSeasonWithNewHirings_FirstDriverContractLength_MultiYearOnlyWhenAtLeastPerfectFit(
+            DriverReputation driverReputation, bool expectMultiYearContract)
         {
             // Arrange
             var teamOldEntry = CreateTestTeamEntry("T1", TeamReputation.MIDFIELD, "OLD", "KEEPER");
             var saveGame = CreateTestSaveGame(2024, new List<ITeamEntry> { teamOldEntry });
-            var regularDriver = CreateTestDriver("REG", "Regular Driver", 1992, DriverReputation.PRIME_MIDFIELD, 2025);
+            var newDriver = CreateTestDriver("NEW", "New Driver", 1990, driverReputation, 2025);
 
-            saveGame.Drivers = new List<IDriverData> { regularDriver };
+            saveGame.Drivers = new List<IDriverData> { newDriver };
 
             var team = CreateTestTeamEntry("T1", TeamReputation.MIDFIELD, "OLD", "KEEPER");
 
@@ -447,9 +415,9 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                     OriginalTeamHiring = new TeamHiring
                     {
                         TeamId = "T1",
-                        DriverId = "REG",
+                        DriverId = "NEW",
                         Role = DriverRole.FIRST_DRIVER,
-                        DriverReputation = DriverReputation.PRIME_MIDFIELD,
+                        DriverReputation = driverReputation,
                         TeamReputation = TeamReputation.MIDFIELD
                     },
                     Candidates = new List<TeamHiringBallotCandidate>()
@@ -461,9 +429,59 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
             // Assert
             var updatedTeam = resultSeason.Teams.First(t => t.TeamId == "T1");
-            int expectedRaces = 3; // just season races
+            int expectedRaces = newSeason.Races.Count() + (expectMultiYearContract ? 1 : 0);
             Assert.AreEqual(expectedRaces, updatedTeam.Driver1Contract.Races,
-                "Regular driver should get single-year contract (just season races)");
+                "First driver should get a multi-year contract (races + 1) only when at least a PerfectFit for the team");
+        }
+
+        // Mirrors the FIRST_DRIVER test above but for the SECOND_DRIVER role, whose policy table
+        // (and therefore which reputations land in each fit tier) differs from FIRST_DRIVER's.
+        // Per DriverHirer's MIDFIELD/SECOND_DRIVER policy: PRIME_MIDFIELD is a PerfectFit,
+        // JUST_ONE_LAST_DANCE is above the table's max (OverQualified), YOUNG_TALENT is a GoodFit,
+        // and PAY_DRIVER_WILD_CARD is below the table (UnderQualified).
+        [TestMethod]
+        [DataRow(DriverReputation.PRIME_MIDFIELD, true, DisplayName = "PerfectFit")]
+        [DataRow(DriverReputation.JUST_ONE_LAST_DANCE, true, DisplayName = "OverQualified")]
+        [DataRow(DriverReputation.YOUNG_TALENT, false, DisplayName = "GoodFit")]
+        [DataRow(DriverReputation.PAY_DRIVER_WILD_CARD, false, DisplayName = "UnderQualified")]
+        public void GenerateNewSeasonWithNewHirings_SecondDriverContractLength_MultiYearOnlyWhenAtLeastPerfectFit(
+            DriverReputation driverReputation, bool expectMultiYearContract)
+        {
+            // Arrange
+            var teamOldEntry = CreateTestTeamEntry("T1", TeamReputation.MIDFIELD, "KEEPER", "OLD");
+            var saveGame = CreateTestSaveGame(2024, new List<ITeamEntry> { teamOldEntry });
+            var newDriver = CreateTestDriver("NEW", "New Driver", 1990, driverReputation, 2025);
+
+            saveGame.Drivers = new List<IDriverData> { newDriver };
+
+            var team = CreateTestTeamEntry("T1", TeamReputation.MIDFIELD, "KEEPER", "OLD");
+
+            var newSeason = CreateTestSeason(2025, new List<ITeamEntry> { team });
+
+            var ballots = new List<TeamHiringBallot>
+            {
+                new TeamHiringBallot
+                {
+                    OriginalTeamHiring = new TeamHiring
+                    {
+                        TeamId = "T1",
+                        DriverId = "NEW",
+                        Role = DriverRole.SECOND_DRIVER,
+                        DriverReputation = driverReputation,
+                        TeamReputation = TeamReputation.MIDFIELD
+                    },
+                    Candidates = new List<TeamHiringBallotCandidate>()
+                }
+            };
+
+            // Act
+            var resultSeason = _endOfSeasonManager.GenerateNewSeasonWithNewHirings(saveGame, newSeason, ballots);
+
+            // Assert
+            var updatedTeam = resultSeason.Teams.First(t => t.TeamId == "T1");
+            int expectedRaces = newSeason.Races.Count() + (expectMultiYearContract ? 1 : 0);
+            Assert.AreEqual(expectedRaces, updatedTeam.Driver2Contract.Races,
+                "Second driver should get a multi-year contract (races + 1) only when at least a PerfectFit for the team");
         }
 
         [TestMethod]

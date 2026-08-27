@@ -25,12 +25,14 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         private IReputationUpdater _reputationUpdater;
         private IOffSeasonMovements _offSeasonMovements;
         private IRandomDriverGenerator _randomDriverGenerator;
+        private DriverHirer _driverHirer;
 
-        public EndOfSeasonManager(IReputationUpdater reputationUpdater, IOffSeasonMovements offSeasonMovements, IRandomDriverGenerator randomDriverGenerator)
+        public EndOfSeasonManager(IReputationUpdater reputationUpdater, IOffSeasonMovements offSeasonMovements, IRandomDriverGenerator randomDriverGenerator, DriverHirer driverHirer)
         {
             _reputationUpdater = reputationUpdater;
             _offSeasonMovements = offSeasonMovements;
             _randomDriverGenerator = randomDriverGenerator;
+            _driverHirer = driverHirer;
         }
 
         public IEnumerable<DropTeamResult> ExecuteTeamDrops(
@@ -357,19 +359,21 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var teamEntriesDictionary = newSeasonResult.Teams.ToDictionary(t => t.TeamId, t => t);
 
             var employedDriversIds = new Dictionary<string, string>();
-
+            
             foreach (var teamEntry in newSeasonResult.Teams)
             {
                 var currentSeasonTeam = oldTeamEntries.GetValueOrDefault(teamEntry.TeamId);
                 var hirings = teamHiringResultDictionary.GetValueOrDefault(teamEntry.TeamId) ?? new List<TeamHiring>();
-
+                
                 // FIRST_DRIVER
                 var firstDriverHiring = hirings.FirstOrDefault(h => h.Role == DriverRole.FIRST_DRIVER);
+                
                 if (firstDriverHiring != null)
                 {
                     // Hired - use ballot result
                     teamEntry.Driver1Contract.DriverId = firstDriverHiring.DriverId;
-                    teamEntry.Driver1Contract.Races = firstDriverHiring.DriverReputation >= DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN ? newSeason.Races.Count() + 1 : newSeason.Races.Count();
+                    var firstDriverFit = _driverHirer.DoesDriverFitTeamPolicy(firstDriverHiring.DriverReputation, DriverRole.FIRST_DRIVER, teamEntry.Reputation);
+                    teamEntry.Driver1Contract.Races = firstDriverFit >= DriverHirer.DriverPolicyFit.PerfectFit ? newSeason.Races.Count() + 1 : newSeason.Races.Count();
                 }
                 else if (currentSeasonTeam != null)
                 {
@@ -379,11 +383,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
                 // SECOND DRIVER
                 var secondDriverHiring = hirings.FirstOrDefault(h => h.Role == DriverRole.SECOND_DRIVER);
+                
                 if (secondDriverHiring != null)
                 {
                     // Hired - use ballot result
                     teamEntry.Driver2Contract.DriverId = secondDriverHiring.DriverId;
-                    teamEntry.Driver2Contract.Races = secondDriverHiring.DriverReputation >= DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN ? newSeason.Races.Count() + 1 : newSeason.Races.Count();
+                    var secondDriverFit = _driverHirer.DoesDriverFitTeamPolicy(secondDriverHiring.DriverReputation, DriverRole.SECOND_DRIVER, teamEntry.Reputation);
+                    teamEntry.Driver2Contract.Races = secondDriverFit >= DriverHirer.DriverPolicyFit.PerfectFit ? newSeason.Races.Count() + 1 : newSeason.Races.Count();
                 }
                 else if (currentSeasonTeam != null)
                 {

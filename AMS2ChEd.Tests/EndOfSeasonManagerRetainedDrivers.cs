@@ -46,7 +46,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             _endOfSeasonManager = new EndOfSeasonManager(
                 _mockReputationUpdater.Object,
                 _offSeasonMovements,
-                new Mock<IRandomDriverGenerator>().Object);
+                new Mock<IRandomDriverGenerator>().Object,
+                new DriverHirer());
         }
 
         [TestMethod]

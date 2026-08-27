@@ -421,7 +421,7 @@ namespace AMS2ChEd.Business.Services
                 case DriverReputation.PAY_DRIVER_SEASON:
                     if (standings <= 8)
                         return DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN;
-                    else if (standings <= 12)
+                    else if (standings <= 15)
                         return DriverReputation.YOUNG_TALENT;
                     else return DriverReputation.PAY_DRIVER_SEASON;
 
@@ -432,7 +432,7 @@ namespace AMS2ChEd.Business.Services
                 case DriverReputation.YOUNG_TALENT:
                     if (standings <= 8)
                         return DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN;
-                    else if (standings <= 12)
+                    else if (standings <= 15)
                         return DriverReputation.YOUNG_TALENT;
                     else
                         return DriverReputation.PAY_DRIVER_SEASON;
@@ -445,7 +445,7 @@ namespace AMS2ChEd.Business.Services
                         return DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL;
                     else if (standings <= 8)
                         return DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN;
-                    else if (standings <= 12)
+                    else if (standings <= 15)
                         return DriverReputation.YOUNG_TALENT;
                     else
                         return DriverReputation.PAY_DRIVER_SEASON;

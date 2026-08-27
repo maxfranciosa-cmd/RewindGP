@@ -25,7 +25,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
             _sut = new EndOfSeasonManager(
                 _mockReputationUpdater.Object,
                 _mockOffSeasonMovements.Object,
-                _mockRandomDriverGenerator.Object);
+                _mockRandomDriverGenerator.Object, new DriverHirer());
         }
 
         #region TeamPicksPotentialReplacementsDrivers - Basic Functionality

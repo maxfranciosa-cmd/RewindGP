@@ -26,7 +26,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             _endOfSeasonManager = new EndOfSeasonManager(
                 _mockReputationUpdater.Object,
                 _mockOffSeasonMovements.Object,
-                new Mock<IRandomDriverGenerator>().Object);
+                new Mock<IRandomDriverGenerator>().Object, new DriverHirer());
         }
 
         #region ExecuteTeamDrops Tests
@@ -269,7 +269,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             var endOfSeasonManager = new EndOfSeasonManager(
                 _mockReputationUpdater.Object,
                 mockOffSeasonMovements.Object,
-                new Mock<IRandomDriverGenerator>().Object);
+                new Mock<IRandomDriverGenerator>().Object, new DriverHirer());
 
             var results = endOfSeasonManager.ExecuteTeamDrops(saveGame, newSeason).ToList();
 
@@ -462,7 +462,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                     }
                 });
 
-            var endOfSeasonManager = new EndOfSeasonManager(_mockReputationUpdater.Object, mockOffSeasonMovements.Object, new Mock<IRandomDriverGenerator>().Object);
+            var endOfSeasonManager = new EndOfSeasonManager(_mockReputationUpdater.Object, mockOffSeasonMovements.Object, new Mock<IRandomDriverGenerator>().Object, new DriverHirer());
 
             // Create next season WITHOUT the team (team is quitting)
             var newSeason = CreateTestSeason(2025);

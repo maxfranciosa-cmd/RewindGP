@@ -38,7 +38,7 @@ namespace AMS2ChEd.Tests
             new() { Year = 1994, Name="Mark Blundell", Position=12, Age=28, Podiums=1, DNFs=10 , CurrentReputation=DriverReputation.PRIME_STRONG_MIDFIELD, ExpectedReputation= DriverReputation.PRIME_MIDFIELD },
             new() { Year = 1994, Name="Heinz-Harald Frentzen", Position=13, Age=27, Podiums=0, DNFs=9 , CurrentReputation=DriverReputation.PRIME_STRONG_MIDFIELD, ExpectedReputation= DriverReputation.PRIME_MIDFIELD },
             new() { Year = 1994, Name="Nicola Larini", Position=14, Age=30, Podiums=1, DNFs=1 , CurrentReputation=DriverReputation.PRIME_MIDFIELD, ExpectedReputation= DriverReputation.PRIME_MIDFIELD },
-            new() { Year = 1994, Name="Christian Fittipaldi", Position=15, Age=23, Podiums=0, DNFs=8 , CurrentReputation=DriverReputation.YOUNG_TALENT, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
+            new() { Year = 1994, Name="Christian Fittipaldi", Position=15, Age=23, Podiums=0, DNFs=8 , CurrentReputation=DriverReputation.YOUNG_TALENT, ExpectedReputation= DriverReputation.YOUNG_TALENT },
             new() { Year = 1994, Name="Eddie Irvine", Position=16, Age=28, Podiums=0, DNFs=8 , CurrentReputation=DriverReputation.PRIME_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
             new() { Year = 1994, Name="Ukyo Katayama", Position=17, Age=30, Podiums=0, DNFs=11 , CurrentReputation=DriverReputation.PRIME_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },
             new() { Year = 1994, Name="Éric Bernard", Position=18, Age=30, Podiums=1, DNFs=6 , CurrentReputation=DriverReputation.PRIME_MIDFIELD, ExpectedReputation= DriverReputation.PAY_DRIVER_SEASON },

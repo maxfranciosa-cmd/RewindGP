@@ -358,7 +358,7 @@ namespace AMS2ChEd.Business.Tests.Services
                 new UnemployedDriver
                 {
                     DriverId = "hill",
-                    Reputation = DriverReputation.AGEING_CHAMPIONSHIP_LEVEL // Min: MIDFIELD, Max: TOP_TEAM - CAN join MIDFIELD
+                    Reputation = DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED // Min: MIDFIELD, Max: TOP_TEAM - CAN join MIDFIELD
                 }
             };
 
