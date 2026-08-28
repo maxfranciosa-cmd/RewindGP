@@ -597,6 +597,9 @@ namespace AMS2ChEd.Resources
         public static string ContractLetterWindow_RejectionReason_AgeingChampionship => ResourceManager.GetString(nameof(ContractLetterWindow_RejectionReason_AgeingChampionship))!;
         public static string ContractLetterWindow_RejectionReason_AgeingChampionshipWashed => ResourceManager.GetString(nameof(ContractLetterWindow_RejectionReason_AgeingChampionshipWashed))!;
         public static string ContractLetterWindow_RejectionReason_Default => ResourceManager.GetString(nameof(ContractLetterWindow_RejectionReason_Default))!;
+        public static string ContractLetterWindow_QualificationDetail_OverQualified => ResourceManager.GetString(nameof(ContractLetterWindow_QualificationDetail_OverQualified))!;
+        public static string ContractLetterWindow_QualificationDetail_GoodFit => ResourceManager.GetString(nameof(ContractLetterWindow_QualificationDetail_GoodFit))!;
+        public static string ContractLetterWindow_QualificationDetail_UnderQualified => ResourceManager.GetString(nameof(ContractLetterWindow_QualificationDetail_UnderQualified))!;
         public static string ContractLetterWindow_PreferredDriverReason_PayDriverWildCard_Format => ResourceManager.GetString(nameof(ContractLetterWindow_PreferredDriverReason_PayDriverWildCard_Format))!;
         public static string ContractLetterWindow_PreferredDriverReason_PayDriverSeason_Format => ResourceManager.GetString(nameof(ContractLetterWindow_PreferredDriverReason_PayDriverSeason_Format))!;
         public static string ContractLetterWindow_PreferredDriverReason_YoungTalent_Format => ResourceManager.GetString(nameof(ContractLetterWindow_PreferredDriverReason_YoungTalent_Format))!;

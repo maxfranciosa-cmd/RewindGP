@@ -2,7 +2,9 @@
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Services;
 using AMS2ChEd.Resources;
+using System.Linq;
 using System.Windows;
 using MessageBox = System.Windows.MessageBox;
 
@@ -106,7 +108,9 @@ namespace AMS2ChEd
             string otherDriverName,
             DriverReputation otherDriverReputation,
             bool otherDriverWasAtTeamBefore,
-            string roleName)
+            string roleName,
+            TeamReputation teamReputation,
+            DriverRole role)
         {
             InitializeComponent();
             this.playerReputation = playerReputation;
@@ -122,7 +126,7 @@ namespace AMS2ChEd
             }
             else
             {
-                GenerateOffSeasonRejectionLetter(teamName, teamPrincipal, playerName, otherDriverName, otherDriverWasAtTeamBefore, roleName);
+                GenerateOffSeasonRejectionLetter(teamName, teamPrincipal, playerName, otherDriverName, otherDriverWasAtTeamBefore, roleName, teamReputation, role);
             }
         }
 
@@ -146,11 +150,11 @@ namespace AMS2ChEd
             SignatureTitle.Text = string.Format(Strings.ContractLetterWindow_SignatureTitle_Format, teamName);
         }
 
-        private void GenerateOffSeasonRejectionLetter(string teamName, string teamPrincipal, string playerName, string otherDriverName, bool otherDriverWasAtTeamBefore, string roleName)
+        private void GenerateOffSeasonRejectionLetter(string teamName, string teamPrincipal, string playerName, string otherDriverName, bool otherDriverWasAtTeamBefore, string roleName, TeamReputation teamReputation, DriverRole role)
         {
             TeamNameHeader.Text = teamName.ToUpper();
 
-            string rejectionReason = GetRejectionReason(playerReputation);
+            string rejectionReason = AppendQualificationDetail(GetRejectionReason(playerReputation), playerReputation, role, teamReputation);
             string otherDriverClause = string.Format(
                 otherDriverWasAtTeamBefore
                     ? Strings.ContractLetterWindow_OffSeasonRejection_KeptIncumbent_Format
@@ -284,8 +288,19 @@ namespace AMS2ChEd
             // Set team header
             TeamNameHeader.Text = teamName.ToUpper();
 
-            // Get rejection reason based on reputation
+            // Get rejection reason based on reputation, plus a qualification-fit detail (over-,
+            // under- or "good but not perfect" fit for this specific seat) when we can resolve the
+            // team/role that were being contested - see AppendQualificationDetail.
             string rejectionReason = GetRejectionReason(playerReputation);
+            var contestedTeam = currentSeason?.Teams?.FirstOrDefault(t => t.TeamId == teamId);
+            if (contestedTeam != null)
+            {
+                var contestedRole = contestedTeam.Driver1Contract?.DriverId == replacedDriverId
+                    ? DriverRole.FIRST_DRIVER
+                    : DriverRole.SECOND_DRIVER;
+                rejectionReason = AppendQualificationDetail(rejectionReason, playerReputation, contestedRole, contestedTeam.Reputation);
+            }
+
             string preferredDriverReason = GetPreferredDriverReason(replacedDriverReputation, replacedDriverName);
 
             LetterContent.Text = string.Format(Strings.ContractLetterWindow_RejectionLetter_Format,
@@ -294,6 +309,27 @@ namespace AMS2ChEd
             // Set signature
             SignatureName.Text = teamPrincipal;
             SignatureTitle.Text = string.Format(Strings.ContractLetterWindow_SignatureTitle_Format, teamName);
+        }
+
+        /// <summary>
+        /// Tacks an extra sentence onto a rejection reason describing how the player's reputation
+        /// measures up against this specific seat, using the same over/good/perfect/under-qualified
+        /// scale <see cref="DriverHirer"/> uses to decide who a team actually hires. PerfectFit gets
+        /// no extra sentence - the standard rejection/preferred-driver reasons already cover a "lost
+        /// to an equally-strong rival" outcome.
+        /// </summary>
+        private static string AppendQualificationDetail(string rejectionReason, DriverReputation playerReputation, DriverRole role, TeamReputation teamReputation)
+        {
+            var fit = new DriverHirer().DoesDriverFitTeamPolicy(playerReputation, role, teamReputation);
+            string detail = fit switch
+            {
+                DriverHirer.DriverPolicyFit.OverQualified => Strings.ContractLetterWindow_QualificationDetail_OverQualified,
+                DriverHirer.DriverPolicyFit.GoodFit => Strings.ContractLetterWindow_QualificationDetail_GoodFit,
+                DriverHirer.DriverPolicyFit.UnderQualified => Strings.ContractLetterWindow_QualificationDetail_UnderQualified,
+                _ => null
+            };
+
+            return string.IsNullOrEmpty(detail) ? rejectionReason : $"{rejectionReason} {detail}";
         }
 
         private string GetRejectionReason(DriverReputation reputation)

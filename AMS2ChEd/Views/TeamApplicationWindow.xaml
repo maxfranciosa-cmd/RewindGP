@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:AMS2ChEd.Localization"
         Title="{loc:Loc TeamApplicationWindow_Title}"
-        Height="800" Width="1040"
+        Height="960" Width="1300"
         WindowStartupLocation="CenterScreen"
         Background="#f3ecd8"
         ResizeMode="NoResize">
@@ -13,7 +13,7 @@
 
         <Style x:Key="MastheadStripStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Times New Roman"/>
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="15"/>
             <Setter Property="Foreground" Value="#2c2c2c"/>
         </Style>
 
@@ -21,9 +21,9 @@
             <Setter Property="Background" Value="#2c2c2c"/>
             <Setter Property="Foreground" Value="#f3ecd8"/>
             <Setter Property="FontFamily" Value="Times New Roman"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Padding" Value="28,14"/>
+            <Setter Property="Padding" Value="34,18"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
@@ -62,7 +62,7 @@
             <TextBlock Text="{loc:Loc TeamApplicationWindow_Masthead}"
                        HorizontalAlignment="Center"
                        FontFamily="Times New Roman"
-                       FontSize="52"
+                       FontSize="70"
                        FontWeight="Black"
                        Foreground="#8a1420"
                        Margin="0,4,0,0"/>
@@ -73,7 +73,7 @@
             <TextBlock x:Name="InstructionText"
                        FontFamily="Times New Roman"
                        FontStyle="Italic"
-                       FontSize="13"
+                       FontSize="17"
                        Foreground="#3a3a3a"
                        HorizontalAlignment="Center"
                        TextAlignment="Center"
@@ -92,66 +92,66 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border x:Name="AdCard"
-                                Width="440"
-                                Margin="0,0,20,18"
+                                Width="560"
+                                Margin="0,0,24,22"
                                 BorderBrush="#2c2c2c"
                                 BorderThickness="0,2,0,0"
-                                Padding="0,8,0,0"
+                                Padding="0,10,0,0"
                                 Cursor="Hand"
                                 MouseLeftButtonDown="TeamCard_Click"
                                 Tag="{Binding}">
                             <Grid>
-                                <StackPanel Margin="0,0,54,0">
+                                <StackPanel Margin="0,0,70,0">
                                     <TextBlock Text="{Binding Kicker}"
                                                FontFamily="Times New Roman"
-                                               FontSize="10"
+                                               FontSize="13"
                                                FontWeight="Bold"
                                                Foreground="#8a1420"/>
                                     <TextBlock Text="{Binding Headline}"
                                                FontFamily="Times New Roman"
-                                               FontSize="17"
+                                               FontSize="23"
                                                FontWeight="Bold"
                                                Foreground="#181818"
                                                TextWrapping="Wrap"
-                                               Margin="0,2,0,4"/>
+                                               Margin="0,3,0,5"/>
                                     <TextBlock Text="{Binding BodyText}"
                                                FontFamily="Times New Roman"
-                                               FontSize="12"
+                                               FontSize="16"
                                                Foreground="#2c2c2c"
                                                TextWrapping="Wrap"/>
                                     <TextBlock x:Name="StatusMessageText"
                                                Text="{Binding StatusMessage}"
                                                FontFamily="Times New Roman"
                                                FontStyle="Italic"
-                                               FontSize="11.5"
+                                               FontSize="15"
                                                Foreground="#5a5345"
                                                TextWrapping="Wrap"
-                                               Margin="0,5,0,0"/>
+                                               Margin="0,7,0,0"/>
                                 </StackPanel>
 
                                 <!-- "circled in pen" mark for a selected ad -->
                                 <Ellipse x:Name="CircleOverlay"
                                          Stroke="#a3111c"
-                                         StrokeThickness="3"
-                                         Width="404"
-                                         Height="118"
+                                         StrokeThickness="4"
+                                         Width="514"
+                                         Height="150"
                                          HorizontalAlignment="Left"
                                          VerticalAlignment="Top"
-                                         Margin="-16,-10,0,0"
+                                         Margin="-20,-12,0,0"
                                          IsHitTestVisible="False"
                                          Visibility="Collapsed">
                                     <Ellipse.RenderTransform>
-                                        <RotateTransform Angle="-3" CenterX="202" CenterY="59"/>
+                                        <RotateTransform Angle="-3" CenterX="257" CenterY="75"/>
                                     </Ellipse.RenderTransform>
                                 </Ellipse>
                                 <TextBlock x:Name="AppliedScrawl"
                                            Text="{loc:Loc TeamApplicationWindow_AppliedScrawl}"
                                            FontFamily="Segoe Script, Comic Sans MS"
-                                           FontSize="24"
+                                           FontSize="32"
                                            Foreground="#a3111c"
                                            HorizontalAlignment="Right"
                                            VerticalAlignment="Top"
-                                           Margin="0,-8,0,0"
+                                           Margin="0,-10,0,0"
                                            IsHitTestVisible="False"
                                            Visibility="Collapsed">
                                     <TextBlock.RenderTransform>
@@ -163,7 +163,7 @@
                                 <Border x:Name="FullBadge"
                                         BorderBrush="#6a6355"
                                         BorderThickness="2"
-                                        Padding="7,3"
+                                        Padding="9,4"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Top"
                                         IsHitTestVisible="False"
@@ -173,7 +173,7 @@
                                     </Border.RenderTransform>
                                     <TextBlock Text="{loc:Loc TeamApplicationWindow_CapacityFullLabel}"
                                                FontFamily="Times New Roman"
-                                               FontSize="10"
+                                               FontSize="13"
                                                FontWeight="Bold"
                                                Foreground="#6a6355"/>
                                 </Border>
@@ -216,7 +216,7 @@
                 <TextBlock x:Name="SelectionCountText"
                            FontFamily="Times New Roman"
                            FontStyle="Italic"
-                           FontSize="12"
+                           FontSize="16"
                            Foreground="#3a3a3a"
                            TextWrapping="Wrap"/>
             </Border>

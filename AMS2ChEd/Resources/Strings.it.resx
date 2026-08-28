@@ -1,5 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -64,8 +123,6 @@
   <data name="ProgressWindow_DefaultMessage" xml:space="preserve">
     <value>Elaborazione in corso...</value>
   </data>
-
-  <!-- MainWindow -->
   <data name="MainWindow_Title" xml:space="preserve">
     <value>Benvenuto - Rewind GP</value>
   </data>
@@ -135,7 +192,6 @@
   <data name="MainWindow_StartScenarioButton" xml:space="preserve">
     <value>AVVIA SCENARIO</value>
   </data>
-
   <data name="MainWindow_GenericError_Title" xml:space="preserve">
     <value>Errore</value>
   </data>
@@ -151,7 +207,6 @@
   <data name="MainWindow_ModOutOfDate_Title" xml:space="preserve">
     <value>Mod non aggiornata</value>
   </data>
-
   <data name="MainWindow_NoSeasonsAvailable" xml:space="preserve">
     <value>Nessuna Stagione Disponibile</value>
   </data>
@@ -209,8 +264,6 @@
   <data name="MainWindow_ScenarioListItem_Format" xml:space="preserve">
     <value>Stagione {0}: "{1}"</value>
   </data>
-
-  <!-- MainWindow reputation list -->
   <data name="MainWindow_Reputation_PayDriverWildCard_Name" xml:space="preserve">
     <value>Pilota Pagante - Wild Card</value>
   </data>
@@ -301,8 +354,6 @@
   <data name="MainWindow_Reputation_JustOneLastDance_Description" xml:space="preserve">
     <value>Sei un leggendario ex campione ben oltre il tuo periodo migliore, ma il fuoco brucia ancora. Questa è la tua ultima occasione per aggiungere un altro capitolo a una carriera già leggendaria. I team sanno che sei un rischio, ma il tuo nome ha ancora peso.</value>
   </data>
-
-  <!-- DriverStandingsGridWindow -->
   <data name="DriverStandingsGridWindow_Title" xml:space="preserve">
     <value>Classifica Piloti - Risultati Stagione</value>
   </data>
@@ -318,8 +369,6 @@
   <data name="DriverStandingsGridWindow_DriverColumnHeader" xml:space="preserve">
     <value>PILOTA</value>
   </data>
-
-  <!-- ConstructorStandingsGridWindow -->
   <data name="ConstructorStandingsGridWindow_Title" xml:space="preserve">
     <value>Classifica Costruttori - Risultati Stagione</value>
   </data>
@@ -335,8 +384,6 @@
   <data name="ConstructorStandingsGridWindow_TeamColumnHeader" xml:space="preserve">
     <value>TEAM</value>
   </data>
-
-  <!-- HistoricalStandingsWindow -->
   <data name="HistoricalStandingsWindow_Title" xml:space="preserve">
     <value>Classifiche Storiche del Campionato</value>
   </data>
@@ -355,8 +402,6 @@
   <data name="HistoricalStandingsWindow_NoDataMessage" xml:space="preserve">
     <value>Nessun dato storico sulle classifiche disponibile</value>
   </data>
-
-  <!-- MissingDriversResultWindow -->
   <data name="MissingDriversResultWindow_Title" xml:space="preserve">
     <value>Piloti Mancanti</value>
   </data>
@@ -384,8 +429,6 @@
   <data name="MissingDriversResultWindow_PlayerSuffix" xml:space="preserve">
     <value>{0} (Tu)</value>
   </data>
-
-  <!-- PreQualiResultsWindow -->
   <data name="PreQualiResultsWindow_Title" xml:space="preserve">
     <value>Risultati Pre-Qualifica</value>
   </data>
@@ -437,8 +480,6 @@
   <data name="PreQualiResultsWindow_StatusDnpq" xml:space="preserve">
     <value>NPQ</value>
   </data>
-
-  <!-- SeasonOverviewWindow -->
   <data name="SeasonOverviewWindow_Title" xml:space="preserve">
     <value>Panoramica Stagione</value>
   </data>
@@ -513,8 +554,6 @@
   <data name="SeasonOverviewWindow_GenericError_Title" xml:space="preserve">
     <value>Errore</value>
   </data>
-
-  <!-- DriverAccoladesWindow -->
   <data name="DriverAccoladesWindow_Title" xml:space="preserve">
     <value>Palmarès Pilota</value>
   </data>
@@ -560,8 +599,6 @@
   <data name="DriverAccoladesWindow_AgeText_Format" xml:space="preserve">
     <value>Età {0}</value>
   </data>
-
-  <!-- ConstructorAccoladesWindow -->
   <data name="ConstructorAccoladesWindow_Title" xml:space="preserve">
     <value>Palmarès Costruttore</value>
   </data>
@@ -598,8 +635,6 @@
   <data name="ConstructorAccoladesWindow_PolesColumnHeader" xml:space="preserve">
     <value>POLE</value>
   </data>
-
-  <!-- RaceInstructionsWindow -->
   <data name="RaceInstructionsWindow_Title" xml:space="preserve">
     <value>Pay Driver - Wild Card</value>
   </data>
@@ -636,8 +671,6 @@
   <data name="RaceInstructionsWindow_PreQuali_OkButton" xml:space="preserve">
     <value>SONO PRONTO PER LA PRE-QUALIFICA!</value>
   </data>
-
-  <!-- RaceCalendarSelectionWindow -->
   <data name="RaceCalendarSelectionWindow_Title" xml:space="preserve">
     <value>Selezione Calendario</value>
   </data>
@@ -680,8 +713,6 @@
   <data name="RaceCalendarSelectionWindow_InvalidSelection_Title" xml:space="preserve">
     <value>Selezione Non Valida</value>
   </data>
-
-  <!-- EntryListWindow -->
   <data name="EntryListWindow_Title" xml:space="preserve">
     <value>Elenco Iscritti Ufficiale</value>
   </data>
@@ -747,8 +778,6 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
   <data name="EntryListWindow_DidNotPreQualify_Title" xml:space="preserve">
     <value>Non Qualificato</value>
   </data>
-
-  <!-- RaceWeekendWindow -->
   <data name="RaceWeekendWindow_Title" xml:space="preserve">
     <value>Weekend di Gara</value>
   </data>
@@ -824,8 +853,6 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
   <data name="RaceWeekendWindow_DefaultCircuitName" xml:space="preserve">
     <value>CIRCUITO</value>
   </data>
-
-  <!-- GenerateAbsenceWindow -->
   <data name="GenerateAbsenceWindow_WindowTitle" xml:space="preserve">
     <value>Pay Driver - Wild Card</value>
   </data>
@@ -871,8 +898,6 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
   <data name="GenerateAbsenceWindow_NoTeamRace_Intro1" xml:space="preserve">
     <value>Non hai un team per la prossima gara. la prossima gara verrà simulata.</value>
   </data>
-
-  <!-- TeamSelectionWindow -->
   <data name="TeamSelectionWindow_Title" xml:space="preserve">
     <value>Seleziona Team</value>
   </data>
@@ -911,8 +936,6 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
   <data name="TeamSelectionWindow_NoDriverSelected_Title" xml:space="preserve">
     <value>Nessun Pilota Selezionato</value>
   </data>
-
-  <!-- TeamApplicationWindow -->
   <data name="TeamApplicationWindow_Title" xml:space="preserve">
     <value>Candidati per i Posti Liberi</value>
   </data>
@@ -920,7 +943,7 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
     <value>LA GAZZETTA DEL PADDOCK</value>
   </data>
   <data name="TeamApplicationWindow_EditionLabel" xml:space="preserve">
-    <value>EDIZIONE DI FINE STAGIONE &#183; SPECIALE MERCATO PILOTI</value>
+    <value>EDIZIONE DI FINE STAGIONE · SPECIALE MERCATO PILOTI</value>
   </data>
   <data name="TeamApplicationWindow_PriceLabel" xml:space="preserve">
     <value>PREZZO: UN SEDILE</value>
@@ -929,7 +952,7 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
     <value>MERCATO PILOTI</value>
   </data>
   <data name="TeamApplicationWindow_InstructionText" xml:space="preserve">
-    <value>Pilota svincolato in cerca di squadra &#8212; cerchia fino a {0} annunci qui sotto per candidarti.</value>
+    <value>Pilota svincolato in cerca di squadra — cerchia fino a {0} annunci qui sotto per candidarti.</value>
   </data>
   <data name="TeamApplicationWindow_ContinueButton" xml:space="preserve">
     <value>INVIA CANDIDATURE ALLA STAMPA</value>
@@ -947,7 +970,7 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
     <value>Questa squadra ti ha già messo nel mirino per questo sedile.</value>
   </data>
   <data name="TeamApplicationWindow_ClickToApplyStatus" xml:space="preserve">
-    <value>Candidature aperte &#8212; invia la tua per essere considerato.</value>
+    <value>Candidature aperte — invia la tua per essere considerato.</value>
   </data>
   <data name="TeamApplicationWindow_SelectionCount_Singular" xml:space="preserve">
     <value>ERRATA CORRIGE: 1 annuncio cerchiato in questa edizione.</value>
@@ -956,7 +979,7 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
     <value>ERRATA CORRIGE: {0} di {1} annunci cerchiati in questa edizione.</value>
   </data>
   <data name="TeamApplicationWindow_WantedKicker" xml:space="preserve">
-    <value>Cercasi: pilota &#8212; {0}</value>
+    <value>Cercasi: pilota — {0}</value>
   </data>
   <data name="TeamApplicationWindow_AdHeadline" xml:space="preserve">
     <value>{0} cerca nuovo {1}</value>
@@ -971,7 +994,7 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
     <value>ANNUNCI ESAURITI</value>
   </data>
   <data name="TeamApplicationWindow_CapacityFullNote" xml:space="preserve">
-    <value>Quota raggiunta &#8212; altre candidature non disponibili in questa finestra.</value>
+    <value>Quota raggiunta — altre candidature non disponibili in questa finestra.</value>
   </data>
   <data name="TeamApplicationWindow_Reputation_TopTeam" xml:space="preserve">
     <value>squadra di vertice</value>
@@ -1003,8 +1026,6 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
   <data name="TeamApplicationWindow_DropReason_PlayerRejecting" xml:space="preserve">
     <value>{0} ha rifiutato l'offerta di contratto</value>
   </data>
-
-  <!-- SeasonCatalogDialog -->
   <data name="SeasonCatalogDialog_Title" xml:space="preserve">
     <value>Pacchetti Stagione</value>
   </data>
@@ -1054,8 +1075,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="SeasonCatalogDialog_InstallError_Title" xml:space="preserve">
     <value>Errore di Installazione</value>
   </data>
-
-  <!-- UpdateAvailableDialog -->
   <data name="UpdateAvailableDialog_Title" xml:space="preserve">
     <value>Aggiornamento Disponibile</value>
   </data>
@@ -1107,8 +1126,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="UpdateAvailableDialog_FileFilter" xml:space="preserve">
     <value>File ZIP (*.zip)|*.zip|Tutti i file (*.*)|*.*</value>
   </data>
-
-  <!-- PostRaceNewsWindow -->
   <data name="PostRaceNewsWindow_Title" xml:space="preserve">
     <value>Ultima Ora</value>
   </data>
@@ -1121,11 +1138,9 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_CloseButton" xml:space="preserve">
     <value>CHIUDI</value>
   </data>
-
   <data name="PostRaceNewsWindow_NoResults" xml:space="preserve">
     <value>Risultati di gara non disponibili.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Opening_FirstRace1_Format" xml:space="preserve">
     <value>La stagione {0} si è aperta in maniera spettacolare, con {2} che ha conquistato la vittoria al {1}, regalando a {3} il miglior inizio possibile di campionato. {4} ha chiuso al secondo posto per {5}, mentre {6} ha completato il podio di apertura per {7}.</value>
   </data>
@@ -1144,7 +1159,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Opening_FirstRace6_Format" xml:space="preserve">
     <value>Con l'alba della stagione {0} al {1}, {2} ha colpito subito nel segno per {3} con una vittoria dominante di apertura. {4} ha chiuso secondo per {5}, mentre {6} si è preso l'ultimo posto sul podio per {7} nella gara inaugurale del campionato.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Opening_FinaleChampion1_Format" xml:space="preserve">
     <value>La stagione {0} si è conclusa nel migliore dei modi, con {2} che ha conquistato la vittoria al {1}, coronando una campagna da campione con {3}. {4} ha chiuso secondo per {5}, mentre {6} ha completato l'ultimo podio della stagione per {7}.</value>
   </data>
@@ -1157,7 +1171,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Opening_FinaleChampion4_Format" xml:space="preserve">
     <value>Una vittoria netta nell'ultima gara della stagione per {2} al {1} ha sigillato il titolo {0} nel modo più dominante possibile. {3} ha festeggiato la gloria del campionato mentre {4} conquistava il secondo posto per {5}, con {6} a completare il podio per {7}.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Opening_FinaleNonChampion1_Format" xml:space="preserve">
     <value>Il sipario è calato sulla stagione {0} con {2} che ha conquistato una vittoria memorabile al {1}, regalando a {3} il modo perfetto per chiudere l'annata. {4} ha chiuso secondo per {5}, mentre {6} ha completato l'ultimo podio per {7}.</value>
   </data>
@@ -1170,7 +1183,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Opening_FinaleNonChampion4_Format" xml:space="preserve">
     <value>Mentre la stagione {0} giungeva al termine al {1}, {2} ha offerto una prestazione dominante per {3}. Il podio dell'ultima gara è stato completato da {4}, secondo per {5}, e da {6}, terzo per {7}.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Opening_Standard1_Format" xml:space="preserve">
     <value>In una spettacolare dimostrazione di motorsport, {2} ha conquistato la vittoria al {1}, guidando {3} verso un trionfo meritato. {4} si è assicurato il secondo posto per {5}, mentre {6} ha completato il podio per {7}.</value>
   </data>
@@ -1195,7 +1207,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Opening_Standard8_Format" xml:space="preserve">
     <value>Con precisione chirurgica, {2} ha gestito il {1} per regalare a {3} l'ennesimo trionfo. {4} ha guidato con forza fino al secondo posto per {5}, davanti al terzo classificato {6} in rappresentanza di {7}.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Headline_MaidenGrandSlam1_Format" xml:space="preserve">
     <value>GRAND SLAM ALLA PRIMA VITTORIA PER {0} AL {1}</value>
   </data>
@@ -1229,7 +1240,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_GrandSlam3_Format" xml:space="preserve">
     <value>È stato un fine settimana perfetto per {0}, che ha trasformato la pole position in vittoria e ha completato l'opera con il giro più veloce della gara - il grand slam completo.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinStreak_Format" xml:space="preserve">
     <value>È la {1} vittoria consecutiva per {0}.</value>
   </data>
@@ -1242,7 +1252,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_OtherFastestLap_Format" xml:space="preserve">
     <value>{0} ha fatto segnare il giro più veloce della gara dalla P{1}.</value>
   </data>
-
   <data name="PostRaceNewsWindow_MaidenWinMilestone1_Format" xml:space="preserve">
     <value>È la prima vittoria della carriera di {0} - un momento che ricorderà a lungo.</value>
   </data>
@@ -1252,7 +1261,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_MaidenWinMilestone3_Format" xml:space="preserve">
     <value>Dopo aver inseguito a lungo quella prima vittoria sfuggente, {0} finalmente ce l'ha fatta - un momento che segna la carriera.</value>
   </data>
-
   <data name="PostRaceNewsWindow_DriverWinPhrase_Baseline_Format" xml:space="preserve">
     <value>{0} vittoria in carriera</value>
   </data>
@@ -1271,7 +1279,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_DriverPodiumPhrase_SinceYear_Format" xml:space="preserve">
     <value>{0} podi dall'inizio del {1}</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinsOnly1_Format" xml:space="preserve">
     <value>È la {1} di {0}, e la {3} di {2}.</value>
   </data>
@@ -1284,7 +1291,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinsAndPodiums2_Format" xml:space="preserve">
     <value>È la {1} di {0} - e {2} complessivi - mentre {3} incassa la propria {4}.</value>
   </data>
-
   <data name="PostRaceNewsWindow_FirstPodium1_Format" xml:space="preserve">
     <value>È il primo podio della carriera di {0}.</value>
   </data>
@@ -1294,7 +1300,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_FirstPodium3_Format" xml:space="preserve">
     <value>È un primo podio in carriera per {0}.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Dnf1_Format" xml:space="preserve">
     <value>È stata una giornata da dimenticare per {0}, uno dei primi tre in classifica all'inizio del weekend, che non ha visto la bandiera a scacchi.</value>
   </data>
@@ -1304,7 +1309,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Dnf3_Format" xml:space="preserve">
     <value>{0} ha vissuto un pomeriggio da incubo, ritirandosi dalla gara dopo essere arrivato tra i battistrada del campionato.</value>
   </data>
-
   <data name="PostRaceNewsWindow_BadResult1_Format" xml:space="preserve">
     <value>È stato un weekend difficile per {0}, uno dei primi tre in classifica all'inizio del fine settimana, che ha potuto ottenere solo la P{1}.</value>
   </data>
@@ -1314,7 +1318,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_BadResult3_Format" xml:space="preserve">
     <value>Un pomeriggio da dimenticare per {0}, che taglia il traguardo in P{1} dopo aver iniziato il fine settimana tra i primi tre in classifica.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_PayDriverWildCard1_Format" xml:space="preserve">
     <value>{0} ha smentito le aspettative con una vittoria sensazionale per {1}, mettendo a tacere gli scettici con una guida magistrale.</value>
   </data>
@@ -1324,7 +1327,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_PayDriverWildCard3_Format" xml:space="preserve">
     <value>{0} ha sorpreso il paddock con una vittoria brillante, dimostrando che il puro ritmo va oltre le questioni di budget.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_PayDriverSeason1_Format" xml:space="preserve">
     <value>In un notevole colpo di scena, {0} ha messo a tacere le critiche con una prestazione dominante, regalando a {1} la prima vittoria della loro collaborazione.</value>
   </data>
@@ -1334,7 +1336,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_PayDriverSeason3_Format" xml:space="preserve">
     <value>I critici devono ricredersi, con {0} che ha offerto una lezione di guida per {1}, giustificando il proprio posto in griglia con un'innegabile classe.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_YoungTalent1_Format" xml:space="preserve">
     <value>La stella nascente {0} ha annunciato il proprio arrivo sul grande palcoscenico con una vittoria brillante, mostrando il talento grezzo su cui {1} aveva scommesso.</value>
   </data>
@@ -1344,7 +1345,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_YoungTalent3_Format" xml:space="preserve">
     <value>{0} ha mostrato una maturità superiore alla propria età, offrendo una vittoria di grande lucidità che lo consacra come una stella in ascesa.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampUnproven1_Format" xml:space="preserve">
     <value>{0} è salito alla P{2} in classifica con una prestazione dominante, avvicinandosi sempre più a dimostrare le proprie credenziali da campionato.</value>
   </data>
@@ -1354,7 +1354,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampUnproven3_Format" xml:space="preserve">
     <value>{0} ha fatto un altro passo verso la grandezza, conquistando la vittoria e salendo alla P{2} con una prestazione che ha messo a tacere ogni residuo dubbio.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampLeader1_Format" xml:space="preserve">
     <value>{0} ha allungato la propria leadership in campionato con una prestazione impeccabile, dimostrando perché è il pilota da battere quest'anno.</value>
   </data>
@@ -1364,7 +1363,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampLeader3_Format" xml:space="preserve">
     <value>{0} continua a dettare il ritmo, ampliando il proprio vantaggio in campionato con una dimostrazione di puro dominio.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampChaser1_Format" xml:space="preserve">
     <value>{0} ha reagito in maniera brillante, risalendo alla P{2} in classifica con una vittoria che pesa.</value>
   </data>
@@ -1374,7 +1372,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_YoungChampChaser3_Format" xml:space="preserve">
     <value>{0} ha reagito con autorità, risalendo alla P{2} con una vittoria che ridisegna la lotta per il titolo.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeMidfield1_Format" xml:space="preserve">
     <value>{0} ha offerto la gara della propria carriera, elevando se stesso e {1} con una vittoria inattesa ma pienamente meritata.</value>
   </data>
@@ -1384,7 +1381,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeMidfield3_Format" xml:space="preserve">
     <value>{0} ha sfondato in maniera spettacolare, conquistando una prima vittoria che convalida anni di solide prestazioni di centro gruppo.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeStrongMidfield1_Format" xml:space="preserve">
     <value>{0} ha colto l'occasione al volo, trasformando il pacchetto competitivo di {1} in un trionfo memorabile.</value>
   </data>
@@ -1394,7 +1390,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeStrongMidfield3_Format" xml:space="preserve">
     <value>{0} è passato da pilota solido a vincitore di gare, regalando a {1} un trionfo costruito su un'affidabilità incrollabile.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampUnprovenTop1_Format" xml:space="preserve">
     <value>{0} è entrato nella lotta per il titolo salendo alla P{2}, offrendo la prestazione di svolta che potrebbe segnare la propria stagione.</value>
   </data>
@@ -1404,7 +1399,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampUnprovenTop3_Format" xml:space="preserve">
     <value>{0} ha annunciato il proprio arrivo come vera minaccia per il titolo, salendo alla P{2} con una dimostrazione dominante di velocità e mestiere di guida.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampUnproven1_Format" xml:space="preserve">
     <value>{0} ha dichiarato le proprie ambizioni di titolo con autorità, salendo alla P{2} dopo una lezione di guida in gara.</value>
   </data>
@@ -1414,7 +1408,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampUnproven3_Format" xml:space="preserve">
     <value>{0} ha offerto una prestazione degna di un campione, salendo alla P{2} con una dimostrazione di pura classe.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampLeader1_Format" xml:space="preserve">
     <value>Il leader del campionato {0} ha dimostrato perché è in vetta, ampliando il proprio vantaggio con un'altra vittoria chirurgica.</value>
   </data>
@@ -1424,7 +1417,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampLeader3_Format" xml:space="preserve">
     <value>Inarrestabile in testa, {0} ha ampliato il proprio vantaggio in campionato con una prestazione magistrale che ha demoralizzato gli avversari.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampChaser1_Format" xml:space="preserve">
     <value>{0} si è rifiutato di gettare la spugna, risalendo alla P{2} con una guida da campione che mantiene vive le speranze di titolo.</value>
   </data>
@@ -1434,7 +1426,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampChaser3_Format" xml:space="preserve">
     <value>{0} ha dimostrato una vera mentalità da campione, risalendo con le unghie alla P{2} con una vittoria che riaccende la propria corsa al titolo.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampWashed1_Format" xml:space="preserve">
     <value>{0} ha fatto tornare indietro l'orologio con una prestazione d'annata, dimostrando che c'è ancora fuoco nelle vene dell'ex campione.</value>
   </data>
@@ -1444,7 +1435,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_PrimeChampWashed3_Format" xml:space="preserve">
     <value>{0} ha messo a tacere le critiche con una vittoria dominante, mostrando lampi di quel talento che un tempo dominava lo sport.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_AgeingMidfield1_Format" xml:space="preserve">
     <value>Il veterano {0} ha dimostrato che l'esperienza conta, offrendo una guida calcolata che ha sfruttato al massimo ogni opportunità.</value>
   </data>
@@ -1454,7 +1444,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_AgeingMidfield3_Format" xml:space="preserve">
     <value>L'esperienza ha battuto la giovinezza, con {0} che ha costruito un capolavoro tattico per assicurarsi una vittoria di prestigio.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_AgeingStrongMidfield1_Format" xml:space="preserve">
     <value>{0} ha unito esperienza e ritmo alla perfezione, aggiungendo un altro capitolo a una carriera illustre con una vittoria pienamente meritata.</value>
   </data>
@@ -1464,7 +1453,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_AgeingStrongMidfield3_Format" xml:space="preserve">
     <value>{0} ha dimostrato che la classe è permanente, conquistando una vittoria che prova come l'esperienza resti preziosa in Formula 1.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChampTop1_Format" xml:space="preserve">
     <value>{0} ha dimostrato che l'età è solo un numero, salendo alla P{2} in classifica con una prestazione che ha smentito gli anni che passano.</value>
   </data>
@@ -1474,7 +1462,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChampTop3_Format" xml:space="preserve">
     <value>Il vecchio maestro resta ai vertici, con {0} che sale alla P{2} attraverso una dimostrazione di mestiere di guida senza tempo.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChamp1_Format" xml:space="preserve">
     <value>Il veterano {0} ha insegnato ai più giovani come si fa, conquistando la vittoria con il mestiere di guida che si acquisisce solo con anni di esperienza.</value>
   </data>
@@ -1484,7 +1471,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChamp3_Format" xml:space="preserve">
     <value>L'esperienza ha trionfato sulla giovinezza, con {0} che ha offerto una lezione di guida, dimostrando che la propria tempra da campione resta intatta.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChampWashed1_Format" xml:space="preserve">
     <value>In una risalita sensazionale, {0} ha riconquistato la gloria di un tempo con una vittoria che ha sorpreso il paddock e fatto felici i tifosi.</value>
   </data>
@@ -1494,7 +1480,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_AgeingChampWashed3_Format" xml:space="preserve">
     <value>{0} ha fatto tornare indietro le lancette con una prestazione che ha dimostrato come i campioni non dimentichino mai come si vince, nonostante le recenti difficoltà.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_LastDance1_Format" xml:space="preserve">
     <value>In quella che potrebbe essere la sua ultima stagione, {0} ha offerto un commovente promemoria del proprio talento, assaporando una vittoria che va oltre la classifica del campionato.</value>
   </data>
@@ -1504,7 +1489,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_LastDance3_Format" xml:space="preserve">
     <value>Correndo contro il tramonto, {0} ha dimostrato che la magia non è svanita, offrendo una trionfale prestazione d'addio che i tifosi custodiranno per sempre.</value>
   </data>
-
   <data name="PostRaceNewsWindow_WinnerHeadline_Default1_Format" xml:space="preserve">
     <value>{0} ha conquistato una vittoria pienamente meritata per {1}, salendo alla P{2} in classifica del campionato.</value>
   </data>
@@ -1514,7 +1498,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_WinnerHeadline_Default3_Format" xml:space="preserve">
     <value>{0} ha offerto una guida di grande classe per vincere con {1}, ora alla P{2} in campionato.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Analysis_PayDriver1_Format" xml:space="preserve">
     <value>Nonostante i dubbi sulle proprie credenziali, {0} ha offerto una prestazione impeccabile che ha messo a tacere gli scettici. Il pilota di {1} ha controllato la gara dall'inizio alla fine, dimostrando che è stato il talento, non solo il budget, a guadagnare questo risultato.</value>
   </data>
@@ -1524,7 +1507,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Analysis_PayDriver3_Format" xml:space="preserve">
     <value>Il denaro può aprire porte, ma {0} ha dimostrato che solo il talento vince le gare. La prestazione del pilota di {1} è stata chirurgica, senza lasciare dubbi sul fatto che sia stata la velocità, non gli sponsor, a regalare questo trionfo.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Analysis_YoungTalent1_Format" xml:space="preserve">
     <value>Il giovane ha mostrato una maturità superiore alla propria età, senza commettere errori sotto pressione. Pur essendoci ancora margine di crescita, questa prestazione suggerisce che {0} potrebbe diventare un futuro contendente al titolo.</value>
   </data>
@@ -1534,7 +1516,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Analysis_YoungTalent3_Format" xml:space="preserve">
     <value>Velocità pura e lucidità sotto pressione si sono unite in una prestazione impeccabile di {0}. Il potenziale del pilota di {1} è evidente - questa potrebbe essere solo la prima di molte vittorie a venire.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Analysis_YoungChamp1_Format" xml:space="preserve">
     <value>Il ritmo di {0} è stato inarrestabile dal semaforo verde alla bandiera a scacchi. Il pilota di {1} ha gestito con lucidità la pressione da dietro, eseguendo una strategia di gara che ha massimizzato il potenziale della propria vettura.</value>
   </data>
@@ -1544,7 +1525,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Analysis_YoungChamp3_Format" xml:space="preserve">
     <value>{0} ha reso tutto facile, ma questa vittoria ha richiesto la perfezione. Ogni sorpasso, ogni manovra difensiva, ogni stint è stato eseguito senza sbavature dal pilota di {1}, che continua a impressionare.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Analysis_PrimeMidfield1_Format" xml:space="preserve">
     <value>Questa vittoria rappresenta il culmine di anni di prestazioni solide. {0} ha colto l'attimo quando si è presentato, guidando con una sicurezza che suggerisce come questa potrebbe non essere l'ultima salita sul gradino più alto.</value>
   </data>
@@ -1554,7 +1534,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Analysis_PrimeMidfield3_Format" xml:space="preserve">
     <value>Pazienza e perseveranza hanno dato i loro frutti, con {0} che ha finalmente conquistato la vittoria che le proprie prestazioni meritavano da tempo. Il pilota di {1} ha dimostrato che un miglioramento costante raggiunge prima o poi la vetta.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Analysis_PrimeChamp1_Format" xml:space="preserve">
     <value>Come ci si aspettava da un pilota del calibro di {0}, oggi non ci sono stati regali. Velocità pura unita a una brillante strategia hanno regalato a {1} una vittoria che sembrava agevole ma ha richiesto la perfezione.</value>
   </data>
@@ -1564,7 +1543,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Analysis_PrimeChamp3_Format" xml:space="preserve">
     <value>Questo è l'aspetto di una prestazione da élite. {0} ha estratto ogni decimo dalla vettura di {1}, unendo il ritmo in qualifica alla gestione della gara in una dimostrazione che non ha lasciato risposte agli avversari.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Analysis_PrimeChampWashed1_Format" xml:space="preserve">
     <value>I critici che avevano dato per finito {0} sono stati messi a tacere oggi. Il pilota di {1} ha mostrato lampi della forma che un tempo lo rendeva campione, suggerendo che le voci sul suo declino fossero premature.</value>
   </data>
@@ -1574,7 +1552,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Analysis_PrimeChampWashed3_Format" xml:space="preserve">
     <value>Forse le voci sul declino di {0} erano esagerate. Il pilota di {1} ha fatto tornare indietro le lancette con una prestazione d'annata, dimostrando che l'istinto di un campione non svanisce mai davvero.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Analysis_AgeingMidfield1_Format" xml:space="preserve">
     <value>L'esperienza si è dimostrata preziosa, con {0} che ha gestito una gara complessa con l'astuzia di un veterano. Dove i piloti più giovani avrebbero potuto commettere errori, la lucidità del pilota di {1} è stata la chiave della vittoria.</value>
   </data>
@@ -1584,7 +1561,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Analysis_AgeingMidfield3_Format" xml:space="preserve">
     <value>Mentre i giovani portavano velocità, {0} ha portato saggezza. Il veterano di {1} ha sfruttato ogni opportunità con l'astuzia che deriva solo da anni di esperienza ai massimi livelli.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Analysis_AgeingChamp1_Format" xml:space="preserve">
     <value>L'età può portare sfide fisiche, ma {0} ha dimostrato che il mestiere di guida e il pensiero strategico possono avere la meglio sulla velocità pura. Questa vittoria aggiunge un altro momento saliente a una carriera già straordinaria.</value>
   </data>
@@ -1594,7 +1570,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Analysis_AgeingChamp3_Format" xml:space="preserve">
     <value>Il veterano {0} ha offerto una lezione di gestione della gara, dimostrando che decenni di conoscenza battono la velocità pura. Ogni decisione, ogni manovra difensiva è stata eseguita con la sicurezza di un pilota che ha già visto tutto.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Analysis_LastDance1_Format" xml:space="preserve">
     <value>Correndo contro il tempo nella propria stagione d'addio, {0} ha dimostrato di avere ancora il fuoco e la classe che hanno definito la propria carriera. Ogni giro, ogni curva portava il peso della fine, eppure il pilota di {1} ha corso con la gioia di chi sa che ogni istante conta. Questa è la corsa nella sua forma più pura - un campione che si rifiuta di andarsene in silenzio.</value>
   </data>
@@ -1604,7 +1579,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Analysis_LastDance3_Format" xml:space="preserve">
     <value>Nel proprio atto finale, {0} ha ricordato a tutti perché ci siamo innamorati del suo modo di correre. Il pilota di {1} ha corso con libertà e gioia, libero dalla pressione del campionato, offrendo una pura dimostrazione di classe che verrà ricordata a lungo dopo aver appeso il casco al chiodo.</value>
   </data>
-
   <data name="PostRaceNewsWindow_Analysis_Default1_Format" xml:space="preserve">
     <value>{0} ha guidato con precisione e ritmo per tutta la gara, senza mai sbagliare una virgola sulla strada verso una vittoria dominante.</value>
   </data>
@@ -1614,7 +1588,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_Analysis_Default3_Format" xml:space="preserve">
     <value>{0} ha offerto esattamente ciò di cui {1} aveva bisogno - una guida pulita, senza errori, che ha massimizzato il potenziale della vettura.</value>
   </data>
-
   <data name="PostRaceNewsWindow_ChampClinch1_Format" xml:space="preserve">
     <value>{0} conquista il titolo di campione con questa vittoria di fine stagione, coronando con stile una campagna dominante. Il titolo poteva forse essere inevitabile, ma questo ultimo squillo sottolinea la superiorità dimostrata per tutto l'anno.</value>
   </data>
@@ -1654,7 +1627,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_ChampPositionSame_Format" xml:space="preserve">
     <value>{0} resta in P{1} in campionato, ma questa vittoria aggiunge punti fondamentali e slancio in quella che promette di essere una lotta per il titolo serrata.</value>
   </data>
-
   <data name="PostRaceNewsWindow_StandingsHeader" xml:space="preserve">
     <value>CLASSIFICA DEL CAMPIONATO (TOP 3):</value>
   </data>
@@ -1667,14 +1639,12 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_PointsWord_Plural" xml:space="preserve">
     <value>punti</value>
   </data>
-
   <data name="PostRaceNewsWindow_Closing_FirstRace" xml:space="preserve">
     <value>Il campionato è ormai in moto, con tutti gli occhi puntati ora sulla prossima gara mentre team e piloti cercano di costruire sulle proprie prestazioni di apertura.</value>
   </data>
   <data name="PostRaceNewsWindow_Closing_Standard" xml:space="preserve">
     <value>La lotta per il campionato continua a intensificarsi mentre team e piloti si preparano per il prossimo appuntamento di questa stagione avvincente.</value>
   </data>
-
   <data name="PostRaceNewsWindow_UnknownName" xml:space="preserve">
     <value>Sconosciuto</value>
   </data>
@@ -1684,8 +1654,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_DefaultTeamName" xml:space="preserve">
     <value>Team sconosciuto</value>
   </data>
-
-  <!-- ContractLetterWindow -->
   <data name="ContractLetterWindow_Title" xml:space="preserve">
     <value>Offerta di Contratto</value>
   </data>
@@ -1701,11 +1669,9 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="ContractLetterWindow_ChooseAnotherTeamButton" xml:space="preserve">
     <value>SCEGLI UN ALTRO TEAM</value>
   </data>
-
   <data name="ContractLetterWindow_SignatureTitle_Format" xml:space="preserve">
     <value>Team Principal, {0}</value>
   </data>
-
   <data name="ContractLetterWindow_YoungDriver_VeryYoung_Format" xml:space="preserve">
     <value>Caro/a {0},
 
@@ -1755,7 +1721,6 @@ La porta non è chiusa - semplicemente non è ancora aperta. Sfrutta al massimo 
 
 In bocca al lupo per la tua carriera nelle corse,</value>
   </data>
-
   <data name="ContractLetterWindow_OlderDriver_Rejection_Format" xml:space="preserve">
     <value>Caro/a {0},
 
@@ -1771,7 +1736,6 @@ Non voglio scoraggiarti dal motorsport in generale - esistono molte altre catego
 
 Ti auguro il meglio in qualsiasi iniziativa motoristica deciderai di intraprendere.</value>
   </data>
-
   <data name="ContractLetterWindow_SuccessLetter_Format" xml:space="preserve">
     <value>Caro/a {0},
 
@@ -1790,7 +1754,6 @@ Benvenuto/a nel team!</value>
   <data name="ContractLetterWindow_CompetitionMention_Format" xml:space="preserve">
     <value>La decisione non è stata facile. Abbiamo valutato attentamente sia te che {0} per questa posizione. Dopo un'attenta riflessione, abbiamo ritenuto che tu fossi la scelta più adatta per ciò che stiamo cercando di ottenere.</value>
   </data>
-
   <data name="ContractLetterWindow_OffSeasonSuccessLetter_Format" xml:space="preserve">
     <value>Caro/a {0},
 
@@ -1800,9 +1763,9 @@ sono lieto di confermarti che la tua candidatura per continuare a correre con {1
 
 {4}
 
-Non vediamo l'ora di costruire su quanto fatto finora insieme e di lottare per ogni punto in palio nella prossima stagione.
+Non vediamo l'ora di lavorare insieme e di lottare per ogni punto in palio nella prossima stagione.
 
-Bentornato/a nel team!</value>
+Benvenuto/a nel team!</value>
   </data>
   <data name="ContractLetterWindow_OffSeasonSuccess_BeatIncumbent_Format" xml:space="preserve">
     <value>In questo modo hai conquistato il sedile davanti a {0}, che sperava di rimanere per un'altra stagione.</value>
@@ -1813,7 +1776,6 @@ Bentornato/a nel team!</value>
   <data name="ContractLetterWindow_OffSeasonSuccess_NoRival" xml:space="preserve">
     <value>A dire il vero, non abbiamo mai seriamente considerato nessun altro per questo sedile.</value>
   </data>
-
   <data name="ContractLetterWindow_ReputationReason_PayDriverWildCard" xml:space="preserve">
     <value>Pur riconoscendo che il tuo budget porta risorse preziose al nostro team, vediamo anche del potenziale nel tuo talento grezzo. Questa opportunità ti permette di dimostrare le tue capacità quando conta di più.</value>
   </data>
@@ -1859,7 +1821,6 @@ Bentornato/a nel team!</value>
   <data name="ContractLetterWindow_ReputationReason_Default" xml:space="preserve">
     <value>La tua dedizione e la tua passione per le corse ci hanno colpito, e crediamo che tu meriti questa opportunità.</value>
   </data>
-
   <data name="ContractLetterWindow_RejectionLetter_Format" xml:space="preserve">
     <value>Caro/a {0},
 
@@ -1875,7 +1836,6 @@ Ti auguriamo il meglio per la tua carriera e speriamo che le nostre strade possa
 
 Cordiali saluti,</value>
   </data>
-
   <data name="ContractLetterWindow_OffSeasonRejectionLetter_Format" xml:space="preserve">
     <value>Caro/a {0},
 
@@ -1897,7 +1857,6 @@ Cordiali saluti,</value>
   <data name="ContractLetterWindow_OffSeasonRejection_SignedNewcomer_Format" xml:space="preserve">
     <value>Abbiamo deciso di ingaggiare {0} per questo sedile nella prossima stagione.</value>
   </data>
-
   <data name="ContractLetterWindow_RejectionReason_PayDriverWildCard" xml:space="preserve">
     <value>Pur apprezzando il tuo sostegno finanziario, abbiamo ritenuto che la mancanza di un impegno per l'intera stagione e di un palmarès comprovato rendessero questa proposta difficile da accettare in questo momento.</value>
   </data>
@@ -1943,7 +1902,6 @@ Cordiali saluti,</value>
   <data name="ContractLetterWindow_RejectionReason_Default" xml:space="preserve">
     <value>Dopo aver soppesato tutti i fattori, abbiamo concluso che il nostro attuale pilota fosse la scelta più adatta per il team in questo momento.</value>
   </data>
-
   <data name="ContractLetterWindow_PreferredDriverReason_PayDriverWildCard_Format" xml:space="preserve">
     <value>I rapporti consolidati di {0} con i nostri sponsor e la sua comprovata capacità di integrarsi rapidamente nel nostro team l'ha resa l'opzione più interessante.</value>
   </data>
@@ -1989,8 +1947,6 @@ Cordiali saluti,</value>
   <data name="ContractLetterWindow_PreferredDriverReason_Default_Format" xml:space="preserve">
     <value>Il palmarès comprovato di {0} con il nostro team e la sua capacità di lavorare efficacemente all'interno della nostra struttura hanno infine dato loro il vantaggio decisivo.</value>
   </data>
-
-  <!-- RetirementNewsWindow -->
   <data name="RetirementNewsWindow_Title" xml:space="preserve">
     <value>Fine di un'Era</value>
   </data>
@@ -2003,8 +1959,6 @@ Cordiali saluti,</value>
   <data name="RetirementNewsWindow_CloseButton" xml:space="preserve">
     <value>CHIUDI</value>
   </data>
-
-  <!-- ChampionshipCelebrationWindow -->
   <data name="ChampionshipCelebrationWindow_Title" xml:space="preserve">
     <value>Finale di Stagione</value>
   </data>
@@ -2017,7 +1971,6 @@ Cordiali saluti,</value>
   <data name="ChampionshipCelebrationWindow_ProgressButton" xml:space="preserve">
     <value>PROCEDI A FINE STAGIONE</value>
   </data>
-
   <data name="ChampionshipCelebrationWindow_SeasonComplete_Headline" xml:space="preserve">
     <value>STAGIONE CONCLUSA</value>
   </data>
@@ -2036,7 +1989,6 @@ Cordiali saluti,</value>
   <data name="ChampionshipCelebrationWindow_Opening_Format" xml:space="preserve">
     <value>Il campionato {0} è giunto alla sua emozionante conclusione, con {1} che conquista il titolo mondiale per {2}. Con un bottino finale di {3} punti, {1} si assicura il premio più ambito del motorsport.</value>
   </data>
-
   <data name="ChampionshipCelebrationWindow_Journey_PayDriver_Format" xml:space="preserve">
     <value>In quella che si può solo descrivere come la storia definitiva dell'outsider, {0} ha messo a tacere ogni critico che dubitava delle sue qualità. Quello che era iniziato con dubbi sui suoi finanziamenti si conclude con il suo nome scolpito nella storia del motorsport. Questo campionato dimostra che determinazione e talento possono ribaltare qualsiasi narrazione.</value>
   </data>
@@ -2073,7 +2025,6 @@ Cordiali saluti,</value>
   <data name="ChampionshipCelebrationWindow_Journey_Default_Format" xml:space="preserve">
     <value>Attraverso una stagione fatta di alti e bassi, {0} ha mantenuto la concentrazione e ha reso al meglio quando contava di più. Questo campionato con {1} è il culmine di una battaglia durata un anno intero e rappresenta la perfetta armonia tra l'ambizione del pilota e l'esecuzione della squadra.</value>
   </data>
-
   <data name="ChampionshipCelebrationWindow_Milestone_Maiden1_Format" xml:space="preserve">
     <value>È il primo titolo in carriera per {0} - il momento che ogni pilota sogna.</value>
   </data>
@@ -2110,7 +2061,6 @@ Cordiali saluti,</value>
   <data name="ChampionshipCelebrationWindow_Milestone_Variant2_Format" xml:space="preserve">
     <value>{0} vanta ora {1} {2}, mentre {3} festeggia il proprio {4}.</value>
   </data>
-
   <data name="ChampionshipCelebrationWindow_StandingsHeader" xml:space="preserve">
     <value>CLASSIFICA FINALE DEL CAMPIONATO (TOP 5):</value>
   </data>
@@ -2123,19 +2073,15 @@ Cordiali saluti,</value>
   <data name="ChampionshipCelebrationWindow_StandingsPointsWord_Plural" xml:space="preserve">
     <value>punti</value>
   </data>
-
   <data name="ChampionshipCelebrationWindow_Closing" xml:space="preserve">
     <value>Mentre lo champagne si asciuga e i festeggiamenti proseguono, l'attenzione si sposta ora verso il futuro. Le trattative contrattuali entrano nel vivo, mentre team e piloti si preparano al prossimo capitolo di questo sport in continua evoluzione.</value>
   </data>
-
   <data name="ChampionshipCelebrationWindow_UnknownDriver" xml:space="preserve">
     <value>Pilota sconosciuto</value>
   </data>
   <data name="ChampionshipCelebrationWindow_UnknownTeam" xml:space="preserve">
     <value>Team sconosciuto</value>
   </data>
-
-  <!-- OffSeasonContractWindow -->
   <data name="OffSeasonContractWindow_Title" xml:space="preserve">
     <value>Decisione sul Contratto</value>
   </data>
@@ -2154,7 +2100,6 @@ Cordiali saluti,</value>
   <data name="OffSeasonContractWindow_ContinueButton" xml:space="preserve">
     <value>CONTINUA</value>
   </data>
-
   <data name="OffSeasonContractWindow_DefaultTeamName" xml:space="preserve">
     <value>Team sconosciuto</value>
   </data>
@@ -2164,7 +2109,6 @@ Cordiali saluti,</value>
   <data name="OffSeasonContractWindow_SignatureTitle_Format" xml:space="preserve">
     <value>Team Principal, {0}</value>
   </data>
-
   <data name="OffSeasonContractWindow_RenewalLetter_Format" xml:space="preserve">
     <value>Caro/a {0},
 
@@ -2178,7 +2122,6 @@ Questa è la tua opportunità di continuare a rappresentare {1} ai massimi livel
 
 Ti preghiamo di valutare attentamente questa proposta. Restiamo in attesa della tua decisione.</value>
   </data>
-
   <data name="OffSeasonContractWindow_Renewal_PayDriver" xml:space="preserve">
     <value>Sebbene il tuo contributo finanziario al team sia stato prezioso, riconosciamo anche la tua crescita come pilota in questa stagione.</value>
   </data>
@@ -2209,7 +2152,6 @@ Ti preghiamo di valutare attentamente questa proposta. Restiamo in attesa della 
   <data name="OffSeasonContractWindow_Renewal_Default" xml:space="preserve">
     <value>I tuoi contributi al team in questa stagione sono stati apprezzati.</value>
   </data>
-
   <data name="OffSeasonContractWindow_TerminationLetter_Format" xml:space="preserve">
     <value>Caro/a {0},
 
@@ -2221,7 +2163,6 @@ Non è stata una decisione facile, e vogliamo ringraziarti per il tuo servizio a
 
 Speriamo che le nostre strade possano incrociarsi di nuovo in futuro.</value>
   </data>
-
   <data name="OffSeasonContractWindow_TerminationReason_Default" xml:space="preserve">
     <value>Dopo attenta considerazione, abbiamo deciso di non rinnovare il tuo contratto per la prossima stagione.</value>
   </data>
@@ -2236,7 +2177,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="OffSeasonContractWindow_Underperforming_Format" xml:space="preserve">
     <value>Nel corso di questa stagione, abbiamo monitorato attentamente i livelli di prestazione. Purtroppo, i risultati non hanno soddisfatto gli standard richiesti da {0}. Pur riconoscendo il tuo impegno, dobbiamo apportare cambiamenti alla nostra formazione piloti per restare competitivi. Crediamo che questa decisione, per quanto difficile, sia necessaria per il successo futuro del team.</value>
   </data>
-
   <data name="OffSeasonContractWindow_ContractExpired_PayDriver_Format" xml:space="preserve">
     <value>Il tuo contratto con {0} è giunto alla sua conclusione. Mentre pianifichiamo la prossima stagione, stiamo valutando la nostra struttura finanziaria e le opzioni per la formazione piloti. Siamo in trattative con diversi piloti e sponsor per determinare la combinazione migliore per la competitività del team. Qualsiasi prosecuzione richiederebbe nuove trattative sia sui termini sportivi che commerciali. Ti contatteremo non appena avremo definito il nostro approccio.</value>
   </data>
@@ -2270,8 +2210,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="OffSeasonContractWindow_ContractExpired_Default_Format" xml:space="preserve">
     <value>Con il tuo contratto ormai scaduto, entriamo nel nostro consueto periodo di valutazione di fine stagione. Esploreremo varie opzioni per la nostra formazione piloti e parleremo con diversi candidati. Qualora volessimo proseguire la nostra collaborazione, sarebbero necessarie nuove trattative contrattuali. Ti informeremo della nostra decisione a tempo debito.</value>
   </data>
-
-  <!-- NewSeasonRosterWindow -->
   <data name="NewSeasonRosterWindow_Title" xml:space="preserve">
     <value>Anteprima Stagione</value>
   </data>
@@ -2287,7 +2225,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="NewSeasonRosterWindow_StartSeasonButton" xml:space="preserve">
     <value>INIZIA NUOVA STAGIONE!</value>
   </data>
-
   <data name="NewSeasonRosterWindow_Headline_Format" xml:space="preserve">
     <value>SVELATA LA FORMAZIONE PER LA STAGIONE {0}</value>
   </data>
@@ -2303,7 +2240,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="NewSeasonRosterWindow_DriversText_Format" xml:space="preserve">
     <value>{0}  •  {1}</value>
   </data>
-
   <data name="NewSeasonRosterWindow_Status_UnchangedChampion_Format" xml:space="preserve">
     <value>Il campione in carica {0} prosegue con una formazione invariata rispetto alla scorsa stagione.</value>
   </data>
@@ -2334,7 +2270,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="NewSeasonRosterWindow_Status_UnchangedGeneric3" xml:space="preserve">
     <value>La stabilità caratterizza questa formazione, con il team che rinnova la fiducia a entrambi i piloti.</value>
   </data>
-
   <data name="NewSeasonRosterWindow_SoloStatus_Champion_Format" xml:space="preserve">
     <value>Il campione in carica {0} prosegue come unico pilota del team.</value>
   </data>
@@ -2344,7 +2279,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="NewSeasonRosterWindow_SoloStatus_Unchanged_Format" xml:space="preserve">
     <value>{0} resta l'unico pilota del team per un'altra stagione.</value>
   </data>
-
   <data name="NewSeasonRosterWindow_SoloDescription_WithRep_Format" xml:space="preserve">
     <value>{0}, che {1}, guida la squadra come suo unico pilota in questa stagione.</value>
   </data>
@@ -2369,7 +2303,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="NewSeasonRosterWindow_Pairing3_Format" xml:space="preserve">
     <value>{0} {1}, mentre {2} {3}.</value>
   </data>
-
   <data name="NewSeasonRosterWindow_RepDesc_PayDriverWildCard1" xml:space="preserve">
     <value>subentrerà come sostituto ogni volta che se ne presenterà l'occasione</value>
   </data>
@@ -2514,8 +2447,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="NewSeasonRosterWindow_RepDesc_Default" xml:space="preserve">
     <value>si unisce alla griglia per la stagione che verrà</value>
   </data>
-
-  <!-- AbsenceAnnouncementWindow -->
   <data name="AbsenceAnnouncementWindow_Title" xml:space="preserve">
     <value>Ultima Ora</value>
   </data>
@@ -2537,7 +2468,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="AbsenceAnnouncementWindow_CloseButton" xml:space="preserve">
     <value>CHIUDI</value>
   </data>
-
   <data name="AbsenceAnnouncementWindow_Headline_Main_Format" xml:space="preserve">
     <value>{0} NON CORRERÀ PER {1} A {2}</value>
   </data>
@@ -2556,7 +2486,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="AbsenceAnnouncementWindow_Headline_Accepted_Format" xml:space="preserve">
     <value>{0} CORRERÀ PER {1}!</value>
   </data>
-
   <data name="AbsenceAnnouncementWindow_Article_Consecutive_Opening_Format" xml:space="preserve">
     <value>Ancora una volta, {0} non sarà in griglia per {1} questo fine settimana al {2}.</value>
   </data>
@@ -2575,7 +2504,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="AbsenceAnnouncementWindow_Article_Consecutive_Closing_Format" xml:space="preserve">
     <value>Per ora, {0} continua ad adattarsi gara dopo gara, mentre il mondo del motorsport osserva come si evolverà la situazione.</value>
   </data>
-
   <data name="AbsenceAnnouncementWindow_Article_OneOff_Opening_Format" xml:space="preserve">
     <value>In un drammatico colpo di scena alla vigilia del {0}, {1} non correrà per {2} questo fine settimana.</value>
   </data>
@@ -2594,7 +2522,6 @@ Di conseguenza, non saremo in grado di onorare la prosecuzione del tuo contratto
   <data name="AbsenceAnnouncementWindow_Article_OneOff_Closing" xml:space="preserve">
     <value>Tutti gli occhi saranno puntati sulla griglia mentre team e piloti si adattano alla formazione rimescolata.</value>
   </data>
-
   <data name="AbsenceAnnouncementWindow_Refused_Consecutive_Format" xml:space="preserve">
     <value>ULTIM'ORA: Con {0} ancora fuori, {1} conferma {3} per {2}.
 
@@ -2619,7 +2546,6 @@ La decisione riflette le esigenze specifiche di {1} per il fine settimana e la p
 
 Con questa decisione ormai definita, tutte le squadre possono ora rivolgere la propria attenzione ai preparativi per quello che si preannuncia un entusiasmante {2}.</value>
   </data>
-
   <data name="AbsenceAnnouncementWindow_TeamRefused_Consecutive_Format" xml:space="preserve">
     <value>ULTIM'ORA: {3} confermato da {1}
 
@@ -2646,7 +2572,6 @@ Un portavoce di {5} ha dichiarato: "Abbiamo impegni contrattuali e obiettivi di 
 
 La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel motorsport moderno, dove le priorità di squadra e gli obblighi contrattuali spesso prevalgono.</value>
   </data>
-
   <data name="AbsenceAnnouncementWindow_Accepted_Consecutive_Opening_Format" xml:space="preserve">
     <value>{0} correrà con {1}!</value>
   </data>
@@ -2662,7 +2587,6 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   <data name="AbsenceAnnouncementWindow_Accepted_Consecutive_Closing_Format" xml:space="preserve">
     <value>Il mondo del motorsport è in fermento nell'attesa di vedere come si comporterà {0} in questo contesto. Per ora, {0} si concentra sul massimizzare questa insolita opportunità per dimostrare le proprie capacità.</value>
   </data>
-
   <data name="AbsenceAnnouncementWindow_Accepted_OneOff_Opening_Format" xml:space="preserve">
     <value>COLPO DI SCENA: {0} correrà per {1} al {2}!</value>
   </data>
@@ -2681,8 +2605,6 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   <data name="AbsenceAnnouncementWindow_Accepted_OneOff_Closing_Format" xml:space="preserve">
     <value>Tutti gli occhi saranno puntati su {0} mentre si prepara per quella che potrebbe essere una gara fondamentale per la carriera.</value>
   </data>
-
-  <!-- RetirementNewsWindow - narrative content -->
   <data name="RetirementNewsWindow_Headline_Champion1" xml:space="preserve">
     <value>{0} APPENDE IL CASCO AL CHIODO DOPO UNA CARRIERA DA CAMPIONE</value>
   </data>
@@ -2710,7 +2632,6 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   <data name="RetirementNewsWindow_Headline_Standard3" xml:space="preserve">
     <value>LA BANDIERA A SCACCHI CALA SULLA CARRIERA DI {0}</value>
   </data>
-
   <data name="RetirementNewsWindow_Opening1" xml:space="preserve">
     <value>{0} ha annunciato il proprio ritiro dalle corse, calando il sipario su una carriera che giunge al termine alla fine della stagione {2}. Il pilota, {3} anni, lascia {1} per l'ultima volta, chiudendo un capitolo che lascia un segno duraturo nello sport.</value>
   </data>
@@ -2723,7 +2644,6 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   <data name="RetirementNewsWindow_Opening4" xml:space="preserve">
     <value>Il paddock saluta {0}, che ha confermato il proprio ritiro al termine della stagione {2}. {1} dovrà ora trovare un sostituto per il pilota di {3} anni, la cui carriera entra nei libri di storia.</value>
   </data>
-
   <data name="RetirementNewsWindow_PayDriver1" xml:space="preserve">
     <value>Il tempo di {0} nello sport non è mai stato una questione di puro ritmo, e non è mai stato davvero quello il punto. Ciò che ha portato a {1} - e in ogni garage in cui è passato - andava oltre il cronometro.</value>
   </data>
@@ -2805,7 +2725,6 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   <data name="RetirementNewsWindow_DefaultNarrative3" xml:space="preserve">
     <value>{0} lascia la griglia avendo dato tutto per lo sport in una carriera lunga e variegata.</value>
   </data>
-
   <data name="RetirementNewsWindow_NoWin1" xml:space="preserve">
     <value>Sebbene un Campionato del Mondo - o anche solo una vittoria - non sia mai arrivato per {0}, il suo contributo alla griglia negli anni non sarà dimenticato.</value>
   </data>
@@ -2854,7 +2773,6 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   <data name="RetirementNewsWindow_Tally3" xml:space="preserve">
     <value>Ripercorrendo una {8} che ha fruttato {1}{2} {3} e {4} {5}, {0} se ne va con un palmarès che in pochi possono eguagliare.</value>
   </data>
-
   <data name="RetirementNewsWindow_SeasonsPhrase_Singular" xml:space="preserve">
     <value>una stagione</value>
   </data>
@@ -2885,7 +2803,6 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   <data name="RetirementNewsWindow_TeamList_ManyFormat" xml:space="preserve">
     <value>{0} e {1}</value>
   </data>
-
   <data name="RetirementNewsWindow_Closing1" xml:space="preserve">
     <value>{0} rivolgerà ora la propria attenzione alla ricerca di un sostituto, ma l'eredità di {1} in griglia è assicurata. Il paddock gli augura il meglio per il futuro.</value>
   </data>
@@ -2895,8 +2812,16 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   <data name="RetirementNewsWindow_Closing3" xml:space="preserve">
     <value>La griglia sarà un po' diversa senza {1} la prossima stagione, ma la sua storia è una di quelle che verranno raccontate per anni.</value>
   </data>
-
   <data name="RetirementNewsWindow_DefaultTeamName" xml:space="preserve">
     <value>il proprio team</value>
+  </data>
+  <data name="ContractLetterWindow_QualificationDetail_OverQualified" xml:space="preserve">
+    <value>Se dobbiamo essere sinceri, il tuo curriculum è probabilmente superiore a quanto normalmente richiesto per questo sedile - non è stato un giudizio sulle tue capacità, quanto piuttosto una questione di dove sfruttarle al meglio.</value>
+  </data>
+  <data name="ContractLetterWindow_QualificationDetail_GoodFit" xml:space="preserve">
+    <value>Per essere chiari, eri un'opzione davvero credibile per questo sedile - semplicemente non il profilo esatto che stavamo cercando.</value>
+  </data>
+  <data name="ContractLetterWindow_QualificationDetail_UnderQualified" xml:space="preserve">
+    <value>In tutta onestà, questo sedile richiede al momento più di quanto i tuoi risultati abbiano finora dimostrato - un periodo a ricostruire la tua reputazione in un team meno esigente ti metterebbe in una posizione più forte in futuro.</value>
   </data>
 </root>

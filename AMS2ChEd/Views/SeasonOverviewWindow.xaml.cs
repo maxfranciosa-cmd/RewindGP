@@ -750,7 +750,9 @@ namespace AMS2ChEd
                 otherDriverName,
                 result.OtherDriverReputation,
                 result.OtherDriverWasAtTeamBefore,
-                roleName);
+                roleName,
+                teamEntry?.Reputation ?? TeamReputation.MINNOW,
+                result.Role);
             letterWindow.Owner = _owner;
             letterWindow.ShowDialog();
             return Task.CompletedTask;
