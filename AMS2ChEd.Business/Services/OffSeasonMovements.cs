@@ -189,7 +189,7 @@ namespace AMS2ChEd.Business.Services
 
                 var originalHireResume = ballot.OriginalTeamHiring == null || ballot.OriginalTeamHiring.DriverId == null ? null : new DriverResume { Id = ballot.OriginalTeamHiring.DriverId, Reputation = ballot.OriginalTeamHiring.DriverReputation };
 
-                var winner = _driverHirer.PickWinner(originalHireResume, bestCandidateResume);
+                var winner = _driverHirer.PickWinner(originalHireResume, bestCandidateResume, ballot.OriginalTeamHiring.Role, ballot.OriginalTeamHiring.TeamReputation);
 
                 if (winner == originalHireResume && !hiredDriversId.Contains(winner.Id))
                 {

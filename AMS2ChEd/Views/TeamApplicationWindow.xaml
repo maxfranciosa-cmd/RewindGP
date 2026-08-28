@@ -4,87 +4,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:AMS2ChEd.Localization"
         Title="{loc:Loc TeamApplicationWindow_Title}"
-        Height="700" Width="900"
+        Height="800" Width="1040"
         WindowStartupLocation="CenterScreen"
-        Background="#1a1a1a"
+        Background="#f3ecd8"
         ResizeMode="NoResize">
 
     <Window.Resources>
-        <!-- Converter for visibility -->
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
-        <Style x:Key="HeaderStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-
-        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Margin" Value="0,0,0,10"/>
-        </Style>
-
-        <Style x:Key="TeamCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="#2a2a2a"/>
-            <Setter Property="BorderBrush" Value="#444444"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Margin" Value="0,0,0,10"/>
-            <Setter Property="Padding" Value="15"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#666666"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="DisabledCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="#1a1a1a"/>
-            <Setter Property="BorderBrush" Value="#444444"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Margin" Value="0,0,0,10"/>
-            <Setter Property="Padding" Value="15"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="Opacity" Value="0.5"/>
-        </Style>
-
-        <Style x:Key="SelectedCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="#2a2a2a"/>
-            <Setter Property="BorderBrush" Value="#c41e3a"/>
-            <Setter Property="BorderThickness" Value="3"/>
-            <Setter Property="Margin" Value="0,0,0,10"/>
-            <Setter Property="Padding" Value="15"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-
-        <Style x:Key="DroppedDriverCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="#2a1a1a"/>
-            <Setter Property="BorderBrush" Value="#c41e3a"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Margin" Value="0,0,0,8"/>
-            <Setter Property="Padding" Value="12"/>
-            <Setter Property="CornerRadius" Value="4"/>
+        <Style x:Key="MastheadStripStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="#2c2c2c"/>
         </Style>
 
         <Style x:Key="ContinueButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#c41e3a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="#2c2c2c"/>
+            <Setter Property="Foreground" Value="#f3ecd8"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Width" Value="200"/>
+            <Setter Property="Padding" Value="28,14"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#d32f2f"/>
+                    <Setter Property="Background" Value="#3c3c3c"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
+
     </Window.Resources>
 
     <Grid>
@@ -94,96 +42,155 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <Border Grid.Row="0" Background="#0d0d0d" BorderBrush="#444444" BorderThickness="0,0,0,1" Padding="30,20">
-            <StackPanel>
-                <TextBlock Text="{loc:Loc TeamApplicationWindow_Header}" Style="{StaticResource HeaderStyle}"/>
-                <TextBlock Text="{loc:Loc TeamApplicationWindow_Subtitle}"
-                           FontSize="14"
-                           Foreground="#aaaaaa"
-                           Margin="0,5,0,0"/>
-                <TextBlock x:Name="InstructionText"
-                           Text="{loc:Loc TeamApplicationWindow_InstructionText}"
-                           FontSize="12"
-                           FontStyle="Italic"
-                           Foreground="#888888"
-                           Margin="0,10,0,0"/>
-            </StackPanel>
-        </Border>
+        <!-- Masthead -->
+        <StackPanel Grid.Row="0" Margin="34,22,34,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{loc:Loc TeamApplicationWindow_GazetteName}"
+                           Style="{StaticResource MastheadStripStyle}" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="1" Text="{loc:Loc TeamApplicationWindow_EditionLabel}"
+                           Style="{StaticResource MastheadStripStyle}" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="2" Text="{loc:Loc TeamApplicationWindow_PriceLabel}"
+                           Style="{StaticResource MastheadStripStyle}" HorizontalAlignment="Right"/>
+            </Grid>
+            <Rectangle Height="1" Fill="#2c2c2c" Margin="0,4,0,0"/>
 
-        <!-- Team List -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="30,20">
+            <TextBlock Text="{loc:Loc TeamApplicationWindow_Masthead}"
+                       HorizontalAlignment="Center"
+                       FontFamily="Times New Roman"
+                       FontSize="52"
+                       FontWeight="Black"
+                       Foreground="#8a1420"
+                       Margin="0,4,0,0"/>
+
+            <Rectangle Height="3" Fill="#2c2c2c" Margin="0,2,0,3"/>
+            <Rectangle Height="1" Fill="#2c2c2c" Opacity="0.6" Margin="0,0,0,8"/>
+
+            <TextBlock x:Name="InstructionText"
+                       FontFamily="Times New Roman"
+                       FontStyle="Italic"
+                       FontSize="13"
+                       Foreground="#3a3a3a"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,10"/>
+        </StackPanel>
+
+        <!-- Classifieds -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="34,6,34,6">
             <ItemsControl x:Name="TeamList">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border x:Name="TeamCard" 
-                                        Style="{StaticResource TeamCardStyle}"
-                                        MouseLeftButtonDown="TeamCard_Click"
-                                        Tag="{Binding}">
+                        <Border x:Name="AdCard"
+                                Width="440"
+                                Margin="0,0,20,18"
+                                BorderBrush="#2c2c2c"
+                                BorderThickness="0,2,0,0"
+                                Padding="0,8,0,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="TeamCard_Click"
+                                Tag="{Binding}">
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <StackPanel Grid.Column="0">
-                                    <!-- Team Name with Color Accent -->
-                                    <Grid Margin="0,0,0,5">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        
-                                        <!-- Team Color Strip -->
-                                        <Border Grid.Column="0"
-                                                Width="5"
-                                                Height="20"
-                                                Background="{Binding TeamColor}"
-                                                CornerRadius="2"
-                                                Margin="0,0,10,0"
-                                                VerticalAlignment="Center"/>
-                                        
-                                        <TextBlock Grid.Column="1"
-                                                   Text="{Binding TeamName}"
-                                                   FontSize="18"
-                                                   FontWeight="Bold"
-                                                   Foreground="White"
-                                                   VerticalAlignment="Center"/>
-                                    </Grid>
-                                    <!-- Dropped Driver Info -->
-                                    <TextBlock Text="{Binding DropReasonText}"
-                                                       FontSize="12"
-                                                       FontWeight="SemiBold"
-                                                       Foreground="#ffaa00"
-                                                       Margin="0,5,0,0"
-                                                       TextWrapping="Wrap"
-                                                       Visibility="{Binding HasDropInfo, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                    <TextBlock Text="{Binding RoleDescription}"
-                                                       FontSize="14"
-                                                       Foreground="#aaaaaa"
-                                                       Margin="0,5,0,0"/>
-                                    <TextBlock Text="{Binding StatusMessage}"
-                                                       FontSize="12"
-                                                       FontStyle="Italic"
-                                                       Foreground="#888888"
-                                                       Margin="0,5,0,0"/>
+                                <StackPanel Margin="0,0,54,0">
+                                    <TextBlock Text="{Binding Kicker}"
+                                               FontFamily="Times New Roman"
+                                               FontSize="10"
+                                               FontWeight="Bold"
+                                               Foreground="#8a1420"/>
+                                    <TextBlock Text="{Binding Headline}"
+                                               FontFamily="Times New Roman"
+                                               FontSize="17"
+                                               FontWeight="Bold"
+                                               Foreground="#181818"
+                                               TextWrapping="Wrap"
+                                               Margin="0,2,0,4"/>
+                                    <TextBlock Text="{Binding BodyText}"
+                                               FontFamily="Times New Roman"
+                                               FontSize="12"
+                                               Foreground="#2c2c2c"
+                                               TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="StatusMessageText"
+                                               Text="{Binding StatusMessage}"
+                                               FontFamily="Times New Roman"
+                                               FontStyle="Italic"
+                                               FontSize="11.5"
+                                               Foreground="#5a5345"
+                                               TextWrapping="Wrap"
+                                               Margin="0,5,0,0"/>
                                 </StackPanel>
 
-                                <CheckBox Grid.Column="1"
-                                                 x:Name="SelectionCheckbox"
-                                                 IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                                 VerticalAlignment="Center"
-                                                 IsHitTestVisible="False"
-                                                 Focusable="False"/>
+                                <!-- "circled in pen" mark for a selected ad -->
+                                <Ellipse x:Name="CircleOverlay"
+                                         Stroke="#a3111c"
+                                         StrokeThickness="3"
+                                         Width="404"
+                                         Height="118"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         Margin="-16,-10,0,0"
+                                         IsHitTestVisible="False"
+                                         Visibility="Collapsed">
+                                    <Ellipse.RenderTransform>
+                                        <RotateTransform Angle="-3" CenterX="202" CenterY="59"/>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                                <TextBlock x:Name="AppliedScrawl"
+                                           Text="{loc:Loc TeamApplicationWindow_AppliedScrawl}"
+                                           FontFamily="Segoe Script, Comic Sans MS"
+                                           FontSize="24"
+                                           Foreground="#a3111c"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Top"
+                                           Margin="0,-8,0,0"
+                                           IsHitTestVisible="False"
+                                           Visibility="Collapsed">
+                                    <TextBlock.RenderTransform>
+                                        <RotateTransform Angle="-8"/>
+                                    </TextBlock.RenderTransform>
+                                </TextBlock>
+
+                                <!-- capacity-reached stamp -->
+                                <Border x:Name="FullBadge"
+                                        BorderBrush="#6a6355"
+                                        BorderThickness="2"
+                                        Padding="7,3"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        IsHitTestVisible="False"
+                                        Visibility="Collapsed">
+                                    <Border.RenderTransform>
+                                        <RotateTransform Angle="-6"/>
+                                    </Border.RenderTransform>
+                                    <TextBlock Text="{loc:Loc TeamApplicationWindow_CapacityFullLabel}"
+                                               FontFamily="Times New Roman"
+                                               FontSize="10"
+                                               FontWeight="Bold"
+                                               Foreground="#6a6355"/>
+                                </Border>
                             </Grid>
                         </Border>
+
                         <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding IsDisabled}" Value="True">
-                                <Setter TargetName="TeamCard" Property="Style" Value="{StaticResource DisabledCardStyle}"/>
-                                <Setter TargetName="TeamCard" Property="Cursor" Value="Arrow"/>
-                            </DataTrigger>
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter TargetName="TeamCard" Property="Style" Value="{StaticResource SelectedCardStyle}"/>
+                                <Setter TargetName="CircleOverlay" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="AppliedScrawl" Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsAtCapacity}" Value="True">
+                                <Setter TargetName="AdCard" Property="Opacity" Value="0.55"/>
+                                <Setter TargetName="AdCard" Property="Cursor" Value="Arrow"/>
+                                <Setter TargetName="AdCard" Property="IsHitTestVisible" Value="False"/>
+                                <Setter TargetName="FullBadge" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="StatusMessageText" Property="Text" Value="{loc:Loc TeamApplicationWindow_CapacityFullNote}"/>
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
@@ -191,20 +198,35 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <!-- Bottom Button -->
-        <Border Grid.Row="2" Background="#0d0d0d" BorderBrush="#444444" BorderThickness="0,1,0,0" Padding="30,20">
-            <StackPanel>
+        <!-- Footer -->
+        <Grid Grid.Row="2" Margin="34,10,34,22">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.ColumnSpan="2" Height="2" Fill="#2c2c2c" VerticalAlignment="Top" Margin="0,-10,0,0"/>
+
+            <Border Grid.Column="0"
+                    BorderBrush="#2c2c2c"
+                    BorderThickness="1"
+                    Padding="12,7"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="0,0,20,0">
                 <TextBlock x:Name="SelectionCountText"
+                           FontFamily="Times New Roman"
+                           FontStyle="Italic"
                            FontSize="12"
-                           Foreground="#aaaaaa"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,10"/>
-                <Button x:Name="ContinueButton"
-                        Content="{loc:Loc TeamApplicationWindow_ContinueButton}"
-                        Style="{StaticResource ContinueButtonStyle}"
-                        HorizontalAlignment="Center"
-                        Click="ContinueButton_Click"/>
-            </StackPanel>
-        </Border>
+                           Foreground="#3a3a3a"
+                           TextWrapping="Wrap"/>
+            </Border>
+
+            <Button x:Name="ContinueButton"
+                    Grid.Column="1"
+                    Content="{loc:Loc TeamApplicationWindow_ContinueButton}"
+                    Style="{StaticResource ContinueButtonStyle}"
+                    VerticalAlignment="Center"
+                    Click="ContinueButton_Click"/>
+        </Grid>
     </Grid>
 </Window>

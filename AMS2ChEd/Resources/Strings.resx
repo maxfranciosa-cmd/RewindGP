@@ -917,17 +917,23 @@ Your result has been recorded as Did Not Qualify (DNQ). The race weekend will be
   <data name="TeamApplicationWindow_Title" xml:space="preserve">
     <value>Apply for Open Seats</value>
   </data>
-  <data name="TeamApplicationWindow_Header" xml:space="preserve">
-    <value>DRIVER MARKET</value>
+  <data name="TeamApplicationWindow_GazetteName" xml:space="preserve">
+    <value>THE PADDOCK GAZETTE</value>
   </data>
-  <data name="TeamApplicationWindow_Subtitle" xml:space="preserve">
-    <value>Select which roles you'd like to apply to for the upcoming season</value>
+  <data name="TeamApplicationWindow_EditionLabel" xml:space="preserve">
+    <value>LATE-SEASON EDITION &#183; DRIVER MARKET SPECIAL</value>
+  </data>
+  <data name="TeamApplicationWindow_PriceLabel" xml:space="preserve">
+    <value>PRICE: ONE SEAT</value>
+  </data>
+  <data name="TeamApplicationWindow_Masthead" xml:space="preserve">
+    <value>SILLY SEASON</value>
   </data>
   <data name="TeamApplicationWindow_InstructionText" xml:space="preserve">
-    <value>Click on a driver role to apply. Teams shown with red borders are already selected.</value>
+    <value>Free agent driver browsing the classifieds &#8212; circle up to {0} want-ads below to apply.</value>
   </data>
   <data name="TeamApplicationWindow_ContinueButton" xml:space="preserve">
-    <value>CONTINUE</value>
+    <value>SEND APPLICATIONS TO PRESS</value>
   </data>
   <data name="TeamApplicationWindow_UnknownTeam" xml:space="preserve">
     <value>Unknown Team</value>
@@ -939,22 +945,49 @@ Your result has been recorded as Did Not Qualify (DNQ). The race weekend will be
     <value>Second Driver</value>
   </data>
   <data name="TeamApplicationWindow_AlreadyInterestedStatus" xml:space="preserve">
-    <value>✓ This team has already expressed interest in you for this role.</value>
+    <value>This team already has its eye on you for this seat.</value>
   </data>
   <data name="TeamApplicationWindow_ClickToApplyStatus" xml:space="preserve">
-    <value>Click to apply for this position</value>
-  </data>
-  <data name="TeamApplicationWindow_MaxApplications_Message" xml:space="preserve">
-    <value>You can apply to a maximum of {0} roles.</value>
-  </data>
-  <data name="TeamApplicationWindow_MaxApplications_Title" xml:space="preserve">
-    <value>Maximum Applications Reached</value>
+    <value>Open for applications &#8212; send yours to be considered.</value>
   </data>
   <data name="TeamApplicationWindow_SelectionCount_Singular" xml:space="preserve">
-    <value>1 role selected (max {0})</value>
+    <value>ERRATA: 1 want-ad circled this edition.</value>
   </data>
   <data name="TeamApplicationWindow_SelectionCount_Plural" xml:space="preserve">
-    <value>{0} roles selected (max {1})</value>
+    <value>ERRATA: {0} of {1} want-ads circled this edition.</value>
+  </data>
+  <data name="TeamApplicationWindow_WantedKicker" xml:space="preserve">
+    <value>Wanted: driver &#8212; {0}</value>
+  </data>
+  <data name="TeamApplicationWindow_AdHeadline" xml:space="preserve">
+    <value>{0} seek new {1}</value>
+  </data>
+  <data name="TeamApplicationWindow_NoDropReasonBlurb" xml:space="preserve">
+    <value>The {0} seat is now open for the coming season.</value>
+  </data>
+  <data name="TeamApplicationWindow_AppliedScrawl" xml:space="preserve">
+    <value>applied!</value>
+  </data>
+  <data name="TeamApplicationWindow_CapacityFullLabel" xml:space="preserve">
+    <value>CLASSIFIEDS FULL</value>
+  </data>
+  <data name="TeamApplicationWindow_CapacityFullNote" xml:space="preserve">
+    <value>Quota reached &#8212; further applications unavailable this window.</value>
+  </data>
+  <data name="TeamApplicationWindow_Reputation_TopTeam" xml:space="preserve">
+    <value>top team</value>
+  </data>
+  <data name="TeamApplicationWindow_Reputation_MidfieldHigh" xml:space="preserve">
+    <value>upper midfield</value>
+  </data>
+  <data name="TeamApplicationWindow_Reputation_Midfield" xml:space="preserve">
+    <value>midfield</value>
+  </data>
+  <data name="TeamApplicationWindow_Reputation_Minnow" xml:space="preserve">
+    <value>backmarker</value>
+  </data>
+  <data name="TeamApplicationWindow_Reputation_SuperMinnow" xml:space="preserve">
+    <value>tail-ender</value>
   </data>
   <data name="TeamApplicationWindow_DropReason_ContractExpired" xml:space="preserve">
     <value>{0}'s contract expired</value>
@@ -1764,6 +1797,29 @@ Welcome to the team!</value>
     <value>The decision was not easy. We carefully considered both yourself and {0} for this position. After extensive deliberation, we felt that you were the better fit for what we're trying to achieve.</value>
   </data>
 
+  <data name="ContractLetterWindow_OffSeasonSuccessLetter_Format" xml:space="preserve">
+    <value>Dear {0},
+
+I'm delighted to confirm that your application to continue racing for {1} as {2} for the upcoming season has been successful.
+
+{3}
+
+{4}
+
+We're looking forward to building on what we've started together and fighting for every point on the table next season.
+
+Welcome back to the team!</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonSuccess_BeatIncumbent_Format" xml:space="preserve">
+    <value>In doing so, you've won the seat ahead of {0}, who had been hoping to stay on for another season.</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonSuccess_BeatNewcomer_Format" xml:space="preserve">
+    <value>In doing so, you've won the seat ahead of {0}, who we'd also been considering for the role.</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonSuccess_NoRival" xml:space="preserve">
+    <value>Truth be told, we never seriously considered anyone else for this seat.</value>
+  </data>
+
   <data name="ContractLetterWindow_ReputationReason_PayDriverWildCard" xml:space="preserve">
     <value>While we recognize that your budget brings valuable resources to our team, we also see potential in your raw talent. This opportunity allows you to demonstrate your abilities when it matters most.</value>
   </data>
@@ -1824,6 +1880,28 @@ After careful consideration of all candidates, including yourself and {3}, we ha
 We wish you the very best in your career and hope that our paths may cross again in the future under different circumstances.
 
 Best regards,</value>
+  </data>
+
+  <data name="ContractLetterWindow_OffSeasonRejectionLetter_Format" xml:space="preserve">
+    <value>Dear {0},
+
+Thank you for your interest in racing for {1} as {2} next season. We appreciate you taking the time to make your case to us.
+
+After careful consideration, we've decided to go with {3} for this seat instead.
+
+{4}
+
+{5}
+
+We wish you the very best in finding a seat for next season and hope our paths may cross again in the future.
+
+Best regards,</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonRejection_KeptIncumbent_Format" xml:space="preserve">
+    <value>We've decided to retain {0} for another season - their familiarity with our car and team made them the safer choice at this time.</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonRejection_SignedNewcomer_Format" xml:space="preserve">
+    <value>We've decided to sign {0} to fill this seat for the coming season.</value>
   </data>
 
   <data name="ContractLetterWindow_RejectionReason_PayDriverWildCard" xml:space="preserve">

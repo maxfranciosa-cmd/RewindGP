@@ -112,6 +112,20 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var actualNewSeason = _gameLogicFactory.EndOfSeasonManager
                 .GenerateNewSeasonWithNewHirings(saveGame, originalNewSeason, finalBallots);
 
+            // STEP 5.5: Show a letter for each team the player applied to (rejections first,
+            // then the acceptance if any), using the already-resolved actualNewSeason as the
+            // source of truth so the letters never contradict the roster reveal in STEP 6.
+            if (!playerAcceptedContract)
+            {
+                var teamApplicationResults = BuildTeamApplicationResults(saveGame, finalBallots, actualNewSeason);
+                var reputationForLetters = saveGame.Drivers.First(d => d.DriverId == saveGame.PlayerData.DriverId).Reputation;
+
+                foreach (var result in teamApplicationResults.Where(r => !r.PlayerHired).Concat(teamApplicationResults.Where(r => r.PlayerHired)))
+                {
+                    await uiCallbacks.ShowTeamApplicationResultAsync(saveGame, actualNewSeason.Teams, result, reputationForLetters);
+                }
+            }
+
             // STEP 6: Show final roster newspaper
             await uiCallbacks.ShowNewSeasonRosterAsync(saveGame, actualNewSeason);
 
@@ -239,6 +253,95 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         private ISeason LoadNewSeason(int seasonYear)
         {
             return _dataFactory.SeasonLoader.LoadBaseSeason(seasonYear);
+        }
+
+        // Resolve one TeamApplicationResult per ballot the player applied to, reading the
+        // outcome straight from the already-generated actualNewSeason (never recomputing the
+        // ballot ourselves - FinalBallotResults uses its own Random() and could disagree).
+        private List<TeamApplicationResult> BuildTeamApplicationResults(ISaveGame saveGame, IEnumerable<TeamHiringBallot> finalBallots, ISeason actualNewSeason)
+        {
+            var results = new List<TeamApplicationResult>();
+            var playerDriverId = saveGame.PlayerData.DriverId;
+
+            foreach (var ballot in finalBallots)
+            {
+                bool playerApplied = ballot.OriginalTeamHiring.DriverId == playerDriverId
+                    || (ballot.Candidates?.Any(c => c.DriverId == playerDriverId) ?? false);
+
+                if (!playerApplied) continue;
+
+                var teamId = ballot.OriginalTeamHiring.TeamId;
+                var role = ballot.OriginalTeamHiring.Role;
+
+                var newTeamEntry = actualNewSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
+                if (newTeamEntry == null) continue;
+
+                var finalDriverId = role == DriverRole.FIRST_DRIVER
+                    ? newTeamEntry.Driver1Contract?.DriverId
+                    : newTeamEntry.Driver2Contract?.DriverId;
+
+                bool playerHired = finalDriverId == playerDriverId;
+
+                string otherDriverId;
+                DriverReputation otherDriverReputation;
+
+                if (playerHired)
+                {
+                    if (ballot.OriginalTeamHiring.DriverId != playerDriverId)
+                    {
+                        // the player beat the team's original pick head-to-head
+                        // (OffSeasonMovements.FinalBallotResults), so that pick is who they beat.
+                        otherDriverId = ballot.OriginalTeamHiring.DriverId;
+                        otherDriverReputation = ballot.OriginalTeamHiring.DriverReputation;
+                    }
+                    else
+                    {
+                        // The team had already provisionally picked the player themselves before
+                        // they ever applied (EndOfSeasonManager.PickPotentialNewDrivers can do this
+                        // for a currently-unemployed player, ahead of TeamApplicationWindow even
+                        // running) - there's no head-to-head opponent to name. Fall back to the
+                        // strongest other candidate on the ballot, if any, purely for letter flavor.
+                        var bestOtherCandidate = ballot.Candidates?
+                            .Where(c => c.DriverId != playerDriverId)
+                            .OrderByDescending(c => c.DriverReputation)
+                            .FirstOrDefault();
+
+                        otherDriverId = bestOtherCandidate?.DriverId;
+                        otherDriverReputation = bestOtherCandidate?.DriverReputation ?? default;
+                    }
+                }
+                else
+                {
+                    otherDriverId = finalDriverId;
+                    otherDriverReputation = saveGame.Drivers.FirstOrDefault(d => d.DriverId == finalDriverId)?.Reputation
+                        ?? ballot.OriginalTeamHiring.DriverReputation;
+                }
+
+                results.Add(new TeamApplicationResult
+                {
+                    TeamId = teamId,
+                    Role = role,
+                    PlayerHired = playerHired,
+                    OtherDriverId = otherDriverId,
+                    OtherDriverReputation = otherDriverReputation,
+                    OtherDriverWasAtTeamBefore = WasDriverAtTeamBefore(saveGame, teamId, otherDriverId)
+                });
+            }
+
+            return results;
+        }
+
+        // Was this driver already on this team last season (e.g. a contract-expired driver who
+        // ended up renewing)? Checked against saveGame.CurrentSeason, which is still last
+        // season's data at this point (StartNewSeason in STEP 8 hasn't run yet).
+        private bool WasDriverAtTeamBefore(ISaveGame saveGame, string teamId, string driverId)
+        {
+            if (string.IsNullOrEmpty(driverId)) return false;
+
+            var previousTeam = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
+            if (previousTeam == null) return false;
+
+            return previousTeam.Driver1Contract?.DriverId == driverId || previousTeam.Driver2Contract?.DriverId == driverId;
         }
 
         // Update player's team ID after moves

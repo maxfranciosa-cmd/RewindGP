@@ -111,7 +111,7 @@ namespace AMS2ChEd.Business.Services
                                                      }
                     },
                     { DriverRole.SECOND_DRIVER, new[] {
-                                                        Tuple.Create(DriverReputation.YOUNG_TALENT, DriverPolicyFit.PerfectFit),
+                                                        Tuple.Create(DriverReputation.YOUNG_TALENT, DriverPolicyFit.GoodFit),
                                                         Tuple.Create(DriverReputation.PAY_DRIVER_SEASON, DriverPolicyFit.PerfectFit),
                                                      }
                     }
@@ -126,7 +126,7 @@ namespace AMS2ChEd.Business.Services
                                                      }
                     },
                     { DriverRole.SECOND_DRIVER, new[] {
-                                                        Tuple.Create(DriverReputation.YOUNG_TALENT, DriverPolicyFit.PerfectFit),
+                                                        Tuple.Create(DriverReputation.YOUNG_TALENT, DriverPolicyFit.GoodFit),
                                                         Tuple.Create(DriverReputation.PAY_DRIVER_SEASON, DriverPolicyFit.PerfectFit),
                                                      }
                     }
@@ -187,7 +187,7 @@ namespace AMS2ChEd.Business.Services
                 return driverWhoIsProposingToTeam;
 
             // if they're both pay driver season, coin toss between them
-            if (driverPickedByTeam.Reputation == DriverReputation.PAY_DRIVER_SEASON && 
+            if (driverPickedByTeam.Reputation == DriverReputation.PAY_DRIVER_SEASON &&
                 driverWhoIsProposingToTeam.Reputation == DriverReputation.PAY_DRIVER_SEASON)
             {
                 var random = new Random();
@@ -196,6 +196,30 @@ namespace AMS2ChEd.Business.Services
             }
 
             return driverPickedByTeam.Reputation >= driverWhoIsProposingToTeam.Reputation ? driverPickedByTeam : driverWhoIsProposingToTeam;
+        }
+
+        /// <summary>
+        /// Role/team-fit-aware version of <see cref="PickWinner"/>. Raw DriverReputation is an
+        /// overall prestige ranking, not a "fits this seat" ranking - e.g. PAY_DRIVER_SEASON sits
+        /// near the bottom of that ranking even though teamPolicies rates it a PerfectFit for a
+        /// MINNOW/SUPER_MINNOW seat (those teams need the budget more than outright pace). Compare
+        /// by DoesDriverFitTeamPolicy tier first, so a driver who fits this specific role/team
+        /// better always wins regardless of raw reputation, and only fall back to the raw
+        /// comparison (including the pay-driver-season coin toss) to break a tie within the same
+        /// fit tier.
+        /// </summary>
+        public DriverResume PickWinner(DriverResume driverPickedByTeam, DriverResume driverWhoIsProposingToTeam, DriverRole role, TeamReputation teamReputation)
+        {
+            if (driverPickedByTeam == null)
+                return driverWhoIsProposingToTeam;
+
+            var pickedFitWeight = GetFitWeight(DoesDriverFitTeamPolicy(driverPickedByTeam.Reputation, role, teamReputation));
+            var proposingFitWeight = GetFitWeight(DoesDriverFitTeamPolicy(driverWhoIsProposingToTeam.Reputation, role, teamReputation));
+
+            if (pickedFitWeight != proposingFitWeight)
+                return pickedFitWeight > proposingFitWeight ? driverPickedByTeam : driverWhoIsProposingToTeam;
+
+            return PickWinner(driverPickedByTeam, driverWhoIsProposingToTeam);
         }
 
         public DriverResume PickWinnerForAbsence(DriverResume driverPickedByTeam, DriverResume driverWhoIsProposingToTeam)

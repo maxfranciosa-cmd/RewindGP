@@ -9,7 +9,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using static AMS2ChEd.Business.Services.OffSeasonMovements;
-using MessageBox = System.Windows.MessageBox;
 
 namespace AMS2ChEd.Views
 {
@@ -26,9 +25,10 @@ namespace AMS2ChEd.Views
         public string StatusMessage { get; set; }
         public TeamHiringBallot Ballot { get; set; }
 
-        // Drop reason properties
-        public string DropReasonText { get; set; }
-        public bool HasDropInfo { get; set; }
+        // Classified-ad copy, composed once at load time
+        public string Kicker { get; set; }
+        public string Headline { get; set; }
+        public string BodyText { get; set; }
 
         private bool _isSelected;
         public bool IsSelected
@@ -40,6 +40,21 @@ namespace AMS2ChEd.Views
                 {
                     _isSelected = value;
                     OnPropertyChanged(nameof(IsSelected));
+                }
+            }
+        }
+
+        // True once the player has reached the application cap and this team wasn't one of the picks
+        private bool _isAtCapacity;
+        public bool IsAtCapacity
+        {
+            get => _isAtCapacity;
+            set
+            {
+                if (_isAtCapacity != value)
+                {
+                    _isAtCapacity = value;
+                    OnPropertyChanged(nameof(IsAtCapacity));
                 }
             }
         }
@@ -76,6 +91,16 @@ namespace AMS2ChEd.Views
                 _ => null
             };
         }
+
+        private static string GetReputationLabel(TeamReputation reputation) => reputation switch
+        {
+            TeamReputation.TOP_TEAM => Strings.TeamApplicationWindow_Reputation_TopTeam,
+            TeamReputation.MIDFIELD_HIGH => Strings.TeamApplicationWindow_Reputation_MidfieldHigh,
+            TeamReputation.MIDFIELD => Strings.TeamApplicationWindow_Reputation_Midfield,
+            TeamReputation.MINNOW => Strings.TeamApplicationWindow_Reputation_Minnow,
+            TeamReputation.SUPER_MINNOW => Strings.TeamApplicationWindow_Reputation_SuperMinnow,
+            _ => Strings.TeamApplicationWindow_Reputation_Midfield
+        };
 
         public TeamApplicationWindow(
             ISaveGame saveGame,
@@ -123,7 +148,6 @@ namespace AMS2ChEd.Views
 
                 // Check if there's a dropped driver for this team/role combination
                 string dropReasonText = null;
-                bool hasDropInfo = false;
 
                 if (dropLookup.TryGetValue(ballot.OriginalTeamHiring.TeamId, out var teamDropInfo) && teamEntry != null)
                 {
@@ -136,7 +160,7 @@ namespace AMS2ChEd.Views
                     string droppedDriverName = null;
                     if (ballot.OriginalTeamHiring.Role == DriverRole.FIRST_DRIVER)
                     {
-                        
+
                         droppedDriverName = allDriversDictionary[teamEntry.Driver1Contract.DriverId].Name;
                     }
                     else
@@ -145,8 +169,14 @@ namespace AMS2ChEd.Views
                     }
 
                     dropReasonText = GetDropReasonText(dropOutcome, droppedDriverName);
-                    hasDropInfo = !string.IsNullOrEmpty(dropReasonText);
                 }
+
+                string reputationLabel = GetReputationLabel(teamEntry?.Reputation ?? TeamReputation.MINNOW);
+                string kicker = string.Format(Strings.TeamApplicationWindow_WantedKicker, reputationLabel).ToUpperInvariant();
+                string headline = string.Format(Strings.TeamApplicationWindow_AdHeadline, teamName, roleDescription).ToUpperInvariant();
+                string bodyText = !string.IsNullOrEmpty(dropReasonText)
+                    ? dropReasonText
+                    : string.Format(Strings.TeamApplicationWindow_NoDropReasonBlurb, roleDescription);
 
                 _teamItems.Add(new TeamApplicationItem
                 {
@@ -162,8 +192,9 @@ namespace AMS2ChEd.Views
                     Ballot = ballot,
                     IsSelected = false,
                     TeamReputation = teamEntry?.Reputation ?? TeamReputation.MINNOW,
-                    DropReasonText = dropReasonText,
-                    HasDropInfo = hasDropInfo
+                    Kicker = kicker,
+                    Headline = headline,
+                    BodyText = bodyText
                 });
             }
 
@@ -171,6 +202,7 @@ namespace AMS2ChEd.Views
                                     .OrderByDescending(t => t.TeamReputation)
                                     .ThenByDescending(t => t.TeamName)
                                     .ThenBy(t => t.Role);
+            InstructionText.Text = string.Format(Strings.TeamApplicationWindow_InstructionText, MAX_APPLICATIONS);
             UpdateSelectionCount();
         }
 
@@ -178,31 +210,27 @@ namespace AMS2ChEd.Views
         {
             if (sender is FrameworkElement element && element.Tag is TeamApplicationItem item)
             {
-                if (!item.IsDisabled)
-                {
-                    // If trying to select and already at max (4), prevent selection
-                    int currentCount = _teamItems.Count(t => t.IsSelected);
-                    if (!item.IsSelected && currentCount >= MAX_APPLICATIONS)
-                    {
-                        MessageBox.Show(
-                            string.Format(Strings.TeamApplicationWindow_MaxApplications_Message, MAX_APPLICATIONS),
-                            Strings.TeamApplicationWindow_MaxApplications_Title,
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-                        return;
-                    }
+                // Cards at capacity are visually locked (greyed out, hit-testing disabled by the
+                // trigger in the DataTemplate) - this is a defensive fallback, not the normal path.
+                if (item.IsDisabled || item.IsAtCapacity)
+                    return;
 
-                    item.IsSelected = !item.IsSelected;
-                    UpdateSelectionCount();
-                }
+                item.IsSelected = !item.IsSelected;
+                UpdateSelectionCount();
             }
         }
 
         private void UpdateSelectionCount()
         {
             int count = _teamItems.Count(t => t.IsSelected);
+
+            foreach (var item in _teamItems)
+            {
+                item.IsAtCapacity = !item.IsSelected && !item.IsDisabled && count >= MAX_APPLICATIONS;
+            }
+
             SelectionCountText.Text = count == 1
-                ? string.Format(Strings.TeamApplicationWindow_SelectionCount_Singular, MAX_APPLICATIONS)
+                ? Strings.TeamApplicationWindow_SelectionCount_Singular
                 : string.Format(Strings.TeamApplicationWindow_SelectionCount_Plural, count, MAX_APPLICATIONS);
         }
 
@@ -237,7 +265,7 @@ namespace AMS2ChEd.Views
                     {
                         item.Ballot.OriginalTeamHiring.DriverId = null;
                     }
-                }    
+                }
 
                 UpdatedBallots.Add(new TeamHiringBallot
                 {

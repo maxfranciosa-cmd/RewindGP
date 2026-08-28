@@ -719,6 +719,43 @@ namespace AMS2ChEd
             return Task.FromResult(applicationWindow.UpdatedBallots ?? ballots);
         }
 
+        public Task ShowTeamApplicationResultAsync(ISaveGame saveGame, IEnumerable<ITeamEntry> nextSeasonTeamEntries, TeamApplicationResult result, DriverReputation playerReputation)
+        {
+            var teamEntry = nextSeasonTeamEntries.FirstOrDefault(t => t.TeamId == result.TeamId);
+            string teamName = teamEntry?.TeamName ?? Strings.SeasonOverviewWindow_UnknownTeam;
+            string teamPrincipal = teamEntry?.TeamPrincipal ?? string.Empty;
+
+            // A null OtherDriverId means the player had no real head-to-head opponent for this
+            // seat (see TeamApplicationResult.OtherDriverId) - leave otherDriverName null too, so
+            // ContractLetterWindow can tell "no rival" apart from "rival's name is missing".
+            string otherDriverName = null;
+            if (!string.IsNullOrEmpty(result.OtherDriverId))
+            {
+                var otherDriver = saveGame.Drivers
+                    .Concat(saveGame.RetiredDrivers ?? Enumerable.Empty<IDriverData>())
+                    .FirstOrDefault(d => d.DriverId == result.OtherDriverId);
+                otherDriverName = otherDriver?.Name ?? Strings.SeasonOverviewWindow_UnknownDriver;
+            }
+
+            string roleName = result.Role == DriverRole.FIRST_DRIVER
+                ? Strings.TeamApplicationWindow_FirstDriverRole
+                : Strings.TeamApplicationWindow_SecondDriverRole;
+
+            var letterWindow = new ContractLetterWindow(
+                teamName,
+                teamPrincipal,
+                saveGame.PlayerData.Name,
+                playerReputation,
+                result.PlayerHired,
+                otherDriverName,
+                result.OtherDriverReputation,
+                result.OtherDriverWasAtTeamBefore,
+                roleName);
+            letterWindow.Owner = _owner;
+            letterWindow.ShowDialog();
+            return Task.CompletedTask;
+        }
+
         public Task ShowNewSeasonRosterAsync(ISaveGame saveGame, ISeason newSeason)
         {
             var rosterWindow = new NewSeasonRosterWindow(saveGame, _dataFactory, newSeason);

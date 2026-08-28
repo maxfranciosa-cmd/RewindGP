@@ -916,17 +916,23 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
   <data name="TeamApplicationWindow_Title" xml:space="preserve">
     <value>Candidati per i Posti Liberi</value>
   </data>
-  <data name="TeamApplicationWindow_Header" xml:space="preserve">
+  <data name="TeamApplicationWindow_GazetteName" xml:space="preserve">
+    <value>LA GAZZETTA DEL PADDOCK</value>
+  </data>
+  <data name="TeamApplicationWindow_EditionLabel" xml:space="preserve">
+    <value>EDIZIONE DI FINE STAGIONE &#183; SPECIALE MERCATO PILOTI</value>
+  </data>
+  <data name="TeamApplicationWindow_PriceLabel" xml:space="preserve">
+    <value>PREZZO: UN SEDILE</value>
+  </data>
+  <data name="TeamApplicationWindow_Masthead" xml:space="preserve">
     <value>MERCATO PILOTI</value>
   </data>
-  <data name="TeamApplicationWindow_Subtitle" xml:space="preserve">
-    <value>Seleziona per quali ruoli vuoi candidarti per la prossima stagione</value>
-  </data>
   <data name="TeamApplicationWindow_InstructionText" xml:space="preserve">
-    <value>Clicca su un ruolo pilota per candidarti. I team mostrati con bordo rosso sono già selezionati.</value>
+    <value>Pilota svincolato in cerca di squadra &#8212; cerchia fino a {0} annunci qui sotto per candidarti.</value>
   </data>
   <data name="TeamApplicationWindow_ContinueButton" xml:space="preserve">
-    <value>CONTINUA</value>
+    <value>INVIA CANDIDATURE ALLA STAMPA</value>
   </data>
   <data name="TeamApplicationWindow_UnknownTeam" xml:space="preserve">
     <value>Team Sconosciuto</value>
@@ -938,22 +944,49 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
     <value>Secondo Pilota</value>
   </data>
   <data name="TeamApplicationWindow_AlreadyInterestedStatus" xml:space="preserve">
-    <value>✓ Questo team ha già espresso interesse per te in questo ruolo.</value>
+    <value>Questa squadra ti ha già messo nel mirino per questo sedile.</value>
   </data>
   <data name="TeamApplicationWindow_ClickToApplyStatus" xml:space="preserve">
-    <value>Clicca per candidarti a questa posizione</value>
-  </data>
-  <data name="TeamApplicationWindow_MaxApplications_Message" xml:space="preserve">
-    <value>Puoi candidarti per un massimo di {0} ruoli.</value>
-  </data>
-  <data name="TeamApplicationWindow_MaxApplications_Title" xml:space="preserve">
-    <value>Numero Massimo di Candidature Raggiunto</value>
+    <value>Candidature aperte &#8212; invia la tua per essere considerato.</value>
   </data>
   <data name="TeamApplicationWindow_SelectionCount_Singular" xml:space="preserve">
-    <value>1 ruolo selezionato (max {0})</value>
+    <value>ERRATA CORRIGE: 1 annuncio cerchiato in questa edizione.</value>
   </data>
   <data name="TeamApplicationWindow_SelectionCount_Plural" xml:space="preserve">
-    <value>{0} ruoli selezionati (max {1})</value>
+    <value>ERRATA CORRIGE: {0} di {1} annunci cerchiati in questa edizione.</value>
+  </data>
+  <data name="TeamApplicationWindow_WantedKicker" xml:space="preserve">
+    <value>Cercasi: pilota &#8212; {0}</value>
+  </data>
+  <data name="TeamApplicationWindow_AdHeadline" xml:space="preserve">
+    <value>{0} cerca nuovo {1}</value>
+  </data>
+  <data name="TeamApplicationWindow_NoDropReasonBlurb" xml:space="preserve">
+    <value>Il posto da {0} è ora disponibile per la prossima stagione.</value>
+  </data>
+  <data name="TeamApplicationWindow_AppliedScrawl" xml:space="preserve">
+    <value>candidato!</value>
+  </data>
+  <data name="TeamApplicationWindow_CapacityFullLabel" xml:space="preserve">
+    <value>ANNUNCI ESAURITI</value>
+  </data>
+  <data name="TeamApplicationWindow_CapacityFullNote" xml:space="preserve">
+    <value>Quota raggiunta &#8212; altre candidature non disponibili in questa finestra.</value>
+  </data>
+  <data name="TeamApplicationWindow_Reputation_TopTeam" xml:space="preserve">
+    <value>squadra di vertice</value>
+  </data>
+  <data name="TeamApplicationWindow_Reputation_MidfieldHigh" xml:space="preserve">
+    <value>metà classifica alta</value>
+  </data>
+  <data name="TeamApplicationWindow_Reputation_Midfield" xml:space="preserve">
+    <value>metà classifica</value>
+  </data>
+  <data name="TeamApplicationWindow_Reputation_Minnow" xml:space="preserve">
+    <value>fondo griglia</value>
+  </data>
+  <data name="TeamApplicationWindow_Reputation_SuperMinnow" xml:space="preserve">
+    <value>ultima fila</value>
   </data>
   <data name="TeamApplicationWindow_DropReason_ContractExpired" xml:space="preserve">
     <value>Il contratto di {0} è scaduto</value>
@@ -1758,6 +1791,29 @@ Benvenuto/a nel team!</value>
     <value>La decisione non è stata facile. Abbiamo valutato attentamente sia te che {0} per questa posizione. Dopo un'attenta riflessione, abbiamo ritenuto che tu fossi la scelta più adatta per ciò che stiamo cercando di ottenere.</value>
   </data>
 
+  <data name="ContractLetterWindow_OffSeasonSuccessLetter_Format" xml:space="preserve">
+    <value>Caro/a {0},
+
+sono lieto di confermarti che la tua candidatura per continuare a correre con {1} come {2} per la prossima stagione è stata accettata.
+
+{3}
+
+{4}
+
+Non vediamo l'ora di costruire su quanto fatto finora insieme e di lottare per ogni punto in palio nella prossima stagione.
+
+Bentornato/a nel team!</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonSuccess_BeatIncumbent_Format" xml:space="preserve">
+    <value>In questo modo hai conquistato il sedile davanti a {0}, che sperava di rimanere per un'altra stagione.</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonSuccess_BeatNewcomer_Format" xml:space="preserve">
+    <value>In questo modo hai conquistato il sedile davanti a {0}, che stavamo valutando anche noi per questo ruolo.</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonSuccess_NoRival" xml:space="preserve">
+    <value>A dire il vero, non abbiamo mai seriamente considerato nessun altro per questo sedile.</value>
+  </data>
+
   <data name="ContractLetterWindow_ReputationReason_PayDriverWildCard" xml:space="preserve">
     <value>Pur riconoscendo che il tuo budget porta risorse preziose al nostro team, vediamo anche del potenziale nel tuo talento grezzo. Questa opportunità ti permette di dimostrare le tue capacità quando conta di più.</value>
   </data>
@@ -1818,6 +1874,28 @@ Dopo un'attenta valutazione di tutti i candidati, incluso te e {3}, abbiamo pres
 Ti auguriamo il meglio per la tua carriera e speriamo che le nostre strade possano incrociarsi di nuovo in futuro, in circostanze diverse.
 
 Cordiali saluti,</value>
+  </data>
+
+  <data name="ContractLetterWindow_OffSeasonRejectionLetter_Format" xml:space="preserve">
+    <value>Caro/a {0},
+
+grazie per il tuo interesse a correre con {1} come {2} nella prossima stagione. Apprezziamo il tempo che hai dedicato a proporre la tua candidatura.
+
+Dopo un'attenta valutazione, abbiamo deciso di affidare questo sedile a {3}.
+
+{4}
+
+{5}
+
+Ti auguriamo il meglio nella ricerca di un sedile per la prossima stagione e speriamo che le nostre strade possano incrociarsi di nuovo in futuro.
+
+Cordiali saluti,</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonRejection_KeptIncumbent_Format" xml:space="preserve">
+    <value>Abbiamo deciso di confermare {0} per un'altra stagione: la sua familiarità con la nostra vettura e il nostro team lo/la rende la scelta più sicura in questo momento.</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonRejection_SignedNewcomer_Format" xml:space="preserve">
+    <value>Abbiamo deciso di ingaggiare {0} per questo sedile nella prossima stagione.</value>
   </data>
 
   <data name="ContractLetterWindow_RejectionReason_PayDriverWildCard" xml:space="preserve">

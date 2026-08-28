@@ -47,6 +47,24 @@ namespace AMS2ChEd.Business.Services
         public const int YOUNG_DRIVER_AGE = 25;
         public const int OLD_DRIVER_AGE = 31;
 
+        // Deepest floor for a driver who was already PRIME_MIDFIELD or below going into the
+        // season and finished outside this position - PAY_DRIVER_SEASON alone was absorbing
+        // every truly poor finish regardless of grid size (a 30+ car historical grid piles
+        // everyone from P21 down into the same bucket as someone who narrowly missed the points),
+        // so a genuine backmarker now drops one tier further instead of crowding out the seats
+        // PAY_DRIVER_SEASON drivers who merely missed the points are competing for. Only applied
+        // where the branch's current-season floor was already PAY_DRIVER_SEASON for a
+        // pre-season reputation of PRIME_MIDFIELD or below (see ReputationUpdaterTests, whose
+        // golden 1994/1995 data never goes past P25 and stays PAY_DRIVER_SEASON there).
+        public const int WILD_CARD_FLOOR_STANDINGS_THRESHOLD = 20;
+
+        private static DriverReputation SeasonFloorOrWildCard(int standings)
+        {
+            return standings > WILD_CARD_FLOOR_STANDINGS_THRESHOLD
+                ? DriverReputation.PAY_DRIVER_WILD_CARD
+                : DriverReputation.PAY_DRIVER_SEASON;
+        }
+
         private DriverReputation EvaluateWildCard(int age, int podiums, int races, int dnfs)
         {
             if (dnfs > 0 || races < 3) return DriverReputation.PAY_DRIVER_WILD_CARD;
@@ -209,7 +227,7 @@ namespace AMS2ChEd.Business.Services
                     else if (standings <= 16)
                         return DriverReputation.AGEING_MIDFIELD;
                     else
-                        return DriverReputation.PAY_DRIVER_SEASON;
+                        return SeasonFloorOrWildCard(standings);
 
                 case DriverReputation.YOUNG_TALENT:
                 case DriverReputation.PRIME_MIDFIELD:
@@ -218,7 +236,7 @@ namespace AMS2ChEd.Business.Services
                     else if (standings <= 16)
                         return DriverReputation.AGEING_MIDFIELD;
                     else
-                        return DriverReputation.PAY_DRIVER_SEASON;
+                        return SeasonFloorOrWildCard(standings);
 
                 case DriverReputation.PRIME_STRONG_MIDFIELD:
                     if (standings <= 8)
@@ -262,7 +280,7 @@ namespace AMS2ChEd.Business.Services
                     else if (standings <= 16)
                         return DriverReputation.AGEING_MIDFIELD;
                     else
-                        return DriverReputation.PAY_DRIVER_SEASON;
+                        return SeasonFloorOrWildCard(standings);
 
                 case DriverReputation.AGEING_STRONG_MIDFIELD:
                     if (standings <= 3)
@@ -321,7 +339,7 @@ namespace AMS2ChEd.Business.Services
                     else if (standings <= 16)
                         return DriverReputation.PRIME_MIDFIELD;
                     else
-                        return DriverReputation.PAY_DRIVER_SEASON;
+                        return SeasonFloorOrWildCard(standings);
 
                 case DriverReputation.YOUNG_TALENT:
                     if (standings <= 8)
@@ -331,7 +349,7 @@ namespace AMS2ChEd.Business.Services
                     else if (dnfs <= 2 && standings <= 18)
                         return DriverReputation.PRIME_MIDFIELD;
                     else
-                        return DriverReputation.PAY_DRIVER_SEASON;
+                        return SeasonFloorOrWildCard(standings);
 
                 case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN:
                     if (standings <= 6)
@@ -364,7 +382,7 @@ namespace AMS2ChEd.Business.Services
                     else if (standings <= 15)
                         return DriverReputation.PRIME_MIDFIELD;
                     else
-                        return DriverReputation.PAY_DRIVER_SEASON;
+                        return SeasonFloorOrWildCard(standings);
 
                 case DriverReputation.AGEING_STRONG_MIDFIELD:
                 case DriverReputation.PRIME_STRONG_MIDFIELD:
@@ -423,13 +441,24 @@ namespace AMS2ChEd.Business.Services
                         return DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN;
                     else if (standings <= 15)
                         return DriverReputation.YOUNG_TALENT;
-                    else return DriverReputation.PAY_DRIVER_SEASON;
+                    else return SeasonFloorOrWildCard(standings);
 
+                // PRIME_MIDFIELD/AGEING_MIDFIELD/YOUNG_TALENT are PRIME_MIDFIELD-or-below, so a
+                // truly poor finish here can fall through to PAY_DRIVER_WILD_CARD.
                 case DriverReputation.PRIME_MIDFIELD:
-                case DriverReputation.PRIME_STRONG_MIDFIELD:
-                case DriverReputation.AGEING_STRONG_MIDFIELD:
                 case DriverReputation.AGEING_MIDFIELD:
                 case DriverReputation.YOUNG_TALENT:
+                    if (standings <= 8)
+                        return DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN;
+                    else if (standings <= 15)
+                        return DriverReputation.YOUNG_TALENT;
+                    else
+                        return SeasonFloorOrWildCard(standings);
+
+                // PRIME_STRONG_MIDFIELD/AGEING_STRONG_MIDFIELD sit above PRIME_MIDFIELD, so they
+                // keep the plain PAY_DRIVER_SEASON floor regardless of how poorly they finish.
+                case DriverReputation.PRIME_STRONG_MIDFIELD:
+                case DriverReputation.AGEING_STRONG_MIDFIELD:
                     if (standings <= 8)
                         return DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN;
                     else if (standings <= 15)

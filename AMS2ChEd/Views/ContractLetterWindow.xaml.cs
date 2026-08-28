@@ -90,6 +90,80 @@ namespace AMS2ChEd
             }
         }
 
+        /// <summary>
+        /// Off-season team-application result letter. Unlike the main constructor, the hired/not
+        /// outcome is already decided by the resolved new season (OffSeasonOrchestrator), so this
+        /// path skips the young/older-driver auto-rejection branches and the
+        /// ContractNegotiationEngine re-evaluation, and always shows a single "Next" button - it's
+        /// a read-only outcome letter, not a live choice.
+        /// </summary>
+        public ContractLetterWindow(
+            string teamName,
+            string teamPrincipal,
+            string playerName,
+            DriverReputation playerReputation,
+            bool isPlayerHired,
+            string otherDriverName,
+            DriverReputation otherDriverReputation,
+            bool otherDriverWasAtTeamBefore,
+            string roleName)
+        {
+            InitializeComponent();
+            this.playerReputation = playerReputation;
+            this.playerName = playerName;
+            this.isHired = isPlayerHired;
+
+            NextButton.Visibility = Visibility.Visible;
+            ChooseAnotherTeamButton.Visibility = Visibility.Collapsed;
+
+            if (isPlayerHired)
+            {
+                GenerateOffSeasonSuccessLetter(teamName, teamPrincipal, playerName, otherDriverName, otherDriverWasAtTeamBefore, playerReputation, roleName);
+            }
+            else
+            {
+                GenerateOffSeasonRejectionLetter(teamName, teamPrincipal, playerName, otherDriverName, otherDriverWasAtTeamBefore, roleName);
+            }
+        }
+
+        private void GenerateOffSeasonSuccessLetter(string teamName, string teamPrincipal, string playerName, string otherDriverName, bool otherDriverWasAtTeamBefore, DriverReputation playerReputation, string roleName)
+        {
+            TeamNameHeader.Text = teamName.ToUpper();
+
+            string reputationReason = GetReputationReason(playerReputation);
+            string beatDriverClause = string.IsNullOrEmpty(otherDriverName)
+                ? Strings.ContractLetterWindow_OffSeasonSuccess_NoRival
+                : string.Format(
+                    otherDriverWasAtTeamBefore
+                        ? Strings.ContractLetterWindow_OffSeasonSuccess_BeatIncumbent_Format
+                        : Strings.ContractLetterWindow_OffSeasonSuccess_BeatNewcomer_Format,
+                    otherDriverName);
+
+            LetterContent.Text = string.Format(Strings.ContractLetterWindow_OffSeasonSuccessLetter_Format,
+                playerName, teamName, roleName, beatDriverClause, reputationReason);
+
+            SignatureName.Text = teamPrincipal;
+            SignatureTitle.Text = string.Format(Strings.ContractLetterWindow_SignatureTitle_Format, teamName);
+        }
+
+        private void GenerateOffSeasonRejectionLetter(string teamName, string teamPrincipal, string playerName, string otherDriverName, bool otherDriverWasAtTeamBefore, string roleName)
+        {
+            TeamNameHeader.Text = teamName.ToUpper();
+
+            string rejectionReason = GetRejectionReason(playerReputation);
+            string otherDriverClause = string.Format(
+                otherDriverWasAtTeamBefore
+                    ? Strings.ContractLetterWindow_OffSeasonRejection_KeptIncumbent_Format
+                    : Strings.ContractLetterWindow_OffSeasonRejection_SignedNewcomer_Format,
+                otherDriverName);
+
+            LetterContent.Text = string.Format(Strings.ContractLetterWindow_OffSeasonRejectionLetter_Format,
+                playerName, teamName, roleName, otherDriverName, rejectionReason, otherDriverClause);
+
+            SignatureName.Text = teamPrincipal;
+            SignatureTitle.Text = string.Format(Strings.ContractLetterWindow_SignatureTitle_Format, teamName);
+        }
+
         private void GenerateYoungDriverRejectionLetter(string teamName, string teamPrincipal, string playerName, int driverAge)
         {
             // Set team header
