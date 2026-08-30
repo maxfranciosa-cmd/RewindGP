@@ -122,7 +122,7 @@ namespace AMS2ChEd
 
             if (isPlayerHired)
             {
-                GenerateOffSeasonSuccessLetter(teamName, teamPrincipal, playerName, otherDriverName, otherDriverWasAtTeamBefore, playerReputation, roleName);
+                GenerateOffSeasonSuccessLetter(teamName, teamPrincipal, playerName, otherDriverName, otherDriverWasAtTeamBefore, playerReputation, roleName, teamReputation, role);
             }
             else
             {
@@ -130,11 +130,11 @@ namespace AMS2ChEd
             }
         }
 
-        private void GenerateOffSeasonSuccessLetter(string teamName, string teamPrincipal, string playerName, string otherDriverName, bool otherDriverWasAtTeamBefore, DriverReputation playerReputation, string roleName)
+        private void GenerateOffSeasonSuccessLetter(string teamName, string teamPrincipal, string playerName, string otherDriverName, bool otherDriverWasAtTeamBefore, DriverReputation playerReputation, string roleName, TeamReputation teamReputation, DriverRole role)
         {
             TeamNameHeader.Text = teamName.ToUpper();
 
-            string reputationReason = GetReputationReason(playerReputation);
+            string reputationReason = AppendSuccessQualificationDetail(GetReputationReason(playerReputation), playerReputation, role, teamReputation);
             string beatDriverClause = string.IsNullOrEmpty(otherDriverName)
                 ? Strings.ContractLetterWindow_OffSeasonSuccess_NoRival
                 : string.Format(
@@ -216,8 +216,19 @@ namespace AMS2ChEd
             // Set team header
             TeamNameHeader.Text = teamName.ToUpper();
 
-            // Generate personalized message based on reputation
+            // Generate personalized message based on reputation, plus a qualification-fit detail
+            // (over-, under- or "good but not perfect" fit for this specific seat) when we can
+            // resolve the team/role being contested - see AppendSuccessQualificationDetail.
             string reputationReason = GetReputationReason(playerReputation);
+            var contestedTeam = currentSeason?.Teams?.FirstOrDefault(t => t.TeamId == teamId);
+            if (contestedTeam != null)
+            {
+                var contestedRole = contestedTeam.Driver1Contract?.DriverId == replacedDriverId
+                    ? DriverRole.FIRST_DRIVER
+                    : DriverRole.SECOND_DRIVER;
+                reputationReason = AppendSuccessQualificationDetail(reputationReason, playerReputation, contestedRole, contestedTeam.Reputation);
+            }
+
             string competitionMention = GetCompetitionMention(replacedDriverName);
 
             LetterContent.Text = string.Format(Strings.ContractLetterWindow_SuccessLetter_Format,
@@ -228,54 +239,124 @@ namespace AMS2ChEd
             SignatureTitle.Text = string.Format(Strings.ContractLetterWindow_SignatureTitle_Format, teamName);
         }
 
+        /// <summary>
+        /// Shared RNG for picking among the alternative phrasings in <see cref="GetReputationReason"/>
+        /// and <see cref="GetRejectionReason"/>, so re-generating a letter for the same reputation
+        /// doesn't always produce word-for-word the same text.
+        /// </summary>
+        private static readonly Random _phrasingRandom = new Random();
+
         private string GetReputationReason(DriverReputation reputation)
         {
-            return reputation switch
+            string[] alternatives = reputation switch
             {
-                DriverReputation.PAY_DRIVER_WILD_CARD =>
+                DriverReputation.PAY_DRIVER_WILD_CARD => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_PayDriverWildCard,
+                    Strings.ContractLetterWindow_ReputationReason_PayDriverWildCard_2,
+                    Strings.ContractLetterWindow_ReputationReason_PayDriverWildCard_3
+                },
 
-                DriverReputation.PAY_DRIVER_SEASON =>
+                DriverReputation.PAY_DRIVER_SEASON => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_PayDriverSeason,
+                    Strings.ContractLetterWindow_ReputationReason_PayDriverSeason_2,
+                    Strings.ContractLetterWindow_ReputationReason_PayDriverSeason_3
+                },
 
-                DriverReputation.YOUNG_TALENT =>
+                DriverReputation.YOUNG_TALENT => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_YoungTalent,
+                    Strings.ContractLetterWindow_ReputationReason_YoungTalent_2,
+                    Strings.ContractLetterWindow_ReputationReason_YoungTalent_3
+                },
 
-                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN =>
+                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_YoungChampionshipUnproven,
+                    Strings.ContractLetterWindow_ReputationReason_YoungChampionshipUnproven_2,
+                    Strings.ContractLetterWindow_ReputationReason_YoungChampionshipUnproven_3
+                },
 
-                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL =>
+                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_YoungChampionship,
+                    Strings.ContractLetterWindow_ReputationReason_YoungChampionship_2,
+                    Strings.ContractLetterWindow_ReputationReason_YoungChampionship_3
+                },
 
-                DriverReputation.PRIME_MIDFIELD =>
+                DriverReputation.PRIME_MIDFIELD => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_PrimeMidfield,
+                    Strings.ContractLetterWindow_ReputationReason_PrimeMidfield_2,
+                    Strings.ContractLetterWindow_ReputationReason_PrimeMidfield_3
+                },
 
-                DriverReputation.PRIME_STRONG_MIDFIELD =>
+                DriverReputation.PRIME_STRONG_MIDFIELD => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_PrimeStrongMidfield,
+                    Strings.ContractLetterWindow_ReputationReason_PrimeStrongMidfield_2,
+                    Strings.ContractLetterWindow_ReputationReason_PrimeStrongMidfield_3
+                },
 
-                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN =>
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_PrimeChampionshipUnproven,
+                    Strings.ContractLetterWindow_ReputationReason_PrimeChampionshipUnproven_2,
+                    Strings.ContractLetterWindow_ReputationReason_PrimeChampionshipUnproven_3
+                },
 
-                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL =>
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_PrimeChampionship,
+                    Strings.ContractLetterWindow_ReputationReason_PrimeChampionship_2,
+                    Strings.ContractLetterWindow_ReputationReason_PrimeChampionship_3
+                },
 
-                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED =>
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_PrimeChampionshipWashed,
+                    Strings.ContractLetterWindow_ReputationReason_PrimeChampionshipWashed_2,
+                    Strings.ContractLetterWindow_ReputationReason_PrimeChampionshipWashed_3
+                },
 
-                DriverReputation.AGEING_MIDFIELD =>
+                DriverReputation.AGEING_MIDFIELD => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_AgeingMidfield,
+                    Strings.ContractLetterWindow_ReputationReason_AgeingMidfield_2,
+                    Strings.ContractLetterWindow_ReputationReason_AgeingMidfield_3
+                },
 
-                DriverReputation.AGEING_STRONG_MIDFIELD =>
+                DriverReputation.AGEING_STRONG_MIDFIELD => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_AgeingStrongMidfield,
+                    Strings.ContractLetterWindow_ReputationReason_AgeingStrongMidfield_2,
+                    Strings.ContractLetterWindow_ReputationReason_AgeingStrongMidfield_3
+                },
 
-                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL =>
+                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_AgeingChampionship,
+                    Strings.ContractLetterWindow_ReputationReason_AgeingChampionship_2,
+                    Strings.ContractLetterWindow_ReputationReason_AgeingChampionship_3
+                },
 
-                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED =>
+                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED => new[]
+                {
                     Strings.ContractLetterWindow_ReputationReason_AgeingChampionshipWashed,
+                    Strings.ContractLetterWindow_ReputationReason_AgeingChampionshipWashed_2,
+                    Strings.ContractLetterWindow_ReputationReason_AgeingChampionshipWashed_3
+                },
 
-                _ => Strings.ContractLetterWindow_ReputationReason_Default
+                _ => new[]
+                {
+                    Strings.ContractLetterWindow_ReputationReason_Default,
+                    Strings.ContractLetterWindow_ReputationReason_Default_2,
+                    Strings.ContractLetterWindow_ReputationReason_Default_3
+                }
             };
+
+            return alternatives[_phrasingRandom.Next(alternatives.Length)];
         }
 
         private string GetCompetitionMention(string replacedDriverName)
@@ -332,54 +413,138 @@ namespace AMS2ChEd
             return string.IsNullOrEmpty(detail) ? rejectionReason : $"{rejectionReason} {detail}";
         }
 
+        /// <summary>
+        /// Tacks an extra sentence onto a reputation reason describing how the player's reputation
+        /// measures up against this specific seat, using the same over/good/perfect/under-qualified
+        /// scale <see cref="DriverHirer"/> uses to decide who a team actually hires. PerfectFit gets
+        /// no extra sentence - the standard reputation reason already covers a straightforward hire.
+        /// Success-side counterpart of <see cref="AppendQualificationDetail"/>.
+        /// </summary>
+        private static string AppendSuccessQualificationDetail(string reputationReason, DriverReputation playerReputation, DriverRole role, TeamReputation teamReputation)
+        {
+            var fit = new DriverHirer().DoesDriverFitTeamPolicy(playerReputation, role, teamReputation);
+            string detail = fit switch
+            {
+                DriverHirer.DriverPolicyFit.OverQualified => Strings.ContractLetterWindow_SuccessQualificationDetail_OverQualified,
+                DriverHirer.DriverPolicyFit.GoodFit => Strings.ContractLetterWindow_SuccessQualificationDetail_GoodFit,
+                DriverHirer.DriverPolicyFit.UnderQualified => Strings.ContractLetterWindow_SuccessQualificationDetail_UnderQualified,
+                _ => null
+            };
+
+            return string.IsNullOrEmpty(detail) ? reputationReason : $"{reputationReason} {detail}";
+        }
+
         private string GetRejectionReason(DriverReputation reputation)
         {
-            return reputation switch
+            string[] alternatives = reputation switch
             {
-                DriverReputation.PAY_DRIVER_WILD_CARD =>
+                DriverReputation.PAY_DRIVER_WILD_CARD => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_PayDriverWildCard,
+                    Strings.ContractLetterWindow_RejectionReason_PayDriverWildCard_2,
+                    Strings.ContractLetterWindow_RejectionReason_PayDriverWildCard_3
+                },
 
-                DriverReputation.PAY_DRIVER_SEASON =>
+                DriverReputation.PAY_DRIVER_SEASON => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_PayDriverSeason,
+                    Strings.ContractLetterWindow_RejectionReason_PayDriverSeason_2,
+                    Strings.ContractLetterWindow_RejectionReason_PayDriverSeason_3
+                },
 
-                DriverReputation.YOUNG_TALENT =>
+                DriverReputation.YOUNG_TALENT => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_YoungTalent,
+                    Strings.ContractLetterWindow_RejectionReason_YoungTalent_2,
+                    Strings.ContractLetterWindow_RejectionReason_YoungTalent_3
+                },
 
-                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN =>
+                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_YoungChampionshipUnproven,
+                    Strings.ContractLetterWindow_RejectionReason_YoungChampionshipUnproven_2,
+                    Strings.ContractLetterWindow_RejectionReason_YoungChampionshipUnproven_3
+                },
 
-                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL =>
+                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_YoungChampionship,
+                    Strings.ContractLetterWindow_RejectionReason_YoungChampionship_2,
+                    Strings.ContractLetterWindow_RejectionReason_YoungChampionship_3
+                },
 
-                DriverReputation.PRIME_MIDFIELD =>
+                DriverReputation.PRIME_MIDFIELD => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_PrimeMidfield,
+                    Strings.ContractLetterWindow_RejectionReason_PrimeMidfield_2,
+                    Strings.ContractLetterWindow_RejectionReason_PrimeMidfield_3
+                },
 
-                DriverReputation.PRIME_STRONG_MIDFIELD =>
+                DriverReputation.PRIME_STRONG_MIDFIELD => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_PrimeStrongMidfield,
+                    Strings.ContractLetterWindow_RejectionReason_PrimeStrongMidfield_2,
+                    Strings.ContractLetterWindow_RejectionReason_PrimeStrongMidfield_3
+                },
 
-                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN =>
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_PrimeChampionshipUnproven,
+                    Strings.ContractLetterWindow_RejectionReason_PrimeChampionshipUnproven_2,
+                    Strings.ContractLetterWindow_RejectionReason_PrimeChampionshipUnproven_3
+                },
 
-                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL =>
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_PrimeChampionship,
+                    Strings.ContractLetterWindow_RejectionReason_PrimeChampionship_2,
+                    Strings.ContractLetterWindow_RejectionReason_PrimeChampionship_3
+                },
 
-                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED =>
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_PrimeChampionshipWashed,
+                    Strings.ContractLetterWindow_RejectionReason_PrimeChampionshipWashed_2,
+                    Strings.ContractLetterWindow_RejectionReason_PrimeChampionshipWashed_3
+                },
 
-                DriverReputation.AGEING_MIDFIELD =>
+                DriverReputation.AGEING_MIDFIELD => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_AgeingMidfield,
+                    Strings.ContractLetterWindow_RejectionReason_AgeingMidfield_2,
+                    Strings.ContractLetterWindow_RejectionReason_AgeingMidfield_3
+                },
 
-                DriverReputation.AGEING_STRONG_MIDFIELD =>
+                DriverReputation.AGEING_STRONG_MIDFIELD => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_AgeingStrongMidfield,
+                    Strings.ContractLetterWindow_RejectionReason_AgeingStrongMidfield_2,
+                    Strings.ContractLetterWindow_RejectionReason_AgeingStrongMidfield_3
+                },
 
-                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL =>
+                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_AgeingChampionship,
+                    Strings.ContractLetterWindow_RejectionReason_AgeingChampionship_2,
+                    Strings.ContractLetterWindow_RejectionReason_AgeingChampionship_3
+                },
 
-                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED =>
+                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED => new[]
+                {
                     Strings.ContractLetterWindow_RejectionReason_AgeingChampionshipWashed,
+                    Strings.ContractLetterWindow_RejectionReason_AgeingChampionshipWashed_2,
+                    Strings.ContractLetterWindow_RejectionReason_AgeingChampionshipWashed_3
+                },
 
-                _ => Strings.ContractLetterWindow_RejectionReason_Default
+                _ => new[]
+                {
+                    Strings.ContractLetterWindow_RejectionReason_Default,
+                    Strings.ContractLetterWindow_RejectionReason_Default_2,
+                    Strings.ContractLetterWindow_RejectionReason_Default_3
+                }
             };
+
+            return alternatives[_phrasingRandom.Next(alternatives.Length)];
         }
 
         private string GetPreferredDriverReason(DriverReputation replacedReputation, string replacedDriverName)

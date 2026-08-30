@@ -551,7 +551,7 @@
 
                                             <!-- Points -->
                                             <TextBlock Grid.Column="3"
-                                                      Text="{Binding Points, StringFormat=\{0\}pt}"
+                                                      Text="{Binding Points, StringFormat=\{0\}}"
                                                       FontSize="20"
                                                       FontWeight="SemiBold"
                                                       Foreground="#666666"
@@ -689,7 +689,7 @@
 
                                             <!-- Points -->
                                             <TextBlock Grid.Column="3"
-                                                      Text="{Binding Points, StringFormat=\{0\}pt}"
+                                                      Text="{Binding Points, StringFormat=\{0\}}"
                                                       FontSize="20"
                                                       FontWeight="SemiBold"
                                                       Foreground="#666666"

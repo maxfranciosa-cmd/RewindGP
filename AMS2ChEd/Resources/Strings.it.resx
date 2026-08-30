@@ -946,7 +946,7 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
     <value>EDIZIONE DI FINE STAGIONE · SPECIALE MERCATO PILOTI</value>
   </data>
   <data name="TeamApplicationWindow_PriceLabel" xml:space="preserve">
-    <value>PREZZO: UN SEDILE</value>
+    <value>PREZZO: UN SESTERZO</value>
   </data>
   <data name="TeamApplicationWindow_Masthead" xml:space="preserve">
     <value>MERCATO PILOTI</value>
@@ -1757,7 +1757,7 @@ Benvenuto/a nel team!</value>
   <data name="ContractLetterWindow_OffSeasonSuccessLetter_Format" xml:space="preserve">
     <value>Caro/a {0},
 
-sono lieto di confermarti che la tua candidatura per continuare a correre con {1} come {2} per la prossima stagione è stata accettata.
+sono lieto di confermarti che la tua candidatura per correre con {1} come {2} per la prossima stagione è stata accettata.
 
 {3}
 
@@ -1779,47 +1779,137 @@ Benvenuto/a nel team!</value>
   <data name="ContractLetterWindow_ReputationReason_PayDriverWildCard" xml:space="preserve">
     <value>Pur riconoscendo che il tuo budget porta risorse preziose al nostro team, vediamo anche del potenziale nel tuo talento grezzo. Questa opportunità ti permette di dimostrare le tue capacità quando conta di più.</value>
   </data>
+  <data name="ContractLetterWindow_ReputationReason_PayDriverWildCard_2" xml:space="preserve">
+    <value>Il tuo budget apre certamente delle porte, ma sono stati i lampi di ritmo nei tuoi dati a farti guadagnare davvero questo sedile. Ora sta a te confermarlo in pista.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PayDriverWildCard_3" xml:space="preserve">
+    <value>Non neghiamo che i finanziamenti abbiano aiutato la conversazione, ma molti piloti ben finanziati non ricevono questa chiamata. La tua è arrivata per quello che abbiamo visto nei dati.</value>
+  </data>
   <data name="ContractLetterWindow_ReputationReason_PayDriverSeason" xml:space="preserve">
     <value>Il tuo sostegno finanziario ti ha garantito questo sedile, ma ci aspettiamo che tu dimostri di meritarlo attraverso le tue prestazioni in pista. Mostraci di cosa sei capace.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PayDriverSeason_2" xml:space="preserve">
+    <value>Il tuo sostegno tiene le luci accese, e non lo nascondiamo - ma questo sedile è tuo solo se i risultati seguiranno.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PayDriverSeason_3" xml:space="preserve">
+    <value>Non giriamoci intorno: il tuo sostegno finanziario ha fatto pendere la bilancia qui. Quello che succede ora dipende interamente da cosa farai con la vettura.</value>
   </data>
   <data name="ContractLetterWindow_ReputationReason_YoungTalent" xml:space="preserve">
     <value>Le tue recenti prestazioni hanno attirato la nostra attenzione. Anche se sei ancora in fase di crescita come pilota, vediamo in te un potenziale enorme. Siamo disposti a scommettere sul tuo talento grezzo e a darti l'opportunità di imparare e crescere con noi.</value>
   </data>
+  <data name="ContractLetterWindow_ReputationReason_YoungTalent_2" xml:space="preserve">
+    <value>Sei ancora acerbo, e tutti nel paddock lo sanno - ma i numeri che stai facendo registrare sono difficili da ignorare. Preferiamo scommettere presto su quel potenziale piuttosto che vedere qualcun altro ingaggiarti per primo.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_YoungTalent_3" xml:space="preserve">
+    <value>Nessuno pretende che tu sia già il prodotto finito. Ma un talento come il tuo non resta libero a lungo, e non volevamo essere quelli che se lo sono lasciati scappare.</value>
+  </data>
   <data name="ContractLetterWindow_ReputationReason_YoungChampionshipUnproven" xml:space="preserve">
     <value>Hai mostrato lampi di talento che suggeriscono che potresti avere la stoffa del campione. Tuttavia, non hai ancora dimostrato di poter mantenere quel livello con costanza. Crediamo che il nostro team possa offrirti l'ambiente giusto per compiere quell'ultimo passo.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_YoungChampionshipUnproven_2" xml:space="preserve">
+    <value>Hai già avuto il ritmo per vincere, solo non la costanza per dimostrare che non fosse un caso isolato. Crediamo che una stagione con più struttura alle spalle sia esattamente ciò che trasforma quel potenziale in risultati.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_YoungChampionshipUnproven_3" xml:space="preserve">
+    <value>La velocità non è mai stata la tua domanda aperta - lo è la capacità di ripeterla gara dopo gara. Siamo disposti a scoprirlo con il nostro nome sulla vettura.</value>
   </data>
   <data name="ContractLetterWindow_ReputationReason_YoungChampionship" xml:space="preserve">
     <value>I tuoi risultati parlano da soli. Hai dimostrato di avere il talento per lottare per i campionati, e vogliamo quella mentalità vincente nel nostro box. Crediamo che insieme potremo raggiungere grandi successi.</value>
   </data>
+  <data name="ContractLetterWindow_ReputationReason_YoungChampionship_2" xml:space="preserve">
+    <value>Hai già dimostrato di poter lottare per i titoli, e questo è più raro di quanto la maggior parte delle persone pensi. Vogliamo quella mentalità dalla nostra parte del box.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_YoungChampionship_3" xml:space="preserve">
+    <value>Piloti da campionato della tua età non capitano spesso. Non volevamo lasciarci sfuggire questa occasione.</value>
+  </data>
   <data name="ContractLetterWindow_ReputationReason_PrimeMidfield" xml:space="preserve">
     <value>La tua costanza e affidabilità sono esattamente ciò di cui il nostro team ha bisogno. Potresti non conquistare i titoli dei giornali, ma porti risultati solidi gara dopo gara, e questo per noi ha un valore inestimabile.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeMidfield_2" xml:space="preserve">
+    <value>Non sarai il nome di cui tutti parlano dopo la gara, ma sarai quello che porta a casa punti più spesso degli altri. Per noi questo vale più dei titoli dei giornali.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeMidfield_3" xml:space="preserve">
+    <value>Abbiamo guardato i tuoi risultati e visto esattamente ciò di cui avevamo bisogno: qualcuno che si presenta e mantiene le promesse, weekend dopo weekend, senza drammi.</value>
   </data>
   <data name="ContractLetterWindow_ReputationReason_PrimeStrongMidfield" xml:space="preserve">
     <value>Hai costantemente ottenuto più di quanto ci si aspettasse a centro gruppo, e crediamo che tu sia pronto per la prossima sfida. La tua capacità di sfruttare al massimo ogni opportunità ti rende un candidato ideale per il nostro team.</value>
   </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeStrongMidfield_2" xml:space="preserve">
+    <value>Hai ottenuto dalla tua vettura più di quanto probabilmente meritasse, e questo tipo di capacità di sfruttare al massimo non passa inosservato. Pensiamo che tu sia pronto a fare lo stesso per noi, con strumenti migliori.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeStrongMidfield_3" xml:space="preserve">
+    <value>Ogni risultato che hai ottenuto è stato un po' migliore di quanto avrebbe dovuto essere. Vogliamo vedere cosa farai con un vero salto di qualità.</value>
+  </data>
   <data name="ContractLetterWindow_ReputationReason_PrimeChampionshipUnproven" xml:space="preserve">
     <value>Hai dimostrato un ritmo da vincitore di gare, ma il campionato ti è finora sfuggito. Crediamo che il nostro team possa offrirti la piattaforma per lottare finalmente per il titolo che meriti.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeChampionshipUnproven_2" xml:space="preserve">
+    <value>Hai avuto la velocità per vincere le gare - manca solo il titolo. Pensiamo che sia più una questione di opportunità che di capacità, e vorremmo dartene una migliore.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeChampionshipUnproven_3" xml:space="preserve">
+    <value>Un ritmo da vincitore di gare come il tuo di solito trova prima o poi un campionato. Vorremmo essere il team che aiuta a farlo accadere.</value>
   </data>
   <data name="ContractLetterWindow_ReputationReason_PrimeChampionship" xml:space="preserve">
     <value>Da campione affermato, porti l'esperienza vincente e la mentalità di cui abbiamo bisogno. Il tuo palmarès parla da sé, e siamo onorati di averti nel nostro team.</value>
   </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeChampionship_2" xml:space="preserve">
+    <value>Sai cosa serve per vincere un titolo, e quell'esperienza per noi vale più di quasi tutto il resto sul mercato in questo momento.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeChampionship_3" xml:space="preserve">
+    <value>Non ci sono molti campioni affermati disponibili in un dato momento. Quando uno diventa un'opzione, lo ingaggi - semplice.</value>
+  </data>
   <data name="ContractLetterWindow_ReputationReason_PrimeChampionshipWashed" xml:space="preserve">
     <value>Anche se qualcuno potrebbe dire che i tuoi giorni migliori sono alle spalle, noi vediamo un campione affamato di smentire gli scettici. La tua esperienza e la tua determinazione ti rendono perfetto per il nostro team.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeChampionshipWashed_2" xml:space="preserve">
+    <value>La forma è temporanea, ma l'istinto che ti ha reso campione non svanisce così facilmente. Stiamo puntando sul pilota che sappiamo essere ancora lì dentro.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_PrimeChampionshipWashed_3" xml:space="preserve">
+    <value>Molti ti hanno dato per finito ultimamente. Noi abbiamo guardato oltre i risultati recenti e vediamo ancora un campione che vale la pena avere in vettura.</value>
   </data>
   <data name="ContractLetterWindow_ReputationReason_AgeingMidfield" xml:space="preserve">
     <value>I tuoi anni di esperienza ti rendono un pilota affidabile su cui contare. Nella nostra posizione, affidabilità e costanza sono esattamente ciò di cui abbiamo bisogno, e tu le garantisci ogni fine settimana.</value>
   </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingMidfield_2" xml:space="preserve">
+    <value>Fai questo mestiere da abbastanza tempo da sapere esattamente cosa serve in un weekend di gara, e non è qualcosa che si può insegnare. Accogliamo volentieri quell'affidabilità.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingMidfield_3" xml:space="preserve">
+    <value>C'è molto da dire su un pilota che ha già visto tutto. Porti nel box una calma che i piloti più giovani semplicemente non hanno.</value>
+  </data>
   <data name="ContractLetterWindow_ReputationReason_AgeingStrongMidfield" xml:space="preserve">
     <value>La tua esperienza da veterano, unita alle tue prestazioni costantemente solide, ti rendono un'aggiunta ideale alla nostra formazione. Sai come estrarre il massimo dalla vettura.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingStrongMidfield_2" xml:space="preserve">
+    <value>Stai ancora trovando prestazioni nella vettura che piloti la metà dei tuoi anni si lasciano sfuggire. Un mestiere di correre così non ha data di scadenza.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingStrongMidfield_3" xml:space="preserve">
+    <value>La tua esperienza si traduce ancora direttamente in tempo sul giro, ed è esattamente il profilo che stavamo cercando.</value>
   </data>
   <data name="ContractLetterWindow_ReputationReason_AgeingChampionship" xml:space="preserve">
     <value>L'età è solo un numero, e continui a dimostrare di poter competere al più alto livello. La tua esperienza e il tuo mestiere di correre sono risorse inestimabili per il nostro team.</value>
   </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingChampionship_2" xml:space="preserve">
+    <value>Il calendario dice che non sei più giovane, ma i tuoi risultati di quest'anno dicono il contrario. Siamo felici di continuare a scommettere sul pilota, non sul numero.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingChampionship_3" xml:space="preserve">
+    <value>Continui a dimostrare che il mestiere di correre invecchia meglio di quanto la gente si aspetti. Preferiamo averlo in vettura piuttosto che scommetterci contro.</value>
+  </data>
   <data name="ContractLetterWindow_ReputationReason_AgeingChampionshipWashed" xml:space="preserve">
     <value>Potresti essere sceso dal tuo picco, ma crediamo che tu abbia ancora il fuoco dentro. Ti stiamo dando la possibilità di riconquistare la gloria passata e mettere a tacere i tuoi critici.</value>
   </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingChampionshipWashed_2" xml:space="preserve">
+    <value>Sappiamo che gli anni migliori sono alle spalle sulla carta, ma abbiamo visto ancora abbastanza scintilla per pensare che ci sia un altro buon capitolo in te - e vogliamo farne parte.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_AgeingChampionshipWashed_3" xml:space="preserve">
+    <value>In questa fase della carriera tutti ti danno per spacciato. Abbiamo deciso di scommettere contro quel consenso.</value>
+  </data>
   <data name="ContractLetterWindow_ReputationReason_Default" xml:space="preserve">
     <value>La tua dedizione e la tua passione per le corse ci hanno colpito, e crediamo che tu meriti questa opportunità.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_Default_2" xml:space="preserve">
+    <value>C'è qualcosa nel modo in cui ti comporti all'interno del team che ci ha colpito, e questo ha pesato molto in questa decisione.</value>
+  </data>
+  <data name="ContractLetterWindow_ReputationReason_Default_3" xml:space="preserve">
+    <value>Abbiamo soppesato tutto ciò che avevamo sul tavolo, e alla fine sei semplicemente il pilota che volevamo a rappresentare questo team.</value>
   </data>
   <data name="ContractLetterWindow_RejectionLetter_Format" xml:space="preserve">
     <value>Caro/a {0},
@@ -1860,47 +1950,137 @@ Cordiali saluti,</value>
   <data name="ContractLetterWindow_RejectionReason_PayDriverWildCard" xml:space="preserve">
     <value>Pur apprezzando il tuo sostegno finanziario, abbiamo ritenuto che la mancanza di un impegno per l'intera stagione e di un palmarès comprovato rendessero questa proposta difficile da accettare in questo momento.</value>
   </data>
+  <data name="ContractLetterWindow_RejectionReason_PayDriverWildCard_2" xml:space="preserve">
+    <value>Apprezziamo il sostegno che porteresti, ma un accordo occasionale come questo non ci dà la certezza di cui abbiamo bisogno per la stagione che ci aspetta.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PayDriverWildCard_3" xml:space="preserve">
+    <value>Abbiamo preso nota dei tuoi finanziamenti, ma senza un impegno a più lungo termine alle spalle non potevamo giustificare il sedile rispetto ad altre opzioni sul tavolo.</value>
+  </data>
   <data name="ContractLetterWindow_RejectionReason_PayDriverSeason" xml:space="preserve">
     <value>Sebbene il tuo sostegno finanziario sia stato certamente un fattore nella nostra valutazione, alla fine abbiamo dato priorità a prestazioni ed esperienza comprovate per questo sedile in particolare.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PayDriverSeason_2" xml:space="preserve">
+    <value>Il tuo sostegno ha certamente aperto la porta a questa conversazione, ma alla fine avevamo bisogno di più ritmo comprovato di quanto il solo budget potesse offrire.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PayDriverSeason_3" xml:space="preserve">
+    <value>Siamo grati per l'interesse che il tuo sostegno ha portato, ma questo sedile doveva alla fine essere assegnato per merito e non per budget.</value>
   </data>
   <data name="ContractLetterWindow_RejectionReason_YoungTalent" xml:space="preserve">
     <value>Il tuo talento grezzo è innegabile, ma abbiamo ritenuto che i rischi legati a un pilota con poca esperienza fossero troppo alti per la nostra situazione attuale. Abbiamo bisogno di qualcuno che possa garantire risultati costanti fin da subito.</value>
   </data>
+  <data name="ContractLetterWindow_RejectionReason_YoungTalent_2" xml:space="preserve">
+    <value>C'è chiaramente talento, ma non possiamo permetterci di passare una stagione a scoprire quanto sia ancora acerbo. Abbiamo bisogno di certezze adesso, non di potenziale.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_YoungTalent_3" xml:space="preserve">
+    <value>Potresti benissimo essere una stella in formazione, ma "in formazione" non è esattamente ciò che questo sedile richiede al momento.</value>
+  </data>
   <data name="ContractLetterWindow_RejectionReason_YoungChampionshipUnproven" xml:space="preserve">
     <value>Sebbene tu abbia mostrato lampi di talento, abbiamo bisogno di un pilota che abbia dimostrato di poter competere a questo livello con costanza. La pressione del nostro team richiede qualcuno con un palmarès più consolidato.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_YoungChampionshipUnproven_2" xml:space="preserve">
+    <value>Il ritmo c'è, evidentemente, nei tuoi giorni migliori - sono i giorni intermedi a preoccuparci. Abbiamo bisogno di un pilota su cui contare ogni singolo weekend.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_YoungChampionshipUnproven_3" xml:space="preserve">
+    <value>Hai dimostrato di saper vincere. Quello che non hai ancora dimostrato è di saperlo fare con costanza, ed è proprio su questo che non possiamo rischiare ora.</value>
   </data>
   <data name="ContractLetterWindow_RejectionReason_YoungChampionship" xml:space="preserve">
     <value>Questa è stata una decisione eccezionalmente difficile. Le tue credenziali da campione parlano da sole, ma abbiamo ritenuto che l'esperienza del nostro attuale pilota con il team ci offra un leggero vantaggio per il futuro.</value>
   </data>
+  <data name="ContractLetterWindow_RejectionReason_YoungChampionship_2" xml:space="preserve">
+    <value>Ci è davvero dispiaciuto dover dire di no. Alla fine, la familiarità del nostro attuale pilota con l'assetto ha fatto pendere una decisione molto combattuta.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_YoungChampionship_3" xml:space="preserve">
+    <value>In termini di puro talento c'era pochissima differenza tra te e il nostro attuale pilota. Alla fine abbiamo scelto il male minore, per così dire.</value>
+  </data>
   <data name="ContractLetterWindow_RejectionReason_PrimeMidfield" xml:space="preserve">
     <value>La tua affidabilità è encomiabile, ma stiamo cercando un pilota che possa andare oltre solide prestazioni di centro gruppo. Abbiamo bisogno di qualcuno capace, di tanto in tanto, di ottenere risultati eccezionali.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeMidfield_2" xml:space="preserve">
+    <value>Sei un pilota affidabile, e lo diciamo come un complimento - ma "affidabile" non è esattamente ciò che ci farà salire in classifica quest'anno.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeMidfield_3" xml:space="preserve">
+    <value>Solido va bene, ma per questo sedile in particolare stiamo cercando qualcosa in più di solido.</value>
   </data>
   <data name="ContractLetterWindow_RejectionReason_PrimeStrongMidfield" xml:space="preserve">
     <value>Sei un pilota di qualità nel centro gruppo, ma abbiamo ritenuto che il nostro attuale pilota offra un margine di crescita leggermente maggiore e un'esperienza più adatta ai nostri obiettivi immediati.</value>
   </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeStrongMidfield_2" xml:space="preserve">
+    <value>È stata più equilibrata di quanto pensi. Alla fine la maggiore esperienza del nostro attuale pilota con il team ha fatto pendere la decisione dalla sua parte.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeStrongMidfield_3" xml:space="preserve">
+    <value>Saresti stata/o una scelta assolutamente ragionevole - il nostro attuale pilota lo è stato solo leggermente di più, per ora.</value>
+  </data>
   <data name="ContractLetterWindow_RejectionReason_PrimeChampionshipUnproven" xml:space="preserve">
     <value>Sebbene le tue capacità di vincere gare siano impressionanti, abbiamo bisogno di un pilota che abbia dimostrato di poter mantenere un livello da campionato per l'intera stagione.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeChampionshipUnproven_2" xml:space="preserve">
+    <value>Le vittorie sono reali, ma dobbiamo vedere una lotta per il titolo sostenuta per un'intera stagione prima di affidare un sedile come questo.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeChampionshipUnproven_3" xml:space="preserve">
+    <value>Hai dimostrato di saper vincere le gare. Abbiamo bisogno della prova che tu sappia vincere i campionati, ed è una domanda completamente diversa.</value>
   </data>
   <data name="ContractLetterWindow_RejectionReason_PrimeChampionship" xml:space="preserve">
     <value>Questa decisione si è giocata su margini minimi. Sia tu che il nostro attuale pilota siete di livello da campionato, ma abbiamo ritenuto che la continuità con la nostra formazione attuale fosse la strada migliore da percorrere.</value>
   </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeChampionship_2" xml:space="preserve">
+    <value>Due campioni, un solo sedile - non ci sarebbe mai stata una risposta facile qui. Alla fine siamo rimasti sulla continuità.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeChampionship_3" xml:space="preserve">
+    <value>Questa decisione si è giocata davvero a testa o croce, ai nostri occhi. Restare con ciò che conosciamo già ha prevalso, di misura.</value>
+  </data>
   <data name="ContractLetterWindow_RejectionReason_PrimeChampionshipWashed" xml:space="preserve">
     <value>Pur rispettando il tuo pedigree da campione, nutriamo dubbi sulla tua capacità di ritrovare la forma di un tempo. In questa fase, abbiamo bisogno di un pilota costantemente al proprio apice.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeChampionshipWashed_2" xml:space="preserve">
+    <value>Rispettiamo tutto ciò che hai vinto, ma i campionati si decidono nel presente, non nel passato. Dobbiamo sapere che ci sei adesso.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_PrimeChampionshipWashed_3" xml:space="preserve">
+    <value>Il tuo pedigree non è in discussione. Se si stia ancora traducendo in risultati proprio in questo momento è ciò che ci ha fatto esitare.</value>
   </data>
   <data name="ContractLetterWindow_RejectionReason_AgeingMidfield" xml:space="preserve">
     <value>La tua esperienza è preziosa, ma stiamo cercando un pilota che possa offrire più della semplice affidabilità. Abbiamo bisogno di qualcuno che sappia sfruttare al massimo ogni opportunità di punti.</value>
   </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingMidfield_2" xml:space="preserve">
+    <value>L'affidabilità da sola non ci fa guadagnare nulla in più quest'anno. Da questo sedile ci serve un po' più di margine di crescita.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingMidfield_3" xml:space="preserve">
+    <value>Porterai sempre un risultato solido, e lo rispettiamo - ma solido non è bastato per prevalere qui.</value>
+  </data>
   <data name="ContractLetterWindow_RejectionReason_AgeingStrongMidfield" xml:space="preserve">
     <value>Sebbene la tua presenza da veterano sarebbe stata utile, alla fine abbiamo ritenuto che il nostro attuale pilota offra un miglior potenziale a lungo termine per il team.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingStrongMidfield_2" xml:space="preserve">
+    <value>È un peccato, sinceramente - la tua forma sarebbe stata più che sufficiente per meritarlo. Abbiamo semplicemente ritenuto che il quadro a lungo termine favorisse qualcun altro.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingStrongMidfield_3" xml:space="preserve">
+    <value>Le tue prestazioni recenti hanno reso questa una scelta davvero difficile. Alla fine ci siamo orientati verso dove sta andando questo sedile nel lungo periodo.</value>
   </data>
   <data name="ContractLetterWindow_RejectionReason_AgeingChampionship" xml:space="preserve">
     <value>È stata una decisione molto combattuta. La tua esperienza e il tuo mestiere di correre sono eccezionali, ma abbiamo scelto di continuare con il nostro attuale pilota, che ha più anni davanti a sé in questo sport.</value>
   </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingChampionship_2" xml:space="preserve">
+    <value>C'è ancora un vero mestiere di correre in quello che fai, e questa è stata una delle decisioni più difficili che abbiamo dovuto prendere. Alla fine ha prevalso la longevità per il team.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingChampionship_3" xml:space="preserve">
+    <value>Nessuno qui dentro dubita di cosa tu sappia ancora fare al volante. Abbiamo solo sentito il bisogno di pianificare un po' più avanti di quanto il tuo programma attuale permetta.</value>
+  </data>
   <data name="ContractLetterWindow_RejectionReason_AgeingChampionshipWashed" xml:space="preserve">
     <value>Pur ammirando la tua determinazione nel voler tornare a vincere, abbiamo ritenuto che il rischio di un calo di prestazioni superasse i potenziali benefici della tua esperienza.</value>
   </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingChampionshipWashed_2" xml:space="preserve">
+    <value>Ammiriamo che tu lo voglia ancora così tanto. Semplicemente non possiamo correre il rischio che le ultime stagioni siano più indicative di quelle precedenti.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_AgeingChampionshipWashed_3" xml:space="preserve">
+    <value>C'è molto cuore nel volere un'altra occasione. Non eravamo abbastanza sicuri che il ritmo sarebbe arrivato insieme ad essa.</value>
+  </data>
   <data name="ContractLetterWindow_RejectionReason_Default" xml:space="preserve">
     <value>Dopo aver soppesato tutti i fattori, abbiamo concluso che il nostro attuale pilota fosse la scelta più adatta per il team in questo momento.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_Default_2" xml:space="preserve">
+    <value>Non è stata una decisione facile, ma alla fine la nostra formazione attuale si sposa semplicemente un po' meglio con ciò verso cui stiamo costruendo.</value>
+  </data>
+  <data name="ContractLetterWindow_RejectionReason_Default_3" xml:space="preserve">
+    <value>Ogni candidato che abbiamo considerato aveva qualcosa da offrire. Questa volta, semplicemente, non è bastato a scalzare il nostro attuale pilota.</value>
   </data>
   <data name="ContractLetterWindow_PreferredDriverReason_PayDriverWildCard_Format" xml:space="preserve">
     <value>I rapporti consolidati di {0} con i nostri sponsor e la sua comprovata capacità di integrarsi rapidamente nel nostro team l'ha resa l'opzione più interessante.</value>
@@ -2823,5 +3003,14 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   </data>
   <data name="ContractLetterWindow_QualificationDetail_UnderQualified" xml:space="preserve">
     <value>In tutta onestà, questo sedile richiede al momento più di quanto i tuoi risultati abbiano finora dimostrato - un periodo a ricostruire la tua reputazione in un team meno esigente ti metterebbe in una posizione più forte in futuro.</value>
+  </data>
+  <data name="ContractLetterWindow_SuccessQualificationDetail_OverQualified" xml:space="preserve">
+    <value>Onestamente, il tuo curriculum è probabilmente superiore a quanto normalmente richiesto per questo sedile - ti assicuriamo a noi prima che qualcun altro lo faccia.</value>
+  </data>
+  <data name="ContractLetterWindow_SuccessQualificationDetail_GoodFit" xml:space="preserve">
+    <value>Eri esattamente il profilo che stavamo cercando - nessun compromesso, nessuna scommessa, solo l'incastro giusto per questo sedile.</value>
+  </data>
+  <data name="ContractLetterWindow_SuccessQualificationDetail_UnderQualified" xml:space="preserve">
+    <value>Ad essere sinceri, sulla carta non sei la scelta più sicura per questo sedile - ma ci piace puntare su un po' di potenziale, e crediamo che tu possa dimostrarlo.</value>
   </data>
 </root>
