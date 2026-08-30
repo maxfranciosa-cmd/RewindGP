@@ -35,12 +35,15 @@ jobs:
           "minor=$minor" >> $env:GITHUB_OUTPUT
           "fileVersion=$major.$minor.0.0" >> $env:GITHUB_OUTPUT
 
+      - name: Restore solution
+        run: dotnet restore AMS2ChEd\AMS2ChEd.sln
+
       - name: Run tests
-        run: dotnet test AMS2ChEd.Tests\AMS2ChEd.Tests.csproj -c Release
+        run: dotnet test AMS2ChEd.Tests\AMS2ChEd.Tests.csproj -c Release --no-restore
 
       - name: Build app (also builds & stages Updater + SteamDlcCheck)
         run: >
-          dotnet build AMS2ChEd\AMS2ChEd.csproj -c Release
+          dotnet build AMS2ChEd\AMS2ChEd.csproj -c Release --no-restore
           -p:AssemblyVersion=${{ steps.version.outputs.fileVersion }}
           -p:FileVersion=${{ steps.version.outputs.fileVersion }}
 
