@@ -14,6 +14,24 @@ architecture, implementation status, and known gaps.
 in-game and is reliable enough to depend on. Any form of persistent hooking is out of scope and
 not implemented - see "Architecture" below for why.
 
+**2026-09-15: post-patch write-path fully re-derived and live-confirmed again.** An AMS2 patch
+shifted every address `Ams2Constants.cs` depends on. The RTTI tags and read-only resolution were
+fixed on 2026-09-14; `IntPropertyTypeTag` needed a further correction (`0x141FF1640` ->
+`0x141FF1650`) found only once live testing started, since its original candidate was silently
+breaking `VmResolver`'s scoring AND `TryReadSlot`/`SlotWriter`'s tag check. `SetterRva`/
+`SetCarRva`/`CommitRva` (the write path) were re-derived by decompilation and then LIVE-CONFIRMED
+against a running game: opponent count, lap count, and a full car/track/livery selection all
+applied correctly and were visually confirmed in AMS2's own UI. See the "UPDATED 2026-09-15" /
+"LIVE-VERIFIED 2026-09-15" doc comments in `Ams2Constants.cs` for full evidence per constant.
+
+One real gap surfaced during this: `SetCarRva` internally validates the car/track/livery
+combination and silently no-ops (no write, no error, no crash) if it's invalid by AMS2's own
+rules - e.g. an out-of-range livery index for that car. This library doesn't expose that
+validation, so a caller passing a bad combination sees an apparent "success" from
+`ApplyRaceConfigAsync`. Not a bug in this library - production callers already resolve real,
+in-range livery numbers from season-pack data - but worth knowing if a car/track/livery apply
+silently doesn't take effect during future testing.
+
 ## Architecture
 
 Two pieces:
