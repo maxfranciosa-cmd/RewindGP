@@ -15,9 +15,16 @@ namespace Ams2Interop.Native;
 /// function (SetCar, or the generic setter) with an unvalidated pointer is a real crash risk, so
 /// this class never skips that check for a fresh scan hit.
 ///
+/// ValidateMaster also requires HasLiveSessionWrapperSignature (Practice/Qualifying/Race resolve
+/// together to three distinct pointers - see that method's doc comment), and both
+/// ResolveMaster/ResolveVm550 force a full re-scan every 12th call even if the cached pointer
+/// still validates. Both defend against a real, correctly-tagged but disconnected object passing
+/// plain tag validation - the bug class that kept car/track/livery from applying before
+/// (live-confirmed fixed 2026-09-27).
+///
 /// Master resolution (ScanForMaster) uses a mixed-base algorithm:
 /// <code>
-/// hit = <memory location where the container tag value 0x141fd43c8 was found>
+/// hit = <memory location where Ams2Constants.Vm498ContainerTag's value was found>
 /// if (hit - 0x100000008 &gt;= 0x700000000) continue;      // hit plausibility (note the +8 bias)
 /// candidate = hit - 8;
 /// if (!plausibleAms2Pointer(*candidate)) continue;         // candidate's own first qword
@@ -90,28 +97,35 @@ public sealed class VmResolver
     private readonly Action<string>? _log;
     private long _cachedMaster;
     private long _cachedVm550;
+    private int _masterResolveCount;
+    private int _vm550ResolveCount;
+
+    /// <summary>
+    /// Periodic-staleness defense: force a fresh resolve every 12th call, since ValidateMaster/ValidateVm550 only reject on outright tag
+    /// mismatch, which a real but disconnected object can pass indefinitely.
+    /// </summary>
+    private const int ForceRefreshInterval = 12;
 
     /// <param name="moduleBase">AMS2AVX.exe's resolved module base - used for the "candidate's own
     /// first qword must land inside the game's module" check both scanners perform. Uses the
     /// ACTUAL resolved base/size rather than assuming a hardcoded default, so it stays correct
     /// even if the module isn't loaded at its preferred address.</param>
     /// <param name="moduleSize">AMS2AVX.exe's resolved module image size, bounding the same check.</param>
-    /// <param name="log">Optional diagnostic sink - reports per-stage candidate counts during a
-    /// scan, so a resolution failure can be traced to a specific filter rather than just "found
-    /// nothing."</param>
+    /// <param name="log">Optional diagnostic sink - reports when a scan finds no usable candidate.</param>
     public VmResolver(ProcessMemory mem, long moduleBase, long moduleSize, Action<string>? log = null)
     {
         _mem = mem;
         _moduleBase = moduleBase;
         _moduleSize = moduleSize;
         _log = log;
-        _log?.Invoke($"VmResolver: moduleBase=0x{moduleBase:X} moduleSize=0x{moduleSize:X} ({moduleSize / 1048576.0:F1} MB)");
     }
 
     /// <summary>Master pointer; VM498 = *(master + 0x250).</summary>
     public long? ResolveMaster(bool allowFullScan = true)
     {
-        if (_cachedMaster != 0 && ValidateMaster(_cachedMaster))
+        _masterResolveCount++;
+        var forceRefresh = allowFullScan && _masterResolveCount % ForceRefreshInterval == 0;
+        if (!forceRefresh && _cachedMaster != 0 && ValidateMaster(_cachedMaster))
             return _cachedMaster;
 
         if (!allowFullScan) return null;
@@ -120,16 +134,19 @@ public sealed class VmResolver
         foreach (var candidate in ScanForMaster())
         {
             tried++;
-            if (!ValidateMaster(candidate))
-            {
-                _log?.Invoke($"master candidate #{tried} @ 0x{candidate:X} failed ValidateMaster (identity tag / skill-range check)");
-                continue;
-            }
-            _log?.Invoke($"master candidate #{tried} @ 0x{candidate:X} PASSED ValidateMaster");
+            if (!ValidateMaster(candidate)) continue;
             _cachedMaster = candidate;
             return candidate;
         }
-        if (tried == 0) _log?.Invoke("master: no structurally-valid candidates survived the scan filters at all");
+
+        // A forced periodic re-scan finding nothing doesn't mean the previously-cached master went
+        // bad - it just means this particular scan pass didn't turn up a (possibly-identical)
+        // candidate. Only actually replace a working cache on a REAL validation failure, never on a
+        // scan that simply came up empty.
+        if (forceRefresh && _cachedMaster != 0 && ValidateMaster(_cachedMaster))
+            return _cachedMaster;
+
+        _log?.Invoke($"VmResolver: master not resolved ({tried} scan candidate(s), none passed ValidateMaster) - is Custom Race open?");
         return null;
     }
 
@@ -162,7 +179,9 @@ public sealed class VmResolver
     /// </summary>
     public long? ResolveVm550(bool allowFullScan = true)
     {
-        if (_cachedVm550 != 0 && ValidateVm550(_cachedVm550))
+        _vm550ResolveCount++;
+        var forceRefresh = allowFullScan && _vm550ResolveCount % ForceRefreshInterval == 0;
+        if (!forceRefresh && _cachedVm550 != 0 && ValidateVm550(_cachedVm550))
             return _cachedVm550;
 
         var master = ResolveMaster(allowFullScan);
@@ -171,22 +190,18 @@ public sealed class VmResolver
             var structural = FindVm550Structural(m);
             if (structural is long sv && ValidateVm550(sv))
             {
-                _log?.Invoke($"vm550 structural walk from master @ 0x{m:X} found 0x{sv:X} (PASSED ValidateVm550)");
                 _cachedVm550 = sv;
                 return sv;
             }
-            _log?.Invoke("vm550 structural walk from master found nothing - trying master-context-pair scan");
 
             if (allowFullScan)
             {
                 var viaContext = FindVm550ViaMasterContextPair(m);
                 if (viaContext is long cv && ValidateVm550(cv))
                 {
-                    _log?.Invoke($"vm550 master-context-pair scan found 0x{cv:X} (PASSED ValidateVm550)");
                     _cachedVm550 = cv;
                     return cv;
                 }
-                _log?.Invoke("vm550 master-context-pair scan found nothing - falling back to global tag scan");
             }
         }
 
@@ -196,16 +211,17 @@ public sealed class VmResolver
         foreach (var candidate in ScanForVm550())
         {
             tried++;
-            if (!ValidateVm550(candidate))
-            {
-                _log?.Invoke($"vm550 candidate #{tried} @ 0x{candidate:X} failed ValidateVm550 (identity tag check)");
-                continue;
-            }
-            _log?.Invoke($"vm550 candidate #{tried} @ 0x{candidate:X} PASSED ValidateVm550");
+            if (!ValidateVm550(candidate)) continue;
             _cachedVm550 = candidate;
             return candidate;
         }
-        if (tried == 0) _log?.Invoke("vm550: no structurally-valid candidates survived the scan filters at all");
+
+        // Same reasoning as ResolveMaster's fallback - an empty forced re-scan doesn't invalidate a
+        // still-working cache.
+        if (forceRefresh && _cachedVm550 != 0 && ValidateVm550(_cachedVm550))
+            return _cachedVm550;
+
+        _log?.Invoke($"VmResolver: vm550 not resolved ({tried} scan candidate(s), none passed ValidateVm550) - is Custom Race open?");
         return null;
     }
 
@@ -240,7 +256,38 @@ public sealed class VmResolver
         if (!_mem.TryReadInt64(vm498 + 8, out var tag) || tag != Ams2Constants.Vm498IdentityTag) return false;
         // The skill slot, if readable, should be in a plausible range. An unreadable slot just
         // means "not configured yet," not "wrong object."
-        return !_mem.TryReadSlot(vm498, Ams2Constants.Vm498Slot.Skill, out var skill) || skill is >= 1 and < 200;
+        if (_mem.TryReadSlot(vm498, Ams2Constants.Vm498Slot.Skill, out var skill) && skill is not (>= 1 and < 200))
+            return false;
+        return HasLiveSessionWrapperSignature(vm498);
+    }
+
+    /// <summary>
+    /// Requires Practice1/Qualifying1/Race1 to resolve together to 3 distinct, validly-tagged
+    /// pointers (see Ams2Constants.SessionIndex for the wrapper-array layout this reads). A real, correctly-tagged vm498 whose session-wrapper array is stale
+    /// still passes the plain tag+skill-range check above, but typically fails this one
+    /// (unreadable/mismatched-tag entries, or entries collapsing onto the same pointer). It's a
+    /// cheap freshness signal, not a guarantee of liveness - unlike
+    /// SessionVmResolver.ValidatesAsContainer there's no known-live anchor to compare against yet
+    /// at this point, so ResolveMaster's score ordering picks among candidates that pass.
+    /// </summary>
+    private bool HasLiveSessionWrapperSignature(long vm498)
+    {
+        if (!TryReadSessionWrapperVm(vm498, Ams2Constants.SessionIndex.Practice1, out var p1)) return false;
+        if (!TryReadSessionWrapperVm(vm498, Ams2Constants.SessionIndex.Qualifying1, out var q1)) return false;
+        if (!TryReadSessionWrapperVm(vm498, Ams2Constants.SessionIndex.Race1, out var r1)) return false;
+        return p1 != q1 && p1 != r1 && q1 != r1;
+    }
+
+    /// <summary>Same two-level wrapper-array read as SessionVmResolver.TryReadSessionVm - duplicated rather than shared, matching this file's existing style of not cross-depending on SessionVmResolver.</summary>
+    private bool TryReadSessionWrapperVm(long vm498, int sessionIndex, out long vm)
+    {
+        vm = 0;
+        var wrapperOffset = 0x18 + sessionIndex * 8;
+        if (!_mem.TryReadPointerSafe(vm498 + wrapperOffset, out var wrapper)) return false;
+        if (!_mem.TryReadPointerSafe(wrapper + 0x18, out var candidate)) return false;
+        if (!_mem.TryReadInt64(candidate + 8, out var tag) || tag != Ams2Constants.Vm550IdentityTag) return false;
+        vm = candidate;
+        return true;
     }
 
     private bool ValidateVm550(long vm550) =>
@@ -307,50 +354,31 @@ public sealed class VmResolver
     /// <summary>Master scan - see this class's doc comment for the full byte-level algorithm this implements, including the mixed hit/candidate bases.</summary>
     private IEnumerable<long> ScanForMaster()
     {
-        var rawHits = 0;
-        var hitImplausible = 0;
-        var selfPtrUnreadable = 0;
-        var failedModuleRange = 0;
-        var failedSignature = 0;
-        var failedMinScore = 0;
         var results = new List<(long candidate, int score)>();
 
         foreach (var hit in MemoryScanner.FindOccurrences(_mem, Ams2Constants.Vm498ContainerTag))
         {
-            rawHits++;
-
             // Hit-plausibility check uses a +8-biased range (`hit - 0x100000008 < 0x700000000`)
             // rather than the usual `TryReadPointerSafe` bias.
-            if (unchecked((ulong)hit) - 0x100000008UL >= 0x700000000UL) { hitImplausible++; continue; }
+            if (unchecked((ulong)hit) - 0x100000008UL >= 0x700000000UL) continue;
 
             var candidate = hit - 8;
 
-            if (!_mem.TryReadInt64(candidate, out var selfPtr)) { selfPtrUnreadable++; continue; }
-            if (_moduleBase != 0 && (selfPtr < _moduleBase || selfPtr >= _moduleBase + _moduleSize))
-            {
-                failedModuleRange++;
-                continue;
-            }
+            if (!_mem.TryReadInt64(candidate, out var selfPtr)) continue;
+            if (_moduleBase != 0 && (selfPtr < _moduleBase || selfPtr >= _moduleBase + _moduleSize)) continue;
 
             // 4-pointer signature - HIT-relative offsets, not candidate-relative.
             if (!_mem.TryReadInt64(hit + 0x18, out var p1) || !IsPlausiblePointer(p1) ||
                 !_mem.TryReadInt64(hit + 0xd8, out var p2) || !IsPlausiblePointer(p2) ||
                 !_mem.TryReadInt64(hit + 0x110, out var p3) || !IsPlausiblePointer(p3) ||
                 !_mem.TryReadInt64(hit + 0x248, out var p4) || !IsPlausiblePointer(p4))
-            {
-                failedSignature++;
                 continue;
-            }
 
             var score = CountPopulatedIntProps(candidate);
-            if (score == 0) { failedMinScore++; continue; }
+            if (score == 0) continue;
 
             results.Add((candidate, score));
         }
-
-        _log?.Invoke($"master scan: rawHits={rawHits} hitImplausible={hitImplausible} selfPtrUnreadable={selfPtrUnreadable} " +
-                     $"failedModuleRange={failedModuleRange} failedSignature={failedSignature} " +
-                     $"failedMinScore={failedMinScore} survived={results.Count}");
 
         results.Sort((a, b) => b.score.CompareTo(a.score));
         foreach (var (candidate, _) in results)
@@ -364,36 +392,22 @@ public sealed class VmResolver
     /// </summary>
     private IEnumerable<long> ScanForVm550()
     {
-        var rawHits = 0;
-        var hitImplausible = 0;
-        var selfPtrUnreadable = 0;
-        var failedModuleRange = 0;
-        var failedMinScore = 0;
         var results = new List<(long candidate, int score)>();
 
         foreach (var hit in MemoryScanner.FindOccurrences(_mem, Ams2Constants.Vm550IdentityTag))
         {
-            rawHits++;
-
-            if (unchecked((ulong)hit) - 0x100000008UL >= 0x700000000UL) { hitImplausible++; continue; }
+            if (unchecked((ulong)hit) - 0x100000008UL >= 0x700000000UL) continue;
 
             var candidate = hit - 8;
 
-            if (!_mem.TryReadInt64(candidate, out var selfPtr)) { selfPtrUnreadable++; continue; }
-            if (_moduleBase != 0 && (selfPtr < _moduleBase || selfPtr >= _moduleBase + _moduleSize))
-            {
-                failedModuleRange++;
-                continue;
-            }
+            if (!_mem.TryReadInt64(candidate, out var selfPtr)) continue;
+            if (_moduleBase != 0 && (selfPtr < _moduleBase || selfPtr >= _moduleBase + _moduleSize)) continue;
 
             var score = CountPopulatedIntProps(candidate);
-            if (score == 0) { failedMinScore++; continue; }
+            if (score == 0) continue;
 
             results.Add((candidate, score));
         }
-
-        _log?.Invoke($"vm550 scan: rawHits={rawHits} hitImplausible={hitImplausible} selfPtrUnreadable={selfPtrUnreadable} " +
-                     $"failedModuleRange={failedModuleRange} failedMinScore={failedMinScore} survived={results.Count}");
 
         results.Sort((a, b) => b.score.CompareTo(a.score));
         foreach (var (candidate, _) in results)

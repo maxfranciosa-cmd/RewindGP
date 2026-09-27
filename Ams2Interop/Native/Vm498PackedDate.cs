@@ -8,7 +8,7 @@ namespace Ams2Interop.Native;
 /// (ProcessMemory.TryReadInt32/TryWriteInt32), not the property-node/setter-call path SlotWriter
 /// uses for everything else.
 ///
-/// Bit layout, from AMS2AVX.exe's VM498 constructor (FUN_1403eaab0):
+/// Bit layout (seeded from the local date when VM498 is constructed):
 /// <code>
 /// *(uint*)(vm498 + 0x188) =
 ///     (((uint)year &lt;&lt; 4 | (uint)month &amp; 0xf) &lt;&lt; 5 | (uint)day &amp; 0x1f)

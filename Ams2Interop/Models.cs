@@ -58,7 +58,7 @@ public sealed class SessionRulesConfig
 ///
 /// UNCONFIRMED whether writing slot values alone is enough, or whether - mirroring RaceDate
 /// needing DateType=Custom first - there's a separate RealHistoric-vs-Custom weather-mode slot
-/// that also needs setting. No such slot was identified via static analysis. If slots write and
+/// that also needs setting. No such slot has been identified. If slots write and
 /// verify but the weather doesn't visibly change in-game, that's the first thing to suspect.
 /// </summary>
 public sealed class SessionWeatherConfig

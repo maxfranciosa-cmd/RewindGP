@@ -36,8 +36,8 @@ public sealed class Ams2RaceConfigurator : IDisposable
     /// <param name="carHashes">Display name (or slug) -> veh_hash, e.g. from ams2_vehicle_catalog.csv.</param>
     /// <param name="trackHashes">Display name (or slug) -> track_hash, e.g. from circuits_ref.psv.</param>
     /// <param name="log">
-    /// Optional diagnostic sink, used for a few attach-time diagnostics (e.g. why the module base
-    /// couldn't be resolved) and per-candidate VM498/VM550 scan results during ApplyRaceConfigAsync.
+    /// Optional diagnostic sink: attach failures, pointer-resolution failures, and a one-line
+    /// summary of each ApplyRaceConfigAsync call (errors and unverified fields).
     /// </param>
     public Ams2RaceConfigurator(IReadOnlyDictionary<string, int> carHashes, IReadOnlyDictionary<string, int> trackHashes,
         Action<string>? log = null)
@@ -72,7 +72,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
         }
         _vmResolver = new VmResolver(_mem, _moduleBase, _moduleSize, log: _log);
         _slotWriter = new SlotWriter(_mem, _exec, _moduleBase);
-        _sessionVmResolver = new SessionVmResolver(_mem, _exec, _moduleBase, _moduleSize, log: _log);
+        _sessionVmResolver = new SessionVmResolver(_mem, _moduleBase, _moduleSize, log: _log);
 
         return true;
     }
@@ -96,20 +96,22 @@ public sealed class Ams2RaceConfigurator : IDisposable
     /// DIAGNOSTIC ONLY - not used by ApplyRaceConfigAsync. Resolves Practice1's/Qualifying1's own
     /// session VM pointer (see Native/SessionVmResolver.cs) so an external tool can dump/diff its
     /// int-property slots the same way ResolveForDiagnostics enables for vm498/vm550 - the only
-    /// way to find a candidate on/off or weather-mode slot beyond what's already confirmed. Costs
-    /// real remote-call round-trips on a cold resolve - see SessionVmResolver's doc comment.
+    /// way to find a candidate on/off or weather-mode slot beyond what's already confirmed. Pure
+    /// memory reads only (no remote calls) - see SessionVmResolver's doc comment - but requires
+    /// Race1's own VM550 to already be resolved, since it's used as the freshness anchor; returns
+    /// null if that isn't available yet.
     /// </summary>
     public long? ResolvePracticeVmForDiagnostics(long master)
     {
         RequireAttached();
-        return _sessionVmResolver!.ResolvePractice1(master);
+        return _vmResolver!.ResolveVm550() is long vm550 ? _sessionVmResolver!.ResolvePractice1(master, vm550) : null;
     }
 
     /// <summary>DIAGNOSTIC ONLY - see ResolvePracticeVmForDiagnostics's doc comment.</summary>
     public long? ResolveQualifyingVmForDiagnostics(long master)
     {
         RequireAttached();
-        return _sessionVmResolver!.ResolveQualifying1(master);
+        return _vmResolver!.ResolveVm550() is long vm550 ? _sessionVmResolver!.ResolveQualifying1(master, vm550) : null;
     }
 
     /// <summary>
@@ -121,7 +123,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
     public long? ResolveSessionContainerForDiagnostics(long master)
     {
         RequireAttached();
-        return _sessionVmResolver!.ResolveContainerForDiagnostics(master);
+        return _vmResolver!.ResolveVm550() is long vm550 ? _sessionVmResolver!.ResolveContainerForDiagnostics(master, vm550) : null;
     }
 
     public void Detach()
@@ -137,13 +139,15 @@ public sealed class Ams2RaceConfigurator : IDisposable
 
     /// <summary>
     /// Applies opponents/session-rules configuration, and car/track/livery, to the currently-open
-    /// Custom Race screen - the one function in this library confirmed reliable enough to depend
-    /// on (see README.md's Status section). Car/track/livery has no read-back verification (see
-    /// the SetCar call below) - a failed lookup or a SetCar call that didn't complete surfaces as
-    /// an error, but a call that executed and was silently rejected by AMS2 does not.
+    /// Custom Race screen (see README.md's Status section for what's live-confirmed).
     ///
-    /// Uses a two-write-then-verify discipline: every field is written, then re-written once more
-    /// after a short delay, then read back to confirm.
+    /// Order matters:
+    /// 1. Every slot field is written, then written again after a 2s settle delay (AMS2's Custom
+    ///    Race screen re-initializes some state shortly after opening and can clobber an early write).
+    /// 2. SetCar (car/track/livery) + commit run after that, once the screen has settled.
+    /// 3. Opponents are written one final time, because SetCar/commit recompute AMS2's own
+    ///    opponent/class counts for the new car and overwrite them.
+    /// Every field's read-back reflects its final write.
     /// </summary>
     public async Task<RaceConfigResult> ApplyRaceConfigAsync(
         int livery,
@@ -159,6 +163,9 @@ public sealed class Ams2RaceConfigurator : IDisposable
 
         var errors = new List<string>();
         var unverified = new List<(string, int, int?)>();
+        // Kept separate so the final post-SetCar opponents write can replace these results
+        // wholesale; merged into `unverified` before reporting.
+        var opponentsUnverified = new List<(string, int, int?)>();
 
         var carKnown = _carHashes.TryGetValue(car, out var carHash);
         if (!carKnown) errors.Add($"unknown car '{car}' - not present in the supplied hash dictionary");
@@ -177,25 +184,24 @@ public sealed class Ams2RaceConfigurator : IDisposable
         if (master is null)
             errors.Add("car/track/livery could not be applied - the master pointer could not be resolved - is Custom Race open?");
 
-        // Resolved once, up front, rather than inside ApplyOnce below: unlike every other resolve
-        // in this method, this one costs real remote-call round-trips per candidate, not just
-        // memory reads, so it's deliberately not repeated on the second write pass.
+        // Resolved once, up front, rather than inside ApplyOnce below - a full-process fallback scan
+        // is possible when master's own vm498 is stale, so this isn't repeated on the second pass.
         //
         // Also resolved (even when practice/qualifying configs are null) whenever RaceDate is being
         // applied with DateType=Custom - see SessionVmResolver.ResolveRace2's doc comment:
         // Race2/Practice1/Qualifying1 need that same date written directly, because AMS2 itself only
-        // propagates Race1's date into them when the player opens the in-game Race Settings submenu
-        // (confirmed) - depending on that is what caused the "date is correct in Race Settings but
-        // wrong once the race loads" bug.
+        // propagates Race1's date into them when the player opens the in-game Race Settings submenu.
         var needsDateSync = sessionRules?.RaceDate != null && sessionRules.DateType == DateType.Custom;
         long? practiceVm = null;
         long? qualifyVm = null;
         long? race2Vm = null;
-        if ((practice != null || qualifying != null || needsDateSync) && master is long sessionMaster)
+        // Race1's own vm550 (already resolved above) is required as the freshness anchor
+        // SessionVmResolver validates candidate containers against - see its doc comment.
+        if ((practice != null || qualifying != null || needsDateSync) && master is long sessionMaster && vm550 is long knownVm550)
         {
-            practiceVm = (practice != null || needsDateSync) ? _sessionVmResolver!.ResolvePractice1(sessionMaster) : null;
-            qualifyVm = (qualifying != null || needsDateSync) ? _sessionVmResolver!.ResolveQualifying1(sessionMaster) : null;
-            race2Vm = needsDateSync ? _sessionVmResolver!.ResolveRace2(sessionMaster) : null;
+            practiceVm = (practice != null || needsDateSync) ? _sessionVmResolver!.ResolvePractice1(sessionMaster, knownVm550) : null;
+            qualifyVm = (qualifying != null || needsDateSync) ? _sessionVmResolver!.ResolveQualifying1(sessionMaster, knownVm550) : null;
+            race2Vm = needsDateSync ? _sessionVmResolver!.ResolveRace2(sessionMaster, knownVm550) : null;
         }
         if (practice != null && practiceVm is null)
             errors.Add("practice config supplied but its session VM could not be resolved - see SessionVmResolver's doc comment");
@@ -204,7 +210,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
 
         void ApplyOnce()
         {
-            if (opponents != null && vm498 is long v498) ApplyOpponents(v498, opponents, unverified);
+            if (opponents != null && vm498 is long v498) ApplyOpponents(v498, opponents, opponentsUnverified);
             // vm498 is passed through regardless of `opponents` - ApplySessionRules needs it too,
             // for the VM498 packed-date write alongside VM550's slots (see TrySetVm498PackedDate).
             // practiceVm/qualifyVm/race2Vm are passed through regardless of `practice`/`qualifying`
@@ -216,30 +222,37 @@ public sealed class Ams2RaceConfigurator : IDisposable
 
         ApplyOnce();
 
-        // SetCar is a direct function call, not a staged slot write - called once, not as part
-        // of the two-write cycle below.
+        // SlotWriter already reads back each write immediately, so this delay isn't about our write
+        // landing - it's about outlasting AMS2's own Custom Race screen re-initializing some of its
+        // state shortly after opening, which can silently clobber a config written too early.
+        // Shorter delays were live-confirmed to lose writes.
+        await Task.Delay(TimeSpan.FromSeconds(2), ct).ConfigureAwait(false);
+        unverified.Clear(); // only the second, later write's verification result is meaningful
+        opponentsUnverified.Clear();
+        ApplyOnce();
+
+        // SetCar is a direct function call, not a staged slot write, so it isn't part of the
+        // two-write cycle above - but it runs AFTER that cycle settles, for the same reason the
+        // cycle exists: the screen's re-initialization can clobber an early SetCar too.
         if (carKnown && trackKnown && master is long m)
         {
+            // SetCarRva silently no-ops when its internal validation gate rejects the combination
+            // (see Ams2Constants.SetCarValidationGateRva). Calling the gate directly would say why,
+            // but its RVA hasn't been re-derived for the current AMS2 build, and remote-calling an
+            // unconfirmed address can crash the game - so it's not called. The MasterSlot
+            // read-back below still catches a rejection, just without the reason.
             var setCarAddress = _moduleBase + Ams2Constants.SetCarRva;
             var ok = await Task.Run(() => _exec!.CallSetCar(setCarAddress, m, trackHash, carHash, livery), ct)
                 .ConfigureAwait(false);
             if (!ok)
-                errors.Add("SetCar call did not complete (no read-back verification is available for this call)");
+                errors.Add("SetCar call did not complete");
+
+            CheckSetCarReadBack(m, trackHash, carHash, livery, unverified);
         }
 
-        // SlotWriter's own write already does an immediate read-back per slot; this outer delay
-        // only needs to give the game a moment to settle before the SECOND pass, not wait out
-        // anything specific - live-testing found 100ms enough.
-        await Task.Delay(TimeSpan.FromMilliseconds(100), ct).ConfigureAwait(false);
-        unverified.Clear(); // only the second, later write's verification result is meaningful
-        ApplyOnce();
-
-        // See Ams2Constants.CommitRva's doc comment - CONFIRMED to be AMS2's own AI-opponent
-        // vehicle-class-count recompute, not a RaceDate/session fix of any kind. Kept here for
-        // opponents' sake; don't expect it to matter for sessionRules/RaceDate (the fix that DOES
-        // work for RaceDate is the VM498 packed-date write inside ApplySessionRules). Called once,
-        // after the final write pass, with `master` as its sole argument - like SetCar, no
-        // read-back verification is available for it.
+        // AMS2's own AI-opponent vehicle-class-count recompute (see Ams2Constants.CommitRva's doc
+        // comment) - mirrors what SetCarRva itself calls internally when values change. Unrelated
+        // to RaceDate/session fields. No read-back verification is available for it.
         if (sessionRules != null && master is long commitMaster)
         {
             var commitAddress = _moduleBase + Ams2Constants.CommitRva;
@@ -249,7 +262,51 @@ public sealed class Ams2RaceConfigurator : IDisposable
                 errors.Add("commit call did not complete (no read-back verification is available for this call)");
         }
 
+        // SetCar/commit recompute AMS2's own opponent counts for the newly-selected car, overwriting
+        // what the two ApplyOnce passes wrote (live-confirmed: RivalCount reset to the class maximum,
+        // and a count above the number of same-class cars makes AMS2 pad the grid with other
+        // classes). So opponents are written once more, last, and verified from this final write.
+        if (opponents != null && vm498 is long finalVm498)
+        {
+            opponentsUnverified.Clear();
+            ApplyOpponents(finalVm498, opponents, opponentsUnverified);
+        }
+        unverified.AddRange(opponentsUnverified);
+
+        _log?.Invoke($"ApplyRaceConfigAsync: done - {errors.Count} error(s), {unverified.Count} unverified field(s)"
+            + (errors.Count > 0 ? $" | errors: {string.Join("; ", errors)}" : "")
+            + (unverified.Count > 0 ? $" | unverified: {string.Join("; ", unverified.Select(u => $"{u.Item1}(wanted={u.Item2}, actual={u.Item3?.ToString() ?? "null"})"))}" : ""));
+
         return new RaceConfigResult { Errors = errors, UnverifiedFields = unverified };
+    }
+
+    /// <summary>See Ams2Constants.SetCarValidationGateRva's doc comment for the full evidence behind each code.</summary>
+    private static string DescribeSetCarGateCode(long code) => code switch
+    {
+        1 => "track hash not found in AMS2's own track registry",
+        2 => "track failed an eligibility/ownership check",
+        3 => "car hash not found in AMS2's own vehicle registry",
+        4 => "car/track combination ineligible (DLC ownership/compatibility)",
+        5 => "unidentified track/vm498 condition",
+        6 => "livery index not found for this car",
+        _ => "unknown code",
+    };
+
+    /// <summary>
+    /// Reads back master's own current-selection slots (see Ams2Constants.MasterSlot's doc
+    /// comment) after a SetCar call and reports any mismatch the same way TrySet does for every
+    /// other field.
+    /// </summary>
+    private void CheckSetCarReadBack(long master, int trackHash, int carHash, int livery, List<(string, int, int?)> unverified)
+    {
+        var trackOk = _mem!.TryReadSlot(master, Ams2Constants.MasterSlot.Track, out var actualTrack);
+        if (!trackOk || actualTrack != trackHash) unverified.Add(("SetCar(track)", trackHash, trackOk ? actualTrack : null));
+
+        var carOk = _mem.TryReadSlot(master, Ams2Constants.MasterSlot.Car, out var actualCar);
+        if (!carOk || actualCar != carHash) unverified.Add(("SetCar(car)", carHash, carOk ? actualCar : null));
+
+        var liveryOk = _mem.TryReadSlot(master, Ams2Constants.MasterSlot.Livery, out var actualLivery);
+        if (!liveryOk || actualLivery != livery) unverified.Add(("SetCar(livery)", livery, liveryOk ? actualLivery : null));
     }
 
     private void ApplyOpponents(long vm498, OpponentsConfig cfg, List<(string, int, int?)> unverified)
@@ -257,8 +314,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
         TrySet(vm498, Ams2Constants.Vm498Slot.NumOpponentsType, (int?)cfg.NumOpponentsType, nameof(cfg.NumOpponentsType), unverified);
         TrySet(vm498, Ams2Constants.Vm498Slot.OpponentsTypeKind, (int?)cfg.OpponentsType, nameof(cfg.OpponentsType), unverified);
         TrySet(vm498, Ams2Constants.Vm498Slot.RivalCount, cfg.OpponentCount, nameof(cfg.OpponentCount), unverified);
-        // EXPERIMENTAL - see Vm498Slot.RivalCountPerClass's doc comment. Mirrors RivalCount rather
-        // than being independently configurable - there's no cfg field of its own for this yet.
+        // Mirrors RivalCount - see Vm498Slot.RivalCountPerClass's doc comment.
         TrySet(vm498, Ams2Constants.Vm498Slot.RivalCountPerClass, cfg.OpponentCount, $"{nameof(cfg.OpponentCount)}(perClass)", unverified);
 
         if (cfg.Skill is int skill)
@@ -322,15 +378,13 @@ public sealed class Ams2RaceConfigurator : IDisposable
                 TrySet(vm550, Ams2Constants.Vm550Slot.DateType, (int?)cfg.DateType, nameof(cfg.DateType), unverified);
 
                 // Also raw-write VM498's own packed date field alongside the VM550 slots above
-                // (see Vm498PackedDate's doc comment) - writing VM498's field ALONE was live-
-                // tested and confirmed NOT sufficient by itself to change the race's actual date;
-                // this combined write (both VM550 AND VM498 in agreement) IS confirmed live to
-                // work for the actual race data (AMS2's own Custom Race menu display can still lag
-                // until the submenu is re-visited - cosmetic only).
+                // (see Vm498PackedDate's doc comment) - neither write alone changes the race's
+                // actual date; both together do (live-confirmed). AMS2's own Custom Race menu
+                // display can still lag until the submenu is re-visited - cosmetic only.
                 TrySetVm498PackedDate(vm498, raceDate, unverified);
 
-                // CONFIRMED: AMS2's own handler for activating the in-game "Race Settings" submenu
-                // (i.e. "CustomEventRaceSettingsDialog") is the ONLY thing that normally propagates
+                // AMS2's own handler for activating the in-game "Race Settings" submenu
+                // ("CustomEventRaceSettingsDialog") is the ONLY thing that normally propagates
                 // Race1's date (what vm550 above already is)
                 // into Race2/Practice1/Qualifying1's own Day/Month/Year slots, via the exact same
                 // generic setter TrySet/SlotWriter uses - and it only runs when the player manually

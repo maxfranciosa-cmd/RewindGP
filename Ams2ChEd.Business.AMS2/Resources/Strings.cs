@@ -30,6 +30,7 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string OptionsWindow_RaceLength_OneThird => ResourceManager.GetString(nameof(OptionsWindow_RaceLength_OneThird))!;
         public static string OptionsWindow_RaceLength_Half => ResourceManager.GetString(nameof(OptionsWindow_RaceLength_Half))!;
         public static string OptionsWindow_RaceLength_Full => ResourceManager.GetString(nameof(OptionsWindow_RaceLength_Full))!;
+        public static string OptionsWindow_AutoLaunchLabel => ResourceManager.GetString(nameof(OptionsWindow_AutoLaunchLabel))!;
         public static string OptionsWindow_LanguageLabel => ResourceManager.GetString(nameof(OptionsWindow_LanguageLabel))!;
         public static string OptionsWindow_SaveButton => ResourceManager.GetString(nameof(OptionsWindow_SaveButton))!;
         public static string OptionsWindow_RestoreVehicleFilesButton => ResourceManager.GetString(nameof(OptionsWindow_RestoreVehicleFilesButton))!;
@@ -76,6 +77,7 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string RaceSetupOverlayWindow_SkipLink => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_SkipLink))!;
         public static string RaceSetupOverlayWindow_WaitingText => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_WaitingText))!;
         public static string RaceSetupOverlayWindow_LaunchingText => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_LaunchingText))!;
+        public static string RaceSetupOverlayWindow_WaitingForManualLaunchText => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_WaitingForManualLaunchText))!;
         public static string RaceSetupOverlayWindow_SuccessText => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_SuccessText))!;
         public static string RaceSetupOverlayWindow_SuccessOkButton => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_SuccessOkButton))!;
         public static string RaceSetupOverlayWindow_ContinueManuallyButton => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ContinueManuallyButton))!;

@@ -73,9 +73,8 @@ var result = await configurator.ApplyRaceConfigAsync(
     practice: new PracticeQualifySessionConfig { Enabled = OnOff.On, DurationValue = 20, StartHour = 10 },
     qualifying: new PracticeQualifySessionConfig { Enabled = OnOff.On, DurationValue = 15, StartHour = 12 });
 
-// See "Interpreting RaceConfigResult" below - result.Success covers everything this library can
-// verify, but SetCar (car/track/livery) has no read-back check, so it can be true even if the
-// car/track selection was silently rejected by AMS2.
+// See "Interpreting RaceConfigResult" below - result.Success means every field read back as
+// requested, which is strong evidence but not proof the launched race will match.
 foreach (var (field, wanted, got) in result.UnverifiedFields)
     Console.WriteLine($"'{field}' wanted {wanted}, got {got?.ToString() ?? "n/a"}");
 ```
@@ -105,11 +104,10 @@ uses internally. Source these from `ams2_vehicle_catalog.csv`/`ams2_vehicle_pric
 (see below), and that car/track is then skipped for that call — `livery`/`car`/`track` are only
 applied together, as a single `SetCar` call, once both hashes resolve.
 
-The optional `log` parameter (`Action<string>?`) is a diagnostic sink covering both
-`AttachAsync` (e.g. why the module base couldn't be resolved) and, once attached, per-candidate
-`VM498`/`VM550` scan results during `ApplyRaceConfigAsync`. Pass a logger (even just
-`msg => Console.WriteLine(msg)`) any time you're debugging unexpected behavior rather than
-trying to infer what happened from a pass/fail result alone.
+The optional `log` parameter (`Action<string>?`) is a diagnostic sink: attach failures, pointer
+resolution failures, and a one-line summary of each `ApplyRaceConfigAsync` call listing its
+errors and unverified fields. Pass a logger (even just `msg => Console.WriteLine(msg)`) any time
+you're debugging unexpected behavior.
 
 ### `AttachAsync(CancellationToken ct = default) : Task<bool>`
 
@@ -140,26 +138,26 @@ Task<RaceConfigResult> ApplyRaceConfigAsync(
     CancellationToken ct = default)
 ```
 
-`practice`/`qualifying` are EXPERIMENTAL and not live-confirmed by this library — see
+`practice`/`qualifying` are EXPERIMENTAL and not individually live-verified — see
 `PracticeQualifySessionConfig` below and README.md's status notes before relying on them.
-Resolving either one costs real remote-call round-trips (not just memory reads like everything
-else this library does), so only pass the ones you're actually testing — leave the other `null`
-to skip that cost.
+Resolving their session VMs is plain memory reads, but may fall back to a full-process scan.
 
 Applies `opponents`/`sessionRules` to whatever `VM498`/`VM550` currently resolve to, and
 `car`/`track`/`livery` via a single `SetCar` call, all against the currently-open Custom Race
-screen. This is the only function in this library confirmed reliable enough to depend on — see
-README.md's Status section.
+screen — see README.md's Status section for what's live-confirmed.
 
-Internally: resolves `VM498`/`VM550`/the master pointer (each of which may trigger a several-
-second full-process memory scan the first time — see Troubleshooting); writes every non-null
-`opponents`/`sessionRules` field; if both `car` and `track` resolved and the master pointer is
-available, issues one `SetCar` call (not repeated — car/track/livery is a direct call, not a
-staged value like the slot writes below); waits ~100ms; writes every non-null
-`opponents`/`sessionRules` field again; reports the **second** write's verification result (the
-first write's outcome is discarded — see "Interpreting RaceConfigResult"). The two-write-then-
-verify pattern exists because AMS2's Custom Race screen can re-initialize state shortly after
-opening and silently undo an early write.
+Internally, in order:
+1. Resolves `VM498`/`VM550`/the master pointer (each may trigger a several-second full-process
+   memory scan the first time — see Troubleshooting).
+2. Writes every non-null `opponents`/`sessionRules`/`practice`/`qualifying` field, waits 2
+   seconds, and writes them all again. AMS2's Custom Race screen can re-initialize state shortly
+   after opening and silently undo an early write.
+3. If both `car` and `track` resolved, issues one `SetCar` call and reads the selection back from
+   `master`'s own slots.
+4. Writes `opponents` once more, because `SetCar` recomputes AMS2's own opponent count for the
+   new car and overwrites it.
+
+Only each field's **final** write is verified and reported (see "Interpreting RaceConfigResult").
 
 Throws `InvalidOperationException` if not attached. Does not throw for resolution failures
 (unresolvable `VM498`/`VM550`/master, unknown car/track, a failed `SetCar` call) — those surface
@@ -209,7 +207,7 @@ Same nullable = don't-force convention.
 | `DurationValue` | `int?` | — | laps if `DurationType` is `LapBased`, minutes if `TimeBased` |
 | `Weather` | `SessionWeatherConfig?` | — | race session's weather — see below |
 
-### `PracticeQualifySessionConfig` — EXPERIMENTAL, not live-confirmed
+### `PracticeQualifySessionConfig` — EXPERIMENTAL, not individually live-verified
 
 Used for both the `practice` and `qualifying` parameters — same shape, same nullable = don't-force
 convention. Applied against that session's own separately-resolved VM pointer (NOT the main
@@ -239,7 +237,7 @@ qualifying) — same shape either way, applied against whichever VM that config 
 
 **Open question**: whether writing slot values alone actually changes the weather AMS2 uses, or
 whether — mirroring `RaceDate` needing `DateType=Custom` first — there's a separate RealHistoric-
-vs-Custom mode slot that also needs setting. No such slot was found by static analysis.
+vs-Custom mode slot that also needs setting. No such slot has been identified.
 
 ## Interpreting `RaceConfigResult`
 
@@ -252,8 +250,7 @@ public sealed class RaceConfigResult
 }
 ```
 
-`Success` is a real signal — it's worth understanding exactly what it does and doesn't cover,
-since `SetCar` specifically has no read-back check:
+`Success` is a real signal — it's worth understanding exactly what it does and doesn't cover:
 
 - `UnverifiedFields` entries mean one of: the value was out of range and rejected before writing
   (`Got` is `null`), the field is being ignored given current config (`RaceDate` when `DateType`
@@ -261,17 +258,18 @@ since `SetCar` specifically has no read-back check:
   was requested (`Got` is the field's actual current value) — that last case is the same
   situation a live read-back check would also report, and can happen legitimately (e.g. AMS2
   clamped a value you sent, or the write raced against the game's own re-initialization).
+  `SetCar(track)`/`SetCar(car)`/`SetCar(livery)` entries mean AMS2 rejected the combination
+  (unknown hash, DLC/eligibility, or a livery index that doesn't exist for that car) — the
+  reason isn't reported.
 - `Errors` entries are conditions checked before/around writing: unresolvable `VM498`/`VM550`/
   master pointer (most likely cause: Custom Race isn't actually open), an unrecognized car/track
   key, or the `SetCar` call itself failing to execute.
 
-**The gap this doesn't cover**: a `SetCar` call that *executes* but that AMS2 silently rejects or
-ignores produces neither an `Errors` entry nor an `UnverifiedFields` entry — `Success` can be
-`true` while the car/track/livery didn't actually change, because there's no read-back check for
-that call. Treat `Success` as "every write I know how to verify landed, and `SetCar` at least
-ran" — not as "the race is definitely configured exactly as requested." If you need certainty on
-car/track/livery specifically, verify it visually or through whatever telemetry/UI signal your
-own application already has for the currently-selected car.
+**The gap this doesn't cover**: every check reads back from the object this library wrote to.
+AMS2 keeps more than one real copy of some config objects, and a write to one that isn't bound to
+the live screen reads back fine but never reaches the race. The resolvers guard against this, and
+the current build is live-confirmed, but after an AMS2 update treat `Success` as "every write
+landed where I sent it," and confirm against the launched race.
 
 ## Troubleshooting
 
@@ -282,4 +280,5 @@ own application already has for the currently-selected car.
 | `ApplyRaceConfigAsync`'s `Errors` says VM498/VM550/master couldn't be resolved | Player isn't actually on the Custom Race screen — these only exist once it's been opened at least once this session |
 | First call after attaching is slow (several seconds) | Expected — the first `VM498`/`VM550` resolution triggers a full process memory scan; subsequent calls use the cached pointer and are fast unless it's invalidated |
 | `UnverifiedFields` has entries even though everything looks right | Check `Got` — if it's the value you expect, the *first* of the two writes may have landed and you're just seeing stale state from a race with the game's own init; if `Got` is something else entirely, AMS2 may be clamping/rejecting the value itself |
-| `result.Success` is `true` but the car/track/livery didn't actually change in-game | Expected possibility — `SetCar` has no read-back verification (see above); a `flag` value other than the default `0` is one thing worth trying if you fork this |
+| `result.Success` is `true` but the launched race doesn't match | Most likely an AMS2 update moved the addresses in `Ams2Constants.cs`, and the library is now writing to a real but disconnected copy of the config (see "The gap this doesn't cover" above) — re-derive the constants |
+| Opponent count right on the setup screen but wrong in the race, or cars from other classes on the grid | `SetCar`/commit overwrote the opponent count after it was written — `ApplyRaceConfigAsync` writes opponents again after `SetCar` for exactly this reason; check that ordering is intact |

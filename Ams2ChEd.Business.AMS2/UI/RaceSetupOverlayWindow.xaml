@@ -62,6 +62,18 @@
                                TextWrapping="Wrap" TextAlignment="Center"/>
                 </StackPanel>
 
+                <!-- Waiting-for-manual-launch state: auto-launch disabled, player must start AMS2
+                     themselves. Unbounded wait, so - unlike WaitingPanel - this exposes a Skip
+                     escape hatch via the same action plumbing as PromptPanel's Skip link. -->
+                <StackPanel x:Name="WaitingForManualLaunchPanel" Visibility="Collapsed">
+                    <TextBlock Text="{loc:Loc RaceSetupOverlayWindow_WaitingForManualLaunchText}"
+                               Foreground="White" FontSize="20" FontWeight="Bold"
+                               TextWrapping="Wrap" TextAlignment="Center"/>
+                    <TextBlock x:Name="ManualLaunchSkipLink" Text="{loc:Loc RaceSetupOverlayWindow_SkipLink}"
+                               Style="{StaticResource LinkTextStyle}"
+                               MouseLeftButtonUp="SkipLink_MouseLeftButtonUp"/>
+                </StackPanel>
+
                 <!-- Auto-configure success state -->
                 <StackPanel x:Name="SuccessPanel" Visibility="Collapsed">
                     <TextBlock Text="{loc:Loc RaceSetupOverlayWindow_SuccessText}"

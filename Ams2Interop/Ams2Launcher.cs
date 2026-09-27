@@ -48,6 +48,22 @@ public static class Ams2Launcher
     }
 
     /// <summary>
+    /// Polls indefinitely (no deadline) until AMS2AVX.exe is detected running, or the token is
+    /// cancelled. Used when the player is launching AMS2 themselves rather than through
+    /// <see cref="Launch"/> - there's no meaningful timeout to apply to a wait for a person to act,
+    /// so cancellation (e.g. the player clicking "Skip" on the overlay) is the only way out.
+    /// </summary>
+    public static async Task<bool> WaitForProcessAsync(CancellationToken ct)
+    {
+        while (!ct.IsCancellationRequested)
+        {
+            if (IsRunning()) return true;
+            await Task.Delay(1000, ct).ConfigureAwait(false);
+        }
+        return false;
+    }
+
+    /// <summary>
     /// Best-effort close of AMS2AVX.exe - tries a graceful WM_CLOSE first (CloseMainWindow) and
     /// only force-kills the process if it doesn't exit within <paramref name="gracePeriod"/>.
     /// Never throws - a process that's already gone, or one we don't have permission to touch, is

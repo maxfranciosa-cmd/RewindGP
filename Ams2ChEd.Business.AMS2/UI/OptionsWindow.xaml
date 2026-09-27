@@ -180,6 +180,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!-- AMS2 Folder Section -->
@@ -249,8 +250,16 @@
                 </ComboBox>
             </StackPanel>
 
+            <!-- Auto-Launch Section -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,10">
+                <CheckBox x:Name="AutoLaunchCheckBox"
+                          Content="{loc:Loc OptionsWindow_AutoLaunchLabel}"
+                          Foreground="#cccccc" FontSize="14" FontWeight="SemiBold"
+                          VerticalContentAlignment="Center"/>
+            </StackPanel>
+
             <!-- Language Section -->
-            <StackPanel Grid.Row="3" VerticalAlignment="Top">
+            <StackPanel Grid.Row="4" VerticalAlignment="Top">
                 <Label Content="{loc:Loc OptionsWindow_LanguageLabel}" Style="{StaticResource LabelStyle}"/>
                 <!-- Language names are shown in their own language, not translated - standard
                      convention, and avoids a resx round-trip just to list languages. -->
@@ -267,7 +276,7 @@
             </StackPanel>
 
             <!-- Buttons -->
-            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="{loc:Loc OptionsWindow_SaveButton}"
                         Width="150"
                         Margin="0,0,10,0"

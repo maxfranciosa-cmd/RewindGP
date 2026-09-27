@@ -54,12 +54,27 @@ namespace Ams2ChEd.Business.AMS2.UI
         }
 
         /// <summary>
+        /// Shows the state used when auto-launch is disabled: the player must start AMS2 themselves.
+        /// Unlike ShowWaiting/ShowLaunching, this wait is unbounded, so it offers a Skip link (resolved
+        /// through the same WaitForUserActionAsync/_actionTcs plumbing as the Configure/Skip prompt),
+        /// falling into the same manual-setup-instructions path as skipping the normal prompt.
+        /// </summary>
+        public void ShowWaitingForManualLaunch()
+        {
+            PromptPanel.Visibility = Visibility.Collapsed;
+            WaitingPanel.Visibility = Visibility.Collapsed;
+            ErrorPanel.Visibility = Visibility.Collapsed;
+            WaitingForManualLaunchPanel.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
         /// Switches from the launching state to the interactive Configure/Skip prompt, once AMS2's
         /// window has been found and given a moment to settle.
         /// </summary>
         public void ShowPrompt()
         {
             WaitingPanel.Visibility = Visibility.Collapsed;
+            WaitingForManualLaunchPanel.Visibility = Visibility.Collapsed;
             ErrorPanel.Visibility = Visibility.Collapsed;
             PromptPanel.Visibility = Visibility.Visible;
         }
@@ -100,6 +115,7 @@ namespace Ams2ChEd.Business.AMS2.UI
         {
             PromptPanel.Visibility = Visibility.Collapsed;
             WaitingPanel.Visibility = Visibility.Collapsed;
+            WaitingForManualLaunchPanel.Visibility = Visibility.Collapsed;
             ErrorPanel.Visibility = Visibility.Collapsed;
 
             ManualInstructionsTitle.Text = isPreQuali ? Strings.RaceSetupOverlayWindow_PreQualiSessionTitle : Strings.RaceSetupOverlayWindow_ManualSetupTitle;

@@ -11,26 +11,22 @@ architecture, implementation status, and known gaps.
 ## Status: `ApplyRaceConfigAsync` only
 
 `ApplyRaceConfigAsync` - opponents, track, car, livery, and session rules - applies correctly
-in-game and is reliable enough to depend on. Any form of persistent hooking is out of scope and
-not implemented - see "Architecture" below for why.
+in-game. **Live-confirmed 2026-09-27** against the AMS2 build patched on 2026-09-20, through the
+real app, by checking the launched race (not just the Custom Race screen): date, car, track,
+livery, opponent count and opponent class all correct. Any form of persistent hooking is out of
+scope and not implemented - see "Architecture" below for why.
 
-**2026-09-15: post-patch write-path fully re-derived and live-confirmed again.** An AMS2 patch
-shifted every address `Ams2Constants.cs` depends on. The RTTI tags and read-only resolution were
-fixed on 2026-09-14; `IntPropertyTypeTag` needed a further correction (`0x141FF1640` ->
-`0x141FF1650`) found only once live testing started, since its original candidate was silently
-breaking `VmResolver`'s scoring AND `TryReadSlot`/`SlotWriter`'s tag check. `SetterRva`/
-`SetCarRva`/`CommitRva` (the write path) were re-derived by decompilation and then LIVE-CONFIRMED
-against a running game: opponent count, lap count, and a full car/track/livery selection all
-applied correctly and were visually confirmed in AMS2's own UI. See the "UPDATED 2026-09-15" /
-"LIVE-VERIFIED 2026-09-15" doc comments in `Ams2Constants.cs` for full evidence per constant.
+Every AMS2 patch so far has moved the addresses in `Ams2Constants.cs`; see its class doc comment
+for the current build and how the values were re-derived. Expect to repeat that after each game
+update.
 
-One real gap surfaced during this: `SetCarRva` internally validates the car/track/livery
-combination and silently no-ops (no write, no error, no crash) if it's invalid by AMS2's own
-rules - e.g. an out-of-range livery index for that car. This library doesn't expose that
-validation, so a caller passing a bad combination sees an apparent "success" from
-`ApplyRaceConfigAsync`. Not a bug in this library - production callers already resolve real,
-in-range livery numbers from season-pack data - but worth knowing if a car/track/livery apply
-silently doesn't take effect during future testing.
+Two things learned the hard way:
+
+- **A write that reads back correctly can still be ignored by the game.** AMS2 keeps several
+  real, correctly-tagged copies of the same config objects, and only one is bound to the live
+  screen. Always confirm a change against the actually-launched race.
+- **Write order matters.** `SetCar` recomputes the opponent count for the newly-selected car,
+  so opponents are written again after it (see `ApplyRaceConfigAsync`'s doc comment).
 
 ## Architecture
 
@@ -60,15 +56,14 @@ application already drives) before calling `ApplyRaceConfigAsync`.
 - Write any VM498/VM550 "int property" slot via the real setter-call mechanism, with read-back
   verification (`Native/SlotWriter.cs`).
 - `OpponentsConfig` / `SessionRulesConfig` typed properties covering everything specified.
-  **Confirmed live**: opponents, laps, rolling start, refuelling, mandatory pit stops, and start
-  hour all apply correctly.
+  **Confirmed live**: opponent count and class, laps, rolling start, refuelling, mandatory pit
+  stops, and start hour all apply correctly.
 - Car/track/livery selection, wired into `ApplyRaceConfigAsync`, by calling AMS2's `SetCar`
-  directly with a `VmResolver`-resolved master pointer as its context argument. **Confirmed
-  live**: car, track, and livery selection all apply correctly (still no read-back verification
-  available for this call - confirmation here came from direct in-game/in-memory checks, not the
-  library's own return value).
-- A write-then-verify-twice pattern in `ApplyRaceConfigAsync`, since AMS2's Custom Race screen
-  can re-initialize state shortly after opening and silently undo an early write.
+  directly with a `VmResolver`-resolved master pointer as its context argument, then reading the
+  selection back from `master`'s own slots (`Ams2Constants.MasterSlot`). **Confirmed live.**
+- A write-twice-then-verify pattern in `ApplyRaceConfigAsync` with a 2-second gap, since AMS2's
+  Custom Race screen can re-initialize state shortly after opening and silently undo an early
+  write. `SetCar` runs after that gap, and opponents are written once more after `SetCar`.
 - `Ams2Launcher`: detect whether AMS2 is running and launch the game
   through Steam so the resulting process can actually be attached to afterward.
 - **RaceDate now applies reliably** — writing VM550's day/month/year slots alone left the field
@@ -76,35 +71,36 @@ application already drives) before calling `ApplyRaceConfigAsync`.
   VM498's own packed date field (`Native/Vm498PackedDate.cs`) in the same call. **Confirmed live**:
   the actual race data lands correctly with both writes together; AMS2's own Custom Race menu
   display can still lag until the submenu is re-visited, which is cosmetic only.
-- **EXPERIMENTAL, not live-confirmed**: Practice/Qualifying session on/off, duration, start hour,
-  and per-session weather (`practice`/`qualifying` parameters, `PracticeQualifySessionConfig`,
-  `SessionWeatherConfig`). These aren't VM498/VM550 slots at all (confirmed live: toggling them in
-  AMS2's UI produces zero VM498/VM550 diffs) — they're separate, structurally-identical VM550
-  instances reached through AMS2's own per-session-name lookup function (see
-  `Native/SessionVmResolver.cs` and `Ams2Constants.SessionVmGetterRva`'s doc comments for the full
-  trail). Resolving a session VM costs real remote-call round-trips per candidate (not just memory
-  reads like everything else here) — expect the first resolve to be noticeably slower.
+- **EXPERIMENTAL, not individually live-verified**: Practice/Qualifying session on/off, duration,
+  start hour, and per-session weather (`practice`/`qualifying` parameters,
+  `PracticeQualifySessionConfig`, `SessionWeatherConfig`), plus RaceDate propagation to
+  Race2/Practice1/Qualifying1. The resolution runs cleanly on every real race launch, but these
+  specific fields haven't been checked in-game. They aren't VM498/VM550 slots at all (toggling
+  them in AMS2's UI produces zero VM498/VM550 diffs) — they're separate, structurally-identical
+  VM550 instances reached through VM498's own session-wrapper array (see
+  `Native/SessionVmResolver.cs` and `Ams2Constants.SessionIndex`). **No remote calls are
+  involved** — earlier remote-call-based approaches crashed `AMS2AVX.exe` after a game patch (see
+  git history); resolution is plain memory reads, validated by requiring the candidate
+  container's own Race1 entry to match the independently-resolved Race1 VM550.
 
 ## What's a known simplification
 
 - **`SetCar`'s `flag` argument** — always sent as `0`. Its exact meaning is unconfirmed; `0` is
   a conservative default, not a confirmed-correct value.
-- **`SetCar` has no read-back verification** — unlike the VM498/VM550 slot writes, this library
-  doesn't know where AMS2 stores the *result* of a car/track/livery change to read it back and
-  confirm. `ApplyRaceConfigAsync` only reports whether the remote `SetCar` call executed and
-  returned, not whether AMS2 accepted the values.
-- **`CommitRva` (the "commit" call) is CONFIRMED unrelated to RaceDate/session fields** — see its
-  doc comment in `Ams2Constants.cs`. Its body is AI-opponent vehicle-class-count bookkeeping: looks
-  up a class by hash off VM498, counts matching `vehiclelist.lst` entries, writes the counts
-  through the generic setter. It's kept wired into `ApplyRaceConfigAsync` for that actual purpose;
-  it does nothing for `RaceDate` or session fields. The real `RaceDate` fix is the VM498
-  packed-date write described above.
+- **`SetCar` rejections carry no reason** — `SetCar` silently no-ops if AMS2's own validation
+  rejects the car/track/livery combination. The `master`-slot read-back reports that as an
+  unverified field, but not *why* (unknown hash, DLC, bad livery index). The validation gate that
+  would say why (`Ams2Constants.SetCarValidationGateRva`) hasn't been re-derived for the current
+  build, so it isn't called.
+- **`CommitRva` (the "commit" call) is unrelated to RaceDate/session fields** — see its doc
+  comment in `Ams2Constants.cs`. It's AI-opponent vehicle-class-count bookkeeping, and it
+  overwrites the opponent count, which is why opponents are written again after it.
 - **Practice/Qualifying `Enabled`/weather are confirmed by analysis, not live-tested by this
   library** — see the EXPERIMENTAL bullet above. `Enabled` replicates a 3-slot write pattern
   (`Vm550Slot.SessionEnabled`/`SessionEnabledPaired1`/`SessionEnabledPaired2`). Weather has one
   known open question: whether writing slot values alone is sufficient, or whether — mirroring
   `RaceDate` needing `DateType=Custom` — there's a separate RealHistoric-vs-Custom mode slot that
-  also needs setting first. No such slot was identified by static analysis.
+  also needs setting first. No such slot has been identified.
 
 ## Usage
 
@@ -114,8 +110,8 @@ troubleshooting table.
 ## Before relying on this in production
 
 1. Config-apply (opponents/track/car/livery/most session rules) is live-confirmed against a real
-   AMS2 install - see the Status section above. Still worth re-confirming against whatever exact
-   build you target, since offset drift across game patches is a real, observed risk here.
+   AMS2 install - see the Status section above. Re-confirm after every AMS2 update: every patch
+   so far has moved these addresses.
 2. Getting to the Custom Race screen is not automated - budget for a manual step, or driving it
    through your own application's UI, before calling into this library.
 3. This performs a full-process memory scan (`Native/MemoryScanner.cs`) whenever there's no

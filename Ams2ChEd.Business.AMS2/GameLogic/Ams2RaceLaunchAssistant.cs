@@ -52,12 +52,24 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
         public async Task<bool> ShowSetupOverlayAsync(RaceLaunchRequest request, object ownerWindow, CancellationToken ct = default)
         {
-            // Show the overlay immediately, in its "launching" state, rather than only creating it
-            // once AMS2's process is confirmed running - otherwise there's nothing on screen at all
-            // between the caller's liveries-exported progress window closing and the process-launch
-            // wait below (which can take up to a minute) resolving.
+            var autoLaunch = (_installSettingsStorage as Ams2GameInstallSettingsStorage)?.LoadAutoLaunchGame() ?? true;
+
+            // Show the overlay immediately, in its initial state, rather than only creating it once
+            // AMS2's process is confirmed running - otherwise there's nothing on screen at all
+            // between the caller's liveries-exported progress window closing and the process wait
+            // below (which can take up to a minute, or be unbounded if waiting on the player)
+            // resolving. Which initial state depends on whether this app is about to launch AMS2
+            // itself or wait for the player to do it - showing "Launching..." when nothing was
+            // actually launched would be misleading.
             var overlay = new RaceSetupOverlayWindow();
-            overlay.ShowLaunching();
+            if (autoLaunch)
+            {
+                overlay.ShowLaunching();
+            }
+            else
+            {
+                overlay.ShowWaitingForManualLaunch();
+            }
             overlay.Show();
 
             Ams2WindowTracker tracker = null;
@@ -68,15 +80,47 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                     // Resolve DLC ownership (used later by TryAutoConfigureAsync's track resolution)
                     // now, while AMS2 is confirmed NOT running - see Ams2DlcOwnershipChecker's class
                     // doc comment for why doing this once AMS2 is already up is the thing to avoid.
+                    // Holds regardless of which branch below runs next.
                     await _dlcOwnershipChecker.WarmUpAsync().ConfigureAwait(true);
 
-                    Ams2Launcher.Launch();
-                    var launched = await Ams2Launcher.WaitForProcessAsync(TimeSpan.FromSeconds(60)).ConfigureAwait(true);
-                    if (!launched)
+                    if (autoLaunch)
                     {
-                        // AMS2 never came up - close the overlay (in the finally below) and let the
-                        // caller fall back to its manual-instructions path instead.
-                        return false;
+                        Ams2Launcher.Launch();
+                        var launched = await Ams2Launcher.WaitForProcessAsync(TimeSpan.FromSeconds(60)).ConfigureAwait(true);
+                        if (!launched)
+                        {
+                            // AMS2 never came up - close the overlay (in the finally below) and let
+                            // the caller fall back to its manual-instructions path instead.
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        // No deadline for a wait on a person to act - race it against the overlay's
+                        // Skip link so the player isn't stuck if they change their mind (e.g.
+                        // they're loading a different game instead). Uses its OWN linked
+                        // CancellationTokenSource so Skip can actually stop the polling loop -
+                        // without this, WaitForProcessAsync would keep calling
+                        // Process.GetProcessesByName every second in the background indefinitely,
+                        // tied only to this method's own `ct`, long after the player moved on.
+                        using var manualLaunchCts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+                        var processWait = Ams2Launcher.WaitForProcessAsync(manualLaunchCts.Token);
+                        var userActionWait = overlay.WaitForUserActionAsync();
+
+                        var completed = await Task.WhenAny(processWait, userActionWait).ConfigureAwait(true);
+                        if (completed == userActionWait)
+                        {
+                            // Only Skip can resolve this while still waiting for the process. Stop
+                            // the poll - the player isn't launching AMS2 right now.
+                            manualLaunchCts.Cancel();
+                            await ShowManualInstructionsAsync(request, overlay, ct).ConfigureAwait(true);
+                            return false;
+                        }
+
+                        if (!await processWait.ConfigureAwait(true))
+                        {
+                            return false;
+                        }
                     }
                 }
 
@@ -229,7 +273,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             // the player already has selected for Practice is left exactly as-is.
             var qualifying = Ams2SessionRulesBuilder.BuildQualifyingConfig();
 
-            using var configurator = new Ams2RaceConfigurator(_hashCatalogProvider.CarHashes, _hashCatalogProvider.TrackHashes);
+            using var configurator = new Ams2RaceConfigurator(_hashCatalogProvider.CarHashes, _hashCatalogProvider.TrackHashes, LogToFile);
             if (!await configurator.AttachAsync(ct).ConfigureAwait(true))
             {
                 overlay.ShowError(Strings.Ams2RaceLaunchAssistant_AttachFailed);
@@ -255,5 +299,26 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             return true;
         }
 
+        /// <summary>
+        /// Ams2RaceConfigurator/VmResolver/SessionVmResolver's diagnostic sink - there's no
+        /// general-purpose logging infrastructure elsewhere in the app, so this writes a plain
+        /// append-only file so a failed live-apply can be diagnosed after the fact instead of
+        /// blind. Best-effort only: a logging failure must never break race setup.
+        /// </summary>
+        private static void LogToFile(string message)
+        {
+            try
+            {
+                var path = System.IO.Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "RewindGP", "ams2interop.log");
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path)!);
+                System.IO.File.AppendAllText(path, $"{DateTime.Now:O} {message}{Environment.NewLine}");
+            }
+            catch
+            {
+                // best-effort diagnostic logging only
+            }
+        }
     }
 }

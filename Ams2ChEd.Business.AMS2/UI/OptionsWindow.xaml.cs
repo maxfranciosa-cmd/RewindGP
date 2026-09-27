@@ -28,6 +28,7 @@ namespace Ams2ChEd.Business.AMS2.UI
         {
             AMS2FolderTextBox.Text = _settingsStorage.LoadSettings()?.GameInstallFolder;
             AMS2PlayerNameTextBox.Text = _settingsStorage.LoadInGameName();
+            AutoLaunchCheckBox.IsChecked = _settingsStorage.LoadAutoLaunchGame();
 
             var raceLength = _settingsStorage.LoadRaceLength();
             foreach (ComboBoxItem item in RaceLengthComboBox.Items)
@@ -58,6 +59,7 @@ namespace Ams2ChEd.Business.AMS2.UI
             {
                 _settingsStorage.SaveSettings(new GameInstallSettings { GameInstallFolder = path });
                 _settingsStorage.SaveInGameName(inGameDriverName);
+                _settingsStorage.SaveAutoLaunchGame(AutoLaunchCheckBox.IsChecked ?? true);
 
                 if (RaceLengthComboBox.SelectedItem is ComboBoxItem selected
                     && Enum.TryParse<Ams2RaceLength>((string)selected.Tag, out var raceLength))

@@ -84,8 +84,7 @@ public sealed class RemoteExecutor : IDisposable
     /// <summary>
     /// Third stub, identical to StubBytes except it writes the callee's RAX back into the
     /// parameter block before returning - needed for calls whose RETURN VALUE is what's wanted
-    /// (e.g. FUN_1403f2dd0, AMS2AVX.exe's own per-session-name VM pointer getter - see
-    /// Native/SessionVmResolver.cs), as opposed to Call's fire-and-verify-by-reading-memory-after
+    /// (e.g. a getter returning a pointer), as opposed to Call's fire-and-verify-by-reading-memory-after
     /// pattern. CreateRemoteThread's own exit code can't be used for this: a thread's exit code is
     /// a 32-bit DWORD, which would silently truncate a 64-bit pointer - this stub avoids that by
     /// writing the full 64-bit RAX into the (always 64-bit-wide) parameter block instead.
@@ -121,10 +120,55 @@ public sealed class RemoteExecutor : IDisposable
         0xC3,                                     // ret
     };
 
+    /// <summary>
+    /// Fourth stub - like CallWithReturnStubBytes, but for a target taking FOUR register
+    /// arguments (RCX/RDX/R8/R9, no stack-spilled args - unlike SetCarStubBytes's 5-arg shape)
+    /// and returning a value in RAX. Used for AMS2's SetCar validation gate,
+    /// `gate(master, trackHash, carHash, livery) -> int` (see
+    /// Ams2Constants.SetCarValidationGateRva's doc comment) - SetCarRva calls this internally but
+    /// discards its result, so calling the gate directly is the only way to see WHY a
+    /// car/track/livery combination was rejected. Currently unused: the gate's RVA is stale for
+    /// the current AMS2 build.
+    ///
+    /// Invoked with RCX = pointer to a { long Arg1; long Arg2; long Arg3; long Arg4; long Target;
+    /// long Result; } parameter block (48 bytes - Result is written by the stub, not read):
+    ///
+    ///   push rbx
+    ///   mov  rbx, rcx
+    ///   sub  rsp, 0x20            ; shadow space only - all 4 args are registers, nothing spilled
+    ///   mov  rax, [rbx+0x20]      ; Target
+    ///   mov  r9,  [rbx+0x18]      ; Arg4 (4th register arg)
+    ///   mov  r8,  [rbx+0x10]      ; Arg3 (3rd register arg)
+    ///   mov  rdx, [rbx+0x08]      ; Arg2
+    ///   mov  rcx, [rbx]           ; Arg1
+    ///   call rax
+    ///   mov  [rbx+0x28], rax      ; Result = return value
+    ///   add  rsp, 0x20
+    ///   pop  rbx
+    ///   ret
+    /// </summary>
+    private static readonly byte[] FourArgCallWithReturnStubBytes =
+    {
+        0x53,                                     // push rbx
+        0x48, 0x89, 0xCB,                         // mov rbx, rcx
+        0x48, 0x83, 0xEC, 0x20,                   // sub rsp, 0x20
+        0x48, 0x8B, 0x43, 0x20,                   // mov rax, [rbx+0x20]
+        0x4C, 0x8B, 0x4B, 0x18,                   // mov r9,  [rbx+0x18]
+        0x4C, 0x8B, 0x43, 0x10,                   // mov r8,  [rbx+0x10]
+        0x48, 0x8B, 0x53, 0x08,                   // mov rdx, [rbx+0x08]
+        0x48, 0x8B, 0x0B,                         // mov rcx, [rbx]
+        0xFF, 0xD0,                               // call rax
+        0x48, 0x89, 0x43, 0x28,                   // mov [rbx+0x28], rax
+        0x48, 0x83, 0xC4, 0x20,                   // add rsp, 0x20
+        0x5B,                                     // pop rbx
+        0xC3,                                     // ret
+    };
+
     private readonly ProcessMemory _mem;
     private IntPtr _stubAddress;
     private IntPtr _setCarStubAddress;
     private IntPtr _callWithReturnStubAddress;
+    private IntPtr _fourArgCallWithReturnStubAddress;
 
     public RemoteExecutor(ProcessMemory mem) => _mem = mem;
 
@@ -144,6 +188,12 @@ public sealed class RemoteExecutor : IDisposable
     {
         if (_callWithReturnStubAddress != IntPtr.Zero) return;
         _callWithReturnStubAddress = InstallStub(CallWithReturnStubBytes, "CallWithReturn stub");
+    }
+
+    private void EnsureFourArgCallWithReturnStubInstalled()
+    {
+        if (_fourArgCallWithReturnStubAddress != IntPtr.Zero) return;
+        _fourArgCallWithReturnStubAddress = InstallStub(FourArgCallWithReturnStubBytes, "4-arg CallWithReturn stub");
     }
 
     /// <summary>
@@ -307,6 +357,55 @@ public sealed class RemoteExecutor : IDisposable
         }
     }
 
+    /// <summary>
+    /// Calls targetAbsoluteAddress(arg1, arg2, arg3, arg4) inside the target process (all four
+    /// __fastcall register args, RCX/RDX/R8/R9) and captures its RAX return value in full - see
+    /// FourArgCallWithReturnStubBytes's doc comment. Used for AMS2's SetCar validation gate.
+    /// </summary>
+    public bool CallWithReturn(long targetAbsoluteAddress, long arg1, long arg2, long arg3, long arg4,
+        out long result, TimeSpan? timeout = null)
+    {
+        EnsureFourArgCallWithReturnStubInstalled();
+        result = 0;
+
+        var paramBlock = new byte[48]; // Arg1, Arg2, Arg3, Arg4, Target, Result(written by the stub, not us)
+        BitConverter.GetBytes(arg1).CopyTo(paramBlock, 0);
+        BitConverter.GetBytes(arg2).CopyTo(paramBlock, 8);
+        BitConverter.GetBytes(arg3).CopyTo(paramBlock, 16);
+        BitConverter.GetBytes(arg4).CopyTo(paramBlock, 24);
+        BitConverter.GetBytes(targetAbsoluteAddress).CopyTo(paramBlock, 32);
+
+        var paramAddress = NativeMethods.VirtualAllocEx(_mem.Handle, IntPtr.Zero, (uint)paramBlock.Length,
+            NativeMethods.MEM_COMMIT | NativeMethods.MEM_RESERVE, NativeMethods.PAGE_READWRITE);
+        if (paramAddress == IntPtr.Zero) return false;
+
+        try
+        {
+            if (!NativeMethods.WriteProcessMemory(_mem.Handle, paramAddress, paramBlock, paramBlock.Length, out _))
+                return false;
+
+            var thread = NativeMethods.CreateRemoteThread(_mem.Handle, IntPtr.Zero, 0, _fourArgCallWithReturnStubAddress, paramAddress, 0, out _);
+            if (thread == IntPtr.Zero) return false;
+
+            bool signaled;
+            try
+            {
+                var waitMs = (uint)(timeout ?? TimeSpan.FromSeconds(5)).TotalMilliseconds;
+                signaled = NativeMethods.WaitForSingleObject(thread, waitMs) == NativeMethods.WAIT_OBJECT_0;
+            }
+            finally
+            {
+                NativeMethods.CloseHandle(thread);
+            }
+
+            return signaled && _mem.TryReadInt64((long)paramAddress + 40, out result);
+        }
+        finally
+        {
+            NativeMethods.VirtualFreeEx(_mem.Handle, paramAddress, 0, NativeMethods.MEM_RELEASE);
+        }
+    }
+
     public void Dispose()
     {
         if (_stubAddress != IntPtr.Zero)
@@ -323,6 +422,11 @@ public sealed class RemoteExecutor : IDisposable
         {
             NativeMethods.VirtualFreeEx(_mem.Handle, _callWithReturnStubAddress, 0, NativeMethods.MEM_RELEASE);
             _callWithReturnStubAddress = IntPtr.Zero;
+        }
+        if (_fourArgCallWithReturnStubAddress != IntPtr.Zero)
+        {
+            NativeMethods.VirtualFreeEx(_mem.Handle, _fourArgCallWithReturnStubAddress, 0, NativeMethods.MEM_RELEASE);
+            _fourArgCallWithReturnStubAddress = IntPtr.Zero;
         }
     }
 }
