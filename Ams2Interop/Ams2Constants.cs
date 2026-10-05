@@ -117,6 +117,27 @@ public static class Ams2Constants
     public const int Vm498DatePackedOffset = 0x188;
 
     /// <summary>
+    /// A module-global pointer (`block = *(moduleBase + this)`) to AMS2's big settings block,
+    /// which holds the global gameplay options - see GameplaySettingsOffset. Unlike the Custom
+    /// Race objects it exists whenever the game is running. A DATA RVA, so it doesn't follow the
+    /// code-RVA patch deltas noted on this class and must be re-derived on its own after a game
+    /// update. NOT YET LIVE-CONFIRMED.
+    /// </summary>
+    public const long GameplaySettingsPointerRva = 0x29889E8;
+
+    /// <summary>
+    /// Plain int fields inside the settings block (see GameplaySettingsPointerRva), each an index
+    /// 0-8 into that option's own list rather than the multiplier itself: tyre wear x1..x7 is
+    /// index 6..0 (`7 - multiplier`), fuel usage x2..x5 is index 6..3 (`8 - multiplier`). The
+    /// remaining indices (tyre 7/8, fuel 0/1/2/7/8 - off, x1 and the like) aren't established.
+    /// </summary>
+    public static class GameplaySettingsOffset
+    {
+        public const int TyreWear = 0x3D3C0;
+        public const int FuelUsage = 0x3D3C4;
+    }
+
+    /// <summary>
     /// Session indices into VM498's session-wrapper array: VM498 caches 8 wrapper pointers at
     /// `vm498 + 0x18 + index*8`, and each wrapper's own `+0x18` field holds that session's
     /// VM550-shaped pointer - separate, structurally-identical VM550 instances written through the

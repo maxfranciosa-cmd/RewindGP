@@ -28,6 +28,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
     private VmResolver? _vmResolver;
     private SlotWriter? _slotWriter;
     private SessionVmResolver? _sessionVmResolver;
+    private GameplaySettings? _gameplaySettings;
     private long _moduleBase;
     private long _moduleSize;
 
@@ -73,8 +74,37 @@ public sealed class Ams2RaceConfigurator : IDisposable
         _vmResolver = new VmResolver(_mem, _moduleBase, _moduleSize, log: _log);
         _slotWriter = new SlotWriter(_mem, _exec, _moduleBase);
         _sessionVmResolver = new SessionVmResolver(_mem, _moduleBase, _moduleSize, log: _log);
+        _gameplaySettings = new GameplaySettings(_mem, _moduleBase, log: _log);
 
         return true;
+    }
+
+    /// <summary>
+    /// Sets AMS2's global tyre-wear (x1-x7) and/or fuel-usage (x2-x5) multipliers - null leaves
+    /// that one alone. These are the player's own game settings, not Custom Race config: they
+    /// don't need the Custom Race screen open, and they stay changed until restored, so keep
+    /// `original` and pass it to TryRestoreWearSettings when the race is over. Returns false,
+    /// having changed nothing, if the settings can't be read or a multiplier is out of range.
+    /// See Native/GameplaySettings.cs.
+    /// </summary>
+    public bool TryApplyWearMultipliers(int? tyreWearMultiplier, int? fuelUsageMultiplier, out WearSettingsSnapshot original)
+    {
+        RequireAttached();
+        return _gameplaySettings!.TryApply(tyreWearMultiplier, fuelUsageMultiplier, out original);
+    }
+
+    /// <summary>Puts back the tyre-wear/fuel-usage settings TryApplyWearMultipliers replaced.</summary>
+    public bool TryRestoreWearSettings(WearSettingsSnapshot original)
+    {
+        RequireAttached();
+        return _gameplaySettings!.TryRestore(original);
+    }
+
+    /// <summary>Current tyre-wear/fuel-usage settings, or null if they can't be read.</summary>
+    public WearSettingsSnapshot? ReadWearSettings()
+    {
+        RequireAttached();
+        return _gameplaySettings!.Read();
     }
 
     /// <summary>
@@ -135,6 +165,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
         _vmResolver = null;
         _slotWriter = null;
         _sessionVmResolver = null;
+        _gameplaySettings = null;
     }
 
     /// <summary>

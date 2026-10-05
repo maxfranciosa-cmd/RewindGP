@@ -27,6 +27,12 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
         // loading/menu screens the moment the window is created.
         private static readonly TimeSpan OverlayRevealDelay = TimeSpan.FromSeconds(10);
 
+        // The player's own tyre-wear/fuel-usage settings, held while a shortened race has them
+        // scaled up (see ApplyWearScaling). Static because this class is registered transient -
+        // the instance that restores them isn't the one that changed them.
+        private static readonly object WearLock = new();
+        private static WearSettingsSnapshot? _originalWearSettings;
+
         private readonly IGameInstallSettingsStorage _installSettingsStorage;
         private readonly IRacePreparator _racePreparator;
         private readonly IAms2GrandPrixTrackResolver _trackResolver;
@@ -204,6 +210,8 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 return;
             }
 
+            await RestoreWearSettingsAsync().ConfigureAwait(true);
+
             var overlay = new RaceReturnOverlayWindow(ownerWindow as Window);
             var tracker = new Ams2WindowTracker(overlay);
             tracker.ProcessLost += (_, _) => overlay.DismissWithoutReturning();
@@ -296,7 +304,75 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 return false;
             }
 
+            // Pre-Quali is a qualifying-only session - nothing to scale there.
+            if (!request.IsPreQuali)
+            {
+                ApplyWearScaling(configurator, raceLength);
+            }
+
             return true;
+        }
+
+        /// <summary>
+        /// Scales AMS2's own tyre-wear/fuel-usage settings to match a shortened race (see
+        /// Ams2SessionRulesBuilder.GetWearMultiplier). Best-effort: a failure here just leaves the
+        /// player's own settings in place, it never fails the race setup. Undone by
+        /// RestoreWearSettingsAsync once the race is over.
+        /// </summary>
+        private static void ApplyWearScaling(Ams2RaceConfigurator configurator, Ams2RaceLength raceLength)
+        {
+            if (Ams2SessionRulesBuilder.GetWearMultiplier(raceLength) is not int multiplier)
+            {
+                return;
+            }
+
+            if (!configurator.TryApplyWearMultipliers(multiplier, multiplier, out var original))
+            {
+                LogToFile($"wear scaling x{multiplier} NOT applied");
+                return;
+            }
+
+            lock (WearLock)
+            {
+                // Keep the first snapshot if one is already pending (e.g. the race was set up
+                // twice without finishing) - a later one would just be our own scaled values.
+                _originalWearSettings ??= original;
+            }
+        }
+
+        /// <summary>Puts the player's own tyre-wear/fuel-usage settings back, if ApplyWearScaling changed them.</summary>
+        private static async Task RestoreWearSettingsAsync()
+        {
+            WearSettingsSnapshot original;
+            lock (WearLock)
+            {
+                if (_originalWearSettings is not WearSettingsSnapshot pending)
+                {
+                    return;
+                }
+                original = pending;
+            }
+
+            try
+            {
+                using var configurator = new Ams2RaceConfigurator(
+                    new Dictionary<string, int>(), new Dictionary<string, int>(), LogToFile);
+                if (!await configurator.AttachAsync().ConfigureAwait(true) || !configurator.TryRestoreWearSettings(original))
+                {
+                    LogToFile("wear settings NOT restored - will retry after the next session");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogToFile($"wear settings restore failed: {ex.Message}");
+                return;
+            }
+
+            lock (WearLock)
+            {
+                _originalWearSettings = null;
+            }
         }
 
         /// <summary>

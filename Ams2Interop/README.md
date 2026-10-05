@@ -83,6 +83,13 @@ application already drives) before calling `ApplyRaceConfigAsync`.
   git history); resolution is plain memory reads, validated by requiring the candidate
   container's own Race1 entry to match the independently-resolved Race1 VM550.
 
+- **NOT YET LIVE-TESTED**: tyre-wear and fuel-usage multipliers
+  (`TryApplyWearMultipliers`/`TryRestoreWearSettings`, `Native/GameplaySettings.cs`). These are
+  AMS2's global gameplay settings, not Custom Race config: plain int fields in a settings block
+  reached through one module-global pointer, written directly. The caller is responsible for
+  restoring the player's own values afterwards. Nothing is written unless both fields currently
+  read as a valid index, so a moved layout after a game update fails safe.
+
 ## What's a known simplification
 
 - **`SetCar`'s `flag` argument** — always sent as `0`. Its exact meaning is unconfirmed; `0` is

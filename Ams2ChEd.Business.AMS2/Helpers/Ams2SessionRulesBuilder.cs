@@ -80,6 +80,21 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             };
         }
 
+        /// <summary>
+        /// Tyre-wear/fuel-usage multiplier that keeps a shortened race's strategy in proportion
+        /// to the full distance (half distance = x2, one third = x3). Null = leave the player's
+        /// own settings alone.
+        /// </summary>
+        public static int? GetWearMultiplier(Ams2RaceLength raceLength)
+        {
+            return raceLength switch
+            {
+                Ams2RaceLength.Half => 2,
+                Ams2RaceLength.OneThird => 3,
+                _ => null,
+            };
+        }
+
         public static OpponentsConfig BuildOpponentsConfig(int opponentCount)
         {
             return new OpponentsConfig

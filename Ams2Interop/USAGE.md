@@ -166,6 +166,20 @@ player just opened Custom Race and no prior call has scanned for them), this cal
 the scan — there's no separate "wait until ready" step; just call it once the player is on the
 screen.
 
+### `TryApplyWearMultipliers(...)` / `TryRestoreWearSettings(...)` — NOT YET LIVE-TESTED
+
+```csharp
+bool TryApplyWearMultipliers(int? tyreWearMultiplier, int? fuelUsageMultiplier, out WearSettingsSnapshot original)
+bool TryRestoreWearSettings(WearSettingsSnapshot original)
+WearSettingsSnapshot? ReadWearSettings()
+```
+
+Sets AMS2's global tyre-wear (x1–x7) and fuel-usage (x2–x5) settings; `null` leaves that one
+alone. Only needs `AttachAsync` — not the Custom Race screen. These are the player's own game
+settings and stay changed until you put them back, so keep `original` and pass it to
+`TryRestoreWearSettings` once the race is over. Returns `false`, having written nothing, if a
+multiplier is out of range or the settings don't read back as valid (e.g. after a game update).
+
 ### `Detach()` / `Dispose()`
 
 Frees the process handle and any allocated remote memory (including the shellcode stubs). Safe
