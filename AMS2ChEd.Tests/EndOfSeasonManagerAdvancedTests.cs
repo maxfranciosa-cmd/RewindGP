@@ -68,7 +68,10 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             // Assert
             Assert.AreEqual(1, ballots.Count, "Should create one ballot for the dropped driver position");
             Assert.AreEqual("T1", ballots[0].OriginalTeamHiring.TeamId);
-            Assert.AreEqual(DriverRole.FIRST_DRIVER, ballots[0].OriginalTeamHiring.Role);
+            Assert.AreEqual(1, ballots[0].OriginalTeamHiring.Slot, "The ad fills the seat that became free");
+            // the staying (EQUAL) driver is championship level at a top team, so they're considered
+            // the team leader and the team looks for a second driver
+            Assert.AreEqual(DriverRole.SECOND_DRIVER, ballots[0].OriginalTeamHiring.Role);
             Assert.IsNotNull(ballots[0].OriginalTeamHiring.DriverId, "Team should have picked a replacement");
         }
 

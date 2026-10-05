@@ -44,6 +44,10 @@ namespace AMS2ChEd.Business.Services.Contracts
         public TeamReputation TeamReputation { get; set; }
 
         public DriverRole Role { get; set; }
+
+        // the contract seat (1 = Driver1Contract, 2 = Driver2Contract) being filled -
+        // independent from Role, which is only the kind of driver the team is looking for
+        public int Slot { get; set; }
         public string ExitingDriverId { get; set;}
 
         public bool ExitingDriverWillingToRenew { get; set; }
@@ -55,6 +59,12 @@ namespace AMS2ChEd.Business.Services.Contracts
         public string DriverId { get; set; }
 
         public DriverRole Role { get; set; }
+
+        // the contract seat (1 = Driver1Contract, 2 = Driver2Contract) this hiring fills
+        public int Slot { get; set; }
+
+        // a hiring with no explicit slot fills the seat historically tied to its role
+        public int GetSlot() => Slot != 0 ? Slot : (Role == DriverRole.FIRST_DRIVER ? 1 : 2);
 
         public DriverReputation DriverReputation { get; set; }
 

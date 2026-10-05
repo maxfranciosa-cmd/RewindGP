@@ -324,6 +324,25 @@
                                        TextWrapping="Wrap"/>
                         </Grid>
 
+                        <!-- Player Team Role + Reprimands -->
+                        <Grid x:Name="PlayerRoleRow" Margin="0,0,0,8" Visibility="Collapsed">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="{loc:Loc SeasonOverviewWindow_RoleLabel}"
+                                       FontSize="12"
+                                       Foreground="#666666"
+                                       Margin="0,0,10,0"/>
+                            <TextBlock Grid.Column="1"
+                                       x:Name="PlayerRoleText"
+                                       FontSize="13"
+                                       FontWeight="SemiBold"
+                                       Foreground="White"
+                                       TextWrapping="Wrap"/>
+                        </Grid>
+
                         <!-- Player Reputation -->
                         <Grid Margin="0,0,0,12">
                             <Grid.ColumnDefinitions>

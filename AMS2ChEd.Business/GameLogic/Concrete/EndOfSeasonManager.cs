@@ -42,8 +42,44 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             var currentTeamsSituation = GetTeamSituationBeforeDriverMarket(newSeason, saveGame);
 
-            return _offSeasonMovements.DropDrivers(currentTeamsSituation);
+            var dropResults = _offSeasonMovements.DropDrivers(currentTeamsSituation).ToList();
 
+            ApplyDisciplinaryDrops(saveGame, dropResults);
+
+            return dropResults;
+        }
+
+        // drivers who collected too many team-orders reprimands are let go by their team,
+        // unless they're the champion. Retirements and teams quitting still take precedence.
+        private void ApplyDisciplinaryDrops(ISaveGame saveGame, List<DropTeamResult> dropResults)
+        {
+            var reprimands = saveGame.Reprimands ?? new List<Reprimand>();
+            if (!reprimands.Any())
+                return;
+
+            var championId = saveGame.CurrentDriverStandings?.FirstOrDefault(s => s.Position == 1)?.DriverId;
+            var teamsDictionary = saveGame.CurrentSeason.Teams.ToDictionary(t => t.TeamId, t => t);
+
+            DriverFirerOutcome GetOutcome(DriverFirerOutcome current, string teamId, string driverId)
+            {
+                if (string.IsNullOrEmpty(driverId) || driverId == championId)
+                    return current;
+
+                if (current == DriverFirerOutcome.DROPPED_RETIRING || current == DriverFirerOutcome.DROPPED_TEAM_QUITTING)
+                    return current;
+
+                var count = reprimands.Count(r => r.DriverId == driverId && r.TeamId == teamId);
+                return count >= ReprimandManager.REPRIMANDS_FOR_SEASON_END_DROP ? DriverFirerOutcome.DROPPED_DISCIPLINARY : current;
+            }
+
+            foreach (var dropResult in dropResults)
+            {
+                if (!teamsDictionary.TryGetValue(dropResult.TeamId, out var team))
+                    continue;
+
+                dropResult.DropDriver1 = GetOutcome(dropResult.DropDriver1, team.TeamId, team.Driver1Contract?.DriverId);
+                dropResult.DropDriver2 = GetOutcome(dropResult.DropDriver2, team.TeamId, team.Driver2Contract?.DriverId);
+            }
         }
 
         public void UpdateDriversPoolForNextSeason(
@@ -188,6 +224,44 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return result;
         }
 
+        // after a team has hired, the driver with the better reputation leads the team.
+        // On equal reputations the newly hired driver takes the role the team advertised for.
+        private void AssignRolesAfterHiring(ISaveGame saveGame, ITeamEntry teamEntry, TeamHiring driver1Hiring, TeamHiring driver2Hiring)
+        {
+            if (string.IsNullOrEmpty(teamEntry.Driver2Contract?.DriverId))
+            {
+                // one-car team: no teammate to give orders to
+                teamEntry.Driver1Contract.Role = ContractRole.EQUAL;
+                return;
+            }
+
+            DriverReputation GetReputation(string driverId, TeamHiring hiring) =>
+                saveGame.Drivers.FirstOrDefault(d => d.DriverId == driverId)?.Reputation
+                ?? hiring?.DriverReputation
+                ?? DriverReputation.PRIME_MIDFIELD;
+
+            var driver1Reputation = GetReputation(teamEntry.Driver1Contract.DriverId, driver1Hiring);
+            var driver2Reputation = GetReputation(teamEntry.Driver2Contract.DriverId, driver2Hiring);
+
+            bool driver1Leads;
+            if (driver1Reputation != driver2Reputation)
+                driver1Leads = driver1Reputation > driver2Reputation;
+            else if (driver1Hiring != null)
+                driver1Leads = driver1Hiring.Role == DriverRole.FIRST_DRIVER;
+            else
+                driver1Leads = driver2Hiring.Role == DriverRole.SECOND_DRIVER;
+
+            teamEntry.Driver1Contract.Role = driver1Leads ? ContractRole.FIRST_DRIVER : ContractRole.SECOND_DRIVER;
+            teamEntry.Driver2Contract.Role = driver1Leads ? ContractRole.SECOND_DRIVER : ContractRole.FIRST_DRIVER;
+        }
+
+        private DriverRole GetRoleToHireAlongside(ISaveGame saveGame, DriverContract stayingDriverContract, TeamReputation teamReputation)
+        {
+            var stayingDriver = saveGame.Drivers.FirstOrDefault(d => d.DriverId == stayingDriverContract.DriverId);
+            var stayingDriverReputation = stayingDriver?.Reputation ?? DriverReputation.PRIME_MIDFIELD;
+            return DriverHirer.GetRoleToHireAlongside(stayingDriverContract.Role, stayingDriverReputation, teamReputation);
+        }
+
         private const int MIN_RETIRING_AGE = 34;
         private const int MAX_RETIRING_AGE = 42;
         private bool IsDriverRetiring(int age)
@@ -280,13 +354,29 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     hiringDriver2 = !string.IsNullOrEmpty(driver2Id) && driver2DropOutcome.IsDropped();
                 }
 
+                // with both seats open the team looks for a leader and a wingman; with only one seat
+                // open it looks for whatever complements the driver who's staying
+                var driver1Role = DriverRole.FIRST_DRIVER;
+                var driver2Role = DriverRole.SECOND_DRIVER;
+                var currentTeamEntry = currentSeasonTeamEntriesDictionary.GetValueOrDefault(teamEntry.TeamId);
+
+                if (currentTeamEntry != null && hiringDriver1 && !hiringDriver2 && !string.IsNullOrEmpty(driver2Id))
+                {
+                    driver1Role = GetRoleToHireAlongside(saveGame, currentTeamEntry.Driver2Contract, teamEntry.Reputation);
+                }
+                else if (currentTeamEntry != null && hiringDriver2 && !hiringDriver1)
+                {
+                    driver2Role = GetRoleToHireAlongside(saveGame, currentTeamEntry.Driver1Contract, teamEntry.Reputation);
+                }
+
                 if (hiringDriver1)
                 {
                     teamJobAds.Add(new TeamJobAd
                     {
                         TeamId = teamEntry.TeamId,
                         TeamReputation = teamEntry.Reputation,
-                        Role = DriverRole.FIRST_DRIVER,
+                        Role = driver1Role,
+                        Slot = 1,
                         ExitingDriverId = driver1Id,
                         ExitingDriverWillingToRenew = exitingDriver1WillingToRenew
                     });
@@ -298,7 +388,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     {
                         TeamId = teamEntry.TeamId,
                         TeamReputation = teamEntry.Reputation,
-                        Role = DriverRole.SECOND_DRIVER,
+                        Role = driver2Role,
+                        Slot = 2,
                         ExitingDriverId = driver2Id,
                         ExitingDriverWillingToRenew = exitingDriver2WillingToRenew
                     });
@@ -332,6 +423,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     DriverReputation = newDriver.Reputation,
                     ExcludeDriverIds = (!string.IsNullOrEmpty(job.ExitingDriverId) && !job.ExitingDriverWillingToRenew) ? new HashSet<string> { job.ExitingDriverId } : new HashSet<string> { },
                     Role = job.Role,
+                    Slot = job.Slot,
                     TeamId = job.TeamId,
                     TeamReputation = job.TeamReputation
                 };
@@ -365,36 +457,43 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 var currentSeasonTeam = oldTeamEntries.GetValueOrDefault(teamEntry.TeamId);
                 var hirings = teamHiringResultDictionary.GetValueOrDefault(teamEntry.TeamId) ?? new List<TeamHiring>();
                 
-                // FIRST_DRIVER
-                var firstDriverHiring = hirings.FirstOrDefault(h => h.Role == DriverRole.FIRST_DRIVER);
-                
-                if (firstDriverHiring != null)
+                // DRIVER 1 SEAT
+                var driver1Hiring = hirings.FirstOrDefault(h => h.GetSlot() == 1);
+
+                if (driver1Hiring != null)
                 {
                     // Hired - use ballot result
-                    teamEntry.Driver1Contract.DriverId = firstDriverHiring.DriverId;
-                    var firstDriverFit = _driverHirer.DoesDriverFitTeamPolicy(firstDriverHiring.DriverReputation, DriverRole.FIRST_DRIVER, teamEntry.Reputation);
+                    teamEntry.Driver1Contract.DriverId = driver1Hiring.DriverId;
+                    var firstDriverFit = _driverHirer.DoesDriverFitTeamPolicy(driver1Hiring.DriverReputation, driver1Hiring.Role, teamEntry.Reputation);
                     teamEntry.Driver1Contract.Races = firstDriverFit >= DriverHirer.DriverPolicyFit.PerfectFit ? newSeason.Races.Count() + 1 : newSeason.Races.Count();
                 }
                 else if (currentSeasonTeam != null)
                 {
                     teamEntry.Driver1Contract.DriverId = currentSeasonTeam.Driver1Contract.DriverId;
                     teamEntry.Driver1Contract.Races = currentSeasonTeam.Driver1Contract.Races - saveGame.CurrentSeason.Races.Count();
+                    teamEntry.Driver1Contract.Role = currentSeasonTeam.Driver1Contract.Role;
                 }
 
-                // SECOND DRIVER
-                var secondDriverHiring = hirings.FirstOrDefault(h => h.Role == DriverRole.SECOND_DRIVER);
-                
-                if (secondDriverHiring != null)
+                // DRIVER 2 SEAT
+                var driver2Hiring = hirings.FirstOrDefault(h => h.GetSlot() == 2);
+
+                if (driver2Hiring != null)
                 {
                     // Hired - use ballot result
-                    teamEntry.Driver2Contract.DriverId = secondDriverHiring.DriverId;
-                    var secondDriverFit = _driverHirer.DoesDriverFitTeamPolicy(secondDriverHiring.DriverReputation, DriverRole.SECOND_DRIVER, teamEntry.Reputation);
+                    teamEntry.Driver2Contract.DriverId = driver2Hiring.DriverId;
+                    var secondDriverFit = _driverHirer.DoesDriverFitTeamPolicy(driver2Hiring.DriverReputation, driver2Hiring.Role, teamEntry.Reputation);
                     teamEntry.Driver2Contract.Races = secondDriverFit >= DriverHirer.DriverPolicyFit.PerfectFit ? newSeason.Races.Count() + 1 : newSeason.Races.Count();
                 }
                 else if (currentSeasonTeam != null)
                 {
                     teamEntry.Driver2Contract.DriverId = currentSeasonTeam.Driver2Contract.DriverId;
                     teamEntry.Driver2Contract.Races = currentSeasonTeam.Driver2Contract.Races - saveGame.CurrentSeason.Races.Count();
+                    teamEntry.Driver2Contract.Role = currentSeasonTeam.Driver2Contract.Role;
+                }
+
+                if (driver1Hiring != null || driver2Hiring != null)
+                {
+                    AssignRolesAfterHiring(saveGame, teamEntry, driver1Hiring, driver2Hiring);
                 }
 
                 employedDriversIds.Add(teamEntry.Driver1Contract.DriverId, teamEntry.TeamId);
@@ -579,6 +678,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             saveGame.CurrentConstructorStandings = InitializeConstructorStandings(newSeason);
             saveGame.NextGpIndex = 0;
             saveGame.CurrentSeason = newSeason;
+            saveGame.Reprimands = new List<Reprimand>();
 
             // reassign the race numbers
             var raceNumberSystem = RaceNumberAllocationFactory.GetRaceNumberAllocationService(newSeason.Year);

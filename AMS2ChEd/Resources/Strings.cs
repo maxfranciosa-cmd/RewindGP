@@ -960,5 +960,35 @@ namespace AMS2ChEd.Resources
         public static string RetirementNewsWindow_Closing3 => ResourceManager.GetString(nameof(RetirementNewsWindow_Closing3))!;
 
         public static string RetirementNewsWindow_DefaultTeamName => ResourceManager.GetString(nameof(RetirementNewsWindow_DefaultTeamName))!;
+
+        public static string OffSeasonContractWindow_Disciplinary_Format => ResourceManager.GetString(nameof(OffSeasonContractWindow_Disciplinary_Format))!;
+        public static string TeamApplicationWindow_DropReason_Disciplinary => ResourceManager.GetString(nameof(TeamApplicationWindow_DropReason_Disciplinary))!;
+        public static string TeamSelectionWindow_EqualDriverRole => ResourceManager.GetString(nameof(TeamSelectionWindow_EqualDriverRole))!;
+        public static string SeasonOverviewWindow_RoleLabel => ResourceManager.GetString(nameof(SeasonOverviewWindow_RoleLabel))!;
+        public static string SeasonOverviewWindow_RoleAndReprimands_Format => ResourceManager.GetString(nameof(SeasonOverviewWindow_RoleAndReprimands_Format))!;
+
+        public static string PaddockNewsWindow_Title => ResourceManager.GetString(nameof(PaddockNewsWindow_Title))!;
+        public static string PaddockNewsWindow_Masthead => ResourceManager.GetString(nameof(PaddockNewsWindow_Masthead))!;
+        public static string PaddockNewsWindow_Banner => ResourceManager.GetString(nameof(PaddockNewsWindow_Banner))!;
+        public static string PaddockNewsWindow_CloseButton => ResourceManager.GetString(nameof(PaddockNewsWindow_CloseButton))!;
+        public static string PaddockNewsWindow_DefaultTeamName => ResourceManager.GetString(nameof(PaddockNewsWindow_DefaultTeamName))!;
+        public static string PaddockNewsWindow_DefaultTeamPrincipal => ResourceManager.GetString(nameof(PaddockNewsWindow_DefaultTeamPrincipal))!;
+        public static string PaddockNewsWindow_DefaultDriverName => ResourceManager.GetString(nameof(PaddockNewsWindow_DefaultDriverName))!;
+        public static string PaddockNewsWindow_Headline_Generic_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Headline_Generic_Format))!;
+        public static string PaddockNewsWindow_Headline_Reprimand_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Headline_Reprimand_Format))!;
+        public static string PaddockNewsWindow_Headline_Released_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Headline_Released_Format))!;
+        public static string PaddockNewsWindow_Reprimand1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Reprimand1_Format))!;
+        public static string PaddockNewsWindow_Reprimand2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Reprimand2_Format))!;
+        public static string PaddockNewsWindow_Reprimand3_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Reprimand3_Format))!;
+        public static string PaddockNewsWindow_Contact1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Contact1_Format))!;
+        public static string PaddockNewsWindow_Contact2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Contact2_Format))!;
+        public static string PaddockNewsWindow_Contact3_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Contact3_Format))!;
+        public static string PaddockNewsWindow_FinalWarning1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_FinalWarning1_Format))!;
+        public static string PaddockNewsWindow_FinalWarning2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_FinalWarning2_Format))!;
+        public static string PaddockNewsWindow_SparedAsLeader1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_SparedAsLeader1_Format))!;
+        public static string PaddockNewsWindow_SparedAsLeader2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_SparedAsLeader2_Format))!;
+        public static string PaddockNewsWindow_Released1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Released1_Format))!;
+        public static string PaddockNewsWindow_Released2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Released2_Format))!;
+        public static string PaddockNewsWindow_ReleasedNoReplacement_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_ReleasedNoReplacement_Format))!;
     }
 }

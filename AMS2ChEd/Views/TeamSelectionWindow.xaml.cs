@@ -63,6 +63,13 @@ namespace AMS2ChEd
             LoadSeason(seasonYear);
         }
 
+        private static string GetRoleName(ContractRole role) => role switch
+        {
+            ContractRole.FIRST_DRIVER => Strings.TeamSelectionWindow_FirstDriverRole,
+            ContractRole.SECOND_DRIVER => Strings.TeamSelectionWindow_SecondDriverRole,
+            _ => Strings.TeamSelectionWindow_EqualDriverRole
+        };
+
         private void LoadSeason(int seasonYear)
         {
             try
@@ -90,7 +97,7 @@ namespace AMS2ChEd
                     var driver1 = new Driver
                     {
                         DriverId = driver1Data.DriverId,
-                        RoleName = Strings.TeamSelectionWindow_FirstDriverRole,
+                        RoleName = GetRoleName(teamEntry.Driver1Contract.Role),
                         Name = driver1Data.Name,
                         Nationality = string.IsNullOrEmpty(driver1Data.Nationality) ? "N/A" : driver1Data.Nationality,
                         Number = teamEntry.Driver1Contract.DriverNumber,
@@ -116,7 +123,7 @@ namespace AMS2ChEd
                         driver2 = new Driver
                         {
                             DriverId = driver2Data.DriverId,
-                            RoleName = Strings.TeamSelectionWindow_SecondDriverRole,
+                            RoleName = GetRoleName(teamEntry.Driver2Contract.Role),
                             Name = driver2Data.Name,
                             Nationality = string.IsNullOrEmpty(driver2Data.Nationality) ? "N/A" : driver2Data.Nationality,
                             Number = teamEntry.Driver2Contract.DriverNumber,

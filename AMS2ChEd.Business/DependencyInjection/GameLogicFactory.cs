@@ -23,6 +23,8 @@ namespace AMS2ChEd.Business.DependencyInjection
 
         public IRaceSetupAdvisor RaceSetupAdvisor { get; private set; }
 
+        public IReprimandManager ReprimandManager { get; private set; }
+
         /// <summary>
         /// Optional (may be null if the active game module doesn't support live-process race
         /// configuration - see <see cref="IRaceLaunchAssistant"/>).
@@ -43,6 +45,7 @@ namespace AMS2ChEd.Business.DependencyInjection
             IPreQualiPoolResolver preQualiPoolResolver,
             IRaceSetupAdvisor raceSetupAdvisor,
             SeasonUpdaterOrchestrator seasonUpdaterOrchestrator,
+            IReprimandManager reprimandManager,
             IRaceLaunchAssistant raceLaunchAssistant = null)
         {
             StandingsManager = standingsManager;
@@ -56,6 +59,7 @@ namespace AMS2ChEd.Business.DependencyInjection
             PreQualiPoolResolver = preQualiPoolResolver;
             RaceSetupAdvisor = raceSetupAdvisor;
             SeasonUpdaterOrchestrator = seasonUpdaterOrchestrator;
+            ReprimandManager = reprimandManager;
             RaceLaunchAssistant = raceLaunchAssistant;
         }
     }

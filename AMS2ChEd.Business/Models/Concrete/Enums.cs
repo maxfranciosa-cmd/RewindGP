@@ -2,7 +2,7 @@
 
 namespace AMS2ChEd.Business.Models.Concrete
 {
-    [JsonConverter(typeof(DriverReputationConverter))]
+    [JsonConverter(typeof(GenericEnumConverter<DriverReputation>))]
     public enum DriverReputation
     {
         PAY_DRIVER_WILD_CARD,
@@ -21,7 +21,7 @@ namespace AMS2ChEd.Business.Models.Concrete
         PRIME_CHAMPIONSHIP_LEVEL,
         YOUNG_CHAMPIONSHIP_LEVEL
     }
-    [JsonConverter(typeof(TeamReputationConverter))]
+    [JsonConverter(typeof(GenericEnumConverter<TeamReputation>))]
     public enum TeamReputation
     {
         SUPER_MINNOW,

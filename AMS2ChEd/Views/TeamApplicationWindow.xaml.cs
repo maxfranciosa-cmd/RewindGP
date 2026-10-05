@@ -87,6 +87,7 @@ namespace AMS2ChEd.Views
                 DriverFirerOutcome.DROPPED_RETIRING => string.Format(Strings.TeamApplicationWindow_DropReason_Retiring, driverName),
                 DriverFirerOutcome.DROPPED_TEAM_QUITTING => string.Format(Strings.TeamApplicationWindow_DropReason_TeamQuitting, driverName),
                 DriverFirerOutcome.DROPPED_PLAYER_REJECTING => string.Format(Strings.TeamApplicationWindow_DropReason_PlayerRejecting, driverName),
+                DriverFirerOutcome.DROPPED_DISCIPLINARY => string.Format(Strings.TeamApplicationWindow_DropReason_Disciplinary, driverName),
                 DriverFirerOutcome.NOT_DROPPED => null,
                 _ => null
             };
@@ -151,14 +152,15 @@ namespace AMS2ChEd.Views
 
                 if (dropLookup.TryGetValue(ballot.OriginalTeamHiring.TeamId, out var teamDropInfo) && teamEntry != null)
                 {
-                    // Determine which drop outcome to use based on the role
-                    DriverFirerOutcome dropOutcome = ballot.OriginalTeamHiring.Role == DriverRole.FIRST_DRIVER
+                    // Determine which drop outcome to use based on the seat being filled
+                    bool isDriver1Seat = ballot.OriginalTeamHiring.GetSlot() == 1;
+                    DriverFirerOutcome dropOutcome = isDriver1Seat
                         ? teamDropInfo.DropDriver1
                         : teamDropInfo.DropDriver2;
 
                     // Get the driver name from the team entry in the save game
                     string droppedDriverName = null;
-                    if (ballot.OriginalTeamHiring.Role == DriverRole.FIRST_DRIVER)
+                    if (isDriver1Seat)
                     {
 
                         droppedDriverName = allDriversDictionary[teamEntry.Driver1Contract.DriverId].Name;

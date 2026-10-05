@@ -55,6 +55,7 @@ namespace AMS2ChEd
             services.AddTransient<IOffSeasonMovements, OffSeasonMovements>();
             services.AddTransient<IPreQualiPoolResolver, PreQualiPoolResolver>();
             services.AddTransient<IOffSeasonOrchestrator, OffSeasonOrchestrator>();
+            services.AddTransient<IReprimandManager, ReprimandManager>();
 
             // ************ GAME LOGIC FACTORY **************
             services.AddTransient<GameLogicFactory>();

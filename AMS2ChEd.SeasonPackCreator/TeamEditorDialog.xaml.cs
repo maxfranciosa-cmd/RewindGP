@@ -30,6 +30,10 @@ namespace AMS2ChEd.SeasonPackEditor
             LoadTeamsFromJson();
 
             ReputationComboBox.ItemsSource = Enum.GetValues(typeof(TeamReputation)).Cast<TeamReputation>();
+            Driver1RoleComboBox.ItemsSource = Enum.GetValues(typeof(ContractRole)).Cast<ContractRole>();
+            Driver2RoleComboBox.ItemsSource = Enum.GetValues(typeof(ContractRole)).Cast<ContractRole>();
+            Driver1RoleComboBox.SelectedItem = ContractRole.EQUAL;
+            Driver2RoleComboBox.SelectedItem = ContractRole.EQUAL;
             Driver1ComboBox.ItemsSource = _availableDrivers.Select(d => d.DriverId).ToList();
             Driver2ComboBox.ItemsSource = new[] { NoSecondDriverPlaceholder }
                 .Concat(_availableDrivers.Select(d => d.DriverId))
@@ -129,6 +133,8 @@ namespace AMS2ChEd.SeasonPackEditor
             Driver1ComboBox.SelectedItem = Team.Driver1Contract?.DriverId;
             Driver1NumberTextBox.Text = Team.Driver1Contract?.DriverNumber.ToString();
             Driver1RacesContractTextBox.Text = Team.Driver1Contract?.Races.ToString();
+            Driver1RoleComboBox.SelectedItem = Team.Driver1Contract?.Role ?? ContractRole.EQUAL;
+            Driver2RoleComboBox.SelectedItem = Team.Driver2Contract?.Role ?? ContractRole.EQUAL;
             Driver2ComboBox.SelectedItem = string.IsNullOrEmpty(Team.Driver2Contract?.DriverId)
                 ? NoSecondDriverPlaceholder
                 : Team.Driver2Contract.DriverId;
@@ -172,11 +178,13 @@ namespace AMS2ChEd.SeasonPackEditor
             Team.Driver1Contract.DriverId = Driver1ComboBox.SelectedItem?.ToString();
             Team.Driver1Contract.DriverNumber = int.Parse(Driver1NumberTextBox.Text);
             Team.Driver1Contract.Races = int.Parse(Driver1RacesContractTextBox.Text);
+            Team.Driver1Contract.Role = (ContractRole)(Driver1RoleComboBox.SelectedItem ?? ContractRole.EQUAL);
             Team.Driver2Contract = Team.Driver2Contract ?? new DriverContract();
             var driver2Selection = Driver2ComboBox.SelectedItem?.ToString();
             Team.Driver2Contract.DriverId = driver2Selection == NoSecondDriverPlaceholder ? null : driver2Selection;
             Team.Driver2Contract.DriverNumber = int.Parse(Driver2NumberTextBox.Text);
             Team.Driver2Contract.Races = int.Parse(Driver2RacesContractTextBox.Text);
+            Team.Driver2Contract.Role = (ContractRole)(Driver2RoleComboBox.SelectedItem ?? ContractRole.EQUAL);
             Team.DefaultPrequalifying = DefaultPreQualiCheckBox.IsChecked ?? false;
 
             // Update performance malus

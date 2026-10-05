@@ -371,8 +371,19 @@ namespace AMS2ChEd.Views
                             .Select(s => s.DriverId)
                             .ToList();
 
+                        // Snapshot the standings BEFORE this race, for the team-orders second-half exemption
+                        var preRaceStandings = saveGame.CurrentDriverStandings
+                            .Select(s => new HistoricalDriverStandingEntry { DriverId = s.DriverId, TeamId = s.TeamId, Position = s.Position, Points = s.Points })
+                            .ToList();
+
                         // Update standings
                         _gameLogicFactory.StandingsManager.UpdateStandings(saveGame, raceResult);
+
+                        // Team orders: hand out reprimands (needs the updated standings, and must run
+                        // before NextGpIndex moves on, as releases add absences for the remaining races)
+                        var reprimandNews = _gameLogicFactory.ReprimandManager.ProcessRace(
+                            saveGame, raceResult, preRaceStandings, e.PlayerContactDriverIds);
+                        var grandPrixName = raceResult.GrandPrixName;
 
                         // Add race result to history
                         saveGame.GrandPrixResults = saveGame.GrandPrixResults.Append(raceResult);
@@ -392,8 +403,21 @@ namespace AMS2ChEd.Views
                         // Show post-race newspaper
                         var winnerDriverData = saveGame.Drivers.FirstOrDefault(d => d.DriverId == winner.DriverId);
                         var winnerPhoto = winnerDriverData?.PictureUrl;
-                        var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, DateTime.ParseExact(gpDate, "yyyy-MM-dd", CultureInfo.InvariantCulture), winnerPhoto);
+                        var raceDate = DateTime.ParseExact(gpDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, raceDate, winnerPhoto);
                         newsWindow.Owner = this;
+
+                        // paddock news about team-orders reprimands follows the race report
+                        if (reprimandNews.Any())
+                        {
+                            newsWindow.Closed += (_, _) =>
+                            {
+                                var paddockNewsWindow = new PaddockNewsWindow(saveGame, reprimandNews, raceDate, grandPrixName);
+                                paddockNewsWindow.Owner = this;
+                                paddockNewsWindow.Show();
+                            };
+                        }
+
                         newsWindow.Show();
 
                         // Keep the race results visible after stopping the service

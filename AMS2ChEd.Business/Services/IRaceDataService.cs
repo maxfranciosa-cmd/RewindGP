@@ -55,6 +55,12 @@
     {
         public SessionType CompletedSession { get; set; }
         public List<ParticipantData> FinalStandings { get; set; }
+
+        /// <summary>
+        /// Driver ids the player's car made contact with during the session (empty when the
+        /// game can't report collisions, or the player wasn't driving).
+        /// </summary>
+        public IReadOnlyCollection<string> PlayerContactDriverIds { get; set; } = Array.Empty<string>();
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.DependencyInjection;
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
@@ -140,6 +141,28 @@ namespace AMS2ChEd
                 t.Driver2Contract.DriverId == saveGame.PlayerData.DriverId);
 
             PlayerTeamText.Text = playerTeam?.TeamName ?? Strings.SeasonOverviewWindow_NoTeam;
+
+            // Set player team-orders role and reprimands (only worth showing when team orders apply)
+            var playerContract = playerTeam == null ? null
+                : playerTeam.Driver1Contract.DriverId == saveGame.PlayerData.DriverId ? playerTeam.Driver1Contract : playerTeam.Driver2Contract;
+            var reprimandCount = playerTeam == null ? 0
+                : (saveGame.Reprimands ?? new List<Reprimand>()).Count(r => r.DriverId == saveGame.PlayerData.DriverId && r.TeamId == playerTeam.TeamId);
+
+            if (playerContract != null && (playerContract.Role != ContractRole.EQUAL || reprimandCount > 0))
+            {
+                var roleName = playerContract.Role switch
+                {
+                    ContractRole.FIRST_DRIVER => Strings.TeamSelectionWindow_FirstDriverRole,
+                    ContractRole.SECOND_DRIVER => Strings.TeamSelectionWindow_SecondDriverRole,
+                    _ => Strings.TeamSelectionWindow_EqualDriverRole
+                };
+                PlayerRoleText.Text = string.Format(Strings.SeasonOverviewWindow_RoleAndReprimands_Format, roleName, reprimandCount, ReprimandManager.REPRIMANDS_FOR_RELEASE);
+                PlayerRoleRow.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                PlayerRoleRow.Visibility = Visibility.Collapsed;
+            }
 
             // Set player reputation
             var playerReputation = GetPlayerReputation();

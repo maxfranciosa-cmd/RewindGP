@@ -134,6 +134,36 @@ namespace AMS2ChEd.Business.Services
             },
         };
 
+        // minimum reputation for a driver to be considered the team leader (FIRST_DRIVER material)
+        // when their status inside the team isn't explicit (EQUAL contract role)
+        private static Dictionary<TeamReputation, DriverReputation> firstDriverMinReputation = new()
+        {
+            { TeamReputation.TOP_TEAM, DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN },
+            { TeamReputation.MIDFIELD_HIGH, DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED },
+            { TeamReputation.MIDFIELD, DriverReputation.JUST_ONE_LAST_DANCE },
+            { TeamReputation.MINNOW, DriverReputation.PRIME_MIDFIELD },
+            { TeamReputation.SUPER_MINNOW, DriverReputation.YOUNG_TALENT },
+        };
+
+        public static bool IsFirstDriverMaterial(DriverReputation driverReputation, TeamReputation teamReputation)
+        {
+            return driverReputation >= firstDriverMinReputation[teamReputation];
+        }
+
+        // the role a team looks for when hiring alongside a driver who is staying in the team
+        public static DriverRole GetRoleToHireAlongside(ContractRole stayingDriverRole, DriverReputation stayingDriverReputation, TeamReputation teamReputation)
+        {
+            switch (stayingDriverRole)
+            {
+                case ContractRole.FIRST_DRIVER:
+                    return DriverRole.SECOND_DRIVER;
+                case ContractRole.SECOND_DRIVER:
+                    return DriverRole.FIRST_DRIVER;
+                default:
+                    return IsFirstDriverMaterial(stayingDriverReputation, teamReputation) ? DriverRole.SECOND_DRIVER : DriverRole.FIRST_DRIVER;
+            }
+        }
+
         public enum DriverPolicyFit
         {
             UnderQualified,

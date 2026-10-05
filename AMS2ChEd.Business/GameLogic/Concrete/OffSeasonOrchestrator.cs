@@ -276,9 +276,17 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 var newTeamEntry = actualNewSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
                 if (newTeamEntry == null) continue;
 
-                var finalDriverId = role == DriverRole.FIRST_DRIVER
-                    ? newTeamEntry.Driver1Contract?.DriverId
-                    : newTeamEntry.Driver2Contract?.DriverId;
+                var finalContract = ballot.OriginalTeamHiring.GetSlot() == 1
+                    ? newTeamEntry.Driver1Contract
+                    : newTeamEntry.Driver2Contract;
+                var finalDriverId = finalContract?.DriverId;
+
+                // roles get reassigned by reputation once the hiring's done, so report the
+                // role the seat actually ended up with rather than the one advertised
+                if (finalContract?.Role == ContractRole.FIRST_DRIVER)
+                    role = DriverRole.FIRST_DRIVER;
+                else if (finalContract?.Role == ContractRole.SECOND_DRIVER)
+                    role = DriverRole.SECOND_DRIVER;
 
                 bool playerHired = finalDriverId == playerDriverId;
 

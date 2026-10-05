@@ -60,6 +60,14 @@ namespace AMS2ChEd.Business.Models.Concrete
         public bool IgnoreForPositionsTally { get; set; }
     }
 
+    [JsonConverter(typeof(GenericEnumConverter<ContractRole>))]
+    public enum ContractRole
+    {
+        EQUAL = 0,
+        FIRST_DRIVER = 1,
+        SECOND_DRIVER = 2
+    }
+
     public class DriverContract
     {
         [JsonPropertyName("driver_id")]
@@ -70,6 +78,9 @@ namespace AMS2ChEd.Business.Models.Concrete
 
         [JsonPropertyName("drivernumber")]
         public int DriverNumber { get; set; }
+
+        [JsonPropertyName("role")]
+        public ContractRole Role { get; set; }
     }
 
     public class Absence

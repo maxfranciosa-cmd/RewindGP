@@ -22,6 +22,29 @@ namespace AMS2ChEd.Business.Models.Concrete
         public List<EntryListEntry> PreQualiPoolEntries { get; set; }
         public List<ParticipantData> CurrentPreQualiDnpqResults { get; set; }
         public HistoricalAccolades AccoladesAtStart { get; set; }
+        public List<Reprimand> Reprimands { get; set; }
+    }
+
+    [JsonConverter(typeof(GenericEnumConverter<ReprimandReason>))]
+    public enum ReprimandReason
+    {
+        FINISHED_AHEAD_OF_FIRST_DRIVER,
+        CONTACT_WITH_TEAMMATE
+    }
+
+    public class Reprimand
+    {
+        [JsonPropertyName("driver_id")]
+        public string DriverId { get; set; }
+
+        [JsonPropertyName("team_id")]
+        public string TeamId { get; set; }
+
+        [JsonPropertyName("race_id")]
+        public int RaceId { get; set; }
+
+        [JsonPropertyName("reason")]
+        public ReprimandReason Reason { get; set; }
     }
 
     public class PlayerData : IPlayerData
