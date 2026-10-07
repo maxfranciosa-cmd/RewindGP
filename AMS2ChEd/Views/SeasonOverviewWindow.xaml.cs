@@ -50,6 +50,15 @@ namespace AMS2ChEd
         public bool IsEven { get; set; }
     }
 
+    public class CalendarRaceDisplay
+    {
+        public int Round { get; set; }
+        public string RaceName { get; set; }
+        public string FormattedDate { get; set; }
+        public bool IsDone { get; set; }
+        public bool IsNext { get; set; }
+    }
+
     public enum OffSeasonPhase
     {
         NOT_STARTED,
@@ -126,6 +135,8 @@ namespace AMS2ChEd
             // Load constructor standings
             LoadConstructorStandings();
 
+            LoadCalendar();
+
             if (saveGame.NextGpIndex < saveGame.CurrentSeason.Races.Count())
             {
                 var nextRace = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
@@ -140,6 +151,34 @@ namespace AMS2ChEd
                 NextGPText.Text = Strings.SeasonOverviewWindow_SeasonComplete;
                 RaceInfoText.Text = "";
             }
+        }
+
+        // the calendar sheet shown next to the standings on wide windows
+        private void LoadCalendar()
+        {
+            CalendarItems.ItemsSource = saveGame.CurrentSeason.Races
+                .Select((race, index) => new CalendarRaceDisplay
+                {
+                    Round = index + 1,
+                    RaceName = race.RaceName,
+                    FormattedDate = DateTime.TryParseExact(race.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var raceDate)
+                        ? raceDate.ToString("d MMM")
+                        : race.RaceDate,
+                    IsDone = index < saveGame.NextGpIndex,
+                    IsNext = index == saveGame.NextGpIndex
+                })
+                .ToList();
+        }
+
+        // a wide window has room for the calendar sheet and a bigger season pass
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            bool isWide = ActualWidth >= 1400;
+
+            PassColumn.Width = new GridLength(isWide ? 340 : 300);
+            CalendarGapColumn.Width = new GridLength(isWide ? 24 : 0);
+            CalendarColumn.Width = isWide ? new GridLength(0.9, GridUnitType.Star) : new GridLength(0);
+            CalendarSheet.Visibility = isWide ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void LoadPlayerData()

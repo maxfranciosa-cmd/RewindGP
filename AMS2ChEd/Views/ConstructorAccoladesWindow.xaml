@@ -7,223 +7,171 @@
         mc:Ignorable="d"
         x:Class="AMS2ChEd.Views.ConstructorAccoladesWindow"
         Title="{loc:Loc ConstructorAccoladesWindow_Title}"
-        Height="699" Width="520"
+        Height="700" Width="560"
+        MinHeight="540" MinWidth="500"
         WindowStartupLocation="CenterOwner"
-        ResizeMode="NoResize"
-        Background="#1a1a1a">
+        ResizeMode="CanResize"
+        Background="{StaticResource ManilaBrush}"
+        SizeChanged="Window_SizeChanged">
 
-    <Grid Margin="30">
+    <Window.Resources>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource PaperScrollBarStyle}"/>
+
+        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+            <Setter Property="Margin" Value="0,0,0,3"/>
+        </Style>
+        <Style x:Key="ColumnHeaderStyle" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="CellStyle" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="TotalNumberStyle" TargetType="TextBlock" BasedOn="{StaticResource PosterTextStyle}">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="DockPanel.Dock" Value="Right"/>
+            <Setter Property="Margin" Value="8,0,0,0"/>
+        </Style>
+        <Style x:Key="LeaderStyle" TargetType="Line">
+            <Setter Property="X2" Value="1"/>
+            <Setter Property="Stretch" Value="Fill"/>
+            <Setter Property="Stroke" Value="{StaticResource InkFaintBrush}"/>
+            <Setter Property="StrokeThickness" Value="2"/>
+            <Setter Property="StrokeDashArray" Value="1 2"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Margin" Value="8,0,0,7"/>
+        </Style>
+    </Window.Resources>
+
+    <!-- A team's file: manila folder with a typed sheet, the tab marked in the team colour -->
+    <Grid Margin="18,10,18,18">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Team name + color strip -->
-        <Grid Grid.Row="1" Margin="0,10,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Border x:Name="TeamColorStrip"
-                    Grid.Column="0"
-                    Width="6"
-                    CornerRadius="3"
-                    Margin="0,0,12,0"/>
-
-            <TextBlock x:Name="TeamNameText"
-                       Grid.Column="1"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       Foreground="White"
-                       VerticalAlignment="Center"
-                       TextWrapping="Wrap"/>
-        </Grid>
-
-        <!-- Red divider -->
-        <Border Grid.Row="2"
-                Height="2"
-                Background="#dc143c"
-                Margin="0,9,0,9"
-                VerticalAlignment="Center"/>
-
-        <!-- Stat blocks -->
-        <UniformGrid Grid.Row="3" Columns="3" Rows="1">
-
-            <!-- Wins -->
-            <Border Background="#0f0f0f"
-                    BorderBrush="#2a2a2a"
-                    BorderThickness="1"
-                    CornerRadius="4"
-                    Margin="0,0,8,0"
-                    Padding="16,14">
-                <StackPanel HorizontalAlignment="Center">
-                    <TextBlock x:Name="WinsText"
-                               FontSize="36"
-                               FontWeight="Bold"
-                               Foreground="White"
-                               HorizontalAlignment="Center"/>
-                    <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_WinsLabel}"
-                               FontSize="11"
-                               FontWeight="Bold"
-                               Foreground="#666666"
-                               HorizontalAlignment="Center"
-                               Margin="0,4,0,0"/>
-                </StackPanel>
-            </Border>
-
-            <!-- Podiums -->
-            <Border Background="#0f0f0f"
-                    BorderBrush="#2a2a2a"
-                    BorderThickness="1"
-                    CornerRadius="4"
-                    Margin="0,0,8,0"
-                    Padding="16,14">
-                <StackPanel HorizontalAlignment="Center">
-                    <TextBlock x:Name="PodiumsText"
-                               FontSize="36"
-                               FontWeight="Bold"
-                               Foreground="White"
-                               HorizontalAlignment="Center"/>
-                    <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_PodiumsLabel}"
-                               FontSize="11"
-                               FontWeight="Bold"
-                               Foreground="#666666"
-                               HorizontalAlignment="Center"
-                               Margin="0,4,0,0"/>
-                </StackPanel>
-            </Border>
-
-            <!-- Poles -->
-            <Border Background="#0f0f0f"
-                    BorderBrush="#2a2a2a"
-                    BorderThickness="1"
-                    CornerRadius="4"
-                    Padding="16,14">
-                <StackPanel HorizontalAlignment="Center">
-                    <TextBlock x:Name="PolesText"
-                               FontSize="36"
-                               FontWeight="Bold"
-                               Foreground="White"
-                               HorizontalAlignment="Center"/>
-                    <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_PolesLabel}"
-                               FontSize="11"
-                               FontWeight="Bold"
-                               Foreground="#666666"
-                               HorizontalAlignment="Center"
-                               Margin="0,4,0,0"/>
-                </StackPanel>
-            </Border>
-        </UniformGrid>
-
-        <!-- Championships -->
-        <Border Grid.Row="5"
-                Background="#0f0f0f"
-                BorderBrush="#2a2a2a"
-                BorderThickness="1"
-                CornerRadius="4"
-                Padding="16,14">
-            <StackPanel>
-                <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_ChampionshipsLabel}"
-                           FontSize="11"
-                           FontWeight="Bold"
-                           Foreground="#666666"
-                           Margin="0,0,0,10"/>
-                <WrapPanel x:Name="ChampionshipsPanel"/>
-                <TextBlock x:Name="NoChampionshipsText"
-                           Text="—"
-                           FontSize="24"
-                           FontWeight="Bold"
-                           Foreground="#333333"
-                           Visibility="Collapsed"/>
+        <!-- Folder tab with team colour strip -->
+        <Border Grid.Row="0" Background="{StaticResource ManilaLightBrush}" HorizontalAlignment="Left" CornerRadius="8,8,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Border x:Name="TeamColorStrip" Width="12" CornerRadius="8,0,0,0"/>
+                <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_Title}" Style="{StaticResource TypedTextStyle}" Margin="14,8,18,10"/>
             </StackPanel>
         </Border>
 
-        <!-- Previous Seasons -->
-        <Border Grid.Row="7"
-                Background="#0f0f0f"
-                BorderBrush="#2a2a2a"
-                BorderThickness="1"
-                CornerRadius="4"
-                Padding="16,14">
-            <Grid>
+        <Border Grid.Row="1" Style="{StaticResource PaperCardStyle}" Padding="22">
+            <Grid x:Name="PaperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.25*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="8"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="4"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0"
-                           Text="{loc:Loc ConstructorAccoladesWindow_PreviousSeasonsLabel}"
-                           FontSize="11"
-                           FontWeight="Bold"
-                           Foreground="#666666"/>
+                <!-- Name, totals and championships -->
+                <StackPanel x:Name="ProfileBlock" Grid.ColumnSpan="2">
+                    <TextBlock x:Name="TeamNameText" Style="{StaticResource PosterTextStyle}" FontSize="36" TextWrapping="Wrap"/>
 
-                <!-- Column headers -->
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="90"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="75"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="{loc:Loc ConstructorAccoladesWindow_YearColumnHeader}" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Text="{loc:Loc ConstructorAccoladesWindow_PositionColumnHeader}" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Text="{loc:Loc ConstructorAccoladesWindow_PointsColumnHeader}" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="3" Text="{loc:Loc ConstructorAccoladesWindow_WinsColumnHeader}" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="4" Text="{loc:Loc ConstructorAccoladesWindow_PodiumsColumnHeader}" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="5" Text="{loc:Loc ConstructorAccoladesWindow_PolesColumnHeader}" FontSize="10" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
+                    <!-- Totals -->
+                    <DockPanel Margin="0,12,0,0">
+                        <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_WinsLabel}" Style="{StaticResource TypedTextStyle}" VerticalAlignment="Bottom" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="WinsText" Style="{StaticResource TotalNumberStyle}"/>
+                        <Line Style="{StaticResource LeaderStyle}"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_PodiumsLabel}" Style="{StaticResource TypedTextStyle}" VerticalAlignment="Bottom" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="PodiumsText" Style="{StaticResource TotalNumberStyle}"/>
+                        <Line Style="{StaticResource LeaderStyle}"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_PolesLabel}" Style="{StaticResource TypedTextStyle}" VerticalAlignment="Bottom" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="PolesText" Style="{StaticResource TotalNumberStyle}"/>
+                        <Line Style="{StaticResource LeaderStyle}"/>
+                    </DockPanel>
+
+                    <!-- Championships -->
+                    <Border BorderBrush="{StaticResource InkBrush}" BorderThickness="0,0,0,2" Margin="0,16,0,10">
+                        <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_ChampionshipsLabel}" Style="{StaticResource SectionHeaderStyle}"/>
+                    </Border>
+                    <WrapPanel x:Name="ChampionshipsPanel"/>
+                    <TextBlock x:Name="NoChampionshipsText"
+                               Text="—"
+                               Style="{StaticResource TypedTextStyle}"
+                               FontSize="22"
+                               Foreground="{StaticResource InkFaintBrush}"
+                               Visibility="Collapsed"/>
+                </StackPanel>
+
+                <!-- Previous Seasons -->
+                <Grid x:Name="SeasonsBlock" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,16,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" BorderBrush="{StaticResource InkBrush}" BorderThickness="0,0,0,2" Margin="0,0,0,8">
+                        <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_PreviousSeasonsLabel}" Style="{StaticResource SectionHeaderStyle}"/>
+                    </Border>
+
+                    <!-- Column headers -->
+                    <Grid Grid.Row="1" Margin="0,0,0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{loc:Loc ConstructorAccoladesWindow_YearColumnHeader}" Style="{StaticResource ColumnHeaderStyle}"/>
+                        <TextBlock Grid.Column="1" Text="{loc:Loc ConstructorAccoladesWindow_PositionColumnHeader}" Style="{StaticResource ColumnHeaderStyle}"/>
+                        <TextBlock Grid.Column="2" Text="{loc:Loc ConstructorAccoladesWindow_PointsColumnHeader}" Style="{StaticResource ColumnHeaderStyle}"/>
+                        <TextBlock Grid.Column="3" Text="{loc:Loc ConstructorAccoladesWindow_WinsColumnHeader}" Style="{StaticResource ColumnHeaderStyle}"/>
+                        <TextBlock Grid.Column="4" Text="{loc:Loc ConstructorAccoladesWindow_PodiumsColumnHeader}" Style="{StaticResource ColumnHeaderStyle}"/>
+                        <TextBlock Grid.Column="5" Text="{loc:Loc ConstructorAccoladesWindow_PolesColumnHeader}" Style="{StaticResource ColumnHeaderStyle}"/>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="2"
+                                  MinHeight="120"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl x:Name="SeasonsList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource InkFaintBrush}" BorderThickness="0,0,0,1" Padding="0,6">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Year}" Style="{StaticResource CellStyle}"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Position, StringFormat=\{0\}.}" Style="{StaticResource CellStyle}"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Points}" Style="{StaticResource CellStyle}"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding Wins}" Style="{StaticResource CellStyle}"/>
+                                            <TextBlock Grid.Column="4" Text="{Binding Podiums}" Style="{StaticResource CellStyle}"/>
+                                            <TextBlock Grid.Column="5" Text="{Binding Poles}" Style="{StaticResource CellStyle}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <TextBlock x:Name="NoSeasonsText"
+                               Grid.Row="2"
+                               Text="—"
+                               Style="{StaticResource TypedTextStyle}"
+                               FontSize="22"
+                               Foreground="{StaticResource InkFaintBrush}"
+                               Visibility="Collapsed"/>
                 </Grid>
-
-                <ScrollViewer Grid.Row="4"
-                              MinHeight="160"
-                              VerticalScrollBarVisibility="Auto"
-                              HorizontalScrollBarVisibility="Disabled">
-                    <ItemsControl x:Name="SeasonsList">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="#222222" BorderThickness="0,0,0,1" Padding="0,6">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="60"/>
-                                            <ColumnDefinition Width="90"/>
-                                            <ColumnDefinition Width="60"/>
-                                            <ColumnDefinition Width="60"/>
-                                            <ColumnDefinition Width="75"/>
-                                            <ColumnDefinition Width="60"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Year}" FontSize="13" Foreground="White" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding Position, StringFormat=\{0\}.}" FontSize="13" Foreground="White" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding Points}" FontSize="13" Foreground="#cccccc" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="3" Text="{Binding Wins}" FontSize="13" Foreground="#cccccc" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="4" Text="{Binding Podiums}" FontSize="13" Foreground="#cccccc" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="5" Text="{Binding Poles}" FontSize="13" Foreground="#cccccc" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-
-                <TextBlock x:Name="NoSeasonsText"
-                           Grid.Row="4"
-                           Text="—"
-                           FontSize="24"
-                           FontWeight="Bold"
-                           Foreground="#333333"
-                           Visibility="Collapsed"/>
             </Grid>
         </Border>
     </Grid>

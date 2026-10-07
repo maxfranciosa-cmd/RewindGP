@@ -59,7 +59,6 @@ namespace AMS2ChEd.Views
                 var noDataText = new TextBlock
                 {
                     Text = Strings.HistoricalStandingsWindow_NoDataMessage,
-                    FontSize = 14,
                     Foreground = new SolidColorBrush(Colors.Gray),
                     Margin = new Thickness(5)
                 };
@@ -80,6 +79,15 @@ namespace AMS2ChEd.Views
 
             // Load standings for the selected year
             LoadStandingsForYear(_selectedYear);
+        }
+
+        // like a bigger TV: the page text grows with the window
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double fontSize = ActualWidth >= 1400 ? 36 : 26;
+
+            System.Windows.Documents.TextElement.SetFontSize(ScreenRoot, fontSize);
+            TitleText.FontSize = fontSize * 1.75;
         }
 
         private void YearButton_Click(object sender, RoutedEventArgs e)

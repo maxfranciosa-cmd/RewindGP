@@ -39,6 +39,9 @@
 	
   <ItemGroup>
     <None Remove="Fonts\Soniano Sans Unicode Regular.ttf" />
+    <None Remove="Fonts\Anton-Regular.ttf" />
+    <None Remove="Fonts\SpecialElite-Regular.ttf" />
+    <None Remove="Fonts\VT323-Regular.ttf" />
     <None Remove="StaticFiles\rewind_gp_logo.png" />
   </ItemGroup>
 
@@ -532,6 +535,15 @@
     <None Update="Fonts\Soniano Sans Unicode SIL OFL Font License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Fonts\Anton OFL License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Fonts\VT323 OFL License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Fonts\Special Elite Apache License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Seasons\1996\gpcovers\default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1011,6 +1023,9 @@
 
   <ItemGroup>
     <Resource Include="Fonts\Soniano Sans Unicode Regular.ttf" />
+    <Resource Include="Fonts\Anton-Regular.ttf" />
+    <Resource Include="Fonts\SpecialElite-Regular.ttf" />
+    <Resource Include="Fonts\VT323-Regular.ttf" />
   </ItemGroup>
 
 </Project>

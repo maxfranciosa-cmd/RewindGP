@@ -9,8 +9,10 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
     /// </summary>
     public class Ams2ImprovementPackageProvider : IImprovementPackageProvider
     {
-        // each scalar moves by up to this much, in either direction
-        public const double MAX_VARIATION = 0.05;
+        // each scalar can improve by more than it can get worse, so a package is usually a net
+        // gain while still carrying a risk
+        public const double MAX_GAIN = 0.05;
+        public const double MAX_LOSS = 0.02;
 
         public IReadOnlyList<ImprovementStat> Stats => new[]
         {
@@ -26,7 +28,12 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
         {
             return Stats.ToDictionary(
                 s => s.Key,
-                s => Math.Round((random.NextDouble() * 2 - 1) * MAX_VARIATION, 3));
+                s =>
+                {
+                    // positive = better for the car, whichever way that scalar has to move
+                    double benefit = -MAX_LOSS + random.NextDouble() * (MAX_GAIN + MAX_LOSS);
+                    return Math.Round(s.HigherIsBetter ? benefit : -benefit, 3);
+                });
         }
     }
 }

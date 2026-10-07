@@ -30,6 +30,8 @@ namespace AMS2ChEd
         public Driver Driver1 { get; set; }
         public Driver Driver2 { get; set; }
         public TeamReputation Reputation { get; set; }
+        // the entry at the bottom of the team list that shows the free agents instead of a team's seats
+        public bool IsFreeAgents { get; set; }
     }
 
     public partial class TeamSelectionWindow : Window
@@ -37,7 +39,6 @@ namespace AMS2ChEd
         private List<TeamDisplay> teams;
         private List<Driver> freeAgents;
         private Driver selectedDriver;
-        private Border selectedBorder;
         private bool _allSelectable;
         private bool _showFreeAgents;
         private Dictionary<string, IDriverData> _driversCache;
@@ -149,9 +150,9 @@ namespace AMS2ChEd
                     }
                 }
 
-                TeamsItemsControl.ItemsSource = teams;
+                var teamListEntries = new List<TeamDisplay>(teams);
 
-                // Build and display free agents section
+                // Build the free agents entry
                 if (_showFreeAgents)
                 {
                     freeAgents = _driversCache
@@ -173,13 +174,18 @@ namespace AMS2ChEd
                         .OrderBy(d => d.Name)
                         .ToList();
 
-                    FreeAgentsSection.Visibility = freeAgents.Any() ? Visibility.Visible : Visibility.Collapsed;
-                    FreeAgentsItemsControl.ItemsSource = freeAgents;
+                    if (freeAgents.Any())
+                    {
+                        teamListEntries.Add(new TeamDisplay
+                        {
+                            TeamName = Strings.TeamSelectionWindow_FreeAgentsHeader,
+                            TeamColor = "#808080",
+                            IsFreeAgents = true
+                        });
+                    }
                 }
-                else
-                {
-                    FreeAgentsSection.Visibility = Visibility.Collapsed;
-                }
+
+                ShowTeamList(teamListEntries);
             }
             catch (Exception ex)
             {
@@ -201,33 +207,53 @@ namespace AMS2ChEd
                 }
             };
 
-            TeamsItemsControl.ItemsSource = teams;
-            FreeAgentsSection.Visibility = Visibility.Collapsed;
+            ShowTeamList(teams);
         }
 
-        private void DriverCard_Click(object sender, MouseButtonEventArgs e)
+        private void ShowTeamList(List<TeamDisplay> teamListEntries)
         {
-            var border = sender as Border;
-            if (border == null) return;
+            TeamsListBox.ItemsSource = teamListEntries;
+            if (teamListEntries.Any())
+                TeamsListBox.SelectedIndex = 0;
+        }
 
-            var driver = border.Tag as Driver;
-            if (driver == null) return;
+        // picking a team on the left lists its seats (or the free agents) as radio buttons on the right
+        private void TeamsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // the radio buttons are rebuilt, so nothing is selected any more
+            selectedDriver = null;
+            SelectedTeamId = null;
+            SelectedTeamName = null;
+            SelectedTeamPrincipal = null;
+            StatusText.Text = " ";
 
-            // Remove previous selection highlight
-            if (selectedBorder != null)
+            var team = TeamsListBox.SelectedItem as TeamDisplay;
+            if (team == null)
             {
-                selectedBorder.BorderBrush = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#444444"));
-                selectedBorder.BorderThickness = new Thickness(2);
+                SeatsHeaderText.Text = string.Empty;
+                SeatsItemsControl.ItemsSource = null;
+                return;
             }
 
-            // Apply new selection
+            SeatsHeaderText.Text = team.TeamName;
+            SeatsItemsControl.ItemsSource = team.IsFreeAgents
+                ? freeAgents
+                : new[] { team.Driver1, team.Driver2 }.Where(d => d != null).ToList();
+        }
+
+        private void SeatRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            var driver = (sender as System.Windows.Controls.RadioButton)?.Tag as Driver;
+            if (driver == null) return;
+
             selectedDriver = driver;
-            selectedBorder = border;
-            selectedBorder.BorderBrush = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#c41e3a"));
-            selectedBorder.BorderThickness = new Thickness(3);
 
             // Find the team for this driver (null for free agents)
             var team = teams?.FirstOrDefault(t => t.Driver1 == driver || t.Driver2 == driver);
+            StatusText.Text = team != null
+                ? $"{driver.Name} ({team.TeamName}, {driver.RoleName})"
+                : $"{driver.Name} ({driver.RoleName})";
+
             if (team != null)
             {
                 SelectedTeamId = team.TeamId;
@@ -241,6 +267,17 @@ namespace AMS2ChEd
                 SelectedTeamName = null;
                 SelectedTeamPrincipal = null;
             }
+        }
+
+        // wider windows get a wider team list, two seats per row and larger photos
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            bool isWide = ActualWidth >= 1100;
+
+            TeamsColumn.Width = new GridLength(isWide ? 320 : 230);
+            SeatsItemsControl.Tag = isWide ? 2 : 1;
+            Resources["SeatPhotoWidth"] = isWide ? 150.0 : 78.0;
+            Resources["SeatPhotoHeight"] = isWide ? 192.0 : 100.0;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)

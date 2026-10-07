@@ -99,22 +99,40 @@ namespace AMS2ChEd.Views
             };
         }
 
+        // a championship year, rubber-stamped on the sheet
         private Border CreateChampionshipBadge(string year)
         {
+            var stampBrush = (System.Windows.Media.Brush)FindResource("StampGreenBrush");
+
             return new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#dc143c")),
-                CornerRadius = new CornerRadius(4),
-                Margin = new Thickness(0, 0, 8, 8),
-                Padding = new Thickness(12, 6, 12, 6),
+                BorderBrush = stampBrush,
+                BorderThickness = new Thickness(3),
+                Margin = new Thickness(0, 0, 10, 8),
+                Padding = new Thickness(10, 3, 10, 3),
                 Child = new TextBlock
                 {
                     Text = year,
-                    FontSize = 16,
-                    FontWeight = FontWeights.Bold,
-                    Foreground = new SolidColorBrush(Colors.White)
+                    FontSize = 19,
+                    FontFamily = (System.Windows.Media.FontFamily)FindResource("FontPoster"),
+                    Foreground = stampBrush
                 }
             };
+        }
+
+        // a wide window puts the previous seasons next to the totals instead of below them
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            bool isWide = ActualWidth >= 800;
+
+            Grid.SetColumnSpan(ProfileBlock, isWide ? 1 : 2);
+            Grid.SetRowSpan(ProfileBlock, isWide ? 2 : 1);
+
+            Grid.SetRow(SeasonsBlock, isWide ? 0 : 1);
+            Grid.SetRowSpan(SeasonsBlock, isWide ? 2 : 1);
+            Grid.SetColumn(SeasonsBlock, isWide ? 1 : 0);
+            Grid.SetColumnSpan(SeasonsBlock, isWide ? 1 : 2);
+            SeasonsBlock.Margin = isWide ? new Thickness(30, 0, 0, 0) : new Thickness(0, 16, 0, 0);
         }
     }
 }

@@ -991,6 +991,7 @@ namespace AMS2ChEd.Resources
         public static string PaddockNewsWindow_Released2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Released2_Format))!;
         public static string PaddockNewsWindow_ReleasedNoReplacement_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_ReleasedNoReplacement_Format))!;
 
+        public static string SeasonOverviewWindow_CalendarHeader => ResourceManager.GetString(nameof(SeasonOverviewWindow_CalendarHeader))!;
         public static string SeasonOverviewWindow_ImprovementPackagesTooltip => ResourceManager.GetString(nameof(SeasonOverviewWindow_ImprovementPackagesTooltip))!;
         public static string SeasonOverviewWindow_InstallPackageButton_Format => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackageButton_Format))!;
         public static string SeasonOverviewWindow_InstallPackage_Confirm_Title => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_Confirm_Title))!;
