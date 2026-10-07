@@ -990,5 +990,35 @@ namespace AMS2ChEd.Resources
         public static string PaddockNewsWindow_Released1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Released1_Format))!;
         public static string PaddockNewsWindow_Released2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Released2_Format))!;
         public static string PaddockNewsWindow_ReleasedNoReplacement_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_ReleasedNoReplacement_Format))!;
+
+        public static string SeasonOverviewWindow_ImprovementPackagesTooltip => ResourceManager.GetString(nameof(SeasonOverviewWindow_ImprovementPackagesTooltip))!;
+        public static string SeasonOverviewWindow_InstallPackageButton_Format => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackageButton_Format))!;
+        public static string SeasonOverviewWindow_InstallPackage_Confirm_Title => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_Confirm_Title))!;
+        public static string SeasonOverviewWindow_InstallPackage_Confirm_Message => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_Confirm_Message))!;
+        public static string SeasonOverviewWindow_InstallPackage_NoneLeft_Tooltip => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_NoneLeft_Tooltip))!;
+        public static string SeasonOverviewWindow_InstallPackage_AlreadyInstalled_Tooltip => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_AlreadyInstalled_Tooltip))!;
+        public static string SeasonOverviewWindow_InstallPackage_NotAllowed_Tooltip => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_NotAllowed_Tooltip))!;
+
+        public static string ImprovementPackageNewsWindow_Title => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Title))!;
+        public static string ImprovementPackageNewsWindow_Banner => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Banner))!;
+        public static string ImprovementPackageNewsWindow_Headline_Generic_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Headline_Generic_Format))!;
+        public static string ImprovementPackageNewsWindow_Headline_Team_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Headline_Team_Format))!;
+        public static string ImprovementPackageNewsWindow_Intro1_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Intro1_Format))!;
+        public static string ImprovementPackageNewsWindow_Intro2_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Intro2_Format))!;
+        public static string ImprovementPackageNewsWindow_Intro3_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Intro3_Format))!;
+        public static string ImprovementPackageNewsWindow_Effects_GainsAndLosses_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Effects_GainsAndLosses_Format))!;
+        public static string ImprovementPackageNewsWindow_Effects_OnlyGains_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Effects_OnlyGains_Format))!;
+        public static string ImprovementPackageNewsWindow_Effects_OnlyLosses_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Effects_OnlyLosses_Format))!;
+        public static string ImprovementPackageNewsWindow_Effects_None => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Effects_None))!;
+        public static string ImprovementPackageNewsWindow_ListAnd => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_ListAnd))!;
+
+        public static string ImprovementPackagesWindow_Title => ResourceManager.GetString(nameof(ImprovementPackagesWindow_Title))!;
+        public static string ImprovementPackagesWindow_Header => ResourceManager.GetString(nameof(ImprovementPackagesWindow_Header))!;
+        public static string ImprovementPackagesWindow_PackagesColumnHeader => ResourceManager.GetString(nameof(ImprovementPackagesWindow_PackagesColumnHeader))!;
+        public static string ImprovementPackagesWindow_FooterText => ResourceManager.GetString(nameof(ImprovementPackagesWindow_FooterText))!;
+
+        public static string TeamPrincipalLetterWindow_Title => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Title))!;
+        public static string TeamPrincipalLetterWindow_Subtitle => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Subtitle))!;
+        public static string TeamPrincipalLetterWindow_Letter_Format => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Letter_Format))!;
     }
 }

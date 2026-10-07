@@ -70,6 +70,7 @@ namespace AMS2ChEd
         private GameLogicFactory _gameLogicFactory;
         private IPlayerCosmeticsEditor _cosmeticsEditor;
         private IOffSeasonOrchestrator _offSeasonOrchestrator;
+        private bool _improvementPackageLetterPending;
 
         public SeasonOverviewWindow(IGameDataFactory storageFactory, IGameInstallSettingsStorage settingsStorage, GameLogicFactory gameLogicFactory, ISaveGame saveGame, IPlayerCosmeticsEditor cosmeticsEditor = null, IOffSeasonOrchestrator offSeasonOrchestrator = null)
         {
@@ -83,6 +84,17 @@ namespace AMS2ChEd
             _gameLogicFactory.AbsenceManager.AbsenceOpportunityAvailable += OnAbsenceOpportunityAvailable;
             _gameLogicFactory.AbsenceManager.AbsenceDecisionMade += OnAbsenceDecisionMade;
             LoadOverview();
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+
+            if (_improvementPackageLetterPending)
+            {
+                _improvementPackageLetterPending = false;
+                ShowImprovementPackageLetterIfNeeded();
+            }
         }
 
         protected override void OnClosed(EventArgs e)
@@ -168,8 +180,132 @@ namespace AMS2ChEd
             var playerReputation = GetPlayerReputation();
             PlayerReputationText.Text = FormatReputation(playerReputation);
 
-            // Load player photo 
+            // Load player photo
             LoadPlayerPhoto();
+
+            LoadInstallPackageButton(playerTeam);
+        }
+
+        private void LoadInstallPackageButton(ITeamEntry playerTeam)
+        {
+            var nextRace = saveGame.CurrentSeason.Races.ElementAtOrDefault(saveGame.NextGpIndex);
+            if (playerTeam == null || nextRace == null)
+            {
+                InstallPackageButton.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            var manager = _gameLogicFactory.ImprovementPackageManager;
+            var remainingPackages = manager.GetRemainingPackages(playerTeam);
+
+            InstallPackageButton.Visibility = Visibility.Visible;
+            InstallPackageButton.Content = string.Format(Strings.SeasonOverviewWindow_InstallPackageButton_Format, remainingPackages);
+            InstallPackageButton.IsEnabled = manager.CanDriverInstall(saveGame, saveGame.PlayerData.DriverId);
+
+            if (InstallPackageButton.IsEnabled)
+                InstallPackageButton.ToolTip = null;
+            else if (remainingPackages == 0)
+                InstallPackageButton.ToolTip = Strings.SeasonOverviewWindow_InstallPackage_NoneLeft_Tooltip;
+            else if (playerTeam.ImprovementPackages != null && playerTeam.ImprovementPackages.Any(p => p.RaceId == nextRace.RaceId))
+                InstallPackageButton.ToolTip = Strings.SeasonOverviewWindow_InstallPackage_AlreadyInstalled_Tooltip;
+            else
+                InstallPackageButton.ToolTip = Strings.SeasonOverviewWindow_InstallPackage_NotAllowed_Tooltip;
+        }
+
+        private void InstallPackageButton_Click(object sender, RoutedEventArgs e)
+        {
+            var manager = _gameLogicFactory.ImprovementPackageManager;
+            var playerId = saveGame.PlayerData.DriverId;
+            var playerTeam = saveGame.CurrentSeason.Teams.FirstOrDefault(t =>
+                t.Driver1Contract.DriverId == playerId ||
+                t.Driver2Contract.DriverId == playerId);
+            var nextRace = saveGame.CurrentSeason.Races.ElementAtOrDefault(saveGame.NextGpIndex);
+
+            if (playerTeam == null || nextRace == null || !manager.CanDriverInstall(saveGame, playerId))
+                return;
+
+            var confirmation = System.Windows.MessageBox.Show(
+                string.Format(Strings.SeasonOverviewWindow_InstallPackage_Confirm_Message, playerTeam.TeamName, nextRace.RaceName, manager.GetRemainingPackages(playerTeam)),
+                Strings.SeasonOverviewWindow_InstallPackage_Confirm_Title,
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (confirmation != MessageBoxResult.Yes)
+                return;
+
+            manager.Install(saveGame, playerTeam.TeamId, playerId);
+
+            // save the game on disk
+            string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
+            _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
+
+            LoadPlayerData();
+        }
+
+        private void ImprovementPackagesButton_Click(object sender, RoutedEventArgs e)
+        {
+            var packagesWindow = new ImprovementPackagesWindow(saveGame, _gameLogicFactory.ImprovementPackageManager.Stats);
+            packagesWindow.Owner = this;
+            packagesWindow.ShowDialog();
+        }
+
+        // technical news about the improvement packages installed for the next race
+        private void ShowImprovementPackageNews()
+        {
+            var nextRace = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
+            var manager = _gameLogicFactory.ImprovementPackageManager;
+            var packages = manager.GetPackagesForRace(saveGame, nextRace.RaceId);
+
+            if (!packages.Any())
+                return;
+
+            var raceDate = DateTime.ParseExact(nextRace.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var newsWindow = new ImprovementPackageNewsWindow(saveGame, packages, manager.Stats, raceDate, nextRace.RaceName);
+            newsWindow.Owner = this;
+            newsWindow.ShowDialog();
+        }
+
+        // a second driver gets to decide on improvement packages while the first driver is away:
+        // the team principal lets the player know when that absence begins
+        private void ShowImprovementPackageLetterIfNeeded()
+        {
+            var manager = _gameLogicFactory.ImprovementPackageManager;
+            var playerId = saveGame.PlayerData.DriverId;
+
+            if (!manager.IsSecondDriverCoveringForAbsentLeader(saveGame, playerId) || !manager.CanDriverInstall(saveGame, playerId))
+                return;
+
+            var playerTeam = saveGame.CurrentSeason.Teams.First(t =>
+                t.Driver1Contract.DriverId == playerId ||
+                t.Driver2Contract.DriverId == playerId);
+            var firstDriverId = playerTeam.Driver1Contract.DriverId == playerId
+                ? playerTeam.Driver2Contract.DriverId
+                : playerTeam.Driver1Contract.DriverId;
+
+            // nobody to stand in for on a one-car team
+            if (string.IsNullOrEmpty(firstDriverId))
+                return;
+
+            // already told when the absence started
+            if (saveGame.NextGpIndex > 0)
+            {
+                var previousRaceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex - 1).RaceId;
+                if (saveGame.CurrentSeason.Absences != null &&
+                    saveGame.CurrentSeason.Absences.Any(a => a.RaceId == previousRaceId && a.TeamId == playerTeam.TeamId && a.DriverOut == firstDriverId))
+                    return;
+            }
+
+            var nextRace = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
+            var firstDriverName = saveGame.Drivers.FirstOrDefault(d => d.DriverId == firstDriverId)?.Name ?? Strings.SeasonOverviewWindow_UnknownDriver;
+
+            var letterWindow = new TeamPrincipalLetterWindow(
+                playerTeam.TeamName,
+                playerTeam.TeamPrincipal,
+                saveGame.PlayerData.Name,
+                firstDriverName,
+                nextRace.RaceName,
+                manager.GetRemainingPackages(playerTeam));
+            letterWindow.Owner = this;
+            letterWindow.ShowDialog();
         }
 
 
@@ -421,6 +557,8 @@ namespace AMS2ChEd
             string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
             _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
+            ShowImprovementPackageNews();
+
             // Show entry list window
             var entryListWindow = new Views.EntryListWindow(_ams2StorageFactory, _settingsStorage, _gameLogicFactory, saveGame);
             entryListWindow.RaceWeekendCompleted += OnRaceWeekendCompleted;
@@ -439,9 +577,17 @@ namespace AMS2ChEd
                 saveGame.PreQualiPoolEntries = null;
                 saveGame.CurrentPreQualiDnpqResults = null;
 
+                // AI drivers decide on improvement packages for the next race (once per race,
+                // which is why it happens here rather than when the entry list is generated)
+                _gameLogicFactory.ImprovementPackageManager.ProcessAiDecisions(saveGame);
+
                 // save the game on disk
                 string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
                 _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
+
+                // the race results and news are still on screen: the letter waits until the
+                // player is back on this window
+                _improvementPackageLetterPending = true;
 
                 // Refresh UI
                 LoadOverview();

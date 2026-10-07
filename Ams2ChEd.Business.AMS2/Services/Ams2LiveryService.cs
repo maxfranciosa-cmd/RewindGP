@@ -1003,6 +1003,18 @@ namespace Ams2ChEd.Business.AMS2.Services
                 ratings[ratingName] = adjustedValue;
             }
 
+            // Apply the team's improvement packages on top of the malus-adjusted values, before the
+            // variation below, so the upgraded value becomes the car's new baseline. A scalar the
+            // team doesn't otherwise export starts from the neutral 1.0.
+            if (team.ImprovementPackages != null)
+            {
+                foreach (var packageValue in team.ImprovementPackages.Where(p => p.Values != null).SelectMany(p => p.Values))
+                {
+                    double baseValue = ratings.TryGetValue(packageValue.Key, out var currentValue) ? currentValue : 1.0;
+                    ratings[packageValue.Key] = Math.Max(0.9, Math.Min(1.1, baseValue + packageValue.Value));
+                }
+            }
+
             // add variation to each rating to avoid AI drivers being too similar
             // (power_scalar, weight_scalar, drag_scalar are team-level scalars, so they have different bounds)
             if (aiRatingsVariation)

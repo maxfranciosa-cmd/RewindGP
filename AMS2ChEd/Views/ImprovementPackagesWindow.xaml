@@ -1,0 +1,69 @@
+<Window x:Class="AMS2ChEd.Views.ImprovementPackagesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        Title="{loc:Loc ImprovementPackagesWindow_Title}"
+        Height="800" Width="1000"
+        WindowStartupLocation="CenterOwner"
+        Background="#f8f8f0"
+        ResizeMode="CanResize">
+
+    <Border Background="White"
+            BorderBrush="Black"
+            BorderThickness="4"
+            Margin="40">
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Official Header -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                <!-- Top border -->
+                <Rectangle Height="4" Fill="Black" Margin="0,0,0,5"/>
+                <Rectangle Height="2" Fill="Black" Margin="0,0,0,10"/>
+
+                <TextBlock Text="{loc:Loc ImprovementPackagesWindow_Header}"
+                           FontFamily="Arial Black"
+                           FontSize="20"
+                           FontWeight="Black"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,5"/>
+
+                <TextBlock x:Name="SeasonYearText"
+                           FontFamily="Arial"
+                           FontSize="12"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10"/>
+
+                <!-- Bottom border -->
+                <Rectangle Height="2" Fill="Black" Margin="0,0,0,5"/>
+                <Rectangle Height="4" Fill="Black"/>
+            </StackPanel>
+
+            <!-- Scrollable content -->
+            <ScrollViewer Grid.Row="1"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto"
+                          Margin="0,10,0,10">
+                <Border BorderBrush="Black" BorderThickness="2" Background="White" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Grid x:Name="TeamsGrid">
+                        <!-- Teams will be populated dynamically -->
+                    </Grid>
+                </Border>
+            </ScrollViewer>
+
+            <!-- Footer -->
+            <StackPanel Grid.Row="2">
+                <Rectangle Height="2" Fill="Black" Margin="0,0,0,10"/>
+                <TextBlock Text="{loc:Loc ImprovementPackagesWindow_FooterText}"
+                           FontFamily="Arial"
+                           FontSize="10"
+                           FontStyle="Italic"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

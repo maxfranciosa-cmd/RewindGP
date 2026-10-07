@@ -28,6 +28,22 @@ namespace AMS2ChEd.Business.Models.Concrete
 
         public string Color { get; set; }
         public bool DefaultPrequalifying { get; set; }
+        public List<ImprovementPackage> ImprovementPackages { get; set; }
+    }
+
+    public class ImprovementPackage
+    {
+        // the driver who instructed the team to install the package
+        [JsonPropertyName("driver_id")]
+        public string DriverId { get; set; }
+
+        // the race the package was installed before
+        [JsonPropertyName("race_id")]
+        public int RaceId { get; set; }
+
+        // game-specific performance value name -> variation applied to it
+        [JsonPropertyName("values")]
+        public Dictionary<string, double> Values { get; set; }
     }
 
     public class Race

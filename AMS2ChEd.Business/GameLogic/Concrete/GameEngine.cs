@@ -194,6 +194,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     // update the flag "default prequalifying" (in case it was updated on merit)
                     teamFromUpdatedSeason.DefaultPrequalifying = teamEntry.DefaultPrequalifying;
 
+                    // keep the improvement packages installed so far this season
+                    teamFromUpdatedSeason.ImprovementPackages = teamEntry.ImprovementPackages;
+
                     ApplyConcreteTeamEntryUpdates(teamFromUpdatedSeason, updatedSeason.Year);
 
                     newTeamEntries.Add(teamFromUpdatedSeason);

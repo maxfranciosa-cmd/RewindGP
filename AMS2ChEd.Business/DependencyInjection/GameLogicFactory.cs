@@ -25,6 +25,8 @@ namespace AMS2ChEd.Business.DependencyInjection
 
         public IReprimandManager ReprimandManager { get; private set; }
 
+        public IImprovementPackageManager ImprovementPackageManager { get; private set; }
+
         /// <summary>
         /// Optional (may be null if the active game module doesn't support live-process race
         /// configuration - see <see cref="IRaceLaunchAssistant"/>).
@@ -46,6 +48,7 @@ namespace AMS2ChEd.Business.DependencyInjection
             IRaceSetupAdvisor raceSetupAdvisor,
             SeasonUpdaterOrchestrator seasonUpdaterOrchestrator,
             IReprimandManager reprimandManager,
+            IImprovementPackageManager improvementPackageManager,
             IRaceLaunchAssistant raceLaunchAssistant = null)
         {
             StandingsManager = standingsManager;
@@ -60,6 +63,7 @@ namespace AMS2ChEd.Business.DependencyInjection
             RaceSetupAdvisor = raceSetupAdvisor;
             SeasonUpdaterOrchestrator = seasonUpdaterOrchestrator;
             ReprimandManager = reprimandManager;
+            ImprovementPackageManager = improvementPackageManager;
             RaceLaunchAssistant = raceLaunchAssistant;
         }
     }

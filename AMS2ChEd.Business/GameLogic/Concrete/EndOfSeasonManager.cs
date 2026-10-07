@@ -680,6 +680,12 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             saveGame.CurrentSeason = newSeason;
             saveGame.Reprimands = new List<Reprimand>();
 
+            // every team starts the new season with its full allowance of improvement packages
+            foreach (var team in newSeason.Teams)
+            {
+                team.ImprovementPackages = new List<ImprovementPackage>();
+            }
+
             // reassign the race numbers
             var raceNumberSystem = RaceNumberAllocationFactory.GetRaceNumberAllocationService(newSeason.Year);
             raceNumberSystem.AssignNumbersToCurrentSeason(saveGame);

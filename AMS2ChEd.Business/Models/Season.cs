@@ -69,5 +69,9 @@ namespace AMS2ChEd.Business.Models
 
         [JsonPropertyName("default_prequalifying")]
         public bool DefaultPrequalifying { get; set; }
+
+        // improvement packages installed during the current season (emptied at the start of each season)
+        [JsonPropertyName("improvement_packages")]
+        List<ImprovementPackage> ImprovementPackages { get; set; }
     }
 }

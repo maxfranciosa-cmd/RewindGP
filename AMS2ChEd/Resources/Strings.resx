@@ -3097,4 +3097,92 @@ The decision underscores the complex dynamics of driver movements in modern moto
   <data name="PaddockNewsWindow_ReleasedNoReplacement_Format" xml:space="preserve">
     <value>Enough is enough: after a third reprimand, {1} have released {0} with immediate effect, and are still looking for a replacement.</value>
   </data>
+  <data name="SeasonOverviewWindow_ImprovementPackagesTooltip" xml:space="preserve">
+    <value>Improvement packages</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackageButton_Format" xml:space="preserve">
+    <value>Install improvement package ({0} left)</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_Confirm_Title" xml:space="preserve">
+    <value>Improvement package</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_Confirm_Message" xml:space="preserve">
+    <value>Instruct {0} to install an improvement package before the {1}?
+
+It will change the performance of both cars, and it may just as well make them slower instead of faster. The team has {2} left this season, and can only install one per race.</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_NoneLeft_Tooltip" xml:space="preserve">
+    <value>The team has no improvement packages left this season.</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_AlreadyInstalled_Tooltip" xml:space="preserve">
+    <value>The team has already installed an improvement package for this race.</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_NotAllowed_Tooltip" xml:space="preserve">
+    <value>Only the first driver (or equal drivers) can instruct the team to install an improvement package.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Title" xml:space="preserve">
+    <value>Technical News</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Banner" xml:space="preserve">
+    <value>TECHNICAL UPDATES</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Headline_Generic_Format" xml:space="preserve">
+    <value>Teams bring new parts to the {0}</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Headline_Team_Format" xml:space="preserve">
+    <value>{0} bring improvement package to the {1}</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Intro1_Format" xml:space="preserve">
+    <value>{1} arrive at the {2} with a revised car, after {0} instructed the team to install a new improvement package.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Intro2_Format" xml:space="preserve">
+    <value>At the request of {0}, {1} have fitted an improvement package to both cars ahead of the {2}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Intro3_Format" xml:space="preserve">
+    <value>{0} has got what they asked for: {1} have brought an improvement package to the {2}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_GainsAndLosses_Format" xml:space="preserve">
+    <value>Early running suggests {0}, but {1}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_OnlyGains_Format" xml:space="preserve">
+    <value>Early running suggests it is a clear step forward: {0}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_OnlyLosses_Format" xml:space="preserve">
+    <value>Early running suggests the gamble has backfired: {0}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_None" xml:space="preserve">
+    <value>Early running suggests it has changed very little.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_ListAnd" xml:space="preserve">
+    <value> and </value>
+  </data>
+  <data name="ImprovementPackagesWindow_Title" xml:space="preserve">
+    <value>Improvement Packages</value>
+  </data>
+  <data name="ImprovementPackagesWindow_Header" xml:space="preserve">
+    <value>IMPROVEMENT PACKAGES</value>
+  </data>
+  <data name="ImprovementPackagesWindow_PackagesColumnHeader" xml:space="preserve">
+    <value>PACKAGES</value>
+  </data>
+  <data name="ImprovementPackagesWindow_FooterText" xml:space="preserve">
+    <value>▲ value raised, ▼ value lowered, = unchanged on balance. Green is a gain for the car, red a loss.</value>
+  </data>
+  <data name="TeamPrincipalLetterWindow_Title" xml:space="preserve">
+    <value>Letter from the Team Principal</value>
+  </data>
+  <data name="TeamPrincipalLetterWindow_Subtitle" xml:space="preserve">
+    <value>Car Development</value>
+  </data>
+  <data name="TeamPrincipalLetterWindow_Letter_Format" xml:space="preserve">
+    <value>Dear {0},
+
+As you know, {1} will not be racing for us at the {2}.
+
+Decisions on car development are normally for our first driver to make. With {1} away, that responsibility passes to you: until {1} is back in the car, it is your call whether we install one of our improvement packages before a race.
+
+We have {3} left for this season, and we can only fit one per race. Choose carefully. A new package can move us up the grid, but it can just as easily cost us performance.
+
+You can give the instruction from the season overview before the race.</value>
+  </data>
 </root>

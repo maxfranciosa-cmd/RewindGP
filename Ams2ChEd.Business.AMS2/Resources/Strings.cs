@@ -131,5 +131,15 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string Ams2PlayerCosmeticsEditorWindow_NameRequired_Message => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_NameRequired_Message))!;
         public static string Ams2PlayerCosmeticsEditorWindow_ValidationError_Title => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_ValidationError_Title))!;
         public static string Ams2PlayerCosmeticsEditorWindow_NationalityLength_Message => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_NationalityLength_Message))!;
+
+        public static string Ams2ImprovementPackage_Power_Name => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Power_Name))!;
+        public static string Ams2ImprovementPackage_Power_Improved => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Power_Improved))!;
+        public static string Ams2ImprovementPackage_Power_Worsened => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Power_Worsened))!;
+        public static string Ams2ImprovementPackage_Drag_Name => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Drag_Name))!;
+        public static string Ams2ImprovementPackage_Drag_Improved => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Drag_Improved))!;
+        public static string Ams2ImprovementPackage_Drag_Worsened => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Drag_Worsened))!;
+        public static string Ams2ImprovementPackage_Weight_Name => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Weight_Name))!;
+        public static string Ams2ImprovementPackage_Weight_Improved => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Weight_Improved))!;
+        public static string Ams2ImprovementPackage_Weight_Worsened => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Weight_Worsened))!;
     }
 }

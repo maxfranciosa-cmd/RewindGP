@@ -3097,4 +3097,92 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   <data name="PaddockNewsWindow_ReleasedNoReplacement_Format" xml:space="preserve">
     <value>La misura è colma: dopo il terzo richiamo, {1} ha liberato {0} con effetto immediato, ed è ancora alla ricerca di un sostituto.</value>
   </data>
+  <data name="SeasonOverviewWindow_ImprovementPackagesTooltip" xml:space="preserve">
+    <value>Pacchetti di sviluppo</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackageButton_Format" xml:space="preserve">
+    <value>Installa pacchetto di sviluppo ({0} rimasti)</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_Confirm_Title" xml:space="preserve">
+    <value>Pacchetto di sviluppo</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_Confirm_Message" xml:space="preserve">
+    <value>Vuoi chiedere a {0} di installare un pacchetto di sviluppo prima del {1}?
+
+Cambierà le prestazioni di entrambe le vetture, e potrebbe renderle più lente anziché più veloci. Al team ne restano {2} per questa stagione, e può installarne solo uno per gara.</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_NoneLeft_Tooltip" xml:space="preserve">
+    <value>Il team non ha più pacchetti di sviluppo per questa stagione.</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_AlreadyInstalled_Tooltip" xml:space="preserve">
+    <value>Il team ha già installato un pacchetto di sviluppo per questa gara.</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_NotAllowed_Tooltip" xml:space="preserve">
+    <value>Solo la prima guida (o i piloti alla pari) può chiedere al team di installare un pacchetto di sviluppo.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Title" xml:space="preserve">
+    <value>Notizie Tecniche</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Banner" xml:space="preserve">
+    <value>AGGIORNAMENTI TECNICI</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Headline_Generic_Format" xml:space="preserve">
+    <value>I team portano novità al {0}</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Headline_Team_Format" xml:space="preserve">
+    <value>{0}: pacchetto di sviluppo per il {1}</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Intro1_Format" xml:space="preserve">
+    <value>{1} si presenta al {2} con una vettura rivista, dopo che {0} ha chiesto al team di installare un nuovo pacchetto di sviluppo.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Intro2_Format" xml:space="preserve">
+    <value>Su richiesta di {0}, {1} ha montato un pacchetto di sviluppo su entrambe le vetture in vista del {2}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Intro3_Format" xml:space="preserve">
+    <value>{0} ha ottenuto ciò che chiedeva: {1} ha portato un pacchetto di sviluppo al {2}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_GainsAndLosses_Format" xml:space="preserve">
+    <value>Dai primi giri sembra che {0}, ma {1}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_OnlyGains_Format" xml:space="preserve">
+    <value>I primi giri parlano di un netto passo avanti: {0}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_OnlyLosses_Format" xml:space="preserve">
+    <value>I primi giri dicono che la scommessa non ha pagato: {0}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_None" xml:space="preserve">
+    <value>Dai primi giri sembra che sia cambiato ben poco.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_ListAnd" xml:space="preserve">
+    <value> e </value>
+  </data>
+  <data name="ImprovementPackagesWindow_Title" xml:space="preserve">
+    <value>Pacchetti di Sviluppo</value>
+  </data>
+  <data name="ImprovementPackagesWindow_Header" xml:space="preserve">
+    <value>PACCHETTI DI SVILUPPO</value>
+  </data>
+  <data name="ImprovementPackagesWindow_PackagesColumnHeader" xml:space="preserve">
+    <value>PACCHETTI</value>
+  </data>
+  <data name="ImprovementPackagesWindow_FooterText" xml:space="preserve">
+    <value>▲ valore aumentato, ▼ valore diminuito, = invariato nel complesso. Verde: un guadagno per la vettura, rosso: una perdita.</value>
+  </data>
+  <data name="TeamPrincipalLetterWindow_Title" xml:space="preserve">
+    <value>Lettera del Team Principal</value>
+  </data>
+  <data name="TeamPrincipalLetterWindow_Subtitle" xml:space="preserve">
+    <value>Sviluppo della Vettura</value>
+  </data>
+  <data name="TeamPrincipalLetterWindow_Letter_Format" xml:space="preserve">
+    <value>Caro {0},
+
+come sai, {1} non correrà per noi al {2}.
+
+Le decisioni sullo sviluppo della vettura spettano di norma alla nostra prima guida. In assenza di {1}, questa responsabilità passa a te: finché {1} non tornerà al volante, sarai tu a decidere se installare uno dei nostri pacchetti di sviluppo prima di una gara.
+
+Ce ne restano {3} per questa stagione, e possiamo montarne solo uno per gara. Scegli con attenzione. Un nuovo pacchetto può farci risalire la griglia, ma può altrettanto facilmente costarci prestazioni.
+
+Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
+  </data>
 </root>
