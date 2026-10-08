@@ -155,19 +155,6 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             Assert.AreEqual(1, saveGame.Reprimands.Count);
         }
 
-        [TestMethod]
-        public void ProcessRace_SubstituteInSecondDriverSeat_InheritsTheSeatRole()
-        {
-            var saveGame = CreateSaveGame();
-            saveGame.NextGpEntryList.First(e => e.TeamId == "T1").Driver2Id = "SUB";
-            var result = CreateResult(("SUB", 3), ("D1", 4));
-
-            Process(saveGame, result);
-
-            Assert.AreEqual("SUB", saveGame.Reprimands.Single().DriverId);
-            Assert.AreEqual("T1", saveGame.Reprimands.Single().TeamId);
-        }
-
         #endregion
 
         #region Contact rule
@@ -300,6 +287,50 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
             Assert.AreEqual(1, news.Single().ReprimandCount);
             Assert.AreEqual(ReprimandConsequence.NONE, news.Single().Consequence);
+        }
+
+        #endregion
+
+        #region Substitutes
+
+        [TestMethod]
+        public void ProcessRace_SubstituteInSecondDriverSeatFinishesRightAheadOfFirstDriver_IsNotReprimanded()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.NextGpEntryList.First(e => e.TeamId == "T1").Driver2Id = "U1";
+            var result = CreateResult(("U1", 3), ("D1", 4));
+
+            var news = Process(saveGame, result);
+
+            Assert.AreEqual(0, saveGame.Reprimands.Count);
+            Assert.AreEqual(0, news.Count);
+        }
+
+        [TestMethod]
+        public void ProcessRace_SecondDriverFinishesRightAheadOfSubstituteInFirstDriverSeat_IsNotReprimanded()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.NextGpEntryList.First(e => e.TeamId == "T1").Driver1Id = "U1";
+            var result = CreateResult(("D2", 3), ("U1", 4));
+
+            var news = Process(saveGame, result);
+
+            Assert.AreEqual(0, saveGame.Reprimands.Count);
+            Assert.AreEqual(0, news.Count);
+        }
+
+        [TestMethod]
+        public void ProcessRace_PlayerSubstituteFinishesRightAheadOfFirstDriverAfterContact_IsNotReprimanded()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.NextGpEntryList.First(e => e.TeamId == "T3").Driver1Id = "U2";
+            saveGame.NextGpEntryList.First(e => e.TeamId == "T1").Driver2Id = "PLAYER";
+            var result = CreateResult(("PLAYER", 3), ("D1", 4));
+
+            var news = Process(saveGame, result, contactDriverIds: new List<string> { "D1" });
+
+            Assert.AreEqual(0, saveGame.Reprimands.Count);
+            Assert.AreEqual(0, news.Count);
         }
 
         #endregion

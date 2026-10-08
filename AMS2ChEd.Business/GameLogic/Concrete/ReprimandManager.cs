@@ -48,6 +48,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     continue;
 
                 // absences swap drivers within the same seat, so whoever raced in a seat inherits its role
+                // (team orders are off when either seat is taken by a substitute though, see IsSubstitute)
                 var driver1Role = team.Driver1Contract?.Role ?? ContractRole.EQUAL;
                 var driver2Role = team.Driver2Contract?.Role ?? ContractRole.EQUAL;
 
@@ -65,6 +66,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 }
 
                 if (firstDriverId != null &&
+                    !IsSubstitute(team, firstDriverId) &&
+                    !IsSubstitute(team, secondDriverId) &&
                     FinishedRightAheadOfFirstDriver(raceResults, firstDriverId, secondDriverId) &&
                     !IsExemptFromTeamOrders(preRaceStandings, isSecondHalfOfSeason, firstDriverId, secondDriverId))
                 {
@@ -80,6 +83,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 // contact is only detectable for the player's own car
                 var playerId = saveGame.PlayerData?.DriverId;
                 if (playerContactDriverIds != null && playerId != null &&
+                    !IsSubstitute(team, playerId) &&
                     (entry.Driver1Id == playerId || entry.Driver2Id == playerId))
                 {
                     var teammateId = entry.Driver1Id == playerId ? entry.Driver2Id : entry.Driver1Id;
@@ -159,6 +163,12 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             return (saveGame.Reprimands ?? new List<Reprimand>())
                 .Count(r => r.DriverId == driverId && r.TeamId == teamId);
+        }
+
+        // a driver standing in for an absent one has no contract with the team, and is never reprimanded
+        private static bool IsSubstitute(ITeamEntry team, string driverId)
+        {
+            return team.Driver1Contract?.DriverId != driverId && team.Driver2Contract?.DriverId != driverId;
         }
 
         private static bool IsClassified(SessionResult result)
