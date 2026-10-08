@@ -3188,4 +3188,46 @@ We have {3} left for this season, and we can only fit one per race. Choose caref
 
 You can give the instruction from the season overview before the race.</value>
   </data>
+  <data name="MainWindow_ContinueButton" xml:space="preserve">
+    <value>CONTINUE CAREER</value>
+  </data>
+  <data name="MainWindow_ContinueDescription_Format" xml:space="preserve">
+    <value>{0} - {1} season, round {2} of {3}. Saved {4}.</value>
+  </data>
+  <data name="MainWindow_ContinueDescriptionSeasonOver_Format" xml:space="preserve">
+    <value>{0} - {1} season completed. Saved {2}.</value>
+  </data>
+  <data name="MainWindow_Cover_NextRace_Headline_Format" xml:space="preserve">
+    <value>NEXT STOP: {0}</value>
+  </data>
+  <data name="MainWindow_Cover_NextRace_Subline_Format" xml:space="preserve">
+    <value>ROUND {0} OF {1} - {2} SEASON</value>
+  </data>
+  <data name="MainWindow_Cover_SeasonPreview_Headline_Format" xml:space="preserve">
+    <value>{0} SEASON PREVIEW</value>
+  </data>
+  <data name="MainWindow_Cover_Leads_Headline_Format" xml:space="preserve">
+    <value>{0} LEADS AFTER ROUND {1}</value>
+  </data>
+  <data name="MainWindow_Cover_Position_Headline_Format" xml:space="preserve">
+    <value>{0}: P{1} AFTER ROUND {2}</value>
+  </data>
+  <data name="MainWindow_NewGameImportedDriverButton" xml:space="preserve">
+    <value>NEW GAME - DRIVER FROM ANOTHER SEASON</value>
+  </data>
+  <data name="MainWindow_ImportedDriverLabel" xml:space="preserve">
+    <value>DRIVER:</value>
+  </data>
+  <data name="MainWindow_ImportedDriverListItem_Format" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="MainWindow_ImportedDriverInfo_Format" xml:space="preserve">
+    <value>Born {0} - age {1} in {2}. Data from the {3} season.</value>
+  </data>
+  <data name="MainWindow_NoImportableDrivers_Message" xml:space="preserve">
+    <value>No drivers from the other installed seasons are available for this season.</value>
+  </data>
+  <data name="MainWindow_ImportedDriverAlreadyInSeason_Message" xml:space="preserve">
+    <value>{0} already takes part in the {1} season. Pick another driver or another season.</value>
+  </data>
 </root>

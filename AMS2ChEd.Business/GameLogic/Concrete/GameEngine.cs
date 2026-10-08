@@ -84,6 +84,41 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return _currentGame;
         }
 
+        /// <summary>
+        /// Create a new game where the player is a driver taken from another season: the driver
+        /// keeps their id (so the season they really belong to won't bring in a duplicate), name,
+        /// year of birth and game-specific data, and only gets a new reputation.
+        /// </summary>
+        public ISaveGame CreateNewGameWithImportedDriver(
+            IDriverData importedDriver,
+            DriverReputation playerReputation,
+            ISeason season,
+            string selectedTeamId,
+            string replacedDriverId,
+            List<IDriverData> seasonDrivers)
+        {
+            var modifiedSeason = CloneAndModifySeason(season, importedDriver.DriverId, selectedTeamId, replacedDriverId, seasonDrivers);
+
+            // Initialize standings
+            var driverStandings = InitializeDriverStandings(modifiedSeason);
+            var constructorStandings = InitializeConstructorStandings(modifiedSeason);
+
+            var allDrivers = seasonDrivers.DeepClone();
+
+            var playerDriver = importedDriver.DeepClone();
+            playerDriver.Reputation = playerReputation;
+
+            var playerData = InitializePlayerData(playerDriver.Name, playerDriver.Nationality, season.Year - playerDriver.YearOfBirth, selectedTeamId, playerDriver.DriverId);
+
+            allDrivers.RemoveAll(d => d.DriverId == playerDriver.DriverId);
+            allDrivers.Add(playerDriver);
+
+            _currentGame = InitializeNewSaveGame(playerData, modifiedSeason, driverStandings, constructorStandings, allDrivers);
+
+            GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
+            return _currentGame;
+        }
+
         private ISaveGame InitializeNewSaveGameFromExistingDriver(IDriverData? selectedDriver, string selectedTeamId, ISeason modifiedSeason, List<HistoricalDriverStandingEntry> driverStandings, List<ConstructorStandingEntry> constructorStandings, List<IDriverData> allDrivers)
         {
             var provisionalSaveGame = new SaveGame

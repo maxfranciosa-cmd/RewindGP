@@ -1021,5 +1021,21 @@ namespace AMS2ChEd.Resources
         public static string TeamPrincipalLetterWindow_Title => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Title))!;
         public static string TeamPrincipalLetterWindow_Subtitle => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Subtitle))!;
         public static string TeamPrincipalLetterWindow_Letter_Format => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Letter_Format))!;
+
+        public static string MainWindow_NewGameImportedDriverButton => ResourceManager.GetString(nameof(MainWindow_NewGameImportedDriverButton))!;
+        public static string MainWindow_ImportedDriverLabel => ResourceManager.GetString(nameof(MainWindow_ImportedDriverLabel))!;
+        public static string MainWindow_ImportedDriverListItem_Format => ResourceManager.GetString(nameof(MainWindow_ImportedDriverListItem_Format))!;
+        public static string MainWindow_ImportedDriverInfo_Format => ResourceManager.GetString(nameof(MainWindow_ImportedDriverInfo_Format))!;
+        public static string MainWindow_NoImportableDrivers_Message => ResourceManager.GetString(nameof(MainWindow_NoImportableDrivers_Message))!;
+        public static string MainWindow_ImportedDriverAlreadyInSeason_Message => ResourceManager.GetString(nameof(MainWindow_ImportedDriverAlreadyInSeason_Message))!;
+
+        public static string MainWindow_ContinueButton => ResourceManager.GetString(nameof(MainWindow_ContinueButton))!;
+        public static string MainWindow_ContinueDescription_Format => ResourceManager.GetString(nameof(MainWindow_ContinueDescription_Format))!;
+        public static string MainWindow_ContinueDescriptionSeasonOver_Format => ResourceManager.GetString(nameof(MainWindow_ContinueDescriptionSeasonOver_Format))!;
+        public static string MainWindow_Cover_NextRace_Headline_Format => ResourceManager.GetString(nameof(MainWindow_Cover_NextRace_Headline_Format))!;
+        public static string MainWindow_Cover_NextRace_Subline_Format => ResourceManager.GetString(nameof(MainWindow_Cover_NextRace_Subline_Format))!;
+        public static string MainWindow_Cover_SeasonPreview_Headline_Format => ResourceManager.GetString(nameof(MainWindow_Cover_SeasonPreview_Headline_Format))!;
+        public static string MainWindow_Cover_Leads_Headline_Format => ResourceManager.GetString(nameof(MainWindow_Cover_Leads_Headline_Format))!;
+        public static string MainWindow_Cover_Position_Headline_Format => ResourceManager.GetString(nameof(MainWindow_Cover_Position_Headline_Format))!;
     }
 }

@@ -253,6 +253,38 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             Assert.AreEqual(ContractRole.SECOND_DRIVER, team.Driver2Contract.Role);
         }
 
+        [TestMethod]
+        public void CreateNewGameWithImportedDriver_KeepsTheDriverIdentityAndOnlyChangesTheReputation()
+        {
+            var season = CreateSeason(1994);
+            season.Teams = new List<ITeamEntry> { CreateTeam("team1", "D1", 5, "D2", 6) };
+            var seasonDrivers = new List<IDriverData>
+            {
+                CreateDriver("D1", "Driver 1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
+                CreateDriver("D2", "Driver 2", DriverReputation.PRIME_MIDFIELD)
+            };
+            var importedDriver = CreateDriver("legend", "Old Legend", DriverReputation.JUST_ONE_LAST_DANCE);
+            importedDriver.YearOfBirth = 1960;
+            importedDriver.PictureUrl = "drivers/portraits/legend.png";
+
+            var saveGame = _engine.CreateNewGameWithImportedDriver(importedDriver, DriverReputation.AGEING_MIDFIELD,
+                season, "team1", "D2", seasonDrivers);
+
+            Assert.AreEqual("legend", saveGame.PlayerData.DriverId);
+            Assert.AreEqual("Old Legend", saveGame.PlayerData.Name);
+            Assert.AreEqual("team1", saveGame.PlayerData.TeamId);
+
+            var playerDriver = saveGame.Drivers.Single(d => d.DriverId == "legend");
+            Assert.AreEqual(1960, playerDriver.YearOfBirth);
+            Assert.AreEqual("drivers/portraits/legend.png", playerDriver.PictureUrl);
+            Assert.AreEqual(DriverReputation.AGEING_MIDFIELD, playerDriver.Reputation);
+
+            // the source driver isn't touched, and the player sits in the replaced driver's seat
+            Assert.AreEqual(DriverReputation.JUST_ONE_LAST_DANCE, importedDriver.Reputation);
+            Assert.AreEqual("legend", saveGame.CurrentSeason.Teams.Single().Driver2Contract.DriverId);
+            Assert.AreEqual(3, saveGame.Drivers.Count());
+        }
+
         #endregion
 
         #region Helper Methods

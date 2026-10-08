@@ -275,6 +275,23 @@
             <Grid Grid.Column="0">
                 <!-- Main Menu Panel -->
                 <StackPanel x:Name="MainMenuPanel" Visibility="Visible">
+                    <!-- Continue the most recent save (hidden when there are no saves) -->
+                    <StackPanel x:Name="ContinuePanel" Visibility="Collapsed" Margin="0,0,0,14">
+                        <Button x:Name="ContinueButton"
+                                Content="{loc:Loc MainWindow_ContinueButton}"
+                                Style="{StaticResource CoverLineButtonStyle}"
+                                Foreground="White"
+                                Margin="0"
+                                Click="ContinueButton_Click"/>
+                        <TextBlock x:Name="ContinueDescriptionText"
+                                   Foreground="White"
+                                   FontFamily="{StaticResource FontPrint}"
+                                   FontSize="13"
+                                   FontWeight="Bold"
+                                   TextWrapping="Wrap"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+
                     <Button x:Name="NewGameButton"
                             Content="{loc:Loc MainWindow_NewGameButton}"
                             Style="{StaticResource CoverLineButtonStyle}"
@@ -284,6 +301,11 @@
                             Content="{loc:Loc MainWindow_NewGameReplaceDriverButton}"
                             Style="{StaticResource CoverLineButtonStyle}"
                             Click="NewGameReplaceDriverButton_Click"/>
+
+                    <Button x:Name="NewGameImportedDriverButton"
+                            Content="{loc:Loc MainWindow_NewGameImportedDriverButton}"
+                            Style="{StaticResource CoverLineButtonStyle}"
+                            Click="NewGameImportedDriverButton_Click"/>
 
                     <Button x:Name="NewGameScenarioModeButton"
                             Content="{loc:Loc MainWindow_NewGameScenarioModeButton}"
@@ -357,6 +379,43 @@
                                       SelectionChanged="SeasonComboBox_SelectionChanged"/>
 
                             <StackPanel x:Name="CustomDriverPanel" Visibility="Collapsed">
+                                <!-- A driver taken from another season, instead of a custom one -->
+                                <StackPanel x:Name="ImportedDriverPanel" Visibility="Collapsed" Margin="0,10,0,15">
+                                    <Label Content="{loc:Loc MainWindow_ImportedDriverLabel}" Style="{StaticResource LabelStyle}"/>
+                                    <ComboBox x:Name="ImportedDriverComboBox"
+                                              Style="{StaticResource ComboBoxStyle}"
+                                              SelectionChanged="ImportedDriverComboBox_SelectionChanged"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" Width="96" Height="122"
+                                                Background="{StaticResource PhotoBackBrush}"
+                                                BorderBrush="White" BorderThickness="5">
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="2" Opacity="0.3"/>
+                                            </Border.Effect>
+                                            <Grid>
+                                                <TextBlock x:Name="ImportedDriverPhotoPlaceholder"
+                                                           Text="?"
+                                                           FontSize="36"
+                                                           Foreground="#5e666e"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"/>
+                                                <Image x:Name="ImportedDriverPhoto"
+                                                       Stretch="UniformToFill"
+                                                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                                            </Grid>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Center">
+                                            <TextBlock x:Name="ImportedDriverNameText" Style="{StaticResource PosterTextStyle}" FontSize="24" TextWrapping="Wrap"/>
+                                            <TextBlock x:Name="ImportedDriverInfoText" Style="{StaticResource TypedLabelStyle}" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel x:Name="CustomDriverFieldsPanel">
                                 <Label Content="{loc:Loc MainWindow_DriverNameLabel}" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
                                 <TextBox x:Name="DriverNameTextBox" Style="{StaticResource TextBoxStyle}"/>
 
@@ -397,6 +456,7 @@
                                                  ToolTip="{loc:Loc MainWindow_FavouriteNumbersToolTip}"/>
                                     </StackPanel>
                                 </Grid>
+                                </StackPanel>
 
                                 <Label Content="{loc:Loc MainWindow_ReputationLabel}" Style="{StaticResource LabelStyle}"/>
                                 <ComboBox x:Name="ReputationComboBox"
@@ -505,10 +565,11 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Main Menu Welcome Image -->
-                <Border Grid.Row="0"
-                        x:Name="WelcomeImageBorder"
-                        VerticalAlignment="Top"
+                <!-- Main Menu cover photo, with the cover story of the latest save below it -->
+                <StackPanel Grid.Row="0" VerticalAlignment="Top">
+                <Border x:Name="WelcomeImageBorder"
+                        Cursor="Hand"
+                        MouseLeftButtonUp="WelcomeImageBorder_MouseLeftButtonUp"
                         Visibility="Visible">
                     <Border.Effect>
                         <DropShadowEffect Color="Black" BlurRadius="8" ShadowDepth="3" Opacity="0.35"/>
@@ -528,8 +589,29 @@
                     </Border.Style>
                     <Image x:Name="WelcomeImage"
                            Stretch="Uniform"
-                           Source="/Images/welcome.png"/>
+                           MaxHeight="340"/>
                 </Border>
+                <StackPanel x:Name="CoverStoryPanel"
+                            Margin="0,14,0,0"
+                            Visibility="{Binding Visibility, ElementName=WelcomeImageBorder}">
+                    <TextBlock x:Name="CoverHeadlineText"
+                               Foreground="{StaticResource CoverYellowBrush}"
+                               FontFamily="{StaticResource FontPoster}"
+                               FontSize="28"
+                               LineHeight="31"
+                               LineStackingStrategy="BlockLineHeight"
+                               TextWrapping="Wrap"
+                               Visibility="Collapsed"/>
+                    <TextBlock x:Name="CoverSublineText"
+                               Foreground="White"
+                               FontFamily="{StaticResource FontPrint}"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               TextWrapping="Wrap"
+                               Margin="0,6,0,0"
+                               Visibility="Collapsed"/>
+                </StackPanel>
+                </StackPanel>
 
                 <!-- Reputation Image (hidden initially, shown during New Game) -->
                 <Border Grid.Row="0"
