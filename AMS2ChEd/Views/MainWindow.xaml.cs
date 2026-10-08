@@ -564,6 +564,7 @@ namespace AMS2ChEd
                 // Load season drivers
                 var seasonDrivers = _ams2StorageFactory.DriversLoader.LoadDriversBase(seasonYear);
                 var seasonData = _ams2StorageFactory.SeasonLoader.LoadBaseSeason(seasonYear);
+                DriverHirer.AssignUndefinedRoles(seasonData, seasonDrivers.Values);
 
                 // NEW: Check if Pay Driver Wild Card is selected
                 if (reputationItem.Reputation == DriverReputation.PAY_DRIVER_WILD_CARD)

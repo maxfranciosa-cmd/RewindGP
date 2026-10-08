@@ -2,6 +2,7 @@
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Services;
 
 namespace AMS2ChEd.Business.GameLogic.Concrete
 {
@@ -37,7 +38,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var playerDriverId = $"player_{playerName.ToLower().Replace(" ", "_")}";
 
             // Clone and modify the season
-            var modifiedSeason = CloneAndModifySeason(season, playerDriverId, selectedTeamId, replacedDriverId);
+            var modifiedSeason = CloneAndModifySeason(season, playerDriverId, selectedTeamId, replacedDriverId, seasonDrivers);
 
             // Initialize standings
             var driverStandings = InitializeDriverStandings(modifiedSeason);
@@ -67,6 +68,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             // Clone the season
             var modifiedSeason = season.DeepClone();
+            DriverHirer.AssignUndefinedRoles(modifiedSeason, seasonDrivers);
 
             // Initialize standings
             var driverStandings = InitializeDriverStandings(modifiedSeason);
@@ -131,6 +133,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
                 saveGame.AccoladesAtStart = LoadAccoladesForNewGame(year);
             }
+
+            // saves created before contract roles existed
+            DriverHirer.AssignUndefinedRoles(saveGame.CurrentSeason, saveGame.Drivers);
 
             _currentGame = saveGame;
             GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
@@ -380,9 +385,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return standings;
         }
 
-        private ISeason CloneAndModifySeason(ISeason originalSeason, string playerDriverId, string playerTeamId, string replacedDriverId)
+        private ISeason CloneAndModifySeason(ISeason originalSeason, string playerDriverId, string playerTeamId, string replacedDriverId, List<IDriverData> seasonDrivers)
         {
             var clonedSeason = originalSeason.DeepClone();
+
+            // roles are worked out on the original lineup, so the player takes over
+            // the role of the driver they replace
+            DriverHirer.AssignUndefinedRoles(clonedSeason, seasonDrivers);
 
             var playerTeam = clonedSeason.Teams.FirstOrDefault(t => t.TeamId == playerTeamId);
             if (playerTeam != null)

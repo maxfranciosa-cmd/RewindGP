@@ -79,9 +79,11 @@ namespace AMS2ChEd.Business.Models.Concrete
     [JsonConverter(typeof(GenericEnumConverter<ContractRole>))]
     public enum ContractRole
     {
-        EQUAL = 0,
-        FIRST_DRIVER = 1,
-        SECOND_DRIVER = 2
+        // contracts coming from seasons/saves created before roles existed
+        UNDEFINED = 0,
+        EQUAL = 1,
+        FIRST_DRIVER = 2,
+        SECOND_DRIVER = 3
     }
 
     public class DriverContract

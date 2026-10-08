@@ -305,11 +305,11 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         #endregion
 
         [TestMethod]
-        public void DriverContract_WithoutRoleInJson_DeserializesAsEqual()
+        public void DriverContract_WithoutRoleInJson_DeserializesAsUndefined()
         {
             var contract = JsonSerializer.Deserialize<DriverContract>("{\"driver_id\":\"D1\",\"races\":16,\"drivernumber\":5}");
 
-            Assert.AreEqual(ContractRole.EQUAL, contract.Role);
+            Assert.AreEqual(ContractRole.UNDEFINED, contract.Role);
         }
 
         #region Helpers

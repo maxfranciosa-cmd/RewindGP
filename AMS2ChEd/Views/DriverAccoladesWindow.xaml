@@ -79,6 +79,7 @@
                             <TextBlock x:Name="TeamNameText" Style="{StaticResource TypedLabelStyle}" TextWrapping="Wrap"/>
                             <TextBlock x:Name="DriverNameText" Style="{StaticResource PosterTextStyle}" FontSize="36" TextWrapping="Wrap" Margin="0,2,0,0"/>
                             <TextBlock x:Name="AgeText" Style="{StaticResource TypedLabelStyle}" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                            <TextBlock x:Name="RoleText" Style="{StaticResource TypedLabelStyle}" TextWrapping="Wrap" Margin="0,4,0,0"/>
                         </StackPanel>
 
                         <!-- Driver photo -->

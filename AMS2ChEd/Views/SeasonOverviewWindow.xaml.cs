@@ -199,14 +199,9 @@ namespace AMS2ChEd
             var reprimandCount = playerTeam == null ? 0
                 : (saveGame.Reprimands ?? new List<Reprimand>()).Count(r => r.DriverId == saveGame.PlayerData.DriverId && r.TeamId == playerTeam.TeamId);
 
-            if (playerContract != null && (playerContract.Role != ContractRole.EQUAL || reprimandCount > 0))
+            if (playerContract != null && (playerContract.Role is ContractRole.FIRST_DRIVER or ContractRole.SECOND_DRIVER || reprimandCount > 0))
             {
-                var roleName = playerContract.Role switch
-                {
-                    ContractRole.FIRST_DRIVER => Strings.TeamSelectionWindow_FirstDriverRole,
-                    ContractRole.SECOND_DRIVER => Strings.TeamSelectionWindow_SecondDriverRole,
-                    _ => Strings.TeamSelectionWindow_EqualDriverRole
-                };
+                var roleName = TeamSelectionWindow.GetRoleName(playerContract.Role);
                 PlayerRoleText.Text = string.Format(Strings.SeasonOverviewWindow_RoleAndReprimands_Format, roleName, reprimandCount, ReprimandManager.REPRIMANDS_FOR_RELEASE);
                 PlayerRoleRow.Visibility = Visibility.Visible;
             }

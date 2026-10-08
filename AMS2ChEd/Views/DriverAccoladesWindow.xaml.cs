@@ -32,6 +32,19 @@ namespace AMS2ChEd.Views
                 AgeText.Visibility = Visibility.Collapsed;
             }
 
+            // team-orders role, only for drivers with a seat this season
+            var contract = saveGame.CurrentSeason.Teams
+                .SelectMany(t => new[] { t.Driver1Contract, t.Driver2Contract })
+                .FirstOrDefault(c => c != null && c.DriverId == driverId);
+            if (contract != null)
+            {
+                RoleText.Text = TeamSelectionWindow.GetRoleName(contract.Role);
+            }
+            else
+            {
+                RoleText.Visibility = Visibility.Collapsed;
+            }
+
             var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, driverId);
 
             WinsText.Text = accolades.Wins.ToString();

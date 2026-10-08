@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.Models.Concrete;
+﻿using AMS2ChEd.Business.Models;
+using AMS2ChEd.Business.Models.Concrete;
 using System.Linq;
 
 namespace AMS2ChEd.Business.Services
@@ -161,6 +162,49 @@ namespace AMS2ChEd.Business.Services
                     return DriverRole.FIRST_DRIVER;
                 default:
                     return IsFirstDriverMaterial(stayingDriverReputation, teamReputation) ? DriverRole.SECOND_DRIVER : DriverRole.FIRST_DRIVER;
+            }
+        }
+
+        // contracts coming from seasons/saves created before roles existed are UNDEFINED:
+        // derive their roles from the drivers' reputations
+        public static void AssignUndefinedRoles(ISeason season, IEnumerable<IDriverData> drivers)
+        {
+            if (season?.Teams == null)
+                return;
+
+            DriverReputation GetReputation(string driverId) =>
+                drivers?.FirstOrDefault(d => d.DriverId == driverId)?.Reputation ?? DriverReputation.PRIME_MIDFIELD;
+
+            foreach (var team in season.Teams)
+            {
+                if (team.Driver1Contract == null)
+                    continue;
+
+                if (string.IsNullOrEmpty(team.Driver2Contract?.DriverId))
+                {
+                    // one-car team: its only driver leads it
+                    if (team.Driver1Contract.Role == ContractRole.UNDEFINED)
+                        team.Driver1Contract.Role = ContractRole.FIRST_DRIVER;
+                    continue;
+                }
+
+                if (team.Driver1Contract.Role != ContractRole.UNDEFINED && team.Driver2Contract.Role != ContractRole.UNDEFINED)
+                    continue;
+
+                var driver1Reputation = GetReputation(team.Driver1Contract.DriverId);
+                var driver2Reputation = GetReputation(team.Driver2Contract.DriverId);
+
+                if (driver1Reputation == driver2Reputation)
+                {
+                    team.Driver1Contract.Role = ContractRole.EQUAL;
+                    team.Driver2Contract.Role = ContractRole.EQUAL;
+                }
+                else
+                {
+                    var driver1Leads = driver1Reputation > driver2Reputation;
+                    team.Driver1Contract.Role = driver1Leads ? ContractRole.FIRST_DRIVER : ContractRole.SECOND_DRIVER;
+                    team.Driver2Contract.Role = driver1Leads ? ContractRole.SECOND_DRIVER : ContractRole.FIRST_DRIVER;
+                }
             }
         }
 

@@ -505,6 +505,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 }
             }
 
+            // the season pack may not define roles: make sure none is left undefined
+            DriverHirer.AssignUndefinedRoles(newSeasonResult, saveGame.Drivers);
+
             saveGame.PlayerData.TeamId = employedDriversIds.ContainsKey(saveGame.PlayerData.DriverId) ? employedDriversIds[saveGame.PlayerData.DriverId] : null;
 
             var unemployedDrivers = saveGame

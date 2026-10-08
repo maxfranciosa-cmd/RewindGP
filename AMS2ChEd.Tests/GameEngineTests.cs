@@ -212,6 +212,49 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
         #endregion
 
+        #region Contract roles
+
+        [TestMethod]
+        public void LoadGame_ContractsWithoutRole_GetRolesFromReputation()
+        {
+            var saveGame = CreateSaveGame();
+            var team = CreateTeam("team1", "D1", 5, "D2", 6);
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { team };
+            saveGame.Drivers = new List<IDriverData>
+            {
+                CreateDriver("D1", "Driver 1", DriverReputation.PRIME_MIDFIELD),
+                CreateDriver("D2", "Driver 2", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL)
+            };
+
+            _engine.LoadGame(saveGame);
+
+            Assert.AreEqual(ContractRole.SECOND_DRIVER, team.Driver1Contract.Role);
+            Assert.AreEqual(ContractRole.FIRST_DRIVER, team.Driver2Contract.Role);
+        }
+
+        [TestMethod]
+        public void CreateNewGame_SeasonWithoutRoles_PlayerTakesTheRoleOfTheReplacedDriver()
+        {
+            var season = CreateSeason(1994);
+            season.Teams = new List<ITeamEntry> { CreateTeam("team1", "D1", 5, "D2", 6) };
+            var seasonDrivers = new List<IDriverData>
+            {
+                CreateDriver("D1", "Driver 1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
+                CreateDriver("D2", "Driver 2", DriverReputation.PRIME_MIDFIELD)
+            };
+
+            // the player replaces the team leader while having a worse reputation than the teammate
+            var saveGame = _engine.CreateNewGame("Test Player", "GBR", 25, DriverReputation.PAY_DRIVER_SEASON,
+                new[] { 7 }, season, "team1", "D1", seasonDrivers);
+
+            var team = saveGame.CurrentSeason.Teams.Single();
+            Assert.AreEqual(saveGame.PlayerData.DriverId, team.Driver1Contract.DriverId);
+            Assert.AreEqual(ContractRole.FIRST_DRIVER, team.Driver1Contract.Role);
+            Assert.AreEqual(ContractRole.SECOND_DRIVER, team.Driver2Contract.Role);
+        }
+
+        #endregion
+
         #region Helper Methods
 
         private ISaveGame CreateSaveGame()

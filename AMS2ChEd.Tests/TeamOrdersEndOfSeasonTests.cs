@@ -302,11 +302,11 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             };
         }
 
-        // the next season comes from the season pack, where every contract is EQUAL
+        // the next season comes from the season pack, where no contract has a role
         private static ISeason NextSeason(ISaveGame saveGame)
         {
             var teams = saveGame.CurrentSeason.Teams
-                .Select(t => Team(t.TeamId, t.Reputation, t.Driver1Contract.DriverId, ContractRole.EQUAL, t.Driver2Contract.DriverId, ContractRole.EQUAL))
+                .Select(t => Team(t.TeamId, t.Reputation, t.Driver1Contract.DriverId, ContractRole.UNDEFINED, t.Driver2Contract.DriverId, ContractRole.UNDEFINED))
                 .ToList();
 
             return new Season

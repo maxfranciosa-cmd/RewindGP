@@ -1,6 +1,7 @@
 ﻿using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Resources;
 using System.Windows;
@@ -64,7 +65,7 @@ namespace AMS2ChEd
             LoadSeason(seasonYear);
         }
 
-        private static string GetRoleName(ContractRole role) => role switch
+        internal static string GetRoleName(ContractRole role) => role switch
         {
             ContractRole.FIRST_DRIVER => Strings.TeamSelectionWindow_FirstDriverRole,
             ContractRole.SECOND_DRIVER => Strings.TeamSelectionWindow_SecondDriverRole,
@@ -77,6 +78,7 @@ namespace AMS2ChEd
             {
                 var teamsCache = _dataFactory.TeamsLoader.LoadTeams();
                 var seasonData = _dataFactory.SeasonLoader.LoadBaseSeason(seasonYear);
+                DriverHirer.AssignUndefinedRoles(seasonData, _driversCache.Values);
 
                 teams = new List<TeamDisplay>();
                 var assignedDriverIds = new HashSet<string>();
