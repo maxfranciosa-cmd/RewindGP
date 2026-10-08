@@ -1023,6 +1023,7 @@ namespace AMS2ChEd.Resources
         public static string TeamPrincipalLetterWindow_Letter_Format => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Letter_Format))!;
 
         public static string MainWindow_NewGameImportedDriverButton => ResourceManager.GetString(nameof(MainWindow_NewGameImportedDriverButton))!;
+        public static string MainWindow_NewGameGroupTitle => ResourceManager.GetString(nameof(MainWindow_NewGameGroupTitle))!;
         public static string MainWindow_ImportedDriverLabel => ResourceManager.GetString(nameof(MainWindow_ImportedDriverLabel))!;
         public static string MainWindow_ImportedDriverListItem_Format => ResourceManager.GetString(nameof(MainWindow_ImportedDriverListItem_Format))!;
         public static string MainWindow_ImportedDriverInfo_Format => ResourceManager.GetString(nameof(MainWindow_ImportedDriverInfo_Format))!;

@@ -292,25 +292,47 @@
                                    Margin="10,0,0,0"/>
                     </StackPanel>
 
-                    <Button x:Name="NewGameButton"
-                            Content="{loc:Loc MainWindow_NewGameButton}"
-                            Style="{StaticResource CoverLineButtonStyle}"
-                            Click="NewGameButton_Click"/>
+                    <!-- The ways to start a new game, boxed together like a feature panel on the cover -->
+                    <Grid HorizontalAlignment="Left" Margin="0,0,0,16">
+                        <Border BorderBrush="{StaticResource CoverYellowBrush}" BorderThickness="3" Margin="0,15,0,0" Padding="6,22,16,4">
+                            <StackPanel>
+                                <Button x:Name="NewGameButton"
+                                        Content="{loc:Loc MainWindow_NewGameButton}"
+                                        Style="{StaticResource CoverLineButtonStyle}"
+                                        FontSize="27"
+                                        Margin="0,0,0,2"
+                                        Click="NewGameButton_Click"/>
 
-                    <Button x:Name="NewGameReplaceDriverButton"
-                            Content="{loc:Loc MainWindow_NewGameReplaceDriverButton}"
-                            Style="{StaticResource CoverLineButtonStyle}"
-                            Click="NewGameReplaceDriverButton_Click"/>
+                                <Button x:Name="NewGameReplaceDriverButton"
+                                        Content="{loc:Loc MainWindow_NewGameReplaceDriverButton}"
+                                        Style="{StaticResource CoverLineButtonStyle}"
+                                        FontSize="27"
+                                        Margin="0,0,0,2"
+                                        Click="NewGameReplaceDriverButton_Click"/>
 
-                    <Button x:Name="NewGameImportedDriverButton"
-                            Content="{loc:Loc MainWindow_NewGameImportedDriverButton}"
-                            Style="{StaticResource CoverLineButtonStyle}"
-                            Click="NewGameImportedDriverButton_Click"/>
+                                <Button x:Name="NewGameImportedDriverButton"
+                                        Content="{loc:Loc MainWindow_NewGameImportedDriverButton}"
+                                        Style="{StaticResource CoverLineButtonStyle}"
+                                        FontSize="27"
+                                        Margin="0,0,0,2"
+                                        Click="NewGameImportedDriverButton_Click"/>
 
-                    <Button x:Name="NewGameScenarioModeButton"
-                            Content="{loc:Loc MainWindow_NewGameScenarioModeButton}"
-                            Style="{StaticResource CoverLineButtonStyle}"
-                            Click="NewGameScenarioModeButton_Click"/>
+                                <Button x:Name="NewGameScenarioModeButton"
+                                        Content="{loc:Loc MainWindow_NewGameScenarioModeButton}"
+                                        Style="{StaticResource CoverLineButtonStyle}"
+                                        FontSize="27"
+                                        Margin="0,0,0,2"
+                                        Click="NewGameScenarioModeButton_Click"/>
+                            </StackPanel>
+                        </Border>
+                        <!-- the title sits on the top edge of the box, like a section tag -->
+                        <Border Background="{StaticResource CoverYellowBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="14,0,0,0" Padding="10,1,10,3">
+                            <TextBlock Text="{loc:Loc MainWindow_NewGameGroupTitle}"
+                                       FontFamily="{StaticResource FontPoster}"
+                                       FontSize="20"
+                                       Foreground="#111111"/>
+                        </Border>
+                    </Grid>
 
                     <Button x:Name="LoadGameButton"
                             Content="{loc:Loc MainWindow_LoadGameButton}"

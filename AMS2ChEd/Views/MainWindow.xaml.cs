@@ -33,7 +33,6 @@ namespace AMS2ChEd
     public partial class MainWindow : Window
     {
         private List<ReputationItem> reputationList;
-        private Dictionary<DriverReputation, string> reputationImages;
         private Storyboard fadeInStoryboard;
 
         private IGameDataFactory _ams2StorageFactory;
@@ -80,7 +79,6 @@ namespace AMS2ChEd
             InstallSeasonCommand.SeasonInstalled += OnSeasonModInstalled;
 
             InitializeGameLogic();
-            InitializeReputationImages();
             InitializeAnimations();
             InitializeReputations();
             LoadSeasons();
@@ -115,30 +113,6 @@ namespace AMS2ChEd
             _gameLogicFactory.GameEngine.SeasonProgressed += OnSeasonProgressed;
             _gameLogicFactory.GameEngine.ErrorOccurred += OnErrorOccurred;
             InstallSeasonCommand.SeasonInstalled -= OnSeasonModInstalled;
-        }
-
-        private void InitializeReputationImages()
-        {
-            // Map each reputation to an image filename
-            // Images should be placed in an Images folder in the project
-            reputationImages = new Dictionary<DriverReputation, string>
-            {
-                { DriverReputation.PAY_DRIVER_WILD_CARD, "/Images/reputation_paydriver_wildcard.png" },
-                { DriverReputation.PAY_DRIVER_SEASON, "/Images/reputation_paydriver_season.png" },
-                { DriverReputation.YOUNG_TALENT, "/Images/reputation_young_talent.png" },
-                { DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, "/Images/reputation_young_unproven.png" },
-                { DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, "/Images/reputation_young_champion.png" },
-                { DriverReputation.PRIME_MIDFIELD, "/Images/reputation_midfield.png" },
-                { DriverReputation.PRIME_STRONG_MIDFIELD, "/Images/reputation_high_midfield.png" },
-                { DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN, "/Images/reputation_unproven_champion.png" },
-                { DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, "/Images/reputation_champion.png" },
-                { DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED, "/Images/reputation_washed_champion.png" },
-                { DriverReputation.AGEING_MIDFIELD, "/Images/reputation_veteran_midfield.png" },
-                { DriverReputation.AGEING_STRONG_MIDFIELD, "/Images/reputation_veteran_high_midfield.png" },
-                { DriverReputation.AGEING_CHAMPIONSHIP_LEVEL, "/Images/reputation_veteran_champion.png" },
-                { DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED, "/Images/reputation_veteran_washed.png" },
-                { DriverReputation.JUST_ONE_LAST_DANCE, "/Images/reputation_just_one_last_dance.png" }
-            };
         }
 
         private void InitializeAnimations()
@@ -419,9 +393,8 @@ namespace AMS2ChEd
             MainMenuPanel.Visibility = Visibility.Collapsed;
             NewGamePanel.Visibility = Visibility.Visible;
 
-            // Switch from welcome image to reputation display
-            WelcomeImageBorder.Visibility = Visibility.Collapsed;
-            ReputationImageBorder.Visibility = Visibility.Visible;
+            // no picture here: just the name and description of the selected reputation
+            SetInfoTextOnlyLayout(true);
 
             ReplaceDriverPanel.Visibility = Visibility.Collapsed;
             CustomDriverPanel.Visibility = Visibility.Visible;
@@ -561,6 +534,26 @@ namespace AMS2ChEd
 
             // the reputations on offer follow the age, as for a custom driver
             DriverAgeTextBox.Text = age.ToString();
+
+            // start from the driver's own reputation, or its equivalent for the age they'd have this season
+            var reputation = selected.Driver.Reputation;
+            if (!SelectReputation(reputation))
+            {
+                SelectReputation(new ReputationUpdater().GetNewReputationForInactiveDriver(reputation, age));
+            }
+        }
+
+        private bool SelectReputation(DriverReputation reputation)
+        {
+            var item = ReputationComboBox.Items
+                .OfType<ComboBoxItem>()
+                .FirstOrDefault(i => (i.Tag as ReputationItem)?.Reputation == reputation);
+
+            if (item == null)
+                return false;
+
+            ReputationComboBox.SelectedItem = item;
+            return true;
         }
 
         #endregion
@@ -820,12 +813,6 @@ namespace AMS2ChEd
 
             // Update the reputation name in red
             ReputationNameText.Text = reputationItem.Name.ToUpper();
-
-            // Update the image
-            if (reputationImages.ContainsKey(reputationItem.Reputation))
-            {
-                ReputationImage.LoadPhoto(reputationImages[reputationItem.Reputation]);
-            }
 
             // Reset opacity to 0 before animating
             ReputationInfoPanel.Opacity = 0;
@@ -1110,11 +1097,7 @@ namespace AMS2ChEd
             ReputationImageBorder.Visibility = Visibility.Collapsed;
             ReputationInfoPanel.Opacity = 0; // Hide reputation info
 
-            // back below the picture, where the scenario mode moved it from
-            Grid.SetRow(ReputationInfoPanel, 1);
-            ReputationInfoPanel.Margin = new Thickness(0, 20, 0, 0);
-            ReputationInfoPanel.Height = 150;
-            ReputationInfoPanel.VerticalAlignment = VerticalAlignment.Stretch;
+            SetInfoTextOnlyLayout(false);
 
             // Hide scenario panel and show season controls
             ScenarioPanel.Visibility = Visibility.Collapsed;
@@ -1131,6 +1114,22 @@ namespace AMS2ChEd
             SeasonComboBox.SelectedIndex = 0;
             ReputationComboBox.SelectedIndex = 0;
         }
+        // with no picture on the right column, the title and description take its top;
+        // otherwise they sit below the picture
+        private void SetInfoTextOnlyLayout(bool textOnly)
+        {
+            if (textOnly)
+            {
+                WelcomeImageBorder.Visibility = Visibility.Collapsed;
+                ReputationImageBorder.Visibility = Visibility.Collapsed;
+            }
+
+            Grid.SetRow(ReputationInfoPanel, textOnly ? 0 : 1);
+            ReputationInfoPanel.Margin = textOnly ? new Thickness(0) : new Thickness(0, 20, 0, 0);
+            ReputationInfoPanel.Height = textOnly ? double.NaN : 150;
+            ReputationInfoPanel.VerticalAlignment = textOnly ? VerticalAlignment.Top : VerticalAlignment.Stretch;
+        }
+
         private void NewGameReplaceDriverButton_Click(object sender, RoutedEventArgs e)
         {
             MainMenuPanel.Visibility = Visibility.Collapsed;
@@ -1221,12 +1220,7 @@ namespace AMS2ChEd
             SelectSeasonLabel.Visibility = Visibility.Collapsed;
 
             // scenarios have no cover picture: their title and description take the top of the column
-            WelcomeImageBorder.Visibility = Visibility.Collapsed;
-            ReputationImageBorder.Visibility = Visibility.Collapsed;
-            Grid.SetRow(ReputationInfoPanel, 0);
-            ReputationInfoPanel.Margin = new Thickness(0);
-            ReputationInfoPanel.Height = double.NaN;
-            ReputationInfoPanel.VerticalAlignment = VerticalAlignment.Top;
+            SetInfoTextOnlyLayout(true);
 
             // Load scenarios
             LoadScenarios();
