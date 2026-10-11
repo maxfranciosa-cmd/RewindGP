@@ -1,3 +1,5 @@
+using AMS2ChEd.Business.Models;
+
 namespace AMS2ChEd.Business.GameLogic.Contracts
 {
     /// <summary>
@@ -16,6 +18,10 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
     {
         IReadOnlyList<ImprovementStat> Stats { get; }
 
-        Dictionary<string, double> GenerateValues(Random random);
+        /// <summary>
+        /// The variations of a new package, keyed by stat. A package doesn't have to touch every
+        /// stat; the season is there so the variations can be sized against its field.
+        /// </summary>
+        Dictionary<string, double> GenerateValues(ISeason season, Random random);
     }
 }

@@ -16,12 +16,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
         // AI teams don't touch the car before this round (0-based race index)
         public const int FIRST_RACE_INDEX_FOR_AI = 2;
-        // chance for a team at or above where its reputation says it should be
-        public const double CONTENT_TEAM_CHANCE = 0.04;
-        public const double BASE_CHANCE = 0.08;
+        // chance for a team that is where its reputation lets it be content
+        public const double CONTENT_TEAM_CHANCE = 0.08;
         public const double CHANCE_PER_POSITION_BELOW_EXPECTATION = 0.10;
-        public const double MAX_EXPECTATION_CHANCE = 0.45;
+        // further down than this adds nothing: the order among the teams yet to score says little
+        public const int MAX_POSITIONS_BELOW_EXPECTATION = 3;
         // the team right behind in the standings is within a race win's worth of points
+        // (only once both have scored: before that every gap is that small)
         public const double THREAT_CHANCE_BONUS = 0.05;
         // "use it or lose it" in the last rounds of the season
         public const int LATE_SEASON_RACES = 3;
@@ -78,7 +79,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             {
                 DriverId = driverId,
                 RaceId = race.RaceId,
-                Values = _provider.GenerateValues(_random)
+                Values = _provider.GenerateValues(saveGame.CurrentSeason, _random)
             };
 
             team.ImprovementPackages ??= new List<ImprovementPackage>();
@@ -129,7 +130,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
         /// <summary>
         /// How likely an AI-led team is to install a package before the next race: the further
-        /// it sits below the constructors' position its reputation calls for, the likelier.
+        /// it sits below the worst constructors' position a team of its reputation can accept,
+        /// the likelier.
         /// </summary>
         public double GetInstallChance(ISaveGame saveGame, ITeamEntry team)
         {
@@ -143,14 +145,16 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             if (standing == null)
                 return 0;
 
-            var positionsBelowExpectation = (int)Math.Floor(standing.Position - GetExpectedPosition(saveGame, team));
+            var worstAcceptablePosition = GetWorstAcceptablePosition(saveGame, team);
+            var positionsBelowExpectation = worstAcceptablePosition == null
+                ? 0
+                : Math.Clamp(standing.Position - worstAcceptablePosition.Value, 0, MAX_POSITIONS_BELOW_EXPECTATION);
 
-            var chance = positionsBelowExpectation >= 1
-                ? Math.Min(MAX_EXPECTATION_CHANCE, BASE_CHANCE + CHANCE_PER_POSITION_BELOW_EXPECTATION * positionsBelowExpectation)
-                : CONTENT_TEAM_CHANCE;
+            var chance = CONTENT_TEAM_CHANCE + CHANCE_PER_POSITION_BELOW_EXPECTATION * positionsBelowExpectation;
 
             var teamBehind = standings.FirstOrDefault(s => s.Position == standing.Position + 1);
-            if (teamBehind != null && standing.Points - teamBehind.Points <= GetPointsForWin(saveGame.CurrentSeason))
+            if (teamBehind != null && teamBehind.Points > 0 &&
+                standing.Points - teamBehind.Points <= GetPointsForWin(saveGame.CurrentSeason))
                 chance += THREAT_CHANCE_BONUS;
 
             if (races.Count - raceIndex <= LATE_SEASON_RACES)
@@ -171,14 +175,28 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return season.PointsSystem != null && season.PointsSystem.Any() ? season.PointsSystem.Values.Max() : 0;
         }
 
-        // teams sharing a reputation share the middle position of their group
-        private static double GetExpectedPosition(ISaveGame saveGame, ITeamEntry team)
+        // What a team can live with depends on its reputation: for a top team anything but first
+        // is a failure, a midfield team is fine as one of the best two of its peers, a minnow as
+        // long as it isn't the last of the minnows. Null for a super minnow, which has nothing to
+        // prove. Positions are counted behind the teams of a better reputation, so being beaten
+        // by a lesser team is a failure too.
+        private static int? GetWorstAcceptablePosition(ISaveGame saveGame, ITeamEntry team)
         {
             var teams = saveGame.CurrentSeason.Teams.ToList();
             var betterTeams = teams.Count(t => t.Reputation > team.Reputation);
             var sameReputationTeams = teams.Count(t => t.Reputation == team.Reputation);
 
-            return betterTeams + (sameReputationTeams + 1) / 2.0;
+            switch (team.Reputation)
+            {
+                case TeamReputation.TOP_TEAM:
+                    return 1;
+                case TeamReputation.SUPER_MINNOW:
+                    return null;
+                case TeamReputation.MINNOW:
+                    return betterTeams + Math.Max(1, sameReputationTeams - 1);
+                default:
+                    return betterTeams + Math.Min(2, sameReputationTeams);
+            }
         }
 
         // the contracted drivers who may instruct the team for the given race: whoever is absent

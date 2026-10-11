@@ -221,11 +221,110 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             var saveGame = CreateSaveGame();
             saveGame.NextGpIndex = 3;
 
-            // T1 is a top team (expected 1st) running 3rd: two positions below expectation
+            // T1 is a top team (only first will do) running 3rd: two positions below expectation
             var chance = CreateManager().GetInstallChance(saveGame, Team(saveGame, "T1"));
 
             Assert.AreEqual(
-                ImprovementPackageManager.BASE_CHANCE + 2 * ImprovementPackageManager.CHANCE_PER_POSITION_BELOW_EXPECTATION,
+                ImprovementPackageManager.CONTENT_TEAM_CHANCE + 2 * ImprovementPackageManager.CHANCE_PER_POSITION_BELOW_EXPECTATION,
+                chance, TOLERANCE);
+        }
+
+        [TestMethod]
+        public void GetInstallChance_TopTeam_OnlyFirstPlaceIsAcceptable()
+        {
+            var saveGame = CreateStandingsSaveGame(
+                TeamReputation.TOP_TEAM, TeamReputation.TOP_TEAM, TeamReputation.MIDFIELD);
+            var manager = CreateManager();
+
+            Assert.AreEqual(ImprovementPackageManager.CONTENT_TEAM_CHANCE,
+                manager.GetInstallChance(saveGame, Team(saveGame, "P1")), TOLERANCE);
+            Assert.AreEqual(
+                ImprovementPackageManager.CONTENT_TEAM_CHANCE + ImprovementPackageManager.CHANCE_PER_POSITION_BELOW_EXPECTATION,
+                manager.GetInstallChance(saveGame, Team(saveGame, "P2")), TOLERANCE);
+        }
+
+        [TestMethod]
+        public void GetInstallChance_MidfieldTeam_IsContentAsOneOfTheBestTwoOfItsPeers()
+        {
+            var saveGame = CreateStandingsSaveGame(
+                TeamReputation.TOP_TEAM,
+                TeamReputation.MIDFIELD_HIGH, TeamReputation.MIDFIELD_HIGH, TeamReputation.MIDFIELD_HIGH,
+                TeamReputation.MIDFIELD, TeamReputation.MIDFIELD, TeamReputation.MIDFIELD);
+            var manager = CreateManager();
+
+            foreach (var contentTeam in new[] { "P2", "P3", "P5", "P6" })
+            {
+                Assert.AreEqual(ImprovementPackageManager.CONTENT_TEAM_CHANCE,
+                    manager.GetInstallChance(saveGame, Team(saveGame, contentTeam)), TOLERANCE, contentTeam);
+            }
+
+            foreach (var thirdOfItsPeers in new[] { "P4", "P7" })
+            {
+                Assert.AreEqual(
+                    ImprovementPackageManager.CONTENT_TEAM_CHANCE + ImprovementPackageManager.CHANCE_PER_POSITION_BELOW_EXPECTATION,
+                    manager.GetInstallChance(saveGame, Team(saveGame, thirdOfItsPeers)), TOLERANCE, thirdOfItsPeers);
+            }
+        }
+
+        [TestMethod]
+        public void GetInstallChance_MidfieldTeamBeatenByALesserTeam_IsBelowExpectation()
+        {
+            // the first of the midfield teams, but with a minnow ahead of it
+            var saveGame = CreateStandingsSaveGame(
+                TeamReputation.TOP_TEAM, TeamReputation.MIDFIELD, TeamReputation.MINNOW, TeamReputation.MIDFIELD, TeamReputation.MINNOW);
+            var manager = CreateManager();
+
+            Assert.AreEqual(ImprovementPackageManager.CONTENT_TEAM_CHANCE,
+                manager.GetInstallChance(saveGame, Team(saveGame, "P2")), TOLERANCE);
+            Assert.AreEqual(
+                ImprovementPackageManager.CONTENT_TEAM_CHANCE + ImprovementPackageManager.CHANCE_PER_POSITION_BELOW_EXPECTATION,
+                manager.GetInstallChance(saveGame, Team(saveGame, "P4")), TOLERANCE);
+        }
+
+        [TestMethod]
+        public void GetInstallChance_Minnow_IsOnlyInTroubleAsTheLastOfTheMinnows()
+        {
+            var saveGame = CreateStandingsSaveGame(
+                TeamReputation.TOP_TEAM,
+                TeamReputation.MINNOW, TeamReputation.MINNOW, TeamReputation.MINNOW,
+                TeamReputation.SUPER_MINNOW);
+            var manager = CreateManager();
+
+            foreach (var contentTeam in new[] { "P2", "P3" })
+            {
+                Assert.AreEqual(ImprovementPackageManager.CONTENT_TEAM_CHANCE,
+                    manager.GetInstallChance(saveGame, Team(saveGame, contentTeam)), TOLERANCE, contentTeam);
+            }
+
+            Assert.AreEqual(
+                ImprovementPackageManager.CONTENT_TEAM_CHANCE + ImprovementPackageManager.CHANCE_PER_POSITION_BELOW_EXPECTATION,
+                manager.GetInstallChance(saveGame, Team(saveGame, "P4")), TOLERANCE);
+        }
+
+        [TestMethod]
+        public void GetInstallChance_SuperMinnow_NeverFeelsPressure()
+        {
+            var saveGame = CreateStandingsSaveGame(
+                TeamReputation.TOP_TEAM, TeamReputation.MINNOW, TeamReputation.SUPER_MINNOW, TeamReputation.SUPER_MINNOW);
+
+            var chance = CreateManager().GetInstallChance(saveGame, Team(saveGame, "P4"));
+
+            Assert.AreEqual(ImprovementPackageManager.CONTENT_TEAM_CHANCE, chance, TOLERANCE);
+        }
+
+        [TestMethod]
+        public void GetInstallChance_FarBelowExpectation_PressureIsCapped()
+        {
+            var saveGame = CreateStandingsSaveGame(
+                TeamReputation.MIDFIELD, TeamReputation.MIDFIELD, TeamReputation.MIDFIELD, TeamReputation.MIDFIELD,
+                TeamReputation.MIDFIELD, TeamReputation.MIDFIELD, TeamReputation.TOP_TEAM);
+
+            // the top team is six positions off first place
+            var chance = CreateManager().GetInstallChance(saveGame, Team(saveGame, "P7"));
+
+            Assert.AreEqual(
+                ImprovementPackageManager.CONTENT_TEAM_CHANCE +
+                ImprovementPackageManager.MAX_POSITIONS_BELOW_EXPECTATION * ImprovementPackageManager.CHANCE_PER_POSITION_BELOW_EXPECTATION,
                 chance, TOLERANCE);
         }
 
@@ -269,6 +368,21 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
+        public void GetInstallChance_TeamBehindHasNotScoredYet_NoThreatBonus()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.NextGpIndex = 3;
+            // two points apart, but the team behind is yet to score
+            saveGame.CurrentConstructorStandings.Single(s => s.TeamId == "T3").Points = 2;
+            saveGame.CurrentConstructorStandings.Single(s => s.TeamId == "T2").Points = 0;
+            saveGame.CurrentConstructorStandings.Single(s => s.TeamId == "T1").Points = 0;
+
+            var chance = CreateManager().GetInstallChance(saveGame, Team(saveGame, "T3"));
+
+            Assert.AreEqual(ImprovementPackageManager.CONTENT_TEAM_CHANCE, chance, TOLERANCE);
+        }
+
+        [TestMethod]
         public void GetInstallChance_LateInTheSeason_AddsUseItOrLoseItBonus()
         {
             var saveGame = CreateSaveGame();
@@ -285,7 +399,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         public void GetInstallChance_InstalledAtRecentRaces_IsCooledDown()
         {
             var manager = CreateManager();
-            var expectationChance = ImprovementPackageManager.BASE_CHANCE + 2 * ImprovementPackageManager.CHANCE_PER_POSITION_BELOW_EXPECTATION;
+            var expectationChance = ImprovementPackageManager.CONTENT_TEAM_CHANCE + 2 * ImprovementPackageManager.CHANCE_PER_POSITION_BELOW_EXPECTATION;
 
             var installedLastRace = CreateSaveGame();
             installedLastRace.NextGpIndex = 2;
@@ -360,6 +474,25 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             };
         }
 
+        // Teams P1, P2, ... of the given reputations, in constructors' standings order, with points
+        // gaps too big for the threat bonus. Mid-season, all led by AI drivers.
+        private static ISaveGame CreateStandingsSaveGame(params TeamReputation[] reputationsInStandingsOrder)
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.NextGpIndex = 3;
+            saveGame.PlayerData = new PlayerData { DriverId = "PLAYER", Name = "Test Player" };
+
+            var teamIds = Enumerable.Range(1, reputationsInStandingsOrder.Length).Select(i => $"P{i}").ToList();
+            saveGame.CurrentSeason.Teams = teamIds
+                .Select((id, index) => CreateTeam(id, reputationsInStandingsOrder[index], $"{id}A", ContractRole.EQUAL, $"{id}B", ContractRole.EQUAL))
+                .ToList();
+            saveGame.CurrentConstructorStandings = teamIds
+                .Select((id, index) => new ConstructorStandingEntry { TeamId = id, Position = index + 1, Points = (teamIds.Count - index) * 50 })
+                .ToList();
+
+            return saveGame;
+        }
+
         private static ITeamEntry CreateTeam(string teamId, TeamReputation reputation, string driver1Id, ContractRole driver1Role, string driver2Id, ContractRole driver2Role)
         {
             return new TeamEntry
@@ -379,7 +512,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 new ImprovementStat("stat", "Stat", true, "stat improved", "stat worsened")
             };
 
-            public Dictionary<string, double> GenerateValues(Random random)
+            public Dictionary<string, double> GenerateValues(ISeason season, Random random)
             {
                 return new Dictionary<string, double> { { "stat", 0.01 } };
             }
