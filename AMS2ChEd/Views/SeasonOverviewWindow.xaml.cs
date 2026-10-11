@@ -716,6 +716,13 @@ namespace AMS2ChEd
             historicalWindow.Owner = this;
             historicalWindow.ShowDialog();
         }
+
+        private void HallOfFameButton_Click(object sender, RoutedEventArgs e)
+        {
+            var hallOfFameWindow = new HallOfFameWindow(saveGame, _gameLogicFactory.AllTimeRecordsLoader);
+            hallOfFameWindow.Owner = this;
+            hallOfFameWindow.ShowDialog();
+        }
     }
 
     public class WpfAbsenceDecisionProvider : IAbsenceDecisionProvider

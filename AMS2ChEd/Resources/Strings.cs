@@ -118,6 +118,16 @@ namespace AMS2ChEd.Resources
         public static string HistoricalStandingsWindow_ConstructorsChampionshipHeader => ResourceManager.GetString(nameof(HistoricalStandingsWindow_ConstructorsChampionshipHeader))!;
         public static string HistoricalStandingsWindow_NoDataMessage => ResourceManager.GetString(nameof(HistoricalStandingsWindow_NoDataMessage))!;
 
+        public static string HallOfFameWindow_Title => ResourceManager.GetString(nameof(HallOfFameWindow_Title))!;
+        public static string HallOfFameWindow_Header => ResourceManager.GetString(nameof(HallOfFameWindow_Header))!;
+        public static string HallOfFameWindow_ChampionshipsHeader => ResourceManager.GetString(nameof(HallOfFameWindow_ChampionshipsHeader))!;
+        public static string HallOfFameWindow_WinsHeader => ResourceManager.GetString(nameof(HallOfFameWindow_WinsHeader))!;
+        public static string HallOfFameWindow_LegendActive => ResourceManager.GetString(nameof(HallOfFameWindow_LegendActive))!;
+        public static string HallOfFameWindow_LegendRetired => ResourceManager.GetString(nameof(HallOfFameWindow_LegendRetired))!;
+        public static string HallOfFameWindow_LegendHistoric => ResourceManager.GetString(nameof(HallOfFameWindow_LegendHistoric))!;
+        public static string HallOfFameWindow_NoDataMessage => ResourceManager.GetString(nameof(HallOfFameWindow_NoDataMessage))!;
+        public static string SeasonOverviewWindow_HallOfFameButton => ResourceManager.GetString(nameof(SeasonOverviewWindow_HallOfFameButton))!;
+
         public static string MissingDriversResultWindow_Title => ResourceManager.GetString(nameof(MissingDriversResultWindow_Title))!;
         public static string MissingDriversResultWindow_Header => ResourceManager.GetString(nameof(MissingDriversResultWindow_Header))!;
         public static string MissingDriversResultWindow_Description => ResourceManager.GetString(nameof(MissingDriversResultWindow_Description))!;

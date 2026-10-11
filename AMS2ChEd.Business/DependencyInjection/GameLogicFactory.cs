@@ -35,6 +35,11 @@ namespace AMS2ChEd.Business.DependencyInjection
 
         public SeasonUpdaterOrchestrator SeasonUpdaterOrchestrator { get; private set; }
 
+        /// <summary>
+        /// Optional: without it the hall of fame only knows the drivers of the save.
+        /// </summary>
+        public IAllTimeRecordsLoader AllTimeRecordsLoader { get; private set; }
+
         public GameLogicFactory(
             IStandingsManager standingsManager,
             IAbsenceManager absenceManager,
@@ -49,8 +54,10 @@ namespace AMS2ChEd.Business.DependencyInjection
             SeasonUpdaterOrchestrator seasonUpdaterOrchestrator,
             IReprimandManager reprimandManager,
             IImprovementPackageManager improvementPackageManager,
-            IRaceLaunchAssistant raceLaunchAssistant = null)
+            IRaceLaunchAssistant raceLaunchAssistant = null,
+            IAllTimeRecordsLoader allTimeRecordsLoader = null)
         {
+            AllTimeRecordsLoader = allTimeRecordsLoader;
             StandingsManager = standingsManager;
             AbsenceManager = absenceManager;
             ContractNegotiationEngine = contractNegotiationEngine;

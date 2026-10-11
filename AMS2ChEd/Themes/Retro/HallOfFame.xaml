@@ -1,0 +1,110 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- The all-time records as a teletext page: the colour of a name says whether the driver still races
+         (yellow), has retired (cyan) or belongs to the past (white). Builds on the shared teletext
+         resources of RetroTheme.xaml. -->
+
+    <SolidColorBrush x:Key="HallOfFame.WindowBackground" Color="#050505"/>
+
+    <!-- size of the page text, and its size on a wide window (like a bigger TV); the title is drawn larger in proportion -->
+    <sys:Double x:Key="HallOfFame.FontSize">26</sys:Double>
+    <sys:Double x:Key="HallOfFame.WideFontSize">36</sys:Double>
+
+    <Style x:Key="HallOfFame.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource TeletextScrollBarStyle}"/>
+
+    <Style x:Key="HallOfFame.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="36,24,36,20"/>
+        <Setter Property="TextElement.FontFamily" Value="{StaticResource FontScreen}"/>
+        <Setter Property="TextElement.Foreground" Value="White"/>
+    </Style>
+
+    <!-- Page header -->
+    <Style x:Key="HallOfFame.PageHeader" TargetType="Grid"/>
+
+    <Style x:Key="HallOfFame.PageHeaderText" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style x:Key="HallOfFame.PageNumber" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextCyanBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <!-- Title -->
+    <Style x:Key="HallOfFame.TitleBar" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource TeletextBlueBrush}"/>
+        <Setter Property="Padding" Value="12,2"/>
+        <Setter Property="Margin" Value="0,8,0,8"/>
+    </Style>
+
+    <Style x:Key="HallOfFame.Title" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextYellowBrush}"/>
+    </Style>
+
+    <!-- Legend: each word in the colour its drivers are written in -->
+    <Style x:Key="HallOfFame.Legend" TargetType="WrapPanel">
+        <Setter Property="Margin" Value="0,0,0,14"/>
+    </Style>
+
+    <Style x:Key="HallOfFame.LegendActive" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextYellowBrush}"/>
+        <Setter Property="Margin" Value="0,0,30,0"/>
+    </Style>
+
+    <Style x:Key="HallOfFame.LegendRetired" TargetType="TextBlock" BasedOn="{StaticResource HallOfFame.LegendActive}">
+        <Setter Property="Foreground" Value="{StaticResource TeletextCyanBrush}"/>
+    </Style>
+
+    <Style x:Key="HallOfFame.LegendHistoric" TargetType="TextBlock" BasedOn="{StaticResource HallOfFame.LegendActive}">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!-- The two lists: plain lines of coloured text -->
+    <Style x:Key="HallOfFame.SectionHeader" TargetType="Border"/>
+
+    <Style x:Key="HallOfFame.SectionTitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextMagentaBrush}"/>
+    </Style>
+
+    <!-- the player's own line is on a blue band -->
+    <Style x:Key="HallOfFame.Row" TargetType="Border">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPlayer}" Value="True">
+                <Setter Property="Background" Value="{StaticResource TeletextBlueBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="HallOfFame.RowRank" TargetType="TextBlock"/>
+
+    <Style x:Key="HallOfFame.RowName" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextYellowBrush}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="Retired">
+                <Setter Property="Foreground" Value="{StaticResource TeletextCyanBrush}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status}" Value="Historic">
+                <Setter Property="Foreground" Value="White"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="HallOfFame.RowValue" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <Style x:Key="HallOfFame.RowYears" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextGreenBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <!-- shown instead of a list when nobody has won anything yet -->
+    <Style x:Key="HallOfFame.Empty" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+</ResourceDictionary>

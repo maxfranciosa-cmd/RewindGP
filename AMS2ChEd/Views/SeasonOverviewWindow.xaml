@@ -112,6 +112,12 @@
                     Click="HistoricalStandingsButton_Click"
                     Style="{StaticResource SeasonOverview.HistoricalStandingsButton}"
                     Content="{loc:Loc SeasonOverviewWindow_HistoricalStandingsTooltip}"/>
+
+            <!-- All-time records -->
+            <Button x:Name="HallOfFameButton"
+                    Click="HallOfFameButton_Click"
+                    Style="{StaticResource SeasonOverview.HallOfFameButton}"
+                    Content="{loc:Loc SeasonOverviewWindow_HallOfFameButton}"/>
         </StackPanel>
 
         <!-- Right: next race and standings -->

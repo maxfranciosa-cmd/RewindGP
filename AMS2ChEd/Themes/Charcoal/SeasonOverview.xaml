@@ -95,6 +95,8 @@
         <Setter Property="Margin" Value="0,2,0,0"/>
     </Style>
 
+    <Style x:Key="SeasonOverview.HallOfFameButton" TargetType="Button" BasedOn="{StaticResource SeasonOverview.HistoricalStandingsButton}"/>
+
     <!-- Next race -->
     <Style x:Key="SeasonOverview.NextRaceCard" TargetType="Border">
         <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>

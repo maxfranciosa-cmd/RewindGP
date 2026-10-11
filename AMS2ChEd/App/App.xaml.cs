@@ -57,6 +57,7 @@ namespace AMS2ChEd
             services.AddTransient<IOffSeasonOrchestrator, OffSeasonOrchestrator>();
             services.AddTransient<IReprimandManager, ReprimandManager>();
             services.AddTransient<IImprovementPackageManager, ImprovementPackageManager>();
+            services.AddSingleton<IAllTimeRecordsLoader>(new AMS2ChEd.Business.Storage.Concrete.AllTimeRecordsLoader());
 
             // ************ GAME LOGIC FACTORY **************
             services.AddTransient<GameLogicFactory>();
