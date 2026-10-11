@@ -1,0 +1,127 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Improvement packages as an official printed bulletin: a framed white sheet with a ruled header and a typed table. -->
+
+    <SolidColorBrush x:Key="ImprovementPackages.WindowBackground" Color="#f8f8f0"/>
+    <SolidColorBrush x:Key="ImprovementPackages.GainBrush" Color="#1e7d32"/>
+    <SolidColorBrush x:Key="ImprovementPackages.LossBrush" Color="#c41e3a"/>
+
+    <!-- the bulletin keeps the system scrollbar -->
+    <Style x:Key="ImprovementPackages.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource {x:Type ScrollBar}}"/>
+
+    <Style x:Key="ImprovementPackages.Frame" TargetType="Border">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="4"/>
+        <Setter Property="Margin" Value="40"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="30"/>
+    </Style>
+
+    <!-- Header between two double rules -->
+    <Style x:Key="ImprovementPackages.Header" TargetType="StackPanel">
+        <Setter Property="Margin" Value="0,0,0,20"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.TopRuleOuter" TargetType="Rectangle">
+        <Setter Property="Height" Value="4"/>
+        <Setter Property="Fill" Value="Black"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.TopRuleInner" TargetType="Rectangle">
+        <Setter Property="Height" Value="2"/>
+        <Setter Property="Fill" Value="Black"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.BottomRuleInner" TargetType="Rectangle">
+        <Setter Property="Height" Value="2"/>
+        <Setter Property="Fill" Value="Black"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.BottomRuleOuter" TargetType="Rectangle">
+        <Setter Property="Height" Value="4"/>
+        <Setter Property="Fill" Value="Black"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.Title" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Arial Black"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Black"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.Subtitle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Table -->
+    <Style x:Key="ImprovementPackages.TableArea" TargetType="ScrollViewer">
+        <Setter Property="Margin" Value="0,10,0,10"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.Table" TargetType="Border">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.Cell" TargetType="Border">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+    <!-- every other team row is faintly shaded -->
+    <Style x:Key="ImprovementPackages.AlternateCell" TargetType="Border" BasedOn="{StaticResource ImprovementPackages.Cell}">
+        <Setter Property="Background" Value="#fafafa"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.HeaderCell" TargetType="Border" BasedOn="{StaticResource ImprovementPackages.Cell}">
+        <Setter Property="BorderThickness" Value="0,0,1,2"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.CellText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Courier New"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="5,4,5,4"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.HeaderCellText" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.CellText}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.TeamNameText" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.CellText}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="10,4,0,4"/>
+    </Style>
+
+    <!-- Footer -->
+    <Style x:Key="ImprovementPackages.FooterRule" TargetType="Rectangle">
+        <Setter Property="Height" Value="2"/>
+        <Setter Property="Fill" Value="Black"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.FooterText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+</ResourceDictionary>

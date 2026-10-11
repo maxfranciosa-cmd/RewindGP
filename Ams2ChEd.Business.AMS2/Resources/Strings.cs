@@ -32,6 +32,11 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string OptionsWindow_RaceLength_Full => ResourceManager.GetString(nameof(OptionsWindow_RaceLength_Full))!;
         public static string OptionsWindow_AutoLaunchLabel => ResourceManager.GetString(nameof(OptionsWindow_AutoLaunchLabel))!;
         public static string OptionsWindow_LanguageLabel => ResourceManager.GetString(nameof(OptionsWindow_LanguageLabel))!;
+        public static string OptionsWindow_StyleLabel => ResourceManager.GetString(nameof(OptionsWindow_StyleLabel))!;
+        public static string OptionsWindow_Style_Retro => ResourceManager.GetString(nameof(OptionsWindow_Style_Retro))!;
+        public static string OptionsWindow_Style_Charcoal => ResourceManager.GetString(nameof(OptionsWindow_Style_Charcoal))!;
+        public static string OptionsWindow_StyleChangeRequiresRestart_Title => ResourceManager.GetString(nameof(OptionsWindow_StyleChangeRequiresRestart_Title))!;
+        public static string OptionsWindow_StyleChangeRequiresRestart_Message => ResourceManager.GetString(nameof(OptionsWindow_StyleChangeRequiresRestart_Message))!;
         public static string OptionsWindow_SaveButton => ResourceManager.GetString(nameof(OptionsWindow_SaveButton))!;
         public static string OptionsWindow_RestoreVehicleFilesButton => ResourceManager.GetString(nameof(OptionsWindow_RestoreVehicleFilesButton))!;
         public static string OptionsWindow_CloseButton => ResourceManager.GetString(nameof(OptionsWindow_CloseButton))!;

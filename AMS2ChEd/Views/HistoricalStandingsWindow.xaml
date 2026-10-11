@@ -1,4 +1,4 @@
-<!--Historical Standings Window - a teletext page: the coloured keys at the bottom select the season-->
+<!--Historical Standings Window - the standings of a past season; the keys at the bottom select the season-->
 <Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -11,52 +11,17 @@
         Height="800" Width="1100"
         MinHeight="520" MinWidth="820"
         WindowStartupLocation="CenterScreen"
-        Background="#050505"
+        Background="{StaticResource HistoricalStandings.WindowBackground}"
         SizeChanged="Window_SizeChanged">
 
+    <!-- This window only holds structure. How each part looks comes from the "HistoricalStandings.*" styles
+         of the active visual style (Themes/<style>/HistoricalStandings.xaml); the size of the page text,
+         which the code-behind enlarges on a wide window, comes from there too. -->
     <Window.Resources>
-        <Style TargetType="ScrollBar" BasedOn="{StaticResource TeletextScrollBarStyle}"/>
-
-        <!-- Season key: red, green, yellow, cyan in turn like the coloured buttons of a remote; the selected season is white -->
-        <Style x:Key="YearKeyStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#ff3c3c"/>
-            <Setter Property="Foreground" Value="#050505"/>
-            <Setter Property="Margin" Value="0,0,26,8"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" Padding="12,0">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ContentPresenter}}" Value="1">
-                    <Setter Property="Background" Value="{StaticResource TeletextGreenBrush}"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ContentPresenter}}" Value="2">
-                    <Setter Property="Background" Value="{StaticResource TeletextYellowBrush}"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ContentPresenter}}" Value="3">
-                    <Setter Property="Background" Value="{StaticResource TeletextCyanBrush}"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                    <Setter Property="Background" Value="White"/>
-                </DataTrigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource HistoricalStandings.ScrollBar}"/>
     </Window.Resources>
 
-    <Grid x:Name="ScreenRoot"
-          Margin="36,24,36,20"
-          TextElement.FontFamily="{StaticResource FontScreen}"
-          TextElement.FontSize="26"
-          TextElement.Foreground="White">
+    <Grid x:Name="ScreenRoot" Style="{StaticResource HistoricalStandings.Root}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -65,18 +30,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Page header -->
-        <Grid Grid.Row="0">
-            <TextBlock Text="P302 REWINDTEXT 302" HorizontalAlignment="Left"/>
-            <TextBlock Text="302" Foreground="{StaticResource TeletextCyanBrush}" HorizontalAlignment="Right"/>
+        <!-- Page header (the teletext page number in the retro style) -->
+        <Grid Grid.Row="0" Style="{StaticResource HistoricalStandings.PageHeader}">
+            <TextBlock Text="P302 REWINDTEXT 302" Style="{StaticResource HistoricalStandings.PageHeaderText}"/>
+            <TextBlock Text="302" Style="{StaticResource HistoricalStandings.PageNumber}"/>
         </Grid>
 
         <!-- Title -->
-        <Border Grid.Row="1" Background="{StaticResource TeletextBlueBrush}" Padding="12,2" Margin="0,8,0,14">
+        <Border Grid.Row="1" Style="{StaticResource HistoricalStandings.TitleBar}">
             <TextBlock x:Name="TitleText"
                        Text="{loc:Loc HistoricalStandingsWindow_Header}"
-                       Foreground="{StaticResource TeletextYellowBrush}"
-                       FontSize="46"/>
+                       Style="{StaticResource HistoricalStandings.Title}"/>
         </Border>
 
         <!-- Standings Display -->
@@ -94,42 +58,45 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0"
-                           Text="{loc:Loc HistoricalStandingsWindow_DriversChampionshipHeader}"
-                           Foreground="{StaticResource TeletextGreenBrush}"/>
+                <Border Grid.Row="0" Style="{StaticResource HistoricalStandings.SectionHeader}">
+                    <TextBlock Text="{loc:Loc HistoricalStandingsWindow_DriversChampionshipHeader}"
+                               Style="{StaticResource HistoricalStandings.SectionTitle}"/>
+                </Border>
 
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <ItemsControl x:Name="HistoricalDriverStandingsItems">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="44"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="70"/>
-                                    </Grid.ColumnDefinitions>
+                                <Border Style="{StaticResource HistoricalStandings.Row}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="44"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <!-- Position -->
-                                    <TextBlock Grid.Column="0" Text="{Binding Position}"/>
+                                        <!-- Position -->
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding Position}"
+                                                   Style="{StaticResource HistoricalStandings.RowPosition}"/>
 
-                                    <!-- Driver Name -->
-                                    <TextBlock Grid.Column="1"
-                                               Text="{Binding DriverName}"
-                                               Foreground="{StaticResource TeletextYellowBrush}"
-                                               TextTrimming="CharacterEllipsis"/>
+                                        <!-- Driver Name -->
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding DriverName}"
+                                                   Style="{StaticResource HistoricalStandings.RowName}"/>
 
-                                    <!-- Team Name -->
-                                    <TextBlock Grid.Column="2"
-                                               Text="{Binding TeamName}"
-                                               Foreground="{StaticResource TeletextCyanBrush}"
-                                               Margin="10,0"/>
+                                        <!-- Team Name -->
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding TeamName}"
+                                                   Style="{StaticResource HistoricalStandings.RowTeam}"/>
 
-                                    <!-- Points -->
-                                    <TextBlock Grid.Column="3"
-                                               Text="{Binding Points, StringFormat=\{0\}}"
-                                               HorizontalAlignment="Right"/>
-                                </Grid>
+                                        <!-- Points -->
+                                        <TextBlock Grid.Column="3"
+                                                   Text="{Binding Points, StringFormat=\{0\}}"
+                                                   Style="{StaticResource HistoricalStandings.RowPoints}"/>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -143,35 +110,39 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0"
-                           Text="{loc:Loc HistoricalStandingsWindow_ConstructorsChampionshipHeader}"
-                           Foreground="{StaticResource TeletextGreenBrush}"/>
+                <Border Grid.Row="0" Style="{StaticResource HistoricalStandings.SectionHeader}">
+                    <TextBlock Text="{loc:Loc HistoricalStandingsWindow_ConstructorsChampionshipHeader}"
+                               Style="{StaticResource HistoricalStandings.SectionTitle}"/>
+                </Border>
 
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <ItemsControl x:Name="HistoricalConstructorStandingsItems">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="44"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="70"/>
-                                    </Grid.ColumnDefinitions>
+                                <Border Style="{StaticResource HistoricalStandings.Row}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="44"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <!-- Position -->
-                                    <TextBlock Grid.Column="0" Text="{Binding Position}"/>
+                                        <!-- Position -->
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding Position}"
+                                                   Style="{StaticResource HistoricalStandings.RowPosition}"/>
 
-                                    <!-- Team Name -->
-                                    <TextBlock Grid.Column="1"
-                                               Text="{Binding TeamName}"
-                                               Foreground="{StaticResource TeletextYellowBrush}"
-                                               TextTrimming="CharacterEllipsis"/>
+                                        <!-- Team Name -->
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding TeamName}"
+                                                   Style="{StaticResource HistoricalStandings.RowName}"/>
 
-                                    <!-- Points -->
-                                    <TextBlock Grid.Column="2"
-                                               Text="{Binding Points, StringFormat=\{0\}}"
-                                               HorizontalAlignment="Right"/>
-                                </Grid>
+                                        <!-- Points -->
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding Points, StringFormat=\{0\}}"
+                                                   Style="{StaticResource HistoricalStandings.RowPoints}"/>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -182,8 +153,7 @@
         <!-- Year Selector -->
         <TextBlock Grid.Row="3"
                    Text="{loc:Loc HistoricalStandingsWindow_SelectSeasonLabel}"
-                   Foreground="{StaticResource TeletextMagentaBrush}"
-                   Margin="0,14,0,8"/>
+                   Style="{StaticResource HistoricalStandings.SelectSeasonLabel}"/>
 
         <ItemsControl x:Name="YearSelector" Grid.Row="4" AlternationCount="4">
             <ItemsControl.ItemsPanel>
@@ -195,7 +165,7 @@
                 <DataTemplate>
                     <Button Content="{Binding Year}"
                             Tag="{Binding Year}"
-                            Style="{StaticResource YearKeyStyle}"
+                            Style="{StaticResource HistoricalStandings.YearKey}"
                             Click="YearButton_Click"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

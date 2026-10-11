@@ -1,0 +1,136 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Picking a seat in a 90s desktop program: a grey dialog on the teal desktop, with a list box of teams
+         and the seats as radio buttons. Builds on the shared W95 resources of RetroTheme.xaml. -->
+
+    <SolidColorBrush x:Key="TeamSelection.WindowBackground" Color="#008080"/>
+
+    <Style x:Key="TeamSelection.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource W95ScrollBarStyle}"/>
+
+    <!-- the raised grey body of the program -->
+    <Style x:Key="TeamSelection.Frame" TargetType="ContentControl" BasedOn="{StaticResource W95RaisedStyle}">
+        <Setter Property="Margin" Value="22"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.Root" TargetType="Grid">
+        <Setter Property="TextElement.FontFamily" Value="{StaticResource FontDesktop}"/>
+        <Setter Property="TextElement.FontSize" Value="14"/>
+        <Setter Property="TextElement.Foreground" Value="Black"/>
+    </Style>
+
+    <!-- Title bar -->
+    <Style x:Key="TeamSelection.TitleBar" TargetType="Border">
+        <Setter Property="Padding" Value="7,5"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#000080" Offset="0"/>
+                    <GradientStop Color="#1084d0" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TeamSelection.Title" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.Intro" TargetType="TextBlock">
+        <Setter Property="Margin" Value="8,10,8,6"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.Body" TargetType="Grid">
+        <Setter Property="Margin" Value="6,0,6,6"/>
+    </Style>
+
+    <!-- Teams: a sunken white list box -->
+    <Style x:Key="TeamSelection.TeamList" TargetType="ContentControl" BasedOn="{StaticResource W95SunkenStyle}"/>
+
+    <Style x:Key="TeamSelection.TeamListBox" TargetType="ListBox">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource W95ListBoxItemStyle}"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.TeamSwatch" TargetType="Rectangle">
+        <Setter Property="Width" Value="11"/>
+        <Setter Property="Height" Value="11"/>
+        <Setter Property="Margin" Value="0,0,8,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.TeamName" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <!-- Seats: an etched group box (a shadow line with a light line inside it) -->
+    <Style x:Key="TeamSelection.SeatsFrame" TargetType="Border">
+        <Setter Property="Margin" Value="8,8,0,0"/>
+        <Setter Property="BorderBrush" Value="{StaticResource W95ShadowBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.SeatsFrameInner" TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource W95LightBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.SeatsHeader" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="12,10,12,4"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.Seats" TargetType="ItemsControl">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Margin" Value="8,4,8,8"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.Seat" TargetType="RadioButton" BasedOn="{StaticResource W95RadioButtonStyle}">
+        <Setter Property="Margin" Value="6,8"/>
+    </Style>
+
+    <!-- the driver photo sits in a sunken frame -->
+    <Style x:Key="TeamSelection.SeatPhoto" TargetType="ContentControl" BasedOn="{StaticResource W95SunkenStyle}">
+        <Setter Property="Background" Value="{StaticResource PhotoBackBrush}"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.SeatPhotoPlaceholder" TargetType="Path">
+        <Setter Property="Fill" Value="#5e666e"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.SeatName" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.SeatDetail" TargetType="TextBlock">
+        <Setter Property="Margin" Value="0,4,0,0"/>
+    </Style>
+
+    <!-- Buttons -->
+    <Style x:Key="TeamSelection.Buttons" TargetType="StackPanel">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="6,4,6,6"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.ConfirmButton" TargetType="Button" BasedOn="{StaticResource W95ButtonStyle}">
+        <Setter Property="Margin" Value="0,0,8,0"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.BackButton" TargetType="Button" BasedOn="{StaticResource W95ButtonStyle}"/>
+
+    <!-- Status bar: a sunken grey field -->
+    <Style x:Key="TeamSelection.StatusBar" TargetType="ContentControl" BasedOn="{StaticResource W95SunkenStyle}">
+        <Setter Property="Background" Value="{StaticResource W95FaceBrush}"/>
+        <Setter Property="Margin" Value="6,0,6,4"/>
+    </Style>
+
+    <Style x:Key="TeamSelection.StatusText" TargetType="TextBlock">
+        <Setter Property="Margin" Value="7,3"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+</ResourceDictionary>

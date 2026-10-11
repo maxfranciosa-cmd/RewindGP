@@ -7,21 +7,23 @@
         Height="640" Width="860"
         MinHeight="480" MinWidth="700"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource DesktopBrush}"
+        Background="{StaticResource TeamSelection.WindowBackground}"
         ResizeMode="CanResize"
         SizeChanged="Window_SizeChanged">
 
+    <!-- This window only holds structure. How each part looks comes from the "TeamSelection.*" styles
+         of the active visual style (Themes/<style>/TeamSelection.xaml). -->
     <Window.Resources>
-        <Style TargetType="ScrollBar" BasedOn="{StaticResource W95ScrollBarStyle}"/>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource TeamSelection.ScrollBar}"/>
 
         <!-- driver photo size, enlarged from code-behind when the window is wide -->
         <sys:Double x:Key="SeatPhotoWidth">78</sys:Double>
         <sys:Double x:Key="SeatPhotoHeight">100</sys:Double>
     </Window.Resources>
 
-    <!-- A 90s desktop program: team list on the left, the seats of the chosen team on the right -->
-    <ContentControl Style="{StaticResource W95RaisedStyle}" Margin="22">
-        <Grid TextElement.FontFamily="{StaticResource FontDesktop}" TextElement.FontSize="14" TextElement.Foreground="Black">
+    <!-- Team list on the left, the seats of the chosen team on the right -->
+    <ContentControl Style="{StaticResource TeamSelection.Frame}">
+        <Grid Style="{StaticResource TeamSelection.Root}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -31,37 +33,29 @@
             </Grid.RowDefinitions>
 
             <!-- Title bar -->
-            <Border Grid.Row="0" Padding="7,5">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Color="#000080" Offset="0"/>
-                        <GradientStop Color="#1084d0" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <TextBlock Text="{loc:Loc TeamSelectionWindow_Title}" Foreground="White" FontWeight="Bold"/>
+            <Border Grid.Row="0" Style="{StaticResource TeamSelection.TitleBar}">
+                <TextBlock Text="{loc:Loc TeamSelectionWindow_Title}" Style="{StaticResource TeamSelection.Title}"/>
             </Border>
 
-            <TextBlock Grid.Row="1" Text="{loc:Loc TeamSelectionWindow_Header}" Margin="8,10,8,6"/>
+            <TextBlock Grid.Row="1" Text="{loc:Loc TeamSelectionWindow_Header}" Style="{StaticResource TeamSelection.Intro}"/>
 
-            <Grid Grid.Row="2" Margin="6,0,6,6">
+            <Grid Grid.Row="2" Style="{StaticResource TeamSelection.Body}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition x:Name="TeamsColumn" Width="230"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Teams -->
-                <ContentControl Grid.Column="0" Style="{StaticResource W95SunkenStyle}">
+                <ContentControl Grid.Column="0" Style="{StaticResource TeamSelection.TeamList}">
                     <ListBox x:Name="TeamsListBox"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             ItemContainerStyle="{StaticResource W95ListBoxItemStyle}"
+                             Style="{StaticResource TeamSelection.TeamListBox}"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              SelectionChanged="TeamsListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Rectangle Width="11" Height="11" Fill="{Binding TeamColor}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding TeamName}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                    <Rectangle Fill="{Binding TeamColor}" Style="{StaticResource TeamSelection.TeamSwatch}"/>
+                                    <TextBlock Text="{Binding TeamName}" Style="{StaticResource TeamSelection.TeamName}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -69,16 +63,16 @@
                 </ContentControl>
 
                 <!-- Seats of the selected team -->
-                <Border Grid.Column="1" Margin="8,8,0,0" BorderBrush="{StaticResource W95ShadowBrush}" BorderThickness="1">
-                    <Border BorderBrush="{StaticResource W95LightBrush}" BorderThickness="1">
+                <Border Grid.Column="1" Style="{StaticResource TeamSelection.SeatsFrame}">
+                    <Border Style="{StaticResource TeamSelection.SeatsFrameInner}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock x:Name="SeatsHeaderText" FontWeight="Bold" Margin="12,10,12,4" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock x:Name="SeatsHeaderText" Style="{StaticResource TeamSelection.SeatsHeader}"/>
                             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                                <ItemsControl x:Name="SeatsItemsControl" VerticalAlignment="Top" Margin="8,4,8,8">
+                                <ItemsControl x:Name="SeatsItemsControl" Style="{StaticResource TeamSelection.Seats}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="{Binding Tag, RelativeSource={RelativeSource AncestorType=ItemsControl}}"/>
@@ -87,20 +81,18 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <RadioButton GroupName="SeatToReplace"
-                                                         Style="{StaticResource W95RadioButtonStyle}"
+                                                         Style="{StaticResource TeamSelection.Seat}"
                                                          Tag="{Binding}"
-                                                         Margin="6,8"
                                                          Checked="SeatRadioButton_Checked">
                                                 <StackPanel Orientation="Horizontal">
                                                     <!-- Driver photo -->
-                                                    <ContentControl Style="{StaticResource W95SunkenStyle}"
-                                                                    Background="{StaticResource PhotoBackBrush}"
+                                                    <ContentControl Style="{StaticResource TeamSelection.SeatPhoto}"
                                                                     Width="{DynamicResource SeatPhotoWidth}"
                                                                     Height="{DynamicResource SeatPhotoHeight}">
                                                         <Grid>
                                                             <Viewbox Margin="14">
                                                                 <Canvas Width="24" Height="24">
-                                                                    <Path Fill="#5e666e" Data="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                                                                    <Path Style="{StaticResource TeamSelection.SeatPhotoPlaceholder}" Data="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
                                                                 </Canvas>
                                                             </Viewbox>
                                                             <Image Stretch="UniformToFill">
@@ -125,8 +117,8 @@
                                                     </ContentControl>
 
                                                     <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16"/>
-                                                        <TextBlock Margin="0,4,0,0">
+                                                        <TextBlock Text="{Binding Name}" Style="{StaticResource TeamSelection.SeatName}"/>
+                                                        <TextBlock Style="{StaticResource TeamSelection.SeatDetail}">
                                                             <Run Text="{Binding RoleName, Mode=OneWay}"/><Run Text=", "/><Run Text="{Binding Nationality, Mode=OneWay}"/>
                                                         </TextBlock>
                                                     </StackPanel>
@@ -142,21 +134,20 @@
             </Grid>
 
             <!-- Buttons -->
-            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6,4,6,6">
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Style="{StaticResource TeamSelection.Buttons}">
                 <Button Content="{loc:Loc TeamSelectionWindow_ConfirmButton}"
-                        Style="{StaticResource W95ButtonStyle}"
+                        Style="{StaticResource TeamSelection.ConfirmButton}"
                         IsDefault="True"
-                        Margin="0,0,8,0"
                         Click="ConfirmButton_Click"/>
                 <Button Content="{loc:Loc TeamSelectionWindow_BackButton}"
-                        Style="{StaticResource W95ButtonStyle}"
+                        Style="{StaticResource TeamSelection.BackButton}"
                         IsCancel="True"
                         Click="BackButton_Click"/>
             </StackPanel>
 
-            <!-- Status bar -->
-            <ContentControl Grid.Row="4" Style="{StaticResource W95SunkenStyle}" Background="{StaticResource W95FaceBrush}" Margin="6,0,6,4">
-                <TextBlock x:Name="StatusText" Margin="7,3" Text=" " TextTrimming="CharacterEllipsis"/>
+            <!-- Status bar: the seat picked so far -->
+            <ContentControl Grid.Row="4" Style="{StaticResource TeamSelection.StatusBar}">
+                <TextBlock x:Name="StatusText" Text=" " Style="{StaticResource TeamSelection.StatusText}"/>
             </ContentControl>
         </Grid>
     </ContentControl>

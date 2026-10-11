@@ -103,6 +103,7 @@ namespace AMS2ChEd
         protected override void OnStartup(StartupEventArgs e)
         {
             ApplyCulture(e.Args);
+            ApplyStyle(e.Args);
 
             var exePath = Process.GetCurrentProcess().MainModule!.FileName;
             FileAssociationHelper.Register(exePath, exePath);
@@ -220,6 +221,35 @@ namespace AMS2ChEd
             FrameworkElement.LanguageProperty.OverrideMetadata(
                 typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
+        }
+
+        /// <summary>
+        /// Loads the resources of the chosen visual style, before any window is constructed. A
+        /// themed window holds only its structure and takes every look decision from styles named
+        /// "[Window].[Part]", which each style folder under Themes defines in its own way. Like the
+        /// language, the style is restart-based: windows resolve these with StaticResource. The saved
+        /// preference lives in AppStyleSettings, with a "--style=xx" arg override for fast iteration
+        /// while converting windows.
+        /// </summary>
+        private void ApplyStyle(string[] args)
+        {
+            const string styleArgPrefix = "--style=";
+            var styleArg = args.FirstOrDefault(a => a.StartsWith(styleArgPrefix, StringComparison.OrdinalIgnoreCase));
+            var style = styleArg != null
+                ? AppStyleSettings.Parse(styleArg.Substring(styleArgPrefix.Length))
+                : AppStyleSettings.LoadStyle();
+
+            // App.xaml merges one style's resources for the XAML designer's sake: take those out, so
+            // a part the chosen style forgot to define fails loudly instead of borrowing the other look
+            var designTimeStyle = Resources.MergedDictionaries.FirstOrDefault(d =>
+                d.Source != null && d.Source.OriginalString.EndsWith("/Theme.xaml", StringComparison.OrdinalIgnoreCase));
+            if (designTimeStyle != null)
+                Resources.MergedDictionaries.Remove(designTimeStyle);
+
+            Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri($"/AMS2ChEd;component/Themes/{style}/Theme.xaml", UriKind.Relative)
+            });
         }
 
         private async Task RunStartupChecksAsync(MainWindow mainWindow, VersionCheckService versionCheck, string[] originalArgs)

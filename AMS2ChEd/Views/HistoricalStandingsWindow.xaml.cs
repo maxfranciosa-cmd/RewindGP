@@ -59,8 +59,7 @@ namespace AMS2ChEd.Views
                 var noDataText = new TextBlock
                 {
                     Text = Strings.HistoricalStandingsWindow_NoDataMessage,
-                    Foreground = new SolidColorBrush(Colors.Gray),
-                    Margin = new Thickness(5)
+                    Style = (Style)FindResource("HistoricalStandings.Empty")
                 };
                 YearSelector.Items.Add(noDataText);
                 return;
@@ -81,10 +80,10 @@ namespace AMS2ChEd.Views
             LoadStandingsForYear(_selectedYear);
         }
 
-        // like a bigger TV: the page text grows with the window
+        // the page text grows with the window; the active visual style gives the two sizes
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            double fontSize = ActualWidth >= 1400 ? 36 : 26;
+            double fontSize = (double)FindResource(ActualWidth >= 1400 ? "HistoricalStandings.WideFontSize" : "HistoricalStandings.FontSize");
 
             System.Windows.Documents.TextElement.SetFontSize(ScreenRoot, fontSize);
             TitleText.FontSize = fontSize * 1.75;

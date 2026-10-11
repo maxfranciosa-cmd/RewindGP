@@ -5,50 +5,45 @@
         Title="{loc:Loc ImprovementPackagesWindow_Title}"
         Height="800" Width="1000"
         WindowStartupLocation="CenterOwner"
-        Background="#f8f8f0"
+        Background="{StaticResource ImprovementPackages.WindowBackground}"
         ResizeMode="CanResize">
 
-    <Border Background="White"
-            BorderBrush="Black"
-            BorderThickness="4"
-            Margin="40">
-        <Grid Margin="30">
+    <!-- This window only holds structure. How each part looks comes from the "ImprovementPackages.*" styles
+         of the active visual style (Themes/<style>/ImprovementPackages.xaml); the table cells built in the
+         code-behind take theirs from there too. -->
+    <Window.Resources>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource ImprovementPackages.ScrollBar}"/>
+    </Window.Resources>
+
+    <Border Style="{StaticResource ImprovementPackages.Frame}">
+        <Grid Style="{StaticResource ImprovementPackages.Root}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Official Header -->
-            <StackPanel Grid.Row="0" Margin="0,0,0,20">
-                <!-- Top border -->
-                <Rectangle Height="4" Fill="Black" Margin="0,0,0,5"/>
-                <Rectangle Height="2" Fill="Black" Margin="0,0,0,10"/>
+            <!-- Header: the style decides which of the rules around the title are drawn -->
+            <StackPanel Grid.Row="0" Style="{StaticResource ImprovementPackages.Header}">
+                <Rectangle Style="{StaticResource ImprovementPackages.TopRuleOuter}"/>
+                <Rectangle Style="{StaticResource ImprovementPackages.TopRuleInner}"/>
 
                 <TextBlock Text="{loc:Loc ImprovementPackagesWindow_Header}"
-                           FontFamily="Arial Black"
-                           FontSize="20"
-                           FontWeight="Black"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,5"/>
+                           Style="{StaticResource ImprovementPackages.Title}"/>
 
                 <TextBlock x:Name="SeasonYearText"
-                           FontFamily="Arial"
-                           FontSize="12"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,10"/>
+                           Style="{StaticResource ImprovementPackages.Subtitle}"/>
 
-                <!-- Bottom border -->
-                <Rectangle Height="2" Fill="Black" Margin="0,0,0,5"/>
-                <Rectangle Height="4" Fill="Black"/>
+                <Rectangle Style="{StaticResource ImprovementPackages.BottomRuleInner}"/>
+                <Rectangle Style="{StaticResource ImprovementPackages.BottomRuleOuter}"/>
             </StackPanel>
 
             <!-- Scrollable content -->
             <ScrollViewer Grid.Row="1"
                           HorizontalScrollBarVisibility="Auto"
                           VerticalScrollBarVisibility="Auto"
-                          Margin="0,10,0,10">
-                <Border BorderBrush="Black" BorderThickness="2" Background="White" HorizontalAlignment="Center" VerticalAlignment="Top">
+                          Style="{StaticResource ImprovementPackages.TableArea}">
+                <Border Style="{StaticResource ImprovementPackages.Table}">
                     <Grid x:Name="TeamsGrid">
                         <!-- Teams will be populated dynamically -->
                     </Grid>
@@ -57,12 +52,9 @@
 
             <!-- Footer -->
             <StackPanel Grid.Row="2">
-                <Rectangle Height="2" Fill="Black" Margin="0,0,0,10"/>
+                <Rectangle Style="{StaticResource ImprovementPackages.FooterRule}"/>
                 <TextBlock Text="{loc:Loc ImprovementPackagesWindow_FooterText}"
-                           FontFamily="Arial"
-                           FontSize="10"
-                           FontStyle="Italic"
-                           HorizontalAlignment="Center"/>
+                           Style="{StaticResource ImprovementPackages.FooterText}"/>
             </StackPanel>
         </Grid>
     </Border>

@@ -1,0 +1,204 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Season overview as a board with the season's paperwork: the player's pass, the next race ticket and the standings sheets.
+         Builds on the shared paper/stamp/sticky-note resources of RetroTheme.xaml. -->
+
+    <SolidColorBrush x:Key="SeasonOverview.WindowBackground" Color="#b08a5e"/>
+    <SolidColorBrush x:Key="SeasonOverview.HighlightBrush" Color="#fff27a"/>
+
+    <Style x:Key="SeasonOverview.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource PaperScrollBarStyle}"/>
+
+    <Style x:Key="SeasonOverview.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="28"/>
+    </Style>
+
+    <!-- Season pass -->
+    <Style x:Key="SeasonOverview.PassCard" TargetType="Border" BasedOn="{StaticResource PaperCardStyle}">
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.SeasonBanner" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource StampRedBrush}"/>
+        <Setter Property="Padding" Value="12,9"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.SeasonBannerText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- portrait frame, same 80:114 proportions as the driver portraits -->
+    <Style x:Key="SeasonOverview.Photo" TargetType="Border">
+        <Setter Property="Width" Value="154"/>
+        <Setter Property="Height" Value="220"/>
+        <Setter Property="Margin" Value="14,14,14,0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="{StaticResource PhotoBackBrush}"/>
+        <Setter Property="ClipToBounds" Value="True"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.PhotoPlaceholder" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="48"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#5e666e"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.PlayerName" TargetType="TextBlock" BasedOn="{StaticResource PosterTextStyle}">
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="14,10,14,4"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.PassRows" TargetType="StackPanel">
+        <Setter Property="Margin" Value="14,4,14,4"/>
+    </Style>
+
+    <!-- A label and its value on the season pass -->
+    <Style x:Key="SeasonOverview.PassRow" TargetType="Grid">
+        <Setter Property="Margin" Value="0,0,0,7"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.PassLabel" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="Margin" Value="0,0,10,0"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.PassValue" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Right"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.EditButton" TargetType="Button" BasedOn="{StaticResource HandLinkButtonStyle}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,12"/>
+    </Style>
+
+    <!-- Sticky note: install an improvement package -->
+    <Style x:Key="SeasonOverview.InstallPackageButton" TargetType="Button" BasedOn="{StaticResource PostItButtonStyle}">
+        <Setter Property="Margin" Value="0,24,0,0"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.ImprovementPackagesButton" TargetType="Button" BasedOn="{StaticResource ManilaButtonStyle}">
+        <Setter Property="Margin" Value="0,24,0,0"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.HistoricalStandingsButton" TargetType="Button" BasedOn="{StaticResource ManilaButtonStyle}">
+        <Setter Property="Margin" Value="0,12,0,0"/>
+    </Style>
+
+    <!-- Next race ticket -->
+    <Style x:Key="SeasonOverview.NextRaceCard" TargetType="Border" BasedOn="{StaticResource PaperCardStyle}">
+        <Setter Property="Background" Value="{StaticResource TicketBrush}"/>
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.NextRaceInfo" TargetType="StackPanel">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="24,20"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.NextRaceLabel" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}"/>
+
+    <Style x:Key="SeasonOverview.NextRaceName" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
+        <Setter Property="FontSize" Value="52"/>
+        <Setter Property="Foreground" Value="{StaticResource StampRedBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,4,0,6"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.NextRaceDetails" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}"/>
+
+    <Style x:Key="SeasonOverview.Perforation" TargetType="Line">
+        <Setter Property="Stroke" Value="{StaticResource InkFaintBrush}"/>
+        <Setter Property="StrokeThickness" Value="3"/>
+        <Setter Property="StrokeDashArray" Value="2 2"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.ProceedButton" TargetType="Button" BasedOn="{StaticResource StampButtonStyle}">
+        <Setter Property="Margin" Value="30,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Standings and calendar sheets -->
+    <Style x:Key="SeasonOverview.SheetCard" TargetType="Border" BasedOn="{StaticResource PaperCardStyle}"/>
+
+    <Style x:Key="SeasonOverview.SheetHeader" TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource InkBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+        <Setter Property="Padding" Value="0,0,0,4"/>
+        <Setter Property="Margin" Value="0,0,0,8"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.SheetTitle" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="FontSize" Value="21"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+
+    <!-- the link to the grid view is handwritten under the title -->
+    <Style x:Key="SeasonOverview.SheetLinkButton" TargetType="Button" BasedOn="{StaticResource HandLinkButtonStyle}">
+        <Setter Property="Grid.Row" Value="1"/>
+        <Setter Property="Margin" Value="0,2,0,0"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <!-- One typed line of a standings sheet; the player's own line is run over with a highlighter -->
+    <Style x:Key="SeasonOverview.SheetRow" TargetType="Border">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="2,4"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.CalendarRow" TargetType="Border">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="2,4"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.RowPosition" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.NumberBadge" TargetType="Border">
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.NumberBadgeText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.TeamSwatch" TargetType="Rectangle">
+        <Setter Property="Width" Value="12"/>
+        <Setter Property="Height" Value="12"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.RowName" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.RowPoints" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="SeasonOverview.RowDetail" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="Margin" Value="8,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+</ResourceDictionary>

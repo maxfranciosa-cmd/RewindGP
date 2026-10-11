@@ -99,23 +99,16 @@ namespace AMS2ChEd.Views
             };
         }
 
-        // a championship year, rubber-stamped on the sheet
+        // a championship year, drawn by the active visual style
         private Border CreateChampionshipBadge(string year)
         {
-            var stampBrush = (System.Windows.Media.Brush)FindResource("StampGreenBrush");
-
             return new Border
             {
-                BorderBrush = stampBrush,
-                BorderThickness = new Thickness(3),
-                Margin = new Thickness(0, 0, 10, 8),
-                Padding = new Thickness(10, 3, 10, 3),
+                Style = (Style)FindResource("Accolades.ChampionshipBadge"),
                 Child = new TextBlock
                 {
                     Text = year,
-                    FontSize = 19,
-                    FontFamily = (System.Windows.Media.FontFamily)FindResource("FontPoster"),
-                    Foreground = stampBrush
+                    Style = (Style)FindResource("Accolades.ChampionshipBadgeText")
                 }
             };
         }

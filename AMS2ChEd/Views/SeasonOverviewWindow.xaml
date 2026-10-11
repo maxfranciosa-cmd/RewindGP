@@ -10,66 +10,40 @@
         Height="900" Width="1200"
         MinHeight="640" MinWidth="1000"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource BoardBrush}"
+        Background="{StaticResource SeasonOverview.WindowBackground}"
         SizeChanged="Window_SizeChanged">
 
+    <!-- This window only holds structure. How each part looks comes from the "SeasonOverview.*" styles
+         of the active visual style (Themes/<style>/SeasonOverview.xaml), so nothing here sets a colour,
+         a font or a spacing. -->
     <Window.Resources>
-        <Style TargetType="ScrollBar" BasedOn="{StaticResource PaperScrollBarStyle}"/>
-
-        <Style x:Key="SheetHeaderStyle" TargetType="Border">
-            <Setter Property="BorderBrush" Value="{StaticResource InkBrush}"/>
-            <Setter Property="BorderThickness" Value="0,0,0,2"/>
-            <Setter Property="Padding" Value="0,0,0,4"/>
-            <Setter Property="Margin" Value="0,0,0,8"/>
-        </Style>
-
-        <!-- One typed line of a standings sheet; the player's own line is run over with a highlighter -->
-        <Style x:Key="SheetRowStyle" TargetType="Border">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Padding" Value="2,4"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-
-        <!-- A label and its value on the season pass -->
-        <Style x:Key="PassRowStyle" TargetType="Grid">
-            <Setter Property="Margin" Value="0,0,0,7"/>
-        </Style>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource SeasonOverview.ScrollBar}"/>
     </Window.Resources>
 
-    <!-- A board with the season's paperwork: the player's pass, the next race ticket and the standings sheets -->
-    <Grid Margin="28">
+    <!-- The player's card on the left; the next race and the standings on the right -->
+    <Grid Style="{StaticResource SeasonOverview.Root}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="PassColumn" Width="300"/>
             <ColumnDefinition Width="28"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Left: season pass and notes -->
+        <!-- Left: player card and navigation -->
         <StackPanel Grid.Column="0">
 
-            <!-- Season pass -->
-            <Border Style="{StaticResource PaperCardStyle}" Padding="0">
+            <!-- Player card -->
+            <Border Style="{StaticResource SeasonOverview.PassCard}">
                 <StackPanel>
-                    <Border Background="{StaticResource StampRedBrush}" Padding="12,9">
-                        <TextBlock x:Name="SeasonText"
-                                   FontFamily="{StaticResource FontPrint}"
-                                   FontSize="13"
-                                   FontWeight="Bold"
-                                   Foreground="White"
-                                   HorizontalAlignment="Center"/>
+                    <Border Style="{StaticResource SeasonOverview.SeasonBanner}">
+                        <TextBlock x:Name="SeasonText" Style="{StaticResource SeasonOverview.SeasonBannerText}"/>
                     </Border>
 
                     <!-- Player Photo -->
-                    <!-- portrait frame, same 80:114 proportions as the driver portraits -->
-                    <Border Width="154" Height="220" Margin="14,14,14,0" HorizontalAlignment="Center" Background="{StaticResource PhotoBackBrush}" ClipToBounds="True">
+                    <Border Style="{StaticResource SeasonOverview.Photo}">
                         <Grid>
                             <TextBlock x:Name="PlayerPhotoPlaceholder"
                                        Text="?"
-                                       FontSize="48"
-                                       FontWeight="Bold"
-                                       Foreground="#5e666e"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
+                                       Style="{StaticResource SeasonOverview.PhotoPlaceholder}"
                                        Visibility="Collapsed"/>
                             <Image x:Name="PlayerPhotoImage"
                                    Stretch="UniformToFill"
@@ -78,78 +52,69 @@
                     </Border>
 
                     <!-- Player Name -->
-                    <TextBlock x:Name="PlayerNameText"
-                               Style="{StaticResource PosterTextStyle}"
-                               FontSize="30"
-                               TextWrapping="Wrap"
-                               Margin="14,10,14,4"/>
+                    <TextBlock x:Name="PlayerNameText" Style="{StaticResource SeasonOverview.PlayerName}"/>
 
-                    <StackPanel Margin="14,4,14,4">
+                    <StackPanel Style="{StaticResource SeasonOverview.PassRows}">
                         <!-- Player Team -->
-                        <Grid Style="{StaticResource PassRowStyle}">
+                        <Grid Style="{StaticResource SeasonOverview.PassRow}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_TeamLabel}" Style="{StaticResource TypedLabelStyle}" Margin="0,0,10,0"/>
-                            <TextBlock Grid.Column="1" x:Name="PlayerTeamText" Style="{StaticResource TypedTextStyle}" TextWrapping="Wrap" TextAlignment="Right"/>
+                            <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_TeamLabel}" Style="{StaticResource SeasonOverview.PassLabel}"/>
+                            <TextBlock Grid.Column="1" x:Name="PlayerTeamText" Style="{StaticResource SeasonOverview.PassValue}"/>
                         </Grid>
 
                         <!-- Player Team Role + Reprimands -->
-                        <Grid x:Name="PlayerRoleRow" Style="{StaticResource PassRowStyle}" Visibility="Collapsed">
+                        <Grid x:Name="PlayerRoleRow" Style="{StaticResource SeasonOverview.PassRow}" Visibility="Collapsed">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_RoleLabel}" Style="{StaticResource TypedLabelStyle}" Margin="0,0,10,0"/>
-                            <TextBlock Grid.Column="1" x:Name="PlayerRoleText" Style="{StaticResource TypedTextStyle}" TextWrapping="Wrap" TextAlignment="Right"/>
+                            <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_RoleLabel}" Style="{StaticResource SeasonOverview.PassLabel}"/>
+                            <TextBlock Grid.Column="1" x:Name="PlayerRoleText" Style="{StaticResource SeasonOverview.PassValue}"/>
                         </Grid>
 
                         <!-- Player Reputation -->
-                        <Grid Style="{StaticResource PassRowStyle}">
+                        <Grid Style="{StaticResource SeasonOverview.PassRow}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_ReputationLabel}" Style="{StaticResource TypedLabelStyle}" Margin="0,0,10,0"/>
-                            <TextBlock Grid.Column="1" x:Name="PlayerReputationText" Style="{StaticResource TypedTextStyle}" TextWrapping="Wrap" TextAlignment="Right"/>
+                            <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_ReputationLabel}" Style="{StaticResource SeasonOverview.PassLabel}"/>
+                            <TextBlock Grid.Column="1" x:Name="PlayerReputationText" Style="{StaticResource SeasonOverview.PassValue}"/>
                         </Grid>
                     </StackPanel>
 
                     <!-- Edit Button -->
                     <Button x:Name="EditPlayerButton"
                             Click="EditPlayerButton_Click"
-                            Style="{StaticResource HandLinkButtonStyle}"
-                            Content="{loc:Loc SeasonOverviewWindow_EditDetailsButton}"
-                            HorizontalAlignment="Center"
-                            Margin="0,0,0,12"/>
+                            Style="{StaticResource SeasonOverview.EditButton}"
+                            Content="{loc:Loc SeasonOverviewWindow_EditDetailsButton}"/>
                 </StackPanel>
             </Border>
 
-            <!-- Sticky note: install an improvement package -->
+            <!-- Install an improvement package -->
             <Button x:Name="InstallPackageButton"
                     Click="InstallPackageButton_Click"
-                    Style="{StaticResource PostItButtonStyle}"
-                    Margin="0,24,0,0"
+                    Style="{StaticResource SeasonOverview.InstallPackageButton}"
                     ToolTipService.ShowOnDisabled="True"
                     Visibility="Collapsed"/>
 
             <!-- Improvement packages of every team -->
             <Button x:Name="ImprovementPackagesButton"
                     Click="ImprovementPackagesButton_Click"
-                    Style="{StaticResource ManilaButtonStyle}"
-                    Content="{loc:Loc SeasonOverviewWindow_ImprovementPackagesTooltip}"
-                    Margin="0,24,0,0"/>
+                    Style="{StaticResource SeasonOverview.ImprovementPackagesButton}"
+                    Content="{loc:Loc SeasonOverviewWindow_ImprovementPackagesTooltip}"/>
 
             <!-- Past seasons -->
             <Button x:Name="HistoricalStandingsButton"
                     Click="HistoricalStandingsButton_Click"
-                    Style="{StaticResource ManilaButtonStyle}"
-                    Content="{loc:Loc SeasonOverviewWindow_HistoricalStandingsTooltip}"
-                    Margin="0,12,0,0"/>
+                    Style="{StaticResource SeasonOverview.HistoricalStandingsButton}"
+                    Content="{loc:Loc SeasonOverviewWindow_HistoricalStandingsTooltip}"/>
         </StackPanel>
 
-        <!-- Right: next race ticket and standings sheets -->
+        <!-- Right: next race and standings -->
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -157,8 +122,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Next Race ticket -->
-            <Border Grid.Row="0" Style="{StaticResource PaperCardStyle}" Background="{StaticResource TicketBrush}" Padding="0">
+            <!-- Next Race -->
+            <Border Grid.Row="0" Style="{StaticResource SeasonOverview.NextRaceCard}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -167,32 +132,25 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Race Info -->
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="24,20">
-                        <TextBlock Text="{loc:Loc SeasonOverviewWindow_NextGrandPrixLabel}" Style="{StaticResource TypedTextStyle}"/>
-                        <TextBlock x:Name="NextGPText"
-                                   FontFamily="{StaticResource FontPoster}"
-                                   FontSize="52"
-                                   Foreground="{StaticResource StampRedBrush}"
-                                   TextWrapping="Wrap"
-                                   Margin="0,4,0,6"/>
-                        <TextBlock x:Name="RaceInfoText" Style="{StaticResource TypedTextStyle}"/>
+                    <StackPanel Grid.Column="0" Style="{StaticResource SeasonOverview.NextRaceInfo}">
+                        <TextBlock Text="{loc:Loc SeasonOverviewWindow_NextGrandPrixLabel}" Style="{StaticResource SeasonOverview.NextRaceLabel}"/>
+                        <TextBlock x:Name="NextGPText" Style="{StaticResource SeasonOverview.NextRaceName}"/>
+                        <TextBlock x:Name="RaceInfoText" Style="{StaticResource SeasonOverview.NextRaceDetails}"/>
                     </StackPanel>
 
-                    <!-- Perforation -->
-                    <Line Grid.Column="1" Y2="1" Stretch="Fill" Stroke="{StaticResource InkFaintBrush}" StrokeThickness="3" StrokeDashArray="2 2"/>
+                    <!-- Divider between the race and its action (a ticket perforation in the retro style) -->
+                    <Line Grid.Column="1" Y2="1" Stretch="Fill" Style="{StaticResource SeasonOverview.Perforation}"/>
 
                     <!-- Action Button -->
                     <Button x:Name="NextButton"
                             Grid.Column="2"
                             Click="NextButton_Click"
-                            Style="{StaticResource StampButtonStyle}"
-                            Content="{loc:Loc SeasonOverviewWindow_ProceedButton}"
-                            Margin="30,0"
-                            VerticalAlignment="Center"/>
+                            Style="{StaticResource SeasonOverview.ProceedButton}"
+                            Content="{loc:Loc SeasonOverviewWindow_ProceedButton}"/>
                 </Grid>
             </Border>
 
-            <!-- Standings sheets -->
+            <!-- Standings -->
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.15*"/>
@@ -203,34 +161,28 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Driver Standings -->
-                <Border Grid.Column="0" Style="{StaticResource PaperCardStyle}">
+                <Border Grid.Column="0" Style="{StaticResource SeasonOverview.SheetCard}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <!-- Header -->
-                        <Border Grid.Row="0" Style="{StaticResource SheetHeaderStyle}">
+                        <!-- Header: the style decides whether the grid view link sits beside or under the title -->
+                        <Border Grid.Row="0" Style="{StaticResource SeasonOverview.SheetHeader}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="{loc:Loc SeasonOverviewWindow_DriverStandingsHeader}"
-                                           Style="{StaticResource TypedTextStyle}"
-                                           FontSize="21"
-                                           TextWrapping="Wrap"
-                                           VerticalAlignment="Bottom"/>
+                                           Style="{StaticResource SeasonOverview.SheetTitle}"/>
 
                                 <!-- Grid View Button -->
                                 <Button x:Name="DriverGridButton"
-                                        Grid.Row="1"
-                                        Margin="0,2,0,0"
                                         Click="DriverGridButton_Click"
-                                        Style="{StaticResource HandLinkButtonStyle}"
-                                        Content="{loc:Loc SeasonOverviewWindow_GridViewTooltip}"
-                                        HorizontalAlignment="Right"/>
+                                        Style="{StaticResource SeasonOverview.SheetLinkButton}"
+                                        Content="{loc:Loc SeasonOverviewWindow_GridViewTooltip}"/>
                             </Grid>
                         </Border>
 
@@ -241,10 +193,10 @@
                                     <DataTemplate>
                                         <Border MouseLeftButtonDown="DriverRow_MouseDoubleClick">
                                             <Border.Style>
-                                                <Style TargetType="Border" BasedOn="{StaticResource SheetRowStyle}">
+                                                <Style TargetType="Border" BasedOn="{StaticResource SeasonOverview.SheetRow}">
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsPlayer}" Value="True">
-                                                            <Setter Property="Background" Value="{StaticResource HighlighterBrush}"/>
+                                                            <Setter Property="Background" Value="{StaticResource SeasonOverview.HighlightBrush}"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -260,38 +212,26 @@
                                                 <!-- Position -->
                                                 <TextBlock Grid.Column="0"
                                                            Text="{Binding Position, StringFormat=\{0\}.}"
-                                                           Style="{StaticResource TypedTextStyle}"
-                                                           VerticalAlignment="Center"/>
+                                                           Style="{StaticResource SeasonOverview.RowPosition}"/>
 
                                                 <!-- Race number in team colour -->
                                                 <Border Grid.Column="1"
                                                         Background="{Binding BadgeColor}"
-                                                        Width="28" Height="20"
-                                                        HorizontalAlignment="Left"
-                                                        VerticalAlignment="Center">
+                                                        Style="{StaticResource SeasonOverview.NumberBadge}">
                                                     <TextBlock Text="{Binding RaceNumber}"
                                                                Foreground="{Binding BadgeTextColor}"
-                                                               FontFamily="{StaticResource FontPrint}"
-                                                               FontSize="12"
-                                                               FontWeight="Bold"
-                                                               HorizontalAlignment="Center"
-                                                               VerticalAlignment="Center"/>
+                                                               Style="{StaticResource SeasonOverview.NumberBadgeText}"/>
                                                 </Border>
 
                                                 <!-- Driver Name -->
                                                 <TextBlock Grid.Column="2"
                                                            Text="{Binding DriverName}"
-                                                           Style="{StaticResource TypedTextStyle}"
-                                                           TextTrimming="CharacterEllipsis"
-                                                           VerticalAlignment="Center"/>
+                                                           Style="{StaticResource SeasonOverview.RowName}"/>
 
                                                 <!-- Points -->
                                                 <TextBlock Grid.Column="3"
                                                            Text="{Binding Points}"
-                                                           Style="{StaticResource TypedTextStyle}"
-                                                           FontWeight="Bold"
-                                                           HorizontalAlignment="Right"
-                                                           VerticalAlignment="Center"/>
+                                                           Style="{StaticResource SeasonOverview.RowPoints}"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -302,7 +242,7 @@
                 </Border>
 
                 <!-- Constructor Standings -->
-                <Border Grid.Column="2" Style="{StaticResource PaperCardStyle}">
+                <Border Grid.Column="2" Style="{StaticResource SeasonOverview.SheetCard}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -310,26 +250,20 @@
                         </Grid.RowDefinitions>
 
                         <!-- Header -->
-                        <Border Grid.Row="0" Style="{StaticResource SheetHeaderStyle}">
+                        <Border Grid.Row="0" Style="{StaticResource SeasonOverview.SheetHeader}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="{loc:Loc SeasonOverviewWindow_ConstructorStandingsHeader}"
-                                           Style="{StaticResource TypedTextStyle}"
-                                           FontSize="21"
-                                           TextWrapping="Wrap"
-                                           VerticalAlignment="Bottom"/>
+                                           Style="{StaticResource SeasonOverview.SheetTitle}"/>
 
                                 <!-- Grid View Button -->
                                 <Button x:Name="ConstructorGridButton"
-                                        Grid.Row="1"
-                                        Margin="0,2,0,0"
                                         Click="ConstructorGridButton_Click"
-                                        Style="{StaticResource HandLinkButtonStyle}"
-                                        Content="{loc:Loc SeasonOverviewWindow_GridViewTooltip}"
-                                        HorizontalAlignment="Right"/>
+                                        Style="{StaticResource SeasonOverview.SheetLinkButton}"
+                                        Content="{loc:Loc SeasonOverviewWindow_GridViewTooltip}"/>
                             </Grid>
                         </Border>
 
@@ -340,10 +274,10 @@
                                     <DataTemplate>
                                         <Border MouseLeftButtonDown="ConstructorRow_MouseDoubleClick">
                                             <Border.Style>
-                                                <Style TargetType="Border" BasedOn="{StaticResource SheetRowStyle}">
+                                                <Style TargetType="Border" BasedOn="{StaticResource SeasonOverview.SheetRow}">
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsPlayerTeam}" Value="True">
-                                                            <Setter Property="Background" Value="{StaticResource HighlighterBrush}"/>
+                                                            <Setter Property="Background" Value="{StaticResource SeasonOverview.HighlightBrush}"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -359,30 +293,22 @@
                                                 <!-- Position -->
                                                 <TextBlock Grid.Column="0"
                                                            Text="{Binding Position, StringFormat=\{0\}.}"
-                                                           Style="{StaticResource TypedTextStyle}"
-                                                           VerticalAlignment="Center"/>
+                                                           Style="{StaticResource SeasonOverview.RowPosition}"/>
 
                                                 <!-- Team Color -->
                                                 <Rectangle Grid.Column="1"
-                                                           Width="12" Height="12"
                                                            Fill="{Binding TeamColor}"
-                                                           HorizontalAlignment="Left"
-                                                           VerticalAlignment="Center"/>
+                                                           Style="{StaticResource SeasonOverview.TeamSwatch}"/>
 
                                                 <!-- Team Name -->
                                                 <TextBlock Grid.Column="2"
                                                            Text="{Binding TeamName}"
-                                                           Style="{StaticResource TypedTextStyle}"
-                                                           TextTrimming="CharacterEllipsis"
-                                                           VerticalAlignment="Center"/>
+                                                           Style="{StaticResource SeasonOverview.RowName}"/>
 
                                                 <!-- Points -->
                                                 <TextBlock Grid.Column="3"
                                                            Text="{Binding Points}"
-                                                           Style="{StaticResource TypedTextStyle}"
-                                                           FontWeight="Bold"
-                                                           HorizontalAlignment="Right"
-                                                           VerticalAlignment="Center"/>
+                                                           Style="{StaticResource SeasonOverview.RowPoints}"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -392,31 +318,29 @@
                     </Grid>
                 </Border>
 
-                <!-- Calendar sheet, only when the window is wide enough -->
-                <Border x:Name="CalendarSheet" Grid.Column="4" Style="{StaticResource PaperCardStyle}" Visibility="Collapsed">
+                <!-- Calendar, only when the window is wide enough -->
+                <Border x:Name="CalendarSheet" Grid.Column="4" Style="{StaticResource SeasonOverview.SheetCard}" Visibility="Collapsed">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Border Grid.Row="0" Style="{StaticResource SheetHeaderStyle}">
+                        <Border Grid.Row="0" Style="{StaticResource SeasonOverview.SheetHeader}">
                             <TextBlock Text="{loc:Loc SeasonOverviewWindow_CalendarHeader}"
-                                       Style="{StaticResource TypedTextStyle}"
-                                       FontSize="21"/>
+                                       Style="{StaticResource SeasonOverview.SheetTitle}"/>
                         </Border>
 
                         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                             <ItemsControl x:Name="CalendarItems">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Padding="2,4">
+                                        <Border>
                                             <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Setter Property="Background" Value="Transparent"/>
+                                                <Style TargetType="Border" BasedOn="{StaticResource SeasonOverview.CalendarRow}">
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsNext}" Value="True">
-                                                            <Setter Property="Background" Value="{StaticResource HighlighterBrush}"/>
+                                                            <Setter Property="Background" Value="{StaticResource SeasonOverview.HighlightBrush}"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding IsDone}" Value="True">
                                                             <Setter Property="Opacity" Value="0.5"/>
@@ -430,9 +354,9 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Grid.Column="0" Text="{Binding Round, StringFormat=\{0\}.}" Style="{StaticResource TypedTextStyle}"/>
-                                                <TextBlock Grid.Column="1" Text="{Binding RaceName}" Style="{StaticResource TypedTextStyle}" TextTrimming="CharacterEllipsis"/>
-                                                <TextBlock Grid.Column="2" Text="{Binding FormattedDate}" Style="{StaticResource TypedLabelStyle}" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Column="0" Text="{Binding Round, StringFormat=\{0\}.}" Style="{StaticResource SeasonOverview.RowPosition}"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding RaceName}" Style="{StaticResource SeasonOverview.RowName}"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding FormattedDate}" Style="{StaticResource SeasonOverview.RowDetail}"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>

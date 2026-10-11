@@ -5,6 +5,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/AMS2ChEd;component/Themes/RetroTheme.xaml"/>
+                <!-- always loaded: the utility windows wear the charcoal look in every visual style -->
+                <ResourceDictionary Source="/AMS2ChEd;component/Themes/Charcoal/Base.xaml"/>
+                <!-- The default visual style, so the XAML designer can preview the themed windows. At startup
+                     App.xaml.cs (ApplyStyle) swaps it for the style the user chose. To preview the other
+                     style in the designer, point this at Themes/Charcoal/Theme.xaml (don't commit that). -->
+                <ResourceDictionary Source="/AMS2ChEd;component/Themes/Retro/Theme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

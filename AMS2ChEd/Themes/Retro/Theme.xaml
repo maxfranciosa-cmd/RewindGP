@@ -1,0 +1,14 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- The "real objects" style: one dictionary per themed window, each defining that window's "[Window].[Part]" styles. -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Retro/SeasonOverview.xaml"/>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Retro/Accolades.xaml"/>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Retro/ImprovementPackages.xaml"/>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Retro/Main.xaml"/>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Retro/TeamSelection.xaml"/>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Retro/RaceCalendarSelection.xaml"/>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Retro/HistoricalStandings.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

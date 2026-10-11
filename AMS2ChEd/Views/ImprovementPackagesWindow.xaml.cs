@@ -24,8 +24,6 @@ namespace AMS2ChEd.Views
         private const string UP_CHEVRON = "▲";
         private const string DOWN_CHEVRON = "▼";
 
-        private static readonly SolidColorBrush GainBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1e7d32"));
-        private static readonly SolidColorBrush LossBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#c41e3a"));
 
         public ImprovementPackagesWindow(ISaveGame saveGame, IReadOnlyList<ImprovementStat> stats)
         {
@@ -48,11 +46,11 @@ namespace AMS2ChEd.Views
             }
 
             TeamsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(42) });
-            AddCell(CreateText(Strings.ConstructorStandingsGridWindow_TeamColumnHeader, isHeader: true), 0, 0, isHeader: true, columnSpan: 2);
-            AddCell(CreateText(Strings.ImprovementPackagesWindow_PackagesColumnHeader, isHeader: true), 0, 2, isHeader: true);
+            AddCell(CreateText(Strings.ConstructorStandingsGridWindow_TeamColumnHeader, "HeaderCellText"), 0, 0, isHeader: true, columnSpan: 2);
+            AddCell(CreateText(Strings.ImprovementPackagesWindow_PackagesColumnHeader, "HeaderCellText"), 0, 2, isHeader: true);
             for (int i = 0; i < stats.Count; i++)
             {
-                AddCell(CreateText(stats[i].DisplayName.ToUpper(), isHeader: true), 0, i + 3, isHeader: true);
+                AddCell(CreateText(stats[i].DisplayName.ToUpper(), "HeaderCellText"), 0, i + 3, isHeader: true);
             }
 
             var teams = saveGame.CurrentSeason.Teams
@@ -72,10 +70,7 @@ namespace AMS2ChEd.Views
                 Grid.SetColumn(accent, 0);
                 TeamsGrid.Children.Add(accent);
 
-                var teamName = CreateText(team.TeamName.ToUpper());
-                teamName.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                teamName.Padding = new Thickness(10, 4, 0, 4);
-                AddCell(teamName, row, 1);
+                AddCell(CreateText(team.TeamName.ToUpper(), "TeamNameText"), row, 1);
 
                 AddCell(CreateText($"{packages.Count}/{ImprovementPackageManager.PACKAGES_PER_SEASON}"), row, 2);
 
@@ -103,32 +98,26 @@ namespace AMS2ChEd.Views
 
             bool isRaised = raised > lowered;
             var text = CreateText(string.Concat(Enumerable.Repeat(isRaised ? UP_CHEVRON : DOWN_CHEVRON, isRaised ? raised : lowered)));
-            text.Foreground = isRaised == stat.HigherIsBetter ? GainBrush : LossBrush;
+            text.Foreground = (System.Windows.Media.Brush)FindResource(isRaised == stat.HigherIsBetter ? "ImprovementPackages.GainBrush" : "ImprovementPackages.LossBrush");
             return text;
         }
 
-        private static TextBlock CreateText(string text, bool isHeader = false)
+        // the look of every cell and of its text comes from the active visual style
+        private TextBlock CreateText(string text, string styleName = "CellText")
         {
             return new TextBlock
             {
                 Text = text,
-                FontFamily = new FontFamily("Courier New"),
-                FontWeight = isHeader ? FontWeights.Bold : FontWeights.Normal,
-                FontSize = isHeader ? 16 : 15,
-                Foreground = Brushes.Black,
-                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Padding = new Thickness(5, 4, 5, 4)
+                Style = (Style)FindResource("ImprovementPackages." + styleName)
             };
         }
 
         private void AddCell(TextBlock content, int row, int column, bool isHeader = false, int columnSpan = 1)
         {
+            string styleName = isHeader ? "HeaderCell" : row % 2 == 1 ? "Cell" : "AlternateCell";
             var border = new Border
             {
-                BorderBrush = Brushes.Black,
-                BorderThickness = new Thickness(0, 0, 1, isHeader ? 2 : 1),
-                Background = isHeader || row % 2 == 1 ? Brushes.White : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#fafafa")),
+                Style = (Style)FindResource("ImprovementPackages." + styleName),
                 Child = content
             };
 

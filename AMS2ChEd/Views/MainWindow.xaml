@@ -6,9 +6,12 @@
         Height="1000" Width="900"
         MinHeight="700" MinWidth="900"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource CoverBrush}">
+        Background="{StaticResource Main.WindowBackground}">
+
+    <!-- This window only holds structure. How each part looks comes from the "Main.*" styles
+         of the active visual style (Themes/<style>/Main.xaml). -->
     <Window.Resources>
-        <Style TargetType="ScrollBar" BasedOn="{StaticResource PaperScrollBarStyle}"/>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource Main.ScrollBar}"/>
 
         <!-- Fade-in animation for reputation display -->
         <Storyboard x:Key="FadeInStoryboard">
@@ -16,252 +19,28 @@
                            From="0" To="1" Duration="0:0:0.5"
                            AccelerationRatio="0.3"/>
         </Storyboard>
-
-        <!-- A cover line of the magazine: each one is a main menu entry -->
-        <Style x:Key="CoverLineButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{StaticResource CoverYellowBrush}"/>
-            <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
-            <Setter Property="FontSize" Value="32"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Margin" Value="0,0,0,10"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" Padding="10,4">
-                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#111111"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- The round sticker on the cover -->
-        <Style x:Key="StickerButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource CoverYellowBrush}"/>
-            <Setter Property="Foreground" Value="#111111"/>
-            <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
-            <Setter Property="FontSize" Value="21"/>
-            <Setter Property="Width" Value="156"/>
-            <Setter Property="Height" Value="156"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Ellipse Fill="{TemplateBinding Background}"/>
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="112">
-                                <ContentPresenter.Resources>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextWrapping" Value="Wrap"/>
-                                        <Setter Property="TextAlignment" Value="Center"/>
-                                    </Style>
-                                </ContentPresenter.Resources>
-                            </ContentPresenter>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Main action on a form (subscription-card style) -->
-        <Style x:Key="MenuButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource StampRedBrush}"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#111111"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.4"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
-            <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
-            <Setter Property="FontSize" Value="19"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{StaticResource InkBrush}" BorderThickness="2">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource PostItBrush}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="LabelStyle" TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
-            <Setter Property="FontFamily" Value="{StaticResource FontTyped}"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="0,0,0,5"/>
-        </Style>
-
-        <Style x:Key="TextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource PaperTextBoxStyle}"/>
-
-        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource InkBrush}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="FontFamily" Value="{StaticResource FontTyped}"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <ToggleButton x:Name="ToggleButton"
-                                        Background="White"
-                                        BorderBrush="{StaticResource InkBrush}"
-                                        BorderThickness="2"
-                                        Focusable="False"
-                                        IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                        ClickMode="Press">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <Grid>
-                                            <Border x:Name="Border"
-                                                  Background="{TemplateBinding Background}"
-                                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                                  BorderThickness="{TemplateBinding BorderThickness}"/>
-                                            <Path x:Name="Arrow"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Center"
-                                                Margin="0,0,10,0"
-                                                Data="M 0 0 L 4 4 L 8 0 Z"
-                                                Fill="#1b1b1b"/>
-                                        </Grid>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
-                            <ContentPresenter x:Name="ContentSite"
-                                            IsHitTestVisible="False"
-                                            Content="{TemplateBinding SelectionBoxItem}"
-                                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                            Margin="7,3,23,3"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left">
-                                <ContentPresenter.Resources>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="#1b1b1b"/>
-                                    </Style>
-                                </ContentPresenter.Resources>
-                            </ContentPresenter>
-                            <Popup x:Name="Popup"
-                                 Placement="Bottom"
-                                 IsOpen="{TemplateBinding IsDropDownOpen}"
-                                 AllowsTransparency="True"
-                                 Focusable="False"
-                                 PopupAnimation="Slide">
-                                <Grid x:Name="DropDown"
-                                    SnapsToDevicePixels="True"
-                                    MinWidth="{TemplateBinding ActualWidth}"
-                                    MaxHeight="200">
-                                    <Border x:Name="DropDownBorder"
-                                          Background="White"
-                                          BorderBrush="{StaticResource InkBrush}"
-                                          BorderThickness="2"/>
-                                    <ScrollViewer Margin="2" SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
-                                    </ScrollViewer>
-                                </Grid>
-                            </Popup>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Resources>
-                <Style TargetType="ComboBoxItem">
-                    <Setter Property="Background" Value="White"/>
-                    <Setter Property="Foreground" Value="#1b1b1b"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ComboBoxItem">
-                                <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="0">
-                                    <ContentPresenter Margin="7,4,5,4"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsHighlighted" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource HighlighterBrush}"/>
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource HighlighterBrush}"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Style.Resources>
-        </Style>
     </Window.Resources>
 
-    <!-- A magazine cover: the masthead on top, the cover lines are the menu -->
-    <Grid Margin="36,22,36,30">
+    <!-- The masthead on top; the menu (or a form) on the left and a picture on the right -->
+    <Grid Style="{StaticResource Main.Root}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- Masthead -->
-        <Grid Grid.Row="0" Margin="0,0,0,18">
+        <Grid Grid.Row="0" Style="{StaticResource Main.Masthead}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Viewbox Grid.Column="0" Stretch="Uniform" HorizontalAlignment="Left" MaxHeight="230">
-                <TextBlock FontFamily="{StaticResource FontPoster}" FontSize="150" Margin="0,0,12,8">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="#111111" BlurRadius="0" ShadowDepth="7" Direction="315" Opacity="1"/>
-                    </TextBlock.Effect>
-                    <Run Text="REWIND" Foreground="White"/>
-                    <Run Text="GP" Foreground="#ffe14a"/>
+            <Viewbox Grid.Column="0" Stretch="Uniform" HorizontalAlignment="Left" Style="{StaticResource Main.MastheadBox}">
+                <TextBlock Style="{StaticResource Main.MastheadTitle}">
+                    <Run Text="REWIND" Style="{StaticResource Main.MastheadWord}"/>
+                    <Run Text="GP" Style="{StaticResource Main.MastheadAccent}"/>
                 </TextBlock>
             </Viewbox>
-            <Image Grid.Column="1" Source="/StaticFiles/rewind_gp_logo.png" Height="90" VerticalAlignment="Top" Margin="20,6,0,0"/>
+            <Image Grid.Column="1" Source="/StaticFiles/rewind_gp_logo.png" Style="{StaticResource Main.Logo}"/>
         </Grid>
 
         <!-- Main Content -->
@@ -271,175 +50,144 @@
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Left Column: cover lines and forms -->
+            <!-- Left Column: menu and forms -->
             <Grid Grid.Column="0">
                 <!-- Main Menu Panel -->
                 <StackPanel x:Name="MainMenuPanel" Visibility="Visible">
                     <!-- Continue the most recent save (hidden when there are no saves) -->
-                    <StackPanel x:Name="ContinuePanel" Visibility="Collapsed" Margin="0,0,0,14">
+                    <StackPanel x:Name="ContinuePanel" Visibility="Collapsed" Style="{StaticResource Main.ContinuePanel}">
                         <Button x:Name="ContinueButton"
                                 Content="{loc:Loc MainWindow_ContinueButton}"
-                                Style="{StaticResource CoverLineButtonStyle}"
-                                Foreground="White"
-                                Margin="0"
+                                Style="{StaticResource Main.ContinueButton}"
                                 Click="ContinueButton_Click"/>
                         <TextBlock x:Name="ContinueDescriptionText"
-                                   Foreground="White"
-                                   FontFamily="{StaticResource FontPrint}"
-                                   FontSize="13"
-                                   FontWeight="Bold"
-                                   TextWrapping="Wrap"
-                                   Margin="10,0,0,0"/>
+                                   Style="{StaticResource Main.ContinueDescription}"/>
                     </StackPanel>
 
-                    <!-- The ways to start a new game, boxed together like a feature panel on the cover -->
-                    <Grid HorizontalAlignment="Left" Margin="0,0,0,16">
-                        <Border BorderBrush="{StaticResource CoverYellowBrush}" BorderThickness="3" Margin="0,15,0,0" Padding="6,22,16,4">
+                    <!-- The ways to start a new game, grouped under one title. The box and its title share
+                         a cell, so the style decides where the title sits against the box. -->
+                    <Grid Style="{StaticResource Main.NewGameGroup}">
+                        <Border Style="{StaticResource Main.NewGameBox}">
                             <StackPanel>
                                 <Button x:Name="NewGameButton"
                                         Content="{loc:Loc MainWindow_NewGameButton}"
-                                        Style="{StaticResource CoverLineButtonStyle}"
-                                        FontSize="27"
-                                        Margin="0,0,0,2"
+                                        Style="{StaticResource Main.NewGameLine}"
                                         Click="NewGameButton_Click"/>
 
                                 <Button x:Name="NewGameReplaceDriverButton"
                                         Content="{loc:Loc MainWindow_NewGameReplaceDriverButton}"
-                                        Style="{StaticResource CoverLineButtonStyle}"
-                                        FontSize="27"
-                                        Margin="0,0,0,2"
+                                        Style="{StaticResource Main.NewGameLine}"
                                         Click="NewGameReplaceDriverButton_Click"/>
 
                                 <Button x:Name="NewGameImportedDriverButton"
                                         Content="{loc:Loc MainWindow_NewGameImportedDriverButton}"
-                                        Style="{StaticResource CoverLineButtonStyle}"
-                                        FontSize="27"
-                                        Margin="0,0,0,2"
+                                        Style="{StaticResource Main.NewGameLine}"
                                         Click="NewGameImportedDriverButton_Click"/>
 
                                 <Button x:Name="NewGameScenarioModeButton"
                                         Content="{loc:Loc MainWindow_NewGameScenarioModeButton}"
-                                        Style="{StaticResource CoverLineButtonStyle}"
-                                        FontSize="27"
-                                        Margin="0,0,0,2"
+                                        Style="{StaticResource Main.NewGameLine}"
                                         Click="NewGameScenarioModeButton_Click"/>
                             </StackPanel>
                         </Border>
-                        <!-- the title sits on the top edge of the box, like a section tag -->
-                        <Border Background="{StaticResource CoverYellowBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="14,0,0,0" Padding="10,1,10,3">
+                        <Border Style="{StaticResource Main.NewGameTag}">
                             <TextBlock Text="{loc:Loc MainWindow_NewGameGroupTitle}"
-                                       FontFamily="{StaticResource FontPoster}"
-                                       FontSize="20"
-                                       Foreground="#111111"/>
+                                       Style="{StaticResource Main.NewGameTagText}"/>
                         </Border>
                     </Grid>
 
                     <Button x:Name="LoadGameButton"
                             Content="{loc:Loc MainWindow_LoadGameButton}"
-                            Style="{StaticResource CoverLineButtonStyle}"
+                            Style="{StaticResource Main.MenuLine}"
                             Click="LoadGameButton_Click"/>
 
                     <Button x:Name="OptionsButton"
                             Content="{loc:Loc MainWindow_OptionsButton}"
-                            Style="{StaticResource CoverLineButtonStyle}"
+                            Style="{StaticResource Main.MenuLine}"
                             Click="OptionsButton_Click"/>
 
                     <Button x:Name="DeveloperToolsButton"
                             Content="{loc:Loc MainWindow_DeveloperToolsButton}"
-                            Style="{StaticResource CoverLineButtonStyle}"
+                            Style="{StaticResource Main.MenuLine}"
                             Click="DeveloperToolsButton_Click"
                             Visibility="Collapsed"/>
 
                     <Button x:Name="InstallSeasonModButto"
                             Content="{loc:Loc MainWindow_InstallSeasonModButton}"
                             Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=InstallSeasonCommand}"
-                            Style="{StaticResource StickerButtonStyle}"
-                            Margin="0,6,30,0"
+                            Style="{StaticResource Main.InstallSeasonButton}"
                             />
 
                 </StackPanel>
 
-                <!-- Forms are printed on a card laid over the cover; the card has no size while both panels are collapsed -->
-                <Border Background="{StaticResource PaperBrush}" VerticalAlignment="Top">
-                    <Border.Effect>
-                        <DropShadowEffect Color="Black" BlurRadius="8" ShadowDepth="3" Opacity="0.35"/>
-                    </Border.Effect>
+                <!-- Forms take the place of the menu; the card has no size while both panels are collapsed -->
+                <Border Style="{StaticResource Main.FormCard}">
                     <Grid>
                         <!-- Developer Tools Panel -->
-                        <StackPanel x:Name="DeveloperToolsPanel" Visibility="Collapsed" Margin="24">
-                            <Label Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource LabelStyle}"/>
+                        <StackPanel x:Name="DeveloperToolsPanel" Visibility="Collapsed" Style="{StaticResource Main.FormPanel}">
+                            <Label Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource Main.FormLabel}"/>
                             <ComboBox x:Name="DevSeasonComboBox"
-                                      Style="{StaticResource ComboBoxStyle}"
+                                      Style="{StaticResource Main.ComboBox}"
                                       SelectionChanged="DevSeasonComboBox_SelectionChanged"/>
 
-                            <Label Content="{loc:Loc MainWindow_SelectRaceLabel}" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
+                            <Label Content="{loc:Loc MainWindow_SelectRaceLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>
                             <ComboBox x:Name="DevRaceComboBox"
-                                      Style="{StaticResource ComboBoxStyle}"/>
+                                      Style="{StaticResource Main.ComboBox}"/>
 
                             <Button x:Name="DevExportCustomAiButton"
                                     Content="{loc:Loc MainWindow_ExportCustomAiButton}"
-                                    Style="{StaticResource MenuButtonStyle}"
-                                    Margin="0,20,0,10"
+                                    Style="{StaticResource Main.FormPrimaryButton}"
                                     Click="DevExportCustomAiButton_Click"/>
 
                             <Button x:Name="DevExportLiveriesButton"
                                     Content="{loc:Loc MainWindow_ExportLiveriesButton}"
-                                    Style="{StaticResource MenuButtonStyle}"
-                                    Margin="0,0,0,10"
+                                    Style="{StaticResource Main.FormStackedButton}"
                                     Click="DevExportLiveriesButton_Click"/>
 
                             <Button Content="{loc:Loc MainWindow_BackButton}"
-                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Style="{StaticResource Main.FormBackButton}"
                                     Click="DevToolsBackButton_Click"/>
                         </StackPanel>
 
                         <!-- New Game Panel -->
-                        <StackPanel x:Name="NewGamePanel" Visibility="Collapsed" Margin="24">
-                            <Label x:Name="SelectSeasonLabel" Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource LabelStyle}"/>
+                        <StackPanel x:Name="NewGamePanel" Visibility="Collapsed" Style="{StaticResource Main.FormPanel}">
+                            <Label x:Name="SelectSeasonLabel" Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource Main.FormLabel}"/>
                             <ComboBox x:Name="SeasonComboBox"
-                                      Style="{StaticResource ComboBoxStyle}"
+                                      Style="{StaticResource Main.ComboBox}"
                                       SelectionChanged="SeasonComboBox_SelectionChanged"/>
 
                             <StackPanel x:Name="CustomDriverPanel" Visibility="Collapsed">
                                 <!-- A driver taken from another season, instead of a custom one -->
-                                <StackPanel x:Name="ImportedDriverPanel" Visibility="Collapsed" Margin="0,10,0,15">
-                                    <Label Content="{loc:Loc MainWindow_ImportedDriverLabel}" Style="{StaticResource LabelStyle}"/>
+                                <StackPanel x:Name="ImportedDriverPanel" Visibility="Collapsed" Style="{StaticResource Main.ImportedDriver}">
+                                    <Label Content="{loc:Loc MainWindow_ImportedDriverLabel}" Style="{StaticResource Main.FormLabel}"/>
                                     <ComboBox x:Name="ImportedDriverComboBox"
-                                              Style="{StaticResource ComboBoxStyle}"
+                                              Style="{StaticResource Main.ComboBox}"
                                               SelectionChanged="ImportedDriverComboBox_SelectionChanged"/>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Border Grid.Column="0" Width="96" Height="122"
-                                                Background="{StaticResource PhotoBackBrush}"
-                                                BorderBrush="White" BorderThickness="5">
-                                            <Border.Effect>
-                                                <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="2" Opacity="0.3"/>
-                                            </Border.Effect>
+                                        <Border Grid.Column="0" Style="{StaticResource Main.ImportedPhoto}">
                                             <Grid>
                                                 <TextBlock x:Name="ImportedDriverPhotoPlaceholder"
                                                            Text="?"
-                                                           FontSize="36"
-                                                           Foreground="#5e666e"
-                                                           HorizontalAlignment="Center"
-                                                           VerticalAlignment="Center"/>
+                                                           Style="{StaticResource Main.ImportedPhotoPlaceholder}"/>
                                                 <Image x:Name="ImportedDriverPhoto"
                                                        Stretch="UniformToFill"
                                                        RenderOptions.BitmapScalingMode="HighQuality"/>
                                             </Grid>
                                         </Border>
                                         <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Center">
-                                            <TextBlock x:Name="ImportedDriverNameText" Style="{StaticResource PosterTextStyle}" FontSize="24" TextWrapping="Wrap"/>
-                                            <TextBlock x:Name="ImportedDriverInfoText" Style="{StaticResource TypedLabelStyle}" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                                            <TextBlock x:Name="ImportedDriverNameText" Style="{StaticResource Main.ImportedName}"/>
+                                            <TextBlock x:Name="ImportedDriverInfoText" Style="{StaticResource Main.ImportedInfo}"/>
                                         </StackPanel>
                                     </Grid>
                                 </StackPanel>
 
                                 <StackPanel x:Name="CustomDriverFieldsPanel">
-                                <Label Content="{loc:Loc MainWindow_DriverNameLabel}" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                                <TextBox x:Name="DriverNameTextBox" Style="{StaticResource TextBoxStyle}"/>
+                                <Label Content="{loc:Loc MainWindow_DriverNameLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>
+                                <TextBox x:Name="DriverNameTextBox" Style="{StaticResource Main.TextBox}"/>
 
                                 <!-- Compact Row: Nationality, Age, Favourite Numbers -->
                                 <Grid Margin="0,0,0,15">
@@ -451,49 +199,40 @@
 
                                     <!-- Nationality -->
                                     <StackPanel Grid.Column="0" Margin="0,0,5,0">
-                                        <Label Content="{loc:Loc MainWindow_NationalityLabel}" Style="{StaticResource LabelStyle}"/>
+                                        <Label Content="{loc:Loc MainWindow_NationalityLabel}" Style="{StaticResource Main.FormLabel}"/>
                                         <TextBox x:Name="NationalityTextBox"
-                                                 Style="{StaticResource TextBoxStyle}"
+                                                 Style="{StaticResource Main.CompactTextBox}"
                                                  MaxLength="3"
-                                                 Margin="0"
                                                  LostFocus="NationalityTextBox_LostFocus"/>
                                     </StackPanel>
 
                                     <!-- Driver Age -->
                                     <StackPanel Grid.Column="1" Margin="5,0,5,0">
-                                        <Label Content="{loc:Loc MainWindow_AgeLabel}" Style="{StaticResource LabelStyle}"/>
+                                        <Label Content="{loc:Loc MainWindow_AgeLabel}" Style="{StaticResource Main.FormLabel}"/>
                                         <TextBox x:Name="DriverAgeTextBox"
-                                                 Style="{StaticResource TextBoxStyle}"
-                                                 Margin="0"
+                                                 Style="{StaticResource Main.CompactTextBox}"
                                                  PreviewTextInput="DriverAgeTextBox_PreviewTextInput"
                                                  TextChanged="DriverAgeTextBox_TextChanged"/>
                                     </StackPanel>
 
                                     <!-- Favourite Numbers -->
                                     <StackPanel Grid.Column="2" Margin="5,0,0,0">
-                                        <Label Content="{loc:Loc MainWindow_FavouriteNumbersLabel}" Style="{StaticResource LabelStyle}"/>
+                                        <Label Content="{loc:Loc MainWindow_FavouriteNumbersLabel}" Style="{StaticResource Main.FormLabel}"/>
                                         <TextBox x:Name="FavouriteNumbersTextBox"
-                                                 Style="{StaticResource TextBoxStyle}"
-                                                 Margin="0"
+                                                 Style="{StaticResource Main.CompactTextBox}"
                                                  ToolTip="{loc:Loc MainWindow_FavouriteNumbersToolTip}"/>
                                     </StackPanel>
                                 </Grid>
                                 </StackPanel>
 
-                                <Label Content="{loc:Loc MainWindow_ReputationLabel}" Style="{StaticResource LabelStyle}"/>
+                                <Label Content="{loc:Loc MainWindow_ReputationLabel}" Style="{StaticResource Main.FormLabel}"/>
                                 <ComboBox x:Name="ReputationComboBox"
-                                      Style="{StaticResource ComboBoxStyle}"
+                                      Style="{StaticResource Main.ComboBox}"
                                       SelectionChanged="ReputationComboBox_SelectionChanged" />
 
                                 <!-- Helmet Selection -->
-                                <Label x:Name="HelmetSelectionLabel" Content="{loc:Loc MainWindow_HelmetDesignLabel}" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                                <Border x:Name="HelmetSelectionBorder"
-                                        Background="White"
-                                        BorderBrush="{StaticResource InkBrush}"
-                                        BorderThickness="2"
-                                        Padding="10"
-                                        Margin="0,0,0,15"
-                                        Height="150">
+                                <Label x:Name="HelmetSelectionLabel" Content="{loc:Loc MainWindow_HelmetDesignLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>
+                                <Border x:Name="HelmetSelectionBorder" Style="{StaticResource Main.HelmetBox}">
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto"
                                                   VerticalScrollBarVisibility="Disabled">
                                         <ItemsControl x:Name="HelmetSelectionItemsControl">
@@ -504,29 +243,9 @@
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Border Width="100"
-                                                        Height="100"
-                                                        Margin="0,0,8,8"
-                                                        BorderThickness="3"
-                                                        Cursor="Hand"
+                                                    <Border Style="{StaticResource Main.HelmetItem}"
                                                         MouseLeftButtonDown="HelmetPreview_Click"
                                                         Tag="{Binding}">
-                                                        <Border.Style>
-                                                            <Style TargetType="Border">
-                                                                <Setter Property="BorderBrush" Value="#d9d5c8"/>
-                                                                <Setter Property="Background" Value="#f4f1e6"/>
-                                                                <Style.Triggers>
-                                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                                        <Setter Property="BorderBrush" Value="#8a8679"/>
-                                                                    </Trigger>
-                                                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                                        <Setter Property="BorderBrush" Value="{StaticResource StampRedBrush}"/>
-                                                                        <Setter Property="Background" Value="White"/>
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Border.Style>
-
                                                         <StackPanel>
                                                             <Image Source="{Binding PreviewImagePath}"
                                                                     Stretch="UniformToFill"
@@ -542,30 +261,27 @@
 
                                 <Button x:Name="CreateGameButton"
                                     Content="{loc:Loc MainWindow_CreateGameButton}"
-                                    Style="{StaticResource MenuButtonStyle}"
-                                    Margin="0,20,0,10"
+                                    Style="{StaticResource Main.FormPrimaryButton}"
                                     Click="CreateGameButton_Click"/>
                             </StackPanel>
 
                             <StackPanel x:Name="ReplaceDriverPanel" Visibility="Collapsed">
                                 <Button x:Name="CreateGameReplaceDriverButton"
                                     Content="{loc:Loc MainWindow_CreateGameButton}"
-                                    Style="{StaticResource MenuButtonStyle}"
-                                    Margin="0,20,0,10"
+                                    Style="{StaticResource Main.FormPrimaryButton}"
                                     Click="CreateGameReplaceDriverButton_Click" />
                             </StackPanel>
 
                             <StackPanel x:Name="ScenarioPanel" Visibility="Collapsed">
 
-                                <Label Content="{loc:Loc MainWindow_SelectScenarioLabel}" Style="{StaticResource LabelStyle}"/>
+                                <Label Content="{loc:Loc MainWindow_SelectScenarioLabel}" Style="{StaticResource Main.FormLabel}"/>
                                 <ComboBox x:Name="ScenarioComboBox"
-                                          Style="{StaticResource ComboBoxStyle}"
+                                          Style="{StaticResource Main.ComboBox}"
                                           SelectionChanged="ScenarioComboBox_SelectionChanged"/>
 
                                 <Button x:Name="CreateGameScenarioButton"
                                     Content="{loc:Loc MainWindow_StartScenarioButton}"
-                                    Style="{StaticResource MenuButtonStyle}"
-                                    Margin="0,20,0,10"
+                                    Style="{StaticResource Main.FormPrimaryButton}"
                                     Click="CreateGameScenarioButton_Click"
                                     IsEnabled="False"/>
 
@@ -573,64 +289,39 @@
                             </StackPanel>
 
                             <Button Content="{loc:Loc MainWindow_BackButton}"
-                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Style="{StaticResource Main.FormBackButton}"
                                     Click="BackButton_Click"/>
                         </StackPanel>
                     </Grid>
                 </Border>
             </Grid>
 
-            <!-- Right Column: cover photo -->
-            <Grid Grid.Column="1" Margin="30,0,0,0" x:Name="VisualPanel" Visibility="Visible">
+            <!-- Right Column: picture -->
+            <Grid Grid.Column="1" x:Name="VisualPanel" Visibility="Visible" Style="{StaticResource Main.VisualPanel}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Main Menu cover photo, with the cover story of the latest save below it -->
+                <!-- Main Menu picture, with the story of the latest save below it -->
                 <StackPanel Grid.Row="0" VerticalAlignment="Top">
                 <Border x:Name="WelcomeImageBorder"
                         Cursor="Hand"
                         MouseLeftButtonUp="WelcomeImageBorder_MouseLeftButtonUp"
+                        Style="{StaticResource Main.CoverPhoto}"
                         Visibility="Visible">
-                    <Border.Effect>
-                        <DropShadowEffect Color="Black" BlurRadius="8" ShadowDepth="3" Opacity="0.35"/>
-                    </Border.Effect>
-                    <!-- the white photo frame only shows when there is a picture to frame -->
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Setter Property="Background" Value="White"/>
-                            <Setter Property="Padding" Value="8"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ActualHeight, ElementName=WelcomeImage}" Value="0">
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="Padding" Value="0"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
                     <Image x:Name="WelcomeImage"
                            Stretch="Uniform"
                            MaxHeight="340"/>
                 </Border>
                 <StackPanel x:Name="CoverStoryPanel"
-                            Margin="0,14,0,0"
+                            Style="{StaticResource Main.CoverStory}"
                             Visibility="{Binding Visibility, ElementName=WelcomeImageBorder}">
                     <TextBlock x:Name="CoverHeadlineText"
-                               Foreground="{StaticResource CoverYellowBrush}"
-                               FontFamily="{StaticResource FontPoster}"
-                               FontSize="28"
-                               LineHeight="31"
-                               LineStackingStrategy="BlockLineHeight"
-                               TextWrapping="Wrap"
+                               Style="{StaticResource Main.CoverHeadline}"
                                Visibility="Collapsed"/>
                     <TextBlock x:Name="CoverSublineText"
-                               Foreground="White"
-                               FontFamily="{StaticResource FontPrint}"
-                               FontSize="14"
-                               FontWeight="Bold"
-                               TextWrapping="Wrap"
-                               Margin="0,6,0,0"
+                               Style="{StaticResource Main.CoverSubline}"
                                Visibility="Collapsed"/>
                 </StackPanel>
                 </StackPanel>
@@ -638,13 +329,8 @@
                 <!-- Reputation Image (hidden initially, shown during New Game) -->
                 <Border Grid.Row="0"
                         x:Name="ReputationImageBorder"
-                        Background="White"
-                        Padding="8"
-                        VerticalAlignment="Top"
+                        Style="{StaticResource Main.ReputationPhoto}"
                         Visibility="Collapsed">
-                    <Border.Effect>
-                        <DropShadowEffect Color="Black" BlurRadius="8" ShadowDepth="3" Opacity="0.35"/>
-                    </Border.Effect>
                     <Image x:Name="ReputationImage"
                            Stretch="Uniform"
                            Source="/placeholder.png"/>
@@ -657,21 +343,10 @@
                             Height="150"
                             Opacity="0">
                     <TextBlock x:Name="ReputationNameText"
-                               Foreground="{StaticResource CoverYellowBrush}"
-                               FontFamily="{StaticResource FontPoster}"
-                               FontSize="26"
-                               TextWrapping="Wrap"
-                               HorizontalAlignment="Left"
-                               Margin="0,0,0,6"
+                               Style="{StaticResource Main.ReputationName}"
                                Visibility="Hidden" />
                     <TextBlock x:Name="ReputationParagraphText"
-                               Foreground="White"
-                               FontFamily="{StaticResource FontPrint}"
-                               FontSize="14"
-                               FontWeight="Bold"
-                               TextWrapping="Wrap"
-                               LineHeight="20"
-                               Margin="0,0,0,15"
+                               Style="{StaticResource Main.ReputationText}"
                                Visibility="Hidden" />
                 </StackPanel>
             </Grid>

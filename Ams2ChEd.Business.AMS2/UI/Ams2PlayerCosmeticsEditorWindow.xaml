@@ -8,207 +8,79 @@
         Title="{loc:Loc Ams2PlayerCosmeticsEditorWindow_Title}"
         Height="750" Width="650"
         WindowStartupLocation="CenterOwner"
-        Background="#1a1a1a"
+        Background="{StaticResource Charcoal.BackgroundBrush}"
         ResizeMode="NoResize">
 
+    <!-- A utility window: it wears the charcoal look whatever the visual style. The "Charcoal.*" resources
+         are not defined in this project: the host application provides them in its application resources
+         (Themes/Charcoal/Base.xaml, merged by its App.xaml). -->
     <Window.Resources>
-        <!-- Text Input Style -->
-        <Style x:Key="InputTextBoxStyle" TargetType="{x:Type TextBox}">
-            <Setter Property="Background" Value="#2a2a2a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#555555"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="CaretBrush" Value="White"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="3">
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                        Margin="{TemplateBinding Padding}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="#c41e3a"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="#666666"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
 
-        <!-- Label Style -->
-        <Style x:Key="InputLabelStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Foreground" Value="#999999"/>
-            <Setter Property="Margin" Value="0,0,0,6"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
+        <Style x:Key="InputTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource Charcoal.TextBoxStyle}"/>
 
-        <!-- Button Style -->
-        <Style x:Key="DialogButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#2a2a2a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#555555"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="20,10"/>
+        <!-- the caption above a field -->
+        <Style x:Key="InputLabelStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="MinWidth" Value="100"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="3"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#3a3a3a"/>
-                    <Setter Property="BorderBrush" Value="#c41e3a"/>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
         </Style>
 
-        <!-- Primary Button Style -->
-        <Style x:Key="PrimaryButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButtonStyle}">
-            <Setter Property="Background" Value="#c41e3a"/>
-            <Setter Property="BorderBrush" Value="#c41e3a"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#d52d48"/>
-                    <Setter Property="BorderBrush" Value="#d52d48"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Browse Button Style -->
-        <Style x:Key="BrowseButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#2a2a2a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#555555"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="12,8"/>
+        <!-- the hint under a caption -->
+        <Style x:Key="HelpTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
             <Setter Property="FontSize" Value="11"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="3"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#3a3a3a"/>
-                    <Setter Property="BorderBrush" Value="#666666"/>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
         </Style>
 
-        <!-- Radio Button Style -->
-        <Style x:Key="RadioButtonStyle" TargetType="{x:Type RadioButton}">
-            <Setter Property="Foreground" Value="White"/>
+        <!-- a caption inside a helmet tab -->
+        <Style x:Key="SubLabelStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource InputLabelStyle}">
             <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <Style x:Key="DialogButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource Charcoal.DialogSecondaryButtonStyle}"/>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource Charcoal.DialogPrimaryButtonStyle}"/>
+
+        <!-- sits against the end of the field it fills in -->
+        <Style x:Key="BrowseButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource Charcoal.DialogSecondaryButtonStyle}">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="18,0"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="2,0,0,0"/>
+        </Style>
+
+        <Style x:Key="RadioButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource Charcoal.RadioButtonStyle}">
             <Setter Property="Margin" Value="0,0,20,0"/>
-            <Setter Property="Cursor" Value="Hand"/>
         </Style>
 
-        <!-- Tab Control Style -->
-        <Style x:Key="EraTabControlStyle" TargetType="{x:Type TabControl}">
-            <Setter Property="Background" Value="#1a1a1a"/>
-            <Setter Property="BorderBrush" Value="#555555"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="0"/>
-        </Style>
+        <Style x:Key="EraTabControlStyle" TargetType="{x:Type TabControl}" BasedOn="{StaticResource Charcoal.TabControlStyle}"/>
 
-        <!-- Tab Item Style -->
-        <Style x:Key="EraTabItemStyle" TargetType="{x:Type TabItem}">
-            <Setter Property="Background" Value="#111111"/>
-            <Setter Property="Foreground" Value="#999999"/>
-            <Setter Property="BorderBrush" Value="#444444"/>
-            <Setter Property="BorderThickness" Value="1,1,1,0"/>
-            <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TabItem}">
-                        <Border x:Name="TabBorder"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Margin="0,0,2,0">
-                            <ContentPresenter x:Name="ContentSite"
-                                              ContentSource="Header"
-                                              Margin="{TemplateBinding Padding}"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"
-                                              TextBlock.Foreground="{TemplateBinding Foreground}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="TabBorder" Property="Background" Value="#1a1a1a"/>
-                                <Setter TargetName="TabBorder" Property="BorderBrush" Value="#c41e3a"/>
-                                <Setter TargetName="TabBorder" Property="BorderThickness" Value="1,2,1,0"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="TabBorder" Property="Background" Value="#2a2a2a"/>
-                                <Setter Property="Foreground" Value="#cccccc"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <Style x:Key="EraTabItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource Charcoal.TabItemStyle}"/>
 
-        <!-- Helmet item border style (shared via DataTemplate, triggered by IsSelected) -->
+        <!-- One helmet design; the chosen one is outlined in red -->
         <DataTemplate x:Key="HelmetItemTemplate">
             <Border Width="100"
                     Height="120"
-                    Margin="0,0,10,10"
-                    Background="#1a1a1a"
-                    BorderThickness="2"
-                    CornerRadius="3"
+                    Margin="0,0,8,8"
+                    BorderThickness="3"
                     Cursor="Hand"
                     MouseLeftButtonDown="HelmetPreview_Click"
                     Tag="{Binding}">
                 <Border.Style>
                     <Style TargetType="Border">
-                        <Setter Property="BorderBrush" Value="#555555"/>
+                        <Setter Property="Background" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.StripHoverBrush}"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter Property="BorderBrush" Value="#c41e3a"/>
-                                <Setter Property="Background" Value="#2a1a1a"/>
-                            </DataTrigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="#888888"/>
+                                <Setter Property="BorderBrush" Value="{StaticResource Charcoal.TextMutedBrush}"/>
                             </Trigger>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
@@ -223,12 +95,7 @@
 
     </Window.Resources>
 
-    <Border BorderBrush="#c41e3a" BorderThickness="2" Margin="20">
-        <Border.Effect>
-            <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="4" Opacity="0.5"/>
-        </Border.Effect>
-
-        <Grid Background="#0a0a0a">
+    <Grid Margin="24">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -236,17 +103,14 @@
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <Border Grid.Row="0" Background="#c41e3a" Padding="20,15">
-                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_Header}"
-                           FontSize="18"
-                           FontWeight="Bold"
-                           Foreground="White"
-                           HorizontalAlignment="Center"/>
+            <Border Grid.Row="0" Style="{StaticResource Charcoal.TitleBarStyle}">
+                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_Header}" Style="{StaticResource Charcoal.TitleTextStyle}"/>
             </Border>
 
             <!-- Form Content -->
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <StackPanel Margin="30,25">
+            <Border Grid.Row="1" Style="{StaticResource Charcoal.PanelStyle}" Margin="0,14,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
 
                     <!-- Player Name -->
                     <StackPanel Margin="0,0,0,20">
@@ -260,9 +124,7 @@
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_NationalityLabel}" Style="{StaticResource InputLabelStyle}"/>
                         <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_NationalityHelp}"
-                                   FontSize="10"
-                                   Foreground="#666666"
-                                   Margin="0,0,0,6"/>
+                                   Style="{StaticResource HelpTextStyle}"/>
                         <TextBox x:Name="NationalityTextBox"
                                  Style="{StaticResource InputTextBoxStyle}"
                                  MaxLength="3"
@@ -273,9 +135,7 @@
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_PhotoFileLabel}" Style="{StaticResource InputLabelStyle}"/>
                         <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_PhotoFileHelp}"
-                                   FontSize="10"
-                                   Foreground="#666666"
-                                   Margin="0,0,0,6"/>
+                                   Style="{StaticResource HelpTextStyle}"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -284,8 +144,7 @@
                             <TextBox x:Name="PhotoFileTextBox"
                                      Grid.Column="0"
                                      Style="{StaticResource InputTextBoxStyle}"
-                                     IsReadOnly="True"
-                                     Margin="0,0,10,0"/>
+                                     IsReadOnly="True"/>
                             <Button Grid.Column="1"
                                     x:Name="BrowsePhotoButton"
                                     Click="BrowsePhotoButton_Click"
@@ -298,26 +157,19 @@
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_PhotoUrlLabel}" Style="{StaticResource InputLabelStyle}"/>
                         <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_PhotoUrlHelp}"
-                                   FontSize="10"
-                                   Foreground="#666666"
-                                   Margin="0,0,0,6"/>
+                                   Style="{StaticResource HelpTextStyle}"/>
                         <TextBox x:Name="PhotoURLTextBox"
                                  Style="{StaticResource InputTextBoxStyle}"
                                  MaxLength="500"/>
                     </StackPanel>
 
                     <!-- Helmet Design Section -->
-                    <Border Background="#1a1a1a"
-                            BorderBrush="#555555"
-                            BorderThickness="1"
-                            Padding="15"
-                            Margin="0,0,0,20">
+                    <Border Margin="0,6,0,0">
                         <StackPanel>
                             <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetDesignLabel}"
-                                       Style="{StaticResource InputLabelStyle}"
-                                       FontSize="13"
-                                       Foreground="#c41e3a"
-                                       Margin="0,0,0,15"/>
+                                       Style="{StaticResource Charcoal.HeadingTextStyle}"
+                                       FontSize="19"
+                                       Margin="0,0,0,10"/>
 
                             <!-- Era Tabs -->
                             <TabControl x:Name="EraTabControl"
@@ -344,7 +196,7 @@
                                         <!-- Default Helmets -->
                                         <StackPanel x:Name="DefaultHelmetPanel_Modern" Visibility="Visible">
                                             <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel}"
-                                                       FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
+                                                       Style="{StaticResource SubLabelStyle}" Margin="0,0,0,10"/>
                                             <ItemsControl x:Name="DefaultHelmetItemsControl_Modern"
                                                           ItemTemplate="{StaticResource HelmetItemTemplate}">
                                                 <ItemsControl.ItemsPanel>
@@ -358,27 +210,27 @@
                                         <!-- Custom Files -->
                                         <StackPanel x:Name="CustomHelmetPanel_Modern" Visibility="Collapsed">
                                             <StackPanel Margin="0,0,0,15">
-                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" Style="{StaticResource SubLabelStyle}" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBox x:Name="HelmetFileTextBox_Modern" Grid.Column="0"
-                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True"/>
                                                     <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
                                                             Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Modern"/>
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_VisorFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_VisorFileLabel}" Style="{StaticResource SubLabelStyle}" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBox x:Name="VisorFileTextBox_Modern" Grid.Column="0"
-                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True"/>
                                                     <Button Grid.Column="1" Click="BrowseVisorButton_Click"
                                                             Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Modern"/>
                                                 </Grid>
@@ -407,7 +259,7 @@
                                         <!-- Default Helmets -->
                                         <StackPanel x:Name="DefaultHelmetPanel_90s" Visibility="Visible">
                                             <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel}"
-                                                       FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
+                                                       Style="{StaticResource SubLabelStyle}" Margin="0,0,0,10"/>
                                             <ItemsControl x:Name="DefaultHelmetItemsControl_90s"
                                                           ItemTemplate="{StaticResource HelmetItemTemplate}">
                                                 <ItemsControl.ItemsPanel>
@@ -421,20 +273,20 @@
                                         <!-- Custom Files (90s only has helmet, no visor) -->
                                         <StackPanel x:Name="CustomHelmetPanel_90s" Visibility="Collapsed">
                                             <StackPanel Margin="0,0,0,15">
-                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" Style="{StaticResource SubLabelStyle}" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBox x:Name="HelmetFileTextBox_90s" Grid.Column="0"
-                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True"/>
                                                     <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
                                                             Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Nineties"/>
                                                 </Grid>
                                             </StackPanel>
                                             <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_NinetiesNoVisorNote}"
-                                                       FontSize="10" Foreground="#666666" FontStyle="Italic"/>
+                                                       Style="{StaticResource HelpTextStyle}" FontStyle="Italic"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </TabItem>
@@ -459,7 +311,7 @@
                                         <!-- Default Helmets -->
                                         <StackPanel x:Name="DefaultHelmetPanel_80s" Visibility="Visible">
                                             <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel}"
-                                                       FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
+                                                       Style="{StaticResource SubLabelStyle}" Margin="0,0,0,10"/>
                                             <ItemsControl x:Name="DefaultHelmetItemsControl_80s"
                                                           ItemTemplate="{StaticResource HelmetItemTemplate}">
                                                 <ItemsControl.ItemsPanel>
@@ -473,27 +325,27 @@
                                         <!-- Custom Files -->
                                         <StackPanel x:Name="CustomHelmetPanel_80s" Visibility="Collapsed">
                                             <StackPanel Margin="0,0,0,15">
-                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" Style="{StaticResource SubLabelStyle}" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBox x:Name="HelmetFileTextBox_80s" Grid.Column="0"
-                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True"/>
                                                     <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
                                                             Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Eighties"/>
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_VisorFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_VisorFileLabel}" Style="{StaticResource SubLabelStyle}" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBox x:Name="VisorFileTextBox_80s" Grid.Column="0"
-                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True"/>
                                                     <Button Grid.Column="1" Click="BrowseVisorButton_Click"
                                                             Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Eighties"/>
                                                 </Grid>
@@ -522,7 +374,7 @@
                                         <!-- Default Helmets -->
                                         <StackPanel x:Name="DefaultHelmetPanel_70s" Visibility="Visible">
                                             <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel}"
-                                                       FontSize="11" Foreground="#999999" Margin="0,0,0,10"/>
+                                                       Style="{StaticResource SubLabelStyle}" Margin="0,0,0,10"/>
                                             <ItemsControl x:Name="DefaultHelmetItemsControl_70s"
                                                           ItemTemplate="{StaticResource HelmetItemTemplate}">
                                                 <ItemsControl.ItemsPanel>
@@ -536,27 +388,27 @@
                                         <!-- Custom Files -->
                                         <StackPanel x:Name="CustomHelmetPanel_70s" Visibility="Collapsed">
                                             <StackPanel Margin="0,0,0,15">
-                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel}" Style="{StaticResource SubLabelStyle}" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBox x:Name="HelmetFileTextBox_70s" Grid.Column="0"
-                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True"/>
                                                     <Button Grid.Column="1" Click="BrowseHelmetButton_Click"
                                                             Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Seventies"/>
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_VisorFileLabel}" FontSize="11" Foreground="#999999" Margin="0,0,0,6"/>
+                                                <TextBlock Text="{loc:Loc Ams2PlayerCosmeticsEditorWindow_VisorFileLabel}" Style="{StaticResource SubLabelStyle}" Margin="0,0,0,6"/>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBox x:Name="VisorFileTextBox_70s" Grid.Column="0"
-                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True" Margin="0,0,10,0"/>
+                                                             Style="{StaticResource InputTextBoxStyle}" IsReadOnly="True"/>
                                                     <Button Grid.Column="1" Click="BrowseVisorButton_Click"
                                                             Style="{StaticResource BrowseButtonStyle}" Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_BrowseButton}" Tag="Seventies"/>
                                                 </Grid>
@@ -571,18 +423,15 @@
 
                 </StackPanel>
             </ScrollViewer>
+            </Border>
 
             <!-- Action Buttons -->
-            <Border Grid.Row="2"
-                    Background="#0f0f0f"
-                    BorderBrush="#222222"
-                    BorderThickness="0,1,0,0"
-                    Padding="30,20">
+            <Border Grid.Row="2" Margin="0,14,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="2"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
@@ -599,6 +448,5 @@
                             Content="{loc:Loc Ams2PlayerCosmeticsEditorWindow_SaveButton}"/>
                 </Grid>
             </Border>
-        </Grid>
-    </Border>
+    </Grid>
 </Window>

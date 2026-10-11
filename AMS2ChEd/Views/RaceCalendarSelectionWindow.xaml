@@ -9,60 +9,17 @@
         Height="900" Width="1000"
         MinHeight="560" MinWidth="760"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource PlannerBrush}"
+        Background="{StaticResource RaceCalendarSelection.WindowBackground}"
         SizeChanged="Window_SizeChanged">
 
+    <!-- This window only holds structure. How each part looks comes from the "RaceCalendarSelection.*" styles
+         of the active visual style (Themes/<style>/RaceCalendarSelection.xaml), including how a race box shows
+         whether its race is kept or skipped. -->
     <Window.Resources>
-        <Style TargetType="ScrollBar" BasedOn="{StaticResource PaperScrollBarStyle}"/>
-
-        <!-- One box of the planner: ticked in pen when the race is kept, crossed out in red when it is skipped -->
-        <Style x:Key="PlannerDayStyle" TargetType="{x:Type CheckBox}">
-            <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type CheckBox}">
-                        <Border BorderBrush="{StaticResource InkBrush}"
-                                BorderThickness="0,0,2,2"
-                                Background="Transparent"
-                                Padding="12,9"
-                                MinHeight="108">
-                            <Grid>
-                                <ContentPresenter/>
-                                <TextBlock x:Name="Tick"
-                                           Text="✓"
-                                           FontFamily="{StaticResource FontHand}"
-                                           FontSize="30"
-                                           Foreground="{StaticResource PenBlueBrush}"
-                                           HorizontalAlignment="Right"
-                                           VerticalAlignment="Top"
-                                           Margin="0,-10,0,0"
-                                           Visibility="Collapsed"/>
-                                <Grid x:Name="Cross">
-                                    <Line X1="0" Y1="0" X2="1" Y2="1" Stretch="Fill" Stroke="{StaticResource StampRedBrush}" StrokeThickness="3"/>
-                                    <Line X1="0" Y1="1" X2="1" Y2="0" Stretch="Fill" Stroke="{StaticResource StampRedBrush}" StrokeThickness="3"/>
-                                </Grid>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Tick" Property="Visibility" Value="Visible"/>
-                                <Setter TargetName="Cross" Property="Visibility" Value="Collapsed"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsChecked" Value="False">
-                    <Setter Property="Foreground" Value="{StaticResource InkFaintBrush}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource RaceCalendarSelection.ScrollBar}"/>
     </Window.Resources>
 
-    <!-- A season planner -->
-    <Grid Margin="30,24,30,26">
+    <Grid Style="{StaticResource RaceCalendarSelection.Root}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -70,44 +27,37 @@
         </Grid.RowDefinitions>
 
         <!-- Header Section -->
-        <Grid Grid.Row="0" Margin="0,0,0,14">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" Style="{StaticResource RaceCalendarSelection.Header}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0">
-                <TextBlock x:Name="SeasonText"
-                           FontFamily="{StaticResource FontPoster}"
-                           FontSize="46"
-                           Foreground="{StaticResource StampRedBrush}"/>
-                <TextBlock Text="{loc:Loc RaceCalendarSelectionWindow_Header}"
-                           Style="{StaticResource TypedTextStyle}"/>
-                <TextBlock Text="{loc:Loc RaceCalendarSelectionWindow_Subtitle}"
-                           FontFamily="{StaticResource FontHand}"
-                           FontSize="17"
-                           Foreground="{StaticResource PenBlueBrush}"
-                           TextWrapping="Wrap"
-                           Margin="0,4,0,0"/>
-            </StackPanel>
+                <StackPanel Grid.Column="0">
+                    <TextBlock x:Name="SeasonText"
+                               Style="{StaticResource RaceCalendarSelection.Season}"/>
+                    <TextBlock Text="{loc:Loc RaceCalendarSelectionWindow_Header}"
+                               Style="{StaticResource RaceCalendarSelection.Title}"/>
+                    <TextBlock Text="{loc:Loc RaceCalendarSelectionWindow_Subtitle}"
+                               Style="{StaticResource RaceCalendarSelection.Subtitle}"/>
+                </StackPanel>
 
-            <!-- Sticky note with the count -->
-            <Border Grid.Column="1" Background="{StaticResource PostItBrush}" Padding="16,12" VerticalAlignment="Bottom" Margin="20,0,0,0">
-                <Border.Effect>
-                    <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="2" Opacity="0.25"/>
-                </Border.Effect>
-                <TextBlock FontFamily="{StaticResource FontHand}" FontSize="18" Foreground="{StaticResource InkBrush}">
-                    <Run Text="{loc:Loc RaceCalendarSelectionWindow_RacesSelectedLabel}"/>
-                    <Run x:Name="SelectedCountText" Text="0" FontWeight="Bold"/>
-                    <Run Text="/"/>
-                    <Run x:Name="TotalCountText" Text="0"/>
-                </TextBlock>
-            </Border>
-        </Grid>
+                <!-- How many races are kept -->
+                <Border Grid.Column="1" Style="{StaticResource RaceCalendarSelection.CountNote}">
+                    <TextBlock Style="{StaticResource RaceCalendarSelection.CountText}">
+                        <Run Text="{loc:Loc RaceCalendarSelectionWindow_RacesSelectedLabel}"/>
+                        <Run x:Name="SelectedCountText" Text="0" Style="{StaticResource RaceCalendarSelection.CountNumber}"/>
+                        <Run Text="/"/>
+                        <Run x:Name="TotalCountText" Text="0"/>
+                    </TextBlock>
+                </Border>
+            </Grid>
+        </Border>
 
         <!-- Race boxes -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <Border BorderBrush="{StaticResource InkBrush}" BorderThickness="2,2,0,0" VerticalAlignment="Top">
+            <Border Style="{StaticResource RaceCalendarSelection.Calendar}">
                 <ItemsControl x:Name="RaceItems" Tag="4">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -117,41 +67,23 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                      Style="{StaticResource PlannerDayStyle}">
+                                      Style="{StaticResource RaceCalendarSelection.Day}">
                                 <StackPanel>
                                     <!-- Round Number -->
-                                    <TextBlock Text="{Binding RoundNumber}" FontFamily="{StaticResource FontPoster}" FontSize="22">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Foreground" Value="{StaticResource StampRedBrush}"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsSelected}" Value="False">
-                                                        <Setter Property="Foreground" Value="{StaticResource InkFaintBrush}"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
+                                    <TextBlock Text="{Binding RoundNumber}"
+                                               Style="{StaticResource RaceCalendarSelection.DayRound}"/>
 
                                     <!-- Race Name -->
                                     <TextBlock Text="{Binding RaceName}"
-                                               FontFamily="{StaticResource FontTyped}"
-                                               FontSize="18"
-                                               TextWrapping="Wrap"/>
+                                               Style="{StaticResource RaceCalendarSelection.DayName}"/>
 
                                     <!-- Circuit Name -->
                                     <TextBlock Text="{Binding CircuitName}"
-                                               FontFamily="{StaticResource FontTyped}"
-                                               FontSize="14"
-                                               Opacity="0.7"
-                                               TextWrapping="Wrap"
-                                               Margin="0,3,0,0"/>
+                                               Style="{StaticResource RaceCalendarSelection.DayCircuit}"/>
 
                                     <!-- Race Date -->
                                     <TextBlock Text="{Binding FormattedDate}"
-                                               FontFamily="{StaticResource FontTyped}"
-                                               FontSize="14"
-                                               Opacity="0.7"/>
+                                               Style="{StaticResource RaceCalendarSelection.DayDate}"/>
                                 </StackPanel>
                             </CheckBox>
                         </DataTemplate>
@@ -160,20 +92,16 @@
             </Border>
         </ScrollViewer>
 
-        <!-- Footer: warning and confirm stamp -->
-        <Grid Grid.Row="2" Margin="0,22,0,0">
+        <!-- Footer: warning and confirm button -->
+        <Grid Grid.Row="2" Style="{StaticResource RaceCalendarSelection.Footer}">
             <TextBlock x:Name="WarningText"
                        Text="{loc:Loc RaceCalendarSelectionWindow_WarningText}"
-                       Style="{StaticResource TypedTextStyle}"
-                       Foreground="{StaticResource StampRedBrush}"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
+                       Style="{StaticResource RaceCalendarSelection.Warning}"
                        Visibility="Collapsed"/>
 
             <Button x:Name="ConfirmButton"
                     Content="{loc:Loc RaceCalendarSelectionWindow_ConfirmButton}"
-                    Style="{StaticResource StampButtonStyle}"
-                    HorizontalAlignment="Right"
+                    Style="{StaticResource RaceCalendarSelection.ConfirmButton}"
                     Click="ConfirmButton_Click"/>
         </Grid>
     </Grid>

@@ -5,62 +5,62 @@
         Title="{loc:Loc PrerequisiteSetupWindow_Title}"
         Height="530" Width="560"
         WindowStartupLocation="CenterScreen"
-        Background="#1a1a1a"
+        Background="{StaticResource Charcoal.BackgroundBrush}"
         ResizeMode="NoResize">
 
+    <!-- A utility window: it wears the charcoal look whatever the visual style. The "Charcoal.*" resources
+         are not defined in this project: the host application provides them in its application resources
+         (Themes/Charcoal/Base.xaml, merged by its App.xaml). -->
     <Window.Resources>
-        <Style x:Key="MenuButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#c41e3a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#d32f2f"/>
-                </Trigger>
-            </Style.Triggers>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
+
+        <Style x:Key="StepHeader" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+            <Setter Property="FontSize" Value="19"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+        </Style>
+        <Style x:Key="BodyText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
         </Style>
     </Window.Resources>
 
-    <Grid Margin="30">
+    <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0"
-                   Text="{loc:Loc PrerequisiteSetupWindow_Header}"
-                   FontSize="26"
-                   FontWeight="Bold"
-                   Foreground="White"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,20"/>
+        <Border Grid.Row="0" Style="{StaticResource Charcoal.TitleBarStyle}">
+            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Header}" Style="{StaticResource Charcoal.TitleTextStyle}"/>
+        </Border>
 
-        <StackPanel Grid.Row="1">
-            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Intro}" Foreground="#cccccc" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,15"/>
-            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step1Header}" Foreground="White" FontSize="14" TextWrapping="Wrap" FontWeight="Bold" Margin="0,0,0,8"/>
-            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step1Body}" Foreground="#cccccc" FontSize="13" TextWrapping="Wrap" Margin="0,0,0,15"/>
-            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step2Header}" Foreground="White" FontSize="14" TextWrapping="Wrap" FontWeight="Bold" Margin="0,0,0,8"/>
-            <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step2Body}" Foreground="#cccccc" FontSize="13" TextWrapping="Wrap"/>
-        </StackPanel>
+        <Border Grid.Row="1" Style="{StaticResource Charcoal.PanelStyle}" Margin="0,14,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Intro}" Style="{StaticResource BodyText}"/>
+                    <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step1Header}" Style="{StaticResource StepHeader}"/>
+                    <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step1Body}" Style="{StaticResource BodyText}"/>
+                    <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step2Header}" Style="{StaticResource StepHeader}"/>
+                    <TextBlock Text="{loc:Loc PrerequisiteSetupWindow_Step2Body}" Style="{StaticResource BodyText}" Margin="0"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
 
-        <CheckBox x:Name="DontShowAgainCheckBox"
-                  Grid.Row="2"
-                  Content="{loc:Loc PrerequisiteSetupWindow_DontShowAgain}"
-                  Foreground="#cccccc"
-                  FontSize="13"
-                  Margin="0,15,0,10"/>
+        <Grid Grid.Row="2" Margin="0,14,0,0">
+            <CheckBox x:Name="DontShowAgainCheckBox"
+                      Content="{loc:Loc PrerequisiteSetupWindow_DontShowAgain}"
+                      Style="{StaticResource Charcoal.CheckBoxStyle}"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Center"/>
 
-        <Button Grid.Row="3"
-                Content="{loc:Loc PrerequisiteSetupWindow_GotItButton}"
-                Width="150"
-                HorizontalAlignment="Center"
-                Style="{StaticResource MenuButtonStyle}"
-                Click="OkButton_Click"/>
+            <Button Content="{loc:Loc PrerequisiteSetupWindow_GotItButton}"
+                    Style="{StaticResource Charcoal.DialogPrimaryButtonStyle}"
+                    HorizontalAlignment="Right"
+                    Click="OkButton_Click"/>
+        </Grid>
     </Grid>
 </Window>

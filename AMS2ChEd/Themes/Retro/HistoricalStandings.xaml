@@ -1,0 +1,115 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Past seasons as a teletext page: the coloured keys at the bottom select the season.
+         Builds on the shared teletext resources of RetroTheme.xaml. -->
+
+    <SolidColorBrush x:Key="HistoricalStandings.WindowBackground" Color="#050505"/>
+
+    <!-- size of the page text, and its size on a wide window (like a bigger TV); the title is drawn larger in proportion -->
+    <sys:Double x:Key="HistoricalStandings.FontSize">26</sys:Double>
+    <sys:Double x:Key="HistoricalStandings.WideFontSize">36</sys:Double>
+
+    <Style x:Key="HistoricalStandings.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource TeletextScrollBarStyle}"/>
+
+    <Style x:Key="HistoricalStandings.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="36,24,36,20"/>
+        <Setter Property="TextElement.FontFamily" Value="{StaticResource FontScreen}"/>
+        <Setter Property="TextElement.Foreground" Value="White"/>
+    </Style>
+
+    <!-- Page header -->
+    <Style x:Key="HistoricalStandings.PageHeader" TargetType="Grid"/>
+
+    <Style x:Key="HistoricalStandings.PageHeaderText" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.PageNumber" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextCyanBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <!-- Title -->
+    <Style x:Key="HistoricalStandings.TitleBar" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource TeletextBlueBrush}"/>
+        <Setter Property="Padding" Value="12,2"/>
+        <Setter Property="Margin" Value="0,8,0,14"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.Title" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextYellowBrush}"/>
+    </Style>
+
+    <!-- Standings: plain lines of coloured text -->
+    <Style x:Key="HistoricalStandings.SectionHeader" TargetType="Border"/>
+
+    <Style x:Key="HistoricalStandings.SectionTitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextGreenBrush}"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.Row" TargetType="Border"/>
+
+    <Style x:Key="HistoricalStandings.RowPosition" TargetType="TextBlock"/>
+
+    <Style x:Key="HistoricalStandings.RowName" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextYellowBrush}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.RowTeam" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextCyanBrush}"/>
+        <Setter Property="Margin" Value="10,0"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.RowPoints" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <!-- Year selector -->
+    <Style x:Key="HistoricalStandings.SelectSeasonLabel" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TeletextMagentaBrush}"/>
+        <Setter Property="Margin" Value="0,14,0,8"/>
+    </Style>
+
+    <!-- Season key: red, green, yellow, cyan in turn like the coloured buttons of a remote; the selected season is white -->
+    <Style x:Key="HistoricalStandings.YearKey" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#ff3c3c"/>
+        <Setter Property="Foreground" Value="#050505"/>
+        <Setter Property="Margin" Value="0,0,26,8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" Padding="12,0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ContentPresenter}}" Value="1">
+                <Setter Property="Background" Value="{StaticResource TeletextGreenBrush}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ContentPresenter}}" Value="2">
+                <Setter Property="Background" Value="{StaticResource TeletextYellowBrush}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ContentPresenter}}" Value="3">
+                <Setter Property="Background" Value="{StaticResource TeletextCyanBrush}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                <Setter Property="Background" Value="White"/>
+            </DataTrigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- shown instead of the keys when no season has been completed yet -->
+    <Style x:Key="HistoricalStandings.Empty" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+</ResourceDictionary>

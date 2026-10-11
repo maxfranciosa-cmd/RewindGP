@@ -5,292 +5,121 @@
         Title="{loc:Loc OptionsWindow_Title}"
         Height="600" Width="720"
         WindowStartupLocation="CenterScreen"
-        Background="#1a1a1a"
+        Background="{StaticResource Charcoal.BackgroundBrush}"
         ResizeMode="NoResize">
 
+    <!-- A utility window: it wears the charcoal look whatever the visual style. The "Charcoal.*" resources
+         are not defined in this project: the host application provides them in its application resources
+         (Themes/Charcoal/Base.xaml, merged by its App.xaml). -->
     <Window.Resources>
-
-
-        <Style x:Key="MenuButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#c41e3a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#d32f2f"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#555555"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#666666"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="LabelStyle" TargetType="Label">
-            <Setter Property="Foreground" Value="#cccccc"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Margin" Value="0,0,0,5"/>
-        </Style>
-
-        <Style x:Key="TextBoxStyle" TargetType="TextBox">
-            <Setter Property="Background" Value="#2a2a2a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#c41e3a"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-
-        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Background" Value="#2a2a2a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#c41e3a"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <ToggleButton x:Name="ToggleButton" 
-                                        Background="#2a2a2a"
-                                        BorderBrush="#c41e3a"
-                                        BorderThickness="2"
-                                        Focusable="False"
-                                        IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                        ClickMode="Press">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <Grid>
-                                            <Border x:Name="Border" 
-                                                  Background="{TemplateBinding Background}"
-                                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                                  BorderThickness="{TemplateBinding BorderThickness}"/>
-                                            <Path x:Name="Arrow" 
-                                                HorizontalAlignment="Right" 
-                                                VerticalAlignment="Center"
-                                                Margin="0,0,10,0"
-                                                Data="M 0 0 L 4 4 L 8 0 Z"
-                                                Fill="White"/>
-                                        </Grid>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
-                            <ContentPresenter x:Name="ContentSite"
-                                            IsHitTestVisible="False"
-                                            Content="{TemplateBinding SelectionBoxItem}"
-                                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                            Margin="5,3,23,3"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left">
-                                <ContentPresenter.Resources>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Style>
-                                </ContentPresenter.Resources>
-                            </ContentPresenter>
-                            <Popup x:Name="Popup"
-                                 Placement="Bottom"
-                                 IsOpen="{TemplateBinding IsDropDownOpen}"
-                                 AllowsTransparency="True"
-                                 Focusable="False"
-                                 PopupAnimation="Slide">
-                                <Grid x:Name="DropDown"
-                                    SnapsToDevicePixels="True"
-                                    MinWidth="{TemplateBinding ActualWidth}"
-                                    MaxHeight="200">
-                                    <Border x:Name="DropDownBorder"
-                                          Background="#2a2a2a"
-                                          BorderBrush="#c41e3a"
-                                          BorderThickness="2"/>
-                                    <ScrollViewer Margin="2" SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
-                                    </ScrollViewer>
-                                </Grid>
-                            </Popup>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Resources>
-                <Style TargetType="ComboBoxItem">
-                    <Setter Property="Background" Value="#2a2a2a"/>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ComboBoxItem">
-                                <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="0">
-                                    <ContentPresenter Margin="5,3,5,3"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsHighlighted" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="#c41e3a"/>
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="#d32f2f"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Style.Resources>
+        <Style x:Key="FieldComboBox" TargetType="ComboBox" BasedOn="{StaticResource Charcoal.ComboBoxStyle}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Width" Value="400"/>
         </Style>
     </Window.Resources>
 
-    <Grid>
+    <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <StackPanel Grid.Row="0" Background="#0d0d0d" Margin="20">
-            <TextBlock Text="{loc:Loc OptionsWindow_HeaderText}"
-                       FontSize="32"
-                       FontWeight="Bold"
-                       Foreground="White"
-                       HorizontalAlignment="Center"/>
-        </StackPanel>
+        <Border Grid.Row="0" Style="{StaticResource Charcoal.TitleBarStyle}">
+            <TextBlock Text="{loc:Loc OptionsWindow_HeaderText}" Style="{StaticResource Charcoal.TitleTextStyle}"/>
+        </Border>
 
         <!-- Content -->
-        <Grid Grid.Row="1" Margin="40,20,40,30">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <!-- AMS2 Folder Section -->
-            <StackPanel Grid.Row="0">
-                <Label Content="{loc:Loc OptionsWindow_Ams2FolderLabel}" Style="{StaticResource LabelStyle}"/>
-                <Grid>
+        <Border Grid.Row="1" Style="{StaticResource Charcoal.PanelStyle}" Margin="0,14,0,0">
+            <StackPanel>
+                <!-- AMS2 Folder Section -->
+                <Label Content="{loc:Loc OptionsWindow_Ams2FolderLabel}" Style="{StaticResource Charcoal.FieldLabelStyle}"/>
+                <Grid Margin="0,0,0,18">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="AMS2FolderTextBox"
                              Grid.Column="0"
-                             Style="{StaticResource TextBoxStyle}"
-                             Margin="0,0,10,0"/>
+                             Style="{StaticResource Charcoal.TextBoxStyle}"/>
                     <Button Grid.Column="1"
                             Content="{loc:Loc OptionsWindow_BrowseButton}"
-                            Width="100"
+                            Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}"
+                            FontSize="16"
+                            Padding="18,0"
+                            MinWidth="100"
                             Height="35"
-                            Background="#666666"
-                            Foreground="White"
-                            FontWeight="Bold"
-                            BorderThickness="0"
-                            Cursor="Hand"
-                            Click="BrowseButton_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#666666"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#777777"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                            Margin="2,0,0,0"
+                            Click="BrowseButton_Click"/>
                 </Grid>
-            </StackPanel>
 
-            <StackPanel Grid.Row="1">
-                <Label Content="{loc:Loc OptionsWindow_InGamePlayerNameLabel}" Style="{StaticResource LabelStyle}"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="AMS2PlayerNameTextBox"
-                             Grid.Column="0"
-                             Style="{StaticResource TextBoxStyle}"
-                             Margin="0,0,0,0"/>
-                </Grid>
-            </StackPanel>
+                <Label Content="{loc:Loc OptionsWindow_InGamePlayerNameLabel}" Style="{StaticResource Charcoal.FieldLabelStyle}"/>
+                <TextBox x:Name="AMS2PlayerNameTextBox"
+                         Style="{StaticResource Charcoal.TextBoxStyle}"
+                         Margin="0,0,0,18"/>
 
-            <!-- Race Length Section -->
-            <StackPanel Grid.Row="2" VerticalAlignment="Top">
-                <Label Content="{loc:Loc OptionsWindow_RaceLengthLabel}" Style="{StaticResource LabelStyle}"/>
+                <!-- Race Length Section -->
+                <Label Content="{loc:Loc OptionsWindow_RaceLengthLabel}" Style="{StaticResource Charcoal.FieldLabelStyle}"/>
                 <ComboBox x:Name="RaceLengthComboBox"
-                          Style="{StaticResource ComboBoxStyle}"
-                          Height="35"
-                          FontSize="14"
-                          VerticalContentAlignment="Center"
-                          HorizontalAlignment="Left"
-                          Width="400">
+                          Style="{StaticResource FieldComboBox}"
+                          Margin="0,0,0,18">
                     <ComboBoxItem Content="{loc:Loc OptionsWindow_RaceLength_Default}" Tag="Default"/>
                     <ComboBoxItem Content="{loc:Loc OptionsWindow_RaceLength_OneThird}" Tag="OneThird"/>
                     <ComboBoxItem Content="{loc:Loc OptionsWindow_RaceLength_Half}" Tag="Half"/>
                     <ComboBoxItem Content="{loc:Loc OptionsWindow_RaceLength_Full}" Tag="Full"/>
                 </ComboBox>
-            </StackPanel>
 
-            <!-- Auto-Launch Section -->
-            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,10">
+                <!-- Language and visual style, side by side: both take effect at the next launch -->
+                <Grid Margin="0,0,0,22">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <Label Content="{loc:Loc OptionsWindow_LanguageLabel}" Style="{StaticResource Charcoal.FieldLabelStyle}"/>
+                        <!-- Language names are shown in their own language, not translated - standard
+                             convention, and avoids a resx round-trip just to list languages. -->
+                        <ComboBox x:Name="LanguageComboBox" Style="{StaticResource Charcoal.ComboBoxStyle}">
+                            <ComboBoxItem Content="English" Tag="en"/>
+                            <ComboBoxItem Content="Italiano" Tag="it"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- the tags are the AppStyle names -->
+                    <StackPanel Grid.Column="2">
+                        <Label Content="{loc:Loc OptionsWindow_StyleLabel}" Style="{StaticResource Charcoal.FieldLabelStyle}"/>
+                        <ComboBox x:Name="StyleComboBox" Style="{StaticResource Charcoal.ComboBoxStyle}">
+                            <ComboBoxItem Content="{loc:Loc OptionsWindow_Style_Retro}" Tag="Retro"/>
+                            <ComboBoxItem Content="{loc:Loc OptionsWindow_Style_Charcoal}" Tag="Charcoal"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Auto-Launch Section -->
                 <CheckBox x:Name="AutoLaunchCheckBox"
                           Content="{loc:Loc OptionsWindow_AutoLaunchLabel}"
-                          Foreground="#cccccc" FontSize="14" FontWeight="SemiBold"
-                          VerticalContentAlignment="Center"/>
+                          Style="{StaticResource Charcoal.CheckBoxStyle}"
+                          HorizontalAlignment="Left"/>
             </StackPanel>
+        </Border>
 
-            <!-- Language Section -->
-            <StackPanel Grid.Row="4" VerticalAlignment="Top">
-                <Label Content="{loc:Loc OptionsWindow_LanguageLabel}" Style="{StaticResource LabelStyle}"/>
-                <!-- Language names are shown in their own language, not translated - standard
-                     convention, and avoids a resx round-trip just to list languages. -->
-                <ComboBox x:Name="LanguageComboBox"
-                          Height="35"
-                          FontSize="14"
-                          Style="{StaticResource ComboBoxStyle}"
-                          VerticalContentAlignment="Center"
-                          HorizontalAlignment="Left"
-                          Width="400">
-                    <ComboBoxItem Content="English" Tag="en"/>
-                    <ComboBoxItem Content="Italiano" Tag="it"/>
-                </ComboBox>
-            </StackPanel>
-
-            <!-- Buttons -->
-            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+        <!-- Buttons: restoring the game files stands apart from saving and closing -->
+        <Grid Grid.Row="2" Margin="0,14,0,0">
+            <Button Content="{loc:Loc OptionsWindow_RestoreVehicleFilesButton}"
+                    Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}"
+                    FontSize="16"
+                    HorizontalAlignment="Left"
+                    Click="RestoreVehicleFilesButton_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="{loc:Loc OptionsWindow_SaveButton}"
-                        Width="150"
-                        Margin="0,0,10,0"
-                        Style="{StaticResource MenuButtonStyle}"
+                        Style="{StaticResource Charcoal.DialogPrimaryButtonStyle}"
                         Click="SaveButton_Click"/>
-                <Button Content="{loc:Loc OptionsWindow_RestoreVehicleFilesButton}"
-                        Width="270"
-                        Margin="0,0,10,0"
-                        FontSize="12"
-                        Style="{StaticResource SecondaryButtonStyle}"
-                        Click="RestoreVehicleFilesButton_Click"/>
                 <Button Content="{loc:Loc OptionsWindow_CloseButton}"
-                        Width="150"
-                        Style="{StaticResource SecondaryButtonStyle}"
+                        Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}"
+                        Margin="2,0,0,0"
                         Click="CloseButton_Click"/>
             </StackPanel>
         </Grid>
