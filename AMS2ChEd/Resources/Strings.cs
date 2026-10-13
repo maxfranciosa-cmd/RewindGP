@@ -282,6 +282,9 @@ namespace AMS2ChEd.Resources
         public static string RaceWeekendWindow_Session_Race_Classic => ResourceManager.GetString(nameof(RaceWeekendWindow_Session_Race_Classic))!;
         public static string RaceWeekendWindow_Session_Unknown_Classic => ResourceManager.GetString(nameof(RaceWeekendWindow_Session_Unknown_Classic))!;
         public static string RaceWeekendWindow_FinishSessionFirst_Message => ResourceManager.GetString(nameof(RaceWeekendWindow_FinishSessionFirst_Message))!;
+        public static string RaceWeekendWindow_RaceFinishNotSeen_Title => ResourceManager.GetString(nameof(RaceWeekendWindow_RaceFinishNotSeen_Title))!;
+        public static string RaceWeekendWindow_RaceFinishNotSeen_Message => ResourceManager.GetString(nameof(RaceWeekendWindow_RaceFinishNotSeen_Message))!;
+        public static string RaceWeekendWindow_NoRaceSeen_Message => ResourceManager.GetString(nameof(RaceWeekendWindow_NoRaceSeen_Message))!;
         public static string RaceWeekendWindow_Info_Title => ResourceManager.GetString(nameof(RaceWeekendWindow_Info_Title))!;
         public static string RaceWeekendWindow_UseControlWindow_Message => ResourceManager.GetString(nameof(RaceWeekendWindow_UseControlWindow_Message))!;
         public static string RaceWeekendWindow_DefaultCircuitName => ResourceManager.GetString(nameof(RaceWeekendWindow_DefaultCircuitName))!;

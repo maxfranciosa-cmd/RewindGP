@@ -871,6 +871,21 @@ Your result has been recorded as Did Not Qualify (DNQ). The race weekend will be
   <data name="RaceWeekendWindow_FinishSessionFirst_Message" xml:space="preserve">
     <value>Please finish the current session first!</value>
   </data>
+  <data name="RaceWeekendWindow_RaceFinishNotSeen_Title" xml:space="preserve">
+    <value>Race finish not detected</value>
+  </data>
+  <data name="RaceWeekendWindow_RaceFinishNotSeen_Message" xml:space="preserve">
+    <value>Rewind GP hasn't seen this race finish - for example if you left the session before the chequered flag.
+
+Yes: record the race using the last positions Rewind GP saw
+No: close without recording the race
+Cancel: keep waiting for the finish</value>
+  </data>
+  <data name="RaceWeekendWindow_NoRaceSeen_Message" xml:space="preserve">
+    <value>Rewind GP hasn't seen this race being driven, so nothing will be recorded if you close now.
+
+Close anyway?</value>
+  </data>
   <data name="RaceWeekendWindow_Info_Title" xml:space="preserve">
     <value>Info</value>
   </data>

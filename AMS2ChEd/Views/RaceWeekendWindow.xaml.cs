@@ -6,6 +6,7 @@ using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Services.Mocks;
 using AMS2ChEd.Business.Services.RaceNumberSystem.Factory;
 using AMS2ChEd.Resources;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -96,6 +97,14 @@ namespace AMS2ChEd.Views
         private bool _showRaceSetupAfterLoad;
         private string _originalGrandPrixName = "";
         private string _originalCircuitName = "";
+
+        // Race-result recording - see OnSessionFinished's Race case. The result is recorded and
+        // saved before anything waits on the player, so nothing they press can lose it.
+        private bool _raceResultHandling;   // a race result is being processed: ignore another, don't close
+        private bool _raceResultRecorded;   // RaceCompleted has fired for this weekend
+        private TaskCompletionSource _playerBackInApp;
+        private List<ParticipantData> _lastRaceStandings; // latest standings while the race was being driven
+        private bool _isClosed;
 
         public event EventHandler<ISaveGame> RaceCompleted;
         public event EventHandler<List<ParticipantData>> PreQualiResultsReady;
@@ -258,6 +267,15 @@ namespace AMS2ChEd.Views
 
         private void OnSessionUpdated(object sender, SessionUpdateEventArgs e)
         {
+            // Remember the race as it's being driven, so End race can still record it when the
+            // finish is never seen (see ConfirmLeavingUnrecordedRace). Each update carries a new
+            // list, so keeping the reference is safe.
+            var session = e.SessionData;
+            if (!_preQualiMode && session.SessionType == SessionType.Race && session.IsSessionActive && session.Standings?.Any() == true)
+            {
+                _lastRaceStandings = session.Standings;
+            }
+
             // Update UI on the dispatcher thread
             Dispatcher.Invoke(() =>
             {
@@ -286,15 +304,19 @@ namespace AMS2ChEd.Views
                         break;
 
                     case SessionType.Race:
+                        // One result per weekend: a late finish event after the player already
+                        // recorded the race from the last standings seen is ignored.
+                        if (_raceResultHandling || _raceResultRecorded)
+                            return;
+                        _raceResultHandling = true;
+
                         // Let the player know they can come back to Rewind GP now, without having
-                        // to alt-tab out of the game themselves. Await this before showing any of
-                        // our own windows/dialogs below - otherwise they pop up behind the
-                        // still-foregrounded game, and the modal ones among them block this whole
-                        // dispatcher callback invisibly until the player alt-tabs.
-                        if (_gameLogicFactory.RaceLaunchAssistant != null)
-                        {
-                            await _gameLogicFactory.RaceLaunchAssistant.ShowReturnOverlayAsync(this);
-                        }
+                        // to alt-tab out of the game themselves - but don't wait on it yet. The
+                        // result is recorded and saved first, so pressing End race, closing this
+                        // window or never dismissing the overlay can't lose it. Only showing our
+                        // own windows waits for the player: otherwise they pop up behind the
+                        // still-foregrounded game, and the modal ones block this callback invisibly.
+                        var playerReturned = WaitForPlayerToReturnAsync();
 
                         // Strip unrecognised placeholders from both sessions
                         var finalStandings = e.FinalStandings
@@ -320,6 +342,9 @@ namespace AMS2ChEd.Views
                                 allDriverIds.Where(id => !qualiPresentIds.Contains(id)), saveGame.NextGpEntryList);
                             var missingRaceDriverOptions = BuildMissingDriverOptions(
                                 allDriverIds.Where(id => !racePresentIds.Contains(id)), saveGame.NextGpEntryList);
+
+                            // the gaps need the player, so this is the one step that waits for them
+                            await playerReturned;
 
                             var manualWindow = new MissingDriversResultWindow(
                                 missingQualiPositions, missingQualiDriverOptions,
@@ -400,26 +425,6 @@ namespace AMS2ChEd.Views
                             _raceDataService.Stop();
                         }
 
-                        // Show post-race newspaper
-                        var winnerDriverData = saveGame.Drivers.FirstOrDefault(d => d.DriverId == winner.DriverId);
-                        var winnerPhoto = winnerDriverData?.PictureUrl;
-                        var raceDate = DateTime.ParseExact(gpDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                        var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, raceDate, winnerPhoto, _gameLogicFactory.AllTimeRecordsLoader);
-                        newsWindow.Owner = this;
-
-                        // paddock news about team-orders reprimands follows the race report
-                        if (reprimandNews.Any())
-                        {
-                            newsWindow.Closed += (_, _) =>
-                            {
-                                var paddockNewsWindow = new PaddockNewsWindow(saveGame, reprimandNews, raceDate, grandPrixName);
-                                paddockNewsWindow.Owner = this;
-                                paddockNewsWindow.Show();
-                            };
-                        }
-
-                        newsWindow.Show();
-
                         // Keep the race results visible after stopping the service
                         Dispatcher.Invoke(() =>
                         {
@@ -427,9 +432,33 @@ namespace AMS2ChEd.Views
                             StandingsContent.Visibility = Visibility.Visible;
                         });
 
-
-                        // Fire event with updated saveGame
+                        // Fire event with updated saveGame - this is what saves it to disk, so it
+                        // happens before anything waits on the player
                         RaceCompleted?.Invoke(this, saveGame);
+                        _raceResultRecorded = true;
+                        _raceResultHandling = false;
+
+                        await playerReturned;
+
+                        // Show post-race newspaper (owned by this window only while it's still open)
+                        var winnerDriverData = saveGame.Drivers.FirstOrDefault(d => d.DriverId == winner.DriverId);
+                        var winnerPhoto = winnerDriverData?.PictureUrl;
+                        var raceDate = DateTime.ParseExact(gpDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, raceDate, winnerPhoto, _gameLogicFactory.AllTimeRecordsLoader);
+                        if (!_isClosed) newsWindow.Owner = this;
+
+                        // paddock news about team-orders reprimands follows the race report
+                        if (reprimandNews.Any())
+                        {
+                            newsWindow.Closed += (_, _) =>
+                            {
+                                var paddockNewsWindow = new PaddockNewsWindow(saveGame, reprimandNews, raceDate, grandPrixName);
+                                if (!_isClosed) paddockNewsWindow.Owner = this;
+                                paddockNewsWindow.Show();
+                            };
+                        }
+
+                        newsWindow.Show();
                         break;
                 }
             });
@@ -955,9 +984,19 @@ namespace AMS2ChEd.Views
 
         private void NextSession_Click(object sender, RoutedEventArgs e)
         {
+            // A race result is on its way, or recorded with its newspaper still waiting for the
+            // player: End race means "I'm back" - carry on with it rather than closing past it.
+            if (_playerBackInApp is { Task.IsCompleted: false })
+            {
+                _playerBackInApp.TrySetResult();
+                return;
+            }
+
             var currentSession = _raceDataService.CurrentSession;
 
-            if (currentSession.IsSessionActive)
+            // Once the race is recorded the data service is stopped, and its last state may still
+            // say "active" (it's stopped at the chequered flag, often mid cool-down lap).
+            if (!_raceResultRecorded && currentSession.IsSessionActive)
             {
                 MessageBox.Show(Strings.RaceWeekendWindow_FinishSessionFirst_Message, Strings.RaceWeekendWindow_Info_Title,
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -972,11 +1011,81 @@ namespace AMS2ChEd.Views
                 return;
             }
 
+            if (!_preQualiMode && !_raceResultRecorded && !ConfirmLeavingUnrecordedRace())
+                return;
+
             this.Close();
+        }
+
+        /// <summary>
+        /// End race pressed without Rewind GP having seen the race finish (the player left before
+        /// the chequered flag, or the finish was missed): rather than closing and losing the race,
+        /// offer to record it from the last standings seen while it was being driven. Returns true
+        /// when the window should close.
+        /// </summary>
+        private bool ConfirmLeavingUnrecordedRace()
+        {
+            if (_lastRaceStandings?.Any() == true)
+            {
+                var answer = MessageBox.Show(Strings.RaceWeekendWindow_RaceFinishNotSeen_Message, Strings.RaceWeekendWindow_RaceFinishNotSeen_Title,
+                    MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+
+                if (answer == MessageBoxResult.Yes)
+                {
+                    // same path as a detected finish, so gaps still go through the missing-drivers window
+                    OnSessionFinished(this, new SessionFinishedEventArgs
+                    {
+                        CompletedSession = SessionType.Race,
+                        FinalStandings = _lastRaceStandings.ToList()
+                    });
+                    return false;
+                }
+
+                return answer == MessageBoxResult.No;
+            }
+
+            return MessageBox.Show(Strings.RaceWeekendWindow_NoRaceSeen_Message, Strings.RaceWeekendWindow_RaceFinishNotSeen_Title,
+                MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes;
+        }
+
+        /// <summary>
+        /// Resolves once the player is back in Rewind GP: they dismissed the in-game return overlay,
+        /// pressed End race, or tried to close this window. When they're already here (e.g.
+        /// recording from the last standings), there's no overlay to show at all.
+        /// </summary>
+        private Task WaitForPlayerToReturnAsync()
+        {
+            _playerBackInApp = new TaskCompletionSource();
+            if (IsActive)
+            {
+                _playerBackInApp.TrySetResult();
+                return Task.CompletedTask;
+            }
+
+            var overlay = _gameLogicFactory.RaceLaunchAssistant?.ShowReturnOverlayAsync(this) ?? Task.CompletedTask;
+            return Task.WhenAny(overlay, _playerBackInApp.Task);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            // Don't close while a race result is waiting on the player: treat it as the player
+            // being back, so the recording finishes (and the missing-drivers window shows, if it's
+            // needed). Only the first attempt is held back - a second one always closes, so the
+            // window can never get stuck open.
+            if (_raceResultHandling && !_raceResultRecorded && _playerBackInApp is { Task.IsCompleted: false })
+            {
+                e.Cancel = true;
+                _playerBackInApp?.TrySetResult();
+                return;
+            }
+
+            base.OnClosing(e);
         }
 
         protected override void OnClosed(EventArgs e)
         {
+            _isClosed = true;
+
             // Unsubscribe from events
             _raceDataService.SessionUpdated -= OnSessionUpdated;
             _raceDataService.SessionFinished -= OnSessionFinished;
