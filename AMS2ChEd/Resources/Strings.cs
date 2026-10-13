@@ -438,6 +438,12 @@ namespace AMS2ChEd.Resources
         public static string PostRaceNewsWindow_FirstPodium1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_FirstPodium1_Format))!;
         public static string PostRaceNewsWindow_FirstPodium2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_FirstPodium2_Format))!;
         public static string PostRaceNewsWindow_FirstPodium3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_FirstPodium3_Format))!;
+        public static string PostRaceNewsWindow_Legend_Level1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Level1_Format))!;
+        public static string PostRaceNewsWindow_Legend_Level2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Level2_Format))!;
+        public static string PostRaceNewsWindow_Legend_Passed1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Passed1_Format))!;
+        public static string PostRaceNewsWindow_Legend_Passed2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Passed2_Format))!;
+        public static string PostRaceNewsWindow_Legend_Record1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Record1_Format))!;
+        public static string PostRaceNewsWindow_Legend_Record2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Record2_Format))!;
         public static string PostRaceNewsWindow_Dnf1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Dnf1_Format))!;
         public static string PostRaceNewsWindow_Dnf2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Dnf2_Format))!;
         public static string PostRaceNewsWindow_Dnf3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Dnf3_Format))!;
@@ -728,6 +734,12 @@ namespace AMS2ChEd.Resources
         public static string ChampionshipCelebrationWindow_Milestone_ChampionshipWord_Plural => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Milestone_ChampionshipWord_Plural))!;
         public static string ChampionshipCelebrationWindow_Milestone_Variant1_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Milestone_Variant1_Format))!;
         public static string ChampionshipCelebrationWindow_Milestone_Variant2_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Milestone_Variant2_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_NameList_Two_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_NameList_Two_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_Joins1_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_Joins1_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_Joins2_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_Joins2_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_Passes_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_Passes_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_Record_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_Record_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_ExtendsRecord_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_ExtendsRecord_Format))!;
         public static string ChampionshipCelebrationWindow_StandingsHeader => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_StandingsHeader))!;
         public static string ChampionshipCelebrationWindow_StandingsLine_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_StandingsLine_Format))!;
         public static string ChampionshipCelebrationWindow_StandingsPointsWord_Singular => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_StandingsPointsWord_Singular))!;

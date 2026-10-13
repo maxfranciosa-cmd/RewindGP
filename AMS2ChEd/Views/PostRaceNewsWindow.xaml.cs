@@ -1,6 +1,7 @@
 ﻿using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Localization;
 using AMS2ChEd.Resources;
@@ -20,7 +21,8 @@ namespace AMS2ChEd.Views
             int previousWinnerStandingPosition,
             List<string> previousTopThreeDriverIds,
             DateTime grandPrixDate,
-            string winnerPortraitPath)
+            string winnerPortraitPath,
+            IAllTimeRecordsLoader allTimeRecordsLoader = null)
         {
             InitializeComponent();
 
@@ -35,14 +37,15 @@ namespace AMS2ChEd.Views
             }
 
             // Generate the article
-            GenerateArticle(saveGame, raceResult, previousWinnerStandingPosition, previousTopThreeDriverIds);
+            GenerateArticle(saveGame, raceResult, previousWinnerStandingPosition, previousTopThreeDriverIds, allTimeRecordsLoader);
         }
 
         private void GenerateArticle(
             ISaveGame saveGame,
             GrandPrixResult raceResult,
             int previousWinnerStandingPosition,
-            List<string> previousTopThreeDriverIds)
+            List<string> previousTopThreeDriverIds,
+            IAllTimeRecordsLoader allTimeRecordsLoader)
         {
             // Get podium finishers
             var winner = raceResult.RaceResults.FirstOrDefault(d => d.Position == 1);
@@ -183,6 +186,14 @@ namespace AMS2ChEd.Views
             article += GenerateCareerMilestoneParagraph(winnerName, winnerTeam, winnerDriverAccolades, winnerTeamAccolades, isMaidenWin);
             article += "\n\n";
 
+            // Legends: the winner draws level with, or goes past, one of the greats
+            string legendParagraph = GenerateLegendParagraph(saveGame, winner.DriverId, winnerName, allTimeRecordsLoader);
+            if (!string.IsNullOrEmpty(legendParagraph))
+            {
+                article += legendParagraph;
+                article += "\n\n";
+            }
+
             // First-ever career podium for any of today's podium finishers
             string firstPodiumParagraph = GenerateFirstPodiumParagraph(saveGame, winner, winnerName, isMaidenWin, second, secondName, third, thirdName);
             if (!string.IsNullOrEmpty(firstPodiumParagraph))
@@ -272,6 +283,29 @@ namespace AMS2ChEd.Views
             }
 
             return string.Format(Strings.PostRaceNewsWindow_Headline_Standard_Format, upperName, upperGp);
+        }
+
+        // Argument order standardized as (winnerName, legendName, winnerWins, legendWins), so each
+        // language's resx template can freely reorder or drop placeholders.
+        private string GenerateLegendParagraph(ISaveGame saveGame, string winnerId, string winnerName, IAllTimeRecordsLoader allTimeRecordsLoader)
+        {
+            if (allTimeRecordsLoader == null)
+                return "";
+
+            var hallOfFame = HallOfFameCalculator.Build(saveGame, allTimeRecordsLoader.LoadDrivers());
+            var milestone = LegendsCalculator.FindWinMilestone(hallOfFame, winnerId);
+            if (milestone == null)
+                return "";
+
+            var variants = milestone.Kind switch
+            {
+                WinMilestoneKind.LEVEL => new[] { Strings.PostRaceNewsWindow_Legend_Level1_Format, Strings.PostRaceNewsWindow_Legend_Level2_Format },
+                WinMilestoneKind.PASSED => new[] { Strings.PostRaceNewsWindow_Legend_Passed1_Format, Strings.PostRaceNewsWindow_Legend_Passed2_Format },
+                _ => new[] { Strings.PostRaceNewsWindow_Legend_Record1_Format, Strings.PostRaceNewsWindow_Legend_Record2_Format }
+            };
+
+            return string.Format(variants[new Random().Next(variants.Length)],
+                winnerName, milestone.Legend.Name, milestone.Wins, milestone.Legend.Wins);
         }
 
         private string GenerateGrandSlamParagraph(string winnerName, GrandPrixResult raceResult)

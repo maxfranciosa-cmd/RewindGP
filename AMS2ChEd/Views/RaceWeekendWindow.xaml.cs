@@ -404,7 +404,7 @@ namespace AMS2ChEd.Views
                         var winnerDriverData = saveGame.Drivers.FirstOrDefault(d => d.DriverId == winner.DriverId);
                         var winnerPhoto = winnerDriverData?.PictureUrl;
                         var raceDate = DateTime.ParseExact(gpDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                        var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, raceDate, winnerPhoto);
+                        var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, raceDate, winnerPhoto, _gameLogicFactory.AllTimeRecordsLoader);
                         newsWindow.Owner = this;
 
                         // paddock news about team-orders reprimands follows the race report

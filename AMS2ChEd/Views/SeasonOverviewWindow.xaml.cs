@@ -645,7 +645,7 @@ namespace AMS2ChEd
         {
             try
             {
-                var uiCallbacks = new WpfOffSeasonUiCallbacks(this, _ams2StorageFactory);
+                var uiCallbacks = new WpfOffSeasonUiCallbacks(this, _ams2StorageFactory, _gameLogicFactory.AllTimeRecordsLoader);
                 await _offSeasonOrchestrator.RunAsync(saveGame, uiCallbacks);
                 LoadOverview();
             }
@@ -884,16 +884,18 @@ namespace AMS2ChEd
     {
         private readonly Window _owner;
         private readonly IGameDataFactory _dataFactory;
+        private readonly IAllTimeRecordsLoader _allTimeRecordsLoader;
 
-        public WpfOffSeasonUiCallbacks(Window owner, IGameDataFactory dataFactory)
+        public WpfOffSeasonUiCallbacks(Window owner, IGameDataFactory dataFactory, IAllTimeRecordsLoader allTimeRecordsLoader = null)
         {
             _owner = owner;
             _dataFactory = dataFactory;
+            _allTimeRecordsLoader = allTimeRecordsLoader;
         }
 
         public Task ShowChampionshipCelebrationAsync(ISaveGame saveGame)
         {
-            var celebrationWindow = new ChampionshipCelebrationWindow(saveGame);
+            var celebrationWindow = new ChampionshipCelebrationWindow(saveGame, _allTimeRecordsLoader);
             celebrationWindow.Owner = _owner;
             celebrationWindow.ShowDialog();
             return Task.CompletedTask;
