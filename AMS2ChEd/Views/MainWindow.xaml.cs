@@ -357,6 +357,56 @@ namespace AMS2ChEd
             }
         }
 
+        /// <summary>
+        /// Exports the selected season as a standalone livery pack (every race's liveries and AI
+        /// roster, race 1 installed by default, a .bat to switch races) into its own folder inside
+        /// the one the developer picks - see ISeasonPackExporter.
+        /// </summary>
+        private async void DevExportSeasonPackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DevSeasonComboBox.SelectedItem == null)
+            {
+                System.Windows.MessageBox.Show(Strings.MainWindow_SelectSeasonFirst_Message, Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (_gameLogicFactory.RacePreparator is not ISeasonPackExporter exporter)
+            {
+                System.Windows.MessageBox.Show(Strings.MainWindow_ExportSeasonPackUnavailable_Message, Strings.MainWindow_DeveloperMode_Title, MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            int year = int.Parse(((ComboBoxItem)DevSeasonComboBox.SelectedItem).Content.ToString());
+
+            var folderDialog = new Microsoft.Win32.OpenFolderDialog { Title = Strings.MainWindow_ExportSeasonPackFolder_Title };
+            if (folderDialog.ShowDialog(this) != true)
+                return;
+
+            // a folder of its own, so nothing already in the chosen one is overwritten
+            var outputDirectory = System.IO.Path.Combine(folderDialog.FolderName, $"RewindGP {year} livery pack");
+
+            var progressWindow = new ProgressWindow(Strings.MainWindow_ExportingSeasonPack_Message);
+            progressWindow.Show();
+
+            try
+            {
+                var season = _ams2StorageFactory.SeasonLoader.LoadBaseSeason(year);
+                var drivers = _ams2StorageFactory.DriversLoader.LoadDriversBase(year).Values;
+
+                var result = await Task.Run(() => exporter.ExportSeasonPack(season, drivers, outputDirectory));
+
+                progressWindow.Close();
+                System.Windows.MessageBox.Show(
+                    string.Format(Strings.MainWindow_SeasonPackExported_Message, result.RaceCount, result.OutputDirectory, result.SelectorScriptName),
+                    Strings.MainWindow_DeveloperMode_Title, MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                progressWindow.Close();
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_ExportSeasonPackError_Message, ex.Message), Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private bool TryBuildDevExportContext(out int raceId, out List<EntryListEntry> entryList, out IEnumerable<IDriverData> drivers, out ISeason season, out string error)
         {
             raceId = 0; entryList = null; drivers = null; season = null; error = null;

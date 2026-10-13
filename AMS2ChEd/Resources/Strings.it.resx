@@ -159,6 +159,9 @@
   <data name="MainWindow_ExportLiveriesButton" xml:space="preserve">
     <value>ESPORTA LIVREE</value>
   </data>
+  <data name="MainWindow_ExportSeasonPackButton" xml:space="preserve">
+    <value>ESPORTA PACCHETTO LIVREE STAGIONE</value>
+  </data>
   <data name="MainWindow_BackButton" xml:space="preserve">
     <value>INDIETRO</value>
   </data>
@@ -227,6 +230,27 @@
   </data>
   <data name="MainWindow_ExportLiveriesError_Message" xml:space="preserve">
     <value>Errore durante l'esportazione delle livree: {0}</value>
+  </data>
+  <data name="MainWindow_ExportSeasonPackFolder_Title" xml:space="preserve">
+    <value>Scegli dove salvare il pacchetto livree</value>
+  </data>
+  <data name="MainWindow_ExportingSeasonPack_Message" xml:space="preserve">
+    <value>Esportazione delle livree e dei piloti IA di ogni gara - può richiedere qualche minuto...</value>
+  </data>
+  <data name="MainWindow_SeasonPackExported_Message" xml:space="preserve">
+    <value>Esportate {0} gare in:
+{1}
+
+La prima gara è installata come predefinita; "{2}" passa a qualsiasi altra gara.</value>
+  </data>
+  <data name="MainWindow_ExportSeasonPackError_Message" xml:space="preserve">
+    <value>Impossibile esportare il pacchetto livree: {0}</value>
+  </data>
+  <data name="MainWindow_ExportSeasonPackUnavailable_Message" xml:space="preserve">
+    <value>L'esportazione del pacchetto livree della stagione non è disponibile per questo gioco.</value>
+  </data>
+  <data name="MainWindow_SelectSeasonFirst_Message" xml:space="preserve">
+    <value>Seleziona prima una stagione.</value>
   </data>
   <data name="MainWindow_SelectSeasonAndRaceFirst_Message" xml:space="preserve">
     <value>Seleziona prima una stagione e una gara.</value>

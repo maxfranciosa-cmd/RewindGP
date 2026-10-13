@@ -30,6 +30,7 @@ namespace AMS2ChEd.Resources
         public static string MainWindow_SelectRaceLabel => ResourceManager.GetString(nameof(MainWindow_SelectRaceLabel))!;
         public static string MainWindow_ExportCustomAiButton => ResourceManager.GetString(nameof(MainWindow_ExportCustomAiButton))!;
         public static string MainWindow_ExportLiveriesButton => ResourceManager.GetString(nameof(MainWindow_ExportLiveriesButton))!;
+        public static string MainWindow_ExportSeasonPackButton => ResourceManager.GetString(nameof(MainWindow_ExportSeasonPackButton))!;
         public static string MainWindow_BackButton => ResourceManager.GetString(nameof(MainWindow_BackButton))!;
         public static string MainWindow_DriverNameLabel => ResourceManager.GetString(nameof(MainWindow_DriverNameLabel))!;
         public static string MainWindow_NationalityLabel => ResourceManager.GetString(nameof(MainWindow_NationalityLabel))!;
@@ -55,6 +56,12 @@ namespace AMS2ChEd.Resources
         public static string MainWindow_ExportCustomAiError_Message => ResourceManager.GetString(nameof(MainWindow_ExportCustomAiError_Message))!;
         public static string MainWindow_LiveriesExported_Message => ResourceManager.GetString(nameof(MainWindow_LiveriesExported_Message))!;
         public static string MainWindow_ExportLiveriesError_Message => ResourceManager.GetString(nameof(MainWindow_ExportLiveriesError_Message))!;
+        public static string MainWindow_ExportSeasonPackFolder_Title => ResourceManager.GetString(nameof(MainWindow_ExportSeasonPackFolder_Title))!;
+        public static string MainWindow_ExportingSeasonPack_Message => ResourceManager.GetString(nameof(MainWindow_ExportingSeasonPack_Message))!;
+        public static string MainWindow_SeasonPackExported_Message => ResourceManager.GetString(nameof(MainWindow_SeasonPackExported_Message))!;
+        public static string MainWindow_ExportSeasonPackError_Message => ResourceManager.GetString(nameof(MainWindow_ExportSeasonPackError_Message))!;
+        public static string MainWindow_ExportSeasonPackUnavailable_Message => ResourceManager.GetString(nameof(MainWindow_ExportSeasonPackUnavailable_Message))!;
+        public static string MainWindow_SelectSeasonFirst_Message => ResourceManager.GetString(nameof(MainWindow_SelectSeasonFirst_Message))!;
         public static string MainWindow_SelectSeasonAndRaceFirst_Message => ResourceManager.GetString(nameof(MainWindow_SelectSeasonAndRaceFirst_Message))!;
         public static string MainWindow_LoadGame_DialogTitle => ResourceManager.GetString(nameof(MainWindow_LoadGame_DialogTitle))!;
         public static string MainWindow_ModOutOfDate_Message => ResourceManager.GetString(nameof(MainWindow_ModOutOfDate_Message))!;

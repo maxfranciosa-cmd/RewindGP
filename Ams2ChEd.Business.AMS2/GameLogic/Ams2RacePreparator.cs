@@ -3,6 +3,7 @@ using Ams2ChEd.Business.AMS2.PakPatching.Contracts;
 using Ams2ChEd.Business.AMS2.Services;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.AMS2.Storage.Contracts;
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
@@ -10,7 +11,7 @@ using AMS2ChEd.Business.Settings.Contracts;
 
 namespace Ams2ChEd.Business.AMS2.GameLogic
 {
-    public class Ams2RacePreparator : IRacePreparator
+    public class Ams2RacePreparator : IRacePreparator, ISeasonPackExporter
     {
         private IGameInstallSettingsStorage _installSettingsStorage;
         private ICarModelCapacityLoader _carModelCapacityLoader;
@@ -38,6 +39,36 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
         {
             var (liveryService, seasonFileDirectory, ams2InstallationFolder) = BuildLiveryService(drivers, season);
             liveryService.GenerateLiveriesOnly(raceId, raceEntryList.ToList(), seasonFileDirectory, ams2InstallationFolder);
+        }
+
+        /// <summary>
+        /// Exports every race of the season, with each race's absences applied to its entry list,
+        /// as a standalone livery pack - see Ams2LiveryService.ExportSeasonPack. Built without the
+        /// slot patcher: the pack goes to other people's installs, which don't have this machine's
+        /// patched game files, so a car model short of slots overflows to its siblings exactly as
+        /// it would for them. No random AI rating variation either: every race's roster gets the
+        /// same ratings, as a livery pack's would.
+        /// </summary>
+        public SeasonPackExportResult ExportSeasonPack(ISeason season, IEnumerable<IDriverData> drivers, string outputDirectory)
+        {
+            var seasonFileDirectory = Path.GetDirectoryName(StoragePaths.SeasonFilePath(season.OriginalYear ?? season.Year));
+            var ams2Class = ((Ams2Season)season).Ams2Class;
+
+            var liveryService = new Ams2LiveryService(
+                season.Year,
+                ams2Class,
+                drivers.Cast<Ams2DriverData>(),
+                season.Teams.Cast<Ams2TeamEntry>(),
+                _carModelCapacityLoader.GetModelsForClass(ams2Class),
+                aiRatingsVariation: false,
+                slotPatcher: null,
+                distinctOverrideTextures: true);
+
+            var races = season.Races
+                .Select(r => (r, SeasonEntryListBuilder.ForRace(season, r.RaceId)))
+                .ToList();
+
+            return liveryService.ExportSeasonPack(races, seasonFileDirectory, outputDirectory);
         }
 
         /// <summary>

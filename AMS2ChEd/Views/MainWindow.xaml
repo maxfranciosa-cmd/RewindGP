@@ -144,6 +144,11 @@
                                     Style="{StaticResource Main.FormStackedButton}"
                                     Click="DevExportLiveriesButton_Click"/>
 
+                            <Button x:Name="DevExportSeasonPackButton"
+                                    Content="{loc:Loc MainWindow_ExportSeasonPackButton}"
+                                    Style="{StaticResource Main.FormStackedButton}"
+                                    Click="DevExportSeasonPackButton_Click"/>
+
                             <Button Content="{loc:Loc MainWindow_BackButton}"
                                     Style="{StaticResource Main.FormBackButton}"
                                     Click="DevToolsBackButton_Click"/>
