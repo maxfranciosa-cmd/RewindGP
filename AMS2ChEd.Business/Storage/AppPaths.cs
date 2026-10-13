@@ -24,10 +24,11 @@ namespace AMS2ChEd.Business.Storage
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
 
         /// <summary>
-        /// Real-world record of every race winner in history, for the hall of fame.
+        /// Real-world record of every driver and team in history: what a save's accolades and
+        /// hall of fame start from.
         /// </summary>
-        public static string AllTimeDriversPath =>
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "HallOfFame", "all_time_drivers.json");
+        public static string AllTimeRecordsPath =>
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "HallOfFame", "all_time_records.json");
 
         private static string _savesFolder = null;
         public static string SavesFolder

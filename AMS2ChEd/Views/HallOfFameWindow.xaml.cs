@@ -30,8 +30,7 @@ namespace AMS2ChEd.Views
         {
             InitializeComponent();
 
-            var allTimeRecords = allTimeRecordsLoader?.LoadDrivers() ?? new List<AllTimeDriverRecord>();
-            var entries = HallOfFameCalculator.Build(saveGame, allTimeRecords);
+            var entries = HallOfFameCalculator.Build(saveGame, allTimeRecordsLoader?.Load());
 
             var champions = entries
                 .Where(e => e.Championships > 0)

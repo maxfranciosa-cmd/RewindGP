@@ -676,7 +676,7 @@ namespace AMS2ChEd
             {
                 var driver = saveGame.Drivers.FirstOrDefault(x => x.DriverId == d.DriverId);
                 var teamName = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == d.TeamId)?.TeamName;
-                var window = new Views.DriverAccoladesWindow(saveGame, d.DriverId, driver?.Name ?? d.DriverName, teamName ?? "No Team", driver?.PictureUrl);
+                var window = new Views.DriverAccoladesWindow(saveGame, d.DriverId, driver?.Name ?? d.DriverName, teamName ?? "No Team", driver?.PictureUrl, _gameLogicFactory.AllTimeRecordsLoader);
                 window.Owner = this;
                 window.ShowDialog();
             }
@@ -687,7 +687,7 @@ namespace AMS2ChEd
             if (e.ClickCount == 2 && sender is System.Windows.Controls.Border b && b.DataContext is ConstructorStandingDisplay d)
             {
                 var teamEntry = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == d.TeamId);
-                var window = new Views.ConstructorAccoladesWindow(saveGame, d.TeamId, d.TeamName, teamEntry?.Color);
+                var window = new Views.ConstructorAccoladesWindow(saveGame, d.TeamId, d.TeamName, teamEntry?.Color, _gameLogicFactory.AllTimeRecordsLoader);
                 window.Owner = this;
                 window.ShowDialog();
             }
@@ -917,7 +917,7 @@ namespace AMS2ChEd
 
         public Task ShowRetirementNewsAsync(ISaveGame saveGame, IDriverData retiredDriver, string lastTeamId)
         {
-            var retirementWindow = new RetirementNewsWindow(saveGame, retiredDriver, lastTeamId);
+            var retirementWindow = new RetirementNewsWindow(saveGame, retiredDriver, lastTeamId, _allTimeRecordsLoader);
             retirementWindow.Owner = _owner;
             retirementWindow.ShowDialog();
             return Task.CompletedTask;

@@ -47,8 +47,9 @@ namespace AMS2ChEd.Views
                 DriverPortraitImage.LoadPhoto(championPhoto);
             }
 
-            var championDriverAccolades = AccoladesCalculator.GetDriverAccolades(saveGame, champion.DriverId, saveGame.CurrentSeason.Year);
-            var championTeamAccolades = AccoladesCalculator.GetTeamAccolades(saveGame, champion.TeamId, saveGame.CurrentSeason.Year);
+            var allTimeRecords = allTimeRecordsLoader?.Load();
+            var championDriverAccolades = AccoladesCalculator.GetDriverAccolades(saveGame, allTimeRecords, champion.DriverId, saveGame.CurrentSeason.Year);
+            var championTeamAccolades = AccoladesCalculator.GetTeamAccolades(saveGame, allTimeRecords, champion.TeamId, saveGame.CurrentSeason.Year);
             bool isMaidenTitle = championDriverAccolades.HasBaseline && championDriverAccolades.Championships == 1;
 
             // Set the headline
@@ -239,7 +240,7 @@ namespace AMS2ChEd.Views
             if (allTimeRecordsLoader == null)
                 return "";
 
-            var hallOfFame = HallOfFameCalculator.Build(saveGame, allTimeRecordsLoader.LoadDrivers());
+            var hallOfFame = HallOfFameCalculator.Build(saveGame, allTimeRecordsLoader.Load());
             var comparison = LegendsCalculator.FindTitleComparison(hallOfFame, championId, saveGame.CurrentSeason.Year);
             if (comparison == null)
                 return "";

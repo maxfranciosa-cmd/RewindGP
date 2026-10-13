@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Storage.Contracts;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,7 +12,7 @@ namespace AMS2ChEd.Views
 {
     public partial class ConstructorAccoladesWindow : Window
     {
-        public ConstructorAccoladesWindow(ISaveGame saveGame, string teamId, string teamName, string teamColor)
+        public ConstructorAccoladesWindow(ISaveGame saveGame, string teamId, string teamName, string teamColor, IAllTimeRecordsLoader allTimeRecordsLoader = null)
         {
             InitializeComponent();
 
@@ -34,7 +35,7 @@ namespace AMS2ChEd.Views
                 TeamColorStrip.Background = fallbackColor;
             }
 
-            var accolades = AccoladesCalculator.GetTeamAccolades(saveGame, teamId);
+            var accolades = AccoladesCalculator.GetTeamAccolades(saveGame, allTimeRecordsLoader?.Load(), teamId);
 
             WinsText.Text = accolades.Wins.ToString();
             PodiumsText.Text = accolades.Podiums.ToString();

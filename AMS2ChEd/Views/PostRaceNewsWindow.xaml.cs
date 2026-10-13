@@ -15,6 +15,9 @@ namespace AMS2ChEd.Views
 {
     public partial class PostRaceNewsWindow : Window
     {
+        // null without an all-time records loader: accolades then only count the save's own results
+        private readonly AllTimeRecords _allTimeRecords;
+
         public PostRaceNewsWindow(
             ISaveGame saveGame,
             GrandPrixResult raceResult,
@@ -25,6 +28,8 @@ namespace AMS2ChEd.Views
             IAllTimeRecordsLoader allTimeRecordsLoader = null)
         {
             InitializeComponent();
+
+            _allTimeRecords = allTimeRecordsLoader?.Load();
 
             // Set the date
             var raceJustFinished = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex - 1);
@@ -67,8 +72,8 @@ namespace AMS2ChEd.Views
             string winnerTeam = GetTeamName(saveGame, winner.TeamId);
             DriverReputation winnerReputation = GetDriverReputation(saveGame, winner.DriverId);
 
-            var winnerDriverAccolades = AccoladesCalculator.GetDriverAccolades(saveGame, winner.DriverId);
-            var winnerTeamAccolades = AccoladesCalculator.GetTeamAccolades(saveGame, winner.TeamId);
+            var winnerDriverAccolades = AccoladesCalculator.GetDriverAccolades(saveGame, _allTimeRecords, winner.DriverId);
+            var winnerTeamAccolades = AccoladesCalculator.GetTeamAccolades(saveGame, _allTimeRecords, winner.TeamId);
             bool isMaidenWin = winnerDriverAccolades.HasBaseline && winnerDriverAccolades.Wins == 1;
 
             bool isGrandSlam = winner.FastestLap == true &&
@@ -292,7 +297,7 @@ namespace AMS2ChEd.Views
             if (allTimeRecordsLoader == null)
                 return "";
 
-            var hallOfFame = HallOfFameCalculator.Build(saveGame, allTimeRecordsLoader.LoadDrivers());
+            var hallOfFame = HallOfFameCalculator.Build(saveGame, allTimeRecordsLoader.Load());
             var milestone = LegendsCalculator.FindWinMilestone(hallOfFame, winnerId);
             if (milestone == null)
                 return "";
@@ -417,7 +422,7 @@ namespace AMS2ChEd.Views
             void AddIfMaiden(SessionResult result, string name)
             {
                 if (result == null) return;
-                var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, result.DriverId);
+                var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, _allTimeRecords, result.DriverId);
                 if (!(accolades.HasBaseline && accolades.Podiums == 1)) return;
 
                 var variants = new[]

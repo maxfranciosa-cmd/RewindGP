@@ -37,7 +37,6 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             services.AddSingleton<ISeasonLoader<Ams2Season>, SeasonLoader>();
             services.AddSingleton<ISeasonLoader, SeasonLoader>();
             services.AddSingleton<ITeamsLoader, TeamsLoader>();
-            services.AddSingleton<IAccoladesLoader, AccoladesLoader>();
             services.AddSingleton<ICarModelCapacityLoader, CarModelCapacityLoader>();
             services.AddSingleton<IGameStorage, GameStorage>();
             services.AddSingleton<IGameInstallSettingsStorage, Ams2GameInstallSettingsStorage>();

@@ -132,8 +132,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 CurrentDriverStandings = driverStandings,
                 CurrentConstructorStandings = constructorStandings,
                 HistoricalDriverStandings = new List<HistoricalDriverStanding>(),
-                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>(),
-                AccoladesAtStart = LoadAccoladesForNewGame(modifiedSeason.Year)
+                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>()
             };
             return InitializeConcreteNewSaveGame(provisionalSaveGame);
         }
@@ -160,15 +159,6 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         /// </summary>
         public void LoadGame(ISaveGame saveGame)
         {
-            if (saveGame.AccoladesAtStart == null)
-            {
-                var year = saveGame.HistoricalDriverStandings?.Any() == true
-                    ? saveGame.HistoricalDriverStandings.Min(s => s.Year)
-                    : saveGame.CurrentSeason.Year;
-
-                saveGame.AccoladesAtStart = LoadAccoladesForNewGame(year);
-            }
-
             // saves created before contract roles existed
             DriverHirer.AssignUndefinedRoles(saveGame.CurrentSeason, saveGame.Drivers);
 
@@ -472,8 +462,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 CurrentDriverStandings = driverStandings,
                 CurrentConstructorStandings = constructorStandings,
                 HistoricalDriverStandings = new List<HistoricalDriverStanding>(),
-                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>(),
-                AccoladesAtStart = LoadAccoladesForNewGame(modifiedSeason.Year)
+                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>()
             };
             return InitializeConcreteNewSaveGame(provisionalSaveGame);
         }
@@ -499,8 +488,6 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             return provisionalSaveGame;
         }
-
-        protected virtual HistoricalAccolades LoadAccoladesForNewGame(int seasonYear) => null;
 
         protected virtual IDriverData InitializePlayerDriverData(
             IPlayerData playerData,

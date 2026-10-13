@@ -10,7 +10,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         #region GetDriverAccolades Tests
 
         [TestMethod]
-        public void GetDriverAccolades_NoBaseline_CountsOnlySaveHistory_AndFlagsHasBaselineFalse()
+        public void GetDriverAccolades_NoAllTimeRecords_CountsOnlySaveHistory_AndFlagsHasBaselineFalse()
         {
             var saveGame = CreateTestSaveGame(2024);
             saveGame.GrandPrixResults = new List<GrandPrixResult>
@@ -20,7 +20,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 BuildResult(("D1", "T1", 5)),
             };
 
-            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, "D1");
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, null, "D1");
 
             Assert.IsFalse(accolades.HasBaseline);
             Assert.AreEqual(1, accolades.Wins);
@@ -28,39 +28,79 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void GetDriverAccolades_WithBaseline_AddsBaselineToSaveHistoryCounts_AndFlagsHasBaselineTrue()
+        public void GetDriverAccolades_WithRecord_AddsSeasonsBeforeTheSaveToSaveHistoryCounts_AndFlagsHasBaselineTrue()
         {
             var saveGame = CreateTestSaveGame(2024);
-            saveGame.AccoladesAtStart = new HistoricalAccolades
+            var allTime = CreateAllTimeRecords(2023);
+            allTime.Drivers.Add(new AllTimeDriverRecord
             {
-                DriverAccolades = new Dictionary<string, Accolades>
-                {
-                    ["D1"] = new Accolades { Wins = 10, Podiums = 20, PolePositions = 5, Championships = new List<int> { 2020 } }
-                }
-            };
+                DriverId = "D1",
+                WinsByYear = new() { [2020] = 6, [2021] = 4 },
+                PodiumsByYear = new() { [2019] = 3, [2020] = 9, [2021] = 8 },
+                PolesByYear = new() { [2020] = 5 },
+                Championships = new List<int> { 2020 }
+            });
             saveGame.GrandPrixResults = new List<GrandPrixResult> { BuildResult(("D1", "T1", 1)) };
+            saveGame.GrandPrixResults.First().QualifyingResults.Add(new SessionResult { DriverId = "D1", TeamId = "T1", Position = 1 });
 
-            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, "D1");
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, allTime, "D1");
 
             Assert.IsTrue(accolades.HasBaseline);
             Assert.AreEqual(11, accolades.Wins);
             Assert.AreEqual(21, accolades.Podiums);
+            Assert.AreEqual(6, accolades.PolePositions);
             CollectionAssert.AreEqual(new List<int> { 2020 }, accolades.ChampionshipYears);
         }
 
         [TestMethod]
-        public void GetDriverAccolades_BaselineEntryAllZero_StillFlagsHasBaselineTrue()
+        public void GetDriverAccolades_RecordSeasonsFromTheStartYearOn_AreIgnored()
         {
+            // the save began in 2022: what really happened in 2022 and after never happened here
             var saveGame = CreateTestSaveGame(2024);
-            saveGame.AccoladesAtStart = new HistoricalAccolades
+            saveGame.HistoricalDriverStandings = new List<HistoricalDriverStanding>
             {
-                DriverAccolades = new Dictionary<string, Accolades> { ["D1"] = new Accolades() }
+                new HistoricalDriverStanding { Year = 2022, Standing = new List<HisoricalDriverStandingEntry>() },
+                new HistoricalDriverStanding { Year = 2023, Standing = new List<HisoricalDriverStandingEntry>() }
             };
+            var allTime = CreateAllTimeRecords(2023);
+            allTime.Drivers.Add(new AllTimeDriverRecord
+            {
+                DriverId = "D1",
+                WinsByYear = new() { [2021] = 2, [2022] = 5, [2023] = 9 },
+                PodiumsByYear = new() { [2021] = 4, [2022] = 10 },
+                PolesByYear = new() { [2021] = 1, [2023] = 7 },
+                Championships = new List<int> { 2021, 2023 }
+            });
 
-            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, "D1");
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, allTime, "D1");
+
+            Assert.AreEqual(2022, accolades.StartYear);
+            Assert.AreEqual(2, accolades.Wins);
+            Assert.AreEqual(4, accolades.Podiums);
+            Assert.AreEqual(1, accolades.PolePositions);
+            CollectionAssert.AreEqual(new List<int> { 2021 }, accolades.ChampionshipYears);
+        }
+
+        [TestMethod]
+        public void GetDriverAccolades_DriverNotInTheRecords_HasNoPast_AndStillFlagsHasBaselineTrue()
+        {
+            // the records list everyone with a podium or pole, so not being there is a real zero
+            var saveGame = CreateTestSaveGame(2024);
+
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, CreateAllTimeRecords(2023), "D1");
 
             Assert.IsTrue(accolades.HasBaseline);
             Assert.AreEqual(0, accolades.Wins);
+        }
+
+        [TestMethod]
+        public void GetDriverAccolades_RecordsStopShortOfTheSave_FlagsHasBaselineFalse()
+        {
+            var saveGame = CreateTestSaveGame(2024);
+
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, CreateAllTimeRecords(2022), "D1");
+
+            Assert.IsFalse(accolades.HasBaseline);
         }
 
         [TestMethod]
@@ -76,7 +116,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 }
             };
 
-            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, "D1", justClinchedChampionshipYear: 2024);
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, null, "D1", justClinchedChampionshipYear: 2024);
 
             CollectionAssert.AreEqual(new List<int> { 2023, 2024 }, accolades.ChampionshipYears);
             Assert.AreEqual(2, accolades.Championships);
@@ -95,7 +135,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 }
             };
 
-            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, "D1", justClinchedChampionshipYear: 2024);
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, null, "D1", justClinchedChampionshipYear: 2024);
 
             Assert.AreEqual(1, accolades.Championships);
         }
@@ -105,7 +145,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         #region GetTeamAccolades Tests
 
         [TestMethod]
-        public void GetTeamAccolades_NoBaseline_CountsOnlySaveHistory_AndFlagsHasBaselineFalse()
+        public void GetTeamAccolades_NoAllTimeRecords_CountsOnlySaveHistory_AndFlagsHasBaselineFalse()
         {
             var saveGame = CreateTestSaveGame(2024);
             saveGame.GrandPrixResults = new List<GrandPrixResult>
@@ -114,7 +154,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 BuildResult(("D2", "T1", 3)),
             };
 
-            var accolades = AccoladesCalculator.GetTeamAccolades(saveGame, "T1");
+            var accolades = AccoladesCalculator.GetTeamAccolades(saveGame, null, "T1");
 
             Assert.IsFalse(accolades.HasBaseline);
             Assert.AreEqual(1, accolades.Wins);
@@ -122,22 +162,23 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void GetTeamAccolades_WithBaseline_AddsBaselineToSaveHistoryCounts()
+        public void GetTeamAccolades_WithRecord_AddsSeasonsBeforeTheSaveToSaveHistoryCounts()
         {
             var saveGame = CreateTestSaveGame(2024);
-            saveGame.AccoladesAtStart = new HistoricalAccolades
+            var allTime = CreateAllTimeRecords(2023);
+            allTime.Teams.Add(new AllTimeTeamRecord
             {
-                TeamsAccolades = new Dictionary<string, Accolades>
-                {
-                    ["T1"] = new Accolades { Wins = 3 }
-                }
-            };
+                TeamId = "T1",
+                WinsByYear = new() { [1998] = 2, [2023] = 1, [2024] = 8 },
+                Championships = new List<int> { 1998, 2024 }
+            });
             saveGame.GrandPrixResults = new List<GrandPrixResult> { BuildResult(("D1", "T1", 1)) };
 
-            var accolades = AccoladesCalculator.GetTeamAccolades(saveGame, "T1");
+            var accolades = AccoladesCalculator.GetTeamAccolades(saveGame, allTime, "T1");
 
             Assert.IsTrue(accolades.HasBaseline);
             Assert.AreEqual(4, accolades.Wins);
+            CollectionAssert.AreEqual(new List<int> { 1998 }, accolades.ChampionshipYears);
         }
 
         #endregion
@@ -229,6 +270,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
         #region Helper Methods
 
+        private static AllTimeRecords CreateAllTimeRecords(int upTo) => new AllTimeRecords { UpTo = upTo };
         private ISaveGame CreateTestSaveGame(int year)
         {
             return new SaveGame

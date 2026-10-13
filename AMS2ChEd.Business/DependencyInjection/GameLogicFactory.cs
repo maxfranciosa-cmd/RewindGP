@@ -36,7 +36,7 @@ namespace AMS2ChEd.Business.DependencyInjection
         public SeasonUpdaterOrchestrator SeasonUpdaterOrchestrator { get; private set; }
 
         /// <summary>
-        /// Optional: without it the hall of fame only knows the drivers of the save.
+        /// Optional: without it accolades and the hall of fame only know what happened in the save.
         /// </summary>
         public IAllTimeRecordsLoader AllTimeRecordsLoader { get; private set; }
 

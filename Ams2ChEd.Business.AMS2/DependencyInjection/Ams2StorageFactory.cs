@@ -14,8 +14,7 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             ITeamsLoader teamsLoader,
             ISeasonLoader<Ams2Season> seasonLoader,
             IGameStorage gameStorage,
-            IAccoladesLoader accoladesLoader,
-            IGameInstallSettingsStorage installSettingsStorage) : base(driversLoader, teamsLoader, seasonLoader, gameStorage, accoladesLoader)
+            IGameInstallSettingsStorage installSettingsStorage) : base(driversLoader, teamsLoader, seasonLoader, gameStorage)
         {
             InstallSettingsStorage = installSettingsStorage;
         }

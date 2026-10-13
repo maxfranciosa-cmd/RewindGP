@@ -51,9 +51,6 @@ namespace AMS2ChEd.Business.Models
         [JsonPropertyName("current_pre_quali_dnpq_results")]
         public List<ParticipantData> CurrentPreQualiDnpqResults { get; set; }
 
-        [JsonPropertyName("accoladesAtStart")]
-        public HistoricalAccolades AccoladesAtStart { get; set; }
-
         // team-orders reprimands handed out during the current season (cleared at the start of each season)
         [JsonPropertyName("reprimands")]
         public List<Reprimand> Reprimands { get; set; }

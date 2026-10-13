@@ -12,10 +12,11 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         public int Championships => ChampionshipYears.Count;
 
         /// <summary>
-        /// True only when the season pack shipped a real accolades.json baseline entry for this
-        /// specific driver/team id (even if that entry is all zeros) - false when there's no entry at
-        /// all, meaning any count returned here only reflects what happened since <see cref="StartYear"/>,
-        /// not a trustworthy career total.
+        /// True when the all-time records cover every season before <see cref="StartYear"/>, so the
+        /// counts here are career totals (a driver or team the records don't list really had
+        /// nothing before the save). False when the records are missing or stop short of the
+        /// save's first season, meaning the counts only reflect what happened since
+        /// <see cref="StartYear"/>.
         /// </summary>
         public bool HasBaseline { get; set; }
 
@@ -23,49 +24,34 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
     }
 
     /// <summary>
-    /// Combines a save's frozen pre-save-start accolades baseline (<see cref="ISaveGame.AccoladesAtStart"/>)
-    /// with a scan of the save's own race/season history, the same "baseline + count" pattern
-    /// DriverAccoladesWindow/ConstructorAccoladesWindow already used independently, now shared so
-    /// news-article generation can use identical numbers.
+    /// A driver's or team's record as history stands in a save: what really happened before the
+    /// save began (the all-time records shipped with the app, up to the season before the save's
+    /// first) plus a scan of the save's own race/season history. Shared by the accolades windows,
+    /// the hall of fame and news-article generation so they all show identical numbers.
     /// </summary>
     public static class AccoladesCalculator
     {
         /// <summary>
         /// The year this save began: the earliest completed season on record, or the current season's
-        /// year if none has been completed yet. Same derivation GameEngine.LoadGame already uses for
-        /// its own backward-compat AccoladesAtStart fallback.
+        /// year if none has been completed yet.
         /// </summary>
         public static int GetStartYear(ISaveGame saveGame) =>
             saveGame.HistoricalDriverStandings?.Any() == true
                 ? saveGame.HistoricalDriverStandings.Min(s => s.Year)
                 : saveGame.CurrentSeason.Year;
 
-        public static AccoladeSummary GetDriverAccolades(ISaveGame saveGame, string driverId, int? justClinchedChampionshipYear = null)
+        public static AccoladeSummary GetDriverAccolades(ISaveGame saveGame, AllTimeRecords allTimeRecords, string driverId, int? justClinchedChampionshipYear = null)
         {
-            bool hasBaseline = saveGame.AccoladesAtStart?.DriverAccolades != null;
-            var baseAccolades = saveGame.AccoladesAtStart?.DriverAccolades?.GetValueOrDefault(driverId) ?? new Accolades();
+            var record = allTimeRecords?.Drivers?.FirstOrDefault(d => d.DriverId == driverId);
 
-            var allRaceResults = saveGame.GrandPrixResults.SelectMany(gp => gp.RaceResults ?? new List<SessionResult>());
-            var allQualiResults = saveGame.GrandPrixResults.SelectMany(gp => gp.QualifyingResults ?? new List<SessionResult>());
+            var allRaceResults = saveGame.GrandPrixResults.SelectMany(gp => gp.RaceResults ?? new List<SessionResult>()).Where(r => r.DriverId == driverId);
+            var allQualiResults = saveGame.GrandPrixResults.SelectMany(gp => gp.QualifyingResults ?? new List<SessionResult>()).Where(r => r.DriverId == driverId);
 
-            var championshipYears = (baseAccolades.Championships ?? new List<int>())
-                .Union(saveGame.HistoricalDriverStandings
-                    .Where(s => s.Standing.Any(e => e.DriverId == driverId && e.Position == 1))
-                    .Select(s => s.Year))
-                .ToList();
+            var championshipYearsInSave = saveGame.HistoricalDriverStandings
+                .Where(s => s.Standing.Any(e => e.DriverId == driverId && e.Position == 1))
+                .Select(s => s.Year);
 
-            if (justClinchedChampionshipYear.HasValue && !championshipYears.Contains(justClinchedChampionshipYear.Value))
-                championshipYears.Add(justClinchedChampionshipYear.Value);
-
-            return new AccoladeSummary
-            {
-                Wins = baseAccolades.Wins + allRaceResults.Count(r => r.DriverId == driverId && r.Position == 1),
-                Podiums = baseAccolades.Podiums + allRaceResults.Count(r => r.DriverId == driverId && r.Position >= 1 && r.Position <= 3),
-                PolePositions = baseAccolades.PolePositions + allQualiResults.Count(r => r.DriverId == driverId && r.Position == 1),
-                ChampionshipYears = championshipYears.OrderBy(y => y).ToList(),
-                HasBaseline = hasBaseline,
-                StartYear = GetStartYear(saveGame)
-            };
+            return BuildSummary(saveGame, allTimeRecords, record, allRaceResults, allQualiResults, championshipYearsInSave, justClinchedChampionshipYear);
         }
 
         /// <summary>
@@ -88,18 +74,35 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return streak;
         }
 
-        public static AccoladeSummary GetTeamAccolades(ISaveGame saveGame, string teamId, int? justClinchedChampionshipYear = null)
+        public static AccoladeSummary GetTeamAccolades(ISaveGame saveGame, AllTimeRecords allTimeRecords, string teamId, int? justClinchedChampionshipYear = null)
         {
-            bool hasBaseline = saveGame.AccoladesAtStart?.TeamsAccolades != null;
-            var baseAccolades = saveGame.AccoladesAtStart?.TeamsAccolades?.GetValueOrDefault(teamId) ?? new Accolades();
+            var record = allTimeRecords?.Teams?.FirstOrDefault(t => t.TeamId == teamId);
 
-            var allRaceResults = saveGame.GrandPrixResults.SelectMany(gp => gp.RaceResults ?? new List<SessionResult>());
-            var allQualiResults = saveGame.GrandPrixResults.SelectMany(gp => gp.QualifyingResults ?? new List<SessionResult>());
+            var allRaceResults = saveGame.GrandPrixResults.SelectMany(gp => gp.RaceResults ?? new List<SessionResult>()).Where(r => r.TeamId == teamId);
+            var allQualiResults = saveGame.GrandPrixResults.SelectMany(gp => gp.QualifyingResults ?? new List<SessionResult>()).Where(r => r.TeamId == teamId);
 
-            var championshipYears = (baseAccolades.Championships ?? new List<int>())
-                .Union(saveGame.HistoricalConstructorStandings
-                    .Where(s => s.Standing.Any(e => e.TeamId == teamId && e.Position == 1))
-                    .Select(s => s.Year))
+            var championshipYearsInSave = saveGame.HistoricalConstructorStandings
+                .Where(s => s.Standing.Any(e => e.TeamId == teamId && e.Position == 1))
+                .Select(s => s.Year);
+
+            return BuildSummary(saveGame, allTimeRecords, record, allRaceResults, allQualiResults, championshipYearsInSave, justClinchedChampionshipYear);
+        }
+
+        private static AccoladeSummary BuildSummary(
+            ISaveGame saveGame,
+            AllTimeRecords allTimeRecords,
+            AllTimeRecord record,
+            IEnumerable<SessionResult> raceResults,
+            IEnumerable<SessionResult> qualiResults,
+            IEnumerable<int> championshipYearsInSave,
+            int? justClinchedChampionshipYear)
+        {
+            int startYear = GetStartYear(saveGame);
+
+            // from the save's first season on, history is whatever happened in the save
+            var championshipYears = (record?.Championships ?? new List<int>())
+                .Where(year => year < startYear)
+                .Union(championshipYearsInSave)
                 .ToList();
 
             if (justClinchedChampionshipYear.HasValue && !championshipYears.Contains(justClinchedChampionshipYear.Value))
@@ -107,13 +110,16 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             return new AccoladeSummary
             {
-                Wins = baseAccolades.Wins + allRaceResults.Count(r => r.TeamId == teamId && r.Position == 1),
-                Podiums = baseAccolades.Podiums + allRaceResults.Count(r => r.TeamId == teamId && r.Position >= 1 && r.Position <= 3),
-                PolePositions = baseAccolades.PolePositions + allQualiResults.Count(r => r.TeamId == teamId && r.Position == 1),
+                Wins = SumBefore(record?.WinsByYear, startYear) + raceResults.Count(r => r.Position == 1),
+                Podiums = SumBefore(record?.PodiumsByYear, startYear) + raceResults.Count(r => r.Position >= 1 && r.Position <= 3),
+                PolePositions = SumBefore(record?.PolesByYear, startYear) + qualiResults.Count(r => r.Position == 1),
                 ChampionshipYears = championshipYears.OrderBy(y => y).ToList(),
-                HasBaseline = hasBaseline,
-                StartYear = GetStartYear(saveGame)
+                HasBaseline = allTimeRecords != null && allTimeRecords.UpTo >= startYear - 1,
+                StartYear = startYear
             };
         }
+
+        private static int SumBefore(Dictionary<int, int> countByYear, int startYear) =>
+            countByYear?.Where(c => c.Key < startYear).Sum(c => c.Value) ?? 0;
     }
 }

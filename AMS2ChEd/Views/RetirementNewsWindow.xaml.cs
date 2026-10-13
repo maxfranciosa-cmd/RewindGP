@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Resources;
 using System;
@@ -11,7 +12,7 @@ namespace AMS2ChEd.Views
 {
     public partial class RetirementNewsWindow : Window
     {
-        public RetirementNewsWindow(ISaveGame saveGame, IDriverData retiredDriver, string lastTeamId)
+        public RetirementNewsWindow(ISaveGame saveGame, IDriverData retiredDriver, string lastTeamId, IAllTimeRecordsLoader allTimeRecordsLoader = null)
         {
             InitializeComponent();
 
@@ -35,7 +36,7 @@ namespace AMS2ChEd.Views
                 ? finalYear
                 : (int?)null;
 
-            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, retiredDriver.DriverId, justClinchedChampionshipYear);
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, allTimeRecordsLoader?.Load(), retiredDriver.DriverId, justClinchedChampionshipYear);
 
             HeadlineText.Text = BuildHeadline(retiredDriver.Name, retiredDriver.Reputation, accolades);
 
@@ -292,9 +293,9 @@ namespace AMS2ChEd.Views
                 ? Strings.RetirementNewsWindow_SeasonsPhrase_Singular
                 : string.Format(Strings.RetirementNewsWindow_SeasonsPhrase_Plural_Format, seasons);
 
-            // AccoladesAtStart can carry a pre-save baseline for this driver, meaning their real
-            // career may stretch back further than this save's own recorded history - so the team
-            // list here only covers "the last N seasons", not necessarily their whole career.
+            // With the all-time records behind the totals, this driver's real career may stretch
+            // back further than this save's own recorded history - so the team list here only
+            // covers "the last N seasons", not necessarily their whole career.
             string[] variants = accolades.HasBaseline
                 ? new[] { Strings.RetirementNewsWindow_CareerRecapBaseline1, Strings.RetirementNewsWindow_CareerRecapBaseline2, Strings.RetirementNewsWindow_CareerRecapBaseline3 }
                 : new[] { Strings.RetirementNewsWindow_CareerRecapFull1, Strings.RetirementNewsWindow_CareerRecapFull2, Strings.RetirementNewsWindow_CareerRecapFull3 };

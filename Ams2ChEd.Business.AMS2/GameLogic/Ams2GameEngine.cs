@@ -17,9 +17,6 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
             _storageFactory = storageFactory;
         }
 
-        protected override HistoricalAccolades LoadAccoladesForNewGame(int seasonYear)
-            => _storageFactory.AccoladesLoader.LoadAccolades(seasonYear);
-
         protected override IDriverData InitializeConcretePlayerDriverData(IDriverData provisionalDriverData, IPlayerData playerData, ISeason season)
         {
             var ams2PlayerDriverData = provisionalDriverData.ConvertToChild<IDriverData, Ams2DriverData>();

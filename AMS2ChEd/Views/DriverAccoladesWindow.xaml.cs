@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Resources;
 using System.Windows;
@@ -13,7 +14,7 @@ namespace AMS2ChEd.Views
 {
     public partial class DriverAccoladesWindow : Window
     {
-        public DriverAccoladesWindow(ISaveGame saveGame, string driverId, string driverName, string teamName, string pictureUrl)
+        public DriverAccoladesWindow(ISaveGame saveGame, string driverId, string driverName, string teamName, string pictureUrl, IAllTimeRecordsLoader allTimeRecordsLoader = null)
         {
             InitializeComponent();
 
@@ -45,7 +46,7 @@ namespace AMS2ChEd.Views
                 RoleText.Visibility = Visibility.Collapsed;
             }
 
-            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, driverId);
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, allTimeRecordsLoader?.Load(), driverId);
 
             WinsText.Text = accolades.Wins.ToString();
             PodiumsText.Text = accolades.Podiums.ToString();

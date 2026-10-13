@@ -26,29 +26,24 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
     /// <summary>
     /// The all-time record of every driver as history stands in a save: what really happened
-    /// before the save began, then whatever happened in the save. A driver's past comes from the
-    /// save's own <see cref="ISaveGame.AccoladesAtStart"/> entry when the starting season pack
-    /// had one (the same number <see cref="AccoladesCalculator"/> gives everywhere else) and from
-    /// the all-time records otherwise - which is what brings in the champions no season pack
-    /// carries, and anyone who joined the save from a later pack.
+    /// before the save began, then whatever happened in the save - the same numbers
+    /// <see cref="AccoladesCalculator"/> gives everywhere else, for the drivers of the save and
+    /// for the champions of the past who never raced in it.
     /// </summary>
     public static class HallOfFameCalculator
     {
-        public static List<HallOfFameEntry> Build(ISaveGame saveGame, IReadOnlyList<AllTimeDriverRecord> allTimeRecords)
+        public static List<HallOfFameEntry> Build(ISaveGame saveGame, AllTimeRecords allTimeRecords)
         {
-            int startYear = AccoladesCalculator.GetStartYear(saveGame);
             var activeDrivers = ToDictionary(saveGame.Drivers);
             var retiredDrivers = ToDictionary(saveGame.RetiredDrivers);
-            var allTime = (allTimeRecords ?? new List<AllTimeDriverRecord>())
+            var allTime = (allTimeRecords?.Drivers ?? new List<AllTimeDriverRecord>())
                 .Where(r => !string.IsNullOrEmpty(r.DriverId))
                 .GroupBy(r => r.DriverId)
                 .ToDictionary(g => g.Key, g => g.First());
-            var baseline = saveGame.AccoladesAtStart?.DriverAccolades ?? new Dictionary<string, Accolades>();
             string playerId = saveGame.PlayerData?.DriverId;
 
             var driverIds = activeDrivers.Keys
                 .Concat(retiredDrivers.Keys)
-                .Concat(baseline.Keys)
                 .Concat(allTime.Keys)
                 .Concat(string.IsNullOrEmpty(playerId) ? Enumerable.Empty<string>() : new[] { playerId })
                 .Distinct()
@@ -57,24 +52,14 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var entries = new List<HallOfFameEntry>();
             foreach (var driverId in driverIds)
             {
-                // the save's baseline entry (if any) plus everything that happened in the save
-                var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, driverId);
+                var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, allTimeRecords, driverId);
                 int wins = accolades.Wins;
                 var championshipYears = accolades.ChampionshipYears;
-
-                var record = allTime.GetValueOrDefault(driverId);
-                if (record != null && !baseline.ContainsKey(driverId))
-                {
-                    wins += (record.WinsByYear ?? new Dictionary<int, int>()).Where(w => w.Key < startYear).Sum(w => w.Value);
-                    championshipYears = championshipYears
-                        .Union((record.Championships ?? new List<int>()).Where(year => year < startYear))
-                        .OrderBy(year => year)
-                        .ToList();
-                }
 
                 if (wins == 0 && championshipYears.Count == 0)
                     continue;
 
+                var record = allTime.GetValueOrDefault(driverId);
                 var driver = activeDrivers.GetValueOrDefault(driverId) ?? retiredDrivers.GetValueOrDefault(driverId);
                 bool isPlayer = driverId == playerId;
 

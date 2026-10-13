@@ -21,7 +21,6 @@ namespace AMS2ChEd.Business.Models.Concrete
         public PreQualiStatus PreQualiStatus { get; set; }
         public List<EntryListEntry> PreQualiPoolEntries { get; set; }
         public List<ParticipantData> CurrentPreQualiDnpqResults { get; set; }
-        public HistoricalAccolades AccoladesAtStart { get; set; }
         public List<Reprimand> Reprimands { get; set; }
     }
 

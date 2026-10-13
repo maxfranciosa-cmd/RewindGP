@@ -9,28 +9,36 @@ namespace AMS2ChEd.Business.Storage.Concrete
     {
         private readonly string _filePath;
 
-        public AllTimeRecordsLoader() : this(AppPaths.AllTimeDriversPath)
+        // the file ships with the app and never changes while it runs
+        private readonly Lazy<AllTimeRecords> _records;
+
+        public AllTimeRecordsLoader() : this(AppPaths.AllTimeRecordsPath)
         {
         }
 
         public AllTimeRecordsLoader(string filePath)
         {
             _filePath = filePath;
+            _records = new Lazy<AllTimeRecords>(Read);
         }
 
-        public IReadOnlyList<AllTimeDriverRecord> LoadDrivers()
+        public AllTimeRecords Load() => _records.Value;
+
+        private AllTimeRecords Read()
         {
             try
             {
                 if (!File.Exists(_filePath))
-                    return new List<AllTimeDriverRecord>();
+                    return new AllTimeRecords();
 
-                var records = JsonSerializer.Deserialize<AllTimeRecords>(File.ReadAllText(_filePath), DefaultJsonSerializerOptions.Instance);
-                return records?.Drivers ?? new List<AllTimeDriverRecord>();
+                var records = JsonSerializer.Deserialize<AllTimeRecords>(File.ReadAllText(_filePath), DefaultJsonSerializerOptions.Instance) ?? new AllTimeRecords();
+                records.Drivers ??= new List<AllTimeDriverRecord>();
+                records.Teams ??= new List<AllTimeTeamRecord>();
+                return records;
             }
             catch (Exception ex) when (ex is JsonException || ex is IOException)
             {
-                return new List<AllTimeDriverRecord>();
+                return new AllTimeRecords();
             }
         }
     }
