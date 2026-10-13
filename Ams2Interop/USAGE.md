@@ -109,6 +109,13 @@ resolution failures, and a one-line summary of each `ApplyRaceConfigAsync` call 
 errors and unverified fields. Pass a logger (even just `msg => Console.WriteLine(msg)`) any time
 you're debugging unexpected behavior.
 
+The optional `offsetOptions` parameter (`Ams2OffsetOptions?`) says where the signature file and
+the per-build offset cache live; the defaults (`ams2_signatures.json` next to the app,
+`%LocalAppData%\Ams2Interop\offsets_cache.json`) suit most callers. After `AttachAsync`, the
+`Offsets` property says which AMS2 build is running, how its offsets were obtained, and which
+features are available (`CanWriteSlots`, `CanSetCar`, `CanCommit`, `CanChangeGameplaySettings`) -
+see README.md, "Surviving AMS2 patches".
+
 ### `AttachAsync(CancellationToken ct = default) : Task<bool>`
 
 Finds a running `AMS2AVX.exe`, opens a process handle, and resolves its module base (needed for

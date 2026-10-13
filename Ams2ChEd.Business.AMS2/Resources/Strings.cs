@@ -104,6 +104,7 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string Ams2RaceLaunchAssistant_CarNotInCatalog_Format => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_CarNotInCatalog_Format))!;
         public static string Ams2RaceLaunchAssistant_AttachFailed => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_AttachFailed))!;
         public static string Ams2RaceLaunchAssistant_ApplyFailed => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_ApplyFailed))!;
+        public static string Ams2RaceLaunchAssistant_GameVersionNotRecognised => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_GameVersionNotRecognised))!;
 
         public static string Ams2PlayerCosmeticsEditorWindow_Title => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_Title))!;
         public static string Ams2PlayerCosmeticsEditorWindow_Header => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_Header))!;

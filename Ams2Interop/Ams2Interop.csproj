@@ -19,4 +19,13 @@
     -->
   </PropertyGroup>
 
+  <ItemGroup>
+    <!--
+      Signatures that let a new AMS2 build's offsets be found automatically (see
+      Signatures/Ams2OffsetResolver.cs). Generated with the Ams2Interop.Tool "generate" command;
+      copied next to every app that references this project, once it exists.
+    -->
+    <None Include="ams2_signatures.json" Condition="Exists('ams2_signatures.json')" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

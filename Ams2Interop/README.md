@@ -16,9 +16,8 @@ real app, by checking the launched race (not just the Custom Race screen): date,
 livery, opponent count and opponent class all correct. Any form of persistent hooking is out of
 scope and not implemented - see "Architecture" below for why.
 
-Every AMS2 patch so far has moved the addresses in `Ams2Constants.cs`; see its class doc comment
-for the current build and how the values were re-derived. Expect to repeat that after each game
-update.
+Every AMS2 patch so far has moved the addresses in `Ams2Constants.cs`. They're now found again
+automatically by signature where possible - see "Surviving AMS2 patches" below.
 
 Two things learned the hard way:
 
@@ -27,6 +26,41 @@ Two things learned the hard way:
   screen. Always confirm a change against the actually-launched race.
 - **Write order matters.** `SetCar` recomputes the opponent count for the newly-selected car,
   so opponents are written again after it (see `ApplyRaceConfigAsync`'s doc comment).
+
+## Surviving AMS2 patches
+
+The patch-sensitive values (the setter/SetCar/commit RVAs, the four type tags and the gameplay
+settings pointer) are resolved per AMS2 build on `AttachAsync`, by `Signatures/Ams2OffsetResolver`:
+
+1. **No `ams2_signatures.json` yet** - the hand-derived `Ams2Constants.BuiltIn` values are used
+   unverified. This is exactly the behaviour from before signatures existed.
+2. **Build already in the cache** (`%LocalAppData%\Ams2Interop\offsets_cache.json`, keyed by the
+   exe's link timestamp, image size and checksum) - the cached values, after a cheap re-check.
+3. **Unknown build** - each signature is scanned for in the code section. A code signature is the
+   start of the function with every call target and RIP-relative displacement wildcarded; a data
+   signature is an instruction that references the tag/pointer, and the new address is read back
+   out of that instruction. A value is only used when its signature matches exactly once; a
+   complete result is cached.
+
+Anything not found switches off only the features that need it (`Ams2ResolvedOffsets.Can*`):
+`ApplyRaceConfigAsync` reports it in `Errors` and applies everything else, and the app tells the
+player the AMS2 version isn't recognised. Nothing is ever called or written through a value that
+wasn't found for the running build - except in case 1, as before.
+
+**One-time setup** - generate the signature file on a build where the built-in values work (the
+current one), then commit it in this folder; `Ams2Interop.csproj` copies it next to the app:
+
+```
+dotnet run --project Ams2Interop.Tool -- generate Ams2Interop/ams2_signatures.json
+```
+
+**After an AMS2 update** - run `dotnet run --project Ams2Interop.Tool -- status`. If everything is
+found, there's nothing to do. If something isn't (a function was actually rewritten), re-derive
+just that value by hand as before, update `Ams2Constants.BuiltIn`, confirm it live, and run
+`generate` again on the new build.
+
+`X64LengthDecoder` is a length decoder only - it covers the legacy opcode maps and VEX, and stops
+a pattern at anything it doesn't recognise (e.g. EVEX) rather than guessing.
 
 ## Architecture
 

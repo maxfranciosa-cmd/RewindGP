@@ -3,22 +3,45 @@ namespace Ams2Interop;
 /// <summary>
 /// Addresses, RVAs, and slot numbers for AMS2AVX.exe's internal Custom Race config objects.
 ///
-/// IMPORTANT: every RVA/tag here is tied to one specific AMS2 build and must be re-derived after
-/// a game patch. Treat a failed write/read as "needs re-deriving for this build," not as a bug in
-/// this code. Every RVA assumes AMS2AVX.exe loads at its default (non-relocated) image base.
-///
-/// Current values target the AMS2 build patched on 2026-09-20, and were LIVE-CONFIRMED on
-/// 2026-09-27: date, car, track, livery, opponent count and opponent class all applied correctly
-/// to a launched race via the real app.
-///
-/// Patch history, useful when re-deriving: code RVAs moved +0xE80..+0xEB0 on the 2026-09-15 patch
-/// and a uniform +0x120 on the 2026-09-20 one; RTTI tags shift together as one data block (their
-/// relative offsets are preserved), except IntPropertyTypeTag, which sits in an unrelated part of
-/// that block and must be confirmed separately.
+/// The type tags and RVAs below are tied to one specific AMS2 build. They're no longer constants:
+/// each reads the values resolved for the running build (see Ams2Offsets / Ams2OffsetResolver),
+/// which come from the signature file when one is present and fall back to the hand-derived
+/// values in <see cref="BuiltIn"/> otherwise. Slot numbers and struct offsets stay constants.
 /// </summary>
 public static class Ams2Constants
 {
-    // ---- RTTI / type-tag constants ----
+    /// <summary>AMS2AVX.exe's preferred image base - the base the absolute tags in BuiltIn assume.</summary>
+    public const long DefaultImageBase = 0x140000000;
+
+    /// <summary>
+    /// The hand-derived values: what's used when there's no signature file to check against, and
+    /// what Ams2SignatureGenerator generates signatures from.
+    ///
+    /// They target the AMS2 build patched on 2026-09-20, and were LIVE-CONFIRMED on 2026-09-27:
+    /// date, car, track, livery, opponent count and opponent class all applied correctly to a
+    /// launched race via the real app.
+    ///
+    /// Patch history, useful when re-deriving: code RVAs moved +0xE80..+0xEB0 on the 2026-09-15
+    /// patch and a uniform +0x120 on the 2026-09-20 one; RTTI tags shift together as one data block
+    /// (their relative offsets are preserved), except IntPropertyTypeTag, which sits in an
+    /// unrelated part of that block and must be confirmed separately.
+    /// </summary>
+    public static class BuiltIn
+    {
+        // absolute, at DefaultImageBase
+        public const long IntPropertyTypeTag = 0x141FF1658;
+        public const long Vm498IdentityTag = 0x141FDCB28;
+        public const long Vm550IdentityTag = 0x141FDCBE0;
+        public const long Vm498ContainerTag = 0x141FDD518;
+
+        // RVAs
+        public const long SetterRva = 0x4ab430;
+        public const long SetCarRva = 0x3fcac0;
+        public const long CommitRva = 0x3fc830;
+        public const long GameplaySettingsPointerRva = 0x29889E8;
+    }
+
+    // ---- RTTI / type-tag values ----
     // Literal addresses inside AMS2AVX.exe's own RTTI/vtable data, used to confirm a resolved
     // pointer actually points at the expected object type before trusting it.
     //
@@ -26,10 +49,10 @@ public static class Ams2Constants
     // (CountPopulatedIntProps) and TryReadSlot/SlotWriter's tag check all gate on it, so a wrong
     // value makes every resolve, read-back and write fail. It's the generic setter's dispatch tag:
     // node=*(vm+slot*8); tag=*(node-0x18); if(tag==IntPropertyTypeTag){...}.
-    public const long IntPropertyTypeTag = 0x141FF1658;  // generic "int property" wrapper
-    public const long Vm498IdentityTag = 0x141FDCB28;    // VM498 (race entrants) object identity
-    public const long Vm550IdentityTag = 0x141FDCBE0;    // VM550 (session/rules) object identity
-    public const long Vm498ContainerTag = 0x141FDD518;   // VM498 container class, used by the master scan
+    public static long IntPropertyTypeTag => Ams2Offsets.Active.Absolute(Ams2OffsetNames.IntPropertyTypeTag);  // generic "int property" wrapper
+    public static long Vm498IdentityTag => Ams2Offsets.Active.Absolute(Ams2OffsetNames.Vm498IdentityTag);      // VM498 (race entrants) object identity
+    public static long Vm550IdentityTag => Ams2Offsets.Active.Absolute(Ams2OffsetNames.Vm550IdentityTag);      // VM550 (session/rules) object identity
+    public static long Vm498ContainerTag => Ams2Offsets.Active.Absolute(Ams2OffsetNames.Vm498ContainerTag);    // VM498 container class, used by the master scan
 
     // ---- Fixed offsets ----
     public const int Vm498Offset = 0x250; // VM498 = *(master + 0x250)
@@ -40,23 +63,12 @@ public static class Ams2Constants
     /// The generic int-property setter, `setter(longlong node, int value)` - writes at the node's
     /// value offset (0x18c) and recurses over a sibling-node linked list (grouped writes, e.g.
     /// SessionEnabled/Paired1/Paired2). SetCarRva itself writes car/track/livery through this
-    /// function. Address resolution:
-    /// <code>
-    /// HMODULE ResolveSetter(void) {
-    ///     HMODULE base = GetModuleHandleA(NULL);
-    ///     if (base != (HMODULE)0x140000000) return base + RVA;   // relocated-base case
-    ///     return (HMODULE)(0x140000000 + RVA);                   // default-base case (same RVA)
-    /// }
-    /// </code>
+    /// function. Its address is always moduleBase + RVA, relocated or not.
     /// </summary>
-    public const long SetterRvaDefaultBase = 0x4ab430;
+    public static long SetterRva => Ams2Offsets.Active.Rva(Ams2OffsetNames.Setter);
 
-    /// <summary>Same RVA as the default-base case - see SetterRvaDefaultBase's doc comment; kept as a separate constant only so ResolveSetterAddress can still express the two-branch shape.</summary>
-    public const long SetterRva = 0x4ab430;
-
-    /// <summary>Resolves the setter's address given the ACTUAL resolved module base, rather than assuming either branch is right unconditionally.</summary>
-    public static long ResolveSetterAddress(long moduleBase) =>
-        moduleBase != 0x140000000 ? moduleBase + SetterRva : moduleBase + SetterRvaDefaultBase;
+    /// <summary>The setter's address given the ACTUAL resolved module base.</summary>
+    public static long ResolveSetterAddress(long moduleBase) => moduleBase + SetterRva;
 
     /// <summary>
     /// `SetCar(master, trackHash, carHash, livery, flag)` - applies the player's chosen
@@ -70,7 +82,7 @@ public static class Ams2Constants
     /// overwrites the opponent count - see Ams2RaceConfigurator.ApplyRaceConfigAsync for the
     /// resulting write order.
     /// </summary>
-    public const long SetCarRva = 0x3fcac0;
+    public static long SetCarRva => Ams2Offsets.Active.Rva(Ams2OffsetNames.SetCar);
 
     /// <summary>
     /// `gate(longlong master, int trackHash, int carHash, int livery) -&gt; int` - the validation
@@ -103,7 +115,7 @@ public static class Ams2Constants
     /// changed" handler and from the Custom Race screen's OK-button handler, and internally by
     /// SetCarRva. Unrelated to RaceDate/session fields.
     /// </summary>
-    public const long CommitRva = 0x3fc830;
+    public static long CommitRva => Ams2Offsets.Active.Rva(Ams2OffsetNames.Commit);
 
     /// <summary>
     /// A plain struct int field on VM498 itself (NOT an int-property slot - see
@@ -120,10 +132,10 @@ public static class Ams2Constants
     /// A module-global pointer (`block = *(moduleBase + this)`) to AMS2's big settings block,
     /// which holds the global gameplay options - see GameplaySettingsOffset. Unlike the Custom
     /// Race objects it exists whenever the game is running. A DATA RVA, so it doesn't follow the
-    /// code-RVA patch deltas noted on this class and must be re-derived on its own after a game
-    /// update. NOT YET LIVE-CONFIRMED.
+    /// code-RVA patch deltas noted on BuiltIn - its signature finds it through the code that reads
+    /// it instead. NOT YET LIVE-CONFIRMED.
     /// </summary>
-    public const long GameplaySettingsPointerRva = 0x29889E8;
+    public static long GameplaySettingsPointerRva => Ams2Offsets.Active.Rva(Ams2OffsetNames.GameplaySettingsPointer);
 
     /// <summary>
     /// Plain int fields inside the settings block (see GameplaySettingsPointerRva), each an index
