@@ -28,6 +28,22 @@ namespace AMS2ChEd.Business.Models.Concrete
 
         public string Color { get; set; }
         public bool DefaultPrequalifying { get; set; }
+        public List<ImprovementPackage> ImprovementPackages { get; set; }
+    }
+
+    public class ImprovementPackage
+    {
+        // the driver who instructed the team to install the package
+        [JsonPropertyName("driver_id")]
+        public string DriverId { get; set; }
+
+        // the race the package was installed before
+        [JsonPropertyName("race_id")]
+        public int RaceId { get; set; }
+
+        // game-specific performance value name -> variation applied to it
+        [JsonPropertyName("values")]
+        public Dictionary<string, double> Values { get; set; }
     }
 
     public class Race
@@ -60,6 +76,16 @@ namespace AMS2ChEd.Business.Models.Concrete
         public bool IgnoreForPositionsTally { get; set; }
     }
 
+    [JsonConverter(typeof(GenericEnumConverter<ContractRole>))]
+    public enum ContractRole
+    {
+        // contracts coming from seasons/saves created before roles existed
+        UNDEFINED = 0,
+        EQUAL = 1,
+        FIRST_DRIVER = 2,
+        SECOND_DRIVER = 3
+    }
+
     public class DriverContract
     {
         [JsonPropertyName("driver_id")]
@@ -70,6 +96,9 @@ namespace AMS2ChEd.Business.Models.Concrete
 
         [JsonPropertyName("drivernumber")]
         public int DriverNumber { get; set; }
+
+        [JsonPropertyName("role")]
+        public ContractRole Role { get; set; }
     }
 
     public class Absence

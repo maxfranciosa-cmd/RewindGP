@@ -58,6 +58,13 @@ namespace Ams2ChEd.Business.AMS2.Services
         private SessionType? _previousSessionType;
         private bool _sessionFinishedTriggered;
 
+        // AMS2 only reports the last opponent the *viewed* car collided with (index into
+        // mParticipantInfo + impact magnitude), so contacts can only be tracked for the player's car.
+        // Magnitude scale still needs calibrating in-game - for now any reported contact counts.
+        private const double MIN_CONTACT_MAGNITUDE = 0.0;
+        private readonly HashSet<string> _playerContactDriverIds = new HashSet<string>();
+        private (long Index, double Magnitude)? _lastCollisionSample;
+
         public Ams2RaceDataService(Ams2StorageFactory storageFactory)
         {
             SettingsStorage = storageFactory.InstallSettingsStorage;
@@ -134,7 +141,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                 {
                     _sessionFinishedTriggered = false;
                     _sessionHasStarted = false;
-                } 
+                    ResetContactTracking();
+                }
                 else if (!_sessionHasStarted && page.mGameState == 2)
                 {
                     _sessionHasStarted = true;
@@ -143,6 +151,11 @@ namespace Ams2ChEd.Business.AMS2.Services
  
                 isFinished = IsSessionFinished(page);
                 standings = GetStandings(page);
+
+                if (sessionType == SessionType.Race && !IsPreQualiSession && page.mGameState == 2 && !isFinished)
+                {
+                    TrackPlayerContact(page);
+                }
 
                 _currentSession = new SessionData
                 {
@@ -193,11 +206,68 @@ namespace Ams2ChEd.Business.AMS2.Services
                 RaceResults = new List<ParticipantData>(standings);
             }
 
+            List<string> playerContactDriverIds;
+            lock (_lock)
+            {
+                playerContactDriverIds = sessionType == SessionType.Race ? _playerContactDriverIds.ToList() : new List<string>();
+            }
+
             SessionFinished?.Invoke(this, new SessionFinishedEventArgs
             {
                 CompletedSession = sessionType,
-                FinalStandings = standings
+                FinalStandings = standings,
+                PlayerContactDriverIds = playerContactDriverIds
             });
+        }
+
+        private void ResetContactTracking()
+        {
+            _playerContactDriverIds.Clear();
+            _lastCollisionSample = null;
+        }
+
+        private void TrackPlayerContact(AMS2Page page)
+        {
+            var sample = (Index: Convert.ToInt64(page.mLastOpponentCollisionIndex), Magnitude: (double)page.mLastOpponentCollisionMagnitude);
+
+            // the "last collision" values stay latched between polls: the first sample only sets
+            // the baseline (it may be left over from an earlier session), then any change is a new contact
+            if (_lastCollisionSample == null)
+            {
+                _lastCollisionSample = sample;
+                return;
+            }
+
+            if (_lastCollisionSample.Value == sample)
+                return;
+
+            _lastCollisionSample = sample;
+
+            if (!IsPlayerTheViewedParticipant(page))
+                return;
+
+            if (sample.Index < 0 || sample.Index >= page.mParticipantInfo.Length || sample.Magnitude < MIN_CONTACT_MAGNITUDE)
+                return;
+
+            var opponentName = DecodeAms2String(page.mParticipantInfo[sample.Index].mName);
+            var opponentId = _driverNameDriverIdLookup?.GetValueOrDefault(opponentName);
+
+            System.Diagnostics.Debug.WriteLine($"Player contact with '{opponentName}' ({opponentId ?? "unknown"}), magnitude {sample.Magnitude}");
+
+            if (!string.IsNullOrEmpty(opponentId))
+            {
+                _playerContactDriverIds.Add(opponentId);
+            }
+        }
+
+        private bool IsPlayerTheViewedParticipant(AMS2Page page)
+        {
+            var viewedIndex = Convert.ToInt64(page.mViewedParticipantIndex);
+            if (viewedIndex < 0 || viewedIndex >= page.mParticipantInfo.Length)
+                return false;
+
+            var viewedName = DecodeAms2String(page.mParticipantInfo[viewedIndex].mName);
+            return viewedName.ToLower() == _playerInGameNameInLowerCase;
         }
 
         private SessionType MapSessionType(uint sessionState)
@@ -379,6 +449,10 @@ namespace Ams2ChEd.Business.AMS2.Services
             _sessionFinishedTriggered = false;
             _sessionHasStarted = false;
             _previousSessionType = null;
+            lock (_lock)
+            {
+                ResetContactTracking();
+            }
 
             // Store player's career driver information
             var playerData = participants.FirstOrDefault(p => p.IsPlayer);

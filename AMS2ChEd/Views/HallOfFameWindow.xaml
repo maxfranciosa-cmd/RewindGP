@@ -1,0 +1,168 @@
+<!--Hall of Fame Window - the drivers with the most championships and the most wins, as history stands in the save-->
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        mc:Ignorable="d"
+        x:Class="AMS2ChEd.Views.HallOfFameWindow"
+        Title="{loc:Loc HallOfFameWindow_Title}"
+        Height="800" Width="1100"
+        MinHeight="520" MinWidth="820"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource HallOfFame.WindowBackground}"
+        SizeChanged="Window_SizeChanged">
+
+    <!-- This window only holds structure. How each part looks comes from the "HallOfFame.*" styles of the
+         active visual style (Themes/<style>/HallOfFame.xaml); the size of the page text, which the
+         code-behind enlarges on a wide window, comes from there too. A row's "Status" (Active, Retired,
+         Historic) and "IsPlayer" are what those styles tell the drivers apart by. -->
+    <Window.Resources>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource HallOfFame.ScrollBar}"/>
+    </Window.Resources>
+
+    <Grid x:Name="ScreenRoot" Style="{StaticResource HallOfFame.Root}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Page header (the teletext page number in the retro style) -->
+        <Grid Grid.Row="0" Style="{StaticResource HallOfFame.PageHeader}">
+            <TextBlock Text="P303 REWINDTEXT 303" Style="{StaticResource HallOfFame.PageHeaderText}"/>
+            <TextBlock Text="303" Style="{StaticResource HallOfFame.PageNumber}"/>
+        </Grid>
+
+        <!-- Title -->
+        <Border Grid.Row="1" Style="{StaticResource HallOfFame.TitleBar}">
+            <TextBlock x:Name="TitleText"
+                       Text="{loc:Loc HallOfFameWindow_Header}"
+                       Style="{StaticResource HallOfFame.Title}"/>
+        </Border>
+
+        <!-- What the three kinds of driver look like -->
+        <WrapPanel Grid.Row="2" Style="{StaticResource HallOfFame.Legend}">
+            <TextBlock Text="{loc:Loc HallOfFameWindow_LegendActive}" Style="{StaticResource HallOfFame.LegendActive}"/>
+            <TextBlock Text="{loc:Loc HallOfFameWindow_LegendRetired}" Style="{StaticResource HallOfFame.LegendRetired}"/>
+            <TextBlock Text="{loc:Loc HallOfFameWindow_LegendHistoric}" Style="{StaticResource HallOfFame.LegendHistoric}"/>
+        </WrapPanel>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.25*"/>
+                <ColumnDefinition Width="44"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Most championships -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource HallOfFame.SectionHeader}">
+                    <TextBlock Text="{loc:Loc HallOfFameWindow_ChampionshipsHeader}"
+                               Style="{StaticResource HallOfFame.SectionTitle}"/>
+                </Border>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <ItemsControl x:Name="ChampionshipsItems">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource HallOfFame.Row}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="44"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="60"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding Rank}"
+                                                       Style="{StaticResource HallOfFame.RowRank}"/>
+
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding Name}"
+                                                       Style="{StaticResource HallOfFame.RowName}"/>
+
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Value}"
+                                                       Style="{StaticResource HallOfFame.RowValue}"/>
+
+                                            <!-- the title years, under the name -->
+                                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                                       Text="{Binding Years}"
+                                                       Style="{StaticResource HallOfFame.RowYears}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <TextBlock x:Name="NoChampionsText"
+                                   Text="{loc:Loc HallOfFameWindow_NoDataMessage}"
+                                   Style="{StaticResource HallOfFame.Empty}"
+                                   Visibility="Collapsed"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Most wins -->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource HallOfFame.SectionHeader}">
+                    <TextBlock Text="{loc:Loc HallOfFameWindow_WinsHeader}"
+                               Style="{StaticResource HallOfFame.SectionTitle}"/>
+                </Border>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <ItemsControl x:Name="WinsItems">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource HallOfFame.Row}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="44"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="70"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding Rank}"
+                                                       Style="{StaticResource HallOfFame.RowRank}"/>
+
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding Name}"
+                                                       Style="{StaticResource HallOfFame.RowName}"/>
+
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Value}"
+                                                       Style="{StaticResource HallOfFame.RowValue}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <TextBlock x:Name="NoWinnersText"
+                                   Text="{loc:Loc HallOfFameWindow_NoDataMessage}"
+                                   Style="{StaticResource HallOfFame.Empty}"
+                                   Visibility="Collapsed"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+
+    <!--
+      Developer tool for Ams2Interop's offset signatures - not shipped with the app.
+        status            which offsets were found for the running AMS2 build, and how
+        generate [path]   build ams2_signatures.json from a build whose built-in offsets work
+      AMS2 must be running. See Ams2Interop/README.md, "Surviving AMS2 patches".
+    -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ams2Interop\Ams2Interop.csproj" />
+  </ItemGroup>
+
+</Project>

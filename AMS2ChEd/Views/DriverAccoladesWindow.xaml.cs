@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Resources;
 using System.Windows;
@@ -13,7 +14,7 @@ namespace AMS2ChEd.Views
 {
     public partial class DriverAccoladesWindow : Window
     {
-        public DriverAccoladesWindow(ISaveGame saveGame, string driverId, string driverName, string teamName, string pictureUrl)
+        public DriverAccoladesWindow(ISaveGame saveGame, string driverId, string driverName, string teamName, string pictureUrl, IAllTimeRecordsLoader allTimeRecordsLoader = null)
         {
             InitializeComponent();
 
@@ -32,7 +33,20 @@ namespace AMS2ChEd.Views
                 AgeText.Visibility = Visibility.Collapsed;
             }
 
-            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, driverId);
+            // team-orders role, only for drivers with a seat this season
+            var contract = saveGame.CurrentSeason.Teams
+                .SelectMany(t => new[] { t.Driver1Contract, t.Driver2Contract })
+                .FirstOrDefault(c => c != null && c.DriverId == driverId);
+            if (contract != null)
+            {
+                RoleText.Text = TeamSelectionWindow.GetRoleName(contract.Role);
+            }
+            else
+            {
+                RoleText.Visibility = Visibility.Collapsed;
+            }
+
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, allTimeRecordsLoader?.Load(), driverId);
 
             WinsText.Text = accolades.Wins.ToString();
             PodiumsText.Text = accolades.Podiums.ToString();
@@ -101,22 +115,33 @@ namespace AMS2ChEd.Views
             };
         }
 
+        // a championship year, drawn by the active visual style
         private Border CreateChampionshipBadge(string year)
         {
             return new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#dc143c")),
-                CornerRadius = new CornerRadius(4),
-                Margin = new Thickness(0, 0, 8, 8),
-                Padding = new Thickness(12, 6, 12, 6),
+                Style = (Style)FindResource("Accolades.ChampionshipBadge"),
                 Child = new TextBlock
                 {
                     Text = year,
-                    FontSize = 16,
-                    FontWeight = FontWeights.Bold,
-                    Foreground = new SolidColorBrush(Colors.White)
+                    Style = (Style)FindResource("Accolades.ChampionshipBadgeText")
                 }
             };
+        }
+
+        // a wide window puts the previous seasons next to the profile instead of below it
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            bool isWide = ActualWidth >= 800;
+
+            Grid.SetColumnSpan(ProfileBlock, isWide ? 1 : 2);
+            Grid.SetRowSpan(ProfileBlock, isWide ? 2 : 1);
+
+            Grid.SetRow(SeasonsBlock, isWide ? 0 : 1);
+            Grid.SetRowSpan(SeasonsBlock, isWide ? 2 : 1);
+            Grid.SetColumn(SeasonsBlock, isWide ? 1 : 0);
+            Grid.SetColumnSpan(SeasonsBlock, isWide ? 1 : 2);
+            SeasonsBlock.Margin = isWide ? new Thickness(30, 0, 0, 0) : new Thickness(0, 16, 0, 0);
         }
     }
 }

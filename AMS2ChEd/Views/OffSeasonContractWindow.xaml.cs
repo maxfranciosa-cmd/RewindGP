@@ -110,6 +110,9 @@ namespace AMS2ChEd.Views
                 DriverFirerOutcome.DROPPED_TEAM_QUITTING =>
                     GenerateTeamQuittingMessage(playerName, teamName),
 
+                DriverFirerOutcome.DROPPED_DISCIPLINARY =>
+                    string.Format(Strings.OffSeasonContractWindow_Disciplinary_Format, teamName),
+
                 _ => Strings.OffSeasonContractWindow_TerminationReason_Default
             };
 

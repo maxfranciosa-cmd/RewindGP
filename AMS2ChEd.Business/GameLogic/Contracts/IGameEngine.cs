@@ -29,6 +29,14 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
             string driverId,
             List<IDriverData> seasonDrivers);
 
+        ISaveGame CreateNewGameWithImportedDriver(
+            IDriverData importedDriver,
+            DriverReputation playerReputation,
+            ISeason season,
+            string selectedTeamId,
+            string replacedDriverId,
+            List<IDriverData> seasonDrivers);
+
         void LoadGame(ISaveGame saveGame);
         void UpdateSeasonInsideSave(ISaveGame saveGame);
         void ProgressToNextGrandPrix();

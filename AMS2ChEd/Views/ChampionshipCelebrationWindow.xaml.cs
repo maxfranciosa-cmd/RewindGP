@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Localization;
 using AMS2ChEd.Resources;
@@ -14,7 +15,7 @@ namespace AMS2ChEd.Views
 {
     public partial class ChampionshipCelebrationWindow : Window
     {
-        public ChampionshipCelebrationWindow(ISaveGame saveGame)
+        public ChampionshipCelebrationWindow(ISaveGame saveGame, IAllTimeRecordsLoader allTimeRecordsLoader = null)
         {
             InitializeComponent();
 
@@ -46,8 +47,9 @@ namespace AMS2ChEd.Views
                 DriverPortraitImage.LoadPhoto(championPhoto);
             }
 
-            var championDriverAccolades = AccoladesCalculator.GetDriverAccolades(saveGame, champion.DriverId, saveGame.CurrentSeason.Year);
-            var championTeamAccolades = AccoladesCalculator.GetTeamAccolades(saveGame, champion.TeamId, saveGame.CurrentSeason.Year);
+            var allTimeRecords = allTimeRecordsLoader?.Load();
+            var championDriverAccolades = AccoladesCalculator.GetDriverAccolades(saveGame, allTimeRecords, champion.DriverId, saveGame.CurrentSeason.Year);
+            var championTeamAccolades = AccoladesCalculator.GetTeamAccolades(saveGame, allTimeRecords, champion.TeamId, saveGame.CurrentSeason.Year);
             bool isMaidenTitle = championDriverAccolades.HasBaseline && championDriverAccolades.Championships == 1;
 
             // Set the headline
@@ -55,7 +57,7 @@ namespace AMS2ChEd.Views
 
             // Generate the article
             GenerateChampionshipArticle(saveGame, championName, championTeam, championReputation, champion.Points,
-                championDriverAccolades, championTeamAccolades, isMaidenTitle);
+                championDriverAccolades, championTeamAccolades, isMaidenTitle, champion.DriverId, allTimeRecordsLoader);
         }
 
         private string BuildHeadline(string championName, int year, bool isMaidenTitle)
@@ -82,7 +84,9 @@ namespace AMS2ChEd.Views
             double championPoints,
             AccoladeSummary championDriverAccolades,
             AccoladeSummary championTeamAccolades,
-            bool isMaidenTitle)
+            bool isMaidenTitle,
+            string championId,
+            IAllTimeRecordsLoader allTimeRecordsLoader)
         {
             string article = "";
 
@@ -98,6 +102,14 @@ namespace AMS2ChEd.Views
             // Career milestone (title tally for the driver and constructor)
             article += GenerateChampionshipMilestoneParagraph(championName, championTeam, championDriverAccolades, championTeamAccolades, isMaidenTitle);
             article += "\n\n";
+
+            // Legends the champion now sits alongside (never for a first title)
+            string legendsParagraph = GenerateLegendsParagraph(saveGame, championId, championName, allTimeRecordsLoader);
+            if (!string.IsNullOrEmpty(legendsParagraph))
+            {
+                article += legendsParagraph;
+                article += "\n\n";
+            }
 
             // Final standings
             article += Strings.ChampionshipCelebrationWindow_StandingsHeader;
@@ -219,6 +231,41 @@ namespace AMS2ChEd.Views
             };
 
             return milestoneVariants[random.Next(milestoneVariants.Length)];
+        }
+
+        // Argument order standardized as (championName, legendNames, titles, titlesMinusOne), so
+        // each language's resx template can freely reorder or drop placeholders.
+        private string GenerateLegendsParagraph(ISaveGame saveGame, string championId, string championName, IAllTimeRecordsLoader allTimeRecordsLoader)
+        {
+            if (allTimeRecordsLoader == null)
+                return "";
+
+            var hallOfFame = HallOfFameCalculator.Build(saveGame, allTimeRecordsLoader.Load());
+            var comparison = LegendsCalculator.FindTitleComparison(hallOfFame, championId, saveGame.CurrentSeason.Year);
+            if (comparison == null)
+                return "";
+
+            var names = comparison.Legends.Select(l => l.Name).ToList();
+            string legendNames = names.Count switch
+            {
+                0 => "",
+                1 => names[0],
+                _ => string.Format(Strings.ChampionshipCelebrationWindow_Legends_NameList_Two_Format, names[0], names[1])
+            };
+
+            string template = comparison.Kind switch
+            {
+                TitleComparisonKind.JOINS => new[]
+                {
+                    Strings.ChampionshipCelebrationWindow_Legends_Joins1_Format,
+                    Strings.ChampionshipCelebrationWindow_Legends_Joins2_Format
+                }[new Random().Next(2)],
+                TitleComparisonKind.PASSES => Strings.ChampionshipCelebrationWindow_Legends_Passes_Format,
+                TitleComparisonKind.RECORD => Strings.ChampionshipCelebrationWindow_Legends_Record_Format,
+                _ => Strings.ChampionshipCelebrationWindow_Legends_ExtendsRecord_Format
+            };
+
+            return string.Format(template, championName, legendNames, comparison.Titles, comparison.Titles - 1);
         }
 
         private string GetDriverName(ISaveGame saveGame, string driverId)

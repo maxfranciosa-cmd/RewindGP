@@ -127,6 +127,12 @@ namespace AMS2ChEd
             }
         }
 
+        // a wider planner fits six races per row instead of four
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            RaceItems.Tag = ActualWidth >= 1300 ? 6 : 4;
+        }
+
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             // Ensure at least one race is selected

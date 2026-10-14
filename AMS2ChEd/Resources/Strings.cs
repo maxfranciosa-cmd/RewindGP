@@ -30,6 +30,7 @@ namespace AMS2ChEd.Resources
         public static string MainWindow_SelectRaceLabel => ResourceManager.GetString(nameof(MainWindow_SelectRaceLabel))!;
         public static string MainWindow_ExportCustomAiButton => ResourceManager.GetString(nameof(MainWindow_ExportCustomAiButton))!;
         public static string MainWindow_ExportLiveriesButton => ResourceManager.GetString(nameof(MainWindow_ExportLiveriesButton))!;
+        public static string MainWindow_ExportSeasonPackButton => ResourceManager.GetString(nameof(MainWindow_ExportSeasonPackButton))!;
         public static string MainWindow_BackButton => ResourceManager.GetString(nameof(MainWindow_BackButton))!;
         public static string MainWindow_DriverNameLabel => ResourceManager.GetString(nameof(MainWindow_DriverNameLabel))!;
         public static string MainWindow_NationalityLabel => ResourceManager.GetString(nameof(MainWindow_NationalityLabel))!;
@@ -55,6 +56,12 @@ namespace AMS2ChEd.Resources
         public static string MainWindow_ExportCustomAiError_Message => ResourceManager.GetString(nameof(MainWindow_ExportCustomAiError_Message))!;
         public static string MainWindow_LiveriesExported_Message => ResourceManager.GetString(nameof(MainWindow_LiveriesExported_Message))!;
         public static string MainWindow_ExportLiveriesError_Message => ResourceManager.GetString(nameof(MainWindow_ExportLiveriesError_Message))!;
+        public static string MainWindow_ExportSeasonPackFolder_Title => ResourceManager.GetString(nameof(MainWindow_ExportSeasonPackFolder_Title))!;
+        public static string MainWindow_ExportingSeasonPack_Message => ResourceManager.GetString(nameof(MainWindow_ExportingSeasonPack_Message))!;
+        public static string MainWindow_SeasonPackExported_Message => ResourceManager.GetString(nameof(MainWindow_SeasonPackExported_Message))!;
+        public static string MainWindow_ExportSeasonPackError_Message => ResourceManager.GetString(nameof(MainWindow_ExportSeasonPackError_Message))!;
+        public static string MainWindow_ExportSeasonPackUnavailable_Message => ResourceManager.GetString(nameof(MainWindow_ExportSeasonPackUnavailable_Message))!;
+        public static string MainWindow_SelectSeasonFirst_Message => ResourceManager.GetString(nameof(MainWindow_SelectSeasonFirst_Message))!;
         public static string MainWindow_SelectSeasonAndRaceFirst_Message => ResourceManager.GetString(nameof(MainWindow_SelectSeasonAndRaceFirst_Message))!;
         public static string MainWindow_LoadGame_DialogTitle => ResourceManager.GetString(nameof(MainWindow_LoadGame_DialogTitle))!;
         public static string MainWindow_ModOutOfDate_Message => ResourceManager.GetString(nameof(MainWindow_ModOutOfDate_Message))!;
@@ -117,6 +124,16 @@ namespace AMS2ChEd.Resources
         public static string HistoricalStandingsWindow_DriversChampionshipHeader => ResourceManager.GetString(nameof(HistoricalStandingsWindow_DriversChampionshipHeader))!;
         public static string HistoricalStandingsWindow_ConstructorsChampionshipHeader => ResourceManager.GetString(nameof(HistoricalStandingsWindow_ConstructorsChampionshipHeader))!;
         public static string HistoricalStandingsWindow_NoDataMessage => ResourceManager.GetString(nameof(HistoricalStandingsWindow_NoDataMessage))!;
+
+        public static string HallOfFameWindow_Title => ResourceManager.GetString(nameof(HallOfFameWindow_Title))!;
+        public static string HallOfFameWindow_Header => ResourceManager.GetString(nameof(HallOfFameWindow_Header))!;
+        public static string HallOfFameWindow_ChampionshipsHeader => ResourceManager.GetString(nameof(HallOfFameWindow_ChampionshipsHeader))!;
+        public static string HallOfFameWindow_WinsHeader => ResourceManager.GetString(nameof(HallOfFameWindow_WinsHeader))!;
+        public static string HallOfFameWindow_LegendActive => ResourceManager.GetString(nameof(HallOfFameWindow_LegendActive))!;
+        public static string HallOfFameWindow_LegendRetired => ResourceManager.GetString(nameof(HallOfFameWindow_LegendRetired))!;
+        public static string HallOfFameWindow_LegendHistoric => ResourceManager.GetString(nameof(HallOfFameWindow_LegendHistoric))!;
+        public static string HallOfFameWindow_NoDataMessage => ResourceManager.GetString(nameof(HallOfFameWindow_NoDataMessage))!;
+        public static string SeasonOverviewWindow_HallOfFameButton => ResourceManager.GetString(nameof(SeasonOverviewWindow_HallOfFameButton))!;
 
         public static string MissingDriversResultWindow_Title => ResourceManager.GetString(nameof(MissingDriversResultWindow_Title))!;
         public static string MissingDriversResultWindow_Header => ResourceManager.GetString(nameof(MissingDriversResultWindow_Header))!;
@@ -272,6 +289,9 @@ namespace AMS2ChEd.Resources
         public static string RaceWeekendWindow_Session_Race_Classic => ResourceManager.GetString(nameof(RaceWeekendWindow_Session_Race_Classic))!;
         public static string RaceWeekendWindow_Session_Unknown_Classic => ResourceManager.GetString(nameof(RaceWeekendWindow_Session_Unknown_Classic))!;
         public static string RaceWeekendWindow_FinishSessionFirst_Message => ResourceManager.GetString(nameof(RaceWeekendWindow_FinishSessionFirst_Message))!;
+        public static string RaceWeekendWindow_RaceFinishNotSeen_Title => ResourceManager.GetString(nameof(RaceWeekendWindow_RaceFinishNotSeen_Title))!;
+        public static string RaceWeekendWindow_RaceFinishNotSeen_Message => ResourceManager.GetString(nameof(RaceWeekendWindow_RaceFinishNotSeen_Message))!;
+        public static string RaceWeekendWindow_NoRaceSeen_Message => ResourceManager.GetString(nameof(RaceWeekendWindow_NoRaceSeen_Message))!;
         public static string RaceWeekendWindow_Info_Title => ResourceManager.GetString(nameof(RaceWeekendWindow_Info_Title))!;
         public static string RaceWeekendWindow_UseControlWindow_Message => ResourceManager.GetString(nameof(RaceWeekendWindow_UseControlWindow_Message))!;
         public static string RaceWeekendWindow_DefaultCircuitName => ResourceManager.GetString(nameof(RaceWeekendWindow_DefaultCircuitName))!;
@@ -428,6 +448,12 @@ namespace AMS2ChEd.Resources
         public static string PostRaceNewsWindow_FirstPodium1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_FirstPodium1_Format))!;
         public static string PostRaceNewsWindow_FirstPodium2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_FirstPodium2_Format))!;
         public static string PostRaceNewsWindow_FirstPodium3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_FirstPodium3_Format))!;
+        public static string PostRaceNewsWindow_Legend_Level1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Level1_Format))!;
+        public static string PostRaceNewsWindow_Legend_Level2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Level2_Format))!;
+        public static string PostRaceNewsWindow_Legend_Passed1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Passed1_Format))!;
+        public static string PostRaceNewsWindow_Legend_Passed2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Passed2_Format))!;
+        public static string PostRaceNewsWindow_Legend_Record1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Record1_Format))!;
+        public static string PostRaceNewsWindow_Legend_Record2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Legend_Record2_Format))!;
         public static string PostRaceNewsWindow_Dnf1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Dnf1_Format))!;
         public static string PostRaceNewsWindow_Dnf2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Dnf2_Format))!;
         public static string PostRaceNewsWindow_Dnf3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Dnf3_Format))!;
@@ -718,6 +744,12 @@ namespace AMS2ChEd.Resources
         public static string ChampionshipCelebrationWindow_Milestone_ChampionshipWord_Plural => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Milestone_ChampionshipWord_Plural))!;
         public static string ChampionshipCelebrationWindow_Milestone_Variant1_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Milestone_Variant1_Format))!;
         public static string ChampionshipCelebrationWindow_Milestone_Variant2_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Milestone_Variant2_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_NameList_Two_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_NameList_Two_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_Joins1_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_Joins1_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_Joins2_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_Joins2_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_Passes_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_Passes_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_Record_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_Record_Format))!;
+        public static string ChampionshipCelebrationWindow_Legends_ExtendsRecord_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_Legends_ExtendsRecord_Format))!;
         public static string ChampionshipCelebrationWindow_StandingsHeader => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_StandingsHeader))!;
         public static string ChampionshipCelebrationWindow_StandingsLine_Format => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_StandingsLine_Format))!;
         public static string ChampionshipCelebrationWindow_StandingsPointsWord_Singular => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_StandingsPointsWord_Singular))!;
@@ -960,5 +992,83 @@ namespace AMS2ChEd.Resources
         public static string RetirementNewsWindow_Closing3 => ResourceManager.GetString(nameof(RetirementNewsWindow_Closing3))!;
 
         public static string RetirementNewsWindow_DefaultTeamName => ResourceManager.GetString(nameof(RetirementNewsWindow_DefaultTeamName))!;
+
+        public static string OffSeasonContractWindow_Disciplinary_Format => ResourceManager.GetString(nameof(OffSeasonContractWindow_Disciplinary_Format))!;
+        public static string TeamApplicationWindow_DropReason_Disciplinary => ResourceManager.GetString(nameof(TeamApplicationWindow_DropReason_Disciplinary))!;
+        public static string TeamSelectionWindow_EqualDriverRole => ResourceManager.GetString(nameof(TeamSelectionWindow_EqualDriverRole))!;
+        public static string SeasonOverviewWindow_RoleLabel => ResourceManager.GetString(nameof(SeasonOverviewWindow_RoleLabel))!;
+        public static string SeasonOverviewWindow_RoleAndReprimands_Format => ResourceManager.GetString(nameof(SeasonOverviewWindow_RoleAndReprimands_Format))!;
+
+        public static string PaddockNewsWindow_Title => ResourceManager.GetString(nameof(PaddockNewsWindow_Title))!;
+        public static string PaddockNewsWindow_Masthead => ResourceManager.GetString(nameof(PaddockNewsWindow_Masthead))!;
+        public static string PaddockNewsWindow_Banner => ResourceManager.GetString(nameof(PaddockNewsWindow_Banner))!;
+        public static string PaddockNewsWindow_CloseButton => ResourceManager.GetString(nameof(PaddockNewsWindow_CloseButton))!;
+        public static string PaddockNewsWindow_DefaultTeamName => ResourceManager.GetString(nameof(PaddockNewsWindow_DefaultTeamName))!;
+        public static string PaddockNewsWindow_DefaultTeamPrincipal => ResourceManager.GetString(nameof(PaddockNewsWindow_DefaultTeamPrincipal))!;
+        public static string PaddockNewsWindow_DefaultDriverName => ResourceManager.GetString(nameof(PaddockNewsWindow_DefaultDriverName))!;
+        public static string PaddockNewsWindow_Headline_Generic_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Headline_Generic_Format))!;
+        public static string PaddockNewsWindow_Headline_Reprimand_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Headline_Reprimand_Format))!;
+        public static string PaddockNewsWindow_Headline_Released_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Headline_Released_Format))!;
+        public static string PaddockNewsWindow_Reprimand1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Reprimand1_Format))!;
+        public static string PaddockNewsWindow_Reprimand2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Reprimand2_Format))!;
+        public static string PaddockNewsWindow_Reprimand3_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Reprimand3_Format))!;
+        public static string PaddockNewsWindow_Contact1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Contact1_Format))!;
+        public static string PaddockNewsWindow_Contact2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Contact2_Format))!;
+        public static string PaddockNewsWindow_Contact3_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Contact3_Format))!;
+        public static string PaddockNewsWindow_FinalWarning1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_FinalWarning1_Format))!;
+        public static string PaddockNewsWindow_FinalWarning2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_FinalWarning2_Format))!;
+        public static string PaddockNewsWindow_SparedAsLeader1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_SparedAsLeader1_Format))!;
+        public static string PaddockNewsWindow_SparedAsLeader2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_SparedAsLeader2_Format))!;
+        public static string PaddockNewsWindow_Released1_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Released1_Format))!;
+        public static string PaddockNewsWindow_Released2_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_Released2_Format))!;
+        public static string PaddockNewsWindow_ReleasedNoReplacement_Format => ResourceManager.GetString(nameof(PaddockNewsWindow_ReleasedNoReplacement_Format))!;
+
+        public static string SeasonOverviewWindow_CalendarHeader => ResourceManager.GetString(nameof(SeasonOverviewWindow_CalendarHeader))!;
+        public static string SeasonOverviewWindow_ImprovementPackagesTooltip => ResourceManager.GetString(nameof(SeasonOverviewWindow_ImprovementPackagesTooltip))!;
+        public static string SeasonOverviewWindow_InstallPackageButton_Format => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackageButton_Format))!;
+        public static string SeasonOverviewWindow_InstallPackage_Confirm_Title => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_Confirm_Title))!;
+        public static string SeasonOverviewWindow_InstallPackage_Confirm_Message => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_Confirm_Message))!;
+        public static string SeasonOverviewWindow_InstallPackage_NoneLeft_Tooltip => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_NoneLeft_Tooltip))!;
+        public static string SeasonOverviewWindow_InstallPackage_AlreadyInstalled_Tooltip => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_AlreadyInstalled_Tooltip))!;
+        public static string SeasonOverviewWindow_InstallPackage_NotAllowed_Tooltip => ResourceManager.GetString(nameof(SeasonOverviewWindow_InstallPackage_NotAllowed_Tooltip))!;
+
+        public static string ImprovementPackageNewsWindow_Title => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Title))!;
+        public static string ImprovementPackageNewsWindow_Banner => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Banner))!;
+        public static string ImprovementPackageNewsWindow_Headline_Generic_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Headline_Generic_Format))!;
+        public static string ImprovementPackageNewsWindow_Headline_Team_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Headline_Team_Format))!;
+        public static string ImprovementPackageNewsWindow_Intro1_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Intro1_Format))!;
+        public static string ImprovementPackageNewsWindow_Intro2_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Intro2_Format))!;
+        public static string ImprovementPackageNewsWindow_Intro3_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Intro3_Format))!;
+        public static string ImprovementPackageNewsWindow_Effects_GainsAndLosses_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Effects_GainsAndLosses_Format))!;
+        public static string ImprovementPackageNewsWindow_Effects_OnlyGains_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Effects_OnlyGains_Format))!;
+        public static string ImprovementPackageNewsWindow_Effects_OnlyLosses_Format => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Effects_OnlyLosses_Format))!;
+        public static string ImprovementPackageNewsWindow_Effects_None => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_Effects_None))!;
+        public static string ImprovementPackageNewsWindow_ListAnd => ResourceManager.GetString(nameof(ImprovementPackageNewsWindow_ListAnd))!;
+
+        public static string ImprovementPackagesWindow_Title => ResourceManager.GetString(nameof(ImprovementPackagesWindow_Title))!;
+        public static string ImprovementPackagesWindow_Header => ResourceManager.GetString(nameof(ImprovementPackagesWindow_Header))!;
+        public static string ImprovementPackagesWindow_PackagesColumnHeader => ResourceManager.GetString(nameof(ImprovementPackagesWindow_PackagesColumnHeader))!;
+        public static string ImprovementPackagesWindow_FooterText => ResourceManager.GetString(nameof(ImprovementPackagesWindow_FooterText))!;
+
+        public static string TeamPrincipalLetterWindow_Title => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Title))!;
+        public static string TeamPrincipalLetterWindow_Subtitle => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Subtitle))!;
+        public static string TeamPrincipalLetterWindow_Letter_Format => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Letter_Format))!;
+
+        public static string MainWindow_NewGameImportedDriverButton => ResourceManager.GetString(nameof(MainWindow_NewGameImportedDriverButton))!;
+        public static string MainWindow_NewGameGroupTitle => ResourceManager.GetString(nameof(MainWindow_NewGameGroupTitle))!;
+        public static string MainWindow_ImportedDriverLabel => ResourceManager.GetString(nameof(MainWindow_ImportedDriverLabel))!;
+        public static string MainWindow_ImportedDriverListItem_Format => ResourceManager.GetString(nameof(MainWindow_ImportedDriverListItem_Format))!;
+        public static string MainWindow_ImportedDriverInfo_Format => ResourceManager.GetString(nameof(MainWindow_ImportedDriverInfo_Format))!;
+        public static string MainWindow_NoImportableDrivers_Message => ResourceManager.GetString(nameof(MainWindow_NoImportableDrivers_Message))!;
+        public static string MainWindow_ImportedDriverAlreadyInSeason_Message => ResourceManager.GetString(nameof(MainWindow_ImportedDriverAlreadyInSeason_Message))!;
+
+        public static string MainWindow_ContinueButton => ResourceManager.GetString(nameof(MainWindow_ContinueButton))!;
+        public static string MainWindow_ContinueDescription_Format => ResourceManager.GetString(nameof(MainWindow_ContinueDescription_Format))!;
+        public static string MainWindow_ContinueDescriptionSeasonOver_Format => ResourceManager.GetString(nameof(MainWindow_ContinueDescriptionSeasonOver_Format))!;
+        public static string MainWindow_Cover_NextRace_Headline_Format => ResourceManager.GetString(nameof(MainWindow_Cover_NextRace_Headline_Format))!;
+        public static string MainWindow_Cover_NextRace_Subline_Format => ResourceManager.GetString(nameof(MainWindow_Cover_NextRace_Subline_Format))!;
+        public static string MainWindow_Cover_SeasonPreview_Headline_Format => ResourceManager.GetString(nameof(MainWindow_Cover_SeasonPreview_Headline_Format))!;
+        public static string MainWindow_Cover_Leads_Headline_Format => ResourceManager.GetString(nameof(MainWindow_Cover_Leads_Headline_Format))!;
+        public static string MainWindow_Cover_Position_Headline_Format => ResourceManager.GetString(nameof(MainWindow_Cover_Position_Headline_Format))!;
     }
 }

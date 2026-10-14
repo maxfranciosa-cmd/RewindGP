@@ -23,6 +23,13 @@ namespace AMS2ChEd.Business.Storage
         public static string SeasonsManifestPath(string fileName) =>
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
 
+        /// <summary>
+        /// Real-world record of every driver and team in history: what a save's accolades and
+        /// hall of fame start from.
+        /// </summary>
+        public static string AllTimeRecordsPath =>
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "HallOfFame", "all_time_records.json");
+
         private static string _savesFolder = null;
         public static string SavesFolder
         {

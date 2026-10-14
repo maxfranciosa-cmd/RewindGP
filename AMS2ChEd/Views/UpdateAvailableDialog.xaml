@@ -6,96 +6,86 @@
         Width="480" SizeToContent="Height"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
-        Background="#1a1a1a"
-        Foreground="White">
+        Background="{StaticResource Charcoal.BackgroundBrush}"
+        Foreground="{StaticResource Charcoal.TextBrush}">
 
+    <!-- A utility window: it wears the charcoal look ("Charcoal.*" resources of Themes/Charcoal/Base.xaml)
+         whatever the visual style. -->
     <Window.Resources>
-        <Style x:Key="PrimaryButton" TargetType="Button">
-            <Setter Property="Background" Value="#c41e3a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#d32f2f"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="#555555"/>
-                    <Setter Property="Foreground" Value="#888888"/>
-                </Trigger>
-            </Style.Triggers>
+        <Style x:Key="VersionText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+            <Setter Property="FontSize" Value="30"/>
         </Style>
-        <Style x:Key="SecondaryButton" TargetType="Button">
-            <Setter Property="Background" Value="#555555"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#666666"/>
-                </Trigger>
-            </Style.Triggers>
+        <!-- two buttons share the narrow dialog: a tighter block keeps the longer captions on one line -->
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource Charcoal.DialogPrimaryButtonStyle}">
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Padding" Value="8,12"/>
+        </Style>
+        <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource Charcoal.DialogSecondaryButtonStyle}">
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Padding" Value="8,12"/>
+        </Style>
+        <Style x:Key="DescriptionText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+            <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
         </Style>
     </Window.Resources>
 
-    <StackPanel Margin="24,24,24,24">
+    <StackPanel Margin="24">
 
-        <TextBlock Text="{loc:Loc UpdateAvailableDialog_Header}"
-                   FontSize="20" FontWeight="Bold"
-                   Foreground="#c41e3a" Margin="0,0,0,20"/>
+        <Border Style="{StaticResource Charcoal.TitleBarStyle}">
+            <TextBlock Text="{loc:Loc UpdateAvailableDialog_Header}" Style="{StaticResource Charcoal.TitleTextStyle}"/>
+        </Border>
 
-        <Grid Margin="0,0,0,20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <Label Content="{loc:Loc UpdateAvailableDialog_CurrentLabel}" Foreground="#cccccc" FontSize="11" FontWeight="SemiBold" Padding="0,0,0,4"/>
-                <TextBlock x:Name="CurrentVersionText" FontSize="20" FontWeight="Bold" Foreground="#888888"/>
-            </StackPanel>
-            <TextBlock Grid.Column="1" Text="→" FontSize="22" Foreground="#c41e3a"
-                       VerticalAlignment="Bottom" Margin="16,0,16,4"/>
-            <StackPanel Grid.Column="2">
-                <Label Content="{loc:Loc UpdateAvailableDialog_NewVersionLabel}" Foreground="#cccccc" FontSize="11" FontWeight="SemiBold" Padding="0,0,0,4"/>
-                <TextBlock x:Name="LatestVersionText" FontSize="20" FontWeight="Bold" Foreground="White"/>
-            </StackPanel>
-        </Grid>
-
-        <Rectangle Height="2" Fill="#c41e3a" Margin="0,0,0,20"/>
+        <!-- the installed version and the new one -->
+        <Border Style="{StaticResource Charcoal.PanelStyle}" Padding="16,12" Margin="0,14,0,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Label Content="{loc:Loc UpdateAvailableDialog_CurrentLabel}" Style="{StaticResource Charcoal.FieldLabelStyle}" Margin="0"/>
+                    <TextBlock x:Name="CurrentVersionText" Style="{StaticResource VersionText}" Foreground="{StaticResource Charcoal.TextMutedBrush}"/>
+                </StackPanel>
+                <TextBlock Grid.Column="1" Text="→" FontSize="24" Foreground="{StaticResource Charcoal.AccentTextBrush}"
+                           VerticalAlignment="Bottom" Margin="16,0,16,6"/>
+                <StackPanel Grid.Column="2">
+                    <Label Content="{loc:Loc UpdateAvailableDialog_NewVersionLabel}" Style="{StaticResource Charcoal.FieldLabelStyle}" Margin="0"/>
+                    <TextBlock x:Name="LatestVersionText" Style="{StaticResource VersionText}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
 
         <!-- Default: automatic download & install -->
         <StackPanel x:Name="AutoPanel">
-            <TextBlock Text="{loc:Loc UpdateAvailableDialog_AutoDescription}" TextWrapping="Wrap" FontSize="13" Foreground="#cccccc" LineHeight="20" Margin="0,0,0,20"/>
-            <Grid Margin="0,0,0,12">
+            <TextBlock Text="{loc:Loc UpdateAvailableDialog_AutoDescription}" Style="{StaticResource DescriptionText}"/>
+            <Grid Margin="0,0,0,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="2"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="{loc:Loc UpdateAvailableDialog_NotNowButton}" Style="{StaticResource SecondaryButton}" Click="OnSkipClicked"/>
                 <Button Grid.Column="2" Content="{loc:Loc UpdateAvailableDialog_DownloadAndInstallButton}" Style="{StaticResource PrimaryButton}" Click="OnDownloadAndInstallClicked"/>
             </Grid>
-            <TextBlock HorizontalAlignment="Center">
-                <Hyperlink Click="OnManualFallbackClicked" Foreground="#999999">
-                    <Run Text="{loc:Loc UpdateAvailableDialog_ManualFallbackLink}"/>
-                </Hyperlink>
-            </TextBlock>
+            <Button Content="{loc:Loc UpdateAvailableDialog_ManualFallbackLink}"
+                    Style="{StaticResource Charcoal.LinkButtonStyle}"
+                    FontSize="13"
+                    HorizontalAlignment="Center"
+                    Click="OnManualFallbackClicked"/>
         </StackPanel>
 
         <!-- Manual fallback step 1: prompt to go to download page -->
         <StackPanel x:Name="Step1Panel" Visibility="Collapsed">
-            <TextBlock Text="{loc:Loc UpdateAvailableDialog_Step1Description}" TextWrapping="Wrap" FontSize="13" Foreground="#cccccc" LineHeight="20" Margin="0,0,0,20"/>
+            <TextBlock Text="{loc:Loc UpdateAvailableDialog_Step1Description}" Style="{StaticResource DescriptionText}"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="2"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="{loc:Loc UpdateAvailableDialog_NotNowButton}" Style="{StaticResource SecondaryButton}" Click="OnSkipClicked"/>
@@ -105,11 +95,11 @@
 
         <!-- Manual fallback step 2: locate the downloaded file -->
         <StackPanel x:Name="Step2Panel" Visibility="Collapsed">
-            <TextBlock Text="{loc:Loc UpdateAvailableDialog_Step2Description}" TextWrapping="Wrap" FontSize="13" Foreground="#cccccc" LineHeight="20" Margin="0,0,0,20"/>
+            <TextBlock Text="{loc:Loc UpdateAvailableDialog_Step2Description}" Style="{StaticResource DescriptionText}"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="2"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="{loc:Loc UpdateAvailableDialog_NotNowButton}" Style="{StaticResource SecondaryButton}" Click="OnSkipClicked"/>

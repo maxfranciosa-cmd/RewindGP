@@ -102,6 +102,21 @@
   <data name="OptionsWindow_LanguageLabel" xml:space="preserve">
     <value>LANGUAGE:</value>
   </data>
+  <data name="OptionsWindow_StyleLabel" xml:space="preserve">
+    <value>VISUAL STYLE:</value>
+  </data>
+  <data name="OptionsWindow_Style_Retro" xml:space="preserve">
+    <value>Retro</value>
+  </data>
+  <data name="OptionsWindow_Style_Charcoal" xml:space="preserve">
+    <value>Charcoal</value>
+  </data>
+  <data name="OptionsWindow_StyleChangeRequiresRestart_Title" xml:space="preserve">
+    <value>Visual Style Changed</value>
+  </data>
+  <data name="OptionsWindow_StyleChangeRequiresRestart_Message" xml:space="preserve">
+    <value>The new visual style will take effect the next time you launch the app.</value>
+  </data>
   <data name="OptionsWindow_SaveButton" xml:space="preserve">
     <value>SAVE</value>
   </data>
@@ -297,6 +312,9 @@
   <data name="Ams2RaceLaunchAssistant_ApplyFailed" xml:space="preserve">
     <value>Some race settings couldn't be applied automatically - please double check them in-game.</value>
   </data>
+  <data name="Ams2RaceLaunchAssistant_GameVersionNotRecognised" xml:space="preserve">
+    <value>AMS2 has been updated and RewindGP doesn't fully recognise this version yet, so some race settings couldn't be applied automatically - please set them up in-game.</value>
+  </data>
 
   <!-- Ams2PlayerCosmeticsEditorWindow -->
   <data name="Ams2PlayerCosmeticsEditorWindow_Title" xml:space="preserve">
@@ -391,5 +409,32 @@
   </data>
   <data name="Ams2PlayerCosmeticsEditorWindow_NationalityLength_Message" xml:space="preserve">
     <value>Nationality must be exactly 3 characters (e.g., GBR, USA, ITA).</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Power_Name" xml:space="preserve">
+    <value>Power</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Power_Improved" xml:space="preserve">
+    <value>power has been improved</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Power_Worsened" xml:space="preserve">
+    <value>some power has been lost</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Drag_Name" xml:space="preserve">
+    <value>Drag</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Drag_Improved" xml:space="preserve">
+    <value>drag has been reduced</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Drag_Worsened" xml:space="preserve">
+    <value>drag has increased</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Weight_Name" xml:space="preserve">
+    <value>Weight</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Weight_Improved" xml:space="preserve">
+    <value>the car has shed weight</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Weight_Worsened" xml:space="preserve">
+    <value>the car has gained weight</value>
   </data>
 </root>

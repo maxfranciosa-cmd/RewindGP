@@ -15,6 +15,7 @@ namespace Ams2ChEd.Business.AMS2.UI
         private Ams2GameInstallSettingsStorage _settingsStorage;
         private IVehicleLiverySlotPatcher _vehicleLiverySlotPatcher;
         private string _initialLanguageCode;
+        private AppStyle _initialStyle;
 
         public OptionsWindow(Ams2GameInstallSettingsStorage settingsStorage, IVehicleLiverySlotPatcher vehicleLiverySlotPatcher)
         {
@@ -51,6 +52,17 @@ namespace Ams2ChEd.Business.AMS2.UI
                 }
             }
             LanguageComboBox.SelectedItem ??= LanguageComboBox.Items[0];
+
+            _initialStyle = AppStyleSettings.LoadStyle();
+            foreach (ComboBoxItem item in StyleComboBox.Items)
+            {
+                if ((string)item.Tag == _initialStyle.ToString())
+                {
+                    StyleComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+            StyleComboBox.SelectedItem ??= StyleComboBox.Items[0];
         }
 
         private void SaveSettings(string path, string inGameDriverName)
@@ -70,6 +82,11 @@ namespace Ams2ChEd.Business.AMS2.UI
                 if (LanguageComboBox.SelectedItem is ComboBoxItem selectedLanguage)
                 {
                     AppLanguageSettings.SaveLanguageCode((string)selectedLanguage.Tag);
+                }
+
+                if (StyleComboBox.SelectedItem is ComboBoxItem selectedStyle)
+                {
+                    AppStyleSettings.SaveStyle(AppStyleSettings.Parse((string)selectedStyle.Tag));
                 }
             }
             catch (Exception ex)
@@ -145,6 +162,14 @@ namespace Ams2ChEd.Business.AMS2.UI
                 // restart-required behavior, so call it out explicitly here.
                 System.Windows.MessageBox.Show(Strings.OptionsWindow_LanguageChangeRequiresRestart_Message,
                     Strings.OptionsWindow_LanguageChangeRequiresRestart_Title, MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            // the visual style is restart-based too: the windows resolve their look once, when built
+            var selectedStyleName = (string)((ComboBoxItem)StyleComboBox.SelectedItem).Tag;
+            if (selectedStyleName != _initialStyle.ToString())
+            {
+                System.Windows.MessageBox.Show(Strings.OptionsWindow_StyleChangeRequiresRestart_Message,
+                    Strings.OptionsWindow_StyleChangeRequiresRestart_Title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
             this.DialogResult = true;

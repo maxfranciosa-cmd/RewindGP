@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using Ams2Interop.Native;
+using Ams2Interop.Signatures;
 
 namespace Ams2Interop;
 
@@ -22,16 +23,25 @@ public sealed class Ams2RaceConfigurator : IDisposable
     private readonly IReadOnlyDictionary<string, int> _carHashes;
     private readonly IReadOnlyDictionary<string, int> _trackHashes;
     private readonly Action<string>? _log;
+    private readonly Ams2OffsetOptions _offsetOptions;
 
     private ProcessMemory? _mem;
     private RemoteExecutor? _exec;
     private VmResolver? _vmResolver;
     private SlotWriter? _slotWriter;
     private SessionVmResolver? _sessionVmResolver;
+    private GameplaySettings? _gameplaySettings;
     private long _moduleBase;
     private long _moduleSize;
 
     public bool IsAttached => _mem != null;
+
+    /// <summary>
+    /// The offsets resolved for the attached AMS2 build (null before AttachAsync). When some
+    /// couldn't be found, the features needing them are skipped and reported as errors - see
+    /// Ams2ResolvedOffsets.Can* and Ams2OffsetResolver.
+    /// </summary>
+    public Ams2ResolvedOffsets? Offsets { get; private set; }
 
     /// <param name="carHashes">Display name (or slug) -> veh_hash, e.g. from ams2_vehicle_catalog.csv.</param>
     /// <param name="trackHashes">Display name (or slug) -> track_hash, e.g. from circuits_ref.psv.</param>
@@ -39,12 +49,14 @@ public sealed class Ams2RaceConfigurator : IDisposable
     /// Optional diagnostic sink: attach failures, pointer-resolution failures, and a one-line
     /// summary of each ApplyRaceConfigAsync call (errors and unverified fields).
     /// </param>
+    /// <param name="offsetOptions">Where the signature file and per-build offset cache live; defaults when null.</param>
     public Ams2RaceConfigurator(IReadOnlyDictionary<string, int> carHashes, IReadOnlyDictionary<string, int> trackHashes,
-        Action<string>? log = null)
+        Action<string>? log = null, Ams2OffsetOptions? offsetOptions = null)
     {
         _carHashes = carHashes;
         _trackHashes = trackHashes;
         _log = log;
+        _offsetOptions = offsetOptions ?? new Ams2OffsetOptions();
     }
 
     /// <summary>Locates the running AMS2AVX.exe, opens it, and resolves its module base. Does not resolve VM498/VM550 yet - that happens lazily per call, since it depends on the player having opened Custom Race.</summary>
@@ -70,11 +82,89 @@ public sealed class Ams2RaceConfigurator : IDisposable
             Detach();
             return false;
         }
+
+        // Every Ams2Constants tag/RVA reads the active offsets, so they're resolved for this build
+        // before any resolver or writer touches the process.
+        Offsets = await Task.Run(() => ResolveOffsets(_moduleBase), ct).ConfigureAwait(false);
+        Ams2Offsets.Activate(Offsets);
+
         _vmResolver = new VmResolver(_mem, _moduleBase, _moduleSize, log: _log);
         _slotWriter = new SlotWriter(_mem, _exec, _moduleBase);
         _sessionVmResolver = new SessionVmResolver(_mem, _moduleBase, _moduleSize, log: _log);
+        _gameplaySettings = new GameplaySettings(_mem, _moduleBase, log: _log);
 
         return true;
+    }
+
+    /// <summary>
+    /// Sets AMS2's global tyre-wear (x1-x7) and/or fuel-usage (x2-x5) multipliers - null leaves
+    /// that one alone. These are the player's own game settings, not Custom Race config: they
+    /// don't need the Custom Race screen open, and they stay changed until restored, so keep
+    /// `original` and pass it to TryRestoreWearSettings when the race is over. Returns false,
+    /// having changed nothing, if the settings can't be read or a multiplier is out of range.
+    /// See Native/GameplaySettings.cs.
+    /// </summary>
+    public bool TryApplyWearMultipliers(int? tyreWearMultiplier, int? fuelUsageMultiplier, out WearSettingsSnapshot original)
+    {
+        RequireAttached();
+        original = default;
+        if (!GameplaySettingsAvailable()) return false;
+        return _gameplaySettings!.TryApply(tyreWearMultiplier, fuelUsageMultiplier, out original);
+    }
+
+    /// <summary>Puts back the tyre-wear/fuel-usage settings TryApplyWearMultipliers replaced.</summary>
+    public bool TryRestoreWearSettings(WearSettingsSnapshot original)
+    {
+        RequireAttached();
+        if (!GameplaySettingsAvailable()) return false;
+        return _gameplaySettings!.TryRestore(original);
+    }
+
+    /// <summary>Current tyre-wear/fuel-usage settings, or null if they can't be read.</summary>
+    public WearSettingsSnapshot? ReadWearSettings()
+    {
+        RequireAttached();
+        if (!GameplaySettingsAvailable()) return null;
+        return _gameplaySettings!.Read();
+    }
+
+    /// <summary>
+    /// DEVELOPER TOOL - builds a signature file from the attached build, taking the given known
+    /// values (by default Ams2Constants.BuiltIn) as correct. Only run it against a build those
+    /// values are confirmed working on: a signature built from a wrong value would lead later
+    /// builds to the same wrong place. Writes the file only when every signature was built.
+    /// </summary>
+    public Ams2SignatureGenerationResult GenerateSignatures(string outputPath, IReadOnlyDictionary<string, long>? knownRvas = null)
+    {
+        RequireAttached();
+        var image = ModuleImage.TryRead(_mem!, _moduleBase, _log)
+            ?? throw new InvalidOperationException("could not read AMS2AVX.exe's code section");
+
+        var result = Ams2SignatureGenerator.Generate(image, knownRvas ?? Ams2OffsetNames.BuiltInRvas);
+        foreach (var line in result.Report) _log?.Invoke($"GenerateSignatures: {line}");
+        if (result.Complete) result.File.Save(outputPath);
+        return result;
+    }
+
+    private Ams2ResolvedOffsets ResolveOffsets(long moduleBase)
+    {
+        try
+        {
+            return Ams2OffsetResolver.Resolve(_mem!, moduleBase, _offsetOptions, _log);
+        }
+        catch (Exception ex)
+        {
+            // resolution must never be what stops a race being set up: worst case is the old behaviour
+            _log?.Invoke($"AttachAsync: offset resolution failed ({ex.Message}) - using built-in offsets, unverified");
+            return Ams2ResolvedOffsets.BuiltIn(moduleBase);
+        }
+    }
+
+    private bool GameplaySettingsAvailable()
+    {
+        if (Offsets is not { CanChangeGameplaySettings: false } offsets) return true;
+        _log?.Invoke($"GameplaySettings: skipped - settings pointer not found for this build ({offsets.Describe()})");
+        return false;
     }
 
     /// <summary>
@@ -135,6 +225,8 @@ public sealed class Ams2RaceConfigurator : IDisposable
         _vmResolver = null;
         _slotWriter = null;
         _sessionVmResolver = null;
+        _gameplaySettings = null;
+        Offsets = null;
     }
 
     /// <summary>
@@ -163,6 +255,15 @@ public sealed class Ams2RaceConfigurator : IDisposable
 
         var errors = new List<string>();
         var unverified = new List<(string, int, int?)>();
+
+        // Nothing below can work without the Custom Race objects and the setter: say why and stop,
+        // rather than scanning for and writing through values that may belong to a different build.
+        if (Offsets is { CanWriteSlots: false } degraded)
+        {
+            errors.Add($"race settings can't be applied: this AMS2 version isn't recognised ({degraded.Describe()})");
+            _log?.Invoke($"ApplyRaceConfigAsync: skipped - {errors[0]}");
+            return new RaceConfigResult { Errors = errors, UnverifiedFields = unverified };
+        }
         // Kept separate so the final post-SetCar opponents write can replace these results
         // wholesale; merged into `unverified` before reporting.
         var opponentsUnverified = new List<(string, int, int?)>();
@@ -234,7 +335,11 @@ public sealed class Ams2RaceConfigurator : IDisposable
         // SetCar is a direct function call, not a staged slot write, so it isn't part of the
         // two-write cycle above - but it runs AFTER that cycle settles, for the same reason the
         // cycle exists: the screen's re-initialization can clobber an early SetCar too.
-        if (carKnown && trackKnown && master is long m)
+        var canSetCar = Offsets?.CanSetCar != false;
+        if (!canSetCar)
+            errors.Add($"car/track/livery skipped: SetCar not found for this AMS2 version ({Offsets!.Describe()})");
+
+        if (canSetCar && carKnown && trackKnown && master is long m)
         {
             // SetCarRva silently no-ops when its internal validation gate rejects the combination
             // (see Ams2Constants.SetCarValidationGateRva). Calling the gate directly would say why,
@@ -253,7 +358,11 @@ public sealed class Ams2RaceConfigurator : IDisposable
         // AMS2's own AI-opponent vehicle-class-count recompute (see Ams2Constants.CommitRva's doc
         // comment) - mirrors what SetCarRva itself calls internally when values change. Unrelated
         // to RaceDate/session fields. No read-back verification is available for it.
-        if (sessionRules != null && master is long commitMaster)
+        var canCommit = Offsets?.CanCommit != false;
+        if (sessionRules != null && !canCommit)
+            errors.Add($"opponent class recount skipped: commit not found for this AMS2 version ({Offsets!.Describe()})");
+
+        if (canCommit && sessionRules != null && master is long commitMaster)
         {
             var commitAddress = _moduleBase + Ams2Constants.CommitRva;
             var committed = await Task.Run(() => _exec!.Call(commitAddress, commitMaster, 0), ct)

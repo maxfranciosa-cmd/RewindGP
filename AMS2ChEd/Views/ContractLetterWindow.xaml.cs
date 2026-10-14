@@ -223,9 +223,7 @@ namespace AMS2ChEd
             var contestedTeam = currentSeason?.Teams?.FirstOrDefault(t => t.TeamId == teamId);
             if (contestedTeam != null)
             {
-                var contestedRole = contestedTeam.Driver1Contract?.DriverId == replacedDriverId
-                    ? DriverRole.FIRST_DRIVER
-                    : DriverRole.SECOND_DRIVER;
+                var contestedRole = GetContestedRole(contestedTeam);
                 reputationReason = AppendSuccessQualificationDetail(reputationReason, playerReputation, contestedRole, contestedTeam.Reputation);
             }
 
@@ -359,6 +357,24 @@ namespace AMS2ChEd
             return alternatives[_phrasingRandom.Next(alternatives.Length)];
         }
 
+        // the kind of driver the team wants in the seat being contested: the seat's contract role
+        // when explicit, otherwise whether the driver being replaced was leading the team
+        private DriverRole GetContestedRole(ITeamEntry contestedTeam)
+        {
+            var seat = contestedTeam.Driver1Contract?.DriverId == replacedDriverId
+                ? contestedTeam.Driver1Contract
+                : contestedTeam.Driver2Contract;
+
+            return seat?.Role switch
+            {
+                ContractRole.FIRST_DRIVER => DriverRole.FIRST_DRIVER,
+                ContractRole.SECOND_DRIVER => DriverRole.SECOND_DRIVER,
+                _ => DriverHirer.IsFirstDriverMaterial(replacedDriverReputation, contestedTeam.Reputation)
+                        ? DriverRole.FIRST_DRIVER
+                        : DriverRole.SECOND_DRIVER
+            };
+        }
+
         private string GetCompetitionMention(string replacedDriverName)
         {
             return string.Format(Strings.ContractLetterWindow_CompetitionMention_Format, replacedDriverName);
@@ -376,9 +392,7 @@ namespace AMS2ChEd
             var contestedTeam = currentSeason?.Teams?.FirstOrDefault(t => t.TeamId == teamId);
             if (contestedTeam != null)
             {
-                var contestedRole = contestedTeam.Driver1Contract?.DriverId == replacedDriverId
-                    ? DriverRole.FIRST_DRIVER
-                    : DriverRole.SECOND_DRIVER;
+                var contestedRole = GetContestedRole(contestedTeam);
                 rejectionReason = AppendQualificationDetail(rejectionReason, playerReputation, contestedRole, contestedTeam.Reputation);
             }
 

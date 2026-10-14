@@ -2,6 +2,7 @@
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Services;
 
 namespace AMS2ChEd.Business.GameLogic.Concrete
 {
@@ -37,7 +38,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var playerDriverId = $"player_{playerName.ToLower().Replace(" ", "_")}";
 
             // Clone and modify the season
-            var modifiedSeason = CloneAndModifySeason(season, playerDriverId, selectedTeamId, replacedDriverId);
+            var modifiedSeason = CloneAndModifySeason(season, playerDriverId, selectedTeamId, replacedDriverId, seasonDrivers);
 
             // Initialize standings
             var driverStandings = InitializeDriverStandings(modifiedSeason);
@@ -67,6 +68,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             // Clone the season
             var modifiedSeason = season.DeepClone();
+            DriverHirer.AssignUndefinedRoles(modifiedSeason, seasonDrivers);
 
             // Initialize standings
             var driverStandings = InitializeDriverStandings(modifiedSeason);
@@ -77,6 +79,41 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             IDriverData selectedDriver = allDrivers.FirstOrDefault(d => d.DriverId == driverId);
 
             _currentGame = InitializeNewSaveGameFromExistingDriver(selectedDriver, selectedTeamId, modifiedSeason, driverStandings, constructorStandings, allDrivers);
+
+            GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
+            return _currentGame;
+        }
+
+        /// <summary>
+        /// Create a new game where the player is a driver taken from another season: the driver
+        /// keeps their id (so the season they really belong to won't bring in a duplicate), name,
+        /// year of birth and game-specific data, and only gets a new reputation.
+        /// </summary>
+        public ISaveGame CreateNewGameWithImportedDriver(
+            IDriverData importedDriver,
+            DriverReputation playerReputation,
+            ISeason season,
+            string selectedTeamId,
+            string replacedDriverId,
+            List<IDriverData> seasonDrivers)
+        {
+            var modifiedSeason = CloneAndModifySeason(season, importedDriver.DriverId, selectedTeamId, replacedDriverId, seasonDrivers);
+
+            // Initialize standings
+            var driverStandings = InitializeDriverStandings(modifiedSeason);
+            var constructorStandings = InitializeConstructorStandings(modifiedSeason);
+
+            var allDrivers = seasonDrivers.DeepClone();
+
+            var playerDriver = importedDriver.DeepClone();
+            playerDriver.Reputation = playerReputation;
+
+            var playerData = InitializePlayerData(playerDriver.Name, playerDriver.Nationality, season.Year - playerDriver.YearOfBirth, selectedTeamId, playerDriver.DriverId);
+
+            allDrivers.RemoveAll(d => d.DriverId == playerDriver.DriverId);
+            allDrivers.Add(playerDriver);
+
+            _currentGame = InitializeNewSaveGame(playerData, modifiedSeason, driverStandings, constructorStandings, allDrivers);
 
             GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
             return _currentGame;
@@ -95,8 +132,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 CurrentDriverStandings = driverStandings,
                 CurrentConstructorStandings = constructorStandings,
                 HistoricalDriverStandings = new List<HistoricalDriverStanding>(),
-                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>(),
-                AccoladesAtStart = LoadAccoladesForNewGame(modifiedSeason.Year)
+                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>()
             };
             return InitializeConcreteNewSaveGame(provisionalSaveGame);
         }
@@ -123,14 +159,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         /// </summary>
         public void LoadGame(ISaveGame saveGame)
         {
-            if (saveGame.AccoladesAtStart == null)
-            {
-                var year = saveGame.HistoricalDriverStandings?.Any() == true
-                    ? saveGame.HistoricalDriverStandings.Min(s => s.Year)
-                    : saveGame.CurrentSeason.Year;
-
-                saveGame.AccoladesAtStart = LoadAccoladesForNewGame(year);
-            }
+            // saves created before contract roles existed
+            DriverHirer.AssignUndefinedRoles(saveGame.CurrentSeason, saveGame.Drivers);
 
             _currentGame = saveGame;
             GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
@@ -193,6 +223,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
                     // update the flag "default prequalifying" (in case it was updated on merit)
                     teamFromUpdatedSeason.DefaultPrequalifying = teamEntry.DefaultPrequalifying;
+
+                    // keep the improvement packages installed so far this season
+                    teamFromUpdatedSeason.ImprovementPackages = teamEntry.ImprovementPackages;
 
                     ApplyConcreteTeamEntryUpdates(teamFromUpdatedSeason, updatedSeason.Year);
 
@@ -377,9 +410,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return standings;
         }
 
-        private ISeason CloneAndModifySeason(ISeason originalSeason, string playerDriverId, string playerTeamId, string replacedDriverId)
+        private ISeason CloneAndModifySeason(ISeason originalSeason, string playerDriverId, string playerTeamId, string replacedDriverId, List<IDriverData> seasonDrivers)
         {
             var clonedSeason = originalSeason.DeepClone();
+
+            // roles are worked out on the original lineup, so the player takes over
+            // the role of the driver they replace
+            DriverHirer.AssignUndefinedRoles(clonedSeason, seasonDrivers);
 
             var playerTeam = clonedSeason.Teams.FirstOrDefault(t => t.TeamId == playerTeamId);
             if (playerTeam != null)
@@ -425,8 +462,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 CurrentDriverStandings = driverStandings,
                 CurrentConstructorStandings = constructorStandings,
                 HistoricalDriverStandings = new List<HistoricalDriverStanding>(),
-                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>(),
-                AccoladesAtStart = LoadAccoladesForNewGame(modifiedSeason.Year)
+                HistoricalConstructorStandings = new List<HistoricalConstructorStanding>()
             };
             return InitializeConcreteNewSaveGame(provisionalSaveGame);
         }
@@ -452,8 +488,6 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             return provisionalSaveGame;
         }
-
-        protected virtual HistoricalAccolades LoadAccoladesForNewGame(int seasonYear) => null;
 
         protected virtual IDriverData InitializePlayerDriverData(
             IPlayerData playerData,

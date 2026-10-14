@@ -1,0 +1,470 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Shared look for the "real objects" windows: paper, stamps, sticky notes, teletext and a 90s desktop program. -->
+
+    <!-- Fonts (bundled in /Fonts, each with a system fallback) -->
+    <FontFamily x:Key="FontPoster">pack://application:,,,/AMS2ChEd;component/Fonts/#Anton, Impact</FontFamily>
+    <FontFamily x:Key="FontTyped">pack://application:,,,/AMS2ChEd;component/Fonts/#Special Elite, Courier New</FontFamily>
+    <FontFamily x:Key="FontScreen">pack://application:,,,/AMS2ChEd;component/Fonts/#VT323, Consolas, Courier New</FontFamily>
+    <FontFamily x:Key="FontHand">Segoe Print, Segoe Script, Comic Sans MS</FontFamily>
+    <FontFamily x:Key="FontPrint">Arial</FontFamily>
+    <FontFamily x:Key="FontDesktop">Tahoma, MS Sans Serif, Arial</FontFamily>
+
+    <!-- Colours -->
+    <SolidColorBrush x:Key="PaperBrush" Color="#fbf8ef"/>
+    <SolidColorBrush x:Key="TicketBrush" Color="#f6efd9"/>
+    <SolidColorBrush x:Key="PlannerBrush" Color="#f4f1e6"/>
+    <SolidColorBrush x:Key="InkBrush" Color="#1b1b1b"/>
+    <SolidColorBrush x:Key="InkMutedBrush" Color="#6b675c"/>
+    <SolidColorBrush x:Key="InkFaintBrush" Color="#8a8679"/>
+    <SolidColorBrush x:Key="StampRedBrush" Color="#c1121f"/>
+    <SolidColorBrush x:Key="StampGreenBrush" Color="#1f6f3a"/>
+    <SolidColorBrush x:Key="PenBlueBrush" Color="#1d4ed8"/>
+    <SolidColorBrush x:Key="BoardBrush" Color="#b08a5e"/>
+    <SolidColorBrush x:Key="ManilaBrush" Color="#d6b377"/>
+    <SolidColorBrush x:Key="ManilaLightBrush" Color="#e7cb93"/>
+    <SolidColorBrush x:Key="PostItBrush" Color="#ffe96b"/>
+    <SolidColorBrush x:Key="HighlighterBrush" Color="#fff27a"/>
+    <SolidColorBrush x:Key="CoverYellowBrush" Color="#ffe14a"/>
+    <SolidColorBrush x:Key="PhotoBackBrush" Color="#9aa1a8"/>
+    <SolidColorBrush x:Key="DesktopBrush" Color="#008080"/>
+    <SolidColorBrush x:Key="W95FaceBrush" Color="#c0c0c0"/>
+    <SolidColorBrush x:Key="W95LightBrush" Color="#ffffff"/>
+    <SolidColorBrush x:Key="W95ShadowBrush" Color="#808080"/>
+    <SolidColorBrush x:Key="W95DarkBrush" Color="#404040"/>
+    <SolidColorBrush x:Key="W95NavyBrush" Color="#000080"/>
+    <SolidColorBrush x:Key="TeletextYellowBrush" Color="#ffff3c"/>
+    <SolidColorBrush x:Key="TeletextCyanBrush" Color="#3cffff"/>
+    <SolidColorBrush x:Key="TeletextGreenBrush" Color="#3cff3c"/>
+    <SolidColorBrush x:Key="TeletextMagentaBrush" Color="#ff5cff"/>
+    <SolidColorBrush x:Key="TeletextBlueBrush" Color="#1616d6"/>
+    <LinearGradientBrush x:Key="CoverBrush" StartPoint="0.2,0" EndPoint="0.8,1">
+        <GradientStop Color="#e8372c" Offset="0"/>
+        <GradientStop Color="#c81f2a" Offset="0.45"/>
+        <GradientStop Color="#7c1220" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- A sheet of paper or card lying on the desk -->
+    <Style x:Key="PaperCardStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource PaperBrush}"/>
+        <Setter Property="Padding" Value="18"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="2" Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TypedTextStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontTyped}"/>
+        <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+
+    <Style x:Key="TypedLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="Foreground" Value="{StaticResource InkMutedBrush}"/>
+        <Setter Property="FontSize" Value="17"/>
+    </Style>
+
+    <Style x:Key="PosterTextStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
+        <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
+    </Style>
+
+    <!-- Rubber stamp: the main action of a window -->
+    <Style x:Key="StampButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="Foreground" Value="{StaticResource StampRedBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="18,8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{StaticResource StampRedBrush}"
+                            BorderThickness="4"
+                            CornerRadius="5"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource StampRedBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource PaperBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.4"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Sticky note you can press -->
+    <Style x:Key="PostItButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource FontHand}"/>
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
+        <Setter Property="Background" Value="{StaticResource PostItBrush}"/>
+        <Setter Property="Padding" Value="14,12"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <Border.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="2" Opacity="0.25"/>
+                        </Border.Effect>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#fff29a"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.55"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Manila label, for secondary navigation -->
+    <Style x:Key="ManilaButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource FontTyped}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ManilaLightBrush}"/>
+        <Setter Property="Padding" Value="14,12"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <Border.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="2" Opacity="0.25"/>
+                        </Border.Effect>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#f2dcae"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Handwritten note in blue pen, used as a text link -->
+    <Style x:Key="HandLinkButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource FontHand}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="{StaticResource PenBlueBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,2" Padding="2,0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource PenBlueBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Paper form controls -->
+    <Style x:Key="PaperTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource InkBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontTyped}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Height" Value="34"/>
+        <Setter Property="Padding" Value="4,4,4,0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,14"/>
+    </Style>
+
+    <!-- 90s desktop program: raised button -->
+    <Style x:Key="W95ButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource FontDesktop}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Padding" Value="26,5"/>
+        <Setter Property="MinWidth" Value="96"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Outer" Background="{StaticResource W95FaceBrush}" BorderBrush="{StaticResource W95LightBrush}" BorderThickness="2,2,0,0">
+                        <Border x:Name="Inner" BorderBrush="{StaticResource W95DarkBrush}" BorderThickness="0,0,2,2" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Outer" Property="BorderBrush" Value="{StaticResource W95DarkBrush}"/>
+                            <Setter TargetName="Inner" Property="BorderBrush" Value="{StaticResource W95LightBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 90s desktop program: sunken white field (list boxes, photo frames) -->
+    <Style x:Key="W95SunkenStyle" TargetType="ContentControl">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{StaticResource W95ShadowBrush}" BorderThickness="2,2,0,0">
+                        <Border BorderBrush="{StaticResource W95LightBrush}" BorderThickness="0,0,2,2">
+                            <ContentPresenter/>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 90s desktop program: raised panel (the window body) -->
+    <Style x:Key="W95RaisedStyle" TargetType="ContentControl">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border Background="{StaticResource W95FaceBrush}" BorderBrush="{StaticResource W95LightBrush}" BorderThickness="2,2,0,0">
+                        <Border BorderBrush="{StaticResource W95DarkBrush}" BorderThickness="0,0,2,2" Padding="3">
+                            <ContentPresenter/>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ================= Scrollbars =================
+         One scrollbar per look. Each keeps a gap between itself and the content (the Margin), so
+         right-aligned numbers never touch it; the gap only exists while the scrollbar is shown.
+         A window opts in with an implicit style, e.g.
+         <Style TargetType="ScrollBar" BasedOn="{StaticResource PaperScrollBarStyle}"/> -->
+
+    <Style x:Key="ScrollBarPageButtonStyle" TargetType="RepeatButton">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Background="Transparent"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- plain block thumb, coloured by the scrollbar's Foreground -->
+    <Style x:Key="FlatScrollThumbStyle" TargetType="Thumb">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border Background="{TemplateBinding Background}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- raised grey thumb of a 90s desktop program -->
+    <Style x:Key="W95ScrollThumbStyle" TargetType="Thumb">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border Background="{StaticResource W95FaceBrush}" BorderBrush="{StaticResource W95LightBrush}" BorderThickness="2,2,0,0">
+                        <Border BorderBrush="{StaticResource W95DarkBrush}" BorderThickness="0,0,2,2"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- The thumb's style travels in the scrollbar's Tag so the looks can share these two templates -->
+    <ControlTemplate x:Key="VerticalScrollBarTemplate" TargetType="ScrollBar">
+        <Grid Background="{TemplateBinding Background}">
+            <Track x:Name="PART_Track" IsDirectionReversed="True">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource ScrollBarPageButtonStyle}"/>
+                </Track.DecreaseRepeatButton>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageDownCommand" Style="{StaticResource ScrollBarPageButtonStyle}"/>
+                </Track.IncreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Background="{TemplateBinding Foreground}" Style="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"/>
+                </Track.Thumb>
+            </Track>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="HorizontalScrollBarTemplate" TargetType="ScrollBar">
+        <Grid Background="{TemplateBinding Background}">
+            <Track x:Name="PART_Track">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageLeftCommand" Style="{StaticResource ScrollBarPageButtonStyle}"/>
+                </Track.DecreaseRepeatButton>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageRightCommand" Style="{StaticResource ScrollBarPageButtonStyle}"/>
+                </Track.IncreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Background="{TemplateBinding Foreground}" Style="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"/>
+                </Track.Thumb>
+            </Track>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- Paper: a thin ink bar on a faint ruled track -->
+    <Style x:Key="PaperScrollBarStyle" TargetType="ScrollBar">
+        <Setter Property="Background" Value="#e4dfd0"/>
+        <Setter Property="Foreground" Value="{StaticResource InkMutedBrush}"/>
+        <Setter Property="Tag" Value="{StaticResource FlatScrollThumbStyle}"/>
+        <Setter Property="Width" Value="8"/>
+        <Setter Property="MinWidth" Value="8"/>
+        <Setter Property="Margin" Value="14,0,0,0"/>
+        <Setter Property="Template" Value="{StaticResource VerticalScrollBarTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="MinWidth" Value="0"/>
+                <Setter Property="Height" Value="8"/>
+                <Setter Property="MinHeight" Value="8"/>
+                <Setter Property="Margin" Value="0,10,0,0"/>
+                <Setter Property="Template" Value="{StaticResource HorizontalScrollBarTemplate}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Teletext: a cyan block on a dark track -->
+    <Style x:Key="TeletextScrollBarStyle" TargetType="ScrollBar">
+        <Setter Property="Background" Value="#1c1c1c"/>
+        <Setter Property="Foreground" Value="{StaticResource TeletextCyanBrush}"/>
+        <Setter Property="Tag" Value="{StaticResource FlatScrollThumbStyle}"/>
+        <Setter Property="Width" Value="14"/>
+        <Setter Property="MinWidth" Value="14"/>
+        <Setter Property="Margin" Value="18,0,0,0"/>
+        <Setter Property="Template" Value="{StaticResource VerticalScrollBarTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="MinWidth" Value="0"/>
+                <Setter Property="Height" Value="14"/>
+                <Setter Property="MinHeight" Value="14"/>
+                <Setter Property="Margin" Value="0,12,0,0"/>
+                <Setter Property="Template" Value="{StaticResource HorizontalScrollBarTemplate}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- 90s desktop program: a raised grey thumb on a pale track -->
+    <Style x:Key="W95ScrollBarStyle" TargetType="ScrollBar">
+        <Setter Property="Background" Value="#dfdfdf"/>
+        <Setter Property="Tag" Value="{StaticResource W95ScrollThumbStyle}"/>
+        <Setter Property="Width" Value="17"/>
+        <Setter Property="MinWidth" Value="17"/>
+        <Setter Property="Margin" Value="6,0,0,0"/>
+        <Setter Property="Template" Value="{StaticResource VerticalScrollBarTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="MinWidth" Value="0"/>
+                <Setter Property="Height" Value="17"/>
+                <Setter Property="MinHeight" Value="17"/>
+                <Setter Property="Margin" Value="0,6,0,0"/>
+                <Setter Property="Template" Value="{StaticResource HorizontalScrollBarTemplate}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="W95RadioButtonStyle" TargetType="RadioButton">
+        <Setter Property="FontFamily" Value="{StaticResource FontDesktop}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Width="16" Height="16" VerticalAlignment="Center">
+                            <Ellipse Fill="White" Stroke="{StaticResource W95ShadowBrush}" StrokeThickness="2"/>
+                            <Ellipse x:Name="Dot" Width="6" Height="6" Fill="Black" Visibility="Collapsed"/>
+                        </Grid>
+                        <ContentPresenter Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Dot" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="W95ListBoxItemStyle" TargetType="ListBoxItem">
+        <Setter Property="FontFamily" Value="{StaticResource FontDesktop}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border x:Name="Row" Background="Transparent" Padding="8,6">
+                        <ContentPresenter/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Row" Property="Background" Value="{StaticResource W95NavyBrush}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

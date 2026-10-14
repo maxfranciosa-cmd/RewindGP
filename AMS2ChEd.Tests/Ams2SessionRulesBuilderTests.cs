@@ -59,6 +59,16 @@ namespace AMS2ChEd.Tests
         }
 
         [TestMethod]
+        [DataRow(Ams2RaceLength.Default, null)]
+        [DataRow(Ams2RaceLength.Full, null)]
+        [DataRow(Ams2RaceLength.Half, 2)]
+        [DataRow(Ams2RaceLength.OneThird, 3)]
+        public void GetWearMultiplier_ScalesOnlyShortenedRaces(Ams2RaceLength raceLength, int? expected)
+        {
+            Assert.AreEqual(expected, Ams2SessionRulesBuilder.GetWearMultiplier(raceLength));
+        }
+
+        [TestMethod]
         public void BuildSessionRules_ParsesRaceDateAsCustomDateType()
         {
             var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace("1996-03-10"), Ams2RaceLength.Default, 71);

@@ -47,12 +47,11 @@ namespace AMS2ChEd.SeasonPackEditor
             services.AddSingleton<ISeasonLoader<Ams2Season>, SeasonLoader>();
             services.AddSingleton<ITeamsLoader, TeamsLoader>();
             // ********** STORAGE FACTORY **************
-            // GameStorage/AccoladesLoader are required by Ams2StorageFactory's constructor but are
+            // GameStorage is required by Ams2StorageFactory's constructor but is
             // never actually exercised from SeasonPackCreator. IAms2AppSettingsStorage's Ams2Folder is
             // used by the in-sim calibration feature (PerformanceCalibrationDialog) to write CustomAI
             // roster/livery files directly into a real AMS2 install - see Ams2SettingsStorage.
             services.AddSingleton<IGameStorage, GameStorage>();
-            services.AddSingleton<IAccoladesLoader, AccoladesLoader>();
             services.AddSingleton<IAms2AppSettingsStorage, Ams2SettingsStorage>();
             IGameModule gameModule = new Ams2GameModule();
             services.AddSingleton(gameModule);

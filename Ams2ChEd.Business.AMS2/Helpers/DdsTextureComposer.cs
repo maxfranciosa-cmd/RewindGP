@@ -51,6 +51,16 @@ public class DdsTextureComposer
             // Load the sponsor overlay DDS
             Image<Rgba32> sponsorImage = LoadTexture(sponsorPath);
 
+            // A base painted at another resolution of the same layout (e.g. a 4096x4096 helmet under a
+            // 2048x2048 sponsor layer) gets the overlay stretched to cover it; a different aspect ratio
+            // means a different layout, which scaling would not fix.
+            bool sameSize = sponsorImage.Width == baseImage.Width && sponsorImage.Height == baseImage.Height;
+            bool sameAspectRatio = (long)sponsorImage.Width * baseImage.Height == (long)sponsorImage.Height * baseImage.Width;
+            if (!sameSize && sameAspectRatio)
+            {
+                sponsorImage.Mutate(ctx => ctx.Resize(baseImage.Width, baseImage.Height));
+            }
+
             // Apply alpha blending
             baseImage.Mutate(ctx => ctx.DrawImage(sponsorImage, 1f));
 

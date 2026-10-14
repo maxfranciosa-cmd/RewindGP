@@ -1,0 +1,107 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Improvement packages as flat charcoal blocks: a title bar, then one block per table cell. -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Charcoal/Base.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <SolidColorBrush x:Key="ImprovementPackages.WindowBackground" Color="#141414"/>
+    <!-- lighter than the retro pair so they read on the dark blocks -->
+    <SolidColorBrush x:Key="ImprovementPackages.GainBrush" Color="#4fc26b"/>
+    <SolidColorBrush x:Key="ImprovementPackages.LossBrush" Color="#ee5a70"/>
+
+    <Style x:Key="ImprovementPackages.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
+
+    <!-- the margin leaves room for the table of four performance values at the default window width -->
+    <Style x:Key="ImprovementPackages.Frame" TargetType="Border">
+        <Setter Property="Margin" Value="20"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.Root" TargetType="Grid"/>
+
+    <!-- Title bar closed by the red rule; the other rules of the printed bulletin are not drawn -->
+    <Style x:Key="ImprovementPackages.Header" TargetType="StackPanel">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.TopRuleOuter" TargetType="Rectangle">
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.TopRuleInner" TargetType="Rectangle">
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.BottomRuleInner" TargetType="Rectangle">
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.BottomRuleOuter" TargetType="Rectangle">
+        <Setter Property="Height" Value="4"/>
+        <Setter Property="Fill" Value="{StaticResource Charcoal.RedBrush}"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.Title" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="14,8,14,0"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.Subtitle" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="Margin" Value="14,0,14,8"/>
+    </Style>
+
+    <!-- Table: the gaps between the blocks are the cell borders, drawn in the window colour -->
+    <Style x:Key="ImprovementPackages.TableArea" TargetType="ScrollViewer">
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.Table" TargetType="Border">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.Cell" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.BackgroundBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.AlternateCell" TargetType="Border" BasedOn="{StaticResource ImprovementPackages.Cell}"/>
+
+    <Style x:Key="ImprovementPackages.HeaderCell" TargetType="Border" BasedOn="{StaticResource ImprovementPackages.Cell}">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.CellText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="5,4,5,4"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.HeaderCellText" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.CellText}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.TeamNameText" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.CellText}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="10,4,0,4"/>
+    </Style>
+
+    <!-- Footer -->
+    <Style x:Key="ImprovementPackages.FooterRule" TargetType="Rectangle">
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.FooterText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+</ResourceDictionary>

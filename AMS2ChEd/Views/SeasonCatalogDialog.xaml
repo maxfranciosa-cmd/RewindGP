@@ -6,157 +6,138 @@
         Width="560" SizeToContent="Height"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
-        Background="#1a1a1a"
-        Foreground="White">
+        Background="{StaticResource Charcoal.BackgroundBrush}"
+        Foreground="{StaticResource Charcoal.TextBrush}">
 
+    <!-- A utility window: it wears the charcoal look ("Charcoal.*" resources of Themes/Charcoal/Base.xaml)
+         whatever the visual style. -->
     <Window.Resources>
-        <Style x:Key="PrimaryButton" TargetType="Button">
-            <Setter Property="Background" Value="#c41e3a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#d32f2f"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="#555555"/>
-                    <Setter Property="Foreground" Value="#888888"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="SecondaryButton" TargetType="Button">
-            <Setter Property="Background" Value="#555555"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#666666"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="HeaderText" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#cccccc"/>
+        <!-- an installed season that is up to date -->
+        <SolidColorBrush x:Key="UpToDateBrush" Color="#2d7a3e"/>
+
+        <Style x:Key="HeaderText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+            <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
 
-    <StackPanel Margin="24,24,24,24">
+    <StackPanel Margin="24">
 
-        <TextBlock Text="{loc:Loc SeasonCatalogDialog_Header}"
-                   FontSize="20" FontWeight="Bold"
-                   Foreground="#c41e3a" Margin="0,0,0,4"/>
+        <Border Style="{StaticResource Charcoal.TitleBarStyle}">
+            <TextBlock Text="{loc:Loc SeasonCatalogDialog_Header}" Style="{StaticResource Charcoal.TitleTextStyle}"/>
+        </Border>
         <TextBlock Text="{loc:Loc SeasonCatalogDialog_Description}"
-                   FontSize="13" Foreground="#cccccc" Margin="0,0,0,20"
-                   TextWrapping="Wrap"/>
+                   Style="{StaticResource Charcoal.BodyTextStyle}"
+                   Foreground="{StaticResource Charcoal.TextSoftBrush}"
+                   FontSize="13"
+                   TextWrapping="Wrap"
+                   Margin="0,10,0,14"/>
 
         <!-- Grid header -->
-        <Grid Margin="0,0,0,6">
+        <Grid Background="{StaticResource Charcoal.StripBrush}" Margin="0,0,0,2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="42"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="130"/>
                 <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="1" Text="{loc:Loc SeasonCatalogDialog_SeasonColumnHeader}" Style="{StaticResource HeaderText}"/>
+            <TextBlock Grid.Column="1" Text="{loc:Loc SeasonCatalogDialog_SeasonColumnHeader}" Style="{StaticResource HeaderText}" Margin="0,8"/>
             <TextBlock Grid.Column="2" Text="{loc:Loc SeasonCatalogDialog_StatusColumnHeader}" Style="{StaticResource HeaderText}"/>
-            <TextBlock Grid.Column="3" Text="{loc:Loc SeasonCatalogDialog_SizeColumnHeader}" Style="{StaticResource HeaderText}" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Column="3" Text="{loc:Loc SeasonCatalogDialog_SizeColumnHeader}" Style="{StaticResource HeaderText}" HorizontalAlignment="Right" Margin="0,0,12,0"/>
         </Grid>
 
-        <Rectangle Height="2" Fill="#c41e3a" Margin="0,0,0,0"/>
+        <!-- Season rows: one block per season -->
+        <ItemsControl x:Name="SeasonsItemsControl" Margin="0,0,0,12">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="{StaticResource Charcoal.PanelBrush}" Margin="0,0,0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="42"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
 
-        <!-- Season rows -->
-        <Border Background="#2a2a2a" Margin="0,0,0,16">
-            <ItemsControl x:Name="SeasonsItemsControl">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="130"/>
-                                <ColumnDefinition Width="80"/>
-                            </Grid.ColumnDefinitions>
+                        <CheckBox Grid.Column="0"
+                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                  IsEnabled="{Binding CanSelect}"
+                                  Style="{StaticResource Charcoal.CheckBoxStyle}"
+                                  VerticalAlignment="Center"
+                                  Margin="12,9,0,9"/>
 
-                            <CheckBox Grid.Column="0"
-                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                      IsEnabled="{Binding CanSelect}"
-                                      VerticalAlignment="Center"
-                                      Margin="4,10,0,10"/>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding DisplayName}"
+                                   Style="{StaticResource Charcoal.HeadingTextStyle}"
+                                   FontSize="19" FontWeight="SemiBold"
+                                   TextTrimming="CharacterEllipsis"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,8,0"/>
 
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding DisplayName}"
-                                       FontSize="14" Foreground="White"
-                                       VerticalAlignment="Center"
-                                       Margin="0,10,8,10"/>
+                        <Border Grid.Column="2" VerticalAlignment="Center"
+                                Padding="8,3" Margin="0,0,8,0" HorizontalAlignment="Left">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Availability}" Value="UpdateAvailable">
+                                            <Setter Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Availability}" Value="NotInstalled">
+                                            <Setter Property="Background" Value="{StaticResource Charcoal.BackgroundBrush}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Availability}" Value="UpToDate">
+                                            <Setter Property="Background" Value="{StaticResource UpToDateBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <TextBlock Text="{Binding StatusLabel}"
+                                       Style="{StaticResource Charcoal.BodyTextStyle}"
+                                       FontSize="11" FontWeight="SemiBold"/>
+                        </Border>
 
-                            <Border Grid.Column="2" VerticalAlignment="Center"
-                                    Padding="8,3" Margin="0,8,8,8" HorizontalAlignment="Left">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Setter Property="Background" Value="#555555"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Availability}" Value="UpdateAvailable">
-                                                <Setter Property="Background" Value="#c41e3a"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Availability}" Value="NotInstalled">
-                                                <Setter Property="Background" Value="#2a2a2a"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Availability}" Value="UpToDate">
-                                                <Setter Property="Background" Value="#2d6a2d"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <TextBlock Text="{Binding StatusLabel}"
-                                           FontSize="11" FontWeight="SemiBold" Foreground="White"/>
-                            </Border>
-
-                            <TextBlock Grid.Column="3"
-                                       Text="{Binding FileSizeLabel}"
-                                       FontSize="13" Foreground="#cccccc"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Right"
-                                       Margin="0,10,4,10"/>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Border>
+                        <TextBlock Grid.Column="3"
+                                   Text="{Binding FileSizeLabel}"
+                                   Style="{StaticResource Charcoal.BodyTextStyle}"
+                                   Foreground="{StaticResource Charcoal.TextSoftBrush}"
+                                   FontSize="13"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Margin="0,0,12,0"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
         <!-- Status label (shown during install) -->
-        <StackPanel x:Name="StatusPanel" Visibility="Collapsed" Margin="0,0,0,16">
+        <StackPanel x:Name="StatusPanel" Visibility="Collapsed" Margin="0,0,0,12">
             <TextBlock x:Name="StatusLabel"
+                       Style="{StaticResource Charcoal.BodyTextStyle}"
+                       Foreground="{StaticResource Charcoal.AccentTextBrush}"
                        FontSize="13" FontWeight="SemiBold"
-                       Foreground="#cccccc"/>
+                       TextWrapping="Wrap"/>
         </StackPanel>
 
         <!-- Buttons -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="2"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Button x:Name="CloseButton"
                     Grid.Column="0"
                     Content="{loc:Loc SeasonCatalogDialog_CloseButton}"
-                    Style="{StaticResource SecondaryButton}"
+                    Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}"
                     Click="OnCloseClicked"/>
 
             <Button x:Name="DownloadButton"
                     Grid.Column="2"
                     Content="{loc:Loc SeasonCatalogDialog_DownloadButton}"
-                    Style="{StaticResource PrimaryButton}"
+                    Style="{StaticResource Charcoal.DialogPrimaryButtonStyle}"
                     IsEnabled="False"
                     Click="OnDownloadClicked"/>
         </Grid>

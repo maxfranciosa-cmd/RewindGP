@@ -6,46 +6,16 @@
         Title="{loc:Loc GenerateAbsenceWindow_WindowTitle}"
         Height="700" Width="650"
         WindowStartupLocation="CenterScreen"
-        Background="#1a1a1a"
+        Background="{StaticResource Charcoal.BackgroundBrush}"
         ResizeMode="NoResize">
 
+    <!-- A utility window: it wears the charcoal look ("Charcoal.*" resources of Themes/Charcoal/Base.xaml)
+         whatever the visual style. -->
     <Window.Resources>
-        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#c41e3a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="Padding" Value="25,0"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#d32f2f"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#cccccc"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="Padding" Value="25,0"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#555555"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#888888"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
     </Window.Resources>
 
-    <Grid Margin="40">
+    <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -53,29 +23,19 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <StackPanel Grid.Row="0" Margin="0,0,0,25">
+        <Border Grid.Row="0" Style="{StaticResource Charcoal.TitleBarStyle}">
             <TextBlock x:Name="TitleText"
                        Text="{loc:Loc GenerateAbsenceWindow_PayDriverTitle}"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       Foreground="#c41e3a"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,10"/>
-            <Rectangle Height="2" Fill="#c41e3a" Width="200" HorizontalAlignment="Center"/>
-        </StackPanel>
+                       Style="{StaticResource Charcoal.TitleTextStyle}"/>
+        </Border>
 
         <!-- Content -->
-        <Border Grid.Row="1" 
-                Background="#252525"
-                BorderBrush="#444444"
-                BorderThickness="1"
-                CornerRadius="5"
-                Padding="30">
+        <Border Grid.Row="1" Style="{StaticResource Charcoal.PanelStyle}" Margin="0,14,0,0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <TextBlock TextWrapping="Wrap"
-                               FontSize="15"
-                               Foreground="#e0e0e0"
+                    <TextBlock Style="{StaticResource Charcoal.BodyTextStyle}"
+                               Foreground="{StaticResource Charcoal.TextSoftBrush}"
+                               TextWrapping="Wrap"
                                LineHeight="26"
                                TextAlignment="Left">
                         <Run x:Name="IntroText1" Text="{loc:Loc GenerateAbsenceWindow_PayDriver_Intro1}"/>
@@ -84,32 +44,32 @@
                         <LineBreak/><LineBreak/>
                         <Run x:Name="IntroText3" Text="{loc:Loc GenerateAbsenceWindow_Intro3}"/>
                         <LineBreak/><LineBreak/>
-                        <Run x:Name="QuestionText" FontWeight="Bold" Foreground="#c41e3a" Text="{loc:Loc GenerateAbsenceWindow_QuestionText}"/>
+                        <Run x:Name="QuestionText" FontWeight="Bold" Foreground="{StaticResource Charcoal.TextBrush}" Text="{loc:Loc GenerateAbsenceWindow_QuestionText}"/>
                         <LineBreak/><LineBreak/>
-                        <Run FontStyle="Italic" Foreground="#999999" Text="{loc:Loc GenerateAbsenceWindow_FooterNote}"/>
+                        <Run FontStyle="Italic" Foreground="{StaticResource Charcoal.TextMutedBrush}" Text="{loc:Loc GenerateAbsenceWindow_FooterNote}"/>
                     </TextBlock>
                 </StackPanel>
             </ScrollViewer>
         </Border>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="2" 
+        <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    Margin="0,30,0,0">
+                    HorizontalAlignment="Right"
+                    Margin="0,14,0,0">
             <Button x:Name="YesButton"
                     Content="{loc:Loc GenerateAbsenceWindow_YesButton}"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Click="YesButton_Click"
-                    Margin="0,0,15,0"/>
+                    Style="{StaticResource Charcoal.DialogPrimaryButtonStyle}"
+                    Click="YesButton_Click"/>
             <Button x:Name="NoButton"
                     Content="{loc:Loc GenerateAbsenceWindow_NoButton}"
-                    Style="{StaticResource SecondaryButtonStyle}"
+                    Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}"
+                    Margin="2,0,0,0"
                     Click="NoButton_Click"/>
             <Button x:Name="BackButton"
                     Content="{loc:Loc GenerateAbsenceWindow_BackButton}"
-                    Style="{StaticResource SecondaryButtonStyle}"
-                    Margin="15,0,0,0" Click="BackButton_Click"/>
+                    Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}"
+                    Margin="2,0,0,0" Click="BackButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -32,6 +32,11 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string OptionsWindow_RaceLength_Full => ResourceManager.GetString(nameof(OptionsWindow_RaceLength_Full))!;
         public static string OptionsWindow_AutoLaunchLabel => ResourceManager.GetString(nameof(OptionsWindow_AutoLaunchLabel))!;
         public static string OptionsWindow_LanguageLabel => ResourceManager.GetString(nameof(OptionsWindow_LanguageLabel))!;
+        public static string OptionsWindow_StyleLabel => ResourceManager.GetString(nameof(OptionsWindow_StyleLabel))!;
+        public static string OptionsWindow_Style_Retro => ResourceManager.GetString(nameof(OptionsWindow_Style_Retro))!;
+        public static string OptionsWindow_Style_Charcoal => ResourceManager.GetString(nameof(OptionsWindow_Style_Charcoal))!;
+        public static string OptionsWindow_StyleChangeRequiresRestart_Title => ResourceManager.GetString(nameof(OptionsWindow_StyleChangeRequiresRestart_Title))!;
+        public static string OptionsWindow_StyleChangeRequiresRestart_Message => ResourceManager.GetString(nameof(OptionsWindow_StyleChangeRequiresRestart_Message))!;
         public static string OptionsWindow_SaveButton => ResourceManager.GetString(nameof(OptionsWindow_SaveButton))!;
         public static string OptionsWindow_RestoreVehicleFilesButton => ResourceManager.GetString(nameof(OptionsWindow_RestoreVehicleFilesButton))!;
         public static string OptionsWindow_CloseButton => ResourceManager.GetString(nameof(OptionsWindow_CloseButton))!;
@@ -99,6 +104,7 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string Ams2RaceLaunchAssistant_CarNotInCatalog_Format => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_CarNotInCatalog_Format))!;
         public static string Ams2RaceLaunchAssistant_AttachFailed => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_AttachFailed))!;
         public static string Ams2RaceLaunchAssistant_ApplyFailed => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_ApplyFailed))!;
+        public static string Ams2RaceLaunchAssistant_GameVersionNotRecognised => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_GameVersionNotRecognised))!;
 
         public static string Ams2PlayerCosmeticsEditorWindow_Title => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_Title))!;
         public static string Ams2PlayerCosmeticsEditorWindow_Header => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_Header))!;
@@ -131,5 +137,15 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string Ams2PlayerCosmeticsEditorWindow_NameRequired_Message => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_NameRequired_Message))!;
         public static string Ams2PlayerCosmeticsEditorWindow_ValidationError_Title => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_ValidationError_Title))!;
         public static string Ams2PlayerCosmeticsEditorWindow_NationalityLength_Message => ResourceManager.GetString(nameof(Ams2PlayerCosmeticsEditorWindow_NationalityLength_Message))!;
+
+        public static string Ams2ImprovementPackage_Power_Name => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Power_Name))!;
+        public static string Ams2ImprovementPackage_Power_Improved => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Power_Improved))!;
+        public static string Ams2ImprovementPackage_Power_Worsened => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Power_Worsened))!;
+        public static string Ams2ImprovementPackage_Drag_Name => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Drag_Name))!;
+        public static string Ams2ImprovementPackage_Drag_Improved => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Drag_Improved))!;
+        public static string Ams2ImprovementPackage_Drag_Worsened => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Drag_Worsened))!;
+        public static string Ams2ImprovementPackage_Weight_Name => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Weight_Name))!;
+        public static string Ams2ImprovementPackage_Weight_Improved => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Weight_Improved))!;
+        public static string Ams2ImprovementPackage_Weight_Worsened => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Weight_Worsened))!;
     }
 }

@@ -100,6 +100,13 @@ public sealed class PracticeQualifySessionConfig
 }
 
 /// <summary>
+/// AMS2's global tyre-wear / fuel-usage settings as stored (raw indices, 0-8) - what
+/// Ams2RaceConfigurator.TryApplyWearMultipliers found before changing them, to be handed back to
+/// TryRestoreWearSettings once the race is over.
+/// </summary>
+public readonly record struct WearSettingsSnapshot(int TyreWearIndex, int FuelUsageIndex);
+
+/// <summary>
 /// Result of an ApplyRaceConfigAsync call. A write that was attempted but didn't read back
 /// correctly is reported, not silently ignored.
 /// </summary>

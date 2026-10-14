@@ -37,7 +37,6 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             services.AddSingleton<ISeasonLoader<Ams2Season>, SeasonLoader>();
             services.AddSingleton<ISeasonLoader, SeasonLoader>();
             services.AddSingleton<ITeamsLoader, TeamsLoader>();
-            services.AddSingleton<IAccoladesLoader, AccoladesLoader>();
             services.AddSingleton<ICarModelCapacityLoader, CarModelCapacityLoader>();
             services.AddSingleton<IGameStorage, GameStorage>();
             services.AddSingleton<IGameInstallSettingsStorage, Ams2GameInstallSettingsStorage>();
@@ -51,6 +50,7 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             services.AddTransient<IGameEngine, Ams2GameEngine>();
             services.AddTransient<IRandomDriverGenerator, Ams2RandomDriverGenerator>();
             services.AddTransient<IRaceSetupAdvisor, Ams2RaceSetupAdvisor>();
+            services.AddTransient<IImprovementPackageProvider, Ams2ImprovementPackageProvider>();
             services.AddTransient<IPlayerCosmeticsEditor, Ams2PlayerCosmeticsEditor>();
             services.AddTransient<IRacePreparator, Ams2RacePreparator>();
             services.AddTransient<IRaceDataService, Ams2RaceDataService>();

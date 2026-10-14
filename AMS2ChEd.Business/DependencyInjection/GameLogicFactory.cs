@@ -23,6 +23,10 @@ namespace AMS2ChEd.Business.DependencyInjection
 
         public IRaceSetupAdvisor RaceSetupAdvisor { get; private set; }
 
+        public IReprimandManager ReprimandManager { get; private set; }
+
+        public IImprovementPackageManager ImprovementPackageManager { get; private set; }
+
         /// <summary>
         /// Optional (may be null if the active game module doesn't support live-process race
         /// configuration - see <see cref="IRaceLaunchAssistant"/>).
@@ -30,6 +34,11 @@ namespace AMS2ChEd.Business.DependencyInjection
         public IRaceLaunchAssistant RaceLaunchAssistant { get; private set; }
 
         public SeasonUpdaterOrchestrator SeasonUpdaterOrchestrator { get; private set; }
+
+        /// <summary>
+        /// Optional: without it accolades and the hall of fame only know what happened in the save.
+        /// </summary>
+        public IAllTimeRecordsLoader AllTimeRecordsLoader { get; private set; }
 
         public GameLogicFactory(
             IStandingsManager standingsManager,
@@ -43,8 +52,12 @@ namespace AMS2ChEd.Business.DependencyInjection
             IPreQualiPoolResolver preQualiPoolResolver,
             IRaceSetupAdvisor raceSetupAdvisor,
             SeasonUpdaterOrchestrator seasonUpdaterOrchestrator,
-            IRaceLaunchAssistant raceLaunchAssistant = null)
+            IReprimandManager reprimandManager,
+            IImprovementPackageManager improvementPackageManager,
+            IRaceLaunchAssistant raceLaunchAssistant = null,
+            IAllTimeRecordsLoader allTimeRecordsLoader = null)
         {
+            AllTimeRecordsLoader = allTimeRecordsLoader;
             StandingsManager = standingsManager;
             AbsenceManager = absenceManager;
             ContractNegotiationEngine = contractNegotiationEngine;
@@ -56,6 +69,8 @@ namespace AMS2ChEd.Business.DependencyInjection
             PreQualiPoolResolver = preQualiPoolResolver;
             RaceSetupAdvisor = raceSetupAdvisor;
             SeasonUpdaterOrchestrator = seasonUpdaterOrchestrator;
+            ReprimandManager = reprimandManager;
+            ImprovementPackageManager = improvementPackageManager;
             RaceLaunchAssistant = raceLaunchAssistant;
         }
     }

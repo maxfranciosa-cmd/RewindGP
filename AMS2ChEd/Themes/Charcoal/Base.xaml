@@ -1,0 +1,464 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Shared look of the charcoal and red style: flat dark blocks, a red accent, condensed headings.
+         Each window dictionary of this style merges this file. App.xaml merges it too, whatever the
+         visual style: the utility windows (options, update and season download dialogs, ...) always
+         wear this look and use these "Charcoal.*" resources directly. -->
+
+    <!-- Fonts (system fonts, each with a fallback) -->
+    <FontFamily x:Key="Charcoal.FontHeading">Bahnschrift, Arial Narrow, Segoe UI</FontFamily>
+    <FontFamily x:Key="Charcoal.FontBody">Segoe UI, Tahoma</FontFamily>
+
+    <!-- Colours -->
+    <SolidColorBrush x:Key="Charcoal.BackgroundBrush" Color="#141414"/>
+    <SolidColorBrush x:Key="Charcoal.PanelBrush" Color="#1f1f1f"/>
+    <SolidColorBrush x:Key="Charcoal.StripBrush" Color="#2a2a2a"/>
+    <SolidColorBrush x:Key="Charcoal.StripHoverBrush" Color="#3a3a3a"/>
+    <SolidColorBrush x:Key="Charcoal.RedBrush" Color="#c41e3a"/>
+    <SolidColorBrush x:Key="Charcoal.RedHoverBrush" Color="#dc3550"/>
+    <SolidColorBrush x:Key="Charcoal.AccentTextBrush" Color="#ee5a70"/>
+    <SolidColorBrush x:Key="Charcoal.TextBrush" Color="#ffffff"/>
+    <SolidColorBrush x:Key="Charcoal.TextSoftBrush" Color="#d6d6d6"/>
+    <SolidColorBrush x:Key="Charcoal.TextMutedBrush" Color="#a8a8a8"/>
+
+    <Style x:Key="Charcoal.HeadingTextStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontHeading}"/>
+        <Setter Property="FontStretch" Value="Condensed"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+    </Style>
+
+    <Style x:Key="Charcoal.BodyTextStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontBody}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+    </Style>
+
+    <!-- Flat block button; the two colour variants below only change the fills -->
+    <Style x:Key="Charcoal.BlockButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontHeading}"/>
+        <Setter Property="FontStretch" Value="Condensed"/>
+        <Setter Property="FontSize" Value="19"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+        <Setter Property="Padding" Value="16,12"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.45"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- The main action of a window -->
+    <Style x:Key="Charcoal.PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource Charcoal.BlockButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Charcoal.RedHoverBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Secondary navigation -->
+    <Style x:Key="Charcoal.SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource Charcoal.BlockButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Text link -->
+    <Style x:Key="Charcoal.LinkButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontBody}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.AccentTextBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="Transparent" Padding="0,6">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- The buttons at the bottom of a dialog: the same blocks with their caption centred -->
+    <Style x:Key="Charcoal.DialogPrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource Charcoal.PrimaryButtonStyle}">
+        <Setter Property="Padding" Value="26,10"/>
+        <Setter Property="MinWidth" Value="130"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="Charcoal.DialogSecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource Charcoal.SecondaryButtonStyle}">
+        <Setter Property="Padding" Value="26,10"/>
+        <Setter Property="MinWidth" Value="130"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Title bar closed by the red rule -->
+    <Style x:Key="Charcoal.TitleBarStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,4"/>
+        <Setter Property="Padding" Value="14,8"/>
+    </Style>
+
+    <Style x:Key="Charcoal.TitleTextStyle" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <!-- A panel holding the content of a dialog -->
+    <Style x:Key="Charcoal.PanelStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+        <Setter Property="Padding" Value="20"/>
+    </Style>
+
+    <!-- ================= Form controls ================= -->
+
+    <!-- the caption above a field -->
+    <Style x:Key="Charcoal.FieldLabelStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontBody}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+
+    <!-- a strip to type on, underlined in red while it has the focus -->
+    <Style x:Key="Charcoal.TextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+        <Setter Property="CaretBrush" Value="{StaticResource Charcoal.TextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontBody}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Padding" Value="6,0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="Field"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Focusable="False"
+                                      Margin="{TemplateBinding Padding}"
+                                      HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Field" Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- a strip like the text box; the list drops down as blocks, the highlighted one in red -->
+    <Style x:Key="Charcoal.ComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontBody}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <ToggleButton x:Name="ToggleButton"
+                                      Focusable="False"
+                                      Cursor="Hand"
+                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Grid>
+                                        <Border x:Name="Field"
+                                                Background="{StaticResource Charcoal.StripBrush}"
+                                                BorderBrush="{StaticResource Charcoal.StripHoverBrush}"
+                                                BorderThickness="0,0,0,2"/>
+                                        <Path HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,10,0"
+                                              Data="M 0 0 L 4 4 L 8 0 Z"
+                                              Fill="{StaticResource Charcoal.TextSoftBrush}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Field" Property="Background" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="Field" Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <ContentPresenter x:Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="8,3,23,3"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                        <Popup x:Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                            <Grid x:Name="DropDown"
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="200">
+                                <Border x:Name="DropDownBorder"
+                                        Background="{StaticResource Charcoal.StripBrush}"
+                                        BorderBrush="{StaticResource Charcoal.StripHoverBrush}"
+                                        BorderThickness="1"/>
+                                <ScrollViewer Margin="1" SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBoxItem">
+                            <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="0">
+                                <ContentPresenter Margin="8,5,6,5"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsHighlighted" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <!-- a square block, filled red with a tick when checked -->
+    <Style x:Key="Charcoal.CheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontBody}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="Box"
+                                Width="20"
+                                Height="20"
+                                VerticalAlignment="Center"
+                                Background="{StaticResource Charcoal.StripBrush}"
+                                BorderBrush="{StaticResource Charcoal.TextMutedBrush}"
+                                BorderThickness="2">
+                            <Path x:Name="Tick"
+                                  Data="M 1 5 L 4.5 8.5 L 11 1.5"
+                                  Stroke="{StaticResource Charcoal.TextBrush}"
+                                  StrokeThickness="2"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Visibility="Collapsed"/>
+                        </Border>
+                        <ContentPresenter x:Name="Caption" Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="False">
+                            <Setter TargetName="Caption" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource Charcoal.TextBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Box" Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+                            <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+                            <Setter TargetName="Tick" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.4"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- a ring, filled red around a white dot when chosen -->
+    <Style x:Key="Charcoal.RadioButtonStyle" TargetType="RadioButton">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontBody}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Width="20" Height="20" VerticalAlignment="Center">
+                            <Ellipse x:Name="Ring"
+                                     Fill="{StaticResource Charcoal.StripBrush}"
+                                     Stroke="{StaticResource Charcoal.TextMutedBrush}"
+                                     StrokeThickness="2"/>
+                            <Ellipse x:Name="Dot" Width="8" Height="8" Fill="{StaticResource Charcoal.TextBrush}" Visibility="Collapsed"/>
+                        </Grid>
+                        <ContentPresenter Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Ring" Property="Stroke" Value="{StaticResource Charcoal.TextBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Ring" Property="Fill" Value="{StaticResource Charcoal.RedBrush}"/>
+                            <Setter TargetName="Ring" Property="Stroke" Value="{StaticResource Charcoal.RedBrush}"/>
+                            <Setter TargetName="Dot" Property="Visibility" Value="Visible"/>
+                            <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.4"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Tabs: a row of blocks, the open one filled red, over a rule that closes the row -->
+    <Style x:Key="Charcoal.TabControlStyle" TargetType="TabControl">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="{StaticResource Charcoal.StripBrush}" BorderThickness="0,0,0,2">
+                            <TabPanel IsItemsHost="True"/>
+                        </Border>
+                        <ContentPresenter Grid.Row="1" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Charcoal.TabItemStyle" TargetType="TabItem">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontHeading}"/>
+        <Setter Property="FontStretch" Value="Condensed"/>
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="18,8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border x:Name="Tab" Background="{StaticResource Charcoal.StripBrush}" Margin="0,0,2,0">
+                        <ContentPresenter ContentSource="Header"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Tab" Property="Background" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Tab" Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- A thin light bar on a dark track; shares the scrollbar templates of RetroTheme.xaml -->
+    <Style x:Key="Charcoal.ScrollBarStyle" TargetType="ScrollBar">
+        <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="Tag" Value="{StaticResource FlatScrollThumbStyle}"/>
+        <Setter Property="Width" Value="8"/>
+        <Setter Property="MinWidth" Value="8"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+        <Setter Property="Template" Value="{StaticResource VerticalScrollBarTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="MinWidth" Value="0"/>
+                <Setter Property="Height" Value="8"/>
+                <Setter Property="MinHeight" Value="8"/>
+                <Setter Property="Margin" Value="0,10,0,0"/>
+                <Setter Property="Template" Value="{StaticResource HorizontalScrollBarTemplate}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

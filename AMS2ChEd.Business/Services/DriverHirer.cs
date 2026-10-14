@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.Models.Concrete;
+﻿using AMS2ChEd.Business.Models;
+using AMS2ChEd.Business.Models.Concrete;
 using System.Linq;
 
 namespace AMS2ChEd.Business.Services
@@ -133,6 +134,79 @@ namespace AMS2ChEd.Business.Services
                 }
             },
         };
+
+        // minimum reputation for a driver to be considered the team leader (FIRST_DRIVER material)
+        // when their status inside the team isn't explicit (EQUAL contract role)
+        private static Dictionary<TeamReputation, DriverReputation> firstDriverMinReputation = new()
+        {
+            { TeamReputation.TOP_TEAM, DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN },
+            { TeamReputation.MIDFIELD_HIGH, DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED },
+            { TeamReputation.MIDFIELD, DriverReputation.JUST_ONE_LAST_DANCE },
+            { TeamReputation.MINNOW, DriverReputation.PRIME_MIDFIELD },
+            { TeamReputation.SUPER_MINNOW, DriverReputation.YOUNG_TALENT },
+        };
+
+        public static bool IsFirstDriverMaterial(DriverReputation driverReputation, TeamReputation teamReputation)
+        {
+            return driverReputation >= firstDriverMinReputation[teamReputation];
+        }
+
+        // the role a team looks for when hiring alongside a driver who is staying in the team
+        public static DriverRole GetRoleToHireAlongside(ContractRole stayingDriverRole, DriverReputation stayingDriverReputation, TeamReputation teamReputation)
+        {
+            switch (stayingDriverRole)
+            {
+                case ContractRole.FIRST_DRIVER:
+                    return DriverRole.SECOND_DRIVER;
+                case ContractRole.SECOND_DRIVER:
+                    return DriverRole.FIRST_DRIVER;
+                default:
+                    return IsFirstDriverMaterial(stayingDriverReputation, teamReputation) ? DriverRole.SECOND_DRIVER : DriverRole.FIRST_DRIVER;
+            }
+        }
+
+        // contracts coming from seasons/saves created before roles existed are UNDEFINED:
+        // derive their roles from the drivers' reputations
+        public static void AssignUndefinedRoles(ISeason season, IEnumerable<IDriverData> drivers)
+        {
+            if (season?.Teams == null)
+                return;
+
+            DriverReputation GetReputation(string driverId) =>
+                drivers?.FirstOrDefault(d => d.DriverId == driverId)?.Reputation ?? DriverReputation.PRIME_MIDFIELD;
+
+            foreach (var team in season.Teams)
+            {
+                if (team.Driver1Contract == null)
+                    continue;
+
+                if (string.IsNullOrEmpty(team.Driver2Contract?.DriverId))
+                {
+                    // one-car team: its only driver leads it
+                    if (team.Driver1Contract.Role == ContractRole.UNDEFINED)
+                        team.Driver1Contract.Role = ContractRole.FIRST_DRIVER;
+                    continue;
+                }
+
+                if (team.Driver1Contract.Role != ContractRole.UNDEFINED && team.Driver2Contract.Role != ContractRole.UNDEFINED)
+                    continue;
+
+                var driver1Reputation = GetReputation(team.Driver1Contract.DriverId);
+                var driver2Reputation = GetReputation(team.Driver2Contract.DriverId);
+
+                if (driver1Reputation == driver2Reputation)
+                {
+                    team.Driver1Contract.Role = ContractRole.EQUAL;
+                    team.Driver2Contract.Role = ContractRole.EQUAL;
+                }
+                else
+                {
+                    var driver1Leads = driver1Reputation > driver2Reputation;
+                    team.Driver1Contract.Role = driver1Leads ? ContractRole.FIRST_DRIVER : ContractRole.SECOND_DRIVER;
+                    team.Driver2Contract.Role = driver1Leads ? ContractRole.SECOND_DRIVER : ContractRole.FIRST_DRIVER;
+                }
+            }
+        }
 
         public enum DriverPolicyFit
         {

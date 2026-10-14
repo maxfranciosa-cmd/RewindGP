@@ -1,464 +1,357 @@
-﻿<Window x:Class="AMS2ChEd.MainWindow"
+<Window x:Class="AMS2ChEd.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:AMS2ChEd.Localization"
         Title="{loc:Loc MainWindow_Title}"
-        Height="950" Width="1000"
+        Height="1000" Width="900"
+        MinHeight="700" MinWidth="900"
         WindowStartupLocation="CenterScreen"
-        Background="#1a1a1a">
+        Background="{StaticResource Main.WindowBackground}">
+
+    <!-- This window only holds structure. How each part looks comes from the "Main.*" styles
+         of the active visual style (Themes/<style>/Main.xaml). -->
     <Window.Resources>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource Main.ScrollBar}"/>
+
         <!-- Fade-in animation for reputation display -->
         <Storyboard x:Key="FadeInStoryboard">
             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                            From="0" To="1" Duration="0:0:0.5"
                            AccelerationRatio="0.3"/>
         </Storyboard>
-
-        <Style x:Key="MenuButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#c41e3a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#d32f2f"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#555555"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#666666"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="LabelStyle" TargetType="Label">
-            <Setter Property="Foreground" Value="#cccccc"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Margin" Value="0,0,0,5"/>
-        </Style>
-
-        <Style x:Key="TextBoxStyle" TargetType="TextBox">
-            <Setter Property="Background" Value="#2a2a2a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#c41e3a"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
-        </Style>
-
-        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Background" Value="#2a2a2a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#c41e3a"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <ToggleButton x:Name="ToggleButton" 
-                                        Background="#2a2a2a"
-                                        BorderBrush="#c41e3a"
-                                        BorderThickness="2"
-                                        Focusable="False"
-                                        IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                        ClickMode="Press">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <Grid>
-                                            <Border x:Name="Border" 
-                                                  Background="{TemplateBinding Background}"
-                                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                                  BorderThickness="{TemplateBinding BorderThickness}"/>
-                                            <Path x:Name="Arrow" 
-                                                HorizontalAlignment="Right" 
-                                                VerticalAlignment="Center"
-                                                Margin="0,0,10,0"
-                                                Data="M 0 0 L 4 4 L 8 0 Z"
-                                                Fill="White"/>
-                                        </Grid>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
-                            <ContentPresenter x:Name="ContentSite"
-                                            IsHitTestVisible="False"
-                                            Content="{TemplateBinding SelectionBoxItem}"
-                                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                            Margin="5,3,23,3"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left">
-                                <ContentPresenter.Resources>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Style>
-                                </ContentPresenter.Resources>
-                            </ContentPresenter>
-                            <Popup x:Name="Popup"
-                                 Placement="Bottom"
-                                 IsOpen="{TemplateBinding IsDropDownOpen}"
-                                 AllowsTransparency="True"
-                                 Focusable="False"
-                                 PopupAnimation="Slide">
-                                <Grid x:Name="DropDown"
-                                    SnapsToDevicePixels="True"
-                                    MinWidth="{TemplateBinding ActualWidth}"
-                                    MaxHeight="200">
-                                    <Border x:Name="DropDownBorder"
-                                          Background="#2a2a2a"
-                                          BorderBrush="#c41e3a"
-                                          BorderThickness="2"/>
-                                    <ScrollViewer Margin="2" SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
-                                    </ScrollViewer>
-                                </Grid>
-                            </Popup>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Resources>
-                <Style TargetType="ComboBoxItem">
-                    <Setter Property="Background" Value="#2a2a2a"/>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ComboBoxItem">
-                                <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="0">
-                                    <ContentPresenter Margin="5,3,5,3"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsHighlighted" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="#c41e3a"/>
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="#d32f2f"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Style.Resources>
-        </Style>
     </Window.Resources>
 
-    <Grid>
+    <!-- The masthead on top; the menu (or a form) on the left and a picture on the right -->
+    <Grid Style="{StaticResource Main.Root}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <StackPanel Grid.Row="0" Margin="20" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <Image Source="/StaticFiles/rewind_gp_logo.png" Height="100" />
-            <TextBlock FontFamily="Georgia"
-                       FontSize="85" 
-                       FontWeight="Bold"
-                       Foreground="White" 
-                       HorizontalAlignment="Center" FontStyle="Italic"
-                       Margin="20,0,0,0">
-                    <Run Text="REWIND" Foreground="White"/>
-                    <Run Text="GP" Foreground="#d32f2f"/>
-            </TextBlock>
-        </StackPanel>
+        <!-- Masthead -->
+        <Grid Grid.Row="0" Style="{StaticResource Main.Masthead}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Column="0" Stretch="Uniform" HorizontalAlignment="Left" Style="{StaticResource Main.MastheadBox}">
+                <TextBlock Style="{StaticResource Main.MastheadTitle}">
+                    <Run Text="REWIND" Style="{StaticResource Main.MastheadWord}"/>
+                    <Run Text="GP" Style="{StaticResource Main.MastheadAccent}"/>
+                </TextBlock>
+            </Viewbox>
+            <Image Grid.Column="1" Source="/StaticFiles/rewind_gp_logo.png" Style="{StaticResource Main.Logo}"/>
+        </Grid>
 
         <!-- Main Content -->
-        <Grid Grid.Row="1" Margin="40,30,40,30">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="450"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*" MinWidth="450"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Left Column: Forms -->
+            <!-- Left Column: menu and forms -->
             <Grid Grid.Column="0">
                 <!-- Main Menu Panel -->
                 <StackPanel x:Name="MainMenuPanel" Visibility="Visible">
-                    <Button x:Name="NewGameButton"
-                            Content="{loc:Loc MainWindow_NewGameButton}"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Click="NewGameButton_Click"/>
+                    <!-- Continue the most recent save (hidden when there are no saves) -->
+                    <StackPanel x:Name="ContinuePanel" Visibility="Collapsed" Style="{StaticResource Main.ContinuePanel}">
+                        <Button x:Name="ContinueButton"
+                                Content="{loc:Loc MainWindow_ContinueButton}"
+                                Style="{StaticResource Main.ContinueButton}"
+                                Click="ContinueButton_Click"/>
+                        <TextBlock x:Name="ContinueDescriptionText"
+                                   Style="{StaticResource Main.ContinueDescription}"/>
+                    </StackPanel>
 
-                    <Button x:Name="NewGameReplaceDriverButton"
-                            Content="{loc:Loc MainWindow_NewGameReplaceDriverButton}"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Click="NewGameReplaceDriverButton_Click"/>
+                    <!-- The ways to start a new game, grouped under one title. The box and its title share
+                         a cell, so the style decides where the title sits against the box. -->
+                    <Grid Style="{StaticResource Main.NewGameGroup}">
+                        <Border Style="{StaticResource Main.NewGameBox}">
+                            <StackPanel>
+                                <Button x:Name="NewGameButton"
+                                        Content="{loc:Loc MainWindow_NewGameButton}"
+                                        Style="{StaticResource Main.NewGameLine}"
+                                        Click="NewGameButton_Click"/>
 
-                    <Button x:Name="NewGameScenarioModeButton"
-                            Content="{loc:Loc MainWindow_NewGameScenarioModeButton}"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Click="NewGameScenarioModeButton_Click"/>
+                                <Button x:Name="NewGameReplaceDriverButton"
+                                        Content="{loc:Loc MainWindow_NewGameReplaceDriverButton}"
+                                        Style="{StaticResource Main.NewGameLine}"
+                                        Click="NewGameReplaceDriverButton_Click"/>
+
+                                <Button x:Name="NewGameImportedDriverButton"
+                                        Content="{loc:Loc MainWindow_NewGameImportedDriverButton}"
+                                        Style="{StaticResource Main.NewGameLine}"
+                                        Click="NewGameImportedDriverButton_Click"/>
+
+                                <Button x:Name="NewGameScenarioModeButton"
+                                        Content="{loc:Loc MainWindow_NewGameScenarioModeButton}"
+                                        Style="{StaticResource Main.NewGameLine}"
+                                        Click="NewGameScenarioModeButton_Click"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource Main.NewGameTag}">
+                            <TextBlock Text="{loc:Loc MainWindow_NewGameGroupTitle}"
+                                       Style="{StaticResource Main.NewGameTagText}"/>
+                        </Border>
+                    </Grid>
 
                     <Button x:Name="LoadGameButton"
                             Content="{loc:Loc MainWindow_LoadGameButton}"
-                            Style="{StaticResource MenuButtonStyle}"
+                            Style="{StaticResource Main.MenuLine}"
                             Click="LoadGameButton_Click"/>
 
                     <Button x:Name="OptionsButton"
                             Content="{loc:Loc MainWindow_OptionsButton}"
-                            Style="{StaticResource MenuButtonStyle}"
+                            Style="{StaticResource Main.MenuLine}"
                             Click="OptionsButton_Click"/>
+
+                    <Button x:Name="DeveloperToolsButton"
+                            Content="{loc:Loc MainWindow_DeveloperToolsButton}"
+                            Style="{StaticResource Main.MenuLine}"
+                            Click="DeveloperToolsButton_Click"
+                            Visibility="Collapsed"/>
 
                     <Button x:Name="InstallSeasonModButto"
                             Content="{loc:Loc MainWindow_InstallSeasonModButton}"
                             Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=InstallSeasonCommand}"
-                            Style="{StaticResource MenuButtonStyle}"
+                            Style="{StaticResource Main.InstallSeasonButton}"
                             />
 
-                    <Button x:Name="DeveloperToolsButton"
-                            Content="{loc:Loc MainWindow_DeveloperToolsButton}"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Click="DeveloperToolsButton_Click"
-                            Visibility="Collapsed"/>
-
                 </StackPanel>
 
-                <!-- Developer Tools Panel -->
-                <StackPanel x:Name="DeveloperToolsPanel" Visibility="Collapsed">
-                    <Label Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource LabelStyle}"/>
-                    <ComboBox x:Name="DevSeasonComboBox"
-                              Style="{StaticResource ComboBoxStyle}"
-                              SelectionChanged="DevSeasonComboBox_SelectionChanged"/>
+                <!-- Forms take the place of the menu; the card has no size while both panels are collapsed -->
+                <Border Style="{StaticResource Main.FormCard}">
+                    <Grid>
+                        <!-- Developer Tools Panel -->
+                        <StackPanel x:Name="DeveloperToolsPanel" Visibility="Collapsed" Style="{StaticResource Main.FormPanel}">
+                            <Label Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource Main.FormLabel}"/>
+                            <ComboBox x:Name="DevSeasonComboBox"
+                                      Style="{StaticResource Main.ComboBox}"
+                                      SelectionChanged="DevSeasonComboBox_SelectionChanged"/>
 
-                    <Label Content="{loc:Loc MainWindow_SelectRaceLabel}" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                    <ComboBox x:Name="DevRaceComboBox"
-                              Style="{StaticResource ComboBoxStyle}"/>
+                            <Label Content="{loc:Loc MainWindow_SelectRaceLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>
+                            <ComboBox x:Name="DevRaceComboBox"
+                                      Style="{StaticResource Main.ComboBox}"/>
 
-                    <Button x:Name="DevExportCustomAiButton"
-                            Content="{loc:Loc MainWindow_ExportCustomAiButton}"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Margin="0,20,0,10"
-                            Click="DevExportCustomAiButton_Click"/>
+                            <Button x:Name="DevExportCustomAiButton"
+                                    Content="{loc:Loc MainWindow_ExportCustomAiButton}"
+                                    Style="{StaticResource Main.FormPrimaryButton}"
+                                    Click="DevExportCustomAiButton_Click"/>
 
-                    <Button x:Name="DevExportLiveriesButton"
-                            Content="{loc:Loc MainWindow_ExportLiveriesButton}"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Margin="0,0,0,10"
-                            Click="DevExportLiveriesButton_Click"/>
+                            <Button x:Name="DevExportLiveriesButton"
+                                    Content="{loc:Loc MainWindow_ExportLiveriesButton}"
+                                    Style="{StaticResource Main.FormStackedButton}"
+                                    Click="DevExportLiveriesButton_Click"/>
 
-                    <Button Content="{loc:Loc MainWindow_BackButton}"
-                            Style="{StaticResource SecondaryButtonStyle}"
-                            Click="DevToolsBackButton_Click"/>
-                </StackPanel>
+                            <Button x:Name="DevExportSeasonPackButton"
+                                    Content="{loc:Loc MainWindow_ExportSeasonPackButton}"
+                                    Style="{StaticResource Main.FormStackedButton}"
+                                    Click="DevExportSeasonPackButton_Click"/>
 
-                <!-- New Game Panel -->
-                <StackPanel x:Name="NewGamePanel" Visibility="Collapsed">
-                    <Label x:Name="SelectSeasonLabel" Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource LabelStyle}"/>
-                    <ComboBox x:Name="SeasonComboBox"
-                              Style="{StaticResource ComboBoxStyle}"
-                              SelectionChanged="SeasonComboBox_SelectionChanged"/>
+                            <Button Content="{loc:Loc MainWindow_BackButton}"
+                                    Style="{StaticResource Main.FormBackButton}"
+                                    Click="DevToolsBackButton_Click"/>
+                        </StackPanel>
 
-                    <StackPanel x:Name="CustomDriverPanel" Visibility="Collapsed">
-                        <Label Content="{loc:Loc MainWindow_DriverNameLabel}" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                        <TextBox x:Name="DriverNameTextBox" Style="{StaticResource TextBoxStyle}"/>
+                        <!-- New Game Panel -->
+                        <StackPanel x:Name="NewGamePanel" Visibility="Collapsed" Style="{StaticResource Main.FormPanel}">
+                            <Label x:Name="SelectSeasonLabel" Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource Main.FormLabel}"/>
+                            <ComboBox x:Name="SeasonComboBox"
+                                      Style="{StaticResource Main.ComboBox}"
+                                      SelectionChanged="SeasonComboBox_SelectionChanged"/>
 
-                        <!-- Compact Row: Nationality, Age, Favourite Numbers -->
-                        <Grid Margin="0,0,0,15">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                            <StackPanel x:Name="CustomDriverPanel" Visibility="Collapsed">
+                                <!-- A driver taken from another season, instead of a custom one -->
+                                <StackPanel x:Name="ImportedDriverPanel" Visibility="Collapsed" Style="{StaticResource Main.ImportedDriver}">
+                                    <Label Content="{loc:Loc MainWindow_ImportedDriverLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                    <ComboBox x:Name="ImportedDriverComboBox"
+                                              Style="{StaticResource Main.ComboBox}"
+                                              SelectionChanged="ImportedDriverComboBox_SelectionChanged"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" Style="{StaticResource Main.ImportedPhoto}">
+                                            <Grid>
+                                                <TextBlock x:Name="ImportedDriverPhotoPlaceholder"
+                                                           Text="?"
+                                                           Style="{StaticResource Main.ImportedPhotoPlaceholder}"/>
+                                                <Image x:Name="ImportedDriverPhoto"
+                                                       Stretch="UniformToFill"
+                                                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                                            </Grid>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Center">
+                                            <TextBlock x:Name="ImportedDriverNameText" Style="{StaticResource Main.ImportedName}"/>
+                                            <TextBlock x:Name="ImportedDriverInfoText" Style="{StaticResource Main.ImportedInfo}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
 
-                            <!-- Nationality -->
-                            <StackPanel Grid.Column="0" Margin="0,0,5,0">
-                                <Label Content="{loc:Loc MainWindow_NationalityLabel}" Style="{StaticResource LabelStyle}"/>
-                                <TextBox x:Name="NationalityTextBox"
-                                         Style="{StaticResource TextBoxStyle}"
-                                         MaxLength="3"
-                                         Margin="0"
-                                         LostFocus="NationalityTextBox_LostFocus"/>
+                                <StackPanel x:Name="CustomDriverFieldsPanel">
+                                <Label Content="{loc:Loc MainWindow_DriverNameLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>
+                                <TextBox x:Name="DriverNameTextBox" Style="{StaticResource Main.TextBox}"/>
+
+                                <!-- Compact Row: Nationality, Age, Favourite Numbers -->
+                                <Grid Margin="0,0,0,15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Nationality -->
+                                    <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                                        <Label Content="{loc:Loc MainWindow_NationalityLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                        <TextBox x:Name="NationalityTextBox"
+                                                 Style="{StaticResource Main.CompactTextBox}"
+                                                 MaxLength="3"
+                                                 LostFocus="NationalityTextBox_LostFocus"/>
+                                    </StackPanel>
+
+                                    <!-- Driver Age -->
+                                    <StackPanel Grid.Column="1" Margin="5,0,5,0">
+                                        <Label Content="{loc:Loc MainWindow_AgeLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                        <TextBox x:Name="DriverAgeTextBox"
+                                                 Style="{StaticResource Main.CompactTextBox}"
+                                                 PreviewTextInput="DriverAgeTextBox_PreviewTextInput"
+                                                 TextChanged="DriverAgeTextBox_TextChanged"/>
+                                    </StackPanel>
+
+                                    <!-- Favourite Numbers -->
+                                    <StackPanel Grid.Column="2" Margin="5,0,0,0">
+                                        <Label Content="{loc:Loc MainWindow_FavouriteNumbersLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                        <TextBox x:Name="FavouriteNumbersTextBox"
+                                                 Style="{StaticResource Main.CompactTextBox}"
+                                                 ToolTip="{loc:Loc MainWindow_FavouriteNumbersToolTip}"/>
+                                    </StackPanel>
+                                </Grid>
+                                </StackPanel>
+
+                                <Label Content="{loc:Loc MainWindow_ReputationLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                <ComboBox x:Name="ReputationComboBox"
+                                      Style="{StaticResource Main.ComboBox}"
+                                      SelectionChanged="ReputationComboBox_SelectionChanged" />
+
+                                <!-- Helmet Selection -->
+                                <Label x:Name="HelmetSelectionLabel" Content="{loc:Loc MainWindow_HelmetDesignLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>
+                                <Border x:Name="HelmetSelectionBorder" Style="{StaticResource Main.HelmetBox}">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                                  VerticalScrollBarVisibility="Disabled">
+                                        <ItemsControl x:Name="HelmetSelectionItemsControl">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Style="{StaticResource Main.HelmetItem}"
+                                                        MouseLeftButtonDown="HelmetPreview_Click"
+                                                        Tag="{Binding}">
+                                                        <StackPanel>
+                                                            <Image Source="{Binding PreviewImagePath}"
+                                                                    Stretch="UniformToFill"
+                                                                    VerticalAlignment="Center"
+                                                                    HorizontalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </Border>
+
+                                <Button x:Name="CreateGameButton"
+                                    Content="{loc:Loc MainWindow_CreateGameButton}"
+                                    Style="{StaticResource Main.FormPrimaryButton}"
+                                    Click="CreateGameButton_Click"/>
                             </StackPanel>
 
-                            <!-- Driver Age -->
-                            <StackPanel Grid.Column="1" Margin="5,0,5,0">
-                                <Label Content="{loc:Loc MainWindow_AgeLabel}" Style="{StaticResource LabelStyle}"/>
-                                <TextBox x:Name="DriverAgeTextBox"
-                                         Style="{StaticResource TextBoxStyle}"
-                                         Margin="0"
-                                         PreviewTextInput="DriverAgeTextBox_PreviewTextInput"
-                                         TextChanged="DriverAgeTextBox_TextChanged"/>
+                            <StackPanel x:Name="ReplaceDriverPanel" Visibility="Collapsed">
+                                <Button x:Name="CreateGameReplaceDriverButton"
+                                    Content="{loc:Loc MainWindow_CreateGameButton}"
+                                    Style="{StaticResource Main.FormPrimaryButton}"
+                                    Click="CreateGameReplaceDriverButton_Click" />
                             </StackPanel>
 
-                            <!-- Favourite Numbers -->
-                            <StackPanel Grid.Column="2" Margin="5,0,0,0">
-                                <Label Content="{loc:Loc MainWindow_FavouriteNumbersLabel}" Style="{StaticResource LabelStyle}"/>
-                                <TextBox x:Name="FavouriteNumbersTextBox"
-                                         Style="{StaticResource TextBoxStyle}"
-                                         Margin="0"
-                                         ToolTip="{loc:Loc MainWindow_FavouriteNumbersToolTip}"/>
+                            <StackPanel x:Name="ScenarioPanel" Visibility="Collapsed">
+
+                                <Label Content="{loc:Loc MainWindow_SelectScenarioLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                <ComboBox x:Name="ScenarioComboBox"
+                                          Style="{StaticResource Main.ComboBox}"
+                                          SelectionChanged="ScenarioComboBox_SelectionChanged"/>
+
+                                <Button x:Name="CreateGameScenarioButton"
+                                    Content="{loc:Loc MainWindow_StartScenarioButton}"
+                                    Style="{StaticResource Main.FormPrimaryButton}"
+                                    Click="CreateGameScenarioButton_Click"
+                                    IsEnabled="False"/>
+
+
                             </StackPanel>
-                        </Grid>
 
-                        <Label Content="{loc:Loc MainWindow_ReputationLabel}" Style="{StaticResource LabelStyle}"/>
-                        <ComboBox x:Name="ReputationComboBox"
-                              Style="{StaticResource ComboBoxStyle}"
-                              SelectionChanged="ReputationComboBox_SelectionChanged" />
-
-                        <!-- Helmet Selection -->
-                        <Label x:Name="HelmetSelectionLabel" Content="{loc:Loc MainWindow_HelmetDesignLabel}" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                        <Border x:Name="HelmetSelectionBorder"
-                                Background="#1a1a1a"
-                                BorderBrush="#555555"
-                                BorderThickness="1"
-                                Padding="10"
-                                Margin="0,0,0,15"
-                                Height="150">
-                            <ScrollViewer HorizontalScrollBarVisibility="Auto" 
-                                          VerticalScrollBarVisibility="Disabled">
-                                <ItemsControl x:Name="HelmetSelectionItemsControl">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal"/>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Width="100"
-                                                Height="100"
-                                                Margin="0,0,8,8"
-                                                Background="#0d0d0d"
-                                                BorderThickness="2"
-                                                CornerRadius="3"
-                                                Cursor="Hand"
-                                                MouseLeftButtonDown="HelmetPreview_Click"
-                                                Tag="{Binding}">
-                                                <Border.Style>
-                                                    <Style TargetType="Border">
-                                                        <Setter Property="BorderBrush" Value="#555555"/>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                                <Setter Property="BorderBrush" Value="#c41e3a"/>
-                                                                <Setter Property="Background" Value="#1a1a1a"/>
-                                                            </DataTrigger>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="BorderBrush" Value="#888888"/>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
-
-                                                <StackPanel>
-                                                    <Image Source="{Binding PreviewImagePath}"
-                                                            Stretch="UniformToFill"
-                                                            VerticalAlignment="Center"
-                                                            HorizontalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                        </Border>
-
-                        <Button x:Name="CreateGameButton"
-                            Content="{loc:Loc MainWindow_CreateGameButton}"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Margin="0,20,0,10"
-                            Click="CreateGameButton_Click"/>
-                    </StackPanel>
-
-                    <StackPanel x:Name="ReplaceDriverPanel" Visibility="Collapsed">
-                        <Button x:Name="CreateGameReplaceDriverButton"
-                            Content="{loc:Loc MainWindow_CreateGameButton}"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Margin="0,20,0,10"
-                            Click="CreateGameReplaceDriverButton_Click" />
-                    </StackPanel>
-
-                    <StackPanel x:Name="ScenarioPanel" Visibility="Collapsed">
-
-                        <Label Content="{loc:Loc MainWindow_SelectScenarioLabel}" Style="{StaticResource LabelStyle}"/>
-                        <ComboBox x:Name="ScenarioComboBox"
-                                  Style="{StaticResource ComboBoxStyle}"
-                                  SelectionChanged="ScenarioComboBox_SelectionChanged"/>
-
-                        <Button x:Name="CreateGameScenarioButton"
-                            Content="{loc:Loc MainWindow_StartScenarioButton}"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Margin="0,20,0,10"
-                            Click="CreateGameScenarioButton_Click"
-                            IsEnabled="False"/>
-
-
-                    </StackPanel>
-
-                    <Button Content="{loc:Loc MainWindow_BackButton}"
-                            Style="{StaticResource SecondaryButtonStyle}"
-                            Click="BackButton_Click"/>
-                </StackPanel>
+                            <Button Content="{loc:Loc MainWindow_BackButton}"
+                                    Style="{StaticResource Main.FormBackButton}"
+                                    Click="BackButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
             </Grid>
 
-            <!-- Right Column: Visual Section -->
-            <Grid Grid.Column="1" Margin="30,0,0,0" x:Name="VisualPanel" Visibility="Visible">
+            <!-- Right Column: picture -->
+            <Grid Grid.Column="1" x:Name="VisualPanel" Visibility="Visible" Style="{StaticResource Main.VisualPanel}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Main Menu Welcome Image -->
-                <Border Grid.Row="0" 
-                        x:Name="WelcomeImageBorder"
-                        Background="#252525" 
-                        BorderBrush="#c41e3a" 
-                        BorderThickness="2"
-                        CornerRadius="5"
+                <!-- Main Menu picture, with the story of the latest save below it -->
+                <StackPanel Grid.Row="0" VerticalAlignment="Top">
+                <Border x:Name="WelcomeImageBorder"
+                        Cursor="Hand"
+                        MouseLeftButtonUp="WelcomeImageBorder_MouseLeftButtonUp"
+                        Style="{StaticResource Main.CoverPhoto}"
                         Visibility="Visible">
-                    <Image x:Name="WelcomeImage" 
+                    <Image x:Name="WelcomeImage"
                            Stretch="Uniform"
-                           Source="/Images/welcome.png"/>
+                           MaxHeight="340"/>
                 </Border>
+                <StackPanel x:Name="CoverStoryPanel"
+                            Style="{StaticResource Main.CoverStory}"
+                            Visibility="{Binding Visibility, ElementName=WelcomeImageBorder}">
+                    <TextBlock x:Name="CoverHeadlineText"
+                               Style="{StaticResource Main.CoverHeadline}"
+                               Visibility="Collapsed"/>
+                    <TextBlock x:Name="CoverSublineText"
+                               Style="{StaticResource Main.CoverSubline}"
+                               Visibility="Collapsed"/>
+                </StackPanel>
+                </StackPanel>
 
                 <!-- Reputation Image (hidden initially, shown during New Game) -->
-                <Border Grid.Row="0" 
+                <Border Grid.Row="0"
                         x:Name="ReputationImageBorder"
-                        Background="#252525" 
-                        BorderBrush="#c41e3a" 
-                        BorderThickness="2"
-                        CornerRadius="5"
+                        Style="{StaticResource Main.ReputationPhoto}"
                         Visibility="Collapsed">
-                    <Image x:Name="ReputationImage" 
+                    <Image x:Name="ReputationImage"
                            Stretch="Uniform"
                            Source="/placeholder.png"/>
                 </Border>
 
                 <!-- Reputation Info Display (Fades in below image) -->
-                <StackPanel Grid.Row="1" 
+                <StackPanel Grid.Row="1"
                             x:Name="ReputationInfoPanel"
                             Margin="0,20,0,0"
                             Height="150"
                             Opacity="0">
                     <TextBlock x:Name="ReputationNameText"
-                               Foreground="#c41e3a"
-                               FontSize="20"
-                               FontWeight="Bold"
-                               TextWrapping="Wrap"
-                               HorizontalAlignment="Center"
+                               Style="{StaticResource Main.ReputationName}"
                                Visibility="Hidden" />
                     <TextBlock x:Name="ReputationParagraphText"
-                               Foreground="#cccccc"
-                               FontSize="13"
-                               TextWrapping="Wrap"
-                               LineHeight="20"
-                               Margin="0,0,0,15"
+                               Style="{StaticResource Main.ReputationText}"
                                Visibility="Hidden" />
                 </StackPanel>
             </Grid>

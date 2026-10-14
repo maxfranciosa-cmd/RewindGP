@@ -96,6 +96,7 @@ namespace AMS2ChEd.Business.Services
                     {
                         DriverId = winner.Id,
                         Role = teamJobAd.Role,
+                        Slot = teamJobAd.Slot,
                         TeamId = teamJobAd.TeamId,
                         DriverReputation = winner.Reputation,
                         TeamReputation = teamJobAd.TeamReputation,
@@ -163,6 +164,7 @@ namespace AMS2ChEd.Business.Services
                         result.Add(new TeamHiring
                         {
                             Role = ballot.OriginalTeamHiring.Role,
+                            Slot = ballot.OriginalTeamHiring.Slot,
                             TeamId = ballot.OriginalTeamHiring.TeamId,
                             TeamReputation = ballot.OriginalTeamHiring.TeamReputation,
                             DriverId = firstAvailableDriverOfTheSameReputationOrLower.Id,
@@ -201,6 +203,7 @@ namespace AMS2ChEd.Business.Services
                     result.Add(new TeamHiring
                     {
                         Role = ballot.OriginalTeamHiring.Role,
+                        Slot = ballot.OriginalTeamHiring.Slot,
                         TeamId = ballot.OriginalTeamHiring.TeamId,
                         TeamReputation = ballot.OriginalTeamHiring.TeamReputation,
                         DriverId = bestCandidateResume.Id,

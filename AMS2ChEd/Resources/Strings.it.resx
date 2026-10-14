@@ -127,13 +127,13 @@
     <value>Benvenuto - Rewind GP</value>
   </data>
   <data name="MainWindow_NewGameButton" xml:space="preserve">
-    <value>NUOVA PARTITA - PILOTA PERSONALIZZATO</value>
+    <value>PILOTA PERSONALIZZATO</value>
   </data>
   <data name="MainWindow_NewGameReplaceDriverButton" xml:space="preserve">
-    <value>NUOVA PARTITA - PILOTA ESISTENTE</value>
+    <value>PILOTA ESISTENTE</value>
   </data>
   <data name="MainWindow_NewGameScenarioModeButton" xml:space="preserve">
-    <value>NUOVA PARTITA - SCENARIO</value>
+    <value>SCENARIO</value>
   </data>
   <data name="MainWindow_LoadGameButton" xml:space="preserve">
     <value>CARICA PARTITA</value>
@@ -158,6 +158,9 @@
   </data>
   <data name="MainWindow_ExportLiveriesButton" xml:space="preserve">
     <value>ESPORTA LIVREE</value>
+  </data>
+  <data name="MainWindow_ExportSeasonPackButton" xml:space="preserve">
+    <value>ESPORTA PACCHETTO LIVREE STAGIONE</value>
   </data>
   <data name="MainWindow_BackButton" xml:space="preserve">
     <value>INDIETRO</value>
@@ -227,6 +230,27 @@
   </data>
   <data name="MainWindow_ExportLiveriesError_Message" xml:space="preserve">
     <value>Errore durante l'esportazione delle livree: {0}</value>
+  </data>
+  <data name="MainWindow_ExportSeasonPackFolder_Title" xml:space="preserve">
+    <value>Scegli dove salvare il pacchetto livree</value>
+  </data>
+  <data name="MainWindow_ExportingSeasonPack_Message" xml:space="preserve">
+    <value>Esportazione delle livree e dei piloti IA di ogni gara - può richiedere qualche minuto...</value>
+  </data>
+  <data name="MainWindow_SeasonPackExported_Message" xml:space="preserve">
+    <value>Esportate {0} gare in:
+{1}
+
+La prima gara è installata come predefinita; "{2}" passa a qualsiasi altra gara.</value>
+  </data>
+  <data name="MainWindow_ExportSeasonPackError_Message" xml:space="preserve">
+    <value>Impossibile esportare il pacchetto livree: {0}</value>
+  </data>
+  <data name="MainWindow_ExportSeasonPackUnavailable_Message" xml:space="preserve">
+    <value>L'esportazione del pacchetto livree della stagione non è disponibile per questo gioco.</value>
+  </data>
+  <data name="MainWindow_SelectSeasonFirst_Message" xml:space="preserve">
+    <value>Seleziona prima una stagione.</value>
   </data>
   <data name="MainWindow_SelectSeasonAndRaceFirst_Message" xml:space="preserve">
     <value>Seleziona prima una stagione e una gara.</value>
@@ -401,6 +425,33 @@
   </data>
   <data name="HistoricalStandingsWindow_NoDataMessage" xml:space="preserve">
     <value>Nessun dato storico sulle classifiche disponibile</value>
+  </data>
+  <data name="HallOfFameWindow_Title" xml:space="preserve">
+    <value>Albo d'Oro</value>
+  </data>
+  <data name="HallOfFameWindow_Header" xml:space="preserve">
+    <value>ALBO D'ORO</value>
+  </data>
+  <data name="HallOfFameWindow_ChampionshipsHeader" xml:space="preserve">
+    <value>PIÙ CAMPIONATI</value>
+  </data>
+  <data name="HallOfFameWindow_WinsHeader" xml:space="preserve">
+    <value>PIÙ VITTORIE</value>
+  </data>
+  <data name="HallOfFameWindow_LegendActive" xml:space="preserve">
+    <value>IN ATTIVITÀ</value>
+  </data>
+  <data name="HallOfFameWindow_LegendRetired" xml:space="preserve">
+    <value>RITIRATI</value>
+  </data>
+  <data name="HallOfFameWindow_LegendHistoric" xml:space="preserve">
+    <value>DEL PASSATO</value>
+  </data>
+  <data name="HallOfFameWindow_NoDataMessage" xml:space="preserve">
+    <value>Ancora nessuno</value>
+  </data>
+  <data name="SeasonOverviewWindow_HallOfFameButton" xml:space="preserve">
+    <value>Visualizza l'albo d'oro: più campionati e vittorie di sempre</value>
   </data>
   <data name="MissingDriversResultWindow_Title" xml:space="preserve">
     <value>Piloti Mancanti</value>
@@ -843,6 +894,21 @@ Il tuo risultato è stato registrato come Non Qualificato (DNQ). Il weekend di g
   </data>
   <data name="RaceWeekendWindow_FinishSessionFirst_Message" xml:space="preserve">
     <value>Termina prima la sessione attuale!</value>
+  </data>
+  <data name="RaceWeekendWindow_RaceFinishNotSeen_Title" xml:space="preserve">
+    <value>Fine gara non rilevata</value>
+  </data>
+  <data name="RaceWeekendWindow_RaceFinishNotSeen_Message" xml:space="preserve">
+    <value>Rewind GP non ha visto la fine di questa gara - ad esempio se hai lasciato la sessione prima della bandiera a scacchi.
+
+Sì: registra la gara con le ultime posizioni viste da Rewind GP
+No: chiudi senza registrare la gara
+Annulla: continua ad aspettare la fine</value>
+  </data>
+  <data name="RaceWeekendWindow_NoRaceSeen_Message" xml:space="preserve">
+    <value>Rewind GP non ha visto disputare questa gara, quindi se chiudi ora non verrà registrato nulla.
+
+Chiudere comunque?</value>
   </data>
   <data name="RaceWeekendWindow_Info_Title" xml:space="preserve">
     <value>Informazioni</value>
@@ -1299,6 +1365,24 @@ Clicca OK quando hai scaricato il file.</value>
   </data>
   <data name="PostRaceNewsWindow_FirstPodium3_Format" xml:space="preserve">
     <value>È un primo podio in carriera per {0}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Legend_Level1_Format" xml:space="preserve">
+    <value>Con questa vittoria {0} raggiunge {1} a quota {2} successi in Gran Premio, un traguardo un tempo riservato ai più grandi.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Legend_Level2_Format" xml:space="preserve">
+    <value>Per {0} è la vittoria numero {2}, le stesse che {1} conquistò in una carriera leggendaria.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Legend_Passed1_Format" xml:space="preserve">
+    <value>La vittoria numero {2} porta {0} oltre le {3} di {1}, un altro gradino nella classifica di tutti i tempi.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Legend_Passed2_Format" xml:space="preserve">
+    <value>{0} ha ora {2} vittorie in Gran Premio, una in più di quante ne abbia mai ottenute il grande {1}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Legend_Record1_Format" xml:space="preserve">
+    <value>È stata scritta la storia. Con {2} vittorie in Gran Premio, {0} supera le {3} di {1} ed è ora, da solo, il pilota più vincente di sempre.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Legend_Record2_Format" xml:space="preserve">
+    <value>Nessun pilota ha mai vinto di più: {0} sale a {2} vittorie, una in più del record di {1}.</value>
   </data>
   <data name="PostRaceNewsWindow_Dnf1_Format" xml:space="preserve">
     <value>È stata una giornata da dimenticare per {0}, uno dei primi tre in classifica all'inizio del weekend, che non ha visto la bandiera a scacchi.</value>
@@ -2241,6 +2325,24 @@ Cordiali saluti,</value>
   <data name="ChampionshipCelebrationWindow_Milestone_Variant2_Format" xml:space="preserve">
     <value>{0} vanta ora {1} {2}, mentre {3} festeggia il proprio {4}.</value>
   </data>
+  <data name="ChampionshipCelebrationWindow_Legends_NameList_Two_Format" xml:space="preserve">
+    <value>{0} e {1}</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Legends_Joins1_Format" xml:space="preserve">
+    <value>Con questo titolo {0} raggiunge {1} nel ristretto club dei campioni del mondo con {2} titoli.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Legends_Joins2_Format" xml:space="preserve">
+    <value>{0} siede ora accanto a {1}, con {2} titoli mondiali in bacheca.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Legends_Passes_Format" xml:space="preserve">
+    <value>Il titolo numero {2} porta {0} oltre i {3} campionati di {1}.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Legends_Record_Format" xml:space="preserve">
+    <value>È stata scritta la storia: nessun pilota ha mai vinto più dei {2} titoli mondiali che {0} ora detiene, uno in più di {1}.</value>
+  </data>
+  <data name="ChampionshipCelebrationWindow_Legends_ExtendsRecord_Format" xml:space="preserve">
+    <value>{0} porta il record assoluto a {2} titoli mondiali, un primato che forse nessuno riuscirà mai a battere.</value>
+  </data>
   <data name="ChampionshipCelebrationWindow_StandingsHeader" xml:space="preserve">
     <value>CLASSIFICA FINALE DEL CAMPIONATO (TOP 5):</value>
   </data>
@@ -3012,5 +3114,225 @@ La decisione sottolinea le complesse dinamiche dei trasferimenti di piloti nel m
   </data>
   <data name="ContractLetterWindow_SuccessQualificationDetail_UnderQualified" xml:space="preserve">
     <value>Ad essere sinceri, sulla carta non sei la scelta più sicura per questo sedile - ma ci piace puntare su un po' di potenziale, e crediamo che tu possa dimostrarlo.</value>
+  </data>
+  <data name="OffSeasonContractWindow_Disciplinary_Format" xml:space="preserve">
+    <value>Nel corso di questa stagione hai ignorato ripetutamente le indicazioni del team. Gli ordini di scuderia esistono per il bene di {0} nel suo insieme, e un pilota che antepone le proprie ambizioni personali non ha posto nella nostra formazione. Per questo motivo abbiamo deciso di non confermarti per la prossima stagione.</value>
+  </data>
+  <data name="TeamApplicationWindow_DropReason_Disciplinary" xml:space="preserve">
+    <value>{0} lasciato a piedi dopo aver ignorato più volte gli ordini di scuderia</value>
+  </data>
+  <data name="TeamSelectionWindow_EqualDriverRole" xml:space="preserve">
+    <value>Pilota alla pari</value>
+  </data>
+  <data name="SeasonOverviewWindow_RoleLabel" xml:space="preserve">
+    <value>Ruolo:</value>
+  </data>
+  <data name="SeasonOverviewWindow_RoleAndReprimands_Format" xml:space="preserve">
+    <value>{0} - richiami: {1}/{2}</value>
+  </data>
+  <data name="PaddockNewsWindow_Title" xml:space="preserve">
+    <value>Notizie dal Paddock</value>
+  </data>
+  <data name="PaddockNewsWindow_Masthead" xml:space="preserve">
+    <value>GAZZETTA DEL MOTORSPORT</value>
+  </data>
+  <data name="PaddockNewsWindow_Banner" xml:space="preserve">
+    <value>NOTIZIE DAL PADDOCK - ORDINI DI SCUDERIA</value>
+  </data>
+  <data name="PaddockNewsWindow_CloseButton" xml:space="preserve">
+    <value>CHIUDI</value>
+  </data>
+  <data name="PaddockNewsWindow_DefaultTeamName" xml:space="preserve">
+    <value>la squadra</value>
+  </data>
+  <data name="PaddockNewsWindow_DefaultTeamPrincipal" xml:space="preserve">
+    <value>il team principal</value>
+  </data>
+  <data name="PaddockNewsWindow_DefaultDriverName" xml:space="preserve">
+    <value>un pilota senza nome</value>
+  </data>
+  <data name="PaddockNewsWindow_Headline_Generic_Format" xml:space="preserve">
+    <value>Ordini di scuderia, polemiche nel paddock dopo il {0}</value>
+  </data>
+  <data name="PaddockNewsWindow_Headline_Reprimand_Format" xml:space="preserve">
+    <value>{1} richiama all'ordine {0}</value>
+  </data>
+  <data name="PaddockNewsWindow_Headline_Released_Format" xml:space="preserve">
+    <value>{1} mette alla porta {0}</value>
+  </data>
+  <data name="PaddockNewsWindow_Reprimand1_Format" xml:space="preserve">
+    <value>{0} è stato richiamato da {1} dopo aver tagliato il traguardo subito davanti al caposquadra {3}. Il team principal {2} ha chiarito che l'ordine delle vetture non era in discussione.</value>
+  </data>
+  <data name="PaddockNewsWindow_Reprimand2_Format" xml:space="preserve">
+    <value>Tensione in casa {1}: {0} ha ignorato il muretto e ha chiuso appena davanti a {3}. {2} ha subito convocato il pilota per un duro confronto a porte chiuse.</value>
+  </data>
+  <data name="PaddockNewsWindow_Reprimand3_Format" xml:space="preserve">
+    <value>"Abbiamo una gerarchia chiara e va rispettata", ha dichiarato {2} dopo che {0} si è preso la posizione subito davanti a {3} nelle fasi finali. {1} ha richiamato ufficialmente la sua seconda guida.</value>
+  </data>
+  <data name="PaddockNewsWindow_Contact1_Format" xml:space="preserve">
+    <value>{0} è stato richiamato da {1} dopo il contatto con il compagno di squadra {3}. Per {2} toccare l'altra vettura del box è "l'unica cosa che non si fa mai".</value>
+  </data>
+  <data name="PaddockNewsWindow_Contact2_Format" xml:space="preserve">
+    <value>Fuoco amico in casa {1}: {0} e {3} sono venuti a contatto in pista, e {2} ha attribuito la colpa senza mezzi termini a {0}.</value>
+  </data>
+  <data name="PaddockNewsWindow_Contact3_Format" xml:space="preserve">
+    <value>Un furioso {2} ha richiamato {0} per il contatto con {3}. "I nostri rivali sono là fuori, non dall'altra parte del nostro box", ha detto il capo di {1}.</value>
+  </data>
+  <data name="PaddockNewsWindow_FinalWarning1_Format" xml:space="preserve">
+    <value>È il secondo richiamo stagionale per {0}, e fonti vicine a {1} lasciano intendere che il pilota non sarà confermato il prossimo anno.</value>
+  </data>
+  <data name="PaddockNewsWindow_FinalWarning2_Format" xml:space="preserve">
+    <value>Sono due i richiami per {0}: {2} ha fatto sapere che il sedile in {1} non è più al sicuro oltre questa stagione.</value>
+  </data>
+  <data name="PaddockNewsWindow_SparedAsLeader1_Format" xml:space="preserve">
+    <value>Qualsiasi altro pilota sarebbe già stato messo alla porta, ma con {0} in testa al campionato {1} ha scelto di tenersi la sua stella ribelle.</value>
+  </data>
+  <data name="PaddockNewsWindow_SparedAsLeader2_Format" xml:space="preserve">
+    <value>{2} ha ammesso che la pazienza è agli sgoccioli, ma nessuno licenzia il leader del campionato: {0} resta in {1}, per ora.</value>
+  </data>
+  <data name="PaddockNewsWindow_Released1_Format" xml:space="preserve">
+    <value>La misura è colma: dopo il terzo richiamo, {1} ha liberato {0} con effetto immediato. Sarà {3} a prendere il suo posto per il resto della stagione.</value>
+  </data>
+  <data name="PaddockNewsWindow_Released2_Format" xml:space="preserve">
+    <value>{2} ha perso la pazienza e {0} non correrà più per {1} in questa stagione. Al suo posto è stato chiamato {3}.</value>
+  </data>
+  <data name="PaddockNewsWindow_ReleasedNoReplacement_Format" xml:space="preserve">
+    <value>La misura è colma: dopo il terzo richiamo, {1} ha liberato {0} con effetto immediato, ed è ancora alla ricerca di un sostituto.</value>
+  </data>
+  <data name="SeasonOverviewWindow_CalendarHeader" xml:space="preserve">
+    <value>CALENDARIO</value>
+  </data>
+  <data name="SeasonOverviewWindow_ImprovementPackagesTooltip" xml:space="preserve">
+    <value>Pacchetti di sviluppo</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackageButton_Format" xml:space="preserve">
+    <value>Installa pacchetto di sviluppo ({0} rimasti)</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_Confirm_Title" xml:space="preserve">
+    <value>Pacchetto di sviluppo</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_Confirm_Message" xml:space="preserve">
+    <value>Vuoi chiedere a {0} di installare un pacchetto di sviluppo prima del {1}?
+
+Cambierà le prestazioni di entrambe le vetture, e potrebbe renderle più lente anziché più veloci. Al team ne restano {2} per questa stagione, e può installarne solo uno per gara.</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_NoneLeft_Tooltip" xml:space="preserve">
+    <value>Il team non ha più pacchetti di sviluppo per questa stagione.</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_AlreadyInstalled_Tooltip" xml:space="preserve">
+    <value>Il team ha già installato un pacchetto di sviluppo per questa gara.</value>
+  </data>
+  <data name="SeasonOverviewWindow_InstallPackage_NotAllowed_Tooltip" xml:space="preserve">
+    <value>Solo la prima guida (o i piloti alla pari) può chiedere al team di installare un pacchetto di sviluppo.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Title" xml:space="preserve">
+    <value>Notizie Tecniche</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Banner" xml:space="preserve">
+    <value>AGGIORNAMENTI TECNICI</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Headline_Generic_Format" xml:space="preserve">
+    <value>I team portano novità al {0}</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Headline_Team_Format" xml:space="preserve">
+    <value>{0}: pacchetto di sviluppo per il {1}</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Intro1_Format" xml:space="preserve">
+    <value>{1} si presenta al {2} con una vettura rivista, dopo che {0} ha chiesto al team di installare un nuovo pacchetto di sviluppo.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Intro2_Format" xml:space="preserve">
+    <value>Su richiesta di {0}, {1} ha montato un pacchetto di sviluppo su entrambe le vetture in vista del {2}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Intro3_Format" xml:space="preserve">
+    <value>{0} ha ottenuto ciò che chiedeva: {1} ha portato un pacchetto di sviluppo al {2}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_GainsAndLosses_Format" xml:space="preserve">
+    <value>Dai primi giri sembra che {0}, ma {1}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_OnlyGains_Format" xml:space="preserve">
+    <value>I primi giri parlano di un netto passo avanti: {0}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_OnlyLosses_Format" xml:space="preserve">
+    <value>I primi giri dicono che la scommessa non ha pagato: {0}.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_Effects_None" xml:space="preserve">
+    <value>Dai primi giri sembra che sia cambiato ben poco.</value>
+  </data>
+  <data name="ImprovementPackageNewsWindow_ListAnd" xml:space="preserve">
+    <value> e </value>
+  </data>
+  <data name="ImprovementPackagesWindow_Title" xml:space="preserve">
+    <value>Pacchetti di Sviluppo</value>
+  </data>
+  <data name="ImprovementPackagesWindow_Header" xml:space="preserve">
+    <value>PACCHETTI DI SVILUPPO</value>
+  </data>
+  <data name="ImprovementPackagesWindow_PackagesColumnHeader" xml:space="preserve">
+    <value>PACCHETTI</value>
+  </data>
+  <data name="ImprovementPackagesWindow_FooterText" xml:space="preserve">
+    <value>▲ valore aumentato, ▼ valore diminuito, = invariato nel complesso. Verde: un guadagno per la vettura, rosso: una perdita.</value>
+  </data>
+  <data name="TeamPrincipalLetterWindow_Title" xml:space="preserve">
+    <value>Lettera del Team Principal</value>
+  </data>
+  <data name="TeamPrincipalLetterWindow_Subtitle" xml:space="preserve">
+    <value>Sviluppo della Vettura</value>
+  </data>
+  <data name="TeamPrincipalLetterWindow_Letter_Format" xml:space="preserve">
+    <value>Caro {0},
+
+come sai, {1} non correrà per noi al {2}.
+
+Le decisioni sullo sviluppo della vettura spettano di norma alla nostra prima guida. In assenza di {1}, questa responsabilità passa a te: finché {1} non tornerà al volante, sarai tu a decidere se installare uno dei nostri pacchetti di sviluppo prima di una gara.
+
+Ce ne restano {3} per questa stagione, e possiamo montarne solo uno per gara. Scegli con attenzione. Un nuovo pacchetto può farci risalire la griglia, ma può altrettanto facilmente costarci prestazioni.
+
+Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
+  </data>
+  <data name="MainWindow_ContinueButton" xml:space="preserve">
+    <value>CONTINUA LA CARRIERA</value>
+  </data>
+  <data name="MainWindow_ContinueDescription_Format" xml:space="preserve">
+    <value>{0} - stagione {1}, gara {2} di {3}. Salvato il {4}.</value>
+  </data>
+  <data name="MainWindow_ContinueDescriptionSeasonOver_Format" xml:space="preserve">
+    <value>{0} - stagione {1} conclusa. Salvato il {2}.</value>
+  </data>
+  <data name="MainWindow_Cover_NextRace_Headline_Format" xml:space="preserve">
+    <value>PROSSIMA TAPPA: {0}</value>
+  </data>
+  <data name="MainWindow_Cover_NextRace_Subline_Format" xml:space="preserve">
+    <value>GARA {0} DI {1} - STAGIONE {2}</value>
+  </data>
+  <data name="MainWindow_Cover_SeasonPreview_Headline_Format" xml:space="preserve">
+    <value>ANTEPRIMA STAGIONE {0}</value>
+  </data>
+  <data name="MainWindow_Cover_Leads_Headline_Format" xml:space="preserve">
+    <value>{0} IN TESTA DOPO LA GARA {1}</value>
+  </data>
+  <data name="MainWindow_Cover_Position_Headline_Format" xml:space="preserve">
+    <value>{0}: P{1} DOPO LA GARA {2}</value>
+  </data>
+  <data name="MainWindow_NewGameImportedDriverButton" xml:space="preserve">
+    <value>PILOTA DI UN'ALTRA STAGIONE</value>
+  </data>
+  <data name="MainWindow_NewGameGroupTitle" xml:space="preserve">
+    <value>NUOVA PARTITA</value>
+  </data>
+  <data name="MainWindow_ImportedDriverLabel" xml:space="preserve">
+    <value>PILOTA:</value>
+  </data>
+  <data name="MainWindow_ImportedDriverListItem_Format" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="MainWindow_ImportedDriverInfo_Format" xml:space="preserve">
+    <value>Nato nel {0} - {1} anni nel {2}. Dati dalla stagione {3}.</value>
+  </data>
+  <data name="MainWindow_NoImportableDrivers_Message" xml:space="preserve">
+    <value>Nessun pilota delle altre stagioni installate disponibile per questa stagione.</value>
+  </data>
+  <data name="MainWindow_ImportedDriverAlreadyInSeason_Message" xml:space="preserve">
+    <value>{0} partecipa gia alla stagione {1}. Scegli un altro pilota o un'altra stagione.</value>
   </data>
 </root>

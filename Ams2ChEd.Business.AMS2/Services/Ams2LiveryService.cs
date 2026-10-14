@@ -2,10 +2,12 @@
 using Ams2ChEd.Business.AMS2.PakPatching;
 using Ams2ChEd.Business.AMS2.PakPatching.Contracts;
 using AMS2ChEd.Business.AMS2.Models;
+using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using SixLabors.ImageSharp;
+using System.Text;
 using System.Text.Json;
 using System.Xml.Linq;
 using Image = SixLabors.ImageSharp.Image;
@@ -25,6 +27,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         private readonly IReadOnlyList<(string Model, int Slots)> modelCapacities;
         private readonly bool aiRatingsVariation;
         private readonly IVehicleLiverySlotPatcher slotPatcher;
+        private readonly bool distinctOverrideTextures;
 
         /// <summary>
         /// Initialize the LiveryService
@@ -40,6 +43,12 @@ namespace Ams2ChEd.Business.AMS2.Services
         /// Left null by season-authoring tools (e.g. SeasonPackCreator's PerformanceCalibrationService)
         /// that intentionally never touch a live AMS2 install.
         /// </param>
+        /// <param name="distinctOverrideTextures">
+        /// Give the textures of a race with a livery override their own names (see
+        /// SeasonPackExportFiles.OverrideTextureTag), so they can sit beside the base ones - for a
+        /// season export, which holds every race's textures at once. Off for the per-race files
+        /// written into the game before a race, which only ever hold one race.
+        /// </param>
         public Ams2LiveryService(
             int seasonYear,
             string ams2Class,
@@ -47,7 +56,8 @@ namespace Ams2ChEd.Business.AMS2.Services
             IEnumerable<Ams2TeamEntry> teamsData,
             IReadOnlyList<(string Model, int Slots)> modelCapacities = null,
             bool aiRatingsVariation = true,
-            IVehicleLiverySlotPatcher slotPatcher = null)
+            IVehicleLiverySlotPatcher slotPatcher = null,
+            bool distinctOverrideTextures = false)
         {
 
             this.driversData = driversData;
@@ -57,6 +67,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             this.modelCapacities = modelCapacities;
             this.aiRatingsVariation = aiRatingsVariation;
             this.slotPatcher = slotPatcher;
+            this.distinctOverrideTextures = distinctOverrideTextures;
 
             // Create driver lookup dictionary
             driversDict = driversData.ToDictionary(d => d.DriverId, d => (Ams2DriverData)d);
@@ -113,6 +124,99 @@ namespace Ams2ChEd.Business.AMS2.Services
 
             GenerateCustomAiXml(raceId, raceEntryList, customAiPath);
         }
+
+        /// <summary>
+        /// Exports a whole season as a standalone livery pack in <paramref name="outputDirectory"/>,
+        /// laid out like the AMS2 folder it's meant to be copied into.
+        ///
+        /// A livery override reuses its driver's slot (the in-game livery XML is rewritten for each
+        /// race), so the XMLs can't hold every race at once: every race's textures go into the
+        /// shared tree side by side (override ones tagged, see distinctOverrideTextures), while each
+        /// race's livery XMLs and Custom AI roster are kept in its own folder under the race-setups
+        /// folder. The first race's set is also installed in the tree itself, and a .bat swaps in
+        /// any other race's set.
+        /// </summary>
+        public SeasonPackExportResult ExportSeasonPack(
+            IReadOnlyList<(Race Race, List<EntryListEntry> EntryList)> races,
+            string seasonDirectory,
+            string outputDirectory)
+        {
+            if (races.Count == 0)
+                throw new ArgumentException("the season has no races", nameof(races));
+
+            Directory.CreateDirectory(outputDirectory);
+            CopyStaticAssets(seasonDirectory, outputDirectory);
+
+            string vehiclesOverridesPath = Path.Combine(outputDirectory, "Vehicles", "Textures", "CustomLiveries", "Overrides");
+            string setupsFolderName = SeasonPackExportFiles.SetupsFolderName(seasonYear);
+            string setupsPath = Path.Combine(outputDirectory, setupsFolderName);
+
+            var raceFolders = new List<string>();
+            var modelsByRaceFolder = new Dictionary<string, IReadOnlyCollection<string>>();
+
+            for (int i = 0; i < races.Count; i++)
+            {
+                var (race, entryList) = races[i];
+                string raceFolderName = SeasonPackExportFiles.RaceFolderName(i + 1, race.RaceName);
+                string raceFolder = Path.Combine(setupsPath, raceFolderName);
+                Console.WriteLine($"Exporting {raceFolderName}");
+
+                // textures land in the shared tree; the livery XMLs written there are this race's...
+                var models = GenerateLiveryXmlsAMS2(race.RaceId, entryList, vehiclesOverridesPath, seasonDirectory, outputDirectory);
+
+                // ...and are kept with the race, as the next race rewrites them
+                foreach (var model in models)
+                {
+                    string target = RaceSetupLiveryXmlPath(raceFolder, model);
+                    Directory.CreateDirectory(Path.GetDirectoryName(target));
+                    CopyFileOverwrite(Path.Combine(vehiclesOverridesPath, model, $"{model}.xml"), target);
+                }
+
+                string customAiPath = Path.Combine(raceFolder, "UserData", "CustomAIDrivers", $"{ams2Class}.xml");
+                Directory.CreateDirectory(Path.GetDirectoryName(customAiPath));
+                GenerateCustomAiXml(race.RaceId, entryList, customAiPath);
+
+                raceFolders.Add(raceFolderName);
+                modelsByRaceFolder[raceFolderName] = models;
+            }
+
+            // A car model one race doesn't use (overflow from slot capacity can differ race to
+            // race) gets an empty override file in that race's set, so choosing a race always
+            // replaces every livery XML the pack installs - nothing left over from the last choice.
+            var allModels = modelsByRaceFolder.Values.SelectMany(m => m).Distinct().ToList();
+            foreach (var (raceFolderName, models) in modelsByRaceFolder)
+            {
+                foreach (var model in allModels.Except(models))
+                {
+                    string target = RaceSetupLiveryXmlPath(Path.Combine(setupsPath, raceFolderName), model);
+                    Directory.CreateDirectory(Path.GetDirectoryName(target));
+                    new XDocument(new XElement("USER_OVERRIDES")).Save(target);
+                }
+            }
+
+            // the first race is what's installed out of the box
+            CopyDirectory(Path.Combine(setupsPath, raceFolders[0]), outputDirectory);
+
+            string selectorScriptName = SeasonPackExportFiles.SelectorScriptName(seasonYear);
+            File.WriteAllText(Path.Combine(outputDirectory, selectorScriptName),
+                SeasonPackExportFiles.BuildSelectorScript(seasonYear, setupsFolderName), Encoding.ASCII);
+            File.WriteAllText(Path.Combine(outputDirectory, SeasonPackExportFiles.ReadmeName(seasonYear)),
+                SeasonPackExportFiles.BuildReadme(seasonYear, ams2Class, raceFolders, setupsFolderName, selectorScriptName), Encoding.UTF8);
+
+            return new SeasonPackExportResult
+            {
+                OutputDirectory = outputDirectory,
+                RaceCount = races.Count,
+                SelectorScriptName = selectorScriptName
+            };
+        }
+
+        private static string RaceSetupLiveryXmlPath(string raceFolder, string carModel) =>
+            Path.Combine(raceFolder, "Vehicles", "Textures", "CustomLiveries", "Overrides", carModel, $"{carModel}.xml");
+
+        /// <summary>See distinctOverrideTextures: empty outside a season export, or at a race without an override.</summary>
+        private string OverrideTextureTag(Ams2TeamEntry team, int raceId) =>
+            distinctOverrideTextures ? SeasonPackExportFiles.OverrideTextureTag(team.LiveryOverrides, raceId) : string.Empty;
 
         /// <summary>
         /// Copy static assets from season/static_assets to AMS2 root directory
@@ -220,7 +324,8 @@ namespace Ams2ChEd.Business.AMS2.Services
             string visorSponsors,
             Dictionary<string, string> driverSpecificHelmet,
             string outputDirectory,
-            string seasonDirectory)
+            string seasonDirectory,
+            string textureTag = "")
         {
             string baseHelmetFile;
             string baseVisorFile;
@@ -245,8 +350,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                     : Path.Combine(seasonDirectory, baseVisorFileToPick);
 
             // New naming format: [driver_id]_[team_id]_[seasonYear].dds
-            string helmetOutputFilename = $"{driverId}_{team.TeamId}_{seasonYear}.dds";
-            string visorOutputFilename = $"{driverId}_{team.TeamId}_{seasonYear}_visor.dds";
+            string helmetOutputFilename = $"{driverId}_{team.TeamId}{textureTag}_{seasonYear}.dds";
+            string visorOutputFilename = $"{driverId}_{team.TeamId}{textureTag}_{seasonYear}_visor.dds";
             string outputHelmetPath = Path.Combine(outputDirectory, helmetOutputFilename);
             string outputVisorPath = Path.Combine(outputDirectory, visorOutputFilename);
 
@@ -518,7 +623,8 @@ namespace Ams2ChEd.Business.AMS2.Services
         /// <summary>
         /// Generate livery XML files using AMS2 folder structure by loading and combining individual team XMLs
         /// </summary>
-        private void GenerateLiveryXmlsAMS2(
+        /// <returns>The car models a livery XML was written for.</returns>
+        private IReadOnlyCollection<string> GenerateLiveryXmlsAMS2(
             int raceId,
             List<EntryListEntry> raceEntryList,
             string vehiclesOverridesPath,
@@ -542,10 +648,13 @@ namespace Ams2ChEd.Business.AMS2.Services
                 string outputXmlPath = Path.Combine(carModelDirectory, $"{carModel}.xml");
                 string temporaryTexturesPath = Path.Combine(carModelDirectory, "temporary_textures");
 
-                // Clean up old season files from temporary_textures folder
+                // Clean up old season files from temporary_textures folder - not in a season export,
+                // which writes a fresh folder and must keep every earlier race's textures (the
+                // cleanup would take e.g. the "_visor.dds" files, which don't end in "_<year>.dds")
                 if (Directory.Exists(temporaryTexturesPath))
                 {
-                    CleanupOldSeasonFiles(temporaryTexturesPath, seasonYear);
+                    if (!distinctOverrideTextures)
+                        CleanupOldSeasonFiles(temporaryTexturesPath, seasonYear);
                 }
                 else
                 {
@@ -628,6 +737,8 @@ namespace Ams2ChEd.Business.AMS2.Services
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
+
+            return finalEntriesByCarModel.Keys.ToList();
         }
 
         /// <summary>
@@ -660,6 +771,9 @@ namespace Ams2ChEd.Business.AMS2.Services
 
             // Get driver's car number from contract
             int driverCarNumber = (driverNumber == 1) ? team.Driver1Contract.DriverNumber : team.Driver2Contract.DriverNumber;
+
+            // empty unless this is a season export and the team runs an override at this race
+            string textureTag = OverrideTextureTag(team, raceId);
 
             // Path to individual team XML file
             string teamXmlPath = Path.Combine(seasonDirectory, "liveries_xml", $"{team.TeamId}.xml");
@@ -705,7 +819,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
             if (!hasValidTexture)
             {
-                string fallbackFilename = $"{team.TeamId}_{driverCarNumber}_{seasonYear}.dds";
+                string fallbackFilename = $"{team.TeamId}_{driverCarNumber}{textureTag}_{seasonYear}.dds";
                 string fallbackPath = Path.Combine(temporaryTexturesPath, fallbackFilename);
 
                 DdsTextureComposer.GenerateSolidColour(team.Color, fallbackTextureWidth, fallbackTextureHeight, fallbackPath);
@@ -720,7 +834,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                         seasonYear,
                         seasonDirectory,
                         temporaryTexturesPath,
-                        driverNumber);
+                        driverNumber,
+                        textureTag);
                 }
 
                 finalLiveryPath = Path.Combine("temporary_textures", fallbackFilename);
@@ -735,7 +850,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                     seasonYear,
                     seasonDirectory,
                     temporaryTexturesPath,
-                    driverNumber);
+                    driverNumber,
+                    textureTag);
             }
             else
             {
@@ -782,7 +898,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
                     if (helmetTexture != null)
                     {
-                        string helmetFilename = $"{driverId}_{team.TeamId}_{seasonYear}.dds";
+                        string helmetFilename = $"{driverId}_{team.TeamId}{textureTag}_{seasonYear}.dds";
                         string relativePath = Path.Combine("temporary_textures", helmetFilename);
                         helmetTexture.SetAttributeValue("PATH", relativePath);
                     }
@@ -793,7 +909,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
                     if (visorTexture != null)
                     {
-                        string visorFilename = $"{driverId}_{team.TeamId}_{seasonYear}_visor.dds";
+                        string visorFilename = $"{driverId}_{team.TeamId}{textureTag}_{seasonYear}_visor.dds";
                         string relativePath = Path.Combine("temporary_textures", visorFilename);
                         visorTexture.SetAttributeValue("PATH", relativePath);
                     }
@@ -826,7 +942,8 @@ namespace Ams2ChEd.Business.AMS2.Services
             int seasonYear,
             string seasonDirectory,
             string temporaryTexturesPath,
-            int driverNumber)
+            int driverNumber,
+            string textureTag = "")
         {
             // Resolve base livery path
             string resolvedLiveryPath = Path.IsPathRooted(baseLiveryPath)
@@ -840,7 +957,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
 
             // New naming format: [team_id]_[race_number]_[seasonYear].dds
-            string outputFilename = $"{teamId}_{carNumber}_{seasonYear}.dds";
+            string outputFilename = $"{teamId}_{carNumber}{textureTag}_{seasonYear}.dds";
             string outputPath = Path.Combine(temporaryTexturesPath, outputFilename);
 
             // Build placement data list
@@ -906,7 +1023,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                     raceOverride?.VisorSponsors ?? team.VisorSponsors,
                     raceOverride?.DriversSpecificHelmet ?? team.DriversSpecificHelmet,
                     outputDirectory,
-                    seasonDirectory);
+                    seasonDirectory,
+                    OverrideTextureTag(team, raceId));
             }
         }
 
@@ -1001,6 +1119,18 @@ namespace Ams2ChEd.Business.AMS2.Services
 
                 double adjustedValue = Math.Max(0.0, baseValue - malus);
                 ratings[ratingName] = adjustedValue;
+            }
+
+            // Apply the team's improvement packages on top of the malus-adjusted values, before the
+            // variation below, so the upgraded value becomes the car's new baseline. A scalar the
+            // team doesn't otherwise export starts from the neutral 1.0.
+            if (team.ImprovementPackages != null)
+            {
+                foreach (var packageValue in team.ImprovementPackages.Where(p => p.Values != null).SelectMany(p => p.Values))
+                {
+                    double baseValue = ratings.TryGetValue(packageValue.Key, out var currentValue) ? currentValue : 1.0;
+                    ratings[packageValue.Key] = Math.Max(0.9, Math.Min(1.1, baseValue + packageValue.Value));
+                }
             }
 
             // add variation to each rating to avoid AI drivers being too similar

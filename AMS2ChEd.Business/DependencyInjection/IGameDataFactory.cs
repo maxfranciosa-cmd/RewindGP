@@ -11,7 +11,5 @@ namespace AMS2ChEd.Business.DependencyInjection
         ISeasonLoader SeasonLoader { get; }
 
         IGameStorage GameStorage { get; }
-
-        IAccoladesLoader AccoladesLoader { get; }
     }
 }

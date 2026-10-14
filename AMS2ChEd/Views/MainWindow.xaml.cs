@@ -33,7 +33,6 @@ namespace AMS2ChEd
     public partial class MainWindow : Window
     {
         private List<ReputationItem> reputationList;
-        private Dictionary<DriverReputation, string> reputationImages;
         private Storyboard fadeInStoryboard;
 
         private IGameDataFactory _ams2StorageFactory;
@@ -80,7 +79,6 @@ namespace AMS2ChEd
             InstallSeasonCommand.SeasonInstalled += OnSeasonModInstalled;
 
             InitializeGameLogic();
-            InitializeReputationImages();
             InitializeAnimations();
             InitializeReputations();
             LoadSeasons();
@@ -115,30 +113,6 @@ namespace AMS2ChEd
             _gameLogicFactory.GameEngine.SeasonProgressed += OnSeasonProgressed;
             _gameLogicFactory.GameEngine.ErrorOccurred += OnErrorOccurred;
             InstallSeasonCommand.SeasonInstalled -= OnSeasonModInstalled;
-        }
-
-        private void InitializeReputationImages()
-        {
-            // Map each reputation to an image filename
-            // Images should be placed in an Images folder in the project
-            reputationImages = new Dictionary<DriverReputation, string>
-            {
-                { DriverReputation.PAY_DRIVER_WILD_CARD, "/Images/reputation_paydriver_wildcard.png" },
-                { DriverReputation.PAY_DRIVER_SEASON, "/Images/reputation_paydriver_season.png" },
-                { DriverReputation.YOUNG_TALENT, "/Images/reputation_young_talent.png" },
-                { DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, "/Images/reputation_young_unproven.png" },
-                { DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, "/Images/reputation_young_champion.png" },
-                { DriverReputation.PRIME_MIDFIELD, "/Images/reputation_midfield.png" },
-                { DriverReputation.PRIME_STRONG_MIDFIELD, "/Images/reputation_high_midfield.png" },
-                { DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN, "/Images/reputation_unproven_champion.png" },
-                { DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, "/Images/reputation_champion.png" },
-                { DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED, "/Images/reputation_washed_champion.png" },
-                { DriverReputation.AGEING_MIDFIELD, "/Images/reputation_veteran_midfield.png" },
-                { DriverReputation.AGEING_STRONG_MIDFIELD, "/Images/reputation_veteran_high_midfield.png" },
-                { DriverReputation.AGEING_CHAMPIONSHIP_LEVEL, "/Images/reputation_veteran_champion.png" },
-                { DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED, "/Images/reputation_veteran_washed.png" },
-                { DriverReputation.JUST_ONE_LAST_DANCE, "/Images/reputation_just_one_last_dance.png" }
-            };
         }
 
         private void InitializeAnimations()
@@ -383,6 +357,56 @@ namespace AMS2ChEd
             }
         }
 
+        /// <summary>
+        /// Exports the selected season as a standalone livery pack (every race's liveries and AI
+        /// roster, race 1 installed by default, a .bat to switch races) into its own folder inside
+        /// the one the developer picks - see ISeasonPackExporter.
+        /// </summary>
+        private async void DevExportSeasonPackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DevSeasonComboBox.SelectedItem == null)
+            {
+                System.Windows.MessageBox.Show(Strings.MainWindow_SelectSeasonFirst_Message, Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (_gameLogicFactory.RacePreparator is not ISeasonPackExporter exporter)
+            {
+                System.Windows.MessageBox.Show(Strings.MainWindow_ExportSeasonPackUnavailable_Message, Strings.MainWindow_DeveloperMode_Title, MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            int year = int.Parse(((ComboBoxItem)DevSeasonComboBox.SelectedItem).Content.ToString());
+
+            var folderDialog = new Microsoft.Win32.OpenFolderDialog { Title = Strings.MainWindow_ExportSeasonPackFolder_Title };
+            if (folderDialog.ShowDialog(this) != true)
+                return;
+
+            // a folder of its own, so nothing already in the chosen one is overwritten
+            var outputDirectory = System.IO.Path.Combine(folderDialog.FolderName, $"RewindGP {year} livery pack");
+
+            var progressWindow = new ProgressWindow(Strings.MainWindow_ExportingSeasonPack_Message);
+            progressWindow.Show();
+
+            try
+            {
+                var season = _ams2StorageFactory.SeasonLoader.LoadBaseSeason(year);
+                var drivers = _ams2StorageFactory.DriversLoader.LoadDriversBase(year).Values;
+
+                var result = await Task.Run(() => exporter.ExportSeasonPack(season, drivers, outputDirectory));
+
+                progressWindow.Close();
+                System.Windows.MessageBox.Show(
+                    string.Format(Strings.MainWindow_SeasonPackExported_Message, result.RaceCount, result.OutputDirectory, result.SelectorScriptName),
+                    Strings.MainWindow_DeveloperMode_Title, MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                progressWindow.Close();
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_ExportSeasonPackError_Message, ex.Message), Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private bool TryBuildDevExportContext(out int raceId, out List<EntryListEntry> entryList, out IEnumerable<IDriverData> drivers, out ISeason season, out string error)
         {
             raceId = 0; entryList = null; drivers = null; season = null; error = null;
@@ -419,12 +443,12 @@ namespace AMS2ChEd
             MainMenuPanel.Visibility = Visibility.Collapsed;
             NewGamePanel.Visibility = Visibility.Visible;
 
-            // Switch from welcome image to reputation display
-            WelcomeImageBorder.Visibility = Visibility.Collapsed;
-            ReputationImageBorder.Visibility = Visibility.Visible;
+            // no picture here: just the name and description of the selected reputation
+            SetInfoTextOnlyLayout(true);
 
             ReplaceDriverPanel.Visibility = Visibility.Collapsed;
             CustomDriverPanel.Visibility = Visibility.Visible;
+            SetImportedDriverMode(false);
 
             //trigger the selection change (so the description to be updated)
             ReputationComboBox_SelectionChanged(null, null);
@@ -432,6 +456,157 @@ namespace AMS2ChEd
             ReputationNameText.Visibility = Visibility.Visible;
             ReputationParagraphText.Visibility = Visibility.Visible;
         }
+
+        #region Driver from another season
+
+        private class ImportableDriver
+        {
+            public IDriverData Driver { get; set; }
+            public int SourceYear { get; set; }
+        }
+
+        private bool _importedDriverMode;
+        private readonly Dictionary<int, Dictionary<string, IDriverData>> _seasonDriversCache = new();
+
+        // same form as the custom driver, but name, age and helmet come from the picked driver
+        private void NewGameImportedDriverButton_Click(object sender, RoutedEventArgs e)
+        {
+            NewGameButton_Click(sender, e);
+            SetImportedDriverMode(true);
+            LoadImportableDrivers();
+        }
+
+        private void SetImportedDriverMode(bool enabled)
+        {
+            _importedDriverMode = enabled;
+
+            ImportedDriverPanel.Visibility = enabled ? Visibility.Visible : Visibility.Collapsed;
+            CustomDriverFieldsPanel.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
+
+            var showHelmets = !enabled && _cosmeticsEditor != null;
+            HelmetSelectionLabel.Visibility = showHelmets ? Visibility.Visible : Visibility.Collapsed;
+            HelmetSelectionBorder.Visibility = showHelmets ? Visibility.Visible : Visibility.Collapsed;
+
+            if (!enabled)
+            {
+                DriverAgeTextBox.Clear();
+            }
+        }
+
+        private bool TryGetSelectedSeasonYear(out int seasonYear)
+        {
+            seasonYear = 0;
+            return SeasonComboBox.SelectedItem is ComboBoxItem item && int.TryParse(item.Content?.ToString(), out seasonYear);
+        }
+
+        private Dictionary<string, IDriverData> LoadSeasonDriversCached(int year)
+        {
+            if (!_seasonDriversCache.TryGetValue(year, out var drivers))
+            {
+                drivers = _ams2StorageFactory.DriversLoader.LoadDriversBase(year);
+                _seasonDriversCache[year] = drivers;
+            }
+            return drivers;
+        }
+
+        // every driver of the other installed seasons who isn't part of the selected one,
+        // each in the version of the season closest to it
+        private void LoadImportableDrivers()
+        {
+            ImportedDriverComboBox.Items.Clear();
+            UpdateImportedDriverVisual(null, 0);
+
+            if (!TryGetSelectedSeasonYear(out var seasonYear))
+                return;
+
+            try
+            {
+                var installedYears = _ams2StorageFactory.SeasonLoader.GetAvailableSeasons()
+                    .Select(s => int.TryParse(s, out var y) ? y : 0)
+                    .Where(y => y > 0)
+                    .ToList();
+
+                var driversInSelectedSeason = installedYears.Contains(seasonYear)
+                    ? LoadSeasonDriversCached(seasonYear).Keys.ToHashSet()
+                    : new HashSet<string>();
+
+                var importableDrivers = installedYears
+                    .Where(y => y != seasonYear)
+                    .OrderBy(y => Math.Abs(y - seasonYear))
+                    .ThenBy(y => y)
+                    .SelectMany(y => LoadSeasonDriversCached(y).Values.Select(d => new ImportableDriver { Driver = d, SourceYear = y }))
+                    .Where(d => d.Driver.YearOfBirth > 0 && !driversInSelectedSeason.Contains(d.Driver.DriverId))
+                    .GroupBy(d => d.Driver.DriverId)
+                    .Select(g => g.First())
+                    .OrderBy(d => d.Driver.Name);
+
+                foreach (var driver in importableDrivers)
+                {
+                    ImportedDriverComboBox.Items.Add(new ComboBoxItem
+                    {
+                        Content = string.Format(Strings.MainWindow_ImportedDriverListItem_Format, driver.Driver.Name, driver.SourceYear),
+                        Tag = driver
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_LoadSeasonsError_Message, ex.Message), Strings.MainWindow_GenericError_Title,
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (ImportedDriverComboBox.Items.Count > 0)
+            {
+                ImportedDriverComboBox.SelectedIndex = 0;
+            }
+        }
+
+        private void ImportedDriverComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selected = (ImportedDriverComboBox.SelectedItem as ComboBoxItem)?.Tag as ImportableDriver;
+            TryGetSelectedSeasonYear(out var seasonYear);
+            UpdateImportedDriverVisual(selected, seasonYear);
+        }
+
+        private void UpdateImportedDriverVisual(ImportableDriver selected, int seasonYear)
+        {
+            ImportedDriverPhoto.LoadPhoto(selected?.Driver.PictureUrl, ImportedDriverPhotoPlaceholder);
+            ImportedDriverNameText.Text = selected?.Driver.Name?.ToUpper();
+
+            if (selected == null)
+            {
+                ImportedDriverInfoText.Text = _importedDriverMode ? Strings.MainWindow_NoImportableDrivers_Message : null;
+                return;
+            }
+
+            var age = seasonYear - selected.Driver.YearOfBirth;
+            ImportedDriverInfoText.Text = string.Format(Strings.MainWindow_ImportedDriverInfo_Format, selected.Driver.YearOfBirth, age, seasonYear, selected.SourceYear);
+
+            // the reputations on offer follow the age, as for a custom driver
+            DriverAgeTextBox.Text = age.ToString();
+
+            // start from the driver's own reputation, or its equivalent for the age they'd have this season
+            var reputation = selected.Driver.Reputation;
+            if (!SelectReputation(reputation))
+            {
+                SelectReputation(new ReputationUpdater().GetNewReputationForInactiveDriver(reputation, age));
+            }
+        }
+
+        private bool SelectReputation(DriverReputation reputation)
+        {
+            var item = ReputationComboBox.Items
+                .OfType<ComboBoxItem>()
+                .FirstOrDefault(i => (i.Tag as ReputationItem)?.Reputation == reputation);
+
+            if (item == null)
+                return false;
+
+            ReputationComboBox.SelectedItem = item;
+            return true;
+        }
+
+        #endregion
 
         private void LoadGameButton_Click(object sender, RoutedEventArgs e)
         {
@@ -446,23 +621,7 @@ namespace AMS2ChEd
 
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    // load the file
-                    var saveGame = _ams2StorageFactory.GameStorage.LoadGame(dialog.FileName);
-
-                    var result = _seasonChecker.CheckIfSaveGameNeedsRefresh(saveGame);
-
-                    if (result == SaveGameSeasonCheckerResult.NeedsRefresh)
-                    {
-                        System.Windows.MessageBox.Show(Strings.MainWindow_ModOutOfDate_Message, Strings.MainWindow_ModOutOfDate_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
-                        _gameLogicFactory.GameEngine.UpdateSeasonInsideSave(saveGame);
-                    }
-
-                    _gameLogicFactory.GameEngine.LoadGame(saveGame);
-
-                    // Open Season Overview window
-                    var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _installSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
-                    seasonOverviewWindow.Owner = this.Owner;
-                    seasonOverviewWindow.Show();
+                    LoadSaveAndOpenSeasonOverview(dialog.FileName);
                 }
             }
             catch (Exception ex)
@@ -471,6 +630,209 @@ namespace AMS2ChEd
                     Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+        private void ContinueButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_latestSavePath == null)
+                return;
+
+            try
+            {
+                LoadSaveAndOpenSeasonOverview(_latestSavePath);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_LoadGameError_Message, ex.Message),
+                    Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void LoadSaveAndOpenSeasonOverview(string filePath)
+        {
+            var saveGame = _ams2StorageFactory.GameStorage.LoadGame(filePath);
+
+            var result = _seasonChecker.CheckIfSaveGameNeedsRefresh(saveGame);
+
+            if (result == SaveGameSeasonCheckerResult.NeedsRefresh)
+            {
+                System.Windows.MessageBox.Show(Strings.MainWindow_ModOutOfDate_Message, Strings.MainWindow_ModOutOfDate_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
+                _gameLogicFactory.GameEngine.UpdateSeasonInsideSave(saveGame);
+            }
+
+            _gameLogicFactory.GameEngine.LoadGame(saveGame);
+
+            // Open Season Overview window
+            var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _installSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
+            seasonOverviewWindow.Owner = this.Owner;
+            seasonOverviewWindow.Show();
+        }
+
+        #region Cover story (latest save)
+
+        private enum CoverStyle
+        {
+            NextGrandPrix,
+            PlayerPortrait
+        }
+
+        // TEMPORARY: both cover options are in, clicking the cover photo switches between them
+        private CoverStyle _coverStyle = CoverStyle.NextGrandPrix;
+
+        private string _latestSavePath;
+        private DateTime _latestSaveWriteTime;
+        private ISaveGame _latestSave;
+
+        // the cover and the "continue" line follow the most recently written save
+        private void RefreshLatestSave()
+        {
+            string path = null;
+            var writeTime = DateTime.MinValue;
+
+            try
+            {
+                var latestFile = _ams2StorageFactory.GameStorage.GetSaveFiles()
+                    .Select(f => new FileInfo(f))
+                    .OrderByDescending(f => f.LastWriteTime)
+                    .FirstOrDefault();
+
+                if (latestFile != null)
+                {
+                    path = latestFile.FullName;
+                    writeTime = latestFile.LastWriteTime;
+                }
+
+                if (path == _latestSavePath && writeTime == _latestSaveWriteTime)
+                    return;
+
+                _latestSave = path == null ? null : _ams2StorageFactory.GameStorage.LoadGame(path);
+            }
+            catch
+            {
+                // an unreadable save just means a cover with no story
+                path = null;
+                _latestSave = null;
+            }
+
+            _latestSavePath = _latestSave == null ? null : path;
+            _latestSaveWriteTime = writeTime;
+
+            UpdateContinuePanel();
+            UpdateCover();
+        }
+
+        private void UpdateContinuePanel()
+        {
+            if (_latestSave == null)
+            {
+                ContinuePanel.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            var season = _latestSave.CurrentSeason;
+            var racesCount = season.Races.Count();
+            var savedOn = _latestSaveWriteTime.ToString("g");
+
+            ContinueDescriptionText.Text = _latestSave.NextGpIndex < racesCount
+                ? string.Format(Strings.MainWindow_ContinueDescription_Format, _latestSave.PlayerData.Name, season.Year, _latestSave.NextGpIndex + 1, racesCount, savedOn)
+                : string.Format(Strings.MainWindow_ContinueDescriptionSeasonOver_Format, _latestSave.PlayerData.Name, season.Year, savedOn);
+            ContinuePanel.Visibility = Visibility.Visible;
+        }
+
+        private void UpdateCover()
+        {
+            string photo = null;
+            string headline = null;
+            string subline = null;
+
+            if (_latestSave != null)
+            {
+                var hasNextGrandPrixCover = TryBuildNextGrandPrixCover(out var gpPhoto, out var gpHeadline, out var gpSubline);
+                var hasPortraitCover = TryBuildPlayerPortraitCover(out var portraitPhoto, out var portraitHeadline, out var portraitSubline);
+
+                // fall back to the other option when the chosen one has nothing to show
+                var useNextGrandPrix = hasNextGrandPrixCover && (_coverStyle == CoverStyle.NextGrandPrix || !hasPortraitCover);
+                if (useNextGrandPrix)
+                {
+                    (photo, headline, subline) = (gpPhoto, gpHeadline, gpSubline);
+                }
+                else if (hasPortraitCover)
+                {
+                    (photo, headline, subline) = (portraitPhoto, portraitHeadline, portraitSubline);
+                }
+            }
+
+            var photoLoaded = WelcomeImage.LoadPhoto(photo);
+
+            CoverHeadlineText.Text = headline;
+            CoverSublineText.Text = subline;
+            CoverHeadlineText.Visibility = photoLoaded && !string.IsNullOrEmpty(headline) ? Visibility.Visible : Visibility.Collapsed;
+            CoverSublineText.Visibility = photoLoaded && !string.IsNullOrEmpty(subline) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        // option 1: the poster of the next grand prix
+        private bool TryBuildNextGrandPrixCover(out string photo, out string headline, out string subline)
+        {
+            photo = headline = subline = null;
+
+            var season = _latestSave.CurrentSeason;
+            var races = season.Races.ToList();
+            if (_latestSave.NextGpIndex < 0 || _latestSave.NextGpIndex >= races.Count)
+                return false;
+
+            var nextRace = races[_latestSave.NextGpIndex];
+            if (!PictureUrlLoaderExtension.TryLoadBitmap(nextRace.CoverPictureUrl, out _))
+                return false;
+
+            photo = nextRace.CoverPictureUrl;
+            headline = string.Format(Strings.MainWindow_Cover_NextRace_Headline_Format, nextRace.RaceName?.ToUpper());
+            subline = string.Format(Strings.MainWindow_Cover_NextRace_Subline_Format, _latestSave.NextGpIndex + 1, races.Count, season.Year);
+            return true;
+        }
+
+        // option 2: the portrait of the player's driver, with a headline on how their season is going
+        private bool TryBuildPlayerPortraitCover(out string photo, out string headline, out string subline)
+        {
+            photo = headline = subline = null;
+
+            var player = _latestSave.PlayerData;
+            var playerDriver = _latestSave.Drivers?.FirstOrDefault(d => d.DriverId == player.DriverId);
+            if (!PictureUrlLoaderExtension.TryLoadBitmap(playerDriver?.PictureUrl, out _))
+                return false;
+
+            var season = _latestSave.CurrentSeason;
+            var surname = (player.Name ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries).LastOrDefault()?.ToUpper();
+            var standing = _latestSave.CurrentDriverStandings?.FirstOrDefault(s => s.DriverId == player.DriverId);
+            var roundsDone = _latestSave.NextGpIndex;
+
+            if (roundsDone <= 0 || standing == null || standing.Position <= 0)
+                headline = string.Format(Strings.MainWindow_Cover_SeasonPreview_Headline_Format, season.Year);
+            else if (standing.Position == 1)
+                headline = string.Format(Strings.MainWindow_Cover_Leads_Headline_Format, surname, roundsDone);
+            else
+                headline = string.Format(Strings.MainWindow_Cover_Position_Headline_Format, surname, standing.Position, roundsDone);
+
+            var teamName = season.Teams.FirstOrDefault(t => t.TeamId == player.TeamId)?.TeamName;
+            subline = string.IsNullOrEmpty(teamName) ? player.Name : $"{player.Name} - {teamName}";
+
+            photo = playerDriver.PictureUrl;
+            return true;
+        }
+
+        private void WelcomeImageBorder_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _coverStyle = _coverStyle == CoverStyle.NextGrandPrix ? CoverStyle.PlayerPortrait : CoverStyle.NextGrandPrix;
+            UpdateCover();
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+
+            // saves are written while the other windows are open
+            RefreshLatestSave();
+        }
+
+        #endregion
 
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -502,12 +864,6 @@ namespace AMS2ChEd
             // Update the reputation name in red
             ReputationNameText.Text = reputationItem.Name.ToUpper();
 
-            // Update the image
-            if (reputationImages.ContainsKey(reputationItem.Reputation))
-            {
-                ReputationImage.LoadPhoto(reputationImages[reputationItem.Reputation]);
-            }
-
             // Reset opacity to 0 before animating
             ReputationInfoPanel.Opacity = 0;
 
@@ -534,10 +890,17 @@ namespace AMS2ChEd
         {
             try
             {
-                string driverName = DriverNameTextBox.Text.Trim();
-                string nationality = NationalityTextBox.Text.Trim();
+                // a driver taken from another season brings their own name, age and numbers
+                var importedDriver = _importedDriverMode
+                    ? ((ImportedDriverComboBox.SelectedItem as ComboBoxItem)?.Tag as ImportableDriver)?.Driver
+                    : null;
 
-                if (string.IsNullOrEmpty(driverName) || string.IsNullOrEmpty(nationality) || string.IsNullOrEmpty(DriverAgeTextBox.Text.Trim()))
+                string driverName = importedDriver != null ? importedDriver.Name : DriverNameTextBox.Text.Trim();
+                string nationality = importedDriver != null ? importedDriver.Nationality : NationalityTextBox.Text.Trim();
+
+                if ((_importedDriverMode && importedDriver == null) ||
+                    (!_importedDriverMode && (string.IsNullOrEmpty(driverName) || string.IsNullOrEmpty(nationality))) ||
+                    string.IsNullOrEmpty(DriverAgeTextBox.Text.Trim()))
                 {
                     System.Windows.MessageBox.Show(Strings.MainWindow_RequiredFieldsMissing_Message, Strings.MainWindow_ValidationError_Title,
                         MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -545,7 +908,12 @@ namespace AMS2ChEd
                 }
 
                 int driverAge = int.Parse(DriverAgeTextBox.Text);
-                int[] favouriteNumbers = FavouriteNumbersTextBox.Text.Split(",").Select(n => int.Parse(n)).ToArray();
+                int[] favouriteNumbers = importedDriver != null
+                    ? (importedDriver.FavouriteNumbers ?? Enumerable.Empty<int>()).ToArray()
+                    : FavouriteNumbersTextBox.Text.Split(",").Select(n => int.Parse(n)).ToArray();
+                string playerDriverId = importedDriver != null
+                    ? importedDriver.DriverId
+                    : $"player_{driverName.ToLower().Replace(" ", "_")}";
 
                 string season = ((ComboBoxItem)SeasonComboBox.SelectedItem).Content.ToString();
                 var selectedReputation = (ComboBoxItem)ReputationComboBox.SelectedItem;
@@ -564,6 +932,46 @@ namespace AMS2ChEd
                 // Load season drivers
                 var seasonDrivers = _ams2StorageFactory.DriversLoader.LoadDriversBase(seasonYear);
                 var seasonData = _ams2StorageFactory.SeasonLoader.LoadBaseSeason(seasonYear);
+                DriverHirer.AssignUndefinedRoles(seasonData, seasonDrivers.Values);
+
+                // the season may have only just been downloaded, so the driver list couldn't be filtered before
+                if (importedDriver != null && seasonDrivers.ContainsKey(importedDriver.DriverId))
+                {
+                    System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_ImportedDriverAlreadyInSeason_Message, importedDriver.Name, season), Strings.MainWindow_ValidationError_Title,
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _seasonDriversCache.Remove(seasonYear);
+                    LoadImportableDrivers();
+                    return;
+                }
+
+                ISaveGame CreateGame(string selectedTeamId, string replacedDriverId)
+                {
+                    if (importedDriver != null)
+                    {
+                        return _gameLogicFactory.GameEngine.CreateNewGameWithImportedDriver(
+                            importedDriver: importedDriver,
+                            playerReputation: reputationItem.Reputation,
+                            season: seasonData,
+                            selectedTeamId: selectedTeamId,
+                            replacedDriverId: replacedDriverId,
+                            seasonDrivers: seasonDrivers.Values.ToList());
+                    }
+
+                    var newGame = _gameLogicFactory.GameEngine.CreateNewGame(
+                        playerName: driverName,
+                        playerNationality: nationality,
+                        playerAge: driverAge,
+                        playerReputation: reputationItem.Reputation,
+                        favouriteNumbers: favouriteNumbers,
+                        season: seasonData,
+                        selectedTeamId: selectedTeamId,
+                        replacedDriverId: replacedDriverId,
+                        seasonDrivers: seasonDrivers.Values.ToList());
+
+                    // add selected helmet design
+                    SetPlayerHelmetDesign(newGame);
+                    return newGame;
+                }
 
                 // NEW: Check if Pay Driver Wild Card is selected
                 if (reputationItem.Reputation == DriverReputation.PAY_DRIVER_WILD_CARD)
@@ -584,17 +992,7 @@ namespace AMS2ChEd
 
                         var createFictionalAbsence = payDriverWindow.CreateFictionalAbsence;
 
-                        // NEW: Use GameEngine to create the game
-                        var saveGame = _gameLogicFactory.GameEngine.CreateNewGame(
-                            playerName: driverName,
-                            playerNationality: nationality,
-                            playerAge: driverAge,
-                            playerReputation: reputationItem.Reputation,
-                            favouriteNumbers: favouriteNumbers,
-                            season: seasonData,
-                            selectedTeamId: null,
-                            replacedDriverId: null,
-                            seasonDrivers: seasonDrivers.Values.ToList());
+                        var saveGame = CreateGame(null, null);
 
                         if (createFictionalAbsence)
                         {
@@ -625,9 +1023,6 @@ namespace AMS2ChEd
                             });
                             }
                         }
-
-                        // add selected helmet design
-                        SetPlayerHelmetDesign(saveGame);
 
                         // Save the game
                         string saveName = $"{driverName}_{seasonYear}".Replace(" ", "_");
@@ -673,7 +1068,7 @@ namespace AMS2ChEd
                             driverName,
                             nationality,
                             driverAge,
-                            $"player_{driverName.ToLower().Replace(" ", "_")}",
+                            playerDriverId,
                             favouriteNumbers,
                             reputationItem.Reputation,
                             selectedDriver.Name,
@@ -689,20 +1084,7 @@ namespace AMS2ChEd
                             // Player was hired - game has been created by the engine
                             teamSelected = true;
 
-                            // NEW: Use GameEngine to create the game
-                            var saveGame = _gameLogicFactory.GameEngine.CreateNewGame(
-                                playerName: driverName,
-                                playerNationality: nationality,
-                                playerAge: driverAge,
-                                playerReputation: reputationItem.Reputation,
-                                favouriteNumbers: favouriteNumbers,
-                                season: seasonData,
-                                selectedTeamId: teamSelectionWindow.SelectedTeamId,
-                                replacedDriverId: selectedDriver.DriverId,
-                                seasonDrivers: seasonDrivers.Values.ToList());
-
-                            // add selected helmet design
-                            SetPlayerHelmetDesign(saveGame);
+                            var saveGame = CreateGame(teamSelectionWindow.SelectedTeamId, selectedDriver.DriverId);
 
                             // Save the game
                             string saveName = $"{driverName}_{seasonYear}".Replace(" ", "_");
@@ -765,6 +1147,8 @@ namespace AMS2ChEd
             ReputationImageBorder.Visibility = Visibility.Collapsed;
             ReputationInfoPanel.Opacity = 0; // Hide reputation info
 
+            SetInfoTextOnlyLayout(false);
+
             // Hide scenario panel and show season controls
             ScenarioPanel.Visibility = Visibility.Collapsed;
             SeasonComboBox.Visibility = Visibility.Visible;
@@ -780,6 +1164,22 @@ namespace AMS2ChEd
             SeasonComboBox.SelectedIndex = 0;
             ReputationComboBox.SelectedIndex = 0;
         }
+        // with no picture on the right column, the title and description take its top;
+        // otherwise they sit below the picture
+        private void SetInfoTextOnlyLayout(bool textOnly)
+        {
+            if (textOnly)
+            {
+                WelcomeImageBorder.Visibility = Visibility.Collapsed;
+                ReputationImageBorder.Visibility = Visibility.Collapsed;
+            }
+
+            Grid.SetRow(ReputationInfoPanel, textOnly ? 0 : 1);
+            ReputationInfoPanel.Margin = textOnly ? new Thickness(0) : new Thickness(0, 20, 0, 0);
+            ReputationInfoPanel.Height = textOnly ? double.NaN : 150;
+            ReputationInfoPanel.VerticalAlignment = textOnly ? VerticalAlignment.Top : VerticalAlignment.Stretch;
+        }
+
         private void NewGameReplaceDriverButton_Click(object sender, RoutedEventArgs e)
         {
             MainMenuPanel.Visibility = Visibility.Collapsed;
@@ -869,6 +1269,9 @@ namespace AMS2ChEd
             // Hide the season label
             SelectSeasonLabel.Visibility = Visibility.Collapsed;
 
+            // scenarios have no cover picture: their title and description take the top of the column
+            SetInfoTextOnlyLayout(true);
+
             // Load scenarios
             LoadScenarios();
 
@@ -941,31 +1344,6 @@ namespace AMS2ChEd
             ReputationParagraphText.Text = selectedScenario.Description;
             ReputationParagraphText.Visibility = Visibility.Visible;
 
-            // Load and display scenario picture if available
-            if (!string.IsNullOrEmpty(selectedScenario.PictureUrl))
-            {
-                var picturePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, selectedScenario.PictureUrl);
-
-                if (ReputationImage.LoadPhoto(picturePath))
-                {
-                    // Show the image border
-                    WelcomeImageBorder.Visibility = Visibility.Collapsed;
-                    ReputationImageBorder.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    // No picture or picture not found - show welcome image
-                    ReputationImageBorder.Visibility = Visibility.Collapsed;
-                    WelcomeImageBorder.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                // No picture specified - show welcome image
-                ReputationImageBorder.Visibility = Visibility.Collapsed;
-                WelcomeImageBorder.Visibility = Visibility.Visible;
-            }
-
             // Animate the info panel
             fadeInStoryboard.Begin(ReputationInfoPanel);
         }
@@ -1029,6 +1407,11 @@ namespace AMS2ChEd
         private void SeasonComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LoadDefaultHelmets();
+
+            if (_importedDriverMode)
+            {
+                LoadImportableDrivers();
+            }
         }
 
         private void InstallSeasonModButto_Click()

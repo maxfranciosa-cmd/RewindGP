@@ -10,7 +10,8 @@ namespace AMS2ChEd.Business.Services
         DROPPED_UNDERPERFORMING,
         DROPPED_RETIRING,
         DROPPED_TEAM_QUITTING,
-        DROPPED_PLAYER_REJECTING
+        DROPPED_PLAYER_REJECTING,
+        DROPPED_DISCIPLINARY
     }
 
     public static class DriverFirerOutcomeExtension

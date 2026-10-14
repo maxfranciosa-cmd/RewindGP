@@ -1,0 +1,132 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Past seasons as flat charcoal blocks: a title bar, the two standings tables and one block per season to pick from. -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Charcoal/Base.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <SolidColorBrush x:Key="HistoricalStandings.WindowBackground" Color="#141414"/>
+
+    <!-- size of the table text, and its size on a wide window; the title is drawn larger in proportion -->
+    <sys:Double x:Key="HistoricalStandings.FontSize">20</sys:Double>
+    <sys:Double x:Key="HistoricalStandings.WideFontSize">26</sys:Double>
+
+    <Style x:Key="HistoricalStandings.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
+
+    <!-- the text styles below leave the size alone, so the whole page follows the size set on the root -->
+    <Style x:Key="HistoricalStandings.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="24"/>
+        <Setter Property="TextElement.FontFamily" Value="{StaticResource Charcoal.FontHeading}"/>
+        <Setter Property="TextElement.FontStretch" Value="Condensed"/>
+        <Setter Property="TextElement.Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+    </Style>
+
+    <!-- no page number here -->
+    <Style x:Key="HistoricalStandings.PageHeader" TargetType="Grid">
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.PageHeaderText" TargetType="TextBlock"/>
+
+    <Style x:Key="HistoricalStandings.PageNumber" TargetType="TextBlock"/>
+
+    <!-- Title bar closed by the red rule -->
+    <Style x:Key="HistoricalStandings.TitleBar" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,4"/>
+        <Setter Property="Padding" Value="14,4"/>
+        <Setter Property="Margin" Value="0,0,0,14"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.Title" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <!-- Standings tables: a title strip, then one block per row -->
+    <Style x:Key="HistoricalStandings.SectionHeader" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="Padding" Value="14,8"/>
+        <Setter Property="Margin" Value="0,0,0,2"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.SectionTitle" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.Row" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+        <Setter Property="Margin" Value="0,0,0,2"/>
+    </Style>
+
+    <!-- position in a white box at the start of the row -->
+    <Style x:Key="HistoricalStandings.RowPosition" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.BackgroundBrush}"/>
+        <Setter Property="Background" Value="{StaticResource Charcoal.TextBrush}"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0,6"/>
+        <Setter Property="Margin" Value="0,0,8,0"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.RowName" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.RowTeam" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="Margin" Value="10,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="HistoricalStandings.RowPoints" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,12,0"/>
+    </Style>
+
+    <!-- Year selector -->
+    <Style x:Key="HistoricalStandings.SelectSeasonLabel" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.AccentTextBrush}"/>
+        <Setter Property="Margin" Value="0,14,0,8"/>
+    </Style>
+
+    <!-- one block per season; the selected season is filled red -->
+    <Style x:Key="HistoricalStandings.YearKey" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Margin" Value="0,0,2,2"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" Padding="16,6">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                <Setter Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- shown instead of the blocks when no season has been completed yet -->
+    <Style x:Key="HistoricalStandings.Empty" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontBody}"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+    </Style>
+</ResourceDictionary>

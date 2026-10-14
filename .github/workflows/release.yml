@@ -24,16 +24,22 @@ jobs:
         id: version
         shell: pwsh
         run: |
+          # v2.4 is a stable release. A patch tag (v2.4.1, v2.4.2...) is an experimental build:
+          # it is published as a prerelease, which the app's update check (releases/latest,
+          # compared on major.minor only) never offers.
           $tag = "${{ github.ref_name }}"
-          if ($tag -notmatch '^v?(\d+)\.(\d+)') {
-            Write-Error "Tag '$tag' doesn't look like a version (expected e.g. v2.1 or 2.1)."
+          if ($tag -notmatch '^v?(\d+)\.(\d+)(?:\.(\d+))?$') {
+            Write-Error "Tag '$tag' doesn't look like a version (expected e.g. v2.1, or v2.1.1 for an experimental build)."
             exit 1
           }
           $major = $Matches[1]
           $minor = $Matches[2]
+          $patch = if ($Matches[3]) { [int]$Matches[3] } else { 0 }
           "major=$major" >> $env:GITHUB_OUTPUT
           "minor=$minor" >> $env:GITHUB_OUTPUT
-          "fileVersion=$major.$minor.0.0" >> $env:GITHUB_OUTPUT
+          "patch=$patch" >> $env:GITHUB_OUTPUT
+          "fileVersion=$major.$minor.$patch.0" >> $env:GITHUB_OUTPUT
+          "prerelease=$(if ($patch -gt 0) { 'true' } else { 'false' })" >> $env:GITHUB_OUTPUT
 
       - name: Restore solution
         run: dotnet restore AMS2ChEd\AMS2ChEd.sln
@@ -53,8 +59,9 @@ jobs:
           $info = (Get-Item "AMS2ChEd\bin\Release\net8.0-windows\AMS2ChEd.exe").VersionInfo
           $expectedMajor = [int]"${{ steps.version.outputs.major }}"
           $expectedMinor = [int]"${{ steps.version.outputs.minor }}"
-          if ($info.FileMajorPart -ne $expectedMajor -or $info.FileMinorPart -ne $expectedMinor) {
-            Write-Error "Built exe version $($info.FileMajorPart).$($info.FileMinorPart) does not match tag-derived version $expectedMajor.$expectedMinor"
+          $expectedPatch = [int]"${{ steps.version.outputs.patch }}"
+          if ($info.FileMajorPart -ne $expectedMajor -or $info.FileMinorPart -ne $expectedMinor -or $info.FileBuildPart -ne $expectedPatch) {
+            Write-Error "Built exe version $($info.FileMajorPart).$($info.FileMinorPart).$($info.FileBuildPart) does not match tag-derived version $expectedMajor.$expectedMinor.$expectedPatch"
             exit 1
           }
 
@@ -71,5 +78,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: pwsh
         run: |
+          $extra = @()
+          if ("${{ steps.version.outputs.prerelease }}" -eq 'true') { $extra = @('--prerelease') }
           gh release create "${{ github.ref_name }}" "${{ steps.zip.outputs.zipName }}" `
-            --title "Rewind GP ${{ github.ref_name }}" --generate-notes
+            --title "Rewind GP ${{ github.ref_name }}" --generate-notes @extra

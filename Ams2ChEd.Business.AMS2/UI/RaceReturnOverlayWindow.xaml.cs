@@ -13,6 +13,10 @@ namespace Ams2ChEd.Business.AMS2.UI
         {
             InitializeComponent();
             _ownerToActivate = ownerToActivate;
+
+            // however the overlay goes away (closed with its owner, by the window tracker, ...),
+            // whoever waits on it must not wait forever
+            Closed += (_, _) => _dismissedTcs.TrySetResult();
         }
 
         /// <summary>Resolves once the overlay has been dismissed, one way or another.</summary>

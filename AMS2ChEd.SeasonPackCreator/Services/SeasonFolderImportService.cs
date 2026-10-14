@@ -56,14 +56,6 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             var driversDb = JsonSerializer.Deserialize<DriverRatingsDatabase>(File.ReadAllText(driversJsonPath), DefaultJsonSerializerOptions.Instance);
             var drivers = (driversDb?.Drivers ?? Enumerable.Empty<IDriverData>()).Cast<Ams2DriverData>().ToList();
 
-            var accoladesPath = Path.Combine(seasonFolderPath, "accolades.json");
-            var accolades = File.Exists(accoladesPath)
-                ? JsonSerializer.Deserialize<HistoricalAccolades>(File.ReadAllText(accoladesPath), DefaultJsonSerializerOptions.Instance)
-                : null;
-            accolades ??= new HistoricalAccolades { DriverAccolades = new(), TeamsAccolades = new() };
-            accolades.DriverAccolades ??= new();
-            accolades.TeamsAccolades ??= new();
-
             var externalLiveriesPath = Path.Combine(seasonFolderPath, "external_liveries.json");
             var externalLiveries = File.Exists(externalLiveriesPath)
                 ? JsonSerializer.Deserialize<ExternalLiveriesConfig>(File.ReadAllText(externalLiveriesPath), DefaultJsonSerializerOptions.Instance)
@@ -80,8 +72,7 @@ namespace AMS2ChEd.SeasonPackEditor.Services
                     XmlFiles = new Dictionary<string, string>(),
                     StaticAssetFiles = new List<StaticAssetFile>(),
                     Scenarios = new List<ScenarioEntry>(),
-                    ExternalLiveriesConfig = externalLiveries,
-                    Accolades = accolades
+                    ExternalLiveriesConfig = externalLiveries
                 }
             };
             var project = result.Project;

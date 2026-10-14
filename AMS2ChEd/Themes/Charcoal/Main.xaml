@@ -1,0 +1,245 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- The main menu as flat charcoal blocks: the name on top, one block per menu entry on the left with the
+         forms taking their place, the picture of the latest save on the right. -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Charcoal/Base.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <SolidColorBrush x:Key="Main.WindowBackground" Color="#141414"/>
+
+    <Style x:Key="Main.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
+
+    <Style x:Key="Main.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="24"/>
+    </Style>
+
+    <!-- Masthead: the name in white with its second word in red -->
+    <Style x:Key="Main.Masthead" TargetType="Grid">
+        <Setter Property="Margin" Value="0,0,0,18"/>
+    </Style>
+
+    <Style x:Key="Main.MastheadBox" TargetType="Viewbox">
+        <Setter Property="MaxHeight" Value="100"/>
+    </Style>
+
+    <Style x:Key="Main.MastheadTitle" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="150"/>
+    </Style>
+
+    <Style x:Key="Main.MastheadWord" TargetType="Run"/>
+
+    <Style x:Key="Main.MastheadAccent" TargetType="Run">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.RedBrush}"/>
+    </Style>
+
+    <Style x:Key="Main.Logo" TargetType="Image">
+        <Setter Property="Height" Value="76"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="20,0,0,0"/>
+    </Style>
+
+    <!-- A menu entry -->
+    <Style x:Key="Main.MenuLine" TargetType="Button" BasedOn="{StaticResource Charcoal.SecondaryButtonStyle}">
+        <Setter Property="FontSize" Value="21"/>
+        <Setter Property="Margin" Value="0,0,0,2"/>
+    </Style>
+
+    <!-- Continue: the main action, with the latest save described under it -->
+    <Style x:Key="Main.ContinuePanel" TargetType="StackPanel">
+        <Setter Property="Margin" Value="0,0,0,16"/>
+    </Style>
+
+    <Style x:Key="Main.ContinueButton" TargetType="Button" BasedOn="{StaticResource Charcoal.PrimaryButtonStyle}">
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="Padding" Value="16,14"/>
+    </Style>
+
+    <Style x:Key="Main.ContinueDescription" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,6,0,0"/>
+    </Style>
+
+    <!-- The ways to start a new game, under one title strip. The strip has a fixed height and the entries
+         start right below it: both are laid in the same cell. -->
+    <Style x:Key="Main.NewGameGroup" TargetType="Grid">
+        <Setter Property="Margin" Value="0,0,0,16"/>
+    </Style>
+
+    <Style x:Key="Main.NewGameBox" TargetType="Border">
+        <Setter Property="Margin" Value="0,38,0,0"/>
+    </Style>
+
+    <Style x:Key="Main.NewGameTag" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Padding" Value="16,0"/>
+    </Style>
+
+    <Style x:Key="Main.NewGameTagText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.AccentTextBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="Main.NewGameLine" TargetType="Button" BasedOn="{StaticResource Main.MenuLine}"/>
+
+    <!-- Install a season pack: a text link under the menu -->
+    <Style x:Key="Main.InstallSeasonButton" TargetType="Button" BasedOn="{StaticResource Charcoal.LinkButtonStyle}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="16,12,0,0"/>
+    </Style>
+
+    <!-- Forms: a panel in place of the menu -->
+    <Style x:Key="Main.FormCard" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="Main.FormPanel" TargetType="StackPanel">
+        <Setter Property="Margin" Value="20"/>
+    </Style>
+
+    <Style x:Key="Main.FormLabel" TargetType="Label" BasedOn="{StaticResource Charcoal.FieldLabelStyle}"/>
+
+    <!-- a label that opens a new group of fields, set apart from the field above it -->
+    <Style x:Key="Main.FormLabelSpaced" TargetType="Label" BasedOn="{StaticResource Main.FormLabel}">
+        <Setter Property="Margin" Value="0,10,0,5"/>
+    </Style>
+
+    <Style x:Key="Main.TextBox" TargetType="TextBox" BasedOn="{StaticResource Charcoal.TextBoxStyle}">
+        <Setter Property="Margin" Value="0,0,0,15"/>
+    </Style>
+
+    <!-- a text box in a row of several, where the row gives the spacing -->
+    <Style x:Key="Main.CompactTextBox" TargetType="TextBox" BasedOn="{StaticResource Main.TextBox}">
+        <Setter Property="Margin" Value="0"/>
+    </Style>
+
+    <Style x:Key="Main.ComboBox" TargetType="ComboBox" BasedOn="{StaticResource Charcoal.ComboBoxStyle}">
+        <Setter Property="Margin" Value="0,0,0,15"/>
+    </Style>
+
+    <!-- Main action on a form -->
+    <Style x:Key="Main.FormPrimaryButton" TargetType="Button" BasedOn="{StaticResource Charcoal.PrimaryButtonStyle}">
+        <Setter Property="FontSize" Value="21"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,20,0,2"/>
+    </Style>
+
+    <!-- a main action directly under another one -->
+    <Style x:Key="Main.FormStackedButton" TargetType="Button" BasedOn="{StaticResource Main.FormPrimaryButton}">
+        <Setter Property="Margin" Value="0,0,0,2"/>
+    </Style>
+
+    <Style x:Key="Main.FormBackButton" TargetType="Button" BasedOn="{StaticResource Charcoal.SecondaryButtonStyle}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+
+    <!-- A driver taken from another season: the photo with the name beside it -->
+    <Style x:Key="Main.ImportedDriver" TargetType="StackPanel">
+        <Setter Property="Margin" Value="0,10,0,15"/>
+    </Style>
+
+    <Style x:Key="Main.ImportedPhoto" TargetType="Border">
+        <Setter Property="Width" Value="96"/>
+        <Setter Property="Height" Value="122"/>
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="ClipToBounds" Value="True"/>
+    </Style>
+
+    <Style x:Key="Main.ImportedPhotoPlaceholder" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="36"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="Main.ImportedName" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="Main.ImportedInfo" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,4,0,0"/>
+    </Style>
+
+    <!-- Helmet designs: one block per design on a strip, the chosen one outlined in red -->
+    <Style x:Key="Main.HelmetBox" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Margin" Value="0,0,0,15"/>
+        <Setter Property="Height" Value="150"/>
+    </Style>
+
+    <Style x:Key="Main.HelmetItem" TargetType="Border">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="100"/>
+        <Setter Property="Margin" Value="0,0,8,8"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Right column: the picture of the latest save, unframed, with its story below -->
+    <Style x:Key="Main.VisualPanel" TargetType="Grid">
+        <Setter Property="Margin" Value="24,0,0,0"/>
+    </Style>
+
+    <Style x:Key="Main.CoverPhoto" TargetType="Border"/>
+
+    <Style x:Key="Main.CoverStory" TargetType="StackPanel">
+        <Setter Property="Margin" Value="0,12,0,0"/>
+    </Style>
+
+    <Style x:Key="Main.CoverHeadline" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="Main.CoverSubline" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,6,0,0"/>
+    </Style>
+
+    <!-- Reputation picture shown while creating a driver -->
+    <Style x:Key="Main.ReputationPhoto" TargetType="Border">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="Main.ReputationName" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.AccentTextBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="0,0,0,6"/>
+    </Style>
+
+    <Style x:Key="Main.ReputationText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="20"/>
+        <Setter Property="Margin" Value="0,0,0,15"/>
+    </Style>
+</ResourceDictionary>
