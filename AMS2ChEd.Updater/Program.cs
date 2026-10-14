@@ -100,6 +100,12 @@ try
         File.Delete(zipPath); // clean up downloaded zip
     }
 }
+catch (Exception ex)
+{
+    // Malformed arguments: report them instead of crashing the window shut
+    Console.WriteLine($"ERROR: could not read the updater arguments: {string.Join(" ", args)}");
+    Console.WriteLine(ex.ToString());
+}
 finally
 {
     Console.WriteLine($"press any key to exit.");

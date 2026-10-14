@@ -127,13 +127,18 @@ namespace AMS2ChEd.Dialogs
 
             var updaterExe = Path.Combine(tempUpdaterDir, "AMS2ChEd.Updater.exe");
             var pid = Process.GetCurrentProcess().Id;
-            var arguments = $"{pid}|{installDir}|{zipPath}|{_originalArgs}|{_update.LatestVersion}";
+            // Quoted so the updater can pass them straight back on relaunch, paths with spaces intact
+            var originalArgs = string.Join(" ", _originalArgs.Select(a => $"\"{a}\""));
+            var argument = $"{pid}|{installDir}|{zipPath}|{originalArgs}|{_update.LatestVersion}";
 
-            Process.Start(new ProcessStartInfo(updaterExe, arguments)
+            // ArgumentList quotes the paths, so a space in them doesn't split the argument the updater reads as args[0]
+            var startInfo = new ProcessStartInfo(updaterExe)
             {
                 UseShellExecute = true,
                 WorkingDirectory = tempUpdaterDir
-            });
+            };
+            startInfo.ArgumentList.Add(argument);
+            Process.Start(startInfo);
 
             Application.Current.Shutdown();
         }
