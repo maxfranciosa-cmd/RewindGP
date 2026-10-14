@@ -164,6 +164,7 @@
                             <StackPanel x:Name="CustomDriverPanel" Visibility="Collapsed">
                                 <!-- A driver taken from another season, instead of a custom one -->
                                 <StackPanel x:Name="ImportedDriverPanel" Visibility="Collapsed" Style="{StaticResource Main.ImportedDriver}">
+                                    <StackPanel x:Name="ImportedDriverSelector">
                                     <Label Content="{loc:Loc MainWindow_ImportedDriverLabel}" Style="{StaticResource Main.FormLabel}"/>
                                     <ComboBox x:Name="ImportedDriverComboBox"
                                               Style="{StaticResource Main.ComboBox}"
@@ -188,6 +189,15 @@
                                             <TextBlock x:Name="ImportedDriverInfoText" Style="{StaticResource Main.ImportedInfo}"/>
                                         </StackPanel>
                                     </Grid>
+                                    </StackPanel>
+
+                                    <!-- The selected season isn't installed: who drove in it is unknown until it is -->
+                                    <StackPanel x:Name="ImportedDriverInstallPanel" Visibility="Collapsed">
+                                        <TextBlock x:Name="ImportedDriverInstallText" Style="{StaticResource Main.ImportedInfo}"/>
+                                        <Button x:Name="ImportedDriverInstallButton"
+                                                Style="{StaticResource Main.FormPrimaryButton}"
+                                                Click="ImportedDriverInstallButton_Click"/>
+                                    </StackPanel>
                                 </StackPanel>
 
                                 <StackPanel x:Name="CustomDriverFieldsPanel">
@@ -230,10 +240,12 @@
                                 </Grid>
                                 </StackPanel>
 
+                                <StackPanel x:Name="ReputationFieldsPanel">
                                 <Label Content="{loc:Loc MainWindow_ReputationLabel}" Style="{StaticResource Main.FormLabel}"/>
                                 <ComboBox x:Name="ReputationComboBox"
                                       Style="{StaticResource Main.ComboBox}"
                                       SelectionChanged="ReputationComboBox_SelectionChanged" />
+                                </StackPanel>
 
                                 <!-- Helmet Selection -->
                                 <Label x:Name="HelmetSelectionLabel" Content="{loc:Loc MainWindow_HelmetDesignLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>

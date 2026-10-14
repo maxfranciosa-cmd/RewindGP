@@ -1061,6 +1061,8 @@ namespace AMS2ChEd.Resources
         public static string MainWindow_ImportedDriverInfo_Format => ResourceManager.GetString(nameof(MainWindow_ImportedDriverInfo_Format))!;
         public static string MainWindow_NoImportableDrivers_Message => ResourceManager.GetString(nameof(MainWindow_NoImportableDrivers_Message))!;
         public static string MainWindow_ImportedDriverAlreadyInSeason_Message => ResourceManager.GetString(nameof(MainWindow_ImportedDriverAlreadyInSeason_Message))!;
+        public static string MainWindow_ImportedDriverSeasonNotInstalled_Message => ResourceManager.GetString(nameof(MainWindow_ImportedDriverSeasonNotInstalled_Message))!;
+        public static string MainWindow_InstallSeasonPackButton => ResourceManager.GetString(nameof(MainWindow_InstallSeasonPackButton))!;
 
         public static string MainWindow_ContinueButton => ResourceManager.GetString(nameof(MainWindow_ContinueButton))!;
         public static string MainWindow_ContinueDescription_Format => ResourceManager.GetString(nameof(MainWindow_ContinueDescription_Format))!;

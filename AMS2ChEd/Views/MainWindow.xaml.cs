@@ -103,6 +103,8 @@ namespace AMS2ChEd
 
         public void OnSeasonModInstalled(object sender, SeasonInstalledEventArgs e)
         {
+            // an update may have changed who drives in that season
+            _seasonDriversCache.Remove(e.SeasonYear);
             LoadSeasons();
         }
 
@@ -112,7 +114,6 @@ namespace AMS2ChEd
             _gameLogicFactory.GameEngine.GameStateChanged += OnGameStateChanged;
             _gameLogicFactory.GameEngine.SeasonProgressed += OnSeasonProgressed;
             _gameLogicFactory.GameEngine.ErrorOccurred += OnErrorOccurred;
-            InstallSeasonCommand.SeasonInstalled -= OnSeasonModInstalled;
         }
 
         private void InitializeAnimations()
@@ -251,18 +252,28 @@ namespace AMS2ChEd
 
         private void LoadSeasons()
         {
+            // a reload (e.g. after installing a season) keeps the season that was selected
+            var hadSelection = TryGetSelectedSeasonYear(out var previousYear);
+            SeasonComboBox.Items.Clear();
+
             try
             {
                 var seasonFolders = _manifest.GetSeasonCatalog();
 
                 if (seasonFolders.Count() > 0)
                 {
-                    SeasonComboBox.Items.Clear();
                     foreach (var season in seasonFolders)
                     {
                         SeasonComboBox.Items.Add(new ComboBoxItem { Content = season.Year });
                     }
-                    SeasonComboBox.SelectedIndex = 0;
+
+                    var previousItem = hadSelection
+                        ? SeasonComboBox.Items.OfType<ComboBoxItem>().FirstOrDefault(i => i.Content is int year && year == previousYear)
+                        : null;
+                    if (previousItem != null)
+                        SeasonComboBox.SelectedItem = previousItem;
+                    else
+                        SeasonComboBox.SelectedIndex = 0;
                 }
                 else
                 {
@@ -490,7 +501,53 @@ namespace AMS2ChEd
             if (!enabled)
             {
                 DriverAgeTextBox.Clear();
+                ShowSeasonInstallPrompt(null);
             }
+        }
+
+        // who drove in a season that isn't installed is unknown, so the driver can't be picked
+        // until it is: the selector, reputation and create button give way to an install button
+        private void ShowSeasonInstallPrompt(int? notInstalledYear)
+        {
+            var prompt = notInstalledYear.HasValue;
+
+            ImportedDriverSelector.Visibility = prompt ? Visibility.Collapsed : Visibility.Visible;
+            ReputationFieldsPanel.Visibility = prompt ? Visibility.Collapsed : Visibility.Visible;
+            ReputationInfoPanel.Visibility = prompt ? Visibility.Collapsed : Visibility.Visible;
+            CreateGameButton.Visibility = prompt ? Visibility.Collapsed : Visibility.Visible;
+            ImportedDriverInstallPanel.Visibility = prompt ? Visibility.Visible : Visibility.Collapsed;
+
+            if (prompt)
+            {
+                ImportedDriverInstallText.Text = string.Format(Strings.MainWindow_ImportedDriverSeasonNotInstalled_Message, notInstalledYear);
+                ImportedDriverInstallButton.Content = string.Format(Strings.MainWindow_InstallSeasonPackButton, notInstalledYear);
+                ImportedDriverInstallButton.Tag = notInstalledYear.Value;
+            }
+        }
+
+        private async void ImportedDriverInstallButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ImportedDriverInstallButton.Tag is not int year)
+                return;
+
+            ImportedDriverInstallButton.IsEnabled = false;
+            try
+            {
+                await DownloadSeasonIfNeeded(year);
+                _seasonDriversCache.Remove(year);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_LoadSeasonsError_Message, ex.Message), Strings.MainWindow_GenericError_Title,
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                ImportedDriverInstallButton.IsEnabled = true;
+            }
+
+            // back to the driver list if it got installed, still the prompt if it was declined
+            LoadImportableDrivers();
         }
 
         private bool TryGetSelectedSeasonYear(out int seasonYear)
@@ -526,9 +583,14 @@ namespace AMS2ChEd
                     .Where(y => y > 0)
                     .ToList();
 
-                var driversInSelectedSeason = installedYears.Contains(seasonYear)
-                    ? LoadSeasonDriversCached(seasonYear).Keys.ToHashSet()
-                    : new HashSet<string>();
+                if (!installedYears.Contains(seasonYear))
+                {
+                    ShowSeasonInstallPrompt(seasonYear);
+                    return;
+                }
+                ShowSeasonInstallPrompt(null);
+
+                var driversInSelectedSeason = LoadSeasonDriversCached(seasonYear).Keys.ToHashSet();
 
                 var importableDrivers = installedYears
                     .Where(y => y != seasonYear)
@@ -1148,6 +1210,7 @@ namespace AMS2ChEd
             ReputationInfoPanel.Opacity = 0; // Hide reputation info
 
             SetInfoTextOnlyLayout(false);
+            ShowSeasonInstallPrompt(null);
 
             // Hide scenario panel and show season controls
             ScenarioPanel.Visibility = Visibility.Collapsed;
@@ -1406,6 +1469,10 @@ namespace AMS2ChEd
 
         private void SeasonComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // nothing to load while the list is being rebuilt, or when it holds no season
+            if (!TryGetSelectedSeasonYear(out _))
+                return;
+
             LoadDefaultHelmets();
 
             if (_importedDriverMode)
