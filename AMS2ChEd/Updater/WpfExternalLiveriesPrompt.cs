@@ -31,7 +31,7 @@ namespace AMS2ChEd.Updater
             var dialog = new OpenFileDialog
             {
                 Title = "Locate the downloaded livery pack",
-                Filter = "Archive files (*.zip;*.rar)|*.zip;*.rar|All files (*.*)|*.*",
+                Filter = "Archive files (*.zip;*.rar;*.7z)|*.zip;*.rar;*.7z|All files (*.*)|*.*",
                 CheckFileExists = true
             };
 

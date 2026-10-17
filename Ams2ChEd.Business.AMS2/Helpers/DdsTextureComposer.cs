@@ -135,6 +135,11 @@ public class DdsTextureComposer
         // Load base livery
         Image<Rgba32> liveryImage = LoadTexture(baseLiveryPath);
 
+        // A livery's alpha channel is material data for AMS2 (how the paint shines), not transparency.
+        // Blending onto it as-is turns every pixel whose mask is 0 black wherever a digit cell's
+        // transparent margin is drawn, so paint on an opaque copy and put the mask back afterwards.
+        byte[] materialMask = ExtractAlphaAndMakeOpaque(liveryImage);
+
         // Get digits of the car number once
         string numberString = carNumber.ToString();
 
@@ -189,6 +194,8 @@ public class DdsTextureComposer
             numbersImage.Dispose();
         }
 
+        RestoreAlpha(liveryImage, materialMask);
+
         // Encode to DDS with mipmaps
         var encoder = new BcEncoder(BCnEncoder.Shared.CompressionFormat.Bc3)
         {
@@ -212,6 +219,37 @@ public class DdsTextureComposer
         {
             ddsFile.Write(outputStream);
         }
+    }
+
+    private static byte[] ExtractAlphaAndMakeOpaque(Image<Rgba32> image)
+    {
+        var alpha = new byte[image.Width * image.Height];
+        image.ProcessPixelRows(accessor =>
+        {
+            for (int y = 0; y < accessor.Height; y++)
+            {
+                var row = accessor.GetRowSpan(y);
+                for (int x = 0; x < row.Length; x++)
+                {
+                    alpha[y * accessor.Width + x] = row[x].A;
+                    row[x].A = 255;
+                }
+            }
+        });
+        return alpha;
+    }
+
+    private static void RestoreAlpha(Image<Rgba32> image, byte[] alpha)
+    {
+        image.ProcessPixelRows(accessor =>
+        {
+            for (int y = 0; y < accessor.Height; y++)
+            {
+                var row = accessor.GetRowSpan(y);
+                for (int x = 0; x < row.Length; x++)
+                    row[x].A = alpha[y * accessor.Width + x];
+            }
+        });
     }
 
     private static void ApplySingleDigitOptimized(

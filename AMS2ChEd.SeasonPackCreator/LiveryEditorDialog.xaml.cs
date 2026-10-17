@@ -652,6 +652,16 @@ namespace AMS2ChEd.SeasonPackEditor
                 using var fs = File.OpenRead(path);
                 var decoder = new BCnEncoder.Decoder.BcDecoder();
                 using var image = decoder.DecodeToImageRgba32(fs);
+                // Skin packs often keep a material mask in a body texture's alpha channel; AMS2 does not
+                // treat it as transparency, so show the livery opaque instead of greyed out by the mask.
+                image.ProcessPixelRows(accessor =>
+                {
+                    for (int y = 0; y < accessor.Height; y++)
+                    {
+                        var row = accessor.GetRowSpan(y);
+                        for (int x = 0; x < row.Length; x++) row[x].A = 255;
+                    }
+                });
                 using var memoryStream = new MemoryStream();
                 image.SaveAsPng(memoryStream);
                 memoryStream.Position = 0;
