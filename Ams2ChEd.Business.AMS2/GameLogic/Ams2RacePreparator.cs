@@ -62,7 +62,8 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 _carModelCapacityLoader.GetModelsForClass(ams2Class),
                 aiRatingsVariation: false,
                 slotPatcher: null,
-                distinctOverrideTextures: true);
+                distinctOverrideTextures: true,
+                helmetEraByCarModel: _carModelCapacityLoader.GetHelmetErasForClass(ams2Class));
 
             var races = season.Races
                 .Select(r => (r, SeasonEntryListBuilder.ForRace(season, r.RaceId)))
@@ -99,7 +100,8 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 drivers.Cast<Ams2DriverData>(),
                 season.Teams.Cast<Ams2TeamEntry>(),
                 modelCapacities,
-                slotPatcher: _slotPatcher);
+                slotPatcher: _slotPatcher,
+                helmetEraByCarModel: _carModelCapacityLoader.GetHelmetErasForClass(ams2Class));
 
             return (liveryService, seasonFileDirectory, ams2InstallationFolder);
         }

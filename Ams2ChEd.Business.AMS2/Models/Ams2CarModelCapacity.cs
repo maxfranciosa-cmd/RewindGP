@@ -24,5 +24,13 @@ namespace AMS2ChEd.Business.AMS2.Models
 
         [JsonPropertyName("slots")]
         public int Slots { get; set; }
+
+        /// <summary>
+        /// The helmet model drivers of this car wear (a HelmetEra name, e.g. "Eighties"), when it
+        /// differs from the one the season's year implies - licensed cars can come with their own.
+        /// Null/absent: the year decides, as for every other car.
+        /// </summary>
+        [JsonPropertyName("helmet_era")]
+        public string? HelmetEra { get; set; }
     }
 }

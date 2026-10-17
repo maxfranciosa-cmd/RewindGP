@@ -126,15 +126,17 @@ namespace AMS2ChEd.SeasonPackEditor.Services
                 calibrationEntries.Select(e => e.Driver), project.TextureFiles);
 
             var ams2Class = project.Season.Ams2Class;
-            var modelCapacities = new CarModelCapacityLoader().GetModelsForClass(ams2Class);
+            var capacityLoader = new CarModelCapacityLoader();
+            var modelCapacities = capacityLoader.GetModelsForClass(ams2Class);
 
             var liveryService = new Ams2LiveryService(
                 project.Season.Year,
                 ams2Class,
                 resolvedDrivers,
                 resolvedTeams,
-                modelCapacities, 
-                aiRatingsVariation: false);
+                modelCapacities,
+                aiRatingsVariation: false,
+                helmetEraByCarModel: capacityLoader.GetHelmetErasForClass(ams2Class));
 
             BackupExistingCustomAiFile(ams2InstallationFolder, ams2Class);
 
@@ -182,9 +184,11 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             var drivers = calibrationEntries.Select(e => e.Driver).ToList();
 
             var ams2Class = season.Ams2Class;
-            var modelCapacities = new CarModelCapacityLoader().GetModelsForClass(ams2Class);
+            var capacityLoader = new CarModelCapacityLoader();
+            var modelCapacities = capacityLoader.GetModelsForClass(ams2Class);
 
-            var liveryService = new Ams2LiveryService(season.Year, ams2Class, drivers, teams, modelCapacities, false);
+            var liveryService = new Ams2LiveryService(season.Year, ams2Class, drivers, teams, modelCapacities, false,
+                helmetEraByCarModel: capacityLoader.GetHelmetErasForClass(ams2Class));
 
             BackupExistingCustomAiFile(ams2InstallationFolder, ams2Class);
 

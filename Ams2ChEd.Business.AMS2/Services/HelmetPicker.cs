@@ -27,85 +27,61 @@ namespace Ams2ChEd.Business.AMS2.Services
         public static int HELMET_90s_EARLIEST_YEAR = 1988;
         public static int HELMET_MODERN_EARLIEST_YEAR = 1996;
 
-        public static string PickHelmetFilePerYear(Ams2DriverData driver, int year)
+        /// <summary>
+        /// The helmet model a season's year implies. A car can override it with its own
+        /// (car_model_capacities.json helmet_era) - pick by era wherever the car is known.
+        /// </summary>
+        public static HelmetEra EraForYear(int year)
         {
             if (year >= HELMET_70s_EARLIEST_YEAR && year < HELMET_80s_EARLIEST_YEAR)
-            {
-                return driver.BaseHelmetFile70s;
-            }
-            else if (year < HELMET_90s_EARLIEST_YEAR)
-            {
-                return driver.BaseHelmetFile80s;
-            }
-            else if (year < HELMET_MODERN_EARLIEST_YEAR)
-            {
-                return driver.BaseHelmetFile90s;
-            }
-            else
-            {
-                return driver.BaseHelmetFile;
-            }
+                return HelmetEra.Seventies;
+            if (year < HELMET_90s_EARLIEST_YEAR)
+                return HelmetEra.Eighties;
+            if (year < HELMET_MODERN_EARLIEST_YEAR)
+                return HelmetEra.Nineties;
+            return HelmetEra.Modern;
         }
 
-        public static string PickVisorFilePerYear(Ams2DriverData driver, int year)
-        {
-            if (year >= HELMET_70s_EARLIEST_YEAR && year < HELMET_80s_EARLIEST_YEAR)
-            {
-                return driver.BaseVisorFile70s;
-            }
-            else if (year < HELMET_90s_EARLIEST_YEAR)
-            {
-                return driver.BaseVisorFile80s;
-            }
-            else if (year < HELMET_MODERN_EARLIEST_YEAR)
-            {
-                return "";
-            }
-            else
-            {
-                return driver.BaseVisorFile;
-            }
-        }
+        public static string PickHelmetFilePerYear(Ams2DriverData driver, int year) => PickHelmetFile(driver, EraForYear(year));
 
-        public static string DefaultBaseHelmetFile(int year)
-        {
-            if (year >= HELMET_70s_EARLIEST_YEAR && year < HELMET_80s_EARLIEST_YEAR)
-            {
-                return Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaulthelmet_70s.png");
-            }
-            else if (year < HELMET_90s_EARLIEST_YEAR)
-            {
-                return Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaulthelmet_80s.png");
-            }
-            else if (year < HELMET_MODERN_EARLIEST_YEAR)
-            {
-                return Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaulthelmet_90s.png");
-            }
-            else
-            {
-                return Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaulthelmet.png");
-            }
-        }
+        public static string PickVisorFilePerYear(Ams2DriverData driver, int year) => PickVisorFile(driver, EraForYear(year));
 
-        public static string DefaultBaseVisorFile(int year)
+        public static string DefaultBaseHelmetFile(int year) => DefaultBaseHelmetFile(EraForYear(year));
+
+        public static string DefaultBaseVisorFile(int year) => DefaultBaseVisorFile(EraForYear(year));
+
+        public static string PickHelmetFile(Ams2DriverData driver, HelmetEra era) => era switch
         {
-            if (year >= HELMET_70s_EARLIEST_YEAR && year < HELMET_80s_EARLIEST_YEAR)
-            {
-                return Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaultvisor_70s.png");
-            }
-            else if (year < HELMET_90s_EARLIEST_YEAR)
-            {
-                return Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaultvisor_80s.png");
-            }
-            else if (year < HELMET_MODERN_EARLIEST_YEAR)
-            {
-                return "";
-            }
-            else
-            {
-                return Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaultvisor.png");
-            }
-        }
+            HelmetEra.Seventies => driver.BaseHelmetFile70s,
+            HelmetEra.Eighties => driver.BaseHelmetFile80s,
+            HelmetEra.Nineties => driver.BaseHelmetFile90s,
+            _ => driver.BaseHelmetFile
+        };
+
+        // The 90s helmet has no separate visor texture.
+        public static string PickVisorFile(Ams2DriverData driver, HelmetEra era) => era switch
+        {
+            HelmetEra.Seventies => driver.BaseVisorFile70s,
+            HelmetEra.Eighties => driver.BaseVisorFile80s,
+            HelmetEra.Nineties => "",
+            _ => driver.BaseVisorFile
+        };
+
+        public static string DefaultBaseHelmetFile(HelmetEra era) => era switch
+        {
+            HelmetEra.Seventies => Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaulthelmet_70s.png"),
+            HelmetEra.Eighties => Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaulthelmet_80s.png"),
+            HelmetEra.Nineties => Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaulthelmet_90s.png"),
+            _ => Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaulthelmet.png")
+        };
+
+        public static string DefaultBaseVisorFile(HelmetEra era) => era switch
+        {
+            HelmetEra.Seventies => Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaultvisor_70s.png"),
+            HelmetEra.Eighties => Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaultvisor_80s.png"),
+            HelmetEra.Nineties => "",
+            _ => Path.Combine(StoragePaths.BaseHelmetLiveriesPath, "defaultvisor.png")
+        };
 
         private static List<GenericHelmetDesign> _genericHelmetDesigns;
         public static IEnumerable<GenericHelmetDesign> LoadGenericHelmetDesigns()

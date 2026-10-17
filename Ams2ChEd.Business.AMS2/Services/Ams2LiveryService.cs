@@ -28,6 +28,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         private readonly bool aiRatingsVariation;
         private readonly IVehicleLiverySlotPatcher slotPatcher;
         private readonly bool distinctOverrideTextures;
+        private readonly IReadOnlyDictionary<string, HelmetEra> helmetEraByCarModel;
 
         /// <summary>
         /// Initialize the LiveryService
@@ -49,6 +50,10 @@ namespace Ams2ChEd.Business.AMS2.Services
         /// season export, which holds every race's textures at once. Off for the per-race files
         /// written into the game before a race, which only ever hold one race.
         /// </param>
+        /// <param name="helmetEraByCarModel">
+        /// Car models whose drivers wear a different helmet model from the one the season's year
+        /// implies (ICarModelCapacityLoader.GetHelmetErasForClass). Null: the year decides for every car.
+        /// </param>
         public Ams2LiveryService(
             int seasonYear,
             string ams2Class,
@@ -57,7 +62,8 @@ namespace Ams2ChEd.Business.AMS2.Services
             IReadOnlyList<(string Model, int Slots)> modelCapacities = null,
             bool aiRatingsVariation = true,
             IVehicleLiverySlotPatcher slotPatcher = null,
-            bool distinctOverrideTextures = false)
+            bool distinctOverrideTextures = false,
+            IReadOnlyDictionary<string, HelmetEra> helmetEraByCarModel = null)
         {
 
             this.driversData = driversData;
@@ -68,6 +74,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             this.aiRatingsVariation = aiRatingsVariation;
             this.slotPatcher = slotPatcher;
             this.distinctOverrideTextures = distinctOverrideTextures;
+            this.helmetEraByCarModel = helmetEraByCarModel;
 
             // Create driver lookup dictionary
             driversDict = driversData.ToDictionary(d => d.DriverId, d => (Ams2DriverData)d);
@@ -317,9 +324,19 @@ namespace Ams2ChEd.Business.AMS2.Services
 
         }
 
+        /// <summary>
+        /// The helmet model drivers of this car wear: the car's own when it declares one,
+        /// otherwise the one the season's year implies.
+        /// </summary>
+        private HelmetEra HelmetEraFor(string carModel) =>
+            carModel != null && helmetEraByCarModel != null && helmetEraByCarModel.TryGetValue(carModel, out var era)
+                ? era
+                : HelmetPicker.EraForYear(seasonYear);
+
         private void ProcessDriverHelmetVisor(
             string driverId,
             Ams2TeamEntry team,
+            string carModel,
             string helmetSponsors,
             string visorSponsors,
             Dictionary<string, string> driverSpecificHelmet,
@@ -334,12 +351,15 @@ namespace Ams2ChEd.Business.AMS2.Services
             // Use AI driver's helmet and visor (resolve relative to baseHelmetLiveriesDirectory)
             if (string.IsNullOrEmpty(driverId) || !driversDict.TryGetValue(driverId, out var driver)) return;
 
-            // Get baseHelmet and baseVisor for this season
-            var baseHelmetFileToPick = HelmetPicker.PickHelmetFilePerYear(driver, seasonYear);
-            var baseVisorFileToPick = HelmetPicker.PickVisorFilePerYear(driver, seasonYear);
+            // Get baseHelmet and baseVisor for the helmet model this car's drivers wear. A driver
+            // with no design for that model gets its plain default helmet, never another model's
+            // texture (which would be laid out for a different shell).
+            var helmetEra = HelmetEraFor(carModel);
+            var baseHelmetFileToPick = HelmetPicker.PickHelmetFile(driver, helmetEra);
+            var baseVisorFileToPick = HelmetPicker.PickVisorFile(driver, helmetEra);
 
-            baseHelmetFileToPick = string.IsNullOrEmpty(baseHelmetFileToPick) ? HelmetPicker.DefaultBaseHelmetFile(seasonYear) : baseHelmetFileToPick;
-            baseVisorFileToPick = string.IsNullOrEmpty(baseVisorFileToPick) ? HelmetPicker.DefaultBaseVisorFile(seasonYear) : baseVisorFileToPick;
+            baseHelmetFileToPick = string.IsNullOrEmpty(baseHelmetFileToPick) ? HelmetPicker.DefaultBaseHelmetFile(helmetEra) : baseHelmetFileToPick;
+            baseVisorFileToPick = string.IsNullOrEmpty(baseVisorFileToPick) ? HelmetPicker.DefaultBaseVisorFile(helmetEra) : baseVisorFileToPick;
 
             baseHelmetFile = Path.IsPathRooted(baseHelmetFileToPick)
                     ? baseHelmetFileToPick
@@ -671,7 +691,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                 int currentLiveryNumber = Ams2LiveryConventions.BaseLiveryNumber;
 
                 // Generate helmet/visor DDS files for this car model
-                GenerateHelmetVisorDDSForCarModel(raceId, entries, temporaryTexturesPath, seasonDirectory);
+                GenerateHelmetVisorDDSForCarModel(raceId, carModel, entries, temporaryTexturesPath, seasonDirectory);
 
                 // Track preview files already copied for this car model, since LiveryPreview is a
                 // team-level field: a 2-driver team would otherwise copy the exact same source file
@@ -1005,6 +1025,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         /// </summary>
         private void GenerateHelmetVisorDDSForCarModel(
             int raceId,
+            string carModel,
             List<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber, bool forceSolidColourFallback)> entries,
             string outputDirectory,
             string seasonDirectory)
@@ -1019,6 +1040,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                 ProcessDriverHelmetVisor(
                     driverId,
                     team,
+                    carModel,
                     raceOverride?.HelmetSponsors ?? team.HelmetSponsors,
                     raceOverride?.VisorSponsors ?? team.VisorSponsors,
                     raceOverride?.DriversSpecificHelmet ?? team.DriversSpecificHelmet,
