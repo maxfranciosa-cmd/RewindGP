@@ -376,6 +376,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 NumberPlateWidth = p.NumberPlateWidth,
                 StartingPoint = p.StartingPoint,
                 NumberRotation = p.NumberRotation,
+                RotationDegrees = p.RotationDegrees,
                 FillColor = p.FillColor
             }).ToList();
 

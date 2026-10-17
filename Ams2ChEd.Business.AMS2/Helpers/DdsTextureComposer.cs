@@ -8,6 +8,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using Point = SixLabors.ImageSharp.Point;
+using PointF = SixLabors.ImageSharp.PointF;
 using RectangleF = SixLabors.ImageSharp.RectangleF;
 using Rectangle = SixLabors.ImageSharp.Rectangle;
 using Image = SixLabors.ImageSharp.Image;
@@ -161,6 +162,15 @@ public class DdsTextureComposer
             int digitWidth = numbersImage.Width / 10;
             int digitHeight = numbersImage.Height;
 
+            // A plate at any angle other than a quarter turn has its own path. Quarter turns keep
+            // the original one below untouched, so every existing plate renders exactly as before.
+            if (!IsQuarterTurn(placement.Rotation, out int rotation))
+            {
+                ApplyAngledPlate(liveryImage, numbersImage, numberString, digitWidth, digitHeight, placement);
+                numbersImage.Dispose();
+                continue;
+            }
+
             // Fill the number plate area with a solid color before drawing the digits, if configured
             if (!string.IsNullOrWhiteSpace(placement.FillColor))
             {
@@ -169,7 +179,7 @@ public class DdsTextureComposer
                     var parsedColour = ParseFillColor(placement.FillColor);
                     var rgba = new Rgba32(parsedColour.R, parsedColour.G, parsedColour.B, parsedColour.A);
                     var fillRect = CalculatePlateFillRectangle(
-                        placement.StartX, placement.StartY, placement.PlateWidth, digitHeight, placement.Rotation);
+                        placement.StartX, placement.StartY, placement.PlateWidth, digitHeight, rotation);
                     liveryImage.Mutate(ctx => ctx.Fill(rgba, fillRect));
                 }
                 catch (Exception ex)
@@ -182,12 +192,12 @@ public class DdsTextureComposer
             if (numberString.Length == 1)
             {
                 ApplySingleDigitOptimized(liveryImage, numbersImage, numberString[0], digitWidth, digitHeight,
-                    placement.StartX, placement.StartY, placement.PlateWidth, placement.Rotation);
+                    placement.StartX, placement.StartY, placement.PlateWidth, rotation);
             }
             else if (numberString.Length == 2)
             {
                 ApplyTwoDigitsOptimized(liveryImage, numbersImage, numberString[0], numberString[1],
-                    digitWidth, digitHeight, placement.StartX, placement.StartY, placement.PlateWidth, placement.Rotation);
+                    digitWidth, digitHeight, placement.StartX, placement.StartY, placement.PlateWidth, rotation);
             }
 
             // Dispose numbers image immediately after use
@@ -332,8 +342,79 @@ public class DdsTextureComposer
         public int PlateWidth { get; set; }
         public int StartX { get; set; }
         public int StartY { get; set; }
-        public int Rotation { get; set; }
+
+        /// <summary>
+        /// Degrees clockwise. The plate is PlateWidth long and as tall as the numbers sheet, and
+        /// turns around (StartX, StartY), its own top-left corner (above the first digit, with the
+        /// number read upright) - for 90 that is its top-right on the texture, for 180 its
+        /// bottom-right, for 270 its bottom-left.
+        /// </summary>
+        public double Rotation { get; set; }
         public string FillColor { get; set; }
+    }
+
+    private static bool IsQuarterTurn(double degrees, out int quarterTurn)
+    {
+        double normalised = ((degrees % 360) + 360) % 360;
+        double nearest = Math.Round(normalised / 90) * 90;
+        quarterTurn = (int)nearest % 360;
+        return Math.Abs(normalised - nearest) < 1e-6;
+    }
+
+    /// <summary>
+    /// A plate at an arbitrary angle: the same geometry as the quarter turns, written as vectors.
+    /// The plate spans start + a*u + b*v with u the reading direction and v "down" for the digits.
+    /// Digit centres sit where the quarter-turn path puts them (half way, or at a quarter and three
+    /// quarters along the plate), half a sheet height below the plate's top edge.
+    /// </summary>
+    private static void ApplyAngledPlate(
+        Image<Rgba32> liveryImage,
+        Image<Rgba32> numbersImage,
+        string numberString,
+        int digitWidth,
+        int digitHeight,
+        NumberPlacementData placement)
+    {
+        double radians = placement.Rotation * Math.PI / 180.0;
+        float ux = (float)Math.Cos(radians), uy = (float)Math.Sin(radians);
+        float vx = -uy, vy = ux;
+        float sx = placement.StartX, sy = placement.StartY;
+        float plate = placement.PlateWidth, height = digitHeight;
+
+        if (!string.IsNullOrWhiteSpace(placement.FillColor))
+        {
+            try
+            {
+                var parsedColour = ParseFillColor(placement.FillColor);
+                var rgba = new Rgba32(parsedColour.R, parsedColour.G, parsedColour.B, parsedColour.A);
+                var corners = new[]
+                {
+                    new PointF(sx, sy),
+                    new PointF(sx + plate * ux, sy + plate * uy),
+                    new PointF(sx + plate * ux + height * vx, sy + plate * uy + height * vy),
+                    new PointF(sx + height * vx, sy + height * vy)
+                };
+                liveryImage.Mutate(ctx => ctx.FillPolygon(rgba, corners));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Warning: Invalid FillColor '{placement.FillColor}' for placement, skipping fill: {ex.Message}");
+            }
+        }
+
+        float[] along = numberString.Length == 1 ? new[] { 0.5f } : new[] { 0.25f, 0.75f };
+        for (int i = 0; i < along.Length && i < numberString.Length; i++)
+        {
+            int digitValue = numberString[i] - '0';
+            using var digitImage = numbersImage.Clone(x => x.Crop(new Rectangle(digitValue * digitWidth, 0, digitWidth, digitHeight)));
+            // Rotate grows the canvas around the image centre, so the centre is what gets placed.
+            digitImage.Mutate(x => x.Rotate((float)placement.Rotation));
+
+            float centreX = sx + plate * along[i] * ux + height / 2f * vx;
+            float centreY = sy + plate * along[i] * uy + height / 2f * vy;
+            var position = new Point((int)Math.Round(centreX - digitImage.Width / 2f), (int)Math.Round(centreY - digitImage.Height / 2f));
+            liveryImage.Mutate(ctx => ctx.DrawImage(digitImage, position, 1f));
+        }
     }
 
     private static Point CalculateDigitPosition(

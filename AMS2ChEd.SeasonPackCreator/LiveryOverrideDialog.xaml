@@ -279,7 +279,7 @@
                         <DataGridTextColumn Header="Width" Binding="{Binding NumberPlateWidth}" Width="60"/>
                         <DataGridTextColumn Header="X" Binding="{Binding StartingPoint.X}" Width="50"/>
                         <DataGridTextColumn Header="Y" Binding="{Binding StartingPoint.Y}" Width="50"/>
-                        <DataGridTextColumn Header="Rotation" Binding="{Binding NumberRotation}" Width="*"/>
+                        <DataGridTextColumn Header="Rotation" Binding="{Binding RotationDisplay, Mode=OneWay}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
 

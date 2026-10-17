@@ -985,23 +985,13 @@ namespace Ams2ChEd.Business.AMS2.Services
 
             foreach (var placement in numbersPlacements)
             {
-                // Parse rotation
-                int rotation = placement.NumberRotation switch
-                {
-                    NumberRotation.Deg0 => 0,
-                    NumberRotation.Deg90 => 90,
-                    NumberRotation.Deg180 => 180,
-                    NumberRotation.Deg270 => 270,
-                    _ => 0
-                };
-
                 placements.Add(new DdsTextureComposer.NumberPlacementData
                 {
                     NumbersTexture = placement.GetNumbersTexture(driverNumber),
                     PlateWidth = placement.NumberPlateWidth,
                     StartX = placement.StartingPoint.X,
                     StartY = placement.StartingPoint.Y,
-                    Rotation = rotation,
+                    Rotation = placement.EffectiveDegrees,
                     FillColor = placement.FillColor
                 });
             }

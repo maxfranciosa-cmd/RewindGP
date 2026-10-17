@@ -24,8 +24,6 @@ namespace AMS2ChEd.SeasonPackEditor
             _teamId = teamId;
             _textureFiles = textureFiles;
 
-            RotationComboBox.ItemsSource = Enum.GetValues(typeof(NumberRotation)).Cast<NumberRotation>();
-
             if (placement == null)
             {
                 NumberPlacement = new NumbersPlacement
@@ -35,7 +33,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 };
 
                 // Set default values in UI
-                RotationComboBox.SelectedIndex = 0; // Select first item (Deg0)
+                RotationTextBox.Text = "0";
             }
             else
             {
@@ -56,7 +54,7 @@ namespace AMS2ChEd.SeasonPackEditor
             NumberPlateWidthTextBox.Text = NumberPlacement.NumberPlateWidth.ToString();
             StartXTextBox.Text = NumberPlacement.StartingPoint.X.ToString();
             StartYTextBox.Text = NumberPlacement.StartingPoint.Y.ToString();
-            RotationComboBox.SelectedItem = NumberPlacement.NumberRotation;
+            RotationTextBox.Text = NumberPlacement.EffectiveDegrees.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture);
             FillColorTextBox.Text = NumberPlacement.FillColor ?? "";
         }
 
@@ -168,7 +166,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 int.Parse(StartXTextBox.Text),
                 int.Parse(StartYTextBox.Text)
             );
-            NumberPlacement.NumberRotation = (NumberRotation)RotationComboBox.SelectedItem;
+            NumberPlacement.SetRotation(ParseRotation(RotationTextBox.Text).Value);
             NumberPlacement.FillColor = string.IsNullOrWhiteSpace(FillColorTextBox.Text) ? null : FillColorTextBox.Text;
 
             DialogResult = true;
@@ -213,9 +211,9 @@ namespace AMS2ChEd.SeasonPackEditor
                 return false;
             }
 
-            if (RotationComboBox.SelectedItem == null)
+            if (ParseRotation(RotationTextBox.Text) == null)
             {
-                MessageBox.Show("Please select a rotation.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Rotation must be an angle in degrees, clockwise (e.g. 0, 90, 45 or 315.5).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
@@ -226,6 +224,18 @@ namespace AMS2ChEd.SeasonPackEditor
             }
 
             return true;
+        }
+
+        // Degrees as typed: "45", "45.5" or "45,5", or the "Deg90" names the project files use.
+        private static double? ParseRotation(string text)
+        {
+            string trimmed = (text ?? "").Trim().TrimEnd('°');
+            if (Enum.TryParse<NumberRotation>(trimmed, true, out var named) && trimmed.StartsWith("Deg", StringComparison.OrdinalIgnoreCase))
+                return (int)named;
+            if (double.TryParse(trimmed.Replace(',', '.'), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var degrees)
+                && !double.IsNaN(degrees) && !double.IsInfinity(degrees))
+                return degrees;
+            return null;
         }
 
         // ColorTranslator.FromHtml only understands the 3/6-digit hex forms, so 8-digit

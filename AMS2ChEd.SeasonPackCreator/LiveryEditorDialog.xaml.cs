@@ -777,6 +777,39 @@ namespace AMS2ChEd.SeasonPackEditor
             var scaledWidth = placement.NumberPlateWidth * _previewScale;
             var scaledHeight = textureHeight * _previewScale;
 
+            // The anchor: the plate's own top-left corner, which StartingPoint names at any angle.
+            var anchorX = placement.StartingPoint.X * _previewScale;
+            var anchorY = placement.StartingPoint.Y * _previewScale;
+            var anchor = new System.Windows.Shapes.Ellipse { Width = 8, Height = 8, Fill = new SolidColorBrush(Colors.Red) };
+            Canvas.SetLeft(anchor, anchorX - 4);
+            Canvas.SetTop(anchor, anchorY - 4);
+
+            var exactDegrees = placement.EffectiveDegrees;
+            if (Math.Abs(exactDegrees / 90 - Math.Round(exactDegrees / 90)) > 1e-6)
+            {
+                // Not a quarter turn: the plate turned clockwise around its top-left corner,
+                // reading direction u and digit-down direction v.
+                double radians = exactDegrees * Math.PI / 180.0;
+                double ux = Math.Cos(radians), uy = Math.Sin(radians), vx = -uy, vy = ux;
+                var tilted = new System.Windows.Shapes.Polygon
+                {
+                    Points = new PointCollection
+                    {
+                        new System.Windows.Point(anchorX, anchorY),
+                        new System.Windows.Point(anchorX + scaledWidth * ux, anchorY + scaledWidth * uy),
+                        new System.Windows.Point(anchorX + scaledWidth * ux + scaledHeight * vx, anchorY + scaledWidth * uy + scaledHeight * vy),
+                        new System.Windows.Point(anchorX + scaledHeight * vx, anchorY + scaledHeight * vy)
+                    },
+                    Fill = new SolidColorBrush(Colors.Yellow),
+                    Opacity = 0.3,
+                    Stroke = new SolidColorBrush(Colors.Red),
+                    StrokeThickness = 2
+                };
+                LiveryPreviewCanvas.Children.Add(tilted);
+                LiveryPreviewCanvas.Children.Add(anchor);
+                return;
+            }
+
             var rect = new System.Windows.Shapes.Rectangle
             {
                 Width = scaledWidth,
@@ -790,7 +823,7 @@ namespace AMS2ChEd.SeasonPackEditor
             // Calculate position so the correct corner is at StartingPoint
             // Apply scale factor to positions
             double rectLeft, rectTop;
-            var degrees = (int)placement.NumberRotation;
+            var degrees = (int)Math.Round(exactDegrees) % 360;
 
             switch (degrees)
             {
@@ -829,6 +862,7 @@ namespace AMS2ChEd.SeasonPackEditor
             Canvas.SetTop(rect, rectTop);
 
             LiveryPreviewCanvas.Children.Add(rect);
+            LiveryPreviewCanvas.Children.Add(anchor);
         }
 
 

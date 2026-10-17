@@ -214,8 +214,9 @@
             <Label Grid.Row="4" Grid.Column="0" Content="Starting Y:" VerticalAlignment="Center"/>
             <TextBox Grid.Row="4" Grid.Column="1" Name="StartYTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
 
-            <Label Grid.Row="5" Grid.Column="0" Content="Rotation:" VerticalAlignment="Center"/>
-            <ComboBox Grid.Row="5" Grid.Column="1" Name="RotationComboBox" Style="{StaticResource ModernComboBox}" Margin="0,0,0,15"/>
+            <Label Grid.Row="5" Grid.Column="0" Content="Rotation (°):" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Name="RotationTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"
+                     ToolTip="Degrees clockwise: 0, 90, 180, 270 or any angle in between (e.g. 45). Starting X/Y is the plate's own top-left corner - above the first digit with the number read upright - and the plate turns around it."/>
 
             <Label Grid.Row="6" Grid.Column="0" Content="Fill Color:" VerticalAlignment="Center"/>
             <TextBox Grid.Row="6" Grid.Column="1" Name="FillColorTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>

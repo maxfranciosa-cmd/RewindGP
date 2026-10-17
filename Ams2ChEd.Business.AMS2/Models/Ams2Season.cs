@@ -182,9 +182,46 @@ namespace AMS2ChEd.Business.AMS2.Models
         [JsonPropertyName("starting_point")]
         public Point StartingPoint { get; set; }
 
+        /// <summary>
+        /// The quarter turn of the plate. With RotationDegrees set it holds the nearest quarter
+        /// turn, for readers that only know this field.
+        /// </summary>
         [JsonPropertyName("rotation")]
         [JsonConverter(typeof(NumberRotationConverter))]
         public NumberRotation NumberRotation { get; set; }
+
+        /// <summary>
+        /// Optional exact angle in degrees, clockwise, for a plate that is not on a quarter turn.
+        /// Null (and absent from the JSON, as in every pack made before it existed): the plate is
+        /// at NumberRotation. Either way StartingPoint is the plate's own top-left corner - above
+        /// the first digit, with the number read upright - and the plate, NumberPlateWidth long
+        /// and as tall as the numbers sheet, turns around it.
+        /// </summary>
+        [JsonPropertyName("rotation_degrees")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public double? RotationDegrees { get; set; }
+
+        /// <summary>The angle the plate is drawn at, in degrees clockwise.</summary>
+        [JsonIgnore]
+        public double EffectiveDegrees => RotationDegrees ?? (int)NumberRotation;
+
+        /// <summary>For lists: "Deg90" for a quarter turn, "47.5°" for any other angle.</summary>
+        [JsonIgnore]
+        public string RotationDisplay => RotationDegrees.HasValue
+            ? RotationDegrees.Value.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture) + "°"
+            : NumberRotation.ToString();
+
+        /// <summary>
+        /// Sets the plate's angle: a quarter turn is stored as NumberRotation alone (as always),
+        /// any other angle in RotationDegrees with the nearest quarter turn in NumberRotation.
+        /// </summary>
+        public void SetRotation(double degrees)
+        {
+            double normalised = ((degrees % 360) + 360) % 360;
+            int nearestQuarter = (int)(Math.Round(normalised / 90) * 90) % 360;
+            NumberRotation = (NumberRotation)nearestQuarter;
+            RotationDegrees = Math.Abs(normalised - Math.Round(normalised / 90) * 90) < 1e-6 ? null : normalised;
+        }
 
         [JsonPropertyName("fill_color")]
         public string FillColor { get; set; }
