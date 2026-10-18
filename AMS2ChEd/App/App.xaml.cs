@@ -55,6 +55,7 @@ namespace AMS2ChEd
             services.AddTransient<IOffSeasonMovements, OffSeasonMovements>();
             services.AddTransient<IPreQualiPoolResolver, PreQualiPoolResolver>();
             services.AddTransient<IOffSeasonOrchestrator, OffSeasonOrchestrator>();
+            services.AddTransient<IMarketOutlookEstimator, MarketOutlookEstimator>();
             services.AddTransient<IReprimandManager, ReprimandManager>();
             services.AddTransient<IImprovementPackageManager, ImprovementPackageManager>();
             services.AddSingleton<IAllTimeRecordsLoader>(new AMS2ChEd.Business.Storage.Concrete.AllTimeRecordsLoader());

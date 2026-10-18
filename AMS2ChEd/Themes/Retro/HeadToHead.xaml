@@ -1,0 +1,300 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Teammates compared as a team's file in a manila folder: the teams are the folder's tabs, the
+         selected one opens onto a typed sheet with the drivers' photos clipped on, the scores
+         rubber-stamped and the races marked with a highlighter. Builds on the shared paper/stamp
+         resources of RetroTheme.xaml. -->
+
+    <SolidColorBrush x:Key="HeadToHead.WindowBackground" Color="#d6b377"/>
+
+    <!-- a team with substitutes, a race with one -->
+    <SolidColorBrush x:Key="HeadToHead.AlertBrush" Color="#c1121f"/>
+
+    <Style x:Key="HeadToHead.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource PaperScrollBarStyle}"/>
+
+    <Style x:Key="HeadToHead.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="0,18,18,18"/>
+    </Style>
+
+    <!-- Teams: the folder's tabs -->
+    <Style x:Key="HeadToHead.TeamListHeader" TargetType="Grid">
+        <Setter Property="Margin" Value="18,6,14,10"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.TeamListTitle" TargetType="TextBlock" BasedOn="{StaticResource PosterTextStyle}">
+        <Setter Property="FontSize" Value="22"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.TeamListCaption" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.TeamList" TargetType="ListBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.TeamItem" TargetType="ListBoxItem">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Margin" Value="18,0,0,6"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border x:Name="Tab" Background="{StaticResource ManilaLightBrush}" CornerRadius="6,0,0,6" Padding="10,8">
+                        <ContentPresenter/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Tab" Property="Background" Value="#efd9aa"/>
+                        </Trigger>
+                        <!-- the open file: the tab joins the sheet -->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Tab" Property="Background" Value="{StaticResource PaperBrush}"/>
+                            <Setter TargetName="Tab" Property="Padding" Value="10,10"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HeadToHead.TeamSwatch" TargetType="Rectangle">
+        <Setter Property="Width" Value="8"/>
+        <Setter Property="Height" Value="34"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.TeamName" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.TeamNote" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <!-- The sheet -->
+    <Style x:Key="HeadToHead.Sheet" TargetType="Border" BasedOn="{StaticResource PaperCardStyle}">
+        <Setter Property="Padding" Value="30,24"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.SheetHeader" TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource InkBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+        <Setter Property="Padding" Value="0,0,0,8"/>
+        <Setter Property="Margin" Value="0,0,0,18"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.SheetCaption" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.TeamTitle" TargetType="TextBlock" BasedOn="{StaticResource PosterTextStyle}">
+        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.SheetNote" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+
+    <!-- The two drivers and the score -->
+    <Style x:Key="HeadToHead.Comparison" TargetType="Grid"/>
+
+    <!-- the photos are clipped on with a white edge, a little askew -->
+    <Style x:Key="HeadToHead.PhotoLeft" TargetType="Border">
+        <Setter Property="Width" Value="112"/>
+        <Setter Property="Height" Value="160"/>
+        <Setter Property="Background" Value="{StaticResource PhotoBackBrush}"/>
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="BorderThickness" Value="5"/>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform Angle="-2"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="2" Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HeadToHead.PhotoRight" TargetType="Border" BasedOn="{StaticResource HeadToHead.PhotoLeft}">
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform Angle="2"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HeadToHead.PhotoPlaceholder" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="Foreground" Value="#5e666e"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.DriverName" TargetType="TextBlock" BasedOn="{StaticResource PosterTextStyle}">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.DriverDetail" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.ScorePanel" TargetType="StackPanel">
+        <Setter Property="Margin" Value="20,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- the scores, rubber-stamped -->
+    <Style x:Key="HeadToHead.ScoreBoxLeft" TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource StampGreenBrush}"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Padding" Value="8,6"/>
+        <Setter Property="Margin" Value="0,0,7,0"/>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform Angle="-1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HeadToHead.ScoreBoxRight" TargetType="Border" BasedOn="{StaticResource HeadToHead.ScoreBoxLeft}">
+        <Setter Property="Margin" Value="7,0,0,0"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform Angle="1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HeadToHead.ScoreLabel" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource StampGreenBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.ScoreValue" TargetType="TextBlock" BasedOn="{StaticResource PosterTextStyle}">
+        <Setter Property="FontSize" Value="44"/>
+        <Setter Property="Foreground" Value="{StaticResource StampGreenBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.Stats" TargetType="Grid">
+        <Setter Property="Margin" Value="0,12,0,0"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.StatValue" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,2"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.StatLabel" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,2"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.Message" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="Foreground" Value="{StaticResource InkMutedBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,8"/>
+    </Style>
+
+    <!-- Race by race -->
+    <Style x:Key="HeadToHead.SectionHeader" TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource InkBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+        <Setter Property="Margin" Value="0,22,0,6"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.SectionTitle" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="0,0,0,3"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.RaceHeader" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,2,0,4"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.RaceHeaderAlert" TargetType="TextBlock" BasedOn="{StaticResource HeadToHead.RaceHeader}">
+        <Setter Property="Foreground" Value="{StaticResource StampRedBrush}"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.RaceHeaderUpcoming" TargetType="TextBlock" BasedOn="{StaticResource HeadToHead.RaceHeader}">
+        <Setter Property="Foreground" Value="{StaticResource InkFaintBrush}"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.RowName" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.RowNameSubstitute" TargetType="TextBlock" BasedOn="{StaticResource HeadToHead.RowName}">
+        <Setter Property="Foreground" Value="{StaticResource InkMutedBrush}"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.SubstituteCaption" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="FontSize" Value="11"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.Cell" TargetType="Border">
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Padding" Value="0,5"/>
+    </Style>
+
+    <!-- ahead in the race: marked with a highlighter -->
+    <Style x:Key="HeadToHead.CellAhead" TargetType="Border" BasedOn="{StaticResource HeadToHead.Cell}">
+        <Setter Property="Background" Value="{StaticResource HighlighterBrush}"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.CellText" TargetType="TextBlock" BasedOn="{StaticResource TypedTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.CellTextMuted" TargetType="TextBlock" BasedOn="{StaticResource HeadToHead.CellText}">
+        <Setter Property="Foreground" Value="{StaticResource InkFaintBrush}"/>
+    </Style>
+
+    <!-- an absence, stamped in red -->
+    <Style x:Key="HeadToHead.AbsentStamp" TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource StampRedBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Padding" Value="0,3"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.AbsentText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontTyped}"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="Foreground" Value="{StaticResource StampRedBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="HeadToHead.Legend" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,8,0,0"/>
+    </Style>
+</ResourceDictionary>

@@ -40,6 +40,11 @@ namespace AMS2ChEd.Business.DependencyInjection
         /// </summary>
         public IAllTimeRecordsLoader AllTimeRecordsLoader { get; private set; }
 
+        /// <summary>
+        /// Optional: without it the driver market outlook isn't offered.
+        /// </summary>
+        public IMarketOutlookEstimator MarketOutlookEstimator { get; private set; }
+
         public GameLogicFactory(
             IStandingsManager standingsManager,
             IAbsenceManager absenceManager,
@@ -55,9 +60,11 @@ namespace AMS2ChEd.Business.DependencyInjection
             IReprimandManager reprimandManager,
             IImprovementPackageManager improvementPackageManager,
             IRaceLaunchAssistant raceLaunchAssistant = null,
-            IAllTimeRecordsLoader allTimeRecordsLoader = null)
+            IAllTimeRecordsLoader allTimeRecordsLoader = null,
+            IMarketOutlookEstimator marketOutlookEstimator = null)
         {
             AllTimeRecordsLoader = allTimeRecordsLoader;
+            MarketOutlookEstimator = marketOutlookEstimator;
             StandingsManager = standingsManager;
             AbsenceManager = absenceManager;
             ContractNegotiationEngine = contractNegotiationEngine;

@@ -92,6 +92,7 @@ namespace AMS2ChEd
             _offSeasonOrchestrator = offSeasonOrchestrator;
             _gameLogicFactory.AbsenceManager.AbsenceOpportunityAvailable += OnAbsenceOpportunityAvailable;
             _gameLogicFactory.AbsenceManager.AbsenceDecisionMade += OnAbsenceDecisionMade;
+            MarketOutlookButton.Visibility = _gameLogicFactory.MarketOutlookEstimator == null ? Visibility.Collapsed : Visibility.Visible;
             LoadOverview();
         }
 
@@ -357,7 +358,7 @@ namespace AMS2ChEd
 
         // Reuses MainWindow's reputation display-name keys (same semantic content shown in both
         // windows, must stay consistent app-wide) rather than duplicating separate translations.
-        private string FormatReputation(DriverReputation reputation)
+        internal static string FormatReputation(DriverReputation reputation)
         {
             return reputation switch
             {
@@ -722,6 +723,20 @@ namespace AMS2ChEd
             var hallOfFameWindow = new HallOfFameWindow(saveGame, _gameLogicFactory.AllTimeRecordsLoader);
             hallOfFameWindow.Owner = this;
             hallOfFameWindow.ShowDialog();
+        }
+
+        private void HeadToHeadButton_Click(object sender, RoutedEventArgs e)
+        {
+            var headToHeadWindow = new Views.HeadToHeadWindow(saveGame);
+            headToHeadWindow.Owner = this;
+            headToHeadWindow.ShowDialog();
+        }
+
+        private void MarketOutlookButton_Click(object sender, RoutedEventArgs e)
+        {
+            var marketOutlookWindow = new Views.MarketOutlookWindow(saveGame, _ams2StorageFactory, _gameLogicFactory.MarketOutlookEstimator);
+            marketOutlookWindow.Owner = this;
+            marketOutlookWindow.ShowDialog();
         }
     }
 

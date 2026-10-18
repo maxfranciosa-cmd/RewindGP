@@ -7,7 +7,7 @@ namespace AMS2ChEd.Business.Services
 {
     public class OffSeasonMovements : IOffSeasonMovements
     {
-        readonly Dictionary<DriverReputation, Ambition> driverAmbitions = new()
+        internal static readonly Dictionary<DriverReputation, Ambition> driverAmbitions = new()
         {
             {  DriverReputation.PAY_DRIVER_WILD_CARD , new() { MaxReputation = TeamReputation.MINNOW , MinReputation = TeamReputation.SUPER_MINNOW } },
             {  DriverReputation.PAY_DRIVER_SEASON , new() { MaxReputation = TeamReputation.MIDFIELD , MinReputation = TeamReputation.SUPER_MINNOW } },

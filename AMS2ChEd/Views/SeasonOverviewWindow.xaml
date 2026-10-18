@@ -28,97 +28,111 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Left: player card and navigation -->
-        <StackPanel Grid.Column="0">
+        <!-- Left: player card and navigation, scrolling when the window is too short for all of it -->
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
 
-            <!-- Player card -->
-            <Border Style="{StaticResource SeasonOverview.PassCard}">
-                <StackPanel>
-                    <Border Style="{StaticResource SeasonOverview.SeasonBanner}">
-                        <TextBlock x:Name="SeasonText" Style="{StaticResource SeasonOverview.SeasonBannerText}"/>
-                    </Border>
+                <!-- Player card -->
+                <Border Style="{StaticResource SeasonOverview.PassCard}">
+                    <StackPanel>
+                        <Border Style="{StaticResource SeasonOverview.SeasonBanner}">
+                            <TextBlock x:Name="SeasonText" Style="{StaticResource SeasonOverview.SeasonBannerText}"/>
+                        </Border>
 
-                    <!-- Player Photo -->
-                    <Border Style="{StaticResource SeasonOverview.Photo}">
-                        <Grid>
-                            <TextBlock x:Name="PlayerPhotoPlaceholder"
-                                       Text="?"
-                                       Style="{StaticResource SeasonOverview.PhotoPlaceholder}"
-                                       Visibility="Collapsed"/>
-                            <Image x:Name="PlayerPhotoImage"
-                                   Stretch="UniformToFill"
-                                   HorizontalAlignment="Center"/>
-                        </Grid>
-                    </Border>
+                        <!-- Player Photo -->
+                        <Border Style="{StaticResource SeasonOverview.Photo}">
+                            <Grid>
+                                <TextBlock x:Name="PlayerPhotoPlaceholder"
+                                           Text="?"
+                                           Style="{StaticResource SeasonOverview.PhotoPlaceholder}"
+                                           Visibility="Collapsed"/>
+                                <Image x:Name="PlayerPhotoImage"
+                                       Stretch="UniformToFill"
+                                       HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
 
-                    <!-- Player Name -->
-                    <TextBlock x:Name="PlayerNameText" Style="{StaticResource SeasonOverview.PlayerName}"/>
+                        <!-- Player Name -->
+                        <TextBlock x:Name="PlayerNameText" Style="{StaticResource SeasonOverview.PlayerName}"/>
 
-                    <StackPanel Style="{StaticResource SeasonOverview.PassRows}">
-                        <!-- Player Team -->
-                        <Grid Style="{StaticResource SeasonOverview.PassRow}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_TeamLabel}" Style="{StaticResource SeasonOverview.PassLabel}"/>
-                            <TextBlock Grid.Column="1" x:Name="PlayerTeamText" Style="{StaticResource SeasonOverview.PassValue}"/>
-                        </Grid>
+                        <StackPanel Style="{StaticResource SeasonOverview.PassRows}">
+                            <!-- Player Team -->
+                            <Grid Style="{StaticResource SeasonOverview.PassRow}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_TeamLabel}" Style="{StaticResource SeasonOverview.PassLabel}"/>
+                                <TextBlock Grid.Column="1" x:Name="PlayerTeamText" Style="{StaticResource SeasonOverview.PassValue}"/>
+                            </Grid>
 
-                        <!-- Player Team Role + Reprimands -->
-                        <Grid x:Name="PlayerRoleRow" Style="{StaticResource SeasonOverview.PassRow}" Visibility="Collapsed">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_RoleLabel}" Style="{StaticResource SeasonOverview.PassLabel}"/>
-                            <TextBlock Grid.Column="1" x:Name="PlayerRoleText" Style="{StaticResource SeasonOverview.PassValue}"/>
-                        </Grid>
+                            <!-- Player Team Role + Reprimands -->
+                            <Grid x:Name="PlayerRoleRow" Style="{StaticResource SeasonOverview.PassRow}" Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_RoleLabel}" Style="{StaticResource SeasonOverview.PassLabel}"/>
+                                <TextBlock Grid.Column="1" x:Name="PlayerRoleText" Style="{StaticResource SeasonOverview.PassValue}"/>
+                            </Grid>
 
-                        <!-- Player Reputation -->
-                        <Grid Style="{StaticResource SeasonOverview.PassRow}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_ReputationLabel}" Style="{StaticResource SeasonOverview.PassLabel}"/>
-                            <TextBlock Grid.Column="1" x:Name="PlayerReputationText" Style="{StaticResource SeasonOverview.PassValue}"/>
-                        </Grid>
+                            <!-- Player Reputation -->
+                            <Grid Style="{StaticResource SeasonOverview.PassRow}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{loc:Loc SeasonOverviewWindow_ReputationLabel}" Style="{StaticResource SeasonOverview.PassLabel}"/>
+                                <TextBlock Grid.Column="1" x:Name="PlayerReputationText" Style="{StaticResource SeasonOverview.PassValue}"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <!-- Edit Button -->
+                        <Button x:Name="EditPlayerButton"
+                                Click="EditPlayerButton_Click"
+                                Style="{StaticResource SeasonOverview.EditButton}"
+                                Content="{loc:Loc SeasonOverviewWindow_EditDetailsButton}"/>
                     </StackPanel>
+                </Border>
 
-                    <!-- Edit Button -->
-                    <Button x:Name="EditPlayerButton"
-                            Click="EditPlayerButton_Click"
-                            Style="{StaticResource SeasonOverview.EditButton}"
-                            Content="{loc:Loc SeasonOverviewWindow_EditDetailsButton}"/>
-                </StackPanel>
-            </Border>
+                <!-- Install an improvement package -->
+                <Button x:Name="InstallPackageButton"
+                        Click="InstallPackageButton_Click"
+                        Style="{StaticResource SeasonOverview.InstallPackageButton}"
+                        ToolTipService.ShowOnDisabled="True"
+                        Visibility="Collapsed"/>
 
-            <!-- Install an improvement package -->
-            <Button x:Name="InstallPackageButton"
-                    Click="InstallPackageButton_Click"
-                    Style="{StaticResource SeasonOverview.InstallPackageButton}"
-                    ToolTipService.ShowOnDisabled="True"
-                    Visibility="Collapsed"/>
+                <!-- Improvement packages of every team -->
+                <Button x:Name="ImprovementPackagesButton"
+                        Click="ImprovementPackagesButton_Click"
+                        Style="{StaticResource SeasonOverview.ImprovementPackagesButton}"
+                        Content="{loc:Loc SeasonOverviewWindow_ImprovementPackagesTooltip}"/>
 
-            <!-- Improvement packages of every team -->
-            <Button x:Name="ImprovementPackagesButton"
-                    Click="ImprovementPackagesButton_Click"
-                    Style="{StaticResource SeasonOverview.ImprovementPackagesButton}"
-                    Content="{loc:Loc SeasonOverviewWindow_ImprovementPackagesTooltip}"/>
+                <!-- Past seasons -->
+                <Button x:Name="HistoricalStandingsButton"
+                        Click="HistoricalStandingsButton_Click"
+                        Style="{StaticResource SeasonOverview.HistoricalStandingsButton}"
+                        Content="{loc:Loc SeasonOverviewWindow_HistoricalStandingsTooltip}"/>
 
-            <!-- Past seasons -->
-            <Button x:Name="HistoricalStandingsButton"
-                    Click="HistoricalStandingsButton_Click"
-                    Style="{StaticResource SeasonOverview.HistoricalStandingsButton}"
-                    Content="{loc:Loc SeasonOverviewWindow_HistoricalStandingsTooltip}"/>
+                <!-- All-time records -->
+                <Button x:Name="HallOfFameButton"
+                        Click="HallOfFameButton_Click"
+                        Style="{StaticResource SeasonOverview.HallOfFameButton}"
+                        Content="{loc:Loc SeasonOverviewWindow_HallOfFameButton}"/>
 
-            <!-- All-time records -->
-            <Button x:Name="HallOfFameButton"
-                    Click="HallOfFameButton_Click"
-                    Style="{StaticResource SeasonOverview.HallOfFameButton}"
-                    Content="{loc:Loc SeasonOverviewWindow_HallOfFameButton}"/>
-        </StackPanel>
+                <!-- Teammates compared, team by team -->
+                <Button x:Name="HeadToHeadButton"
+                        Click="HeadToHeadButton_Click"
+                        Style="{StaticResource SeasonOverview.HeadToHeadButton}"
+                        Content="{loc:Loc SeasonOverviewWindow_HeadToHeadButton}"/>
+
+                <!-- The driver market if the season ended today -->
+                <Button x:Name="MarketOutlookButton"
+                        Click="MarketOutlookButton_Click"
+                        Style="{StaticResource SeasonOverview.MarketOutlookButton}"
+                        Content="{loc:Loc SeasonOverviewWindow_MarketOutlookButton}"/>
+            </StackPanel>
+        </ScrollViewer>
 
         <!-- Right: next race and standings -->
         <Grid Grid.Column="2">

@@ -97,13 +97,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             foreach (var currentDriver in saveGame.Drivers)
             {
-                var driverAge = nextSeasonYear - currentDriver.YearOfBirth;
-                var currentReputation = currentDriver.Reputation;
-                var driverSeasonRecap = seasonRecapsByDriverId.ContainsKey(currentDriver.DriverId) ? seasonRecapsByDriverId[currentDriver.DriverId] : null;
-
-                var newReputation = (driverSeasonRecap == null || driverSeasonRecap.Races == 0) ?
-                    _reputationUpdater.GetNewReputationForInactiveDriver(currentReputation, driverAge) :
-                    _reputationUpdater.GetNewReputation(currentReputation, driverAge, driverSeasonRecap.Position, driverSeasonRecap.Podiums, driverSeasonRecap.DNFs, driverSeasonRecap.Races, saveGame.CurrentSeason.Races.Count(), driverSeasonRecap.AverageRacePosition);
+                var newReputation = GetNewReputation(currentDriver, seasonRecapsByDriverId, nextSeasonYear, saveGame.CurrentSeason.Races.Count());
 
                 if (driversNewSeasonDictionary.TryGetValue(currentDriver.DriverId, out var sameDriverWithNewSeasonRatings))
                 {
@@ -150,6 +144,26 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                                         .Concat(newSeasonVersionOfOldDrivers)
                                         .Concat(rookiesList);
 
+        }
+
+        // every driver's reputation for next season as if the season ended after the races run so far,
+        // without touching the save
+        public Dictionary<string, DriverReputation> ProjectNewReputations(ISaveGame saveGame, int nextSeasonYear)
+        {
+            var seasonRecapsByDriverId = GenerateSeasonRecaps(saveGame);
+            var racesRun = saveGame.GrandPrixResults.Count(r => r.Year == saveGame.CurrentSeason.Year);
+
+            return saveGame.Drivers.ToDictionary(d => d.DriverId, d => GetNewReputation(d, seasonRecapsByDriverId, nextSeasonYear, racesRun));
+        }
+
+        private DriverReputation GetNewReputation(IDriverData driver, Dictionary<string, SeasonRecap> seasonRecapsByDriverId, int nextSeasonYear, int totalSeasonRaces)
+        {
+            var driverAge = nextSeasonYear - driver.YearOfBirth;
+            var driverSeasonRecap = seasonRecapsByDriverId.GetValueOrDefault(driver.DriverId);
+
+            return (driverSeasonRecap == null || driverSeasonRecap.Races == 0) ?
+                _reputationUpdater.GetNewReputationForInactiveDriver(driver.Reputation, driverAge) :
+                _reputationUpdater.GetNewReputation(driver.Reputation, driverAge, driverSeasonRecap.Position, driverSeasonRecap.Podiums, driverSeasonRecap.DNFs, driverSeasonRecap.Races, totalSeasonRaces, driverSeasonRecap.AverageRacePosition);
         }
 
         private Dictionary<string, SeasonRecap> GenerateSeasonRecaps(ISaveGame saveGame)
@@ -273,6 +287,16 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var possibleRetiringAge = (new Random()).Next(MIN_RETIRING_AGE, MAX_RETIRING_AGE + 1);
 
             return age >= possibleRetiringAge;
+        }
+
+        // the chance IsDriverRetiring returns true for a driver of this age
+        public static double RetirementChance(int age)
+        {
+            if (age < MIN_RETIRING_AGE) return 0;
+
+            if (age > MAX_RETIRING_AGE) return 1;
+
+            return (age - MIN_RETIRING_AGE + 1) / (double)(MAX_RETIRING_AGE - MIN_RETIRING_AGE + 1);
         }
 
         public IEnumerable<TeamHiringBallot> TeamPicksPotentialReplacementsDrivers(int newSeasonYear, ISaveGame saveGame, IEnumerable<ITeamEntry> newSeasonTeamEntries, IEnumerable<DropTeamResult> dropTeamResults)

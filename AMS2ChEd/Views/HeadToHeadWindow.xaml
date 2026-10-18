@@ -1,0 +1,190 @@
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        mc:Ignorable="d"
+        x:Class="AMS2ChEd.Views.HeadToHeadWindow"
+        Title="{loc:Loc HeadToHeadWindow_Title}"
+        Height="820" Width="1280"
+        MinHeight="640" MinWidth="1040"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        Background="{StaticResource HeadToHead.WindowBackground}">
+
+    <!-- This window only holds structure. How each part looks comes from the "HeadToHead.*" styles of the
+         active visual style (Themes/<style>/HeadToHead.xaml); the race-by-race table is built in code-behind
+         from the same styles. -->
+    <Window.Resources>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource HeadToHead.ScrollBar}"/>
+    </Window.Resources>
+
+    <!-- The teams on the left, the selected team's file on the right -->
+    <Grid Style="{StaticResource HeadToHead.Root}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="270"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Teams -->
+        <DockPanel Grid.Column="0">
+            <Grid DockPanel.Dock="Top" Style="{StaticResource HeadToHead.TeamListHeader}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="TeamsHeaderText" Grid.Column="0" Style="{StaticResource HeadToHead.TeamListTitle}"/>
+                <TextBlock Grid.Column="1" Text="{loc:Loc HeadToHeadWindow_ThisSeason}" Style="{StaticResource HeadToHead.TeamListCaption}"/>
+            </Grid>
+
+            <ListBox x:Name="TeamList"
+                     Style="{StaticResource HeadToHead.TeamList}"
+                     ItemContainerStyle="{StaticResource HeadToHead.TeamItem}"
+                     SelectionChanged="TeamList_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle Grid.Column="0" Fill="{Binding TeamColor}" Style="{StaticResource HeadToHead.TeamSwatch}"/>
+                            <!-- the team, and under it its drivers (or how many races it subbed) -->
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding TeamName}" Style="{StaticResource HeadToHead.TeamName}"/>
+                                <TextBlock Text="{Binding Note}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock" BasedOn="{StaticResource HeadToHead.TeamNote}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding HasSubstitutes}" Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource HeadToHead.AlertBrush}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+
+        <!-- The team's file -->
+        <Border Grid.Column="1" Style="{StaticResource HeadToHead.Sheet}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel>
+                    <Border Style="{StaticResource HeadToHead.SheetHeader}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock x:Name="SheetCaptionText" Style="{StaticResource HeadToHead.SheetCaption}"/>
+                                <TextBlock x:Name="TeamTitleText" Style="{StaticResource HeadToHead.TeamTitle}"/>
+                            </StackPanel>
+                            <TextBlock x:Name="RacesTogetherText" Grid.Column="1" Style="{StaticResource HeadToHead.SheetNote}"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- The two drivers and the score -->
+                    <Grid x:Name="ComparisonPanel" Style="{StaticResource HeadToHead.Comparison}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="170"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <Border Style="{StaticResource HeadToHead.PhotoLeft}">
+                                <Grid>
+                                    <TextBlock x:Name="Driver1PhotoPlaceholder" Text="?" Style="{StaticResource HeadToHead.PhotoPlaceholder}"/>
+                                    <Image x:Name="Driver1Photo" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Grid>
+                            </Border>
+                            <TextBlock x:Name="Driver1NameText" Style="{StaticResource HeadToHead.DriverName}"/>
+                            <TextBlock x:Name="Driver1DetailText" Style="{StaticResource HeadToHead.DriverDetail}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Style="{StaticResource HeadToHead.ScorePanel}">
+                            <UniformGrid Columns="2">
+                                <Border Style="{StaticResource HeadToHead.ScoreBoxLeft}">
+                                    <StackPanel>
+                                        <TextBlock Text="{loc:Loc HeadToHeadWindow_QualifyingLabel}" Style="{StaticResource HeadToHead.ScoreLabel}"/>
+                                        <TextBlock x:Name="QualifyingScoreText" Style="{StaticResource HeadToHead.ScoreValue}"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Style="{StaticResource HeadToHead.ScoreBoxRight}">
+                                    <StackPanel>
+                                        <TextBlock Text="{loc:Loc HeadToHeadWindow_RacesLabel}" Style="{StaticResource HeadToHead.ScoreLabel}"/>
+                                        <TextBlock x:Name="RaceScoreText" Style="{StaticResource HeadToHead.ScoreValue}"/>
+                                    </StackPanel>
+                                </Border>
+                            </UniformGrid>
+
+                            <!-- driver 1's figure, what it is, driver 2's figure -->
+                            <Grid x:Name="StatsGrid" Style="{StaticResource HeadToHead.Stats}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="70"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock x:Name="Driver1AverageGridText" Grid.Row="0" Grid.Column="0" Style="{StaticResource HeadToHead.StatValue}"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{loc:Loc HeadToHeadWindow_AverageGridLabel}" Style="{StaticResource HeadToHead.StatLabel}"/>
+                                <TextBlock x:Name="Driver2AverageGridText" Grid.Row="0" Grid.Column="2" Style="{StaticResource HeadToHead.StatValue}"/>
+                                <TextBlock x:Name="Driver1AverageFinishText" Grid.Row="1" Grid.Column="0" Style="{StaticResource HeadToHead.StatValue}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{loc:Loc HeadToHeadWindow_AverageFinishLabel}" Style="{StaticResource HeadToHead.StatLabel}"/>
+                                <TextBlock x:Name="Driver2AverageFinishText" Grid.Row="1" Grid.Column="2" Style="{StaticResource HeadToHead.StatValue}"/>
+                                <TextBlock x:Name="Driver1BestFinishText" Grid.Row="2" Grid.Column="0" Style="{StaticResource HeadToHead.StatValue}"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{loc:Loc HeadToHeadWindow_BestFinishLabel}" Style="{StaticResource HeadToHead.StatLabel}"/>
+                                <TextBlock x:Name="Driver2BestFinishText" Grid.Row="2" Grid.Column="2" Style="{StaticResource HeadToHead.StatValue}"/>
+                                <TextBlock x:Name="Driver1RetirementsText" Grid.Row="3" Grid.Column="0" Style="{StaticResource HeadToHead.StatValue}"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{loc:Loc HeadToHeadWindow_RetirementsLabel}" Style="{StaticResource HeadToHead.StatLabel}"/>
+                                <TextBlock x:Name="Driver2RetirementsText" Grid.Row="3" Grid.Column="2" Style="{StaticResource HeadToHead.StatValue}"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <Border Style="{StaticResource HeadToHead.PhotoRight}">
+                                <Grid>
+                                    <TextBlock x:Name="Driver2PhotoPlaceholder" Text="?" Style="{StaticResource HeadToHead.PhotoPlaceholder}"/>
+                                    <Image x:Name="Driver2Photo" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Grid>
+                            </Border>
+                            <TextBlock x:Name="Driver2NameText" Style="{StaticResource HeadToHead.DriverName}"/>
+                            <TextBlock x:Name="Driver2DetailText" Style="{StaticResource HeadToHead.DriverDetail}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock x:Name="OneCarTeamText"
+                               Text="{loc:Loc HeadToHeadWindow_OneCarTeam}"
+                               Style="{StaticResource HeadToHead.Message}"
+                               Visibility="Collapsed"/>
+
+                    <!-- Race by race -->
+                    <Border Style="{StaticResource HeadToHead.SectionHeader}">
+                        <TextBlock Text="{loc:Loc HeadToHeadWindow_RaceByRaceHeader}" Style="{StaticResource HeadToHead.SectionTitle}"/>
+                    </Border>
+                    <Grid x:Name="RaceTable">
+                        <!-- built in code-behind: a column per race, a row per driver -->
+                    </Grid>
+                    <TextBlock x:Name="LegendText"
+                               Text="{loc:Loc HeadToHeadWindow_Legend}"
+                               Style="{StaticResource HeadToHead.Legend}"/>
+                    <TextBlock x:Name="NoRacesText"
+                               Text="{loc:Loc HeadToHeadWindow_NoRacesYet}"
+                               Style="{StaticResource HeadToHead.Message}"
+                               Visibility="Collapsed"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

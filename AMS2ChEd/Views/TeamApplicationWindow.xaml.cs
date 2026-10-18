@@ -93,7 +93,7 @@ namespace AMS2ChEd.Views
             };
         }
 
-        private static string GetReputationLabel(TeamReputation reputation) => reputation switch
+        internal static string GetReputationLabel(TeamReputation reputation) => reputation switch
         {
             TeamReputation.TOP_TEAM => Strings.TeamApplicationWindow_Reputation_TopTeam,
             TeamReputation.MIDFIELD_HIGH => Strings.TeamApplicationWindow_Reputation_MidfieldHigh,

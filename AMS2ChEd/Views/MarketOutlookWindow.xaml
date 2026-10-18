@@ -1,0 +1,160 @@
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        mc:Ignorable="d"
+        x:Class="AMS2ChEd.Views.MarketOutlookWindow"
+        Title="{loc:Loc MarketOutlookWindow_Title}"
+        Height="820" Width="1220"
+        MinHeight="640" MinWidth="1000"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        Background="{StaticResource MarketOutlook.WindowBackground}">
+
+    <!-- This window only holds structure. How each part looks comes from the "MarketOutlook.*" styles of
+         the active visual style (Themes/<style>/MarketOutlook.xaml), including the brush of each chance
+         band (MarketOutlook.VeryLikelyBrush and so on), which code-behind picks per seat. -->
+    <Window.Resources>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource MarketOutlook.ScrollBar}"/>
+    </Window.Resources>
+
+    <Grid Style="{StaticResource MarketOutlook.Root}">
+        <Border Style="{StaticResource MarketOutlook.Page}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Masthead -->
+                <Border Grid.Row="0" Style="{StaticResource MarketOutlook.Header}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock x:Name="KickerText" Style="{StaticResource MarketOutlook.Kicker}"/>
+                            <TextBlock Text="{loc:Loc MarketOutlookWindow_Headline}" Style="{StaticResource MarketOutlook.Headline}"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{loc:Loc MarketOutlookWindow_HeaderNote}" Style="{StaticResource MarketOutlook.HeaderNote}"/>
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="330"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- The player -->
+                    <Border Grid.Column="0" Style="{StaticResource MarketOutlook.LeftColumn}">
+                        <DockPanel LastChildFill="False">
+                            <StackPanel DockPanel.Dock="Top">
+                                <TextBlock Text="{loc:Loc MarketOutlookWindow_DriverCaption}" Style="{StaticResource MarketOutlook.SectionCaption}"/>
+                                <TextBlock x:Name="DriverNameText" Style="{StaticResource MarketOutlook.DriverName}"/>
+                                <TextBlock x:Name="DriverDetailText" Style="{StaticResource MarketOutlook.DriverDetail}"/>
+
+                                <StackPanel Style="{StaticResource MarketOutlook.Figures}">
+                                    <StackPanel Style="{StaticResource MarketOutlook.Figure}">
+                                        <TextBlock Text="{loc:Loc MarketOutlookWindow_ChampionshipLabel}" Style="{StaticResource MarketOutlook.FigureLabel}"/>
+                                        <TextBlock x:Name="ChampionshipText" Style="{StaticResource MarketOutlook.FigureValue}"/>
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource MarketOutlook.Figure}">
+                                        <TextBlock x:Name="ReputationLabelText" Style="{StaticResource MarketOutlook.FigureLabel}"/>
+                                        <TextBlock x:Name="ReputationText" Style="{StaticResource MarketOutlook.FigureText}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!-- what the player's own team decides -->
+                            <Border DockPanel.Dock="Bottom" Style="{StaticResource MarketOutlook.PostIt}">
+                                <StackPanel>
+                                    <TextBlock x:Name="PostItTitleText" Style="{StaticResource MarketOutlook.PostItTitle}"/>
+                                    <TextBlock x:Name="PostItText" Style="{StaticResource MarketOutlook.PostItText}"/>
+                                </StackPanel>
+                            </Border>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- The seats -->
+                    <Grid Grid.Column="1" Style="{StaticResource MarketOutlook.RightColumn}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Style="{StaticResource MarketOutlook.ListHeader}">
+                            <Grid>
+                                <TextBlock Text="{loc:Loc MarketOutlookWindow_SeatsHeader}" Style="{StaticResource MarketOutlook.ListTitle}"/>
+                                <TextBlock Text="{loc:Loc MarketOutlookWindow_WhyHeader}" Style="{StaticResource MarketOutlook.ListCaption}"/>
+                            </Grid>
+                        </Border>
+
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl x:Name="SeatsList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource MarketOutlook.SeatRow}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="210"/>
+                                                    <ColumnDefinition Width="170"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid Grid.Column="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Rectangle Grid.Column="0" Fill="{Binding TeamColor}" Style="{StaticResource MarketOutlook.TeamSwatch}"/>
+                                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding TeamName}" Style="{StaticResource MarketOutlook.SeatTeam}"/>
+                                                        <TextBlock Text="{Binding Detail}" Style="{StaticResource MarketOutlook.SeatDetail}"/>
+                                                    </StackPanel>
+                                                </Grid>
+
+                                                <Border Grid.Column="1" BorderBrush="{Binding BandBrush}" Style="{StaticResource MarketOutlook.Stamp}">
+                                                    <TextBlock Text="{Binding BandText}" Foreground="{Binding BandBrush}" Style="{StaticResource MarketOutlook.StampText}"/>
+                                                </Border>
+
+                                                <TextBlock Grid.Column="2" Text="{Binding Reason}" Style="{StaticResource MarketOutlook.Reason}"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                        <TextBlock x:Name="NoSeatsText"
+                                   Grid.Row="1"
+                                   Text="{loc:Loc MarketOutlookWindow_NoSeats}"
+                                   Style="{StaticResource MarketOutlook.Message}"
+                                   Visibility="Collapsed"/>
+
+                        <!-- the best applications -->
+                        <Border x:Name="BestBox" Grid.Row="2" Style="{StaticResource MarketOutlook.BestBox}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock x:Name="BestHeaderText" Style="{StaticResource MarketOutlook.BestLabel}"/>
+                                    <TextBlock x:Name="BestText" Style="{StaticResource MarketOutlook.BestText}"/>
+                                </StackPanel>
+                                <Border x:Name="HiredStamp" Grid.Column="1" Style="{StaticResource MarketOutlook.BestStamp}">
+                                    <TextBlock x:Name="HiredStampText" Style="{StaticResource MarketOutlook.BestStampText}"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

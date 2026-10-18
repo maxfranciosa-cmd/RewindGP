@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.Models;
+using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services.Contracts;
 
 namespace AMS2ChEd.Business.GameLogic.Contracts
@@ -6,6 +7,8 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
     public interface IEndOfSeasonManager
     {
         void UpdateDriversPoolForNextSeason(int nextSeasonYear, ISaveGame saveGame, Dictionary<string, IDriverData> driversNewSeasonDictionary);
+
+        Dictionary<string, DriverReputation> ProjectNewReputations(ISaveGame saveGame, int nextSeasonYear);
 
         IEnumerable<DropTeamResult> ExecuteTeamDrops(
                       ISaveGame saveGame,

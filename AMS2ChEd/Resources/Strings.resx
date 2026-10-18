@@ -3341,4 +3341,204 @@ You can give the instruction from the season overview before the race.</value>
   <data name="MainWindow_InstallSeasonPackButton" xml:space="preserve">
     <value>INSTALL {0} SEASON</value>
   </data>
+  <data name="SeasonOverviewWindow_HeadToHeadButton" xml:space="preserve">
+    <value>Teammate head-to-head</value>
+  </data>
+  <data name="SeasonOverviewWindow_MarketOutlookButton" xml:space="preserve">
+    <value>Driver market outlook</value>
+  </data>
+  <data name="HeadToHeadWindow_Title" xml:space="preserve">
+    <value>Teammate head-to-head</value>
+  </data>
+  <data name="HeadToHeadWindow_TeamsHeader" xml:space="preserve">
+    <value>TEAMS · {0}</value>
+  </data>
+  <data name="HeadToHeadWindow_ThisSeason" xml:space="preserve">
+    <value>this season</value>
+  </data>
+  <data name="HeadToHeadWindow_SheetCaption" xml:space="preserve">
+    <value>FILE: TEAMMATE HEAD-TO-HEAD · {0}</value>
+  </data>
+  <data name="HeadToHeadWindow_RacesTogether" xml:space="preserve">
+    <value>{0} of {1} races together</value>
+  </data>
+  <data name="HeadToHeadWindow_SubbedOne" xml:space="preserve">
+    <value>1 race subbed</value>
+  </data>
+  <data name="HeadToHeadWindow_SubbedMany" xml:space="preserve">
+    <value>{0} races subbed</value>
+  </data>
+  <data name="HeadToHeadWindow_QualifyingLabel" xml:space="preserve">
+    <value>QUALIFYING</value>
+  </data>
+  <data name="HeadToHeadWindow_RacesLabel" xml:space="preserve">
+    <value>RACES</value>
+  </data>
+  <data name="HeadToHeadWindow_AverageGridLabel" xml:space="preserve">
+    <value>average grid</value>
+  </data>
+  <data name="HeadToHeadWindow_AverageFinishLabel" xml:space="preserve">
+    <value>average finish</value>
+  </data>
+  <data name="HeadToHeadWindow_BestFinishLabel" xml:space="preserve">
+    <value>best finish</value>
+  </data>
+  <data name="HeadToHeadWindow_RetirementsLabel" xml:space="preserve">
+    <value>retirements</value>
+  </data>
+  <data name="HeadToHeadWindow_RaceByRaceHeader" xml:space="preserve">
+    <value>RACE BY RACE · GRID → FINISH</value>
+  </data>
+  <data name="HeadToHeadWindow_SubstituteLabel" xml:space="preserve">
+    <value>substitute</value>
+  </data>
+  <data name="HeadToHeadWindow_Absent" xml:space="preserve">
+    <value>ABSENT</value>
+  </data>
+  <data name="HeadToHeadWindow_Retired" xml:space="preserve">
+    <value>ret</value>
+  </data>
+  <data name="HeadToHeadWindow_NotPrequalified" xml:space="preserve">
+    <value>DNPQ</value>
+  </data>
+  <data name="HeadToHeadWindow_Legend" xml:space="preserve">
+    <value>Highlighted: ahead in the race. Races with a substitute, and races where both retired, are left out of the score.</value>
+  </data>
+  <data name="HeadToHeadWindow_NoRacesYet" xml:space="preserve">
+    <value>No races run yet this season.</value>
+  </data>
+  <data name="HeadToHeadWindow_OneCarTeam" xml:space="preserve">
+    <value>A one-car team: no teammate to compare with.</value>
+  </data>
+  <data name="MarketOutlookWindow_Title" xml:space="preserve">
+    <value>Driver market outlook</value>
+  </data>
+  <data name="MarketOutlookWindow_KickerAfterRace" xml:space="preserve">
+    <value>TRANSFER NEWS · {0} · AFTER THE {1}</value>
+  </data>
+  <data name="MarketOutlookWindow_KickerBeforeSeason" xml:space="preserve">
+    <value>TRANSFER NEWS · {0} · BEFORE THE FIRST RACE</value>
+  </data>
+  <data name="MarketOutlookWindow_RacesToGoOne" xml:space="preserve">
+    <value>1 RACE TO GO</value>
+  </data>
+  <data name="MarketOutlookWindow_RacesToGoMany" xml:space="preserve">
+    <value>{0} RACES TO GO</value>
+  </data>
+  <data name="MarketOutlookWindow_Headline" xml:space="preserve">
+    <value>IF THE SEASON ENDED TODAY</value>
+  </data>
+  <data name="MarketOutlookWindow_HeaderNote" xml:space="preserve">
+    <value>An estimate from the hiring rules, updated after every race</value>
+  </data>
+  <data name="MarketOutlookWindow_DriverCaption" xml:space="preserve">
+    <value>THE DRIVER</value>
+  </data>
+  <data name="MarketOutlookWindow_DriverDetail" xml:space="preserve">
+    <value>{0} · {1} · {2} next season</value>
+  </data>
+  <data name="MarketOutlookWindow_ChampionshipLabel" xml:space="preserve">
+    <value>CHAMPIONSHIP</value>
+  </data>
+  <data name="MarketOutlookWindow_ReputationLabel" xml:space="preserve">
+    <value>{0} REPUTATION</value>
+  </data>
+  <data name="MarketOutlookWindow_KeptTitle" xml:space="preserve">
+    <value>{0} keeps you</value>
+  </data>
+  <data name="MarketOutlookWindow_KeptText" xml:space="preserve">
+    <value>Your contract covers next season too.</value>
+  </data>
+  <data name="MarketOutlookWindow_ContractEndsTitle" xml:space="preserve">
+    <value>Your contract ends</value>
+  </data>
+  <data name="MarketOutlookWindow_ContractEndsText" xml:space="preserve">
+    <value>You will need a seat for next season: these are the ones that may open.</value>
+  </data>
+  <data name="MarketOutlookWindow_DroppedTitle" xml:space="preserve">
+    <value>{0} lets you go</value>
+  </data>
+  <data name="MarketOutlookWindow_DroppedUnderperformingText" xml:space="preserve">
+    <value>Your results fall short of what the team expects of you.</value>
+  </data>
+  <data name="MarketOutlookWindow_DroppedDisciplinaryText" xml:space="preserve">
+    <value>Too many reprimands for ignoring team orders.</value>
+  </data>
+  <data name="MarketOutlookWindow_DroppedTeamQuittingText" xml:space="preserve">
+    <value>The team will not race next season.</value>
+  </data>
+  <data name="MarketOutlookWindow_NoTeamTitle" xml:space="preserve">
+    <value>No seat this season</value>
+  </data>
+  <data name="MarketOutlookWindow_NoTeamText" xml:space="preserve">
+    <value>These are the seats that may open for next season.</value>
+  </data>
+  <data name="MarketOutlookWindow_SeatsHeader" xml:space="preserve">
+    <value>SEATS YOU COULD APPLY FOR</value>
+  </data>
+  <data name="MarketOutlookWindow_WhyHeader" xml:space="preserve">
+    <value>why</value>
+  </data>
+  <data name="MarketOutlookWindow_SeatDetail" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="MarketOutlookWindow_Band_VeryLikely" xml:space="preserve">
+    <value>VERY LIKELY</value>
+  </data>
+  <data name="MarketOutlookWindow_Band_Likely" xml:space="preserve">
+    <value>LIKELY</value>
+  </data>
+  <data name="MarketOutlookWindow_Band_Possible" xml:space="preserve">
+    <value>POSSIBLE</value>
+  </data>
+  <data name="MarketOutlookWindow_Band_LongShot" xml:space="preserve">
+    <value>LONG SHOT</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_ContractEnds" xml:space="preserve">
+    <value>{0}'s contract ends.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_Dropped" xml:space="preserve">
+    <value>{0} is on the way out.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_Retiring" xml:space="preserve">
+    <value>Opens only if {0} retires.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_NewTeam" xml:space="preserve">
+    <value>A new team.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_BetterFitOne" xml:space="preserve">
+    <value>You're {0}, but {1} fits the seat better.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_BetterFitMany" xml:space="preserve">
+    <value>You're {0}, but {1} fit the seat better.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_SameFit" xml:space="preserve">
+    <value>You're {0}; {1} fit the seat just as well.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_NoRivals" xml:space="preserve">
+    <value>You're {0}, and the drivers who fit better are likely signed elsewhere first.</value>
+  </data>
+  <data name="MarketOutlookWindow_MoreNames" xml:space="preserve">
+    <value>{0} and {1} more</value>
+  </data>
+  <data name="MarketOutlookWindow_BestHeader" xml:space="preserve">
+    <value>BEST {0} APPLICATIONS</value>
+  </data>
+  <data name="MarketOutlookWindow_HiredStamp" xml:space="preserve">
+    <value>HIRED: {0}</value>
+  </data>
+  <data name="MarketOutlookWindow_NoSeats" xml:space="preserve">
+    <value>No seat is likely to open next season.</value>
+  </data>  <data name="MarketOutlookWindow_Fit_Perfect" xml:space="preserve">
+    <value>a perfect fit</value>
+  </data>
+  <data name="MarketOutlookWindow_Fit_Good" xml:space="preserve">
+    <value>a good fit</value>
+  </data>
+  <data name="MarketOutlookWindow_Fit_OverQualified" xml:space="preserve">
+    <value>over-qualified</value>
+  </data>
+  <data name="MarketOutlookWindow_Fit_UnderQualified" xml:space="preserve">
+    <value>under-qualified</value>
+  </data>
 </root>

@@ -1,0 +1,225 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- The driver market as flat charcoal blocks: a title closed by the red rule, the player on the left,
+         one strip per seat with the chance in a coloured frame. -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Charcoal/Base.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <SolidColorBrush x:Key="MarketOutlook.WindowBackground" Color="#141414"/>
+
+    <!-- the frame of each chance band -->
+    <SolidColorBrush x:Key="MarketOutlook.VeryLikelyBrush" Color="#5fbf7a"/>
+    <SolidColorBrush x:Key="MarketOutlook.LikelyBrush" Color="#a3c95a"/>
+    <SolidColorBrush x:Key="MarketOutlook.PossibleBrush" Color="#6aa3e8"/>
+    <SolidColorBrush x:Key="MarketOutlook.LongShotBrush" Color="#ee5a70"/>
+
+    <Style x:Key="MarketOutlook.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
+
+    <Style x:Key="MarketOutlook.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="22"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.Page" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+        <Setter Property="Padding" Value="26,20"/>
+    </Style>
+
+    <!-- Title -->
+    <Style x:Key="MarketOutlook.Header" TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,4"/>
+        <Setter Property="Padding" Value="0,0,0,10"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.Kicker" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.AccentTextBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.Headline" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.HeaderNote" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="MaxWidth" Value="250"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Margin" Value="20,0,0,4"/>
+    </Style>
+
+    <!-- The player -->
+    <Style x:Key="MarketOutlook.LeftColumn" TargetType="Border">
+        <Setter Property="Padding" Value="0,18,24,4"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.SectionCaption" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.DriverName" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.DriverDetail" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.Figures" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="Margin" Value="0,16,0,0"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.Figure" TargetType="StackPanel">
+        <Setter Property="Margin" Value="0,0,24,0"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.FigureLabel" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.FigureValue" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="34"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.FigureText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="19"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="MaxWidth" Value="170"/>
+    </Style>
+
+    <!-- the player's own team's verdict -->
+    <Style x:Key="MarketOutlook.PostIt" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="BorderThickness" Value="4,0,0,0"/>
+        <Setter Property="Padding" Value="14,12"/>
+        <Setter Property="Margin" Value="0,20,0,0"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.PostItTitle" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.PostItText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,4,0,0"/>
+    </Style>
+
+    <!-- The seats -->
+    <Style x:Key="MarketOutlook.RightColumn" TargetType="Grid">
+        <Setter Property="Margin" Value="20,18,0,0"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.ListHeader" TargetType="Border">
+        <Setter Property="Margin" Value="0,0,0,6"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.ListTitle" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.ListCaption" TargetType="TextBlock" BasedOn="{StaticResource MarketOutlook.ListTitle}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.SeatRow" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="Padding" Value="10,8"/>
+        <Setter Property="Margin" Value="0,0,0,3"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.TeamSwatch" TargetType="Rectangle">
+        <Setter Property="Width" Value="4"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.SeatTeam" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.SeatDetail" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.Stamp" TargetType="Border">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="6,4"/>
+        <Setter Property="Margin" Value="6,0,16,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.StampText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.Reason" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.Message" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,12"/>
+    </Style>
+
+    <!-- The best applications -->
+    <Style x:Key="MarketOutlook.BestBox" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="BorderThickness" Value="4,0,0,0"/>
+        <Setter Property="Padding" Value="14,10"/>
+        <Setter Property="Margin" Value="0,14,0,0"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.BestLabel" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.BestText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.BestStamp" TargetType="Border">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="Margin" Value="16,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="MarketOutlook.BestStampText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+</ResourceDictionary>
