@@ -18,6 +18,9 @@ namespace Ams2ChEd.Business.AMS2.Services
         public string PreviewImage { get; set; }
 
         public HelmetEra Era { get; set; }
+
+        // The file name without its era prefix: the same design on every helmet model shares it.
+        public string DesignKey { get; set; }
     }
 
     public class HelmetPicker
@@ -104,17 +107,36 @@ namespace Ams2ChEd.Business.AMS2.Services
             _genericHelmetDesigns = Directory.GetFiles(defaultHelmetsPath).Select(h => {
                 var fileNameWithNoPath = Path.GetFileName(h);
                 var visorFile = Path.Combine(defaultVisorsPath, fileNameWithNoPath);
+                var designKey = GetDesignKeyFromGenericHelmetName(fileNameWithNoPath);
                 var previewFile = Path.Combine(defaultPreviewsPath, Path.ChangeExtension(fileNameWithNoPath, "png"));
+                // Designs made for every helmet model ship one preview, the 90s helmet's.
+                if (!File.Exists(previewFile))
+                    previewFile = Path.Combine(defaultPreviewsPath, $"90s_{designKey}.png");
                 return new GenericHelmetDesign
                 {
                     HelmetFile = Path.Combine("..", "..", Path.GetRelativePath(AppDomain.CurrentDomain.BaseDirectory, h)),
                     VisorFile = File.Exists(visorFile) ? Path.Combine("..","..",Path.GetRelativePath(AppDomain.CurrentDomain.BaseDirectory, visorFile)) : "",
                     PreviewImage = previewFile,
-                    Era = GetEraFromGenericHelmetName(fileNameWithNoPath)
+                    Era = GetEraFromGenericHelmetName(fileNameWithNoPath),
+                    DesignKey = designKey
                 };
             }).ToList();
 
             return _genericHelmetDesigns;
+        }
+
+        /// <summary>
+        /// The generic designs that exist for every helmet model, one group per design,
+        /// each holding that design's entry for every era.
+        /// </summary>
+        public static IEnumerable<IGrouping<string, GenericHelmetDesign>> LoadCompleteGenericHelmetDesigns()
+        {
+            int eraCount = Enum.GetValues<HelmetEra>().Length;
+            return LoadGenericHelmetDesigns()
+                .GroupBy(h => h.DesignKey)
+                .Where(g => g.Select(h => h.Era).Distinct().Count() == eraCount)
+                .OrderBy(g => g.Key)
+                .ToList();
         }
 
         public static IEnumerable<GenericHelmetDesign> LoadGenericHelmetDesignsPerYear(int year)
@@ -146,6 +168,17 @@ namespace Ams2ChEd.Business.AMS2.Services
             if (fileName.StartsWith("90s_"))
                 return HelmetEra.Nineties;
             return HelmetEra.Modern;
+        }
+
+        private static string GetDesignKeyFromGenericHelmetName(string fileName)
+        {
+            var name = Path.GetFileNameWithoutExtension(fileName);
+            foreach (var prefix in new[] { "70s_", "80s_", "90s_" })
+            {
+                if (name.StartsWith(prefix))
+                    return name.Substring(prefix.Length);
+            }
+            return name;
         }
 
     }

@@ -10,39 +10,42 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
     {
         public bool HasCosmeticsSupport => true;
 
+        // Only designs made for every helmet model are offered, so one pick dresses the player
+        // for the whole career; each shows its 90s helmet preview whatever the season.
         public IEnumerable<CosmeticsOption> GetDefaultCosmeticsOptions(int seasonYear)
         {
-            return HelmetPicker.LoadGenericHelmetDesignsPerYear(seasonYear)
-                .Select(h => new CosmeticsOption { Id = h.HelmetFile, PreviewImagePath = h.PreviewImage });
+            return HelmetPicker.LoadCompleteGenericHelmetDesigns()
+                .Select(g => new CosmeticsOption
+                {
+                    Id = g.Key,
+                    PreviewImagePath = g.First(h => h.Era == HelmetEra.Nineties).PreviewImage
+                });
         }
 
         public void ApplySelectedCosmetics(IDriverData playerDriverData, string selectedOptionId, int seasonYear)
         {
             if (playerDriverData is not Ams2DriverData ams2DriverData) return;
 
-            var selectedHelmet = HelmetPicker.LoadGenericHelmetDesignsPerYear(seasonYear)
-                .FirstOrDefault(h => h.HelmetFile == selectedOptionId);
-            if (selectedHelmet == null) return;
+            var design = HelmetPicker.LoadCompleteGenericHelmetDesigns()
+                .FirstOrDefault(g => g.Key == selectedOptionId);
+            if (design == null) return;
 
-            if (seasonYear >= HelmetPicker.HELMET_MODERN_EARLIEST_YEAR)
-            {
-                ams2DriverData.BaseHelmetFile = selectedHelmet.HelmetFile;
-                ams2DriverData.BaseVisorFile = selectedHelmet.VisorFile;
-            }
-            else if (seasonYear >= HelmetPicker.HELMET_90s_EARLIEST_YEAR)
-            {
-                ams2DriverData.BaseHelmetFile90s = selectedHelmet.HelmetFile;
-            }
-            else if (seasonYear >= HelmetPicker.HELMET_80s_EARLIEST_YEAR)
-            {
-                ams2DriverData.BaseHelmetFile80s = selectedHelmet.HelmetFile;
-                ams2DriverData.BaseVisorFile80s = selectedHelmet.VisorFile;
-            }
-            else
-            {
-                ams2DriverData.BaseHelmetFile70s = selectedHelmet.HelmetFile;
-                ams2DriverData.BaseVisorFile70s = selectedHelmet.VisorFile;
-            }
+            GenericHelmetDesign ForEra(HelmetEra era) => design.First(h => h.Era == era);
+
+            // A design with no visor of its own keeps the era's default visor already set.
+            ams2DriverData.BaseHelmetFile = ForEra(HelmetEra.Modern).HelmetFile;
+            if (!string.IsNullOrEmpty(ForEra(HelmetEra.Modern).VisorFile))
+                ams2DriverData.BaseVisorFile = ForEra(HelmetEra.Modern).VisorFile;
+
+            ams2DriverData.BaseHelmetFile90s = ForEra(HelmetEra.Nineties).HelmetFile;
+
+            ams2DriverData.BaseHelmetFile80s = ForEra(HelmetEra.Eighties).HelmetFile;
+            if (!string.IsNullOrEmpty(ForEra(HelmetEra.Eighties).VisorFile))
+                ams2DriverData.BaseVisorFile80s = ForEra(HelmetEra.Eighties).VisorFile;
+
+            ams2DriverData.BaseHelmetFile70s = ForEra(HelmetEra.Seventies).HelmetFile;
+            if (!string.IsNullOrEmpty(ForEra(HelmetEra.Seventies).VisorFile))
+                ams2DriverData.BaseVisorFile70s = ForEra(HelmetEra.Seventies).VisorFile;
         }
 
         public bool ShowEditor(IPlayerData playerData, ISaveGame saveGame, object ownerWindow)
