@@ -30,22 +30,7 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
                 .FirstOrDefault(g => g.Key == selectedOptionId);
             if (design == null) return;
 
-            GenericHelmetDesign ForEra(HelmetEra era) => design.First(h => h.Era == era);
-
-            // A design with no visor of its own keeps the era's default visor already set.
-            ams2DriverData.BaseHelmetFile = ForEra(HelmetEra.Modern).HelmetFile;
-            if (!string.IsNullOrEmpty(ForEra(HelmetEra.Modern).VisorFile))
-                ams2DriverData.BaseVisorFile = ForEra(HelmetEra.Modern).VisorFile;
-
-            ams2DriverData.BaseHelmetFile90s = ForEra(HelmetEra.Nineties).HelmetFile;
-
-            ams2DriverData.BaseHelmetFile80s = ForEra(HelmetEra.Eighties).HelmetFile;
-            if (!string.IsNullOrEmpty(ForEra(HelmetEra.Eighties).VisorFile))
-                ams2DriverData.BaseVisorFile80s = ForEra(HelmetEra.Eighties).VisorFile;
-
-            ams2DriverData.BaseHelmetFile70s = ForEra(HelmetEra.Seventies).HelmetFile;
-            if (!string.IsNullOrEmpty(ForEra(HelmetEra.Seventies).VisorFile))
-                ams2DriverData.BaseVisorFile70s = ForEra(HelmetEra.Seventies).VisorFile;
+            HelmetPicker.ApplyGenericHelmetDesign(ams2DriverData, design, onlyDefaultOrEmpty: false);
         }
 
         public bool ShowEditor(IPlayerData playerData, ISaveGame saveGame, object ownerWindow)

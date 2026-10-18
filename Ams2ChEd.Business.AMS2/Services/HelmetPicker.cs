@@ -170,6 +170,55 @@ namespace Ams2ChEd.Business.AMS2.Services
             return HelmetEra.Modern;
         }
 
+        /// <summary>
+        /// The complete generic design one of this driver's helmet fields points at, if any.
+        /// Matched on the file name, so a save made in another install folder still matches.
+        /// </summary>
+        public static IGrouping<string, GenericHelmetDesign> FindCompleteGenericHelmetDesign(Ams2DriverData driver)
+        {
+            var helmetFileNames = new[] { driver.BaseHelmetFile, driver.BaseHelmetFile90s, driver.BaseHelmetFile80s, driver.BaseHelmetFile70s }
+                .Where(f => !string.IsNullOrEmpty(f))
+                .Select(Path.GetFileName)
+                .ToList();
+            return LoadCompleteGenericHelmetDesigns()
+                .FirstOrDefault(g => g.Any(h => helmetFileNames.Contains(Path.GetFileName(h.HelmetFile), StringComparer.OrdinalIgnoreCase)));
+        }
+
+        /// <summary>
+        /// Dresses the driver in a generic design on every helmet model. With onlyDefaultOrEmpty,
+        /// a field is filled only while it holds nothing or the app's plain default texture, so
+        /// a file the player chose for one era is never replaced. A design with no visor of its
+        /// own leaves the visor fields alone.
+        /// </summary>
+        public static void ApplyGenericHelmetDesign(Ams2DriverData driver, IGrouping<string, GenericHelmetDesign> design, bool onlyDefaultOrEmpty)
+        {
+            GenericHelmetDesign ForEra(HelmetEra era) => design.First(h => h.Era == era);
+
+            string Pick(string current, string designFile) =>
+                string.IsNullOrEmpty(designFile) || (onlyDefaultOrEmpty && !IsDefaultOrEmpty(current)) ? current : designFile;
+
+            driver.BaseHelmetFile = Pick(driver.BaseHelmetFile, ForEra(HelmetEra.Modern).HelmetFile);
+            driver.BaseVisorFile = Pick(driver.BaseVisorFile, ForEra(HelmetEra.Modern).VisorFile);
+
+            driver.BaseHelmetFile90s = Pick(driver.BaseHelmetFile90s, ForEra(HelmetEra.Nineties).HelmetFile);
+
+            driver.BaseHelmetFile80s = Pick(driver.BaseHelmetFile80s, ForEra(HelmetEra.Eighties).HelmetFile);
+            driver.BaseVisorFile80s = Pick(driver.BaseVisorFile80s, ForEra(HelmetEra.Eighties).VisorFile);
+
+            driver.BaseHelmetFile70s = Pick(driver.BaseHelmetFile70s, ForEra(HelmetEra.Seventies).HelmetFile);
+            driver.BaseVisorFile70s = Pick(driver.BaseVisorFile70s, ForEra(HelmetEra.Seventies).VisorFile);
+        }
+
+        // The plain textures new players start with (defaulthelmet*.png / defaultvisor*.png).
+        private static bool IsDefaultOrEmpty(string file)
+        {
+            if (string.IsNullOrEmpty(file))
+                return true;
+            var name = Path.GetFileName(file);
+            return name.StartsWith("defaulthelmet", StringComparison.OrdinalIgnoreCase)
+                || name.StartsWith("defaultvisor", StringComparison.OrdinalIgnoreCase);
+        }
+
         private static string GetDesignKeyFromGenericHelmetName(string fileName)
         {
             var name = Path.GetFileNameWithoutExtension(fileName);

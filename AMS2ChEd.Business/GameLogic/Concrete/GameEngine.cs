@@ -155,12 +155,21 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         }
 
         /// <summary>
+        /// Game-specific fix-ups for saves made by older versions, run on every load.
+        /// </summary>
+        protected virtual void UpgradeConcreteSaveOnLoad(ISaveGame saveGame)
+        {
+        }
+
+        /// <summary>
         /// Load an existing game
         /// </summary>
         public void LoadGame(ISaveGame saveGame)
         {
             // saves created before contract roles existed
             DriverHirer.AssignUndefinedRoles(saveGame.CurrentSeason, saveGame.Drivers);
+
+            UpgradeConcreteSaveOnLoad(saveGame);
 
             _currentGame = saveGame;
             GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
