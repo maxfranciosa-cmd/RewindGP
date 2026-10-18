@@ -20,11 +20,15 @@ namespace AMS2ChEd.SeasonPackEditor
         public Ams2TeamEntry Team { get; private set; }
         private List<Ams2DriverData> _availableDrivers;
         private List<TeamOption> _availableTeams;
+        private readonly int _seasonYear;
+        private readonly string _ams2Class;
 
-        public TeamEditorDialog(List<Ams2DriverData> drivers, Ams2TeamEntry team = null)
+        public TeamEditorDialog(List<Ams2DriverData> drivers, int seasonYear, string ams2Class, Ams2TeamEntry team = null)
         {
             InitializeComponent();
             _availableDrivers = drivers;
+            _seasonYear = seasonYear;
+            _ams2Class = ams2Class;
 
             // Load teams from teams.json
             LoadTeamsFromJson();
@@ -233,13 +237,21 @@ namespace AMS2ChEd.SeasonPackEditor
             }
 
             var reputation = (TeamReputation)ReputationComboBox.SelectedItem;
-            var ratings = DriverPerformanceGenerator.Generate(reputation);
+            var ratings = DriverPerformanceGenerator.Generate(reputation, _ams2Class, _seasonYear);
 
             // Update all rating textboxes
             MalusWeightScalarTextBox.Text = ratings["weight_scalar"].ToString("F3");
             MalusDragScalarTextBox.Text = ratings["drag_scalar"].ToString("F3");
             MalusPowerScalarTextBox.Text = ratings["power_scalar"].ToString("F3");
-            MalusVeichleReliabilityTextBox.Text = ratings["vehicle_reliability"].ToString("F3");
+            if (ratings.TryGetValue("vehicle_reliability", out var reliability))
+            {
+                MalusVeichleReliabilityTextBox.Text = reliability.ToString("F3");
+            }
+            else
+            {
+                MessageBox.Show($"No reliability range is known for the AMS2 class '{_ams2Class}', so the vehicle reliability was left as it is.",
+                    "Reliability Not Generated", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private bool ValidateInput()

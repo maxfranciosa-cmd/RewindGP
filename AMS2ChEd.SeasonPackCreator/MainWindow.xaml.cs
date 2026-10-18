@@ -878,7 +878,7 @@ namespace AMS2ChEd.SeasonPackEditor
 
         private void AddTeam_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new TeamEditorDialog(_currentProject.Drivers);
+            var dialog = new TeamEditorDialog(_currentProject.Drivers, _currentProject.Season.Year, _currentProject.Season.Ams2Class);
             if (dialog.ShowDialog() == true)
             {
                 var teams = _currentProject.Season.Teams.ToList();
@@ -892,7 +892,7 @@ namespace AMS2ChEd.SeasonPackEditor
         {
             if (TeamsDataGrid.SelectedItem is Ams2TeamEntry selectedTeam)
             {
-                var dialog = new TeamEditorDialog(_currentProject.Drivers, selectedTeam);
+                var dialog = new TeamEditorDialog(_currentProject.Drivers, _currentProject.Season.Year, _currentProject.Season.Ams2Class, selectedTeam);
                 if (dialog.ShowDialog() == true)
                 {
                     RefreshUI();
@@ -1034,14 +1034,17 @@ namespace AMS2ChEd.SeasonPackEditor
                     baseRelativeStrength = baseline.PowerToWeight / fieldAveragePowerToWeight;
                 }
 
-                team.Ams2CarPerformanceMalus = DriverPerformanceGenerator.Generate(target.Score, baseRelativeStrength);
+                team.Ams2CarPerformanceMalus = DriverPerformanceGenerator.Generate(target.Score, _currentProject.Season.Ams2Class, year, baseRelativeStrength);
                 updatedCount++;
 
+                var reliabilityText = team.Ams2CarPerformanceMalus.TryGetValue("vehicle_reliability", out var reliability)
+                    ? $"{reliability:F3}"
+                    : $"not set (no reliability range known for class '{_currentProject.Season.Ams2Class}')";
                 summaryLines.Add($"{team.TeamName}: P{target.Position}, {target.Points:0} pts -> " +
                     $"power {team.Ams2CarPerformanceMalus["power_scalar"]:F3}, " +
                     $"weight {team.Ams2CarPerformanceMalus["weight_scalar"]:F3}, " +
                     $"drag {team.Ams2CarPerformanceMalus["drag_scalar"]:F3}, " +
-                    $"reliability {team.Ams2CarPerformanceMalus["weichle_reliability"]:F3}");
+                    $"reliability {reliabilityText}");
             }
 
             RefreshUI();

@@ -47,47 +47,87 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             [DriverReputation.AGEING_CHAMPIONSHIP_LEVEL] = new() { Min = 0.965, Max = 0.985 }
         };
 
-        public static Dictionary<string, double> Generate(TeamReputation reputation)
+        /// <summary>
+        /// Generates power/weight/drag scalars from a hand-picked TeamReputation bucket, and the
+        /// car's reliability for the season's <paramref name="ams2Class"/> and <paramref name="year"/>
+        /// (left out when the class's reliability range isn't known).
+        /// </summary>
+        public static Dictionary<string, double> Generate(TeamReputation reputation, string ams2Class, int year)
         {
             double t = _random.NextDouble();
 
-            var (weightMin, weightMax, powerMin, powerMax, dragMin, dragMax, veichle_reliability) = reputation switch
+            var (weightMin, weightMax, powerMin, powerMax, dragMin, dragMax, competitivenessScore) = reputation switch
             {
-                TeamReputation.TOP_TEAM => (0.988, 0.996, 1.004, 1.012, 0.988, 0.996, 0.5),
-                TeamReputation.MIDFIELD_HIGH => (1.000, 1.005, 0.995, 1.000, 1.000, 1.005, 0.4),
-                TeamReputation.MIDFIELD => (1.007, 1.013, 0.984, 0.991, 1.007, 1.013, 0.3),
-                TeamReputation.MINNOW => (1.016, 1.022, 0.972, 0.980, 1.016, 1.022, 0.3),
-                TeamReputation.SUPER_MINNOW => (1.026, 1.035, 0.958, 0.968, 1.026, 1.035, 0.2),
-                _ => (1.026, 1.035, 0.958, 0.968, 1.026, 1.035, 0.2)
+                TeamReputation.TOP_TEAM => (0.988, 0.996, 1.004, 1.012, 0.988, 0.996, 1.0),
+                TeamReputation.MIDFIELD_HIGH => (1.000, 1.005, 0.995, 1.000, 1.000, 1.005, 0.75),
+                TeamReputation.MIDFIELD => (1.007, 1.013, 0.984, 0.991, 1.007, 1.013, 0.5),
+                TeamReputation.MINNOW => (1.016, 1.022, 0.972, 0.980, 1.016, 1.022, 0.25),
+                TeamReputation.SUPER_MINNOW => (1.026, 1.035, 0.958, 0.968, 1.026, 1.035, 0.0),
+                _ => (1.026, 1.035, 0.958, 0.968, 1.026, 1.035, 0.0)
             };
 
-            return new Dictionary<string, double>
+            var malus = new Dictionary<string, double>
             {
                 ["weight_scalar"] = -Lerp(weightMin, weightMax, t),
                 ["power_scalar"] = -Lerp(powerMax, powerMin, t),  // inverted: higher t = weaker car
-                ["drag_scalar"] = -Lerp(dragMin, dragMax, t),
-                ["vehicle_reliability"] = -veichle_reliability
+                ["drag_scalar"] = -Lerp(dragMin, dragMax, t)
             };
+
+            var reliability = GenerateReliability(competitivenessScore, ams2Class, year);
+            if (reliability.HasValue)
+                malus["vehicle_reliability"] = reliability.Value;
+
+            return malus;
+        }
+
+        // Chance of a mechanical failure over a full Grand Prix for the best and the worst team
+        // of an era - rough historical figures, turned into each AMS2 class's own reliability
+        // ratio, as the same ratio means very different minutes from one class to another.
+        private const double FullRaceMinutes = 90;
+
+        private static (double Best, double Worst) FailureChancesForYear(int year) => year switch
+        {
+            < 1990 => (0.15, 0.45),
+            < 2000 => (0.10, 0.35),
+            < 2010 => (0.07, 0.25),
+            _ => (0.03, 0.12)
+        };
+
+        /// <summary>
+        /// The vehicle_reliability malus for a 0 (last place) - 1 (champion) competitiveness score,
+        /// on the season's AMS2 class. Null when that class's reliability range isn't known.
+        /// </summary>
+        public static double? GenerateReliability(double competitivenessScore, string ams2Class, int year)
+        {
+            if (!Ams2ReliabilityRanges.TryGetRange(ams2Class, out var range))
+                return null;
+
+            var (best, worst) = FailureChancesForYear(year);
+            double failureChance = Lerp(best, worst, Clamp(1.0 - competitivenessScore));
+            double mtbf = Ams2ReliabilityRanges.MtbfForFailureChance(failureChance, FullRaceMinutes);
+
+            // stored as a malus, i.e. with its sign flipped, like the scalars
+            return -Math.Round(Ams2ReliabilityRanges.ToRatio(range, mtbf), 3);
         }
 
         private static double Lerp(double a, double b, double t) => a + (b - a) * t;
 
         /// <summary>
-        /// Clamps a corrected power_scalar to the same safety envelope <see cref="Generate(double, double)"/>
+        /// Clamps a corrected power_scalar to the same safety envelope <see cref="Generate(double, string, int, double)"/>
         /// already enforces, for callers (e.g. in-sim calibration) that adjust an existing scalar
         /// directly instead of generating one from scratch.
         /// </summary>
         public static double ClampPowerScalar(double value) => Math.Clamp(value, -PowerSafetyBest, -PowerSafetyWorst);
 
         /// <summary>
-        /// Clamps a corrected weight_scalar to the same safety envelope <see cref="Generate(double, double)"/>
+        /// Clamps a corrected weight_scalar to the same safety envelope <see cref="Generate(double, string, int, double)"/>
         /// already enforces, for callers (e.g. in-sim calibration) that adjust an existing scalar
         /// directly instead of generating one from scratch.
         /// </summary>
         public static double ClampWeightScalar(double value) => Math.Clamp(value, -WeightSafetyWorst, -WeightSafetyBest);
 
         // Overall envelope spanned by the TOP_TEAM...SUPER_MINNOW buckets above - the continuous
-        // Generate(double, double) overload interpolates across this same range instead of picking
+        // Generate(double, string, int, double) overload interpolates across this same range instead of picking
         // one of the 5 discrete buckets.
         private const double PowerBest = 1.030;
         private const double PowerWorst = 0.970;
@@ -95,8 +135,6 @@ namespace AMS2ChEd.SeasonPackEditor.Services
         private const double WeightWorst = 1.030;
         private const double DragBest = 0.970;
         private const double DragWorst = 1.030;
-        private const double ReliabilityBest = 0.5;
-        private const double ReliabilityWorst = 0.2;
 
         // The envelope width this system was originally tuned at (+-10%, i.e. PowerBest-PowerWorst
         // = 0.200 back when those constants were 1.100/0.900). baseRelativeStrength correction below
@@ -110,7 +148,7 @@ namespace AMS2ChEd.SeasonPackEditor.Services
         private static double CorrectionDamping => (PowerBest - PowerWorst) / ReferenceEnvelopeSpan;
 
         // Safety bounds applied only after the baseRelativeStrength correction, so that correcting
-        // for a team's assigned AMS2 car (see Generate(double, double) below) has headroom beyond
+        // for a team's assigned AMS2 car (see Generate(double, string, int, double) below) has headroom beyond
         // the score-only envelope above. They are the range AMS2 accepts: a corrected value beyond
         // it would be ignored in game (raced at 1.0), so there's no real headroom past it.
         private const double PowerSafetyBest = Ams2AiRatingLimits.ScalarMax;
@@ -143,8 +181,10 @@ namespace AMS2ChEd.SeasonPackEditor.Services
         /// directions for "worse" (power down, weight up), so a car that's already stronger than
         /// average needs power divided and weight multiplied by the same factor to end up equally
         /// less favorable in both. Drag is not baseline-corrected (no drag baseline is collected).
+        /// Reliability is for the season's <paramref name="ams2Class"/> and <paramref name="year"/>,
+        /// see <see cref="GenerateReliability"/>, and left out when the class's range isn't known.
         /// </summary>
-        public static Dictionary<string, double> Generate(double competitivenessScore, double baseRelativeStrength = 1.0)
+        public static Dictionary<string, double> Generate(double competitivenessScore, string ams2Class, int year, double baseRelativeStrength = 1.0)
         {
             double weakness = Clamp(1.0 - competitivenessScore);
             double dampedRelativeStrength = 1.0 + (baseRelativeStrength - 1.0) * CorrectionDamping;
@@ -152,15 +192,19 @@ namespace AMS2ChEd.SeasonPackEditor.Services
             double power = Math.Clamp(-Lerp(PowerBest, PowerWorst, weakness) / dampedRelativeStrength, -PowerSafetyBest, -PowerSafetyWorst);
             double weight = Math.Clamp(-Lerp(WeightBest, WeightWorst, weakness) * dampedRelativeStrength, -WeightSafetyWorst, -WeightSafetyBest);
             double drag = -Lerp(DragBest, DragWorst, weakness);
-            double reliability = -Lerp(ReliabilityBest, ReliabilityWorst, weakness);
 
-            return new Dictionary<string, double>
+            var malus = new Dictionary<string, double>
             {
                 ["weight_scalar"] = Convert.ToDouble(weight.ToString("N3")),
                 ["power_scalar"] = Convert.ToDouble(power.ToString("N3")),
-                ["drag_scalar"] = Convert.ToDouble(drag.ToString("N3")),
-                ["vehicle_reliability"] = Convert.ToDouble(reliability.ToString("N3"))
+                ["drag_scalar"] = Convert.ToDouble(drag.ToString("N3"))
             };
+
+            var reliability = GenerateReliability(competitivenessScore, ams2Class, year);
+            if (reliability.HasValue)
+                malus["vehicle_reliability"] = reliability.Value;
+
+            return malus;
         }
 
         public static Dictionary<string, double> Generate(DriverReputation reputation)
