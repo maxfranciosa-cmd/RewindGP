@@ -181,13 +181,18 @@ namespace AMS2ChEd.Business.Services
                     return DriverHirer.GetFitWeight(fit);
                 };
 
-                var bestCandidateResume = availableCandidates
+                // Drivers the team excluded (an exiting driver not willing to renew) only come into
+                // play when nobody else applied. Among the rest the best fit tier wins, and inside
+                // it the pick is weighted by reputation (DriverHirer.PickWeightedByReputation).
+                var bestTier = availableCandidates
+                                            .GroupBy(x => ballot.OriginalTeamHiring.ExcludeDriverIds?.Contains(x.DriverId) == true)
+                                            .OrderBy(g => g.Key)
+                                            .First()
                                             .GroupBy(x => weightFit(x.DriverReputation))
                                             .OrderByDescending(g => g.Key)
-                                            .SelectMany(g => g.OrderBy(x => rnd.Next()))
-                                            .Select(g => new DriverResume { Id = g.DriverId, Reputation = g.DriverReputation })
-                                            .OrderBy(d => ballot.OriginalTeamHiring.ExcludeDriverIds?.Contains(d.Id))
                                             .First();
+                var bestCandidate = DriverHirer.PickWeightedByReputation(bestTier, x => x.DriverReputation, rnd);
+                var bestCandidateResume = new DriverResume { Id = bestCandidate.DriverId, Reputation = bestCandidate.DriverReputation };
 
                 var originalHireResume = ballot.OriginalTeamHiring == null || ballot.OriginalTeamHiring.DriverId == null ? null : new DriverResume { Id = ballot.OriginalTeamHiring.DriverId, Reputation = ballot.OriginalTeamHiring.DriverReputation };
 

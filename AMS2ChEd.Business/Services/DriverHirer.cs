@@ -37,9 +37,12 @@ namespace AMS2ChEd.Business.Services
             { 
                 TeamReputation.TOP_TEAM, new()
                 {
-                    { DriverRole.FIRST_DRIVER, new[] { 
+                    { DriverRole.FIRST_DRIVER, new[] {
                                                         Tuple.Create(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, DriverPolicyFit.PerfectFit),
                                                         Tuple.Create(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, DriverPolicyFit.PerfectFit),
+                                                        // a champion past 31 (e.g. a title won at 39) still leads a top team; left out,
+                                                        // they fell below the list's best entry and counted as UnderQualified
+                                                        Tuple.Create(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL, DriverPolicyFit.PerfectFit),
                                                         Tuple.Create(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN, DriverPolicyFit.GoodFit),
                                                      } 
                     },
@@ -228,17 +231,52 @@ namespace AMS2ChEd.Business.Services
             if (drivers == null)
                 return null;
 
-            var rnd = new Random();
-            // Group by fit tier (not exact reputation) so every driver within the same tier -
-            // e.g. all PerfectFit reputations for this role/team - has an equal chance of being picked,
-            // rather than always defaulting to whichever has the highest reputation value.
-            var result = drivers
+            // The best fit tier for this role/team wins; inside it every driver has a chance,
+            // weighted by reputation (see PickWeightedByReputation).
+            var bestTier = drivers
                     .GroupBy(d => GetFitWeight(DoesDriverFitTeamPolicy(d.Reputation, role, teamReputation)))
                     .OrderByDescending(g => g.Key)
-                    .SelectMany(g => g.OrderBy(x => rnd.Next()))
                     .FirstOrDefault();
 
-            return result;
+            return bestTier == null ? null : PickWeightedByReputation(bestTier, d => d.Reputation, new Random());
+        }
+
+        // A driver's standing for the weighted draw below. DriverReputation's enum order is a
+        // prestige ranking with uneven steps (AGEING_STRONG_MIDFIELD and JUST_ONE_LAST_DANCE sit
+        // between PRIME_MIDFIELD and PRIME_STRONG_MIDFIELD), so the draw uses these levels instead.
+        public static int ReputationScore(DriverReputation reputation) => reputation switch
+        {
+            DriverReputation.PAY_DRIVER_WILD_CARD => 1,
+            DriverReputation.PAY_DRIVER_SEASON => 2,
+            DriverReputation.AGEING_MIDFIELD or DriverReputation.YOUNG_TALENT or DriverReputation.PRIME_MIDFIELD => 3,
+            DriverReputation.AGEING_STRONG_MIDFIELD or DriverReputation.PRIME_STRONG_MIDFIELD or DriverReputation.JUST_ONE_LAST_DANCE => 4,
+            DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED or DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED
+                or DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN or DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN => 5,
+            _ => 6 // AGEING_, PRIME_ and YOUNG_CHAMPIONSHIP_LEVEL
+        };
+
+        /// <summary>
+        /// Picks one driver from candidates that fit the seat equally well, at random but weighted
+        /// by reputation: each has 2^score tickets (see ReputationScore), so one level of standing
+        /// doubles a driver's chance. A slightly weaker driver can still land the seat (one level
+        /// down: 1 in 3 against a single rival), a much weaker one rarely does, and drivers of the
+        /// same standing are equally likely.
+        /// </summary>
+        public static T PickWeightedByReputation<T>(IEnumerable<T> candidates, Func<T, DriverReputation> reputationOf, Random random)
+        {
+            var list = candidates.ToList();
+            if (list.Count == 0)
+                return default;
+
+            var weights = list.Select(c => Math.Pow(2, ReputationScore(reputationOf(c)))).ToList();
+            double ticket = random.NextDouble() * weights.Sum();
+            for (int i = 0; i < list.Count; i++)
+            {
+                ticket -= weights[i];
+                if (ticket < 0)
+                    return list[i];
+            }
+            return list[^1];
         }
 
         public static int GetFitWeight(DriverPolicyFit fit)
