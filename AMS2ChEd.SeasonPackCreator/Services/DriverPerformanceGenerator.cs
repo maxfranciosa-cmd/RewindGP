@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.Models.Concrete;
+﻿using Ams2ChEd.Business.AMS2.Helpers;
+using AMS2ChEd.Business.Models.Concrete;
 using System;
 using System.Collections.Generic;
 
@@ -108,14 +109,14 @@ namespace AMS2ChEd.SeasonPackEditor.Services
         private const double ReferenceEnvelopeSpan = 0.200;
         private static double CorrectionDamping => (PowerBest - PowerWorst) / ReferenceEnvelopeSpan;
 
-        // Wider safety bounds applied only after the baseRelativeStrength correction, so that
-        // correcting for a team's assigned AMS2 car (see Generate(double, double) below) has
-        // headroom to actually take effect instead of being clamped straight back into the same
-        // +-10% envelope used for the uncorrected score-only value.
-        private const double PowerSafetyBest = 1.20;
-        private const double PowerSafetyWorst = 0.80;
-        private const double WeightSafetyBest = 0.80;
-        private const double WeightSafetyWorst = 1.20;
+        // Safety bounds applied only after the baseRelativeStrength correction, so that correcting
+        // for a team's assigned AMS2 car (see Generate(double, double) below) has headroom beyond
+        // the score-only envelope above. They are the range AMS2 accepts: a corrected value beyond
+        // it would be ignored in game (raced at 1.0), so there's no real headroom past it.
+        private const double PowerSafetyBest = Ams2AiRatingLimits.ScalarMax;
+        private const double PowerSafetyWorst = Ams2AiRatingLimits.ScalarMin;
+        private const double WeightSafetyBest = Ams2AiRatingLimits.ScalarMin;
+        private const double WeightSafetyWorst = Ams2AiRatingLimits.ScalarMax;
 
         /// <summary>
         /// Normalizes a team's actual championship points into a 0 (last place) - 1 (champion)

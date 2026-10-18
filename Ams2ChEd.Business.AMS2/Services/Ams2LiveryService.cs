@@ -1074,8 +1074,6 @@ namespace Ams2ChEd.Business.AMS2.Services
             string driverName;
             string nationality;
             Dictionary<string, double> ratings;
-            var scalarRatings = new string[] { "power_scalar", "weight_scalar", "drag_scalar" };
-            var carSpecificRatings = new string[] { "power_scalar", "weight_scalar", "drag_scalar", "vehicle_reliability" };
             // Use AI driver data with team performance malus
             if (!driversDict.TryGetValue(driverId, out var driver)) return;
 
@@ -1109,57 +1107,56 @@ namespace Ams2ChEd.Business.AMS2.Services
             {
                 ratings = new Dictionary<string, double>(driver.RatingValues);
                 //remove vehicle-specific scalars and vehicle_reliability as it's purely set up via the team performance malus
-                foreach(var scalar in carSpecificRatings)
+                foreach (var key in Ams2AiRatingLimits.CarKeys)
                 {
-                    ratings.Remove(scalar);
+                    ratings.Remove(key);
                 }
             }
 
             // Apply team performance malus if exists (driver-2-specific car malus if defined)
             var carPerformanceMalus = team.GetAms2CarPerformanceMalus(driverNumber);
-            foreach (var malusKvp in carPerformanceMalus)
+            foreach (var (ratingName, malus) in carPerformanceMalus)
             {
-                string ratingName = malusKvp.Key;
-                double malus = malusKvp.Value;
+                // a scalar malus of 0 is a field left unset (the team editor's default), not a scalar of 0
+                if (Ams2AiRatingLimits.IsScalar(ratingName) && malus == 0) continue;
 
-                double baseValue = 0;
-                
-                if (ratings.ContainsKey(ratingName))
-                {
-                    baseValue = ratings[ratingName];
-                }
-
-                double adjustedValue = Math.Max(0.0, baseValue - malus);
-                ratings[ratingName] = adjustedValue;
+                double baseValue = ratings.TryGetValue(ratingName, out var currentValue) ? currentValue : 0;
+                ratings[ratingName] = Math.Max(0.0, baseValue - malus);
             }
 
-            // Apply the team's improvement packages on top of the malus-adjusted values, before the
-            // variation below, so the upgraded value becomes the car's new baseline. A scalar the
-            // team doesn't otherwise export starts from the neutral 1.0.
+            // Apply the team's improvement packages on top of the malus-adjusted values, so the
+            // upgraded value becomes the car's new baseline. A scalar the team doesn't otherwise
+            // export starts from the neutral 1.0.
             if (team.ImprovementPackages != null)
             {
                 foreach (var packageValue in team.ImprovementPackages.Where(p => p.Values != null).SelectMany(p => p.Values))
                 {
                     double baseValue = ratings.TryGetValue(packageValue.Key, out var currentValue) ? currentValue : 1.0;
-                    ratings[packageValue.Key] = Math.Max(0.9, Math.Min(1.1, baseValue + packageValue.Value));
+                    ratings[packageValue.Key] = baseValue + packageValue.Value;
                 }
             }
 
-            // add variation to each rating to avoid AI drivers being too similar
-            // (power_scalar, weight_scalar, drag_scalar are team-level scalars, so they have different bounds)
+            // add variation to the driver's ratings to avoid AI drivers being too similar; the car's
+            // values are left alone so both cars of a team (and the player's) stay the car the season
+            // pack calibrated
             if (aiRatingsVariation)
             {
-                var random = new Random();
-                foreach (var ratingKey in ratings.Keys)
+                foreach (var ratingKey in ratings.Keys.Except(Ams2AiRatingLimits.CarKeys).ToList())
                 {
-                    var isScalarRating = scalarRatings.Contains(ratingKey);
-                    var variation = Random.Shared.Next(-50, 51) / 1000.0; ; // -5% to +5% variation
-                    var min = isScalarRating ? 0.9 : 0.0;
-                    var max = isScalarRating ? 1.1 : 1.0;
-                    ratings[ratingKey] = Math.Max(min, Math.Min(max, ratings[ratingKey] + Math.Round(variation, 3)));
+                    var variation = Random.Shared.Next(-50, 51) / 1000.0; // -5% to +5% variation
+                    ratings[ratingKey] += Math.Round(variation, 3);
                 }
             }
-            
+
+            // clamp everything to the range AMS2 accepts - out of range, the game ignores the value
+            foreach (var ratingKey in ratings.Keys.ToList())
+            {
+                double clamped = Ams2AiRatingLimits.Clamp(ratingKey, ratings[ratingKey]);
+                if (clamped != ratings[ratingKey])
+                    Console.WriteLine($"  {driverName}: {ratingKey} {ratings[ratingKey]:0.###} clamped to {clamped:0.###}");
+                ratings[ratingKey] = clamped;
+            }
+
             
             // Create driver element
             string liveryName = $"#{driverNumber} {team.TeamName} - {driverName}";
