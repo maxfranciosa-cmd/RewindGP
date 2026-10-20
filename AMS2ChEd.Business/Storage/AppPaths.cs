@@ -43,6 +43,14 @@ namespace AMS2ChEd.Business.Storage
             }
         }
 
+        /// <summary>
+        /// Downloaded copies of the pictures season packs link to by URL (driver photos, race
+        /// covers), so each is fetched once - see RemoteImageCache. Outside the app folder, so it
+        /// survives updates and reinstalls.
+        /// </summary>
+        public static string ImageCacheFolder =>
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RewindGP", "ImageCache");
+
         private static string _currentVersionCheckPath = null;
         public static string CurrentVersionCheckPath
         {
