@@ -1,5 +1,6 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services.Contracts;
@@ -48,8 +49,12 @@ namespace AMS2ChEd.Business.Services
             public bool IsNewTeam { get; set; }
             public bool IsQuitting { get; set; }
 
-            // the outlook of each seat, gathered over the replays
-            public SeatTally[] Tallies { get; } = new SeatTally[2];
+            // this season's reserve, who has first refusal on an opening race seat
+            public int Reserve { get; set; } = NoDriver;
+            public bool IsPlayerReserve { get; set; }
+
+            // the outlook of each seat, gathered over the replays: index 2 is the reserve seat
+            public SeatTally[] Tallies { get; } = new SeatTally[3];
         }
 
         // a seat open in one replay
@@ -60,6 +65,7 @@ namespace AMS2ChEd.Business.Services
             public DriverRole Role { get; set; }
             public int ExcludedDriver { get; set; } = NoDriver;
             public int ProvisionalPick { get; set; } = NoDriver;
+            public bool IsReserve => Slot == TeamHiring.ReserveSlot;
         }
 
         private class SeatTally
@@ -82,10 +88,18 @@ namespace AMS2ChEd.Business.Services
         private double[] _tickets;
         private TeamReputation[] _minAmbition;
         private TeamReputation[] _maxAmbition;
+        private TeamReputation[] _minReserveAmbition;
+        private TeamReputation[] _maxReserveAmbition;
         private int _player;
 
         // DriverHirer's fit weight of each [driver reputation, role, team reputation]
         private int[,,] _fitWeights;
+
+        // whether each [driver reputation, role, team reputation] is a PerfectFit (a reserve's promotion)
+        private bool[,,] _perfectFits;
+
+        // DriverHirer's reserve fit weight of each [driver reputation, team reputation]
+        private int[,] _reserveFitWeights;
 
         public MarketOutlookEstimator(IEndOfSeasonManager endOfSeasonManager, DriverFirer driverFirer, DriverHirer driverHirer)
         {
@@ -114,16 +128,27 @@ namespace AMS2ChEd.Business.Services
             _tickets = _reputations.Select(r => Math.Pow(2, DriverHirer.ReputationScore(r))).ToArray();
             _minAmbition = _reputations.Select(r => OffSeasonMovements.driverAmbitions[r].MinReputation).ToArray();
             _maxAmbition = _reputations.Select(r => OffSeasonMovements.driverAmbitions[r].MaxReputation).ToArray();
+            _minReserveAmbition = _reputations.Select(r => OffSeasonMovements.reserveAmbitions[r].MinReputation).ToArray();
+            _maxReserveAmbition = _reputations.Select(r => OffSeasonMovements.reserveAmbitions[r].MaxReputation).ToArray();
             _player = _driverIds.IndexOf(saveGame.PlayerData.DriverId);
 
             var driverReputations = Enum.GetValues<DriverReputation>();
             var roles = Enum.GetValues<DriverRole>();
             var teamReputations = Enum.GetValues<TeamReputation>();
             _fitWeights = new int[driverReputations.Length, roles.Length, teamReputations.Length];
+            _perfectFits = new bool[driverReputations.Length, roles.Length, teamReputations.Length];
+            _reserveFitWeights = new int[driverReputations.Length, teamReputations.Length];
             foreach (var driverReputation in driverReputations)
-                foreach (var role in roles)
-                    foreach (var teamReputation in teamReputations)
-                        _fitWeights[(int)driverReputation, (int)role, (int)teamReputation] = DriverHirer.GetFitWeight(_driverHirer.DoesDriverFitTeamPolicy(driverReputation, role, teamReputation));
+                foreach (var teamReputation in teamReputations)
+                {
+                    _reserveFitWeights[(int)driverReputation, (int)teamReputation] = DriverHirer.GetFitWeight(_driverHirer.DoesDriverFitReservePolicy(driverReputation, teamReputation));
+                    foreach (var role in roles)
+                    {
+                        var fit = _driverHirer.DoesDriverFitTeamPolicy(driverReputation, role, teamReputation);
+                        _fitWeights[(int)driverReputation, (int)role, (int)teamReputation] = DriverHirer.GetFitWeight(fit);
+                        _perfectFits[(int)driverReputation, (int)role, (int)teamReputation] = fit == DriverHirer.DriverPolicyFit.PerfectFit;
+                    }
+                }
 
             var outlook = new MarketOutlook { PlayerReputation = _reputations[_player] };
             var teams = PlanTeams(saveGame, nextSeason, outlook);
@@ -138,7 +163,7 @@ namespace AMS2ChEd.Business.Services
             }
 
             outlook.Seats = teams
-                .SelectMany(t => Enumerable.Range(0, 2).Where(i => t.Tallies[i]?.Opened > 0).Select(i => ToSeatOutlook(t, i)))
+                .SelectMany(t => Enumerable.Range(0, 3).Where(i => t.Tallies[i]?.Opened > 0).Select(i => ToSeatOutlook(t, i)))
                 .OrderByDescending(s => s.Chance)
                 .ThenByDescending(s => s.TeamReputation)
                 .ToList();
@@ -200,6 +225,13 @@ namespace AMS2ChEd.Business.Services
                     };
                 }
 
+                var reserveId = team.ReserveDriverId();
+                if (reserveId != null && driverIndexes.TryGetValue(reserveId, out var reserve))
+                {
+                    plan.Reserve = reserve;
+                    plan.IsPlayerReserve = reserve == _player;
+                }
+
                 result.Add(plan);
             }
 
@@ -215,13 +247,19 @@ namespace AMS2ChEd.Business.Services
         {
             var free = new List<int>(unemployed);
             var openSeats = new List<OpenSeat>();
+            var reserveSeats = new List<OpenSeat>();
 
             foreach (var team in teams)
             {
+                // whether the team runs a reserve next season (EndOfSeasonManager.RollReserveWishes)
+                var wantsReserve = !team.IsQuitting && random.NextDouble() < EndOfSeasonManager.ReserveChance(team.Reputation);
+
                 if (team.IsNewTeam)
                 {
                     openSeats.Add(new OpenSeat { Team = team, Slot = 1, Role = DriverRole.FIRST_DRIVER });
                     openSeats.Add(new OpenSeat { Team = team, Slot = 2, Role = DriverRole.SECOND_DRIVER });
+                    if (wantsReserve)
+                        reserveSeats.Add(new OpenSeat { Team = team, Slot = TeamHiring.ReserveSlot, Role = DriverRole.SECOND_DRIVER });
                     continue;
                 }
 
@@ -258,6 +296,8 @@ namespace AMS2ChEd.Business.Services
 
                 // with both seats open the team looks for a leader and a wingman; with only one, for
                 // whatever complements the driver who's staying
+                var playerPromoted = false;
+                var reservePromoted = false;
                 for (int i = 0; i < 2; i++)
                 {
                     if (!open[i])
@@ -267,23 +307,50 @@ namespace AMS2ChEd.Business.Services
                     var role = other == null || open[1 - i]
                         ? (i == 0 ? DriverRole.FIRST_DRIVER : DriverRole.SECOND_DRIVER)
                         : DriverHirer.GetRoleToHireAlongside(other.ContractRole, _reputations[other.Driver], team.Reputation);
-                    openSeats.Add(new OpenSeat { Team = team, Slot = i + 1, Role = role, ExcludedDriver = excluded[i] });
+                    var openSeat = new OpenSeat { Team = team, Slot = i + 1, Role = role, ExcludedDriver = excluded[i] };
+
+                    // first refusal: the team's reserve takes the seat when they're a PerfectFit for it
+                    // (EndOfSeasonManager.TeamPicksPotentialReplacementsDrivers); the player as reserve
+                    // would be offered it
+                    if (!reservePromoted && team.Reserve != NoDriver && IsPerfectFit(team.Reserve, role, team.Reputation))
+                    {
+                        reservePromoted = true;
+                        if (team.IsPlayerReserve)
+                        {
+                            playerPromoted = true;
+                            TallyCertain(openSeat);
+                        }
+                        else
+                        {
+                            free.Remove(team.Reserve);
+                        }
+                        continue;
+                    }
+
+                    openSeats.Add(openSeat);
+                }
+
+                if (wantsReserve)
+                {
+                    var reserveSeat = new OpenSeat { Team = team, Slot = TeamHiring.ReserveSlot, Role = DriverRole.SECOND_DRIVER };
+                    // a player who is the team's reserve is offered to stay on
+                    if (team.IsPlayerReserve && !playerPromoted)
+                        TallyCertain(reserveSeat);
+                    else
+                        reserveSeats.Add(reserveSeat);
                 }
             }
 
             // best teams first, teams of the same standing in random order (OffSeasonMovements.PickPotentialNewDrivers);
-            // the final ballots keep that order
-            var order = openSeats
-                .GroupBy(s => s.Team.Reputation)
-                .OrderByDescending(g => g.Key)
-                .SelectMany(g => g.OrderBy(_ => random.Next()))
-                .ToList();
+            // the final ballots keep that order. The reserve seats come after every race seat
+            var order = InPickingOrder(openSeats, random);
+            var reserveOrder = InPickingOrder(reserveSeats, random);
 
             // provisional picks: a player leaving their team is free too, so a team may pick them
             var pool = new List<int>(free) { _player };
-            foreach (var seat in order)
+            foreach (var seat in order.Concat(reserveOrder))
             {
-                var candidates = pool.Where(d => d != seat.ExcludedDriver && _minAmbition[d] <= seat.Team.Reputation).ToList();
+                var candidates = pool.Where(d => d != seat.ExcludedDriver && MinAmbition(d, seat) <= seat.Team.Reputation).ToList();
                 if (candidates.Count == 0)
                     continue;
 
@@ -292,11 +359,12 @@ namespace AMS2ChEd.Business.Services
             }
 
             // final ballots: every free driver applies to the teams within their ambition. The player
-            // is weighed at each seat as if they applied there alone, then left out of it
+            // is weighed at each seat as if they applied there alone, then left out of it. Reserve
+            // ballots run among the drivers still without a race seat
             var hired = new bool[_driverIds.Count];
-            foreach (var seat in order)
+            foreach (var seat in order.Concat(reserveOrder))
             {
-                var candidates = free.Where(d => !hired[d] && WithinAmbition(d, seat.Team.Reputation)).ToList();
+                var candidates = free.Where(d => !hired[d] && WithinAmbition(d, seat)).ToList();
                 Tally(seat, candidates, hired);
 
                 // the player not applying here: a seat that picked them has no pick
@@ -307,13 +375,40 @@ namespace AMS2ChEd.Business.Services
             }
         }
 
-        private bool WithinAmbition(int driver, TeamReputation teamReputation) =>
-            _minAmbition[driver] <= teamReputation && teamReputation <= _maxAmbition[driver];
+        private static List<OpenSeat> InPickingOrder(List<OpenSeat> seats, Random random) => seats
+            .GroupBy(s => s.Team.Reputation)
+            .OrderByDescending(g => g.Key)
+            .SelectMany(g => g.OrderBy(_ => random.Next()))
+            .ToList();
+
+        private TeamReputation MinAmbition(int driver, OpenSeat seat) =>
+            seat.IsReserve ? _minReserveAmbition[driver] : _minAmbition[driver];
+
+        private bool WithinAmbition(int driver, OpenSeat seat) => seat.IsReserve
+            ? _minReserveAmbition[driver] <= seat.Team.Reputation && seat.Team.Reputation <= _maxReserveAmbition[driver]
+            : _minAmbition[driver] <= seat.Team.Reputation && seat.Team.Reputation <= _maxAmbition[driver];
+
+        private bool IsPerfectFit(int driver, DriverRole role, TeamReputation teamReputation) =>
+            _perfectFits[(int)_reputations[driver], (int)role, (int)teamReputation];
 
         private int FitWeight(int driver, DriverRole role, TeamReputation teamReputation) =>
             _fitWeights[(int)_reputations[driver], (int)role, (int)teamReputation];
 
-        private int FitWeight(int driver, OpenSeat seat) => FitWeight(driver, seat.Role, seat.Team.Reputation);
+        private int ReserveFitWeight(int driver, TeamReputation teamReputation) =>
+            _reserveFitWeights[(int)_reputations[driver], (int)teamReputation];
+
+        private int FitWeight(int driver, OpenSeat seat) => seat.IsReserve
+            ? ReserveFitWeight(driver, seat.Team.Reputation)
+            : FitWeight(driver, seat.Role, seat.Team.Reputation);
+
+        // a seat already the player's in this replay: a reserve's promotion, or staying on as reserve
+        private void TallyCertain(OpenSeat seat)
+        {
+            var tally = seat.Team.Tallies[seat.Slot - 1] ??= new SeatTally { FreeCounts = new int[_driverIds.Count] };
+            tally.Opened++;
+            tally.RoleCounts[(int)seat.Role]++;
+            tally.PlayerWins += 1;
+        }
 
         private List<int> BestFitTier(List<int> candidates, OpenSeat seat)
         {
@@ -381,7 +476,7 @@ namespace AMS2ChEd.Business.Services
         private void Tally(OpenSeat seat, List<int> candidates, bool[] hired)
         {
             var index = seat.Slot - 1;
-            if (seat.Team.Seats[index]?.IsPlayer == true)
+            if (index < seat.Team.Seats.Length && seat.Team.Seats[index]?.IsPlayer == true)
                 return;
 
             var tally = seat.Team.Tallies[index] ??= new SeatTally { FreeCounts = new int[_driverIds.Count] };
@@ -428,27 +523,31 @@ namespace AMS2ChEd.Business.Services
         private SeatOutlook ToSeatOutlook(TeamPlan team, int index)
         {
             var tally = team.Tallies[index];
+            var isReserve = index + 1 == TeamHiring.ReserveSlot;
             var role = tally.RoleCounts[(int)DriverRole.FIRST_DRIVER] >= tally.RoleCounts[(int)DriverRole.SECOND_DRIVER] ? DriverRole.FIRST_DRIVER : DriverRole.SECOND_DRIVER;
-            var playerFit = FitWeight(_player, role, team.Reputation);
+            int Fit(int driver) => isReserve ? ReserveFitWeight(driver, team.Reputation) : FitWeight(driver, role, team.Reputation);
+            var playerFit = Fit(_player);
 
             List<string> Named(Func<int, bool> tier) => Enumerable.Range(0, _driverIds.Count)
-                .Where(d => tally.FreeCounts[d] >= RivalShownChance * tally.Opened && tier(FitWeight(d, role, team.Reputation)))
+                .Where(d => tally.FreeCounts[d] >= RivalShownChance * tally.Opened && tier(Fit(d)))
                 .OrderByDescending(d => tally.FreeCounts[d] * _tickets[d])
                 .Select(d => _driverIds[d])
                 .ToList();
 
-            var exiting = team.Seats[index];
+            // a reserve seat's "exiting" driver is this season's reserve, if any
+            var exiting = isReserve ? null : team.Seats[index];
+            var exitingDriver = isReserve ? team.Reserve : exiting?.Driver ?? NoDriver;
             var outlook = new SeatOutlook
             {
                 TeamId = team.TeamId,
                 Slot = index + 1,
                 Role = role,
                 TeamReputation = team.Reputation,
-                ExitingDriverId = exiting == null ? null : _driverIds[exiting.Driver],
+                ExitingDriverId = exitingDriver == NoDriver ? null : _driverIds[exitingDriver],
                 ExitingDriverOutcome = exiting?.Outcome ?? DriverFirerOutcome.NOT_DROPPED,
                 OpenChance = tally.Opened / (double)Replays,
                 WinChanceIfOpen = tally.PlayerWins / tally.Opened,
-                PlayerFit = _driverHirer.DoesDriverFitTeamPolicy(_reputations[_player], role, team.Reputation),
+                PlayerFit = _driverHirer.DoesDriverFitSeat(_reputations[_player], role, team.Reputation, isReserve),
                 BetterFitRivals = Named(fit => fit > playerFit),
                 SameFitRivals = Named(fit => fit == playerFit)
             };

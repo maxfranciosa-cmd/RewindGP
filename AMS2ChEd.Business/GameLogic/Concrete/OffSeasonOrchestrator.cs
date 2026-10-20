@@ -72,6 +72,39 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 UpdateDropResultsForPlayerRejection(saveGame, dropResults);
             }
 
+            // STEP 2.5: which teams run a reserve next season (reserve contracts last one season, so
+            // it's decided again every winter), and the letter to a player who was a team's reserve:
+            // a promotion to a race seat, staying on, or the market. Settled before the teams' picks
+            var reservePlan = new ReservePlan
+            {
+                TeamsWantingReserve = EndOfSeasonManager.RollReserveWishes(originalNewSeason.Teams, Random.Shared)
+            };
+
+            var playerReserveTeam = saveGame.CurrentSeason.ReserveTeamOf(saveGame.PlayerData.DriverId);
+            if (playerReserveTeam != null && originalNewSeason.Teams.Any(t => t.TeamId == playerReserveTeam.TeamId))
+            {
+                var reserveLetter = new ReserveLetter
+                {
+                    TeamId = playerReserveTeam.TeamId,
+                    Promotion = _gameLogicFactory.EndOfSeasonManager.GetReservePromotion(saveGame, originalNewSeason.Teams, dropResults, playerReserveTeam.TeamId, playerReputation),
+                    TeamWantsReserve = reservePlan.TeamsWantingReserve.Contains(playerReserveTeam.TeamId)
+                };
+
+                var decision = await uiCallbacks.ShowReserveLetterAsync(saveGame, originalNewSeason.Teams, reserveLetter, playerReputation);
+
+                if (decision == ReserveLetterDecision.AcceptedPromotion && reserveLetter.Promotion?.IsOffered == true)
+                {
+                    // the seat is his: no applications needed
+                    reservePlan.PlayerPromotion = reserveLetter.Promotion;
+                    playerAcceptedContract = true;
+                }
+                else if (decision == ReserveLetterDecision.StaysReserve && reserveLetter.TeamWantsReserve)
+                {
+                    // he can still apply for race seats: winning one drops the reserve contract
+                    reservePlan.PlayerStaysReserveAtTeamId = playerReserveTeam.TeamId;
+                }
+            }
+
             // STEP 3: Generate potential team picks and driver proposals
 
             var newSeasonTeamEntries = originalNewSeason.Teams;
@@ -80,7 +113,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 .ToHashSet();
 
             var ballots = _gameLogicFactory.EndOfSeasonManager
-                .TeamPicksPotentialReplacementsDrivers(nextSeasonYear, saveGame, newSeasonTeamEntries, dropResults)
+                .TeamPicksPotentialReplacementsDrivers(nextSeasonYear, saveGame, newSeasonTeamEntries, dropResults, reservePlan)
                 .ToList();
 
             // STEP 3.5: Show a retirement send-off article for any driver who newly retired this off-season.
@@ -129,46 +162,17 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // STEP 6: Show final roster newspaper
             await uiCallbacks.ShowNewSeasonRosterAsync(saveGame, actualNewSeason);
 
-            // STEP 7: if the player STILL hasn't got a team, ask if he'd like to create an absence
-            if (string.IsNullOrEmpty(saveGame.PlayerData.TeamId))
-            {
-                bool createFictionalAbsence = await uiCallbacks.AskCreateFictionalAbsenceAsync();
-
-                if (createFictionalAbsence)
-                {
-                    // if there are no absences at the first GP of the season
-                    var firstRaceId = actualNewSeason.Races.First().RaceId;
-                    if (!actualNewSeason.Absences.Any(a => a.RaceId == firstRaceId))
-                    {
-                        // create a new random absence in a midfield (or lower) team
-                        var possibleTeams = actualNewSeason
-                                        .Teams
-                                        .Where(t => t.Reputation <= TeamReputation.MIDFIELD)
-                                        .ToList();
-
-                        var selectedTeam = possibleTeams.ElementAt(Random.Shared.Next(possibleTeams.Count));
-
-                        var driverOut = selectedTeam.PickRandomDriverFromTheTeam();
-
-                        actualNewSeason.Absences = actualNewSeason.Absences.Concat(new[]
-                        {
-                            new Absence
-                            {
-                                DriverOut = driverOut.DriverId,
-                                RaceId = firstRaceId,
-                                DriverIn = saveGame.PlayerData.DriverId,
-                                TeamId = selectedTeam.TeamId,
-                            }
-                        });
-                    }
-                }
-            }
-
-            // STEP 8: Start new season
+            // STEP 7: Start new season
             _gameLogicFactory.EndOfSeasonManager.StartNewSeason(saveGame, actualNewSeason);
 
             // Update player team ID if changed
             UpdatePlayerTeamId(saveGame, actualNewSeason);
+
+            // STEP 8: a player still without a race seat sees what the paddock offers at the first race
+            if (string.IsNullOrEmpty(saveGame.PlayerData.TeamId))
+            {
+                await uiCallbacks.ShowPaddockOpportunitiesAsync(saveGame, 0);
+            }
 
             // Save the game
             string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
@@ -265,6 +269,10 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             foreach (var ballot in finalBallots)
             {
+                // a seat agreed with the player beforehand (a promotion, staying on as reserve) was
+                // never an application: no letter
+                if (ballot.OriginalTeamHiring.Guaranteed) continue;
+
                 bool playerApplied = ballot.OriginalTeamHiring.DriverId == playerDriverId
                     || (ballot.Candidates?.Any(c => c.DriverId == playerDriverId) ?? false);
 
@@ -272,13 +280,16 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
                 var teamId = ballot.OriginalTeamHiring.TeamId;
                 var role = ballot.OriginalTeamHiring.Role;
+                var isReserve = ballot.OriginalTeamHiring.IsReserve;
 
                 var newTeamEntry = actualNewSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
                 if (newTeamEntry == null) continue;
 
-                var finalContract = ballot.OriginalTeamHiring.GetSlot() == 1
-                    ? newTeamEntry.Driver1Contract
-                    : newTeamEntry.Driver2Contract;
+                var finalContract = isReserve
+                    ? newTeamEntry.ReserveContract
+                    : ballot.OriginalTeamHiring.GetSlot() == 1
+                        ? newTeamEntry.Driver1Contract
+                        : newTeamEntry.Driver2Contract;
                 var finalDriverId = finalContract?.DriverId;
 
                 // roles get reassigned by reputation once the hiring's done, so report the
@@ -329,10 +340,11 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 {
                     TeamId = teamId,
                     Role = role,
+                    IsReserve = isReserve,
                     PlayerHired = playerHired,
                     OtherDriverId = otherDriverId,
                     OtherDriverReputation = otherDriverReputation,
-                    OtherDriverWasAtTeamBefore = WasDriverAtTeamBefore(saveGame, teamId, otherDriverId)
+                    OtherDriverWasAtTeamBefore = WasDriverAtTeamBefore(saveGame, teamId, otherDriverId, isReserve)
                 });
             }
 
@@ -342,12 +354,16 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         // Was this driver already on this team last season (e.g. a contract-expired driver who
         // ended up renewing)? Checked against saveGame.CurrentSeason, which is still last
         // season's data at this point (StartNewSeason in STEP 8 hasn't run yet).
-        private bool WasDriverAtTeamBefore(ISaveGame saveGame, string teamId, string driverId)
+        private bool WasDriverAtTeamBefore(ISaveGame saveGame, string teamId, string driverId, bool isReserve)
         {
             if (string.IsNullOrEmpty(driverId)) return false;
 
             var previousTeam = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
             if (previousTeam == null) return false;
+
+            // for a reserve seat, the incumbent is last season's reserve
+            if (isReserve)
+                return previousTeam.ReserveDriverId() == driverId;
 
             return previousTeam.Driver1Contract?.DriverId == driverId || previousTeam.Driver2Contract?.DriverId == driverId;
         }

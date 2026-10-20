@@ -108,6 +108,16 @@ namespace AMS2ChEd.Views
 
             if (team == null)
             {
+                // a reserve's deal lasts one season: the team's letter comes over the winter
+                var reserveTeam = _saveGame.CurrentSeason.ReserveTeamOf(playerId);
+                if (reserveTeam != null)
+                {
+                    DriverDetailText.Text = string.Format(Strings.MarketOutlookWindow_ReserveDetail_Format, reserveTeam.TeamName);
+                    PostItTitleText.Text = string.Format(Strings.MarketOutlookWindow_ReserveTitle_Format, reserveTeam.TeamName);
+                    PostItText.Text = Strings.MarketOutlookWindow_ReserveText;
+                    return;
+                }
+
                 PostItTitleText.Text = Strings.MarketOutlookWindow_NoTeamTitle;
                 PostItText.Text = Strings.MarketOutlookWindow_NoTeamText;
                 return;
@@ -143,7 +153,8 @@ namespace AMS2ChEd.Views
             {
                 TeamName = TeamName(s.TeamId),
                 TeamColor = HeadToHeadWindow.ToBrush(_teams.GetValueOrDefault(s.TeamId)?.Color),
-                Detail = string.Format(Strings.MarketOutlookWindow_SeatDetail, RoleName(s.Role), TeamApplicationWindow.GetReputationLabel(s.TeamReputation)),                BandText = BandName(s.Band),
+                Detail = string.Format(Strings.MarketOutlookWindow_SeatDetail, SeatName(s), TeamApplicationWindow.GetReputationLabel(s.TeamReputation)),
+                BandText = BandName(s.Band),
                 BandBrush = BandBrush(s.Band),
                 Reason = OpeningReason(s) + " " + CompetitionReason(s)
             }).ToList();
@@ -155,13 +166,19 @@ namespace AMS2ChEd.Views
                 return;
 
             BestHeaderText.Text = string.Format(Strings.MarketOutlookWindow_BestHeader, outlook.BestApplications.Count);
-            BestText.Text = string.Join(" · ", outlook.BestApplications.Select(s => $"{TeamName(s.TeamId)} ({RoleName(s.Role).ToLower()})"));
+            BestText.Text = string.Join(" · ", outlook.BestApplications.Select(s => $"{TeamName(s.TeamId)} ({SeatName(s).ToLower()})"));
             HiredStampText.Text = string.Format(Strings.MarketOutlookWindow_HiredStamp, BandName(outlook.HiredBand));
             HiredStampText.Foreground = HiredStamp.BorderBrush = BandBrush(outlook.HiredBand);
         }
 
         private string OpeningReason(SeatOutlook seat)
         {
+            // reserve deals last one season: whether the team runs one is decided over the winter
+            if (seat.IsReserve)
+                return seat.ExitingDriverId == null
+                    ? Strings.MarketOutlookWindow_Reason_Reserve
+                    : string.Format(Strings.MarketOutlookWindow_Reason_ReserveIncumbent_Format, DriverName(seat.ExitingDriverId));
+
             if (seat.ExitingDriverId == null)
                 return Strings.MarketOutlookWindow_Reason_NewTeam;
 
@@ -206,8 +223,9 @@ namespace AMS2ChEd.Views
 
         private string TeamName(string teamId) => _teams.GetValueOrDefault(teamId)?.TeamName ?? teamId;
 
-        private static string RoleName(DriverRole role) =>
-            role == DriverRole.FIRST_DRIVER ? Strings.TeamApplicationWindow_FirstDriverRole : Strings.TeamApplicationWindow_SecondDriverRole;
+        private static string SeatName(SeatOutlook seat) =>
+            seat.IsReserve ? Strings.TeamApplicationWindow_ReserveRole
+            : seat.Role == DriverRole.FIRST_DRIVER ? Strings.TeamApplicationWindow_FirstDriverRole : Strings.TeamApplicationWindow_SecondDriverRole;
 
         private static string BandName(MarketChance band) => band switch
         {

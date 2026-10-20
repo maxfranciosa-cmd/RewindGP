@@ -1,5 +1,6 @@
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Services;
 
 namespace AMS2ChEd.Business.GameLogic.Contracts
 {
@@ -38,7 +39,8 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
             ISaveGame saveGame,
             GrandPrixResult result,
             IReadOnlyList<HistoricalDriverStandingEntry> preRaceStandings,
-            IReadOnlyCollection<string> playerContactDriverIds);
+            IReadOnlyCollection<string> playerContactDriverIds,
+            IReadOnlyCollection<TeammateContact> teammateContacts = null);
 
         int GetReprimandCount(ISaveGame saveGame, string driverId, string teamId);
     }

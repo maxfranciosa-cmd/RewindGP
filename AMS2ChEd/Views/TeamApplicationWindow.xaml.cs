@@ -69,8 +69,10 @@ namespace AMS2ChEd.Views
     public partial class TeamApplicationWindow : Window
     {
         private List<TeamApplicationItem> _teamItems;
+        private List<TeamHiringBallot> _agreedBallots;
         private string _playerDriverId;
         private DriverReputation _playerReputation;
+        // reserve seats count too: a safer reserve role at a top team, or a better chance of racing
         private const int MAX_APPLICATIONS = 4;
 
         public List<TeamHiringBallot> UpdatedBallots { get; private set; }
@@ -131,9 +133,19 @@ namespace AMS2ChEd.Views
 
             // Process team application ballots
             _teamItems = new List<TeamApplicationItem>();
+            _agreedBallots = new List<TeamHiringBallot>();
 
             foreach (var ballot in ballots)
             {
+                // a seat agreed beforehand (a reserve's promotion, the player staying on as reserve)
+                // never reaches the market: not shown, passed on as it is
+                if (ballot.OriginalTeamHiring.Guaranteed)
+                {
+                    _agreedBallots.Add(ballot);
+                    continue;
+                }
+
+                var isReserve = ballot.OriginalTeamHiring.IsReserve;
                 var teamData = nextYearTeamEntries.ContainsKey(ballot.OriginalTeamHiring.TeamId)
                     ? nextYearTeamEntries[ballot.OriginalTeamHiring.TeamId]
                     : null;
@@ -143,14 +155,21 @@ namespace AMS2ChEd.Views
                 string teamColor = teamData?.Color ?? teamEntry?.Color ?? "000000";
 
                 bool teamAlreadyInterested = ballot.OriginalTeamHiring?.DriverId == _playerDriverId;
-                string roleDescription = ballot.OriginalTeamHiring.Role == DriverRole.FIRST_DRIVER
-                    ? Strings.TeamApplicationWindow_FirstDriverRole
-                    : Strings.TeamApplicationWindow_SecondDriverRole;
+                string roleDescription = isReserve
+                    ? Strings.TeamApplicationWindow_ReserveRole
+                    : ballot.OriginalTeamHiring.Role == DriverRole.FIRST_DRIVER
+                        ? Strings.TeamApplicationWindow_FirstDriverRole
+                        : Strings.TeamApplicationWindow_SecondDriverRole;
 
                 // Check if there's a dropped driver for this team/role combination
                 string dropReasonText = null;
 
-                if (dropLookup.TryGetValue(ballot.OriginalTeamHiring.TeamId, out var teamDropInfo) && teamEntry != null)
+                if (isReserve)
+                {
+                    // a one-season deal, decided again every winter
+                    dropReasonText = string.Format(Strings.TeamApplicationWindow_ReserveBlurb_Format, teamName);
+                }
+                else if (dropLookup.TryGetValue(ballot.OriginalTeamHiring.TeamId, out var teamDropInfo) && teamEntry != null)
                 {
                     // Determine which drop outcome to use based on the seat being filled
                     bool isDriver1Seat = ballot.OriginalTeamHiring.GetSlot() == 1;
@@ -203,6 +222,7 @@ namespace AMS2ChEd.Views
             TeamList.ItemsSource = _teamItems
                                     .OrderByDescending(t => t.TeamReputation)
                                     .ThenByDescending(t => t.TeamName)
+                                    .ThenBy(t => t.Ballot.OriginalTeamHiring.IsReserve)
                                     .ThenBy(t => t.Role);
             InstructionText.Text = string.Format(Strings.TeamApplicationWindow_InstructionText, MAX_APPLICATIONS);
             UpdateSelectionCount();
@@ -239,7 +259,7 @@ namespace AMS2ChEd.Views
         private void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
             // Create updated ballots with player applications
-            UpdatedBallots = new List<TeamHiringBallot>();
+            UpdatedBallots = new List<TeamHiringBallot>(_agreedBallots);
 
             var playerDriver = new TeamHiringBallotCandidate
             {

@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.Models;
+using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Resources;
 using System;
 using System.Windows;
@@ -18,19 +19,30 @@ namespace AMS2ChEd.Views
             string driverInName,
             DateTime raceDate,
             bool askPlayerToApply,
-            bool isConsecutiveAbsence)
+            bool isConsecutiveAbsence,
+            AbsenceReason? reason = null)
         {
             InitializeComponent();
 
             // Set the date
             DateText.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
 
-            // Set the headline
-            HeadlineText.Text = string.Format(Strings.AbsenceAnnouncementWindow_Headline_Main_Format,
-                driverOutName.ToUpper(), teamName.ToUpper(), gpName.ToUpper());
+            if (reason == AbsenceReason.PAID_RIDE)
+            {
+                // the driver stands down for one race as the substitute brings sponsorship
+                HeadlineText.Text = string.Format(Strings.AbsenceAnnouncementWindow_Headline_PaidRide_Format,
+                    driverOutName.ToUpper(), teamName.ToUpper(), driverInName.ToUpper());
+                ArticleText.Text = string.Format(Strings.AbsenceAnnouncementWindow_Article_PaidRide_Format, driverOutName, teamName, gpName, driverInName);
+            }
+            else
+            {
+                // Set the headline
+                HeadlineText.Text = string.Format(Strings.AbsenceAnnouncementWindow_Headline_Main_Format,
+                    driverOutName.ToUpper(), teamName.ToUpper(), gpName.ToUpper());
 
-            // Generate the article body
-            GenerateArticle(driverOutName, teamName, gpName, driverInName, isConsecutiveAbsence);
+                // Generate the article body
+                GenerateArticle(driverOutName, teamName, gpName, driverInName, isConsecutiveAbsence);
+            }
 
             // Show player application option if needed
             if (askPlayerToApply)

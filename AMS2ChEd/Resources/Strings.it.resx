@@ -919,51 +919,6 @@ Chiudere comunque?</value>
   <data name="RaceWeekendWindow_DefaultCircuitName" xml:space="preserve">
     <value>CIRCUITO</value>
   </data>
-  <data name="GenerateAbsenceWindow_WindowTitle" xml:space="preserve">
-    <value>Pay Driver - Wild Card</value>
-  </data>
-  <data name="GenerateAbsenceWindow_PayDriverTitle" xml:space="preserve">
-    <value>PAY DRIVER - WILD CARD</value>
-  </data>
-  <data name="GenerateAbsenceWindow_NoTeamSeasonTitle" xml:space="preserve">
-    <value>NESSUN TEAM PER LA PROSSIMA STAGIONE</value>
-  </data>
-  <data name="GenerateAbsenceWindow_NoTeamRaceTitle" xml:space="preserve">
-    <value>NESSUN TEAM PER LA PROSSIMA GARA</value>
-  </data>
-  <data name="GenerateAbsenceWindow_PayDriver_Intro1" xml:space="preserve">
-    <value>Sei un pay driver wild card. Questo significa che non puoi ancora assicurarti un sedile fisso per l'intera stagione con un team, e devi subentrare ogni volta che uno dei piloti ufficiali è assente.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_PayDriver_Intro2" xml:space="preserve">
-    <value>Devi cogliere ogni singola opportunità che ti si presenta per dimostrare il tuo valore e assicurarti un sedile per l'intera stagione successiva.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_Intro3" xml:space="preserve">
-    <value>Tuttavia, i piloti potrebbero completare un'intera stagione senza assenze, quindi le tue opportunità potrebbero essere limitate o inesistenti.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_QuestionText" xml:space="preserve">
-    <value>Vuoi creare un'assenza fittizia per un pilota casuale di un team di basso/medio livello nella prossima gara?</value>
-  </data>
-  <data name="GenerateAbsenceWindow_FooterNote" xml:space="preserve">
-    <value>Questo ti garantirà almeno una gara per dimostrare il tuo valore in questa stagione.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_YesButton" xml:space="preserve">
-    <value>SÌ, CREA ASSENZA</value>
-  </data>
-  <data name="GenerateAbsenceWindow_NoButton" xml:space="preserve">
-    <value>NO</value>
-  </data>
-  <data name="GenerateAbsenceWindow_BackButton" xml:space="preserve">
-    <value>SCEGLI UN'ALTRA REPUTAZIONE</value>
-  </data>
-  <data name="GenerateAbsenceWindow_NoTeamSeason_Intro1" xml:space="preserve">
-    <value>Non hai un team per la prossima stagione. Devi subentrare ogni volta che uno dei piloti ufficiali è assente.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_SeekOpportunity_Intro2" xml:space="preserve">
-    <value>Devi cogliere ogni singola opportunità che ti si presenta per dimostrare il tuo valore e assicurarti un sedile per la stagione successiva.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_NoTeamRace_Intro1" xml:space="preserve">
-    <value>Non hai un team per la prossima gara. la prossima gara verrà simulata.</value>
-  </data>
   <data name="TeamSelectionWindow_Title" xml:space="preserve">
     <value>Seleziona Team</value>
   </data>
@@ -3480,7 +3435,8 @@ Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
     <value>perché</value>
   </data>
   <data name="MarketOutlookWindow_SeatDetail" xml:space="preserve">
-    <value>{0} · {1}</value>
+    <value>{0}
+{1}</value>
   </data>
   <data name="MarketOutlookWindow_Band_VeryLikely" xml:space="preserve">
     <value>MOLTO PROBABILE</value>
@@ -3529,7 +3485,8 @@ Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
   </data>
   <data name="MarketOutlookWindow_NoSeats" xml:space="preserve">
     <value>Nessun sedile dovrebbe liberarsi la prossima stagione.</value>
-  </data>  <data name="MarketOutlookWindow_Fit_Perfect" xml:space="preserve">
+  </data>
+  <data name="MarketOutlookWindow_Fit_Perfect" xml:space="preserve">
     <value>perfetto per il sedile</value>
   </data>
   <data name="MarketOutlookWindow_Fit_Good" xml:space="preserve">
@@ -3603,5 +3560,161 @@ Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
   </data>
   <data name="SeasonOverviewWindow_DriverDatabaseButton" xml:space="preserve">
     <value>Archivio piloti</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_WindowTitle" xml:space="preserve">
+    <value>Opportunità nel paddock</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Title_Format" xml:space="preserve">
+    <value>OPPORTUNITÀ NEL PADDOCK · {0}</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Intro_GameStart_Format" xml:space="preserve">
+    <value>Porti nel paddock il denaro dei tuoi sponsor, ma nessuna squadra ti ha ingaggiato per la stagione. Ecco cosa offre il paddock per: {0}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Intro_NextRace_Format" xml:space="preserve">
+    <value>Questa gara si corre senza di te. Ecco cosa offre il paddock per: {0}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Intro_NewSeason_Format" xml:space="preserve">
+    <value>La nuova stagione inizia senza un sedile per te. Ecco cosa offre il paddock per: {0}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_ReserveNote_Format" xml:space="preserve">
+    <value>Come pilota di riserva della {0}, prendi il posto di uno dei suoi piloti ogni volta che non può correre.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_CallUpsHeading" xml:space="preserve">
+    <value>Sei in pista</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_CallUp_Format" xml:space="preserve">
+    <value>Sostituisci {0} alla {1}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_PaidCallUp_Format" xml:space="preserve">
+    <value>Hai pagato il sedile di {0} alla {1}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_AbsencesHeading" xml:space="preserve">
+    <value>Assenze</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Absence_Format" xml:space="preserve">
+    <value>{0} ({1}) salta la gara: al suo posto è previsto {2}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_AbsencesNote" xml:space="preserve">
+    <value>Potrai candidarti per questi sedili quando verrà pubblicata la lista iscritti; la squadra sceglierà tra te e il pilota che aveva in mente.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_PaidRidesHeading" xml:space="preserve">
+    <value>Gare a pagamento</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Budget_Format" xml:space="preserve">
+    <value>I tuoi sponsor possono pagarti ancora {0} delle loro {1} gare in questa stagione.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_BudgetSpent" xml:space="preserve">
+    <value>Il budget dei tuoi sponsor per questa stagione è esaurito.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_AlreadyRacing" xml:space="preserve">
+    <value>Hai già una macchina per questa gara.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_NoSeatForSale" xml:space="preserve">
+    <value>Nessuna squadra ha un sedile in vendita per questa gara.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Offer_Format" xml:space="preserve">
+    <value>{0}: il sedile di {1} ({1} resta fuori per questa gara)</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_PaidRidesNote" xml:space="preserve">
+    <value>Una gara comprata è solo una gara: il risultato conta per la tua reputazione come qualsiasi altro.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_NothingOnOffer" xml:space="preserve">
+    <value>Per questa gara non c'è nulla: verrà simulata senza di te.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_BuyButton" xml:space="preserve">
+    <value>COMPRA QUESTA GARA</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_ContinueButton" xml:space="preserve">
+    <value>CONTINUA</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_BackButton" xml:space="preserve">
+    <value>SCEGLI UN'ALTRA REPUTAZIONE</value>
+  </data>
+  <data name="ReserveLetterWindow_WindowTitle" xml:space="preserve">
+    <value>Lettera dalla tua squadra</value>
+  </data>
+  <data name="ReserveLetterWindow_Subtitle" xml:space="preserve">
+    <value>Pilota di riserva</value>
+  </data>
+  <data name="ReserveLetterWindow_Greeting_Format" xml:space="preserve">
+    <value>Caro {0},</value>
+  </data>
+  <data name="ReserveLetterWindow_Promotion_Format" xml:space="preserve">
+    <value>Caro {0},
+
+per la prossima stagione si libera un sedile alla {1} e, come nostro pilota di riserva, hai la prima scelta: vorremmo che corressi per noi come {2}.
+
+Te lo sei guadagnato in garage, nei test e ogni volta che ti abbiamo chiamato. Accetti il sedile?</value>
+  </data>
+  <data name="ReserveLetterWindow_SeatDeclined" xml:space="preserve">
+    <value>Rispettiamo la tua decisione di rinunciare al sedile.</value>
+  </data>
+  <data name="ReserveLetterWindow_NotPromoted_OverQualified_Format" xml:space="preserve">
+    <value>Per la prossima stagione si libera il sedile di {1} alla {0}, ma per noi sei un nome troppo importante per quel ruolo.</value>
+  </data>
+  <data name="ReserveLetterWindow_NotPromoted_GoodFit_Format" xml:space="preserve">
+    <value>Per la prossima stagione si libera il sedile di {1} alla {0}. Saresti adatto, ma non sei esattamente il pilota che cerchiamo, quindi non te lo affideremo direttamente.</value>
+  </data>
+  <data name="ReserveLetterWindow_NotPromoted_UnderQualified_Format" xml:space="preserve">
+    <value>Per la prossima stagione si libera il sedile di {1} alla {0}, ma non sei ancora al livello che quel ruolo richiede.</value>
+  </data>
+  <data name="ReserveLetterWindow_NotPromoted_CanApply" xml:space="preserve">
+    <value>Puoi comunque candidarti sul mercato piloti, dove verrai valutato come chiunque altro.</value>
+  </data>
+  <data name="ReserveLetterWindow_StayOn" xml:space="preserve">
+    <value>Anche la prossima stagione avremo un pilota di riserva e vorremmo che fossi tu: il primo a essere chiamato ogni volta che uno dei nostri piloti non può correre. Resti con noi?</value>
+  </data>
+  <data name="ReserveLetterWindow_NoReserveNextSeason" xml:space="preserve">
+    <value>La prossima stagione non avremo un pilota di riserva, quindi il nostro accordo finisce con questa. Grazie per il tuo lavoro: sei libero di cercare un sedile altrove.</value>
+  </data>
+  <data name="ReserveLetterWindow_AcceptSeatButton" xml:space="preserve">
+    <value>ACCETTA IL SEDILE</value>
+  </data>
+  <data name="ReserveLetterWindow_DeclineButton" xml:space="preserve">
+    <value>RIFIUTA</value>
+  </data>
+  <data name="ReserveLetterWindow_StayButton" xml:space="preserve">
+    <value>RESTA</value>
+  </data>
+  <data name="ReserveLetterWindow_LeaveButton" xml:space="preserve">
+    <value>SVINCOLATO</value>
+  </data>
+  <data name="ReserveLetterWindow_ContinueButton" xml:space="preserve">
+    <value>CONTINUA</value>
+  </data>
+  <data name="TeamApplicationWindow_ReserveRole" xml:space="preserve">
+    <value>Pilota di riserva</value>
+  </data>
+  <data name="TeamApplicationWindow_ReserveBlurb_Format" xml:space="preserve">
+    <value>La {0} cerca un pilota di riserva per la stagione: il primo a essere chiamato quando uno dei suoi piloti non può correre, con una possibilità per un sedile che si libera. Un accordo di una stagione.</value>
+  </data>
+  <data name="TeamSelectionWindow_ReserveRole" xml:space="preserve">
+    <value>Riserva</value>
+  </data>
+  <data name="MarketOutlookWindow_ReserveDetail_Format" xml:space="preserve">
+    <value>Pilota di riserva alla {0}</value>
+  </data>
+  <data name="MarketOutlookWindow_ReserveTitle_Format" xml:space="preserve">
+    <value>Riserva alla {0}</value>
+  </data>
+  <data name="MarketOutlookWindow_ReserveText" xml:space="preserve">
+    <value>Un accordo da riserva dura una stagione: durante l'inverno la squadra ti scriverà per una promozione o per restare. Questi sono i sedili che potrebbero liberarsi altrove.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_Reserve" xml:space="preserve">
+    <value>Se la squadra avrà un pilota di riserva si decide durante l'inverno.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_ReserveIncumbent_Format" xml:space="preserve">
+    <value>L'accordo da riserva di {0} finisce con la stagione; se la squadra ne avrà ancora uno si decide durante l'inverno.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Headline_PaidRide_Format" xml:space="preserve">
+    <value>{0} LASCIA IL SEDILE DELLA {1}: {2} PORTA GLI SPONSOR</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_PaidRide_Format" xml:space="preserve">
+    <value>{0} resterà fuori per una gara al {2}: la {1} affida la macchina a {3}, che porta sponsor alla squadra.
+
+L'accordo vale solo per questa gara: {0} dovrebbe tornare in macchina subito dopo.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Reserve_Format" xml:space="preserve">
+    <value>{0}, che {1}, è il pilota di riserva della squadra: il primo a essere chiamato ogni volta che uno dei suoi piloti non può correre.</value>
   </data>
 </root>

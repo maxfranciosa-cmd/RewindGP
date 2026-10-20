@@ -23,11 +23,5 @@ namespace AMS2ChEd.Business.Helpers
                 (string.IsNullOrEmpty(e?.Driver1Id) ? 0 : 1) +
                 (string.IsNullOrEmpty(e?.Driver2Id) ? 0 : 1));
         }
-
-        public static DriverContract PickRandomDriverFromTheTeam(this ITeamEntry team)
-        {
-            return (Random.Shared.Next(2) == 0) ? ((!string.IsNullOrEmpty(team.Driver1Contract?.DriverId)) ? team.Driver1Contract : team.Driver2Contract)
-                                         : ((!string.IsNullOrEmpty(team.Driver2Contract?.DriverId)) ? team.Driver2Contract : team.Driver1Contract);
-        }
     }
 }

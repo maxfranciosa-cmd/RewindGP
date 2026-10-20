@@ -69,6 +69,12 @@ namespace AMS2ChEd.Business.Models
         [JsonPropertyName("driver2_contract")]
         DriverContract Driver2Contract { get; set; }
 
+        // the driver on standby who covers the team's absences; null when the team runs no reserve.
+        // Like a race seat it's a contract, but it lasts one season and carries no number or role
+        // (a reserve who races takes the absent driver's number). See ReserveDriverExtensions.
+        [JsonPropertyName("reserve_contract")]
+        DriverContract ReserveContract { get; set; }
+
         [JsonPropertyName("color")]
         string Color { get; set; }
 

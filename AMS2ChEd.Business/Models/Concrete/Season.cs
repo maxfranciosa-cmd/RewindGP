@@ -26,6 +26,7 @@ namespace AMS2ChEd.Business.Models.Concrete
         public TeamReputation Reputation { get; set; }
         public DriverContract Driver1Contract { get; set; }
         public DriverContract Driver2Contract { get; set; }
+        public DriverContract ReserveContract { get; set; }
 
         public string Color { get; set; }
         public bool DefaultPrequalifying { get; set; }
@@ -118,5 +119,16 @@ namespace AMS2ChEd.Business.Models.Concrete
 
         [JsonPropertyName("chainedAbsence")]
         public Absence ChainedAbsence { get; set; }
+
+        // why the absence happens; null for the absences a season pack brings
+        [JsonPropertyName("reason")]
+        public AbsenceReason? Reason { get; set; }
+    }
+
+    [JsonConverter(typeof(GenericEnumConverter<AbsenceReason>))]
+    public enum AbsenceReason
+    {
+        // the driver stands down for one race as the player pays for the seat (PaidRides)
+        PAID_RIDE
     }
 }

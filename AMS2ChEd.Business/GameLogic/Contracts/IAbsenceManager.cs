@@ -29,6 +29,9 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
         public string TeamId { get; set; }
         public int RaceId { get; set; }
         public string DriverIn { get; set; }
+
+        // why the driver is out (null for a season pack's absence), for the news
+        public AbsenceReason? Reason { get; set; }
     }
 
     public class AbsenceDecision

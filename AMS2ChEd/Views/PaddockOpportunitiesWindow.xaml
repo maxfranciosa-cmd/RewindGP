@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window x:Class="AMS2ChEd.GenerateAbsenceWindow"
+<Window x:Class="AMS2ChEd.Views.PaddockOpportunitiesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:AMS2ChEd.Localization"
-        Title="{loc:Loc GenerateAbsenceWindow_WindowTitle}"
-        Height="700" Width="650"
+        Title="{loc:Loc PaddockOpportunitiesWindow_WindowTitle}"
+        Height="720" Width="680"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource Charcoal.BackgroundBrush}"
         ResizeMode="NoResize">
@@ -24,30 +24,19 @@
 
         <!-- Header -->
         <Border Grid.Row="0" Style="{StaticResource Charcoal.TitleBarStyle}">
-            <TextBlock x:Name="TitleText"
-                       Text="{loc:Loc GenerateAbsenceWindow_PayDriverTitle}"
-                       Style="{StaticResource Charcoal.TitleTextStyle}"/>
+            <TextBlock x:Name="TitleText" Style="{StaticResource Charcoal.TitleTextStyle}"/>
         </Border>
 
-        <!-- Content -->
+        <!-- Content: the sections are built in code-behind -->
         <Border Grid.Row="1" Style="{StaticResource Charcoal.PanelStyle}" Margin="0,14,0,0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource Charcoal.BodyTextStyle}"
+                <StackPanel x:Name="ContentPanel">
+                    <TextBlock x:Name="IntroText"
+                               Style="{StaticResource Charcoal.BodyTextStyle}"
                                Foreground="{StaticResource Charcoal.TextSoftBrush}"
                                TextWrapping="Wrap"
-                               LineHeight="26"
-                               TextAlignment="Left">
-                        <Run x:Name="IntroText1" Text="{loc:Loc GenerateAbsenceWindow_PayDriver_Intro1}"/>
-                        <LineBreak/><LineBreak/>
-                        <Run x:Name="IntroText2" Text="{loc:Loc GenerateAbsenceWindow_PayDriver_Intro2}"/>
-                        <LineBreak/><LineBreak/>
-                        <Run x:Name="IntroText3" Text="{loc:Loc GenerateAbsenceWindow_Intro3}"/>
-                        <LineBreak/><LineBreak/>
-                        <Run x:Name="QuestionText" FontWeight="Bold" Foreground="{StaticResource Charcoal.TextBrush}" Text="{loc:Loc GenerateAbsenceWindow_QuestionText}"/>
-                        <LineBreak/><LineBreak/>
-                        <Run FontStyle="Italic" Foreground="{StaticResource Charcoal.TextMutedBrush}" Text="{loc:Loc GenerateAbsenceWindow_FooterNote}"/>
-                    </TextBlock>
+                               LineHeight="24"
+                               Margin="0,0,0,8"/>
                 </StackPanel>
             </ScrollViewer>
         </Border>
@@ -57,19 +46,22 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="0,14,0,0">
-            <Button x:Name="YesButton"
-                    Content="{loc:Loc GenerateAbsenceWindow_YesButton}"
+            <Button x:Name="BuyButton"
+                    Content="{loc:Loc PaddockOpportunitiesWindow_BuyButton}"
                     Style="{StaticResource Charcoal.DialogPrimaryButtonStyle}"
-                    Click="YesButton_Click"/>
-            <Button x:Name="NoButton"
-                    Content="{loc:Loc GenerateAbsenceWindow_NoButton}"
+                    IsEnabled="False"
+                    Click="BuyButton_Click"/>
+            <Button x:Name="ContinueButton"
+                    Content="{loc:Loc PaddockOpportunitiesWindow_ContinueButton}"
                     Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}"
                     Margin="2,0,0,0"
-                    Click="NoButton_Click"/>
+                    Click="ContinueButton_Click"/>
             <Button x:Name="BackButton"
-                    Content="{loc:Loc GenerateAbsenceWindow_BackButton}"
+                    Content="{loc:Loc PaddockOpportunitiesWindow_BackButton}"
                     Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}"
-                    Margin="2,0,0,0" Click="BackButton_Click"/>
+                    Margin="2,0,0,0"
+                    Visibility="Collapsed"
+                    Click="BackButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

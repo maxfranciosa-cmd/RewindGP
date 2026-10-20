@@ -16,8 +16,12 @@ namespace AMS2ChEd.Business.Services.Contracts
     {
         public string TeamId { get; set; }
 
-        // the contract seat (1 = Driver1Contract, 2 = Driver2Contract)
+        // the contract seat (1 = Driver1Contract, 2 = Driver2Contract, TeamHiring.ReserveSlot = ReserveContract)
         public int Slot { get; set; }
+
+        // the team's reserve seat: Role means nothing then, and OpenChance is how often the team
+        // runs a reserve (decided again every winter)
+        public bool IsReserve => Slot == TeamHiring.ReserveSlot;
 
         public DriverRole Role { get; set; }
 

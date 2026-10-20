@@ -17,6 +17,9 @@ namespace AMS2ChEd.SeasonPackEditor
         // DriverId is left empty.
         private const string NoSecondDriverPlaceholder = "(no second driver this season)";
 
+        // Selecting this in ReserveComboBox means the team runs no reserve (no reserve_contract)
+        private const string NoReservePlaceholder = "(no reserve driver)";
+
         public Ams2TeamEntry Team { get; private set; }
         private List<Ams2DriverData> _availableDrivers;
         private List<TeamOption> _availableTeams;
@@ -42,6 +45,10 @@ namespace AMS2ChEd.SeasonPackEditor
             Driver2ComboBox.ItemsSource = new[] { NoSecondDriverPlaceholder }
                 .Concat(_availableDrivers.Select(d => d.DriverId))
                 .ToList();
+            ReserveComboBox.ItemsSource = new[] { NoReservePlaceholder }
+                .Concat(_availableDrivers.Select(d => d.DriverId))
+                .ToList();
+            ReserveComboBox.SelectedItem = NoReservePlaceholder;
 
             if (team == null)
             {
@@ -144,6 +151,9 @@ namespace AMS2ChEd.SeasonPackEditor
                 : Team.Driver2Contract.DriverId;
             Driver2NumberTextBox.Text = Team.Driver2Contract?.DriverNumber.ToString();
             Driver2RacesContractTextBox.Text = Team.Driver2Contract?.Races.ToString();
+            ReserveComboBox.SelectedItem = string.IsNullOrEmpty(Team.ReserveContract?.DriverId)
+                ? NoReservePlaceholder
+                : Team.ReserveContract.DriverId;
             DefaultPreQualiCheckBox.IsChecked = Team.DefaultPrequalifying;
 
             // Load performance malus values
@@ -189,6 +199,11 @@ namespace AMS2ChEd.SeasonPackEditor
             Team.Driver2Contract.DriverNumber = int.Parse(Driver2NumberTextBox.Text);
             Team.Driver2Contract.Races = int.Parse(Driver2RacesContractTextBox.Text);
             Team.Driver2Contract.Role = (ContractRole)(Driver2RoleComboBox.SelectedItem ?? ContractRole.UNDEFINED);
+            // a reserve's contract lasts the season; no number or role (they take the absent driver's)
+            var reserveSelection = ReserveComboBox.SelectedItem?.ToString();
+            Team.ReserveContract = string.IsNullOrEmpty(reserveSelection) || reserveSelection == NoReservePlaceholder
+                ? null
+                : new DriverContract { DriverId = reserveSelection, Races = Team.Driver1Contract.Races };
             Team.DefaultPrequalifying = DefaultPreQualiCheckBox.IsChecked ?? false;
 
             // Update performance malus

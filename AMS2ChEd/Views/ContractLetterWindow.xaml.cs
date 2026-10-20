@@ -13,6 +13,8 @@ namespace AMS2ChEd
     public partial class ContractLetterWindow : Window
     {
         private bool isHired;
+        // the seat is the team's reserve seat: fits are read from the reserve policy
+        private bool isReserve;
         private DriverReputation playerReputation;
         private DriverReputation replacedDriverReputation;
         private ISeason currentSeason;
@@ -40,9 +42,11 @@ namespace AMS2ChEd
             string replacedDriverId,
             DriverReputation replacedDriverReputation,
             string roleName,
-            ISeason season)
+            ISeason season,
+            bool isReserve = false)
         {
             InitializeComponent();
+            this.isReserve = isReserve;
             this._gameLogicFactory = gameLogicFactory;
             this.playerReputation = playerReputation;
             this.replacedDriverReputation = replacedDriverReputation;
@@ -71,11 +75,14 @@ namespace AMS2ChEd
                 return;
             }
 
-            // Check if player is hired
-            var result = _gameLogicFactory.ContractNegotiationEngine.EvaluateContract(playerDriverId,
-                                                                                      playerReputation,
-                                                                                      replacedDriverId,
-                                                                                      replacedDriverReputation);
+            // Check if player is hired: a reserve seat is judged on the (easier) reserve policy
+            var contestedTeamReputation = season?.Teams?.FirstOrDefault(t => t.TeamId == teamId)?.Reputation ?? TeamReputation.MIDFIELD;
+            var result = isReserve
+                ? _gameLogicFactory.ContractNegotiationEngine.EvaluateReserveContract(playerReputation, replacedDriverReputation, contestedTeamReputation)
+                : _gameLogicFactory.ContractNegotiationEngine.EvaluateContract(playerDriverId,
+                                                                               playerReputation,
+                                                                               replacedDriverId,
+                                                                               replacedDriverReputation);
             isHired = result.IsPlayerHired;
 
             if (isHired)
@@ -110,9 +117,11 @@ namespace AMS2ChEd
             bool otherDriverWasAtTeamBefore,
             string roleName,
             TeamReputation teamReputation,
-            DriverRole role)
+            DriverRole role,
+            bool isReserve = false)
         {
             InitializeComponent();
+            this.isReserve = isReserve;
             this.playerReputation = playerReputation;
             this.playerName = playerName;
             this.isHired = isPlayerHired;
@@ -413,9 +422,9 @@ namespace AMS2ChEd
         /// no extra sentence - the standard rejection/preferred-driver reasons already cover a "lost
         /// to an equally-strong rival" outcome.
         /// </summary>
-        private static string AppendQualificationDetail(string rejectionReason, DriverReputation playerReputation, DriverRole role, TeamReputation teamReputation)
+        private string AppendQualificationDetail(string rejectionReason, DriverReputation playerReputation, DriverRole role, TeamReputation teamReputation)
         {
-            var fit = new DriverHirer().DoesDriverFitTeamPolicy(playerReputation, role, teamReputation);
+            var fit = new DriverHirer().DoesDriverFitSeat(playerReputation, role, teamReputation, isReserve);
             string detail = fit switch
             {
                 DriverHirer.DriverPolicyFit.OverQualified => Strings.ContractLetterWindow_QualificationDetail_OverQualified,
@@ -434,9 +443,9 @@ namespace AMS2ChEd
         /// no extra sentence - the standard reputation reason already covers a straightforward hire.
         /// Success-side counterpart of <see cref="AppendQualificationDetail"/>.
         /// </summary>
-        private static string AppendSuccessQualificationDetail(string reputationReason, DriverReputation playerReputation, DriverRole role, TeamReputation teamReputation)
+        private string AppendSuccessQualificationDetail(string reputationReason, DriverReputation playerReputation, DriverRole role, TeamReputation teamReputation)
         {
-            var fit = new DriverHirer().DoesDriverFitTeamPolicy(playerReputation, role, teamReputation);
+            var fit = new DriverHirer().DoesDriverFitSeat(playerReputation, role, teamReputation, isReserve);
             string detail = fit switch
             {
                 DriverHirer.DriverPolicyFit.OverQualified => Strings.ContractLetterWindow_SuccessQualificationDetail_OverQualified,

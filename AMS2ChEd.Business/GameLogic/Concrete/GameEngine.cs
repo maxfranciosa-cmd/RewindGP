@@ -47,7 +47,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // Add player to drivers list by only loading ratings for that year
             var allDrivers = seasonDrivers.DeepClone();
 
-            var playerData = InitializePlayerData(playerName, playerNationality, playerAge, selectedTeamId, playerDriverId);
+            var playerData = InitializePlayerData(playerName, playerNationality, playerAge, RaceSeatTeamId(season, selectedTeamId, replacedDriverId), playerDriverId);
 
             allDrivers.Add(InitializePlayerDriverData(playerData, playerAge, playerReputation, season, playerDriverId, favouriteNumbers)); 
 
@@ -78,7 +78,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var allDrivers = seasonDrivers.DeepClone();
             IDriverData selectedDriver = allDrivers.FirstOrDefault(d => d.DriverId == driverId);
 
-            _currentGame = InitializeNewSaveGameFromExistingDriver(selectedDriver, selectedTeamId, modifiedSeason, driverStandings, constructorStandings, allDrivers);
+            // playing as the team's reserve: no race seat
+            _currentGame = InitializeNewSaveGameFromExistingDriver(selectedDriver, RaceSeatTeamId(season, selectedTeamId, driverId), modifiedSeason, driverStandings, constructorStandings, allDrivers);
 
             GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
             return _currentGame;
@@ -108,7 +109,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var playerDriver = importedDriver.DeepClone();
             playerDriver.Reputation = playerReputation;
 
-            var playerData = InitializePlayerData(playerDriver.Name, playerDriver.Nationality, season.Year - playerDriver.YearOfBirth, selectedTeamId, playerDriver.DriverId);
+            var playerData = InitializePlayerData(playerDriver.Name, playerDriver.Nationality, season.Year - playerDriver.YearOfBirth, RaceSeatTeamId(season, selectedTeamId, replacedDriverId), playerDriver.DriverId);
 
             allDrivers.RemoveAll(d => d.DriverId == playerDriver.DriverId);
             allDrivers.Add(playerDriver);
@@ -226,9 +227,11 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
                 if (teamFromUpdatedSeason != null)
                 {
-                    // just port the driver contracts.
+                    // just port the driver contracts. The reserve too, even when the save has none:
+                    // the pack's reserve is history, the save's is what happened in this career
                     teamFromUpdatedSeason.Driver1Contract = teamEntry.Driver1Contract;
                     teamFromUpdatedSeason.Driver2Contract = teamEntry.Driver2Contract;
+                    teamFromUpdatedSeason.ReserveContract = teamEntry.ReserveContract;
 
                     // update the flag "default prequalifying" (in case it was updated on merit)
                     teamFromUpdatedSeason.DefaultPrequalifying = teamEntry.DefaultPrequalifying;
@@ -428,7 +431,22 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             DriverHirer.AssignUndefinedRoles(clonedSeason, seasonDrivers);
 
             var playerTeam = clonedSeason.Teams.FirstOrDefault(t => t.TeamId == playerTeamId);
-            if (playerTeam != null)
+            if (playerTeam != null && IsReserveOf(playerTeam, replacedDriverId))
+            {
+                // the player takes over the pack's reserve, and the call-ups the pack gave them at
+                // this team; the pack's reserve becomes a free agent
+                playerTeam.ReserveContract.DriverId = playerDriverId;
+                playerTeam.ReserveContract.Races = originalSeason.Races.Count();
+
+                foreach (var absence in clonedSeason.Absences ?? Enumerable.Empty<Absence>())
+                {
+                    if (absence.TeamId == playerTeam.TeamId && absence.DriverIn == replacedDriverId)
+                    {
+                        absence.DriverIn = playerDriverId;
+                    }
+                }
+            }
+            else if (playerTeam != null)
             {
                 if (playerTeam.Driver1Contract.DriverId == replacedDriverId)
                 {
@@ -451,6 +469,16 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             }
 
             return clonedSeason;
+        }
+
+        private static bool IsReserveOf(ITeamEntry team, string driverId) =>
+            !string.IsNullOrEmpty(driverId) && team?.ReserveDriverId() == driverId;
+
+        // the team the player races for: none when they take over the team's reserve
+        private static string RaceSeatTeamId(ISeason season, string selectedTeamId, string replacedDriverId)
+        {
+            var team = season.Teams?.FirstOrDefault(t => t.TeamId == selectedTeamId);
+            return IsReserveOf(team, replacedDriverId) ? null : selectedTeamId;
         }
 
         protected virtual ISaveGame InitializeNewSaveGame(

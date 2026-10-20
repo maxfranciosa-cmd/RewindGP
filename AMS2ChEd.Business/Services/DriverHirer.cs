@@ -138,6 +138,60 @@ namespace AMS2ChEd.Business.Services
             },
         };
 
+        // Reserve seats, per team reputation: easier to get than a race seat (a YOUNG_TALENT can be a
+        // top team's reserve). Read through DoesDriverFitReservePolicy, with the same rules as
+        // teamPolicies: above the list's best entry is OverQualified, anything else not listed is
+        // UnderQualified. Minnows never hire a reserve (EndOfSeasonManager.ReserveChance), but their
+        // entries keep the table complete.
+        private static Dictionary<TeamReputation, Tuple<DriverReputation, DriverPolicyFit>[]> reservePolicies = new()
+        {
+            {
+                TeamReputation.TOP_TEAM, new[] {
+                                                Tuple.Create(DriverReputation.YOUNG_TALENT, DriverPolicyFit.GoodFit),
+                                                Tuple.Create(DriverReputation.PRIME_MIDFIELD, DriverPolicyFit.PerfectFit),
+                                                Tuple.Create(DriverReputation.AGEING_MIDFIELD, DriverPolicyFit.GoodFit),
+                                                Tuple.Create(DriverReputation.AGEING_STRONG_MIDFIELD, DriverPolicyFit.PerfectFit),
+                                                Tuple.Create(DriverReputation.JUST_ONE_LAST_DANCE, DriverPolicyFit.GoodFit),
+                                                Tuple.Create(DriverReputation.PRIME_STRONG_MIDFIELD, DriverPolicyFit.PerfectFit),
+                                                Tuple.Create(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED, DriverPolicyFit.GoodFit),
+                                                Tuple.Create(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED, DriverPolicyFit.GoodFit),
+                                                Tuple.Create(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN, DriverPolicyFit.GoodFit),
+                                             }
+            },
+            {
+                TeamReputation.MIDFIELD_HIGH, new[] {
+                                                Tuple.Create(DriverReputation.YOUNG_TALENT, DriverPolicyFit.PerfectFit),
+                                                Tuple.Create(DriverReputation.PRIME_MIDFIELD, DriverPolicyFit.PerfectFit),
+                                                Tuple.Create(DriverReputation.AGEING_MIDFIELD, DriverPolicyFit.GoodFit),
+                                                Tuple.Create(DriverReputation.AGEING_STRONG_MIDFIELD, DriverPolicyFit.GoodFit),
+                                                Tuple.Create(DriverReputation.JUST_ONE_LAST_DANCE, DriverPolicyFit.GoodFit),
+                                                Tuple.Create(DriverReputation.PRIME_STRONG_MIDFIELD, DriverPolicyFit.GoodFit),
+                                             }
+            },
+            {
+                TeamReputation.MIDFIELD, new[] {
+                                                Tuple.Create(DriverReputation.YOUNG_TALENT, DriverPolicyFit.PerfectFit),
+                                                Tuple.Create(DriverReputation.PAY_DRIVER_SEASON, DriverPolicyFit.PerfectFit),
+                                                Tuple.Create(DriverReputation.PAY_DRIVER_WILD_CARD, DriverPolicyFit.GoodFit),
+                                                Tuple.Create(DriverReputation.AGEING_MIDFIELD, DriverPolicyFit.GoodFit),
+                                                Tuple.Create(DriverReputation.PRIME_MIDFIELD, DriverPolicyFit.GoodFit),
+                                             }
+            },
+            {
+                TeamReputation.MINNOW, new[] {
+                                                Tuple.Create(DriverReputation.PAY_DRIVER_WILD_CARD, DriverPolicyFit.PerfectFit),
+                                                Tuple.Create(DriverReputation.PAY_DRIVER_SEASON, DriverPolicyFit.PerfectFit),
+                                                Tuple.Create(DriverReputation.YOUNG_TALENT, DriverPolicyFit.GoodFit),
+                                             }
+            },
+            {
+                TeamReputation.SUPER_MINNOW, new[] {
+                                                Tuple.Create(DriverReputation.PAY_DRIVER_WILD_CARD, DriverPolicyFit.PerfectFit),
+                                                Tuple.Create(DriverReputation.PAY_DRIVER_SEASON, DriverPolicyFit.PerfectFit),
+                                             }
+            },
+        };
+
         // minimum reputation for a driver to be considered the team leader (FIRST_DRIVER material)
         // when their status inside the team isn't explicit (EQUAL contract role)
         private static Dictionary<TeamReputation, DriverReputation> firstDriverMinReputation = new()
@@ -226,7 +280,24 @@ namespace AMS2ChEd.Business.Services
             return teamPolicies[teamReputation][role].FirstOrDefault(p => p.Item1 == driverReputation)?.Item2 ?? DriverPolicyFit.GoodFit;
         }
 
-        public DriverResume? PickBestCandidate(IEnumerable<DriverResume> drivers, DriverRole role, TeamReputation teamReputation)
+        // DoesDriverFitTeamPolicy's counterpart for a reserve seat (reservePolicies)
+        public DriverPolicyFit DoesDriverFitReservePolicy(DriverReputation driverReputation, TeamReputation teamReputation)
+        {
+            var policy = reservePolicies[teamReputation];
+            if (!policy.Select(p => p.Item1).Contains(driverReputation))
+                return driverReputation > policy.Select(p => p.Item1).Max() ? DriverPolicyFit.OverQualified : DriverPolicyFit.UnderQualified;
+            return policy.First(p => p.Item1 == driverReputation).Item2;
+        }
+
+        // the fit for a race seat in this role, or for the team's reserve seat
+        public DriverPolicyFit DoesDriverFitSeat(DriverReputation driverReputation, DriverRole role, TeamReputation teamReputation, bool isReserve)
+        {
+            return isReserve
+                ? DoesDriverFitReservePolicy(driverReputation, teamReputation)
+                : DoesDriverFitTeamPolicy(driverReputation, role, teamReputation);
+        }
+
+        public DriverResume? PickBestCandidate(IEnumerable<DriverResume> drivers, DriverRole role, TeamReputation teamReputation, bool isReserve = false)
         {
             if (drivers == null)
                 return null;
@@ -234,7 +305,7 @@ namespace AMS2ChEd.Business.Services
             // The best fit tier for this role/team wins; inside it every driver has a chance,
             // weighted by reputation (see PickWeightedByReputation).
             var bestTier = drivers
-                    .GroupBy(d => GetFitWeight(DoesDriverFitTeamPolicy(d.Reputation, role, teamReputation)))
+                    .GroupBy(d => GetFitWeight(DoesDriverFitSeat(d.Reputation, role, teamReputation, isReserve)))
                     .OrderByDescending(g => g.Key)
                     .FirstOrDefault();
 
@@ -320,13 +391,13 @@ namespace AMS2ChEd.Business.Services
         /// comparison (including the pay-driver-season coin toss) to break a tie within the same
         /// fit tier.
         /// </summary>
-        public DriverResume PickWinner(DriverResume driverPickedByTeam, DriverResume driverWhoIsProposingToTeam, DriverRole role, TeamReputation teamReputation)
+        public DriverResume PickWinner(DriverResume driverPickedByTeam, DriverResume driverWhoIsProposingToTeam, DriverRole role, TeamReputation teamReputation, bool isReserve = false)
         {
             if (driverPickedByTeam == null)
                 return driverWhoIsProposingToTeam;
 
-            var pickedFitWeight = GetFitWeight(DoesDriverFitTeamPolicy(driverPickedByTeam.Reputation, role, teamReputation));
-            var proposingFitWeight = GetFitWeight(DoesDriverFitTeamPolicy(driverWhoIsProposingToTeam.Reputation, role, teamReputation));
+            var pickedFitWeight = GetFitWeight(DoesDriverFitSeat(driverPickedByTeam.Reputation, role, teamReputation, isReserve));
+            var proposingFitWeight = GetFitWeight(DoesDriverFitSeat(driverWhoIsProposingToTeam.Reputation, role, teamReputation, isReserve));
 
             if (pickedFitWeight != proposingFitWeight)
                 return pickedFitWeight > proposingFitWeight ? driverPickedByTeam : driverWhoIsProposingToTeam;

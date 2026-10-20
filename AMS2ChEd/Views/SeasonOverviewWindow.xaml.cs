@@ -192,7 +192,10 @@ namespace AMS2ChEd
                 t.Driver1Contract.DriverId == saveGame.PlayerData.DriverId ||
                 t.Driver2Contract.DriverId == saveGame.PlayerData.DriverId);
 
-            PlayerTeamText.Text = playerTeam?.TeamName ?? Strings.SeasonOverviewWindow_NoTeam;
+            // a reserve has no race seat, but a team
+            var reserveTeam = playerTeam == null ? saveGame.CurrentSeason.ReserveTeamOf(saveGame.PlayerData.DriverId) : null;
+            PlayerTeamText.Text = playerTeam?.TeamName
+                ?? (reserveTeam != null ? string.Format(Strings.MarketOutlookWindow_ReserveDetail_Format, reserveTeam.TeamName) : Strings.SeasonOverviewWindow_NoTeam);
 
             // Set player team-orders role and reprimands (only worth showing when team orders apply)
             var playerContract = playerTeam == null ? null
@@ -776,7 +779,8 @@ namespace AMS2ChEd
                 driverInName,
                 DateTime.ParseExact(gp.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 askPlayerToApply: !playerAlreadySteppedIn && opportunity.DriverIn != _saveGame.PlayerData.DriverId,
-                isConsecutive);
+                isConsecutive,
+                opportunity.Reason);
 
             newsWindow.Owner = _owner;
             bool? result = newsWindow.ShowDialog();
@@ -971,9 +975,11 @@ namespace AMS2ChEd
                 otherDriverName = otherDriver?.Name ?? Strings.SeasonOverviewWindow_UnknownDriver;
             }
 
-            string roleName = result.Role == DriverRole.FIRST_DRIVER
-                ? Strings.TeamApplicationWindow_FirstDriverRole
-                : Strings.TeamApplicationWindow_SecondDriverRole;
+            string roleName = result.IsReserve
+                ? Strings.TeamApplicationWindow_ReserveRole
+                : result.Role == DriverRole.FIRST_DRIVER
+                    ? Strings.TeamApplicationWindow_FirstDriverRole
+                    : Strings.TeamApplicationWindow_SecondDriverRole;
 
             var letterWindow = new ContractLetterWindow(
                 teamName,
@@ -986,7 +992,8 @@ namespace AMS2ChEd
                 result.OtherDriverWasAtTeamBefore,
                 roleName,
                 teamEntry?.Reputation ?? TeamReputation.MINNOW,
-                result.Role);
+                result.Role,
+                result.IsReserve);
             letterWindow.Owner = _owner;
             letterWindow.ShowDialog();
             return Task.CompletedTask;
@@ -1000,12 +1007,20 @@ namespace AMS2ChEd
             return Task.CompletedTask;
         }
 
-        public Task<bool> AskCreateFictionalAbsenceAsync()
+        public Task<ReserveLetterDecision> ShowReserveLetterAsync(ISaveGame saveGame, IEnumerable<ITeamEntry> nextSeasonTeamEntries, ReserveLetter letter, DriverReputation playerReputation)
         {
-            var generateAbsenceWindow = new GenerateAbsenceWindow(GenerateAbsenceWindowType.NoTeamForNextSeason);
-            generateAbsenceWindow.Owner = _owner;
-            generateAbsenceWindow.ShowDialog();
-            return Task.FromResult(generateAbsenceWindow.CreateFictionalAbsence);
+            var teamEntry = nextSeasonTeamEntries.FirstOrDefault(t => t.TeamId == letter.TeamId)
+                            ?? saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == letter.TeamId);
+            var letterWindow = new ReserveLetterWindow(saveGame.PlayerData.Name, teamEntry, letter);
+            letterWindow.Owner = _owner;
+            letterWindow.ShowDialog();
+            return Task.FromResult(letterWindow.Decision);
+        }
+
+        public Task ShowPaddockOpportunitiesAsync(ISaveGame saveGame, int raceIndex)
+        {
+            PaddockOpportunitiesWindow.ShowFor(_owner, saveGame, raceIndex, PaddockOpportunitiesContext.NewSeason);
+            return Task.CompletedTask;
         }
     }
 }

@@ -919,51 +919,6 @@ Close anyway?</value>
   <data name="RaceWeekendWindow_DefaultCircuitName" xml:space="preserve">
     <value>CIRCUIT</value>
   </data>
-  <data name="GenerateAbsenceWindow_WindowTitle" xml:space="preserve">
-    <value>Pay Driver - Wild Card</value>
-  </data>
-  <data name="GenerateAbsenceWindow_PayDriverTitle" xml:space="preserve">
-    <value>PAY DRIVER - WILD CARD</value>
-  </data>
-  <data name="GenerateAbsenceWindow_NoTeamSeasonTitle" xml:space="preserve">
-    <value>NO TEAM FOR NEXT SEASON</value>
-  </data>
-  <data name="GenerateAbsenceWindow_NoTeamRaceTitle" xml:space="preserve">
-    <value>NO TEAM FOR NEXT RACE</value>
-  </data>
-  <data name="GenerateAbsenceWindow_PayDriver_Intro1" xml:space="preserve">
-    <value>You are a pay driver wild card. This means that you can't secure a full season seat with a team yet, and you need to step in whenever one of the official drivers is absent.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_PayDriver_Intro2" xml:space="preserve">
-    <value>You need to seize every single opportunity you get in order to prove your worth and secure a full-season seat for next season.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_Intro3" xml:space="preserve">
-    <value>However, drivers might go a full season without any absences, so your opportunities may be limited or non-existent.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_QuestionText" xml:space="preserve">
-    <value>Would you like to create a fictional absence for a random low/midlevel team driver in the next race?</value>
-  </data>
-  <data name="GenerateAbsenceWindow_FooterNote" xml:space="preserve">
-    <value>This will guarantee you at least one race to prove yourself this season.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_YesButton" xml:space="preserve">
-    <value>YES, CREATE ABSENCE</value>
-  </data>
-  <data name="GenerateAbsenceWindow_NoButton" xml:space="preserve">
-    <value>NO</value>
-  </data>
-  <data name="GenerateAbsenceWindow_BackButton" xml:space="preserve">
-    <value>CHOOSE OTHER REPUTATION</value>
-  </data>
-  <data name="GenerateAbsenceWindow_NoTeamSeason_Intro1" xml:space="preserve">
-    <value>You don't have a team for the next season. You need to step in whenever one of the official drivers is absent.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_SeekOpportunity_Intro2" xml:space="preserve">
-    <value>You need to seize every single opportunity you get in order to prove your worth and secure a seat for the following season.</value>
-  </data>
-  <data name="GenerateAbsenceWindow_NoTeamRace_Intro1" xml:space="preserve">
-    <value>You don't have a team for the next race. the following race will be simulated.</value>
-  </data>
   <data name="TeamSelectionWindow_Title" xml:space="preserve">
     <value>Select Team</value>
   </data>
@@ -3480,7 +3435,8 @@ You can give the instruction from the season overview before the race.</value>
     <value>why</value>
   </data>
   <data name="MarketOutlookWindow_SeatDetail" xml:space="preserve">
-    <value>{0} · {1}</value>
+    <value>{0}
+{1}</value>
   </data>
   <data name="MarketOutlookWindow_Band_VeryLikely" xml:space="preserve">
     <value>VERY LIKELY</value>
@@ -3529,7 +3485,8 @@ You can give the instruction from the season overview before the race.</value>
   </data>
   <data name="MarketOutlookWindow_NoSeats" xml:space="preserve">
     <value>No seat is likely to open next season.</value>
-  </data>  <data name="MarketOutlookWindow_Fit_Perfect" xml:space="preserve">
+  </data>
+  <data name="MarketOutlookWindow_Fit_Perfect" xml:space="preserve">
     <value>a perfect fit</value>
   </data>
   <data name="MarketOutlookWindow_Fit_Good" xml:space="preserve">
@@ -3603,5 +3560,161 @@ You can give the instruction from the season overview before the race.</value>
   </data>
   <data name="SeasonOverviewWindow_DriverDatabaseButton" xml:space="preserve">
     <value>Driver database</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_WindowTitle" xml:space="preserve">
+    <value>Paddock opportunities</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Title_Format" xml:space="preserve">
+    <value>PADDOCK OPPORTUNITIES · {0}</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Intro_GameStart_Format" xml:space="preserve">
+    <value>You bring your sponsors' money to the paddock, but no team has signed you for the season. This is what's on offer at the {0}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Intro_NextRace_Format" xml:space="preserve">
+    <value>This race goes on without you. This is what the paddock offers at the {0}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Intro_NewSeason_Format" xml:space="preserve">
+    <value>The new season starts without a race seat for you. This is what the paddock offers at the {0}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_ReserveNote_Format" xml:space="preserve">
+    <value>As {0}'s reserve driver you stand in whenever one of its drivers can't race.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_CallUpsHeading" xml:space="preserve">
+    <value>You're racing</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_CallUp_Format" xml:space="preserve">
+    <value>You stand in for {0} at {1}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_PaidCallUp_Format" xml:space="preserve">
+    <value>You've paid for {0}'s seat at {1}.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_AbsencesHeading" xml:space="preserve">
+    <value>Absences</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Absence_Format" xml:space="preserve">
+    <value>{0} ({1}) misses the race: {2} is due to stand in.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_AbsencesNote" xml:space="preserve">
+    <value>You can apply for these seats when the entry list is published; the team chooses between you and the driver it had in mind.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_PaidRidesHeading" xml:space="preserve">
+    <value>Paid rides</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Budget_Format" xml:space="preserve">
+    <value>Your sponsors can pay for {0} more of their {1} races this season.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_BudgetSpent" xml:space="preserve">
+    <value>Your sponsors' budget for this season is spent.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_AlreadyRacing" xml:space="preserve">
+    <value>You already have a car for this race.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_NoSeatForSale" xml:space="preserve">
+    <value>No team has a seat for sale at this race.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Offer_Format" xml:space="preserve">
+    <value>{0}: {1}'s seat ({1} stands down for the race)</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_PaidRidesNote" xml:space="preserve">
+    <value>A bought ride is one race and nothing more: your result counts for your reputation like any other.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_NothingOnOffer" xml:space="preserve">
+    <value>Nothing is on offer at this race: it will be simulated without you.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_BuyButton" xml:space="preserve">
+    <value>BUY THIS RIDE</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_ContinueButton" xml:space="preserve">
+    <value>CONTINUE</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_BackButton" xml:space="preserve">
+    <value>CHOOSE OTHER REPUTATION</value>
+  </data>
+  <data name="ReserveLetterWindow_WindowTitle" xml:space="preserve">
+    <value>Letter from your team</value>
+  </data>
+  <data name="ReserveLetterWindow_Subtitle" xml:space="preserve">
+    <value>Reserve driver</value>
+  </data>
+  <data name="ReserveLetterWindow_Greeting_Format" xml:space="preserve">
+    <value>Dear {0},</value>
+  </data>
+  <data name="ReserveLetterWindow_Promotion_Format" xml:space="preserve">
+    <value>Dear {0},
+
+A race seat at {1} is open for next season and, as our reserve, you have first refusal: we would like you to race for us as {2}.
+
+You have earned it in the garage, at the tests and every time we called on you. Will you take the seat?</value>
+  </data>
+  <data name="ReserveLetterWindow_SeatDeclined" xml:space="preserve">
+    <value>We respect your decision to turn down the seat.</value>
+  </data>
+  <data name="ReserveLetterWindow_NotPromoted_OverQualified_Format" xml:space="preserve">
+    <value>The {1} seat at {0} is open for next season, but we see you as too big a name for it.</value>
+  </data>
+  <data name="ReserveLetterWindow_NotPromoted_GoodFit_Format" xml:space="preserve">
+    <value>The {1} seat at {0} is open for next season. You would be a good fit for it, but not the one we are looking for, so we won't simply hand it to you.</value>
+  </data>
+  <data name="ReserveLetterWindow_NotPromoted_UnderQualified_Format" xml:space="preserve">
+    <value>The {1} seat at {0} is open for next season, but you are not yet at the level it needs.</value>
+  </data>
+  <data name="ReserveLetterWindow_NotPromoted_CanApply" xml:space="preserve">
+    <value>You can still apply for it in the driver market, where you will be considered like any other driver.</value>
+  </data>
+  <data name="ReserveLetterWindow_StayOn" xml:space="preserve">
+    <value>We will run a reserve again next season and would like it to be you: first in line whenever one of our drivers can't race. Will you stay on?</value>
+  </data>
+  <data name="ReserveLetterWindow_NoReserveNextSeason" xml:space="preserve">
+    <value>We won't run a reserve next season, so our agreement ends with this one. Thank you for your work: you are free to look for a seat elsewhere.</value>
+  </data>
+  <data name="ReserveLetterWindow_AcceptSeatButton" xml:space="preserve">
+    <value>TAKE THE SEAT</value>
+  </data>
+  <data name="ReserveLetterWindow_DeclineButton" xml:space="preserve">
+    <value>DECLINE</value>
+  </data>
+  <data name="ReserveLetterWindow_StayButton" xml:space="preserve">
+    <value>STAY ON</value>
+  </data>
+  <data name="ReserveLetterWindow_LeaveButton" xml:space="preserve">
+    <value>FREE AGENT</value>
+  </data>
+  <data name="ReserveLetterWindow_ContinueButton" xml:space="preserve">
+    <value>CONTINUE</value>
+  </data>
+  <data name="TeamApplicationWindow_ReserveRole" xml:space="preserve">
+    <value>Reserve Driver</value>
+  </data>
+  <data name="TeamApplicationWindow_ReserveBlurb_Format" xml:space="preserve">
+    <value>{0} is looking for a reserve driver for the season: first in line whenever one of its drivers can't race, with a chance at a race seat that opens. A one-season deal.</value>
+  </data>
+  <data name="TeamSelectionWindow_ReserveRole" xml:space="preserve">
+    <value>Reserve</value>
+  </data>
+  <data name="MarketOutlookWindow_ReserveDetail_Format" xml:space="preserve">
+    <value>Reserve driver at {0}</value>
+  </data>
+  <data name="MarketOutlookWindow_ReserveTitle_Format" xml:space="preserve">
+    <value>Reserve at {0}</value>
+  </data>
+  <data name="MarketOutlookWindow_ReserveText" xml:space="preserve">
+    <value>A reserve deal lasts one season: over the winter the team writes to you about a promotion or staying on. These are the seats that may open elsewhere.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_Reserve" xml:space="preserve">
+    <value>Whether the team runs a reserve is decided over the winter.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_ReserveIncumbent_Format" xml:space="preserve">
+    <value>{0}'s reserve deal ends with the season; whether the team runs a reserve again is decided over the winter.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Headline_PaidRide_Format" xml:space="preserve">
+    <value>{0} STANDS DOWN AT {1} AS {2} BRINGS SPONSORSHIP</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_PaidRide_Format" xml:space="preserve">
+    <value>{0} will stand down for one race at the {2}, as {1} hands the car to {3}, who brings sponsorship to the team.
+
+It is a deal for this race only: {0} is expected back in the car afterwards.</value>
+  </data>
+  <data name="NewSeasonRosterWindow_Reserve_Format" xml:space="preserve">
+    <value>{0}, who {1}, is the team&apos;s reserve driver: first in line whenever one of its drivers can&apos;t race.</value>
   </data>
 </root>

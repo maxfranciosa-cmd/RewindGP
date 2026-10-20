@@ -2,6 +2,7 @@ using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -342,6 +343,86 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
             Assert.AreEqual(ContractRole.UNDEFINED, contract.Role);
         }
+
+        #region Reserves and simulated contacts
+
+        [TestMethod]
+        public void ProcessRace_ThirdReprimand_TheTeamsReserveIsTheReplacement()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.NextGpIndex = 1;
+            // a weaker driver than U1, but the team's own reserve
+            Team(saveGame, "T1").ReserveContract = new DriverContract { DriverId = "U3", Races = 4 };
+            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+
+            var news = Process(saveGame, CreateResult(("D2", 3), ("D1", 4)));
+
+            Assert.AreEqual("U3", news.Single().ReplacementDriverId);
+            Assert.IsTrue(saveGame.CurrentSeason.Absences.All(a => a.DriverIn == "U3"));
+        }
+
+        [TestMethod]
+        public void ProcessRace_ThirdReprimand_AnotherTeamsReserveIsNeverTheReplacement()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.NextGpIndex = 1;
+            Team(saveGame, "T2").ReserveContract = new DriverContract { DriverId = "U1", Races = 4 };
+            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+
+            var news = Process(saveGame, CreateResult(("D2", 3), ("D1", 4)));
+
+            Assert.AreEqual("U2", news.Single().ReplacementDriverId);
+        }
+
+        [TestMethod]
+        public void ProcessRace_ThirdReprimand_PlayerAsTheReserve_StandsInForTheRestOfTheSeason()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.NextGpIndex = 1;
+            // the player is T1's reserve rather than racing for T3
+            Team(saveGame, "T3").Driver1Contract.DriverId = "D6";
+            saveGame.Drivers = saveGame.Drivers.Append(Driver("D6", DriverReputation.PRIME_MIDFIELD)).ToList();
+            saveGame.NextGpEntryList.Single(e => e.TeamId == "T3").Driver1Id = "D6";
+            saveGame.PlayerData.TeamId = null;
+            Team(saveGame, "T1").ReserveContract = new DriverContract { DriverId = "PLAYER", Races = 4 };
+            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+
+            var news = Process(saveGame, CreateResult(("D2", 3), ("D1", 4)));
+
+            Assert.AreEqual("PLAYER", news.Single().ReplacementDriverId);
+        }
+
+        [TestMethod]
+        public void ProcessRace_SimulatedTeammateContact_ReprimandsTheDriverAtFault()
+        {
+            var saveGame = CreateSaveGame();
+            var contacts = new List<TeammateContact> { new TeammateContact { AtFaultDriverId = "D3", OtherDriverId = "D4" } };
+
+            var news = _reprimandManager.ProcessRace(saveGame, CreateResult(("D1", 1), ("D2", 2)), saveGame.CurrentDriverStandings.ToList(), new List<string>(), contacts);
+
+            var item = news.Single();
+            Assert.AreEqual("D3", item.DriverId);
+            Assert.AreEqual("D4", item.TeammateId);
+            Assert.AreEqual(ReprimandReason.CONTACT_WITH_TEAMMATE, item.Reason);
+            Assert.AreEqual(1, saveGame.Reprimands.Count(r => r.DriverId == "D3" && r.TeamId == "T2"));
+        }
+
+        [TestMethod]
+        public void ProcessRace_SimulatedTeammateContactBySubstitute_IsNotReprimanded()
+        {
+            var saveGame = CreateSaveGame();
+            // U2 stands in for D3 this race
+            saveGame.NextGpEntryList.Single(e => e.TeamId == "T2").Driver1Id = "U2";
+            var contacts = new List<TeammateContact> { new TeammateContact { AtFaultDriverId = "U2", OtherDriverId = "D4" } };
+
+            var news = _reprimandManager.ProcessRace(saveGame, CreateResult(("D1", 1), ("D2", 2)), saveGame.CurrentDriverStandings.ToList(), new List<string>(), contacts);
+
+            Assert.AreEqual(0, news.Count);
+        }
+
+        private static ITeamEntry Team(ISaveGame saveGame, string teamId) => saveGame.CurrentSeason.Teams.Single(t => t.TeamId == teamId);
+
+        #endregion
 
         #region Helpers
 

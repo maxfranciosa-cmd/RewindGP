@@ -483,9 +483,9 @@ namespace AMS2ChEd.Business.Services
                 case DriverReputation.AGEING_CHAMPIONSHIP_LEVEL:
                 case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL:
                 case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL:
-                    if (standings <= 5)
+                    if (standings <= 6)
                         return DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL;
-                    else if (standings <= 10)
+                    else if (standings <= 15)
                         return DriverReputation.YOUNG_TALENT;
                     else
                         return DriverReputation.PAY_DRIVER_SEASON;

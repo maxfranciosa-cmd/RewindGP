@@ -287,6 +287,97 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
         #endregion
 
+        #region Reserves
+
+        [TestMethod]
+        public void UpdateSeasonInsideSave_KeepsTheSavesReserve()
+        {
+            var saveGame = CreateSaveGame();
+            var oldTeam = CreateTeam("team1", "driver1", 5, "driver2", 6);
+            oldTeam.ReserveContract = new DriverContract { DriverId = "PLAYER", Races = 16 };
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { oldTeam };
+
+            var updatedSeason = CreateSeason(1995);
+            var updatedTeam = CreateTeam("team1", "placeholder1", 0, "placeholder2", 0);
+            updatedTeam.ReserveContract = new DriverContract { DriverId = "pack_reserve", Races = 16 };
+            updatedSeason.Teams = new List<ITeamEntry> { updatedTeam };
+            _engine.SeasonToReturn = updatedSeason;
+
+            _engine.UpdateSeasonInsideSave(saveGame);
+
+            Assert.AreEqual("PLAYER", saveGame.CurrentSeason.Teams.Single().ReserveContract.DriverId);
+        }
+
+        [TestMethod]
+        public void UpdateSeasonInsideSave_SaveWithoutReserve_DoesNotBringInThePacksReserve()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { CreateTeam("team1", "driver1", 5, "driver2", 6) };
+
+            var updatedSeason = CreateSeason(1995);
+            var updatedTeam = CreateTeam("team1", "placeholder1", 0, "placeholder2", 0);
+            updatedTeam.ReserveContract = new DriverContract { DriverId = "pack_reserve", Races = 16 };
+            updatedSeason.Teams = new List<ITeamEntry> { updatedTeam };
+            _engine.SeasonToReturn = updatedSeason;
+
+            _engine.UpdateSeasonInsideSave(saveGame);
+
+            Assert.IsNull(saveGame.CurrentSeason.Teams.Single().ReserveContract);
+        }
+
+        [TestMethod]
+        public void CreateNewGame_ReplacingThePacksReserve_PlayerIsTheReserveWithNoRaceSeat()
+        {
+            var season = CreateSeason(1994);
+            season.Races = new List<Race> { new Race { RaceId = 1 }, new Race { RaceId = 2 } };
+            var team = CreateTeam("team1", "D1", 5, "D2", 6);
+            team.ReserveContract = new DriverContract { DriverId = "R1", Races = 2 };
+            season.Teams = new List<ITeamEntry> { team };
+            season.Absences = new List<Absence> { new Absence { RaceId = 2, TeamId = "team1", DriverOut = "D1", DriverIn = "R1" } };
+            var seasonDrivers = new List<IDriverData>
+            {
+                CreateDriver("D1", "Driver 1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
+                CreateDriver("D2", "Driver 2", DriverReputation.PRIME_MIDFIELD),
+                CreateDriver("R1", "Reserve", DriverReputation.YOUNG_TALENT)
+            };
+
+            var saveGame = _engine.CreateNewGame("Test Player", "GBR", 21, DriverReputation.YOUNG_TALENT,
+                new[] { 7 }, season, "team1", "R1", seasonDrivers);
+
+            var playerId = saveGame.PlayerData.DriverId;
+            var resultTeam = saveGame.CurrentSeason.Teams.Single();
+            Assert.IsNull(saveGame.PlayerData.TeamId);
+            Assert.AreEqual(playerId, resultTeam.ReserveContract.DriverId);
+            Assert.AreEqual("D1", resultTeam.Driver1Contract.DriverId);
+            Assert.AreEqual("D2", resultTeam.Driver2Contract.DriverId);
+            // the reserve's call-up is now the player's, and the pack's reserve is a free agent
+            Assert.AreEqual(playerId, saveGame.CurrentSeason.Absences.Single().DriverIn);
+            Assert.IsTrue(saveGame.Drivers.Any(d => d.DriverId == "R1"));
+        }
+
+        [TestMethod]
+        public void CreateNewGameWithExistingDriver_PlayingAsThePacksReserve_HasNoRaceSeat()
+        {
+            var season = CreateSeason(1994);
+            var team = CreateTeam("team1", "D1", 5, "D2", 6);
+            team.ReserveContract = new DriverContract { DriverId = "R1", Races = 16 };
+            season.Teams = new List<ITeamEntry> { team };
+            var seasonDrivers = new List<IDriverData>
+            {
+                CreateDriver("D1", "Driver 1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
+                CreateDriver("D2", "Driver 2", DriverReputation.PRIME_MIDFIELD),
+                CreateDriver("R1", "Reserve", DriverReputation.YOUNG_TALENT)
+            };
+
+            var saveGame = _engine.CreateNewGameWithExistingDriver(season, "team1", "R1", seasonDrivers);
+
+            Assert.AreEqual("R1", saveGame.PlayerData.DriverId);
+            Assert.IsNull(saveGame.PlayerData.TeamId);
+            Assert.AreEqual("R1", saveGame.CurrentSeason.Teams.Single().ReserveContract.DriverId);
+        }
+
+        #endregion
+
         #region Helper Methods
 
         private ISaveGame CreateSaveGame()

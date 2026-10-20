@@ -299,7 +299,76 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return (age - MIN_RETIRING_AGE + 1) / (double)(MAX_RETIRING_AGE - MIN_RETIRING_AGE + 1);
         }
 
-        public IEnumerable<TeamHiringBallot> TeamPicksPotentialReplacementsDrivers(int newSeasonYear, ISaveGame saveGame, IEnumerable<ITeamEntry> newSeasonTeamEntries, IEnumerable<DropTeamResult> dropTeamResults)
+        // the chance a team runs a reserve next season, by its reputation. Rolled again every winter
+        // (reserve contracts last one season); minnows rely on pay drivers and never run one
+        public static double ReserveChance(TeamReputation teamReputation) => teamReputation switch
+        {
+            TeamReputation.TOP_TEAM => 0.75,
+            TeamReputation.MIDFIELD_HIGH => 0.45,
+            TeamReputation.MIDFIELD => 0.2,
+            _ => 0
+        };
+
+        // the teams that run a reserve next season
+        public static HashSet<string> RollReserveWishes(IEnumerable<ITeamEntry> nextSeasonTeams, Random random)
+        {
+            return nextSeasonTeams
+                .Where(t => random.NextDouble() < ReserveChance(t.Reputation))
+                .Select(t => t.TeamId)
+                .ToHashSet();
+        }
+
+        // a race seat opening at the team the reserve drives for next season, and whether the team
+        // promotes them to it (first refusal): null when no race seat opens
+        public ReservePromotion GetReservePromotion(ISaveGame saveGame, IEnumerable<ITeamEntry> newSeasonTeamEntries, IEnumerable<DropTeamResult> dropTeamResults, string teamId, DriverReputation reserveReputation)
+        {
+            var newTeamEntry = newSeasonTeamEntries.FirstOrDefault(t => t.TeamId == teamId);
+            var currentTeamEntry = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
+            var dropResult = dropTeamResults.FirstOrDefault(d => d.TeamId == teamId);
+            if (newTeamEntry == null || currentTeamEntry == null || dropResult == null)
+                return null;
+
+            var driver2Id = currentTeamEntry.Driver2Contract?.DriverId;
+            var hiringDriver1 = dropResult.DropDriver1.IsDropped();
+            var hiringDriver2 = !string.IsNullOrEmpty(driver2Id) && dropResult.DropDriver2.IsDropped();
+            var (driver1Role, driver2Role) = GetJobAdRoles(saveGame, currentTeamEntry, newTeamEntry.Reputation, hiringDriver1, hiringDriver2, driver2Id);
+
+            return PickPromotionSeat(teamId, reserveReputation, newTeamEntry.Reputation, hiringDriver1, driver1Role, hiringDriver2, driver2Role);
+        }
+
+        // judged with the race policy, as it's a race seat: PerfectFit is the only fit that's
+        // promoted. With both seats open, the one they're a PerfectFit for, the first driver's on a tie
+        private ReservePromotion PickPromotionSeat(string teamId, DriverReputation reserveReputation, TeamReputation teamReputation, bool hiringDriver1, DriverRole driver1Role, bool hiringDriver2, DriverRole driver2Role)
+        {
+            var seats = new List<ReservePromotion>();
+            if (hiringDriver1)
+                seats.Add(new ReservePromotion { TeamId = teamId, Slot = 1, Role = driver1Role, Fit = _driverHirer.DoesDriverFitTeamPolicy(reserveReputation, driver1Role, teamReputation) });
+            if (hiringDriver2)
+                seats.Add(new ReservePromotion { TeamId = teamId, Slot = 2, Role = driver2Role, Fit = _driverHirer.DoesDriverFitTeamPolicy(reserveReputation, driver2Role, teamReputation) });
+
+            return seats.FirstOrDefault(s => s.IsOffered) ?? seats.FirstOrDefault();
+        }
+
+        // with both seats open the team looks for a leader and a wingman; with only one seat
+        // open it looks for whatever complements the driver who's staying
+        private (DriverRole Driver1Role, DriverRole Driver2Role) GetJobAdRoles(ISaveGame saveGame, ITeamEntry currentTeamEntry, TeamReputation teamReputation, bool hiringDriver1, bool hiringDriver2, string driver2Id)
+        {
+            var driver1Role = DriverRole.FIRST_DRIVER;
+            var driver2Role = DriverRole.SECOND_DRIVER;
+
+            if (currentTeamEntry != null && hiringDriver1 && !hiringDriver2 && !string.IsNullOrEmpty(driver2Id))
+            {
+                driver1Role = GetRoleToHireAlongside(saveGame, currentTeamEntry.Driver2Contract, teamReputation);
+            }
+            else if (currentTeamEntry != null && hiringDriver2 && !hiringDriver1)
+            {
+                driver2Role = GetRoleToHireAlongside(saveGame, currentTeamEntry.Driver1Contract, teamReputation);
+            }
+
+            return (driver1Role, driver2Role);
+        }
+
+        public IEnumerable<TeamHiringBallot> TeamPicksPotentialReplacementsDrivers(int newSeasonYear, ISaveGame saveGame, IEnumerable<ITeamEntry> newSeasonTeamEntries, IEnumerable<DropTeamResult> dropTeamResults, ReservePlan reservePlan = null)
         {
             var idsOfRetiringDrivers = new HashSet<string>();
             var dropTeamResltsDictionary = dropTeamResults.ToDictionary(t => t.TeamId, t => t);
@@ -307,6 +376,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var driversDictionary = saveGame.Drivers.ToDictionary(d => d.DriverId, d => d);
             var teamJobAds = new List<TeamJobAd>();
             var unemployedDrivers = new List<UnemployedDriver>();
+            var guaranteedHirings = new List<TeamHiring>();
+            var playerId = saveGame.PlayerData.DriverId;
 
             foreach (var teamEntry in newSeasonTeamEntries)
             {
@@ -378,19 +449,52 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     hiringDriver2 = !string.IsNullOrEmpty(driver2Id) && driver2DropOutcome.IsDropped();
                 }
 
-                // with both seats open the team looks for a leader and a wingman; with only one seat
-                // open it looks for whatever complements the driver who's staying
-                var driver1Role = DriverRole.FIRST_DRIVER;
-                var driver2Role = DriverRole.SECOND_DRIVER;
                 var currentTeamEntry = currentSeasonTeamEntriesDictionary.GetValueOrDefault(teamEntry.TeamId);
+                var (driver1Role, driver2Role) = GetJobAdRoles(saveGame, currentTeamEntry, teamEntry.Reputation, hiringDriver1, hiringDriver2, driver2Id);
 
-                if (currentTeamEntry != null && hiringDriver1 && !hiringDriver2 && !string.IsNullOrEmpty(driver2Id))
+                // FIRST REFUSAL: an opening race seat goes to the team's own reserve when they're a
+                // PerfectFit for it, before the market sees it. The player, as reserve, was asked
+                // beforehand (ReservePlan.PlayerPromotion)
+                ReservePromotion promotion = null;
+                IDriverData promotedDriver = null;
+                var currentReserveId = currentTeamEntry?.ReserveDriverId();
+
+                if (reservePlan?.PlayerPromotion != null && reservePlan.PlayerPromotion.TeamId == teamEntry.TeamId)
                 {
-                    driver1Role = GetRoleToHireAlongside(saveGame, currentTeamEntry.Driver2Contract, teamEntry.Reputation);
+                    promotion = reservePlan.PlayerPromotion;
+                    promotedDriver = driversDictionary.GetValueOrDefault(playerId);
                 }
-                else if (currentTeamEntry != null && hiringDriver2 && !hiringDriver1)
+                else if (currentReserveId != null && currentReserveId != playerId && driversDictionary.TryGetValue(currentReserveId, out var reserveDriver))
                 {
-                    driver2Role = GetRoleToHireAlongside(saveGame, currentTeamEntry.Driver1Contract, teamEntry.Reputation);
+                    var seat = PickPromotionSeat(teamEntry.TeamId, reserveDriver.Reputation, teamEntry.Reputation, hiringDriver1, driver1Role, hiringDriver2, driver2Role);
+                    if (seat?.IsOffered == true)
+                    {
+                        promotion = seat;
+                        promotedDriver = reserveDriver;
+                    }
+                }
+
+                if (promotion != null && promotedDriver != null)
+                {
+                    // a promoted reserve isn't on the market
+                    driversDictionary.Remove(promotedDriver.DriverId);
+                    guaranteedHirings.Add(new TeamHiring
+                    {
+                        TeamId = teamEntry.TeamId,
+                        TeamReputation = teamEntry.Reputation,
+                        DriverId = promotedDriver.DriverId,
+                        DriverReputation = promotedDriver.Reputation,
+                        Role = promotion.Role,
+                        Slot = promotion.Slot,
+                        Guaranteed = true,
+                        ExcludeDriverIds = new HashSet<string>(),
+                        OtherPotentialCandidates = new List<DriverResume>()
+                    });
+
+                    if (promotion.Slot == 1)
+                        hiringDriver1 = false;
+                    else
+                        hiringDriver2 = false;
                 }
 
                 if (hiringDriver1)
@@ -420,13 +524,53 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 }
             }
 
-            // mark the rest of the drivers in the dictionary (those not hired) into the unemployment list
+            // mark the rest of the drivers in the dictionary (those not hired) into the unemployment list.
+            // Reserve contracts last one season, so this season's reserves are all in it
             var unprocessedDrivers = driversDictionary.Values.Select(d => new UnemployedDriver
             {
                 DriverId = d.DriverId,
                 Reputation = d.Reputation
             });
             unemployedDrivers.AddRange(unprocessedDrivers);
+
+            // RESERVE SEATS, for the teams that run a reserve next season. Their ballots run after
+            // every race seat is settled (OffSeasonMovements.FinalBallotResults)
+            var teamsWantingReserve = reservePlan?.TeamsWantingReserve ?? new HashSet<string>();
+            foreach (var teamEntry in newSeasonTeamEntries.Where(t => teamsWantingReserve.Contains(t.TeamId)))
+            {
+                if (reservePlan.PlayerStaysReserveAtTeamId == teamEntry.TeamId && driversDictionary.TryGetValue(playerId, out var player))
+                {
+                    // agreed with the player, unless they win a race seat: then the team falls back
+                    // on the best of the others who'd take the role
+                    guaranteedHirings.Add(new TeamHiring
+                    {
+                        TeamId = teamEntry.TeamId,
+                        TeamReputation = teamEntry.Reputation,
+                        DriverId = playerId,
+                        DriverReputation = player.Reputation,
+                        Role = DriverRole.SECOND_DRIVER,
+                        Slot = TeamHiring.ReserveSlot,
+                        Guaranteed = true,
+                        ExcludeDriverIds = new HashSet<string>(),
+                        OtherPotentialCandidates = unemployedDrivers
+                            .Where(d => d.DriverId != playerId && OffSeasonMovements.AmbitionFor(d.Reputation, true).MinReputation <= teamEntry.Reputation)
+                            .Select(d => new DriverResume { Id = d.DriverId, Reputation = d.Reputation })
+                            .ToList()
+                    });
+                    continue;
+                }
+
+                // the pack's reserve for that season is the team's pick, when free
+                var packReserveId = teamEntry.ReserveDriverId();
+                teamJobAds.Add(new TeamJobAd
+                {
+                    TeamId = teamEntry.TeamId,
+                    TeamReputation = teamEntry.Reputation,
+                    Role = DriverRole.SECOND_DRIVER,
+                    Slot = TeamHiring.ReserveSlot,
+                    PreferredDriverId = packReserveId == playerId ? null : packReserveId
+                });
+            }
 
             // remove retiring drivers from the drivers pool and add them to the retired drivers' list
             var retiredDrivers = saveGame.Drivers.Where(d => idsOfRetiringDrivers.Contains(d.DriverId)).Cast<DriverData>().ToList();
@@ -458,7 +602,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // exclude the player from the unemployed drivers the player (they will choose on a specific screen)
             unemployedDrivers.RemoveAll(d => d.DriverId == saveGame.PlayerData.DriverId);
 
-            return _offSeasonMovements.DriversProposeToTeams(unemployedDrivers, teamProvisionalHirings.Concat(provisionalHiringsWithGeneratedDrivers));
+            return _offSeasonMovements.DriversProposeToTeams(unemployedDrivers, teamProvisionalHirings.Concat(provisionalHiringsWithGeneratedDrivers).Concat(guaranteedHirings));
 
         }
 
@@ -520,6 +664,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     AssignRolesAfterHiring(saveGame, teamEntry, driver1Hiring, driver2Hiring);
                 }
 
+                // RESERVE SEAT: contracts last one season, so only a hiring this winter fills it (the
+                // season pack's reserve was at most the team's preferred candidate)
+                var reserveHiring = hirings.FirstOrDefault(h => h.IsReserve);
+                teamEntry.ReserveContract = reserveHiring == null
+                    ? null
+                    : new DriverContract { DriverId = reserveHiring.DriverId, Races = newSeason.Races.Count() };
+
                 employedDriversIds.Add(teamEntry.Driver1Contract.DriverId, teamEntry.TeamId);
                 // teams with no second car this season have an empty Driver2Contract.DriverId;
                 // skip so multiple one-car teams don't collide on the same "" dictionary key
@@ -534,9 +685,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             saveGame.PlayerData.TeamId = employedDriversIds.ContainsKey(saveGame.PlayerData.DriverId) ? employedDriversIds[saveGame.PlayerData.DriverId] : null;
 
+            // reserves only stand in for their own team, so they're out of the substitutes' pool
+            // (SubstitutePool)
+            var reserveDriverIds = newSeasonResult.ReserveDriverIds();
+
             var unemployedDrivers = saveGame
                                         .Drivers
-                                        .Where(d => !employedDriversIds.ContainsKey(d.DriverId))
+                                        .Where(d => !employedDriversIds.ContainsKey(d.DriverId) && !reserveDriverIds.Contains(d.DriverId))
                                         .Select(d => new { Driver = d, d.Reputation })
                                         .OrderByDescending(d => d.Reputation);
 
@@ -547,9 +702,27 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             foreach (var absencesForRace in newSeasonResult.Absences.GroupBy(a => a.RaceId))
             {
                 var availableUnemployedDriversForThisRace = unemployedDrivers.Select(d => d.Driver.DriverId).ToHashSet();
+                var reservesUsedThisRace = new HashSet<string>();
                 var raceId = absencesForRace.Key;
                 foreach (var absence in absencesForRace)
                 {
+                    // a pack absence still standing (its driver out still races for that team) goes
+                    // to the team's reserve. The chain only existed because the pack's substitute
+                    // left their own team, and the reserve leaves nobody. One absence per race each:
+                    // a second one at the same team goes through the substitute pick below
+                    var absenceTeam = teamEntriesDictionary.GetValueOrDefault(absence.TeamId);
+                    var reserveId = absenceTeam?.ReserveDriverId();
+                    if (reserveId != null &&
+                        !reservesUsedThisRace.Contains(reserveId) &&
+                        (absenceTeam.Driver1Contract?.DriverId == absence.DriverOut || absenceTeam.Driver2Contract?.DriverId == absence.DriverOut))
+                    {
+                        reservesUsedThisRace.Add(reserveId);
+                        absence.DriverIn = reserveId;
+                        absence.ChainedAbsence = null;
+                        absencesToKeep.Add(absence);
+                        continue;
+                    }
+
                     Absence parentAbsence = null;
                     var recursiveAbsence = absence;
                     var keepAbsence = true;

@@ -88,6 +88,7 @@ namespace AMS2ChEd.Business.Services
         private void SimulateRaceOnly(List<ParticipantData> qualificationResults)
         {
             RaceResults = SimulateRace(QualificationResults);
+            var teammateContacts = SimulatedIncidentGenerator.ApplyTeammateCollisions(RaceResults, _random);
             _currentSession = new SessionData
             {
                 SessionType = SessionType.Race,
@@ -99,7 +100,8 @@ namespace AMS2ChEd.Business.Services
             SessionFinished?.Invoke(this, new SessionFinishedEventArgs
             {
                 CompletedSession = SessionType.Race,
-                FinalStandings = RaceResults
+                FinalStandings = RaceResults,
+                TeammateContacts = teammateContacts
             });
         }
 

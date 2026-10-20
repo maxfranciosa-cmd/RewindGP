@@ -139,42 +139,12 @@ namespace AMS2ChEd.Views
             {
                 if (simulateRace)
                 {
-                    // if the race is simulated, we are not at the last race
-                    // AND in the next race is not in any absence
-                    // i'll ask the player if they want to generate an absence for the next race.
-                    if (saveGame.CurrentSeason.Races.Count() > (saveGame.NextGpIndex + 1) && ThereAreNoAbsencesTheNextRaceWhereThePlayerCanFillIn())
+                    // the race goes on without the player: before the next one, show what the paddock
+                    // offers there (absences to apply for, rides a pay driver can buy), when there's
+                    // something to decide
+                    if (saveGame.CurrentSeason.Races.Count() > (saveGame.NextGpIndex + 1))
                     {
-                        var generateAbsenceWindow = new GenerateAbsenceWindow(GenerateAbsenceWindowType.NoTeamBeforeTheRace);
-                        generateAbsenceWindow.ShowDialog();
-
-                        if (generateAbsenceWindow.CreateFictionalAbsence)
-                        {
-                            // if there are no absences at the next GP of the season
-                            var nextRaceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex + 1).RaceId;
-                            if (!saveGame.CurrentSeason.Absences.Any(a => a.RaceId == nextRaceId))
-                            {
-                                // create a new random absence in a midfield (or lower) team
-                                var possibleTeams = saveGame.CurrentSeason
-                                                .Teams
-                                                .Where(t => t.Reputation <= TeamReputation.MIDFIELD)
-                                                .ToList();
-
-                                var selectedTeam = possibleTeams.ElementAt(Random.Shared.Next(possibleTeams.Count));
-
-                                var driverOut = selectedTeam.PickRandomDriverFromTheTeam();
-
-                                saveGame.CurrentSeason.Absences = saveGame.CurrentSeason.Absences.Concat(new[]
-                                {
-                                new Absence
-                                {
-                                    DriverOut = driverOut.DriverId,
-                                    RaceId = nextRaceId,
-                                    DriverIn = saveGame.PlayerData.DriverId,
-                                    TeamId = selectedTeam.TeamId,
-                                }
-                            });
-                            }
-                        }
+                        PaddockOpportunitiesWindow.ShowFor(null, saveGame, saveGame.NextGpIndex + 1, PaddockOpportunitiesContext.NextRace, onlyWhenThereAreChoices: true);
                     }
                 }
                 else
@@ -246,13 +216,6 @@ namespace AMS2ChEd.Views
                 };
                 raceInstructionsWindow.ShowDialog();
             }
-        }
-
-        private bool ThereAreNoAbsencesTheNextRaceWhereThePlayerCanFillIn()
-        {
-            var nextRaceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex + 1).RaceId;
-            var absencesForTheNextRace = saveGame.CurrentSeason.Absences.Where(a => a.RaceId == nextRaceId).ToList();
-            return !_gameLogicFactory.AbsenceManager.IsDriverInAnyAbsence(saveGame.PlayerData.DriverId, absencesForTheNextRace);
         }
 
         private GraphicsStyle SelectStyle(int year)
@@ -407,7 +370,7 @@ namespace AMS2ChEd.Views
                         // Team orders: hand out reprimands (needs the updated standings, and must run
                         // before NextGpIndex moves on, as releases add absences for the remaining races)
                         var reprimandNews = _gameLogicFactory.ReprimandManager.ProcessRace(
-                            saveGame, raceResult, preRaceStandings, e.PlayerContactDriverIds);
+                            saveGame, raceResult, preRaceStandings, e.PlayerContactDriverIds, e.TeammateContacts);
                         var grandPrixName = raceResult.GrandPrixName;
 
                         // Add race result to history

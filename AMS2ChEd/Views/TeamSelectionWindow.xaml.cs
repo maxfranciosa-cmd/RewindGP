@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.DependencyInjection;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
@@ -30,6 +31,8 @@ namespace AMS2ChEd
         public string TeamPrincipal { get; set; }
         public Driver Driver1 { get; set; }
         public Driver Driver2 { get; set; }
+        // the pack's reserve, null for a team without one
+        public Driver Reserve { get; set; }
         public TeamReputation Reputation { get; set; }
         // the entry at the bottom of the team list that shows the free agents instead of a team's seats
         public bool IsFreeAgents { get; set; }
@@ -47,6 +50,9 @@ namespace AMS2ChEd
         public string SelectedTeamName { get; private set; }
         public string SelectedTeamId { get; private set; }
         public string SelectedTeamPrincipal { get; private set; }
+
+        // the picked seat is the team's reserve seat, not a race seat
+        public bool SelectedIsReserve { get; private set; }
 
         private IGameDataFactory _dataFactory;
 
@@ -134,6 +140,23 @@ namespace AMS2ChEd
                         };
                     }
 
+                    // a third row for the team's reserve, when the pack has one (and knows the driver)
+                    Driver reserve = null;
+                    var reserveId = teamEntry.ReserveDriverId();
+                    if (reserveId != null && _driversCache.TryGetValue(reserveId, out var reserveData))
+                    {
+                        var reservePicture = reserveData?.PictureUrl;
+                        reserve = new Driver
+                        {
+                            DriverId = reserveData.DriverId,
+                            RoleName = Strings.TeamSelectionWindow_ReserveRole,
+                            Name = reserveData.Name,
+                            Nationality = string.IsNullOrEmpty(reserveData.Nationality) ? "N/A" : reserveData.Nationality,
+                            Number = 0,
+                            PhotoUrl = (string.IsNullOrEmpty(reservePicture) || reservePicture.StartsWith("https")) ? reservePicture : $"pack://siteoforigin:,,,/{reservePicture}",
+                        };
+                    }
+
                     teams.Add(new TeamDisplay
                     {
                         TeamId = teamEntry.TeamId,
@@ -142,6 +165,7 @@ namespace AMS2ChEd
                         Reputation = teamEntry.Reputation,
                         Driver1 = driver1,
                         Driver2 = driver2,
+                        Reserve = reserve,
                         TeamColor = teamEntry.Color
                     });
 
@@ -149,6 +173,10 @@ namespace AMS2ChEd
                     if (!string.IsNullOrEmpty(driver2Id))
                     {
                         assignedDriverIds.Add(driver2Id);
+                    }
+                    if (reserve != null)
+                    {
+                        assignedDriverIds.Add(reserve.DriverId);
                     }
                 }
 
@@ -224,6 +252,7 @@ namespace AMS2ChEd
         {
             // the radio buttons are rebuilt, so nothing is selected any more
             selectedDriver = null;
+            SelectedIsReserve = false;
             SelectedTeamId = null;
             SelectedTeamName = null;
             SelectedTeamPrincipal = null;
@@ -240,7 +269,7 @@ namespace AMS2ChEd
             SeatsHeaderText.Text = team.TeamName;
             SeatsItemsControl.ItemsSource = team.IsFreeAgents
                 ? freeAgents
-                : new[] { team.Driver1, team.Driver2 }.Where(d => d != null).ToList();
+                : new[] { team.Driver1, team.Driver2, team.Reserve }.Where(d => d != null).ToList();
         }
 
         private void SeatRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -251,7 +280,8 @@ namespace AMS2ChEd
             selectedDriver = driver;
 
             // Find the team for this driver (null for free agents)
-            var team = teams?.FirstOrDefault(t => t.Driver1 == driver || t.Driver2 == driver);
+            var team = teams?.FirstOrDefault(t => t.Driver1 == driver || t.Driver2 == driver || t.Reserve == driver);
+            SelectedIsReserve = team != null && team.Reserve == driver;
             StatusText.Text = team != null
                 ? $"{driver.Name} ({team.TeamName}, {driver.RoleName})"
                 : $"{driver.Name} ({driver.RoleName})";

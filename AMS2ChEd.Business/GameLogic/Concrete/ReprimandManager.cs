@@ -1,4 +1,5 @@
 using AMS2ChEd.Business.GameLogic.Contracts;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
@@ -20,7 +21,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             ISaveGame saveGame,
             GrandPrixResult result,
             IReadOnlyList<HistoricalDriverStandingEntry> preRaceStandings,
-            IReadOnlyCollection<string> playerContactDriverIds)
+            IReadOnlyCollection<string> playerContactDriverIds,
+            IReadOnlyCollection<TeammateContact> teammateContacts = null)
         {
             saveGame.Reprimands ??= new List<Reprimand>();
 
@@ -97,6 +99,24 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                             Reason = ReprimandReason.CONTACT_WITH_TEAMMATE
                         }, teammateId));
                     }
+                }
+
+                // teammates colliding in a simulated race (SimulatedIncidentGenerator), handled like
+                // the player's detected contact
+                foreach (var contact in teammateContacts ?? Array.Empty<TeammateContact>())
+                {
+                    var bothInThisCar = new[] { entry.Driver1Id, entry.Driver2Id };
+                    if (!bothInThisCar.Contains(contact.AtFaultDriverId) || !bothInThisCar.Contains(contact.OtherDriverId) ||
+                        contact.AtFaultDriverId == contact.OtherDriverId || IsSubstitute(team, contact.AtFaultDriverId))
+                        continue;
+
+                    newReprimands.Add((new Reprimand
+                    {
+                        DriverId = contact.AtFaultDriverId,
+                        TeamId = team.TeamId,
+                        RaceId = raceId,
+                        Reason = ReprimandReason.CONTACT_WITH_TEAMMATE
+                    }, contact.OtherDriverId));
                 }
             }
 
@@ -232,20 +252,20 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return replacementId;
         }
 
-        // the best unemployed driver the team would accept as a stand-in, who isn't already
-        // standing in for someone else in any of the remaining races
+        // the team's reserve when they're free for all the remaining races, otherwise the best
+        // unemployed driver the team would accept as a stand-in, who isn't already standing in for
+        // someone else in any of the remaining races
         private static string PickReleaseReplacement(ISaveGame saveGame, ITeamEntry team, List<Race> remainingRaces, List<Absence> absences, string releasedDriverId)
         {
-            var contractedDriverIds = saveGame.CurrentSeason.Teams
-                .SelectMany(t => new[] { t.Driver1Contract?.DriverId, t.Driver2Contract?.DriverId })
-                .Where(id => !string.IsNullOrEmpty(id))
-                .ToHashSet();
-
             var remainingRaceIds = remainingRaces.Select(r => r.RaceId).ToHashSet();
-            var busyDriverIds = absences
-                .Where(a => remainingRaceIds.Contains(a.RaceId))
-                .SelectMany(a => GetDriversIn(a))
-                .ToHashSet();
+            var busyDriverIds = SubstitutePool.DriversIn(absences.Where(a => remainingRaceIds.Contains(a.RaceId)));
+
+            // the reserve is first in line, the player included when they're the reserve
+            var reserveId = team.ReserveDriverId();
+            if (reserveId != null && reserveId != releasedDriverId && !busyDriverIds.Contains(reserveId))
+                return reserveId;
+
+            var contractedDriverIds = SubstitutePool.UnavailableDriverIds(saveGame.CurrentSeason);
 
             var retiredDriverIds = (saveGame.RetiredDrivers ?? Enumerable.Empty<IDriverData>())
                 .Select(d => d.DriverId)
@@ -265,15 +285,6 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var pick = candidates.FirstOrDefault(d => d.Reputation <= maxReputation) ?? candidates.FirstOrDefault();
 
             return pick?.DriverId ?? "";
-        }
-
-        private static IEnumerable<string> GetDriversIn(Absence absence)
-        {
-            for (var current = absence; current != null; current = current.ChainedAbsence)
-            {
-                if (!string.IsNullOrEmpty(current.DriverIn))
-                    yield return current.DriverIn;
-            }
         }
     }
 }

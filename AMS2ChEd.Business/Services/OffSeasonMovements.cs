@@ -26,6 +26,30 @@ namespace AMS2ChEd.Business.Services
             {  DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD_HIGH } },
         };
 
+        // the teams at which each reputation would accept a reserve role: a step up from where they
+        // would race, as standing by at a better team is worth it (a YOUNG_TALENT aims at top teams)
+        internal static readonly Dictionary<DriverReputation, Ambition> reserveAmbitions = new()
+        {
+            {  DriverReputation.PAY_DRIVER_WILD_CARD , new() { MaxReputation = TeamReputation.MIDFIELD , MinReputation = TeamReputation.SUPER_MINNOW } },
+            {  DriverReputation.PAY_DRIVER_SEASON , new() { MaxReputation = TeamReputation.MIDFIELD_HIGH , MinReputation = TeamReputation.MINNOW } },
+            {  DriverReputation.AGEING_MIDFIELD , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD } },
+            {  DriverReputation.YOUNG_TALENT , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD } },
+            {  DriverReputation.PRIME_MIDFIELD , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD_HIGH } },
+            {  DriverReputation.AGEING_STRONG_MIDFIELD , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.MIDFIELD_HIGH } },
+            {  DriverReputation.JUST_ONE_LAST_DANCE , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.TOP_TEAM } },
+            {  DriverReputation.PRIME_STRONG_MIDFIELD , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.TOP_TEAM } },
+            {  DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.TOP_TEAM } },
+            {  DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.TOP_TEAM } },
+            {  DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.TOP_TEAM } },
+            {  DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.TOP_TEAM } },
+            {  DriverReputation.AGEING_CHAMPIONSHIP_LEVEL , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.TOP_TEAM } },
+            {  DriverReputation.PRIME_CHAMPIONSHIP_LEVEL , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.TOP_TEAM } },
+            {  DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL , new() { MaxReputation = TeamReputation.TOP_TEAM , MinReputation = TeamReputation.TOP_TEAM } },
+        };
+
+        public static Ambition AmbitionFor(DriverReputation reputation, bool isReserve) =>
+            isReserve ? reserveAmbitions[reputation] : driverAmbitions[reputation];
+
         DriverFirer _driverFirer;
         DriverHirer _driverHirer;
 
@@ -56,9 +80,11 @@ namespace AMS2ChEd.Business.Services
             adsWithNoPotentialCandidates = new List<TeamJobAd>();
             var result = new List<TeamHiring>();
             var rnd = new Random();
+            // race seats first, then reserve seats, so a reserve pick never takes a race seat's driver
             var orderJobAdOrderedByReputationAndRandomly = jobAds
-                                                    .GroupBy(x => x.TeamReputation)
-                                                    .OrderByDescending(g => g.Key)
+                                                    .GroupBy(x => (x.IsReserve, x.TeamReputation))
+                                                    .OrderBy(g => g.Key.IsReserve)
+                                                    .ThenByDescending(g => g.Key.TeamReputation)
                                                     .SelectMany(g => g.OrderBy(x => rnd.Next()))
                                                     .ToList();
 
@@ -84,13 +110,15 @@ namespace AMS2ChEd.Business.Services
                 }
 
                 var availableDriversForThatTeam = availableDrivers
-                                                    .Where(d => !driverIdsToExclude.Contains(d.Id) && driverAmbitions[d.Reputation].MinReputation <= teamJobAd.TeamReputation)
+                                                    .Where(d => !driverIdsToExclude.Contains(d.Id) && AmbitionFor(d.Reputation, teamJobAd.IsReserve).MinReputation <= teamJobAd.TeamReputation)
                                                     .OrderByDescending(d => d.Reputation)
                                                     .ToList();
 
                 if(availableDriversForThatTeam.Any())
                 {
-                    var winner = _driverHirer.PickBestCandidate(availableDriversForThatTeam, teamJobAd.Role, teamJobAd.TeamReputation);
+                    // a reserve seat goes to the driver the season pack names, when they're free
+                    var winner = availableDrivers.FirstOrDefault(d => teamJobAd.PreferredDriverId != null && d.Id == teamJobAd.PreferredDriverId)
+                                 ?? _driverHirer.PickBestCandidate(availableDriversForThatTeam, teamJobAd.Role, teamJobAd.TeamReputation, teamJobAd.IsReserve);
 
                     result.Add(new TeamHiring()
                     {
@@ -105,9 +133,11 @@ namespace AMS2ChEd.Business.Services
                     });
 
                     availableDrivers.Remove(winner);
-                } 
-                else
+                }
+                else if (!teamJobAd.IsReserve)
                 {
+                    // nobody for a race seat: a driver gets generated for it. A reserve seat
+                    // nobody wants simply stays empty
                     adsWithNoPotentialCandidates.Add(teamJobAd);
                 }
             }
@@ -123,10 +153,13 @@ namespace AMS2ChEd.Business.Services
 
             foreach(var unenployedDriver in poolOfDrivers)
             {
-                var maxAmbition = driverAmbitions[unenployedDriver.Reputation].MaxReputation;
-                var minAmbition = driverAmbitions[unenployedDriver.Reputation].MinReputation;
+                bool WithinAmbition(TeamHiring hiring)
+                {
+                    var ambition = AmbitionFor(unenployedDriver.Reputation, hiring.IsReserve);
+                    return hiring.TeamReputation <= ambition.MaxReputation && hiring.TeamReputation >= ambition.MinReputation;
+                }
 
-                var potentialTeams = result.Where(r => r.Item1.TeamReputation <= maxAmbition && r.Item1.TeamReputation >= minAmbition);
+                var potentialTeams = result.Where(r => WithinAmbition(r.Item1));
 
                 foreach (var potentialTeam in potentialTeams)
                 {
@@ -144,17 +177,53 @@ namespace AMS2ChEd.Business.Services
             var rnd = new Random();
             var hiredDriversId = new HashSet<string>();
 
-            foreach(var ballot in ballots.OrderByDescending(b => b.OriginalTeamHiring.TeamReputation))
+            // every race seat is settled before the reserve seats, so nobody ends up holding both
+            foreach(var ballot in ballots.OrderBy(b => b.OriginalTeamHiring.IsReserve).ThenByDescending(b => b.OriginalTeamHiring.TeamReputation))
             {
+                var isReserve = ballot.OriginalTeamHiring.IsReserve;
                 var availableCandidates = ballot.Candidates.Where(d => !hiredDriversId.Contains(d.DriverId));
+
+                if (ballot.OriginalTeamHiring.Guaranteed &&
+                    !string.IsNullOrEmpty(ballot.OriginalTeamHiring.DriverId) &&
+                    !hiredDriversId.Contains(ballot.OriginalTeamHiring.DriverId))
+                {
+                    result.Add(ballot.OriginalTeamHiring);
+                    hiredDriversId.Add(ballot.OriginalTeamHiring.DriverId);
+                    continue;
+                }
 
                 if (!availableCandidates.Any())
                 {
-                    if (!hiredDriversId.Contains(ballot.OriginalTeamHiring.DriverId))
+                    var originalHireAvailable = isReserve
+                        ? !string.IsNullOrEmpty(ballot.OriginalTeamHiring.DriverId) && !hiredDriversId.Contains(ballot.OriginalTeamHiring.DriverId)
+                        : !hiredDriversId.Contains(ballot.OriginalTeamHiring.DriverId);
+
+                    if (originalHireAvailable)
                     {
                         result.Add(ballot.OriginalTeamHiring);
                         hiredDriversId.Add(ballot.OriginalTeamHiring.DriverId);
-                    } 
+                    }
+                    else if (isReserve)
+                    {
+                        // the team's pick signed elsewhere: the next one down, or no reserve at all
+                        var nextPick = (ballot.OriginalTeamHiring.OtherPotentialCandidates ?? Enumerable.Empty<DriverResume>())
+                                                .Where(d => !hiredDriversId.Contains(d.Id))
+                                                .OrderByDescending(d => d.Reputation)
+                                                .FirstOrDefault();
+                        if (nextPick != null)
+                        {
+                            result.Add(new TeamHiring
+                            {
+                                Role = ballot.OriginalTeamHiring.Role,
+                                Slot = ballot.OriginalTeamHiring.Slot,
+                                TeamId = ballot.OriginalTeamHiring.TeamId,
+                                TeamReputation = ballot.OriginalTeamHiring.TeamReputation,
+                                DriverId = nextPick.Id,
+                                DriverReputation = nextPick.Reputation
+                            });
+                            hiredDriversId.Add(nextPick.Id);
+                        }
+                    }
                     else
                     {
                         var firstAvailableDriverOfTheSameReputationOrLower = ballot.OriginalTeamHiring.OtherPotentialCandidates
@@ -177,7 +246,7 @@ namespace AMS2ChEd.Business.Services
 
                 var weightFit = (DriverReputation driverReputation) =>
                 {
-                    var fit = _driverHirer.DoesDriverFitTeamPolicy(driverReputation, ballot.OriginalTeamHiring.Role, ballot.OriginalTeamHiring.TeamReputation);
+                    var fit = _driverHirer.DoesDriverFitSeat(driverReputation, ballot.OriginalTeamHiring.Role, ballot.OriginalTeamHiring.TeamReputation, isReserve);
                     return DriverHirer.GetFitWeight(fit);
                 };
 
@@ -196,7 +265,7 @@ namespace AMS2ChEd.Business.Services
 
                 var originalHireResume = ballot.OriginalTeamHiring == null || ballot.OriginalTeamHiring.DriverId == null ? null : new DriverResume { Id = ballot.OriginalTeamHiring.DriverId, Reputation = ballot.OriginalTeamHiring.DriverReputation };
 
-                var winner = _driverHirer.PickWinner(originalHireResume, bestCandidateResume, ballot.OriginalTeamHiring.Role, ballot.OriginalTeamHiring.TeamReputation);
+                var winner = _driverHirer.PickWinner(originalHireResume, bestCandidateResume, ballot.OriginalTeamHiring.Role, ballot.OriginalTeamHiring.TeamReputation, isReserve);
 
                 if (winner == originalHireResume && !hiredDriversId.Contains(winner.Id))
                 {

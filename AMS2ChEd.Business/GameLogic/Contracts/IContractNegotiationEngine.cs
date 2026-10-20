@@ -10,6 +10,15 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
             DriverReputation playerReputation,
             string replacedDriverId,
             DriverReputation replacedDriverReputation);
+
+        /// <summary>
+        /// Whether the team would take the player as its reserve over the season pack's one, judged
+        /// on the reserve policy (DriverHirer.DoesDriverFitReservePolicy): easier than a race seat.
+        /// </summary>
+        ContractOfferResult EvaluateReserveContract(
+            DriverReputation playerReputation,
+            DriverReputation replacedReserveReputation,
+            TeamReputation teamReputation);
     }
     public class ContractOfferResult
     {

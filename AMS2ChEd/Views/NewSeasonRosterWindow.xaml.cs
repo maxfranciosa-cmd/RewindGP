@@ -1,4 +1,5 @@
 using AMS2ChEd.Business.DependencyInjection;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Extensions;
@@ -18,6 +19,9 @@ namespace AMS2ChEd.Views
         public string StatusText { get; set; }
         public Visibility StatusTextVisibility { get; set; }
         public string DescriptionText { get; set; }
+        // a paragraph on the team's reserve driver, empty when it runs none
+        public string ReserveText { get; set; }
+        public Visibility ReserveTextVisibility { get; set; }
         public BitmapImage Driver1Portrait { get; set; }
         public BitmapImage Driver2Portrait { get; set; }
     }
@@ -91,6 +95,8 @@ namespace AMS2ChEd.Views
                     driversText = driver1.Name;
                 }
 
+                var reserveText = BuildReserveText(team.ReserveDriverId(), driversDictionary);
+
                 rosterItems.Add(new TeamRosterItem
                 {
                     TeamName = teamName,
@@ -98,6 +104,8 @@ namespace AMS2ChEd.Views
                     StatusText = statusText,
                     StatusTextVisibility = string.IsNullOrEmpty(statusText) ? Visibility.Collapsed : Visibility.Visible,
                     DescriptionText = descriptionText,
+                    ReserveText = reserveText,
+                    ReserveTextVisibility = string.IsNullOrEmpty(reserveText) ? Visibility.Collapsed : Visibility.Visible,
                     Driver1Portrait = LoadDriverPortrait(portraitPathDriver1),
                     Driver2Portrait = LoadDriverPortrait(portraitPathDriver2)
                 });
@@ -222,6 +230,18 @@ namespace AMS2ChEd.Views
                 return string.Format(Strings.NewSeasonRosterWindow_SoloStatus_Unchanged_Format, driverName);
 
             return "";
+        }
+
+        private string BuildReserveText(string reserveId, Dictionary<string, IDriverData> driversDictionary)
+        {
+            if (reserveId == null)
+                return null;
+
+            var reserve = driversDictionary.GetValueOrDefault(reserveId);
+            if (reserve == null)
+                return null;
+
+            return string.Format(Strings.NewSeasonRosterWindow_Reserve_Format, reserve.Name, GetReputationDescription(reserve.Reputation));
         }
 
         private string BuildSoloDescriptionText(string driverName, DriverReputation? rep)

@@ -55,6 +55,34 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return result;
         }
 
+        /// <summary>
+        /// A reserve seat goes to the player unless they're under-qualified for it, or fit it worse
+        /// than the reserve the team already has.
+        /// </summary>
+        public ContractOfferResult EvaluateReserveContract(
+            DriverReputation playerReputation,
+            DriverReputation replacedReserveReputation,
+            TeamReputation teamReputation)
+        {
+            var playerFit = _driverHirer.DoesDriverFitReservePolicy(playerReputation, teamReputation);
+            var reserveFit = _driverHirer.DoesDriverFitReservePolicy(replacedReserveReputation, teamReputation);
+
+            bool playerHired = playerFit != DriverHirer.DriverPolicyFit.UnderQualified &&
+                               DriverHirer.GetFitWeight(playerFit) >= DriverHirer.GetFitWeight(reserveFit);
+
+            var result = new ContractOfferResult
+            {
+                IsPlayerHired = playerHired,
+                PlayerReputation = playerReputation,
+                ReplacedDriverReputation = replacedReserveReputation,
+                SuccessMessage = playerHired ? GenerateSuccessMessage(playerReputation) : null,
+                RejectionMessage = !playerHired ? GenerateRejectionMessage(playerReputation, replacedReserveReputation) : null
+            };
+
+            ContractOfferGenerated?.Invoke(this, new ContractOfferEventArgs { Result = result });
+            return result;
+        }
+
         private string GenerateSuccessMessage(DriverReputation reputation)
         {
             return reputation switch

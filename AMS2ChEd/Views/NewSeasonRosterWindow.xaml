@@ -183,6 +183,16 @@
                                                            Foreground="#555555"
                                                            TextWrapping="Wrap"
                                                            LineHeight="18"/>
+
+                                                <!-- Reserve driver paragraph (no portrait) -->
+                                                <TextBlock Text="{Binding ReserveText}"
+                                                           FontSize="22"
+                                                           FontFamily="Times New Roman"
+                                                           Foreground="#555555"
+                                                           Margin="0,6,0,0"
+                                                           TextWrapping="Wrap"
+                                                           LineHeight="18"
+                                                           Visibility="{Binding ReserveTextVisibility}"/>
                                             </StackPanel>
                                         </Grid>
                                     </Border>

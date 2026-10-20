@@ -1045,47 +1045,12 @@ namespace AMS2ChEd
                         return;
                     }
 
-                    // Show GenerateAbsenceWindow
-                    var payDriverWindow = new GenerateAbsenceWindow(GenerateAbsenceWindowType.PayDriverAtGameStart);
-                    payDriverWindow.Owner = this;
+                    // a wild card starts with no team: the paddock shows what's on offer at the first
+                    // race (absences, the rides their sponsors can buy). Back means another reputation
+                    var saveGame = CreateGame(null, null);
 
-                    if (payDriverWindow.ShowDialog() == true)
+                    if (PaddockOpportunitiesWindow.ShowFor(this, saveGame, 0, PaddockOpportunitiesContext.GameStart))
                     {
-
-                        var createFictionalAbsence = payDriverWindow.CreateFictionalAbsence;
-
-                        var saveGame = CreateGame(null, null);
-
-                        if (createFictionalAbsence)
-                        {
-                            // if there are no absences at the first GP of the season
-                            var firstRaceId = saveGame.CurrentSeason.Races.First().RaceId;
-                            if (!saveGame.CurrentSeason.Absences.Any(a => a.RaceId == firstRaceId))
-                            {
-                                // create a new random absence in a midfield (or lower) team
-                                var possibleTeams = saveGame
-                                                .CurrentSeason
-                                                .Teams
-                                                .Where(t => t.Reputation <= TeamReputation.MIDFIELD)
-                                                .ToList();
-
-                                var selectedTeam = possibleTeams.ElementAt(Random.Shared.Next(possibleTeams.Count));
-
-                                var driverOut = selectedTeam.PickRandomDriverFromTheTeam();
-
-                                saveGame.CurrentSeason.Absences = saveGame.CurrentSeason.Absences.Concat(new[]
-                                {
-                                new Absence
-                                {
-                                    DriverOut = driverOut.DriverId,
-                                    RaceId = firstRaceId,
-                                    DriverIn = saveGame.PlayerData.DriverId,
-                                    TeamId = selectedTeam.TeamId,
-                                }
-                            });
-                            }
-                        }
-
                         // Save the game
                         string saveName = $"{driverName}_{seasonYear}".Replace(" ", "_");
                         string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
@@ -1137,7 +1102,8 @@ namespace AMS2ChEd
                             selectedDriver.DriverId,
                             replacedDriverReputation,
                             selectedDriver.RoleName,
-                            seasonData
+                            seasonData,
+                            isReserve: teamSelectionWindow.SelectedIsReserve
                         );
                         contractLetterWindow.Owner = this;
 

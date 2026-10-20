@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.GameLogic.Contracts;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
@@ -47,7 +48,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                         DriverOut = currentAbsence.DriverOut,
                         TeamId = currentAbsence.TeamId,
                         RaceId = currentAbsence.RaceId,
-                        DriverIn = currentAbsence.DriverIn
+                        DriverIn = currentAbsence.DriverIn,
+                        Reason = currentAbsence.Reason
                     };
 
                     AbsenceOpportunityAvailable?.Invoke(this, new AbsenceOpportunityEventArgs { Opportunity = opportunity });
@@ -56,13 +58,15 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
                     if (playerWantsToApply && !playerHasSteppedIn)
                     {
-                        // Check if player's current team allows them to go
-                        var playerTeam = entryList.FirstOrDefault(e =>
-                            e.Driver1Id == saveGame.PlayerData.DriverId || e.Driver2Id == saveGame.PlayerData.DriverId);
+                        // Check if player's current team allows them to go: the team they race for,
+                        // or the one they're the reserve of
+                        var playerTeamId = entryList.FirstOrDefault(e =>
+                            e.Driver1Id == saveGame.PlayerData.DriverId || e.Driver2Id == saveGame.PlayerData.DriverId)?.TeamId
+                            ?? saveGame.CurrentSeason.ReserveTeamOf(saveGame.PlayerData.DriverId)?.TeamId;
 
-                        bool playerTeamAllows = decisionProvider.DoesPlayerTeamAllowLeave(playerTeam?.TeamId, currentAbsence);
+                        bool playerTeamAllows = decisionProvider.DoesPlayerTeamAllowLeave(playerTeamId, currentAbsence);
 
-                        if (!playerTeamAllows && playerTeam != null)
+                        if (!playerTeamAllows && playerTeamId != null)
                         {
                             // Team refuses - use declared absence
                             var decision = new AbsenceDecision
@@ -104,10 +108,11 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                         }
                         else
                         {
-                            // Create chained absence if player has a team
+                            // Create chained absence if player has a race seat (a reserve leaves nobody
+                            // short, so needs none)
                             if (saveGame.PlayerData.TeamId != null)
                             {
-                                CreateChainedAbsenceForPlayer(entryList, currentAbsence, saveGame);
+                                CreateChainedAbsenceForPlayer(entryList, currentAbsence, absences, saveGame);
                             }
 
                             // Player successfully steps in
@@ -169,17 +174,23 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return IsPlayerAssignedInChain(absence.ChainedAbsence, playerId);
         }
 
-        private void CreateChainedAbsenceForPlayer(List<EntryListEntry> entryList, Absence currentAbsence, ISaveGame saveGame)
+        private void CreateChainedAbsenceForPlayer(List<EntryListEntry> entryList, Absence currentAbsence, List<Absence> absencesOfTheRace, ISaveGame saveGame)
         {
-            var employedDriverIds = entryList
+            // the player's team covers the seat with its reserve, if it has one free this race
+            var playerTeam = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == saveGame.PlayerData.TeamId);
+            var reserveId = playerTeam == null ? null : SubstitutePool.AvailableReserve(playerTeam, absencesOfTheRace);
+
+            var unavailableDriverIds = entryList
                 .SelectMany(e => new[] { e.Driver1Id, e.Driver2Id })
                 .Distinct()
                 .ToHashSet();
+            unavailableDriverIds.UnionWith(SubstitutePool.UnavailableDriverIds(saveGame.CurrentSeason));
+            unavailableDriverIds.UnionWith(SubstitutePool.DriversIn(absencesOfTheRace));
 
             var playerReputation = GetDriverReputation(saveGame.PlayerData.DriverId, saveGame);
 
             var substituteDriver = saveGame.Drivers
-                .Where(d => !employedDriverIds.Contains(d.DriverId) && d.DriverId != saveGame.PlayerData.DriverId)
+                .Where(d => !unavailableDriverIds.Contains(d.DriverId) && d.DriverId != saveGame.PlayerData.DriverId)
                 .Select(d => new
                 {
                     DriverId = d.DriverId,
@@ -194,7 +205,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 DriverOut = saveGame.PlayerData.DriverId,
                 RaceId = currentAbsence.RaceId,
                 TeamId = saveGame.PlayerData.TeamId,
-                DriverIn = substituteDriver?.DriverId ?? ""
+                DriverIn = reserveId ?? substituteDriver?.DriverId ?? ""
             };
         }
 

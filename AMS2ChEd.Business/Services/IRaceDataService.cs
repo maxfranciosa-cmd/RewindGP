@@ -61,6 +61,18 @@
         /// game can't report collisions, or the player wasn't driving).
         /// </summary>
         public IReadOnlyCollection<string> PlayerContactDriverIds { get; set; } = Array.Empty<string>();
+
+        /// <summary>
+        /// Collisions between teammates, only in simulated races (SimulatedIncidentGenerator): in a
+        /// race the player drives, AI-vs-AI contact isn't detected, and isn't invented either.
+        /// </summary>
+        public IReadOnlyCollection<TeammateContact> TeammateContacts { get; set; } = Array.Empty<TeammateContact>();
+    }
+
+    public class TeammateContact
+    {
+        public string AtFaultDriverId { get; set; }
+        public string OtherDriverId { get; set; }
     }
 
     /// <summary>

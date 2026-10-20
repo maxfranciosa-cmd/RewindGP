@@ -180,8 +180,11 @@
                     <Label Grid.Row="12" Content="Driver 2 Role:"/>
                     <ComboBox Grid.Row="12" Grid.Column="1" Name="Driver2RoleComboBox" Style="{StaticResource ModernComboBox}" Margin="0,0,0,15"
                               ToolTip="Team-orders status. EQUAL means no team orders apply between the two drivers."/>
-                    <Label Grid.Row="13" Content="Default in Pre-Qualifying:"/>
-                    <CheckBox Grid.Row="13" Grid.Column="1" Name="DefaultPreQualiCheckBox" Margin="0,0,0,15"/>
+                    <Label Grid.Row="13" Content="Reserve Driver:"/>
+                    <ComboBox Grid.Row="13" Grid.Column="1" Name="ReserveComboBox" Style="{StaticResource ModernComboBox}" Margin="0,0,0,15"
+                              ToolTip="The team's test/reserve driver this season, if history had one. They stand in for the team's absences; in later seasons of a save the team prefers them when it decides to run a reserve."/>
+                    <Label Grid.Row="14" Content="Default in Pre-Qualifying:"/>
+                    <CheckBox Grid.Row="14" Grid.Column="1" Name="DefaultPreQualiCheckBox" Margin="0,0,0,15"/>
                 </Grid>
       
                 <!-- AMS2 Car Performance Malus Section -->

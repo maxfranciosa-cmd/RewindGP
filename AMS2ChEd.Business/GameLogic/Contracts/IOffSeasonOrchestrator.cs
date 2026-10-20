@@ -20,6 +20,9 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
     {
         public string TeamId { get; set; }
         public DriverRole Role { get; set; }
+
+        // an application for the team's reserve seat (Role means nothing then)
+        public bool IsReserve { get; set; }
         public bool PlayerHired { get; set; }
 
         /// <summary>
@@ -32,6 +35,30 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
         public bool OtherDriverWasAtTeamBefore { get; set; }
     }
 
+    /// <summary>
+    /// The one letter a player who was a team's reserve gets in the off-season (reserve contracts
+    /// last one season, so there's no renewal letter): a promotion to a race seat, why there's none
+    /// when a seat opened, and whether the team keeps a reserve next season.
+    /// </summary>
+    public class ReserveLetter
+    {
+        public string TeamId { get; set; }
+
+        // the race seat that opened at the team, null when none did. IsOffered: the team promotes them
+        public ReservePromotion Promotion { get; set; }
+
+        // the team runs a reserve next season, so it offers the player to stay on
+        public bool TeamWantsReserve { get; set; }
+    }
+
+    public enum ReserveLetterDecision
+    {
+        // free to apply anywhere in the application window, other teams' reserve seats included
+        FreeAgent,
+        AcceptedPromotion,
+        StaysReserve
+    }
+
     public interface IOffSeasonUiCallbacks
     {
         Task ShowChampionshipCelebrationAsync(ISaveGame saveGame);
@@ -40,6 +67,9 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
 
         /// <summary>Shows the player's renewal/termination letter. Returns true if the player accepted.</summary>
         Task<bool> ShowContractLetterAsync(ISaveGame saveGame, IEnumerable<ITeamEntry> nextSeasonTeamEntries, DriverFirerOutcome dropOutcome, DriverReputation playerReputation);
+
+        /// <summary>Shows the reserve's letter from their team. Returns what the player chose.</summary>
+        Task<ReserveLetterDecision> ShowReserveLetterAsync(ISaveGame saveGame, IEnumerable<ITeamEntry> nextSeasonTeamEntries, ReserveLetter letter, DriverReputation playerReputation);
 
         Task ShowRetirementNewsAsync(ISaveGame saveGame, IDriverData retiredDriver, string lastTeamId);
 
@@ -51,8 +81,11 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
 
         Task ShowNewSeasonRosterAsync(ISaveGame saveGame, ISeason newSeason);
 
-        /// <summary>Asks whether to generate a fictional absence for a player still without a team. Returns true if requested.</summary>
-        Task<bool> AskCreateFictionalAbsenceAsync();
+        /// <summary>
+        /// Shows a player without a race seat what the paddock offers at the new season's race
+        /// with this index (PaddockOpportunities): the player may buy a ride, changing the save.
+        /// </summary>
+        Task ShowPaddockOpportunitiesAsync(ISaveGame saveGame, int raceIndex);
     }
 
     public interface IOffSeasonOrchestrator
