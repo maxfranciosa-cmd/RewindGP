@@ -2,6 +2,7 @@ using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Resources;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace AMS2ChEd.Views
                 TeamsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(130) });
             }
 
-            TeamsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(42) });
+            TeamsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(52) });
             AddCell(CreateText(Strings.ConstructorStandingsGridWindow_TeamColumnHeader, "HeaderCellText"), 0, 0, isHeader: true, columnSpan: 2);
             AddCell(CreateText(Strings.ImprovementPackagesWindow_PackagesColumnHeader, "HeaderCellText"), 0, 2, isHeader: true);
             for (int i = 0; i < stats.Count; i++)
@@ -65,14 +66,14 @@ namespace AMS2ChEd.Views
                 var packages = team.ImprovementPackages ?? new List<ImprovementPackage>();
                 int row = teamIndex + 1;
 
-                TeamsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(36) });
+                TeamsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(46) });
 
                 var accent = new Border { Background = GetTeamColor(team) };
                 Grid.SetRow(accent, row);
                 Grid.SetColumn(accent, 0);
                 TeamsGrid.Children.Add(accent);
 
-                AddCell(CreateSegmentText(team.TeamName.ToUpper(), "TeamNameText"), row, 1);
+                AddCell(CreateSegmentText(team.ShortTeamName().ToUpper(), "TeamNameText"), row, 1);
 
                 AddCell(CreateSegmentText($"{packages.Count}/{ImprovementPackageManager.PACKAGES_PER_SEASON}"), row, 2);
 

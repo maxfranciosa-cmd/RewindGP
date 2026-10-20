@@ -67,7 +67,7 @@
 
     <Style x:Key="ImprovementPackages.Title" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource FontSegment}"/>
-        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontSize" Value="40"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.AmberBrush}"/>
         <Setter Property="Effect" Value="{StaticResource ImprovementPackages.AmberGlow}"/>
@@ -82,7 +82,7 @@
 
     <Style x:Key="ImprovementPackages.Subtitle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource FontSegment}"/>
-        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontSize" Value="26"/>
         <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.LossBrush}"/>
         <Setter Property="Effect" Value="{StaticResource ImprovementPackages.RedGlow}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -124,7 +124,7 @@
 
     <Style x:Key="ImprovementPackages.HeaderCellText" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource ImprovementPackages.LabelFont}"/>
-        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontSize" Value="23"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.LabelBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -134,7 +134,7 @@
 
     <Style x:Key="ImprovementPackages.CellText" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource FontSegment}"/>
-        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontSize" Value="26"/>
         <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.AmberBrush}"/>
         <Setter Property="Effect" Value="{StaticResource ImprovementPackages.AmberGlow}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -148,7 +148,7 @@
     </Style>
 
     <Style x:Key="ImprovementPackages.TeamNameText" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.CellText}">
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="25"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Padding" Value="12,4,0,4"/>
     </Style>
@@ -161,7 +161,7 @@
     <!-- one lamp per package: lit green for a gain, red for a loss, dark when unused -->
     <Style x:Key="ImprovementPackages.TrendLampGain" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource FontSegment}"/>
-        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontSize" Value="28"/>
         <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.GainBrush}"/>
         <Setter Property="Effect" Value="{StaticResource ImprovementPackages.GreenGlow}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -185,7 +185,7 @@
 
     <Style x:Key="ImprovementPackages.FooterText" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource ImprovementPackages.LabelFont}"/>
-        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontSize" Value="23"/>
         <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.LabelBrush}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
