@@ -103,6 +103,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 // Copy all non-contract team fields
                 TeamId = original.TeamId,
                 TeamName = original.TeamName,
+                ShortName = original.ShortName,
                 TeamPrincipal = original.TeamPrincipal,
                 Reputation = original.Reputation,
                 Color = original.Color,
@@ -149,6 +150,7 @@ namespace AMS2ChEd.SeasonPackEditor
         {
             TeamId = t.TeamId,
             TeamName = t.TeamName,
+            ShortName = t.ShortName,
             TeamPrincipal = t.TeamPrincipal,
             Reputation = t.Reputation,
             Color = t.Color,

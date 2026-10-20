@@ -52,6 +52,11 @@ namespace AMS2ChEd.Business.Models
         [JsonPropertyName("team_name")]
         string TeamName { get; set; }
 
+        // optional: the pack's own short name for the team (e.g. "Benetton" for "Mild Seven
+        // Benetton Renault"); when missing, ShortNameExtensions.ShortTeamName works one out
+        [JsonPropertyName("short_name")]
+        string ShortName { get; set; }
+
         [JsonPropertyName("team_principal")]
         string TeamPrincipal { get; set; }
 

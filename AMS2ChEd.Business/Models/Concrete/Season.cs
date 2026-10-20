@@ -21,6 +21,7 @@ namespace AMS2ChEd.Business.Models.Concrete
     {
         public string TeamId { get; set; }
         public string TeamName { get; set; }
+        public string ShortName { get; set; }
         public string TeamPrincipal { get; set; }
         public TeamReputation Reputation { get; set; }
         public DriverContract Driver1Contract { get; set; }
