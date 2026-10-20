@@ -1045,29 +1045,20 @@ namespace AMS2ChEd
                         return;
                     }
 
-                    // a wild card starts with no team: the paddock shows what's on offer at the first
-                    // race (absences, the rides their sponsors can buy). Back means another reputation
+                    // a wild card starts with no team: the rides their sponsors can buy are offered
+                    // when each race's entry list is drawn up
                     var saveGame = CreateGame(null, null);
 
-                    if (PaddockOpportunitiesWindow.ShowFor(this, saveGame, 0, PaddockOpportunitiesContext.GameStart))
-                    {
-                        // Save the game
-                        string saveName = $"{driverName}_{seasonYear}".Replace(" ", "_");
-                        string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
+                    // Save the game
+                    string saveName = $"{driverName}_{seasonYear}".Replace(" ", "_");
+                    string savedPath = _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
-                        // Open Season Overview window
-                        var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _installSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
-                        seasonOverviewWindow.Owner = this.Owner;
-                        seasonOverviewWindow.Show();
+                    // Open Season Overview window
+                    var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _installSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
+                    seasonOverviewWindow.Owner = this.Owner;
+                    seasonOverviewWindow.Show();
 
-                        return;
-
-                    }
-                    else
-                    {
-                        // User closed the window without making a choice, abort
-                        return;
-                    }
+                    return;
                 }
 
                 // Open Team Selection window

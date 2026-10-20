@@ -567,6 +567,8 @@ namespace AMS2ChEd
                 _gameLogicFactory.AbsenceManager.ProcessAbsences(entryList, absences, saveGame, decisionProvider);
             }
 
+            OfferPaidRide(entryList);
+
             var preQualiPool = _gameLogicFactory.PreQualiPoolResolver.Resolve(
                 saveGame, saveGame.NextGpIndex);
 
@@ -602,6 +604,28 @@ namespace AMS2ChEd
             entryListWindow.RaceWeekendCompleted += OnRaceWeekendCompleted;
 
             entryListWindow.ShowDialog();
+        }
+
+        // once the race's absences are settled, a pay driver still without a car can buy a seat
+        // (shown only when one is on sale); a bought ride is put on the grid like any absence
+        private void OfferPaidRide(List<EntryListEntry> entryList)
+        {
+            var playerId = saveGame.PlayerData.DriverId;
+            if (entryList.Any(e => e.Driver1Id == playerId || e.Driver2Id == playerId))
+                return;
+
+            var raceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId;
+            bool IsThisRacesPaidRide(Absence a) => a.RaceId == raceId && a.Reason == AbsenceReason.PAID_RIDE && a.DriverIn == playerId;
+            var paidRidesBefore = saveGame.CurrentSeason.Absences.Count(IsThisRacesPaidRide);
+
+            PaddockOpportunitiesWindow.ShowFor(this, saveGame, saveGame.NextGpIndex);
+
+            var boughtRide = saveGame.CurrentSeason.Absences.Where(IsThisRacesPaidRide).Skip(paidRidesBefore).ToList();
+            if (boughtRide.Any())
+            {
+                var decisionProvider = new WpfAbsenceDecisionProvider(this, saveGame, _ams2StorageFactory);
+                _gameLogicFactory.AbsenceManager.ProcessAbsences(entryList, boughtRide, saveGame, decisionProvider);
+            }
         }
 
         private void OnRaceWeekendCompleted(object sender, ISaveGame updatedSaveGame)
@@ -1015,12 +1039,6 @@ namespace AMS2ChEd
             letterWindow.Owner = _owner;
             letterWindow.ShowDialog();
             return Task.FromResult(letterWindow.Decision);
-        }
-
-        public Task ShowPaddockOpportunitiesAsync(ISaveGame saveGame, int raceIndex)
-        {
-            PaddockOpportunitiesWindow.ShowFor(_owner, saveGame, raceIndex, PaddockOpportunitiesContext.NewSeason);
-            return Task.CompletedTask;
         }
     }
 }

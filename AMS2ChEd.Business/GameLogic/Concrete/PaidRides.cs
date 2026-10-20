@@ -174,9 +174,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         // the team the player is the reserve of, null when they're nobody's reserve
         public string ReserveTeamId { get; set; }
 
-        // something for the player to decide: they aren't racing yet, and there's an absence to
-        // apply for or a ride to buy
-        public bool HasChoices => CallUps.Count == 0 && (OpenAbsences.Count > 0 || PaidRideOffers.Count > 0);
+        // a ride the player can buy (only a pay driver without any contract, not racing there yet)
+        public bool HasChoices => PaidRideOffers.Count > 0;
 
         public static PaddockOpportunities For(ISaveGame saveGame, int raceIndex)
         {

@@ -137,17 +137,7 @@ namespace AMS2ChEd.Views
 
             if (!preQualiMode)
             {
-                if (simulateRace)
-                {
-                    // the race goes on without the player: before the next one, show what the paddock
-                    // offers there (absences to apply for, rides a pay driver can buy), when there's
-                    // something to decide
-                    if (saveGame.CurrentSeason.Races.Count() > (saveGame.NextGpIndex + 1))
-                    {
-                        PaddockOpportunitiesWindow.ShowFor(null, saveGame, saveGame.NextGpIndex + 1, PaddockOpportunitiesContext.NextRace, onlyWhenThereAreChoices: true);
-                    }
-                }
-                else
+                if (!simulateRace)
                 {
                     // Deferred to Loaded (see RaceWeekendWindow_Loaded) since auto-configuring the
                     // race via IRaceLaunchAssistant is async - the manual RaceInstructionsWindow

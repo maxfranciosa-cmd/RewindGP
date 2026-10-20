@@ -87,8 +87,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         #region Reserve policy and wishes
 
         [TestMethod]
-        [DataRow(DriverReputation.YOUNG_TALENT, TeamReputation.TOP_TEAM, DriverHirer.DriverPolicyFit.PerfectFit)]
-        [DataRow(DriverReputation.PRIME_MIDFIELD, TeamReputation.TOP_TEAM, DriverHirer.DriverPolicyFit.GoodFit)]
+        [DataRow(DriverReputation.PRIME_MIDFIELD, TeamReputation.TOP_TEAM, DriverHirer.DriverPolicyFit.PerfectFit)]
+        [DataRow(DriverReputation.YOUNG_TALENT, TeamReputation.TOP_TEAM, DriverHirer.DriverPolicyFit.GoodFit)]
         [DataRow(DriverReputation.PAY_DRIVER_SEASON, TeamReputation.TOP_TEAM, DriverHirer.DriverPolicyFit.UnderQualified)]
         [DataRow(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, TeamReputation.TOP_TEAM, DriverHirer.DriverPolicyFit.OverQualified)]
         [DataRow(DriverReputation.PAY_DRIVER_SEASON, TeamReputation.MIDFIELD, DriverHirer.DriverPolicyFit.PerfectFit)]
@@ -328,7 +328,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         {
             var saveGame = OffSeasonSave();
             // a perfect fit for a top team's reserve seat, but not the pack's choice
-            AddDriver(saveGame, "KID", DriverReputation.YOUNG_TALENT);
+            AddDriver(saveGame, "KID", DriverReputation.PRIME_STRONG_MIDFIELD);
             var nextSeason = NextSeason(saveGame);
             nextSeason.Teams.Single(t => t.TeamId == "T1").ReserveContract = new DriverContract { DriverId = "U1", Races = 3 };
             var plan = new ReservePlan { TeamsWantingReserve = new HashSet<string> { "T1" } };
@@ -623,7 +623,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             AddTeam(saveGame, Team("MIN", TeamReputation.MINNOW, "N1", "N2"));
             AddDriver(saveGame, "N1", DriverReputation.PAY_DRIVER_SEASON);
             AddDriver(saveGame, "N2", DriverReputation.PAY_DRIVER_SEASON);
-            saveGame.Drivers.Single(d => d.DriverId == "PLAYER").Reputation = DriverReputation.YOUNG_TALENT;
+            // the player is a PRIME_MIDFIELD, a perfect fit for a top team's reserve seat
 
             var outlook = OutlookEstimator().Estimate(saveGame, NextSeason(saveGame), new Dictionary<string, IDriverData>());
 

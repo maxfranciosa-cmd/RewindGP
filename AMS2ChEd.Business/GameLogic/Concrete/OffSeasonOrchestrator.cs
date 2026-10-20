@@ -165,14 +165,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // STEP 7: Start new season
             _gameLogicFactory.EndOfSeasonManager.StartNewSeason(saveGame, actualNewSeason);
 
-            // Update player team ID if changed
+            // Update player team ID if changed. A pay driver still without a seat is offered rides
+            // when each race's entry list is drawn up
             UpdatePlayerTeamId(saveGame, actualNewSeason);
-
-            // STEP 8: a player still without a race seat sees what the paddock offers at the first race
-            if (string.IsNullOrEmpty(saveGame.PlayerData.TeamId))
-            {
-                await uiCallbacks.ShowPaddockOpportunitiesAsync(saveGame, 0);
-            }
 
             // Save the game
             string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");

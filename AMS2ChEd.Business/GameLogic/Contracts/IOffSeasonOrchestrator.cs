@@ -80,12 +80,6 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
         Task ShowTeamApplicationResultAsync(ISaveGame saveGame, IEnumerable<ITeamEntry> nextSeasonTeamEntries, TeamApplicationResult result, DriverReputation playerReputation);
 
         Task ShowNewSeasonRosterAsync(ISaveGame saveGame, ISeason newSeason);
-
-        /// <summary>
-        /// Shows a player without a race seat what the paddock offers at the new season's race
-        /// with this index (PaddockOpportunities): the player may buy a ride, changing the save.
-        /// </summary>
-        Task ShowPaddockOpportunitiesAsync(ISaveGame saveGame, int raceIndex);
     }
 
     public interface IOffSeasonOrchestrator
