@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Resources;
 using System.Globalization;
@@ -217,9 +218,7 @@ namespace AMS2ChEd.Views
         // "Christian Fittipaldi" -> "Fittipaldi", "Andrea de Cesaris" -> "de Cesaris"
         private string Surname(string driverId)
         {
-            var name = _drivers.GetValueOrDefault(driverId)?.Name ?? driverId;
-            var space = name.IndexOf(' ');
-            return space > 0 ? name.Substring(space + 1) : name;
+            return _drivers.GetValueOrDefault(driverId)?.Surname() ?? driverId;
         }
 
         private static string FormatAverage(double? value) => value?.ToString("0.0", CultureInfo.CurrentCulture) ?? "–";
