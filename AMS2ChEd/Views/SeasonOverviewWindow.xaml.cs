@@ -567,7 +567,7 @@ namespace AMS2ChEd
                 _gameLogicFactory.AbsenceManager.ProcessAbsences(entryList, absences, saveGame, decisionProvider);
             }
 
-            OfferPaidRide(entryList);
+            SettlePaidRides(entryList, absences);
 
             var preQualiPool = _gameLogicFactory.PreQualiPoolResolver.Resolve(
                 saveGame, saveGame.NextGpIndex);
@@ -606,25 +606,26 @@ namespace AMS2ChEd
             entryListWindow.ShowDialog();
         }
 
-        // once the race's absences are settled, a pay driver still without a car can buy a seat
-        // (shown only when one is on sale); a bought ride is put on the grid like any absence
-        private void OfferPaidRide(List<EntryListEntry> entryList)
+        // once the race's absences are settled, AI pay drivers buy their seats, then a player pay
+        // driver still without a car can buy one too, even one an AI driver just bought (shown only
+        // when one is on sale); the rides bought are put on the grid like any absence, their news
+        // coming out once every bid is decided
+        private void SettlePaidRides(List<EntryListEntry> entryList, List<Absence> settledAbsences)
         {
+            PaidRides.BuyAiRides(saveGame, saveGame.NextGpIndex, new Random());
+
             var playerId = saveGame.PlayerData.DriverId;
-            if (entryList.Any(e => e.Driver1Id == playerId || e.Driver2Id == playerId))
-                return;
+            if (!entryList.Any(e => e.Driver1Id == playerId || e.Driver2Id == playerId))
+                PaddockOpportunitiesWindow.ShowFor(this, saveGame, saveGame.NextGpIndex);
 
             var raceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId;
-            bool IsThisRacesPaidRide(Absence a) => a.RaceId == raceId && a.Reason == AbsenceReason.PAID_RIDE && a.DriverIn == playerId;
-            var paidRidesBefore = saveGame.CurrentSeason.Absences.Count(IsThisRacesPaidRide);
-
-            PaddockOpportunitiesWindow.ShowFor(this, saveGame, saveGame.NextGpIndex);
-
-            var boughtRide = saveGame.CurrentSeason.Absences.Where(IsThisRacesPaidRide).Skip(paidRidesBefore).ToList();
-            if (boughtRide.Any())
+            var boughtRides = saveGame.CurrentSeason.Absences
+                .Where(a => a.RaceId == raceId && a.Reason == AbsenceReason.PAID_RIDE && !settledAbsences.Contains(a))
+                .ToList();
+            if (boughtRides.Any())
             {
                 var decisionProvider = new WpfAbsenceDecisionProvider(this, saveGame, _ams2StorageFactory);
-                _gameLogicFactory.AbsenceManager.ProcessAbsences(entryList, boughtRide, saveGame, decisionProvider);
+                _gameLogicFactory.AbsenceManager.ProcessAbsences(entryList, boughtRides, saveGame, decisionProvider);
             }
         }
 
@@ -802,7 +803,7 @@ namespace AMS2ChEd
                 gp?.RaceName ?? Strings.SeasonOverviewWindow_GrandPrixFallback,
                 driverInName,
                 DateTime.ParseExact(gp.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                askPlayerToApply: !playerAlreadySteppedIn && opportunity.DriverIn != _saveGame.PlayerData.DriverId,
+                askPlayerToApply: !playerAlreadySteppedIn && opportunity.DriverIn != _saveGame.PlayerData.DriverId && opportunity.Reason != AbsenceReason.PAID_RIDE,
                 isConsecutive,
                 opportunity.Reason);
 

@@ -1153,6 +1153,8 @@ namespace AMS2ChEd.Resources
         public static string PaddockOpportunitiesWindow_PaidRidesHeading => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_PaidRidesHeading))!;
         public static string PaddockOpportunitiesWindow_Budget_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_Budget_Format))!;
         public static string PaddockOpportunitiesWindow_Offer_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_Offer_Format))!;
+        public static string PaddockOpportunitiesWindow_ContestedOffer_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_ContestedOffer_Format))!;
+        public static string PaddockOpportunitiesWindow_BidLost_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_BidLost_Format))!;
         public static string PaddockOpportunitiesWindow_PaidRidesNote => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_PaidRidesNote))!;
         public static string PaddockOpportunitiesWindow_BuyButton => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_BuyButton))!;
         public static string PaddockOpportunitiesWindow_ContinueButton => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_ContinueButton))!;

@@ -54,7 +54,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
                     AbsenceOpportunityAvailable?.Invoke(this, new AbsenceOpportunityEventArgs { Opportunity = opportunity });
 
-                    bool playerWantsToApply = decisionProvider.DoesPlayerWantToApply(opportunity, playerHasSteppedIn);
+                    // a paid ride is news only: whoever paid races, the player can't apply for it
+                    bool playerWantsToApply = decisionProvider.DoesPlayerWantToApply(opportunity, playerHasSteppedIn)
+                        && currentAbsence.Reason != AbsenceReason.PAID_RIDE;
 
                     if (playerWantsToApply && !playerHasSteppedIn)
                     {

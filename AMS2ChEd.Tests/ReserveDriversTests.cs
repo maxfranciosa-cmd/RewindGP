@@ -536,6 +536,25 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
+        public void PaidRides_SeatCoveredByAChainedAbsence_HasNoSeatToSell()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            // M1A stands in at the top team; their own seat is covered by the chain
+            saveGame.CurrentSeason.Absences = new List<Absence>
+            {
+                new Absence
+                {
+                    RaceId = 1, TeamId = "TOP", DriverOut = "T1A", DriverIn = "M1A",
+                    ChainedAbsence = new Absence { RaceId = 1, TeamId = "M1", DriverOut = "M1A", DriverIn = "U1" }
+                }
+            };
+
+            var offers = PaidRides.Offers(saveGame, 0);
+
+            Assert.AreEqual("M1B", offers.Single(o => o.TeamId == "M1").DriverOutId);
+        }
+
+        [TestMethod]
         public void PaddockOpportunities_ListsAbsencesCallUpsAndRides()
         {
             var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
@@ -552,6 +571,186 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             var afterBuying = PaddockOpportunities.For(saveGame, 0);
             Assert.AreEqual(1, afterBuying.CallUps.Count);
             Assert.IsFalse(afterBuying.HasChoices);
+        }
+
+        [TestMethod]
+        public void PaidRides_AiRides_OnlyFreePayDriversBuy()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_SEASON);
+            AddDriver(saveGame, "AI1", DriverReputation.PAY_DRIVER_SEASON);
+            AddDriver(saveGame, "AI2", DriverReputation.PAY_DRIVER_WILD_CARD);
+            AddDriver(saveGame, "NOMONEY", DriverReputation.YOUNG_TALENT);
+            AddDriver(saveGame, "RES", DriverReputation.PAY_DRIVER_SEASON);
+            Team(saveGame, "TOP").ReserveContract = new DriverContract { DriverId = "RES", Races = 3 };
+            AddDriver(saveGame, "OLD", DriverReputation.PAY_DRIVER_SEASON);
+            saveGame.RetiredDrivers = new List<IDriverData> { saveGame.Drivers.Single(d => d.DriverId == "OLD") };
+            AddDriver(saveGame, "BUSY", DriverReputation.PAY_DRIVER_SEASON);
+            saveGame.CurrentSeason.Absences = new List<Absence> { new Absence { RaceId = 1, TeamId = "TOP", DriverOut = "T1A", DriverIn = "BUSY" } };
+
+            // every roll buys
+            var bought = PaidRides.BuyAiRides(saveGame, 0, new FixedRandom(nextDouble: 0, next: 0));
+
+            CollectionAssert.AreEquivalent(new[] { "AI1", "AI2" }, bought.Select(a => a.DriverIn).ToList());
+            Assert.IsTrue(bought.All(a => a.Reason == AbsenceReason.PAID_RIDE && a.RaceId == 1));
+            Assert.AreEqual(2, bought.Select(a => (a.TeamId, a.DriverOut)).Distinct().Count());
+        }
+
+        [TestMethod]
+        public void PaidRides_AiRides_NoRollUnderTheChance_NobodyBuys()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_SEASON);
+            AddDriver(saveGame, "AI1", DriverReputation.PAY_DRIVER_SEASON);
+
+            var bought = PaidRides.BuyAiRides(saveGame, 0, new FixedRandom(nextDouble: 0.99, next: 0));
+
+            Assert.AreEqual(0, bought.Count);
+        }
+
+        [TestMethod]
+        public void PaidRides_AiRides_StopWhenTheBudgetIsSpent()
+        {
+            var saveGame = PaidRideSave(DriverReputation.YOUNG_TALENT);
+            saveGame.CurrentSeason.Races = Enumerable.Range(1, 8).Select(i => new Race { RaceId = i, RaceName = $"GP {i}" }).ToList();
+            AddDriver(saveGame, "AI1", DriverReputation.PAY_DRIVER_WILD_CARD);
+
+            var rides = Enumerable.Range(0, 8).Sum(race => PaidRides.BuyAiRides(saveGame, race, new FixedRandom(nextDouble: 0, next: 0)).Count);
+
+            Assert.AreEqual(3, rides);
+            Assert.AreEqual(0, PaidRides.RemainingFor(saveGame, "AI1"));
+        }
+
+        [TestMethod]
+        public void PaidRides_StrongDriver_IsNeverStoodDown_TheTeamSellsTheOtherSeat()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            // S2 would be the super minnow's seat on sale; M1A is one of the minnow's two
+            saveGame.Drivers.Single(d => d.DriverId == "S2").Reputation = DriverReputation.PRIME_STRONG_MIDFIELD;
+            saveGame.Drivers.Single(d => d.DriverId == "M1A").Reputation = DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL;
+
+            var offers = PaidRides.Offers(saveGame, 0);
+
+            Assert.AreEqual("S1", offers.Single(o => o.TeamId == "SM").DriverOutId);
+            Assert.AreEqual("M1B", offers.Single(o => o.TeamId == "M1").DriverOutId);
+        }
+
+        [TestMethod]
+        public void PaidRides_DriverOutOfFourRaces_IsNotStoodDownAgain()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            saveGame.CurrentSeason.Races = Enumerable.Range(1, 8).Select(i => new Race { RaceId = i, RaceName = $"GP {i}" }).ToList();
+            // M1A is out of four races: a pack absence, a release to come, a paid ride and a chained one
+            saveGame.CurrentSeason.Absences = new List<Absence>
+            {
+                new Absence { RaceId = 2, TeamId = "M1", DriverOut = "M1A", DriverIn = "X1" },
+                new Absence { RaceId = 8, TeamId = "M1", DriverOut = "M1A", DriverIn = "X2" },
+                new Absence { RaceId = 3, TeamId = "M1", DriverOut = "M1A", DriverIn = "X3", Reason = AbsenceReason.PAID_RIDE },
+                new Absence
+                {
+                    RaceId = 4, TeamId = "TOP", DriverOut = "T1A", DriverIn = "M1A",
+                    ChainedAbsence = new Absence { RaceId = 4, TeamId = "M1", DriverOut = "M1A", DriverIn = "X4" }
+                }
+            };
+
+            Assert.AreEqual(4, PaidRides.AbsencesOf(saveGame.CurrentSeason, "M1A"));
+            Assert.AreEqual("M1B", PaidRides.Offers(saveGame, 0).Single(o => o.TeamId == "M1").DriverOutId);
+
+            // the AI drivers can't stand them down either
+            AddDriver(saveGame, "AI1", DriverReputation.PAY_DRIVER_SEASON);
+            Assert.IsFalse(Enumerable.Range(0, 8)
+                .SelectMany(race => PaidRides.BuyAiRides(saveGame, race, new FixedRandom(nextDouble: 0, next: 0)))
+                .Any(a => a.DriverOut == "M1A"));
+        }
+
+        [TestMethod]
+        public void PaidRides_ContestedSeat_TheAiRideDoesntCountTowardsTheCap()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            AddDriver(saveGame, "AI1", DriverReputation.PAY_DRIVER_SEASON);
+            // S2 is out of three races, the fourth being the AI driver's ride at this one
+            saveGame.CurrentSeason.Absences = new List<Absence>
+            {
+                new Absence { RaceId = 2, TeamId = "SM", DriverOut = "S2", DriverIn = "X1" },
+                new Absence { RaceId = 3, TeamId = "SM", DriverOut = "S2", DriverIn = "X2" },
+                new Absence { RaceId = 4, TeamId = "SM", DriverOut = "S2", DriverIn = "X3" },
+                new Absence { RaceId = 1, TeamId = "SM", DriverOut = "S2", DriverIn = "AI1", Reason = AbsenceReason.PAID_RIDE }
+            };
+
+            var offer = PaidRides.Offers(saveGame, 0).Single(o => o.TeamId == "SM");
+
+            Assert.AreEqual("S2", offer.DriverOutId);
+            Assert.AreEqual("AI1", offer.RivalBidderId);
+        }
+
+        [TestMethod]
+        public void PaidRides_SeatAnAiDriverBought_IsOfferedToThePlayerAsContested()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            AddDriver(saveGame, "AI1", DriverReputation.PAY_DRIVER_SEASON);
+            var aiRide = new Absence { RaceId = 1, TeamId = "SM", DriverOut = "S2", DriverIn = "AI1", Reason = AbsenceReason.PAID_RIDE };
+            saveGame.CurrentSeason.Absences = new List<Absence> { aiRide };
+
+            var offer = PaidRides.Offers(saveGame, 0).Single(o => o.TeamId == "SM");
+
+            Assert.AreEqual("S2", offer.DriverOutId);
+            Assert.AreEqual("AI1", offer.RivalBidderId);
+            Assert.AreSame(aiRide, offer.RivalRide);
+            // it's bid for, not applied for like an absence
+            Assert.IsFalse(PaddockOpportunities.For(saveGame, 0).OpenAbsences.Any());
+        }
+
+        [TestMethod]
+        public void PaidRides_ContestWon_ThePlayerTakesOverTheAiRide()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            AddDriver(saveGame, "AI1", DriverReputation.PAY_DRIVER_SEASON);
+            var aiRide = new Absence { RaceId = 1, TeamId = "SM", DriverOut = "S2", DriverIn = "AI1", Reason = AbsenceReason.PAID_RIDE };
+            saveGame.CurrentSeason.Absences = new List<Absence> { aiRide };
+            var offer = PaidRides.Offers(saveGame, 0).Single(o => o.TeamId == "SM");
+
+            var absence = PaidRides.Buy(saveGame, 0, offer, new FixedRandom(nextDouble: 0, next: 0));
+
+            Assert.AreSame(aiRide, absence);
+            Assert.AreEqual("PLAYER", aiRide.DriverIn);
+            Assert.AreEqual(1, saveGame.CurrentSeason.Absences.Count());
+            Assert.AreEqual(2, PaidRides.Remaining(saveGame));
+            Assert.AreEqual(6, PaidRides.RemainingFor(saveGame, "AI1"));
+        }
+
+        [TestMethod]
+        public void PaidRides_ContestLost_NothingChanges()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            AddDriver(saveGame, "AI1", DriverReputation.PAY_DRIVER_SEASON);
+            var aiRide = new Absence { RaceId = 1, TeamId = "SM", DriverOut = "S2", DriverIn = "AI1", Reason = AbsenceReason.PAID_RIDE };
+            saveGame.CurrentSeason.Absences = new List<Absence> { aiRide };
+            var offer = PaidRides.Offers(saveGame, 0).Single(o => o.TeamId == "SM");
+
+            var absence = PaidRides.Buy(saveGame, 0, offer, new FixedRandom(nextDouble: 0.99, next: 0));
+
+            Assert.IsNull(absence);
+            Assert.AreEqual("AI1", aiRide.DriverIn);
+            Assert.AreEqual(3, PaidRides.Remaining(saveGame));
+            // the player can still buy another seat at this race
+            Assert.IsTrue(PaidRides.Offers(saveGame, 0).Any(o => o.RivalBidderId == null));
+        }
+
+        [TestMethod]
+        public void ProcessAbsences_AiPaidRide_CantBeAppliedFor()
+        {
+            var saveGame = RaceSave();
+            saveGame.PlayerData.TeamId = null;
+            Team(saveGame, "T3").Driver1Contract.DriverId = "U3";
+            var entryList = EntryList(saveGame);
+            var absences = new List<Absence> { new Absence { RaceId = 1, TeamId = "T3", DriverOut = "D5", DriverIn = "R3", Reason = AbsenceReason.PAID_RIDE } };
+            var provider = new Mock<IAbsenceDecisionProvider>();
+            provider.Setup(p => p.DoesPlayerWantToApply(It.IsAny<AbsenceOpportunity>(), It.IsAny<bool>())).Returns(true);
+            provider.Setup(p => p.DoesPlayerTeamAllowLeave(It.IsAny<string>(), It.IsAny<Absence>())).Returns(true);
+
+            new AbsenceManager().ProcessAbsences(entryList, absences, saveGame, provider.Object);
+
+            // the news is shown, but whoever paid races
+            provider.Verify(p => p.DoesPlayerWantToApply(It.IsAny<AbsenceOpportunity>(), false), Times.Once);
+            Assert.AreEqual("R3", entryList.Single(e => e.TeamId == "T3").Driver2Id);
         }
 
         #endregion

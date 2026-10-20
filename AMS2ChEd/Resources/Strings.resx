@@ -3579,6 +3579,12 @@ You can give the instruction from the season overview before the race.</value>
   <data name="PaddockOpportunitiesWindow_Offer_Format" xml:space="preserve">
     <value>{0}: {1}'s seat ({1} stands down for the race)</value>
   </data>
+  <data name="PaddockOpportunitiesWindow_ContestedOffer_Format" xml:space="preserve">
+    <value>{0}: {1}'s seat. {2} has already offered money for it: the team will pick one of you</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_BidLost_Format" xml:space="preserve">
+    <value>{0} took {1}'s money instead. Your sponsors keep theirs: choose another seat or carry on.</value>
+  </data>
   <data name="PaddockOpportunitiesWindow_PaidRidesNote" xml:space="preserve">
     <value>A bought ride is one race and nothing more: your result counts for your reputation like any other.</value>
   </data>

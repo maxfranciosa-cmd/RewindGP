@@ -9,14 +9,18 @@ namespace AMS2ChEd.Views
 {
     /// <summary>
     /// The rides a pay driver without a car can buy at one race (PaddockOpportunities), offered
-    /// when the race's entry list is drawn up, once its absences are settled. Buying one adds its
-    /// PAID_RIDE absence to the save.
+    /// when the race's entry list is drawn up, once its absences are settled and the AI pay drivers
+    /// have bought theirs. Buying one adds its PAID_RIDE absence to the save, or takes over the AI
+    /// driver's ride when the team picks the player over them.
     /// </summary>
     public partial class PaddockOpportunitiesWindow : Window
     {
         private readonly ISaveGame _saveGame;
         private readonly PaddockOpportunities _opportunities;
         private PaidRideOffer _selectedOffer;
+
+        // seats the team gave to the AI driver who bid first
+        private readonly HashSet<PaidRideOffer> _lostOffers = new();
 
         public bool RideBought { get; private set; }
 
@@ -47,18 +51,27 @@ namespace AMS2ChEd.Views
             BuildContent();
         }
 
-        private void BuildContent()
+        private void BuildContent(string bidLostText = null)
         {
+            ContentPanel.Children.Clear();
+            _selectedOffer = null;
+            BuyButton.IsEnabled = false;
+
             AddHeading(Strings.PaddockOpportunitiesWindow_PaidRidesHeading);
             AddParagraph(string.Format(Strings.PaddockOpportunitiesWindow_Budget_Format, _opportunities.PaidRidesRemaining, _opportunities.PaidRidesBudget));
+            if (bidLostText != null)
+                AddParagraph(bidLostText);
 
-            foreach (var offer in _opportunities.PaidRideOffers)
+            foreach (var offer in _opportunities.PaidRideOffers.Where(o => !_lostOffers.Contains(o)))
             {
+                var text = offer.RivalBidderId == null
+                    ? string.Format(Strings.PaddockOpportunitiesWindow_Offer_Format, TeamName(offer.TeamId), DriverName(offer.DriverOutId))
+                    : string.Format(Strings.PaddockOpportunitiesWindow_ContestedOffer_Format, TeamName(offer.TeamId), DriverName(offer.DriverOutId), DriverName(offer.RivalBidderId));
                 var radioButton = new RadioButton
                 {
                     Content = new TextBlock
                     {
-                        Text = string.Format(Strings.PaddockOpportunitiesWindow_Offer_Format, TeamName(offer.TeamId), DriverName(offer.DriverOutId)),
+                        Text = text,
                         TextWrapping = TextWrapping.Wrap
                     },
                     GroupName = "PaidRides",
@@ -117,7 +130,15 @@ namespace AMS2ChEd.Views
             if (_selectedOffer == null)
                 return;
 
-            PaidRides.Buy(_saveGame, _opportunities.RaceIndex, _selectedOffer);
+            // the seat an AI driver bought first can go to them: then the player picks again
+            if (PaidRides.Buy(_saveGame, _opportunities.RaceIndex, _selectedOffer) == null)
+            {
+                var lost = _selectedOffer;
+                _lostOffers.Add(lost);
+                BuildContent(string.Format(Strings.PaddockOpportunitiesWindow_BidLost_Format, TeamName(lost.TeamId), DriverName(lost.RivalBidderId)));
+                return;
+            }
+
             RideBought = true;
             DialogResult = true;
             Close();
