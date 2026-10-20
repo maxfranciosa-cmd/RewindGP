@@ -54,6 +54,15 @@
         <Setter Property="Margin" Value="14,0,14,8"/>
     </Style>
 
+    <!-- no segment displays here: the unlit copies of the title and subtitle are not drawn -->
+    <Style x:Key="ImprovementPackages.TitleUnlit" TargetType="TextBlock">
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.SubtitleUnlit" TargetType="TextBlock">
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
+
     <!-- Table: the gaps between the blocks are the cell borders, drawn in the window colour -->
     <Style x:Key="ImprovementPackages.TableArea" TargetType="ScrollViewer">
         <Setter Property="Margin" Value="0,0,0,10"/>

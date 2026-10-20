@@ -7,6 +7,8 @@
     <FontFamily x:Key="FontPoster">pack://application:,,,/AMS2ChEd;component/Fonts/#Anton, Impact</FontFamily>
     <FontFamily x:Key="FontTyped">pack://application:,,,/AMS2ChEd;component/Fonts/#Special Elite, Courier New</FontFamily>
     <FontFamily x:Key="FontScreen">pack://application:,,,/AMS2ChEd;component/Fonts/#VT323, Consolas, Courier New</FontFamily>
+    <!-- 14-segment display: ASCII letters, digits and a few signs; anything else (e.g. the up/down chevrons) comes from the fallbacks -->
+    <FontFamily x:Key="FontSegment">pack://application:,,,/AMS2ChEd;component/Fonts/#DSEG14 Classic, Segoe UI Symbol, Consolas</FontFamily>
     <FontFamily x:Key="FontHand">Segoe Print, Segoe Script, Comic Sans MS</FontFamily>
     <FontFamily x:Key="FontPrint">Arial</FontFamily>
     <FontFamily x:Key="FontDesktop">Tahoma, MS Sans Serif, Arial</FontFamily>

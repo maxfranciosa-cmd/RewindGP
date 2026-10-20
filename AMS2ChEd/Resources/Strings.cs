@@ -1140,5 +1140,27 @@ namespace AMS2ChEd.Resources
         public static string MarketOutlookWindow_Fit_Good => ResourceManager.GetString(nameof(MarketOutlookWindow_Fit_Good))!;
         public static string MarketOutlookWindow_Fit_OverQualified => ResourceManager.GetString(nameof(MarketOutlookWindow_Fit_OverQualified))!;
         public static string MarketOutlookWindow_Fit_UnderQualified => ResourceManager.GetString(nameof(MarketOutlookWindow_Fit_UnderQualified))!;
+
+        public static string DriverDatabaseWindow_Title => ResourceManager.GetString(nameof(DriverDatabaseWindow_Title))!;
+        public static string DriverDatabaseWindow_Header => ResourceManager.GetString(nameof(DriverDatabaseWindow_Header))!;
+        public static string DriverDatabaseWindow_TabAll => ResourceManager.GetString(nameof(DriverDatabaseWindow_TabAll))!;
+        public static string DriverDatabaseWindow_TabRacing => ResourceManager.GetString(nameof(DriverDatabaseWindow_TabRacing))!;
+        public static string DriverDatabaseWindow_TabFreeAgents => ResourceManager.GetString(nameof(DriverDatabaseWindow_TabFreeAgents))!;
+        public static string DriverDatabaseWindow_TabRetired => ResourceManager.GetString(nameof(DriverDatabaseWindow_TabRetired))!;
+        public static string DriverDatabaseWindow_SearchHint => ResourceManager.GetString(nameof(DriverDatabaseWindow_SearchHint))!;
+        public static string DriverDatabaseWindow_SortLabel => ResourceManager.GetString(nameof(DriverDatabaseWindow_SortLabel))!;
+        public static string DriverDatabaseWindow_SortByName => ResourceManager.GetString(nameof(DriverDatabaseWindow_SortByName))!;
+        public static string DriverDatabaseWindow_SortByAge => ResourceManager.GetString(nameof(DriverDatabaseWindow_SortByAge))!;
+        public static string DriverDatabaseWindow_SortByTeam => ResourceManager.GetString(nameof(DriverDatabaseWindow_SortByTeam))!;
+        public static string DriverDatabaseWindow_Count_Format => ResourceManager.GetString(nameof(DriverDatabaseWindow_Count_Format))!;
+        public static string DriverDatabaseWindow_StatusFreeAgent => ResourceManager.GetString(nameof(DriverDatabaseWindow_StatusFreeAgent))!;
+        public static string DriverDatabaseWindow_StatusRetired => ResourceManager.GetString(nameof(DriverDatabaseWindow_StatusRetired))!;
+        public static string DriverDatabaseWindow_PlayerBadge => ResourceManager.GetString(nameof(DriverDatabaseWindow_PlayerBadge))!;
+        public static string DriverDatabaseWindow_Age_Format => ResourceManager.GetString(nameof(DriverDatabaseWindow_Age_Format))!;
+        public static string DriverDatabaseWindow_NoDriversMessage => ResourceManager.GetString(nameof(DriverDatabaseWindow_NoDriversMessage))!;
+        public static string DriverDatabaseWindow_FooterText => ResourceManager.GetString(nameof(DriverDatabaseWindow_FooterText))!;
+        public static string DriverDatabaseWindow_AccoladesFreeAgent => ResourceManager.GetString(nameof(DriverDatabaseWindow_AccoladesFreeAgent))!;
+        public static string DriverDatabaseWindow_AccoladesRetired => ResourceManager.GetString(nameof(DriverDatabaseWindow_AccoladesRetired))!;
+        public static string SeasonOverviewWindow_DriverDatabaseButton => ResourceManager.GetString(nameof(SeasonOverviewWindow_DriverDatabaseButton))!;
     }
 }

@@ -1,0 +1,292 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- The drivers as flat charcoal tiles: a title bar closed by the red rule, block tabs for the status,
+         and one tile per driver with his photo on the team colour. A retired driver's photo is dimmed and
+         his name written softer; the player's own tile carries the red rule. -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Charcoal/Base.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <SolidColorBrush x:Key="DriverDatabase.WindowBackground" Color="#141414"/>
+
+    <!-- under the name of a driver without a seat -->
+    <SolidColorBrush x:Key="DriverDatabase.NoTeamBrush" Color="#3a3a3a"/>
+
+    <Style x:Key="DriverDatabase.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
+
+    <Style x:Key="DriverDatabase.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="24"/>
+    </Style>
+
+    <!-- Title bar closed by the red rule -->
+    <Style x:Key="DriverDatabase.Header" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,4"/>
+        <Setter Property="Padding" Value="14,6,14,8"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Title" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="30"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Subtitle" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Count" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+
+    <!-- Block tabs: the open one red -->
+    <Style x:Key="DriverDatabase.Tabs" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Tab" TargetType="RadioButton">
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontHeading}"/>
+        <Setter Property="FontStretch" Value="Condensed"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="Padding" Value="14,7"/>
+        <Setter Property="Margin" Value="0,0,2,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Search and sort on a panel strip -->
+    <Style x:Key="DriverDatabase.Toolbar" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+        <Setter Property="Padding" Value="10,8"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.SearchBox" TargetType="TextBox" BasedOn="{StaticResource Charcoal.TextBoxStyle}">
+        <Setter Property="Width" Value="300"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.SearchHint" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="Margin" Value="8,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.SortLabel" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,6,0"/>
+    </Style>
+
+    <!-- the chosen sort sits on a strip, underlined in red -->
+    <Style x:Key="DriverDatabase.SortOption" TargetType="RadioButton">
+        <Setter Property="FontFamily" Value="{StaticResource Charcoal.FontHeading}"/>
+        <Setter Property="FontStretch" Value="Condensed"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="Margin" Value="2,0,0,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,2" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Scroll" TargetType="ScrollViewer">
+        <Setter Property="Margin" Value="0,12,0,0"/>
+    </Style>
+
+    <!-- The tile; the player's own carries the red rule along the bottom -->
+    <Style x:Key="DriverDatabase.Card" TargetType="Border">
+        <Setter Property="Width" Value="168"/>
+        <Setter Property="Margin" Value="0,0,10,10"/>
+        <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0,0,0,4"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding IsPlayer}" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriverDatabase.PhotoArea" TargetType="Grid">
+        <Setter Property="Height" Value="132"/>
+        <Setter Property="ClipToBounds" Value="True"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.PhotoBackground" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+    </Style>
+
+    <!-- a retired driver's photo is dimmed -->
+    <Style x:Key="DriverDatabase.Photo" TargetType="Image">
+        <Setter Property="Stretch" Value="UniformToFill"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="Retired">
+                <Setter Property="Opacity" Value="0.55"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriverDatabase.PhotoPlaceholder" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="44"/>
+        <Setter Property="Foreground" Value="#59ffffff"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- no tint in this style -->
+    <Style x:Key="DriverDatabase.PhotoTint" TargetType="Border">
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
+
+    <!-- car number in a white box, like the ranks of the other tables -->
+    <Style x:Key="DriverDatabase.NumberBadge" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.TextBrush}"/>
+        <Setter Property="Padding" Value="6,2"/>
+        <Setter Property="MinWidth" Value="30"/>
+        <Setter Property="Margin" Value="6"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.NumberText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.BackgroundBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.NationalityBadge" TargetType="Border">
+        <Setter Property="Background" Value="#b0141414"/>
+        <Setter Property="Padding" Value="6,2"/>
+        <Setter Property="Margin" Value="6"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.NationalityText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.StatusBand" TargetType="Border">
+        <Setter Property="Background" Value="#d9141414"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.StatusBandText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.PlayerBadge" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="Padding" Value="8,2"/>
+        <Setter Property="Margin" Value="6"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.PlayerBadgeText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.FirstName" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="Margin" Value="10,8,10,0"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Surname" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="Margin" Value="10,0,10,0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="Retired">
+                <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriverDatabase.TeamLine" TargetType="Border">
+        <Setter Property="BorderThickness" Value="0,3,0,0"/>
+        <Setter Property="Margin" Value="10,6,10,10"/>
+        <Setter Property="Padding" Value="0,4,0,0"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.TeamText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.AgeText" TargetType="TextBlock" BasedOn="{StaticResource DriverDatabase.TeamText}">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="Margin" Value="6,0,0,0"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Empty" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="Margin" Value="0,8"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Footer" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+</ResourceDictionary>

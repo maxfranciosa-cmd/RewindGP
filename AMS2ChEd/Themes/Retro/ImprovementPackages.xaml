@@ -1,127 +1,192 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- Improvement packages as an official printed bulletin: a framed white sheet with a ruled header and a typed table. -->
+    <!-- Improvement packages as a trackside timing board: amber 14-segment displays on a black panel,
+         the faint unlit segments showing behind every field, and one lamp per package in each
+         performance column (green a gain for the car, red a loss, the unused lamps dark).
+         The "...Unlit" and "TrendLamp..." styles are optional: the code-behind draws the unlit
+         segments and the lamps only when the active style defines them. -->
 
-    <SolidColorBrush x:Key="ImprovementPackages.WindowBackground" Color="#f8f8f0"/>
-    <SolidColorBrush x:Key="ImprovementPackages.GainBrush" Color="#1e7d32"/>
-    <SolidColorBrush x:Key="ImprovementPackages.LossBrush" Color="#c41e3a"/>
+    <SolidColorBrush x:Key="ImprovementPackages.WindowBackground" Color="#07080a"/>
+    <SolidColorBrush x:Key="ImprovementPackages.GainBrush" Color="#4dff6e"/>
+    <SolidColorBrush x:Key="ImprovementPackages.LossBrush" Color="#ff4630"/>
 
-    <!-- the bulletin keeps the system scrollbar -->
-    <Style x:Key="ImprovementPackages.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource {x:Type ScrollBar}}"/>
+    <SolidColorBrush x:Key="ImprovementPackages.AmberBrush" Color="#ffb000"/>
+    <!-- the unlit segments: the display colour, barely there -->
+    <SolidColorBrush x:Key="ImprovementPackages.UnlitBrush" Color="#16ffb000"/>
+    <SolidColorBrush x:Key="ImprovementPackages.UnlitLampBrush" Color="#18ffffff"/>
+    <SolidColorBrush x:Key="ImprovementPackages.BezelBrush" Color="#26282c"/>
+    <SolidColorBrush x:Key="ImprovementPackages.PanelBrush" Color="#0d0e10"/>
+    <SolidColorBrush x:Key="ImprovementPackages.LabelBrush" Color="#8a8f98"/>
 
+    <!-- the glow of a lit segment -->
+    <DropShadowEffect x:Key="ImprovementPackages.AmberGlow" ShadowDepth="0" BlurRadius="8" Color="#ffb000" Opacity="0.7"/>
+    <DropShadowEffect x:Key="ImprovementPackages.RedGlow" ShadowDepth="0" BlurRadius="8" Color="#ff4630" Opacity="0.7"/>
+    <DropShadowEffect x:Key="ImprovementPackages.GreenGlow" ShadowDepth="0" BlurRadius="8" Color="#4dff6e" Opacity="0.7"/>
+
+    <FontFamily x:Key="ImprovementPackages.LabelFont">Bahnschrift SemiCondensed, Arial Narrow, Arial</FontFamily>
+
+    <Style x:Key="ImprovementPackages.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource TeletextScrollBarStyle}">
+        <Setter Property="Background" Value="#16171a"/>
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.AmberBrush}"/>
+    </Style>
+
+    <!-- the board: a black panel in a grey bezel -->
     <Style x:Key="ImprovementPackages.Frame" TargetType="Border">
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="BorderBrush" Value="Black"/>
-        <Setter Property="BorderThickness" Value="4"/>
-        <Setter Property="Margin" Value="40"/>
+        <Setter Property="Background" Value="{StaticResource ImprovementPackages.PanelBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ImprovementPackages.BezelBrush}"/>
+        <Setter Property="BorderThickness" Value="6"/>
+        <Setter Property="Margin" Value="24"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.Root" TargetType="Grid">
-        <Setter Property="Margin" Value="30"/>
+        <Setter Property="Margin" Value="20,16,20,14"/>
     </Style>
 
-    <!-- Header between two double rules -->
+    <!-- Header: the title display, the season below it in red, then a red rule -->
     <Style x:Key="ImprovementPackages.Header" TargetType="StackPanel">
-        <Setter Property="Margin" Value="0,0,0,20"/>
+        <Setter Property="Margin" Value="0,0,0,14"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.TopRuleOuter" TargetType="Rectangle">
-        <Setter Property="Height" Value="4"/>
-        <Setter Property="Fill" Value="Black"/>
-        <Setter Property="Margin" Value="0,0,0,5"/>
+        <Setter Property="Visibility" Value="Collapsed"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.TopRuleInner" TargetType="Rectangle">
-        <Setter Property="Height" Value="2"/>
-        <Setter Property="Fill" Value="Black"/>
-        <Setter Property="Margin" Value="0,0,0,10"/>
+        <Setter Property="Visibility" Value="Collapsed"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.BottomRuleInner" TargetType="Rectangle">
-        <Setter Property="Height" Value="2"/>
-        <Setter Property="Fill" Value="Black"/>
-        <Setter Property="Margin" Value="0,0,0,5"/>
+        <Setter Property="Visibility" Value="Collapsed"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.BottomRuleOuter" TargetType="Rectangle">
-        <Setter Property="Height" Value="4"/>
-        <Setter Property="Fill" Value="Black"/>
+        <Setter Property="Height" Value="3"/>
+        <Setter Property="Fill" Value="{StaticResource ImprovementPackages.LossBrush}"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.Title" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Arial Black"/>
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="FontWeight" Value="Black"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0,0,0,5"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontSegment}"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.AmberBrush}"/>
+        <Setter Property="Effect" Value="{StaticResource ImprovementPackages.AmberGlow}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="0,0,0,8"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.TitleUnlit" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.Title}">
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.UnlitBrush}"/>
+        <Setter Property="Effect" Value="{x:Null}"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.Subtitle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Arial"/>
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0,0,0,10"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontSegment}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.LossBrush}"/>
+        <Setter Property="Effect" Value="{StaticResource ImprovementPackages.RedGlow}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="0,0,0,12"/>
     </Style>
 
-    <!-- Table -->
+    <Style x:Key="ImprovementPackages.SubtitleUnlit" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.Subtitle}">
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.UnlitBrush}"/>
+        <Setter Property="Effect" Value="{x:Null}"/>
+    </Style>
+
+    <!-- Table: one display line per team, the column names printed on the bezel strip above -->
     <Style x:Key="ImprovementPackages.TableArea" TargetType="ScrollViewer">
-        <Setter Property="Margin" Value="0,10,0,10"/>
+        <Setter Property="Margin" Value="0,0,0,12"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.Table" TargetType="Border">
-        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ImprovementPackages.BezelBrush}"/>
         <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="#0b0c0e"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.Cell" TargetType="Border">
-        <Setter Property="BorderBrush" Value="Black"/>
-        <Setter Property="BorderThickness" Value="0,0,1,1"/>
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource ImprovementPackages.PanelBrush}"/>
+        <Setter Property="BorderBrush" Value="#16171a"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
     </Style>
 
-    <!-- every other team row is faintly shaded -->
     <Style x:Key="ImprovementPackages.AlternateCell" TargetType="Border" BasedOn="{StaticResource ImprovementPackages.Cell}">
-        <Setter Property="Background" Value="#fafafa"/>
+        <Setter Property="Background" Value="#0a0b0c"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.HeaderCell" TargetType="Border" BasedOn="{StaticResource ImprovementPackages.Cell}">
-        <Setter Property="BorderThickness" Value="0,0,1,2"/>
+        <Setter Property="Background" Value="#16171a"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ImprovementPackages.BezelBrush}"/>
     </Style>
 
-    <Style x:Key="ImprovementPackages.CellText" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Courier New"/>
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="Foreground" Value="Black"/>
+    <Style x:Key="ImprovementPackages.HeaderCellText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource ImprovementPackages.LabelFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.LabelBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Padding" Value="5,4,5,4"/>
     </Style>
 
-    <Style x:Key="ImprovementPackages.HeaderCellText" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.CellText}">
+    <Style x:Key="ImprovementPackages.CellText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontSegment}"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.AmberBrush}"/>
+        <Setter Property="Effect" Value="{StaticResource ImprovementPackages.AmberGlow}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="5,4,5,4"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.CellTextUnlit" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.CellText}">
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.UnlitBrush}"/>
+        <Setter Property="Effect" Value="{x:Null}"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.TeamNameText" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.CellText}">
+        <Setter Property="FontSize" Value="15"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Padding" Value="10,4,0,4"/>
+        <Setter Property="Padding" Value="12,4,0,4"/>
     </Style>
 
-    <!-- Footer -->
+    <Style x:Key="ImprovementPackages.TeamNameTextUnlit" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.TeamNameText}">
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.UnlitBrush}"/>
+        <Setter Property="Effect" Value="{x:Null}"/>
+    </Style>
+
+    <!-- one lamp per package: lit green for a gain, red for a loss, dark when unused -->
+    <Style x:Key="ImprovementPackages.TrendLampGain" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontSegment}"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.GainBrush}"/>
+        <Setter Property="Effect" Value="{StaticResource ImprovementPackages.GreenGlow}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="3,0,3,0"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.TrendLampLoss" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.TrendLampGain}">
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.LossBrush}"/>
+        <Setter Property="Effect" Value="{StaticResource ImprovementPackages.RedGlow}"/>
+    </Style>
+
+    <Style x:Key="ImprovementPackages.TrendLampUnlit" TargetType="TextBlock" BasedOn="{StaticResource ImprovementPackages.TrendLampGain}">
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.UnlitLampBrush}"/>
+        <Setter Property="Effect" Value="{x:Null}"/>
+    </Style>
+
+    <!-- Footer: the legend, printed on the bezel -->
     <Style x:Key="ImprovementPackages.FooterRule" TargetType="Rectangle">
-        <Setter Property="Height" Value="2"/>
-        <Setter Property="Fill" Value="Black"/>
-        <Setter Property="Margin" Value="0,0,0,10"/>
+        <Setter Property="Visibility" Value="Collapsed"/>
     </Style>
 
     <Style x:Key="ImprovementPackages.FooterText" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Arial"/>
-        <Setter Property="FontSize" Value="10"/>
-        <Setter Property="FontStyle" Value="Italic"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{StaticResource ImprovementPackages.LabelFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource ImprovementPackages.LabelBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
 </ResourceDictionary>

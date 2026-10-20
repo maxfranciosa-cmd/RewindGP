@@ -28,11 +28,21 @@
                 <Rectangle Style="{StaticResource ImprovementPackages.TopRuleOuter}"/>
                 <Rectangle Style="{StaticResource ImprovementPackages.TopRuleInner}"/>
 
-                <TextBlock Text="{loc:Loc ImprovementPackagesWindow_Header}"
-                           Style="{StaticResource ImprovementPackages.Title}"/>
+                <!-- each text over its "unlit" copy, which the styles without one leave collapsed -->
+                <Grid>
+                    <TextBlock x:Name="TitleUnlitText"
+                               Style="{StaticResource ImprovementPackages.TitleUnlit}"/>
+                    <TextBlock x:Name="TitleText"
+                               Text="{loc:Loc ImprovementPackagesWindow_Header}"
+                               Style="{StaticResource ImprovementPackages.Title}"/>
+                </Grid>
 
-                <TextBlock x:Name="SeasonYearText"
-                           Style="{StaticResource ImprovementPackages.Subtitle}"/>
+                <Grid>
+                    <TextBlock x:Name="SeasonYearUnlitText"
+                               Style="{StaticResource ImprovementPackages.SubtitleUnlit}"/>
+                    <TextBlock x:Name="SeasonYearText"
+                               Style="{StaticResource ImprovementPackages.Subtitle}"/>
+                </Grid>
 
                 <Rectangle Style="{StaticResource ImprovementPackages.BottomRuleInner}"/>
                 <Rectangle Style="{StaticResource ImprovementPackages.BottomRuleOuter}"/>

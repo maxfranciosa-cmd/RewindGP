@@ -58,6 +58,8 @@
     <None Remove="Fonts\Anton-Regular.ttf" />
     <None Remove="Fonts\SpecialElite-Regular.ttf" />
     <None Remove="Fonts\VT323-Regular.ttf" />
+    <None Remove="Fonts\DSEG14Classic-Regular.ttf" />
+    <None Remove="Fonts\DSEG14Classic-Bold.ttf" />
     <None Remove="StaticFiles\rewind_gp_logo.png" />
   </ItemGroup>
 
@@ -194,6 +196,9 @@
     <None Update="Fonts\Special Elite Apache License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Fonts\DSEG14 OFL License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <!-- Published as usual, but copied to the build output by the CopySpoofSeason target instead. -->
     <None Update="Seasons\1996\**">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -257,6 +262,8 @@
     <Resource Include="Fonts\Anton-Regular.ttf" />
     <Resource Include="Fonts\SpecialElite-Regular.ttf" />
     <Resource Include="Fonts\VT323-Regular.ttf" />
+    <Resource Include="Fonts\DSEG14Classic-Regular.ttf" />
+    <Resource Include="Fonts\DSEG14Classic-Bold.ttf" />
   </ItemGroup>
 
 </Project>

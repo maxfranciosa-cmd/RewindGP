@@ -93,6 +93,8 @@
 
     <Style x:Key="SeasonOverview.HallOfFameButton" TargetType="Button" BasedOn="{StaticResource SeasonOverview.HistoricalStandingsButton}"/>
 
+    <Style x:Key="SeasonOverview.DriverDatabaseButton" TargetType="Button" BasedOn="{StaticResource SeasonOverview.HistoricalStandingsButton}"/>
+
     <Style x:Key="SeasonOverview.HeadToHeadButton" TargetType="Button" BasedOn="{StaticResource SeasonOverview.HistoricalStandingsButton}"/>
 
     <Style x:Key="SeasonOverview.MarketOutlookButton" TargetType="Button" BasedOn="{StaticResource SeasonOverview.HistoricalStandingsButton}"/>

@@ -725,6 +725,13 @@ namespace AMS2ChEd
             hallOfFameWindow.ShowDialog();
         }
 
+        private void DriverDatabaseButton_Click(object sender, RoutedEventArgs e)
+        {
+            var driverDatabaseWindow = new DriverDatabaseWindow(saveGame, _gameLogicFactory.AllTimeRecordsLoader);
+            driverDatabaseWindow.Owner = this;
+            driverDatabaseWindow.ShowDialog();
+        }
+
         private void HeadToHeadButton_Click(object sender, RoutedEventArgs e)
         {
             var headToHeadWindow = new Views.HeadToHeadWindow(saveGame);

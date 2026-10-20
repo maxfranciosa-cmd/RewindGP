@@ -120,6 +120,12 @@
                         Style="{StaticResource SeasonOverview.HallOfFameButton}"
                         Content="{loc:Loc SeasonOverviewWindow_HallOfFameButton}"/>
 
+                <!-- Every driver in the save: racing, without a seat or retired -->
+                <Button x:Name="DriverDatabaseButton"
+                        Click="DriverDatabaseButton_Click"
+                        Style="{StaticResource SeasonOverview.DriverDatabaseButton}"
+                        Content="{loc:Loc SeasonOverviewWindow_DriverDatabaseButton}"/>
+
                 <!-- Teammates compared, team by team -->
                 <Button x:Name="HeadToHeadButton"
                         Click="HeadToHeadButton_Click"

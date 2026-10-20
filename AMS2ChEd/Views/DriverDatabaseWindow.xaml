@@ -1,0 +1,140 @@
+<!--Driver Database Window - every driver in the save: racing this season, without a seat or retired-->
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        mc:Ignorable="d"
+        x:Class="AMS2ChEd.Views.DriverDatabaseWindow"
+        Title="{loc:Loc DriverDatabaseWindow_Title}"
+        Height="860" Width="1100"
+        MinHeight="520" MinWidth="760"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource DriverDatabase.WindowBackground}">
+
+    <!-- This window only holds structure. How each part looks comes from the "DriverDatabase.*" styles of
+         the active visual style (Themes/<style>/DriverDatabase.xaml). A card's "Status" (Racing, FreeAgent,
+         Retired) and "IsPlayer" are what those styles tell the drivers apart by. -->
+    <Window.Resources>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource DriverDatabase.ScrollBar}"/>
+    </Window.Resources>
+
+    <Grid Style="{StaticResource DriverDatabase.Root}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title, season and how many drivers are shown -->
+        <Border Grid.Row="0" Style="{StaticResource DriverDatabase.Header}">
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="{loc:Loc DriverDatabaseWindow_Header}" Style="{StaticResource DriverDatabase.Title}"/>
+                    <TextBlock x:Name="SubtitleText" Style="{StaticResource DriverDatabase.Subtitle}"/>
+                </StackPanel>
+                <TextBlock x:Name="CountText" Style="{StaticResource DriverDatabase.Count}"/>
+            </Grid>
+        </Border>
+
+        <!-- Which drivers: all of them, or by status -->
+        <StackPanel Grid.Row="1" Style="{StaticResource DriverDatabase.Tabs}">
+            <RadioButton x:Name="AllTab" GroupName="Status" IsChecked="True" Checked="Filter_Changed" Style="{StaticResource DriverDatabase.Tab}"/>
+            <RadioButton x:Name="RacingTab" GroupName="Status" Checked="Filter_Changed" Style="{StaticResource DriverDatabase.Tab}"/>
+            <RadioButton x:Name="FreeAgentsTab" GroupName="Status" Checked="Filter_Changed" Style="{StaticResource DriverDatabase.Tab}"/>
+            <RadioButton x:Name="RetiredTab" GroupName="Status" Checked="Filter_Changed" Style="{StaticResource DriverDatabase.Tab}"/>
+        </StackPanel>
+
+        <!-- Search and sort -->
+        <Border Grid.Row="2" Style="{StaticResource DriverDatabase.Toolbar}">
+            <DockPanel LastChildFill="False">
+                <Grid DockPanel.Dock="Left">
+                    <TextBox x:Name="SearchBox"
+                             TextChanged="SearchBox_TextChanged"
+                             AutomationProperties.Name="{loc:Loc DriverDatabaseWindow_SearchHint}"
+                             Style="{StaticResource DriverDatabase.SearchBox}"/>
+                    <TextBlock x:Name="SearchHintText"
+                               Text="{loc:Loc DriverDatabaseWindow_SearchHint}"
+                               IsHitTestVisible="False"
+                               Style="{StaticResource DriverDatabase.SearchHint}"/>
+                </Grid>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{loc:Loc DriverDatabaseWindow_SortLabel}" Style="{StaticResource DriverDatabase.SortLabel}"/>
+                    <RadioButton x:Name="SortByNameOption" GroupName="Sort" IsChecked="True" Checked="Filter_Changed"
+                                 Content="{loc:Loc DriverDatabaseWindow_SortByName}" Style="{StaticResource DriverDatabase.SortOption}"/>
+                    <RadioButton x:Name="SortByAgeOption" GroupName="Sort" Checked="Filter_Changed"
+                                 Content="{loc:Loc DriverDatabaseWindow_SortByAge}" Style="{StaticResource DriverDatabase.SortOption}"/>
+                    <RadioButton x:Name="SortByTeamOption" GroupName="Sort" Checked="Filter_Changed"
+                                 Content="{loc:Loc DriverDatabaseWindow_SortByTeam}" Style="{StaticResource DriverDatabase.SortOption}"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- One card per driver -->
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" Style="{StaticResource DriverDatabase.Scroll}">
+            <StackPanel>
+                <ItemsControl x:Name="DriversItems" KeyboardNavigation.TabNavigation="Continue">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource DriverDatabase.Card}"
+                                    Focusable="True"
+                                    AutomationProperties.Name="{Binding FullName}"
+                                    MouseLeftButtonDown="Card_MouseLeftButtonDown"
+                                    KeyDown="Card_KeyDown">
+                                <StackPanel>
+                                    <!-- photo on the team colour, with the car number, nationality, status and the player's badge -->
+                                    <Grid Style="{StaticResource DriverDatabase.PhotoArea}">
+                                        <Border Style="{StaticResource DriverDatabase.PhotoBackground}"/>
+                                        <Border Background="{Binding TeamBrush}"/>
+                                        <TextBlock Text="?"
+                                                   Visibility="{Binding PlaceholderVisibility}"
+                                                   Style="{StaticResource DriverDatabase.PhotoPlaceholder}"/>
+                                        <Image Source="{Binding Photo}" Style="{StaticResource DriverDatabase.Photo}"/>
+                                        <Border Style="{StaticResource DriverDatabase.PhotoTint}"/>
+
+                                        <Border Visibility="{Binding NumberVisibility}" Style="{StaticResource DriverDatabase.NumberBadge}">
+                                            <TextBlock Text="{Binding CarNumber}" Style="{StaticResource DriverDatabase.NumberText}"/>
+                                        </Border>
+                                        <Border Style="{StaticResource DriverDatabase.NationalityBadge}">
+                                            <TextBlock Text="{Binding Nationality}" Style="{StaticResource DriverDatabase.NationalityText}"/>
+                                        </Border>
+                                        <Border Visibility="{Binding StatusBandVisibility}" Style="{StaticResource DriverDatabase.StatusBand}">
+                                            <TextBlock Text="{Binding StatusText}" Style="{StaticResource DriverDatabase.StatusBandText}"/>
+                                        </Border>
+                                        <Border Visibility="{Binding PlayerBadgeVisibility}" Style="{StaticResource DriverDatabase.PlayerBadge}">
+                                            <TextBlock Text="{loc:Loc DriverDatabaseWindow_PlayerBadge}" Style="{StaticResource DriverDatabase.PlayerBadgeText}"/>
+                                        </Border>
+                                    </Grid>
+
+                                    <!-- first name and surname apart, then the team and the age -->
+                                    <TextBlock Text="{Binding FirstName}" Style="{StaticResource DriverDatabase.FirstName}"/>
+                                    <TextBlock Text="{Binding Surname}" Style="{StaticResource DriverDatabase.Surname}"/>
+                                    <Border BorderBrush="{Binding TeamRuleBrush}" Style="{StaticResource DriverDatabase.TeamLine}">
+                                        <DockPanel>
+                                            <TextBlock DockPanel.Dock="Right" Text="{Binding AgeText}" Style="{StaticResource DriverDatabase.AgeText}"/>
+                                            <TextBlock Text="{Binding TeamShortName}" Style="{StaticResource DriverDatabase.TeamText}"/>
+                                        </DockPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <TextBlock x:Name="NoDriversText"
+                           Text="{loc:Loc DriverDatabaseWindow_NoDriversMessage}"
+                           Style="{StaticResource DriverDatabase.Empty}"
+                           Visibility="Collapsed"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <TextBlock Grid.Row="4" Text="{loc:Loc DriverDatabaseWindow_FooterText}" Style="{StaticResource DriverDatabase.Footer}"/>
+    </Grid>
+</Window>

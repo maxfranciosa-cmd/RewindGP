@@ -1,0 +1,351 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- The drivers as a 1990s sticker album: a striped blue page, album tabs for the status, and one
+         sticker per driver with his photo on the team colour. A retired driver's sticker is washed
+         sepia, a free agent's carries a yellow band, the player's own is shiny. Builds on the shared
+         resources of RetroTheme.xaml. -->
+
+    <!-- the album page: diagonal blue stripes -->
+    <LinearGradientBrush x:Key="DriverDatabase.WindowBackground" MappingMode="Absolute" SpreadMethod="Repeat" StartPoint="0,0" EndPoint="20,20">
+        <GradientStop Color="#1f4f9e" Offset="0"/>
+        <GradientStop Color="#1f4f9e" Offset="0.5"/>
+        <GradientStop Color="#2353a3" Offset="0.5"/>
+        <GradientStop Color="#2353a3" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- under the name of a driver without a seat -->
+    <SolidColorBrush x:Key="DriverDatabase.NoTeamBrush" Color="#6b737d"/>
+
+    <SolidColorBrush x:Key="DriverDatabase.AlbumDarkBrush" Color="#0d2a5c"/>
+    <SolidColorBrush x:Key="DriverDatabase.AlbumTabBrush" Color="#163b78"/>
+    <SolidColorBrush x:Key="DriverDatabase.AlbumTextBrush" Color="#cfe0ff"/>
+
+    <!-- the shine of the player's own sticker -->
+    <LinearGradientBrush x:Key="DriverDatabase.ShinyBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#ffffff" Offset="0"/>
+        <GradientStop Color="#eaeaea" Offset="0.3"/>
+        <GradientStop Color="#fff6b0" Offset="0.48"/>
+        <GradientStop Color="#eaeaea" Offset="0.66"/>
+        <GradientStop Color="#ffffff" Offset="1"/>
+    </LinearGradientBrush>
+
+    <Style x:Key="DriverDatabase.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource PaperScrollBarStyle}">
+        <Setter Property="Background" Value="{StaticResource DriverDatabase.AlbumTabBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource CoverYellowBrush}"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="26,22,26,16"/>
+    </Style>
+
+    <!-- Header: the album title in yellow poster letters, the page count in a dark box -->
+    <Style x:Key="DriverDatabase.Header" TargetType="Border"/>
+
+    <Style x:Key="DriverDatabase.Title" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
+        <Setter Property="FontSize" Value="50"/>
+        <Setter Property="Foreground" Value="{StaticResource CoverYellowBrush}"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="4" Direction="315" BlurRadius="0" Color="#0d2a5c" Opacity="1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Subtitle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource DriverDatabase.AlbumTextBrush}"/>
+        <Setter Property="Margin" Value="0,2,0,0"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Count" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource DriverDatabase.AlbumDarkBrush}"/>
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+
+    <!-- Album tabs: dark blue, the open one yellow -->
+    <Style x:Key="DriverDatabase.Tabs" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="Margin" Value="0,16,0,0"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Tab" TargetType="RadioButton">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource DriverDatabase.AlbumTextBrush}"/>
+        <Setter Property="Background" Value="{StaticResource DriverDatabase.AlbumTabBrush}"/>
+        <Setter Property="Padding" Value="16,8"/>
+        <Setter Property="Margin" Value="0,0,6,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="8,8,0,0" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource CoverYellowBrush}"/>
+                <Setter Property="Foreground" Value="#111111"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Search and sort on a yellow strip under the tabs -->
+    <Style x:Key="DriverDatabase.Toolbar" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource CoverYellowBrush}"/>
+        <Setter Property="Padding" Value="12,8"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.SearchBox" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="#111111"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="#111111"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="6,4"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.SearchHint" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="#8a8a8a"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.SortLabel" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#111111"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,6,0"/>
+    </Style>
+
+    <!-- the chosen sort is boxed in black -->
+    <Style x:Key="DriverDatabase.SortOption" TargetType="RadioButton">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#111111"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Padding" Value="10,3"/>
+        <Setter Property="Margin" Value="2,0,0,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#111111"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Scroll" TargetType="ScrollViewer">
+        <Setter Property="Margin" Value="0,18,0,0"/>
+    </Style>
+
+    <!-- The sticker: white card with a hard shadow; the player's own is shiny and edged in yellow -->
+    <Style x:Key="DriverDatabase.Card" TargetType="Border">
+        <Setter Property="Width" Value="168"/>
+        <Setter Property="Margin" Value="0,0,16,16"/>
+        <Setter Property="Padding" Value="6,6,6,8"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="3" Direction="270" BlurRadius="0" Color="Black" Opacity="0.35"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPlayer}" Value="True">
+                <Setter Property="Background" Value="{StaticResource DriverDatabase.ShinyBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource CoverYellowBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriverDatabase.PhotoArea" TargetType="Grid">
+        <Setter Property="Height" Value="132"/>
+        <Setter Property="ClipToBounds" Value="True"/>
+    </Style>
+
+    <!-- behind a driver without a seat: the grey of an old photo -->
+    <Style x:Key="DriverDatabase.PhotoBackground" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource PhotoBackBrush}"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Photo" TargetType="Image">
+        <Setter Property="Stretch" Value="UniformToFill"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.PhotoPlaceholder" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
+        <Setter Property="FontSize" Value="48"/>
+        <Setter Property="Foreground" Value="#59000000"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- a retired driver's sticker is washed sepia -->
+    <Style x:Key="DriverDatabase.PhotoTint" TargetType="Border">
+        <Setter Property="Background" Value="#80a0784a"/>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="Retired">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriverDatabase.NumberBadge" TargetType="Border">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="CornerRadius" Value="3"/>
+        <Setter Property="Padding" Value="5,3"/>
+        <Setter Property="MinWidth" Value="30"/>
+        <Setter Property="Margin" Value="6"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.NumberText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="#111111"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.NationalityBadge" TargetType="Border">
+        <Setter Property="Background" Value="#80000000"/>
+        <Setter Property="Padding" Value="5,2"/>
+        <Setter Property="Margin" Value="6"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.NationalityText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!-- the band across the bottom of the photo: black for the retired, yellow for a free agent -->
+    <Style x:Key="DriverDatabase.StatusBand" TargetType="Border">
+        <Setter Property="Background" Value="#111111"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="FreeAgent">
+                <Setter Property="Background" Value="{StaticResource CoverYellowBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriverDatabase.StatusBandText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="FreeAgent">
+                <Setter Property="Foreground" Value="#111111"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriverDatabase.PlayerBadge" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource StampRedBrush}"/>
+        <Setter Property="Padding" Value="10,4"/>
+        <Setter Property="Margin" Value="6"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.PlayerBadgeText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!-- under the photo: first name small, surname in poster letters, then the team-colour rule -->
+    <Style x:Key="DriverDatabase.FirstName" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#555555"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="Margin" Value="0,6,0,0"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Surname" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPoster}"/>
+        <Setter Property="FontSize" Value="21"/>
+        <Setter Property="Foreground" Value="#111111"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.TeamLine" TargetType="Border">
+        <Setter Property="BorderThickness" Value="0,3,0,0"/>
+        <Setter Property="Margin" Value="0,6,0,0"/>
+        <Setter Property="Padding" Value="0,4,0,0"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.TeamText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#111111"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.AgeText" TargetType="TextBlock" BasedOn="{StaticResource DriverDatabase.TeamText}">
+        <Setter Property="Margin" Value="6,0,0,0"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Empty" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="{StaticResource DriverDatabase.AlbumTextBrush}"/>
+        <Setter Property="Margin" Value="0,8"/>
+    </Style>
+
+    <Style x:Key="DriverDatabase.Footer" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontPrint}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{StaticResource DriverDatabase.AlbumTextBrush}"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+</ResourceDictionary>
