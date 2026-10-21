@@ -183,6 +183,8 @@ namespace AMS2ChEd.Resources
         public static string SeasonOverviewWindow_UnknownDriver => ResourceManager.GetString(nameof(SeasonOverviewWindow_UnknownDriver))!;
         public static string SeasonOverviewWindow_UnknownTeam => ResourceManager.GetString(nameof(SeasonOverviewWindow_UnknownTeam))!;
         public static string SeasonOverviewWindow_GrandPrixFallback => ResourceManager.GetString(nameof(SeasonOverviewWindow_GrandPrixFallback))!;
+        public static string SeasonOverviewWindow_SeatSoldLetter_Subtitle => ResourceManager.GetString(nameof(SeasonOverviewWindow_SeatSoldLetter_Subtitle))!;
+        public static string SeasonOverviewWindow_SeatSoldLetter_Format => ResourceManager.GetString(nameof(SeasonOverviewWindow_SeatSoldLetter_Format))!;
         public static string SeasonOverviewWindow_PrepareGpError_Message => ResourceManager.GetString(nameof(SeasonOverviewWindow_PrepareGpError_Message))!;
         public static string SeasonOverviewWindow_OffSeasonError_Message => ResourceManager.GetString(nameof(SeasonOverviewWindow_OffSeasonError_Message))!;
         public static string SeasonOverviewWindow_SeasonUnavailable_Message => ResourceManager.GetString(nameof(SeasonOverviewWindow_SeasonUnavailable_Message))!;
@@ -1150,10 +1152,13 @@ namespace AMS2ChEd.Resources
         public static string PaddockOpportunitiesWindow_WindowTitle => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_WindowTitle))!;
         public static string PaddockOpportunitiesWindow_Title_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_Title_Format))!;
         public static string PaddockOpportunitiesWindow_Intro_NextRace_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_Intro_NextRace_Format))!;
-        public static string PaddockOpportunitiesWindow_PaidRidesHeading => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_PaidRidesHeading))!;
         public static string PaddockOpportunitiesWindow_Budget_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_Budget_Format))!;
-        public static string PaddockOpportunitiesWindow_Offer_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_Offer_Format))!;
-        public static string PaddockOpportunitiesWindow_ContestedOffer_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_ContestedOffer_Format))!;
+        public static string PaddockOpportunitiesWindow_RidesLeftLabel => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_RidesLeftLabel))!;
+        public static string PaddockOpportunitiesWindow_Tile_Replaces_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_Tile_Replaces_Format))!;
+        public static string PaddockOpportunitiesWindow_Tile_Open => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_Tile_Open))!;
+        public static string PaddockOpportunitiesWindow_Tile_Contested_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_Tile_Contested_Format))!;
+        public static string PaddockOpportunitiesWindow_Tile_ContestedBadge => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_Tile_ContestedBadge))!;
+        public static string PaddockOpportunitiesWindow_BuyTeamSeat_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_BuyTeamSeat_Format))!;
         public static string PaddockOpportunitiesWindow_BidLost_Format => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_BidLost_Format))!;
         public static string PaddockOpportunitiesWindow_PaidRidesNote => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_PaidRidesNote))!;
         public static string PaddockOpportunitiesWindow_BuyButton => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_BuyButton))!;

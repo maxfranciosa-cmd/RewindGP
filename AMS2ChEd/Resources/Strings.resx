@@ -591,6 +591,18 @@ The first race is installed by default; "{2}" switches to any other race.</value
   <data name="SeasonOverviewWindow_GrandPrixFallback" xml:space="preserve">
     <value>Grand Prix</value>
   </data>
+  <data name="SeasonOverviewWindow_SeatSoldLetter_Subtitle" xml:space="preserve">
+    <value>Race Entry</value>
+  </data>
+  <data name="SeasonOverviewWindow_SeatSoldLetter_Format" xml:space="preserve">
+    <value>Dear {0},
+
+I wanted you to hear this from me before the press gets hold of it: you will not be racing for us at the {1}.
+
+{2} has offered the team sponsorship money to drive your car for that race, and as things stand we cannot afford to turn it down.
+
+This is no judgement on your driving. It concerns the {1} only, and your contract with us is unchanged.</value>
+  </data>
   <data name="SeasonOverviewWindow_PrepareGpError_Message" xml:space="preserve">
     <value>Error preparing GP: {0}</value>
   </data>
@@ -3570,17 +3582,26 @@ You can give the instruction from the season overview before the race.</value>
   <data name="PaddockOpportunitiesWindow_Intro_NextRace_Format" xml:space="preserve">
     <value>No team has a car for you at the {0}, but your sponsors can buy you a seat for this race.</value>
   </data>
-  <data name="PaddockOpportunitiesWindow_PaidRidesHeading" xml:space="preserve">
-    <value>Paid rides</value>
-  </data>
   <data name="PaddockOpportunitiesWindow_Budget_Format" xml:space="preserve">
     <value>Your sponsors can pay for {0} more of their {1} races this season.</value>
   </data>
-  <data name="PaddockOpportunitiesWindow_Offer_Format" xml:space="preserve">
-    <value>{0}: {1}'s seat ({1} stands down for the race)</value>
+  <data name="PaddockOpportunitiesWindow_RidesLeftLabel" xml:space="preserve">
+    <value>RIDES LEFT</value>
   </data>
-  <data name="PaddockOpportunitiesWindow_ContestedOffer_Format" xml:space="preserve">
-    <value>{0}: {1}'s seat. {2} has already offered money for it: the team will pick one of you</value>
+  <data name="PaddockOpportunitiesWindow_Tile_Replaces_Format" xml:space="preserve">
+    <value>Replaces {0}</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Tile_Open" xml:space="preserve">
+    <value>The seat is yours if you pay</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Tile_Contested_Format" xml:space="preserve">
+    <value>{0} has also paid: the team picks one of you</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Tile_ContestedBadge" xml:space="preserve">
+    <value>50 / 50</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_BuyTeamSeat_Format" xml:space="preserve">
+    <value>BUY THE {0} SEAT</value>
   </data>
   <data name="PaddockOpportunitiesWindow_BidLost_Format" xml:space="preserve">
     <value>{0} took {1}'s money instead. Your sponsors keep theirs: choose another seat or carry on.</value>

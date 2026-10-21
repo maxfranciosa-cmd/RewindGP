@@ -418,6 +418,12 @@ namespace AMS2ChEd
 
                 // Update the season's race list
                 saveGame.CurrentSeason.Races = racesToKeep;
+
+                // the absences at the races removed go with them (a chained absence is at the same
+                // race as the one it hangs from), so they don't count against a driver's absences
+                saveGame.CurrentSeason.Absences = saveGame.CurrentSeason.Absences?
+                    .Where(a => !calendarWindow.RacesToRemove.Contains(a.RaceId))
+                    .ToList();
             }
         }
 
@@ -616,7 +622,7 @@ namespace AMS2ChEd
 
             var playerId = saveGame.PlayerData.DriverId;
             if (!entryList.Any(e => e.Driver1Id == playerId || e.Driver2Id == playerId))
-                PaddockOpportunitiesWindow.ShowFor(this, saveGame, saveGame.NextGpIndex);
+                PaddockOpportunitiesWindow.ShowFor(this, saveGame, saveGame.NextGpIndex, _gameLogicFactory.TeamPreviewProvider);
 
             var raceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId;
             var boughtRides = saveGame.CurrentSeason.Absences
@@ -817,6 +823,12 @@ namespace AMS2ChEd
         {
             var isConsecutive = WasThisDriverAbsenteThePreviousRace(_saveGame, e.Decision.Absence.DriverOut);
 
+            if (e.Decision.Absence.Reason == AbsenceReason.PAID_RIDE && e.Decision.Absence.DriverOut == _saveGame.PlayerData.DriverId)
+            {
+                ShowPlayerSeatSold(e.Decision.Absence, isConsecutive);
+                return;
+            }
+
             if (e.Decision.DecisionType == AbsenceDecisionType.TeamRefused)
             {
                 // Player's team won't let them go - show newspaper announcement
@@ -862,6 +874,38 @@ namespace AMS2ChEd
                 newsWindow.Owner = _owner;
                 newsWindow.ShowDialog();
             }
+        }
+
+        // an AI pay driver bought the player's own seat for the race: the team principal tells the
+        // player first-hand, then the news breaks
+        private void ShowPlayerSeatSold(Absence absence, bool isConsecutive)
+        {
+            var team = _saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == absence.TeamId);
+            var teamName = GetTeamName(absence.TeamId);
+            var gp = GetGrandPrix(absence.RaceId);
+            var gpName = gp?.RaceName ?? Strings.SeasonOverviewWindow_GrandPrixFallback;
+            var playerName = GetDriverName(_saveGame.PlayerData.DriverId);
+            var driverInName = GetDriverName(absence.DriverIn);
+
+            var letterWindow = new TeamPrincipalLetterWindow(
+                teamName,
+                team?.TeamPrincipal ?? Strings.OffSeasonContractWindow_DefaultTeamPrincipal,
+                Strings.SeasonOverviewWindow_SeatSoldLetter_Subtitle,
+                string.Format(Strings.SeasonOverviewWindow_SeatSoldLetter_Format, playerName, gpName, driverInName));
+            letterWindow.Owner = _owner;
+            letterWindow.ShowDialog();
+
+            var newsWindow = new AbsenceAnnouncementWindow(
+                playerName,
+                teamName,
+                gpName,
+                driverInName,
+                DateTime.ParseExact(gp.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                askPlayerToApply: false,
+                isConsecutive,
+                AbsenceReason.PAID_RIDE);
+            newsWindow.Owner = _owner;
+            newsWindow.ShowDialog();
         }
 
         private bool WasThisDriverAbsenteThePreviousRace(ISaveGame saveGame, string driverOut)

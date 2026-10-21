@@ -662,10 +662,46 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
+        public void PaidRides_AbsencesCap_IsAQuarterOfTheSeasonWhenLessThanFour()
+        {
+            var season = new Season();
+
+            season.Races = Enumerable.Range(1, 20).Select(i => new Race { RaceId = i }).ToList();
+            Assert.AreEqual(4, PaidRides.MaxAbsencesPerDriver(season));
+
+            season.Races = Enumerable.Range(1, 16).Select(i => new Race { RaceId = i }).ToList();
+            Assert.AreEqual(4, PaidRides.MaxAbsencesPerDriver(season));
+
+            season.Races = Enumerable.Range(1, 15).Select(i => new Race { RaceId = i }).ToList();
+            Assert.AreEqual(3, PaidRides.MaxAbsencesPerDriver(season));
+        }
+
+        [TestMethod]
+        public void PaidRides_ShortSeason_DriverOutOfThreeRacesIsNotStoodDownAgain()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            saveGame.CurrentSeason.Races = Enumerable.Range(1, 12).Select(i => new Race { RaceId = i, RaceName = $"GP {i}" }).ToList();
+            saveGame.CurrentSeason.Absences = Enumerable.Range(2, 2)
+                .Select(race => new Absence { RaceId = race, TeamId = "SM", DriverOut = "S2", DriverIn = $"X{race}" })
+                .ToList();
+
+            // out of two races of twelve: the cap is three, so the seat is still on sale
+            Assert.AreEqual("S2", PaidRides.Offers(saveGame, 0).Single(o => o.TeamId == "SM").DriverOutId);
+
+            // a third absence reaches it
+            saveGame.CurrentSeason.Absences = saveGame.CurrentSeason.Absences
+                .Append(new Absence { RaceId = 4, TeamId = "SM", DriverOut = "S2", DriverIn = "X4" })
+                .ToList();
+            Assert.IsFalse(PaidRides.Offers(saveGame, 0).Any(o => o.DriverOutId == "S2"));
+        }
+
+        [TestMethod]
         public void PaidRides_ContestedSeat_TheAiRideDoesntCountTowardsTheCap()
         {
             var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
             AddDriver(saveGame, "AI1", DriverReputation.PAY_DRIVER_SEASON);
+            // a season long enough for the full cap of four
+            saveGame.CurrentSeason.Races = Enumerable.Range(1, 16).Select(i => new Race { RaceId = i, RaceName = $"GP {i}" }).ToList();
             // S2 is out of three races, the fourth being the AI driver's ride at this one
             saveGame.CurrentSeason.Absences = new List<Absence>
             {

@@ -53,7 +53,7 @@
                                HorizontalAlignment="Center"
                                Margin="0,0,0,5"/>
 
-                    <TextBlock Text="{loc:Loc TeamPrincipalLetterWindow_Subtitle}"
+                    <TextBlock x:Name="SubtitleText"
                                FontSize="22"
                                Foreground="#666666"
                                HorizontalAlignment="Center"

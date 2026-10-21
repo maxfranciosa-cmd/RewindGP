@@ -45,6 +45,11 @@ namespace AMS2ChEd.Business.DependencyInjection
         /// </summary>
         public IMarketOutlookEstimator MarketOutlookEstimator { get; private set; }
 
+        /// <summary>
+        /// Optional: without it the windows that picture a team's car show its colour instead.
+        /// </summary>
+        public ITeamPreviewProvider TeamPreviewProvider { get; private set; }
+
         public GameLogicFactory(
             IStandingsManager standingsManager,
             IAbsenceManager absenceManager,
@@ -61,10 +66,12 @@ namespace AMS2ChEd.Business.DependencyInjection
             IImprovementPackageManager improvementPackageManager,
             IRaceLaunchAssistant raceLaunchAssistant = null,
             IAllTimeRecordsLoader allTimeRecordsLoader = null,
-            IMarketOutlookEstimator marketOutlookEstimator = null)
+            IMarketOutlookEstimator marketOutlookEstimator = null,
+            ITeamPreviewProvider teamPreviewProvider = null)
         {
             AllTimeRecordsLoader = allTimeRecordsLoader;
             MarketOutlookEstimator = marketOutlookEstimator;
+            TeamPreviewProvider = teamPreviewProvider;
             StandingsManager = standingsManager;
             AbsenceManager = absenceManager;
             ContractNegotiationEngine = contractNegotiationEngine;

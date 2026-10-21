@@ -591,6 +591,18 @@ La prima gara è installata come predefinita; "{2}" passa a qualsiasi altra gara
   <data name="SeasonOverviewWindow_GrandPrixFallback" xml:space="preserve">
     <value>Gran Premio</value>
   </data>
+  <data name="SeasonOverviewWindow_SeatSoldLetter_Subtitle" xml:space="preserve">
+    <value>Iscrizione alla gara</value>
+  </data>
+  <data name="SeasonOverviewWindow_SeatSoldLetter_Format" xml:space="preserve">
+    <value>Caro {0},
+
+volevo che lo sapessi da me prima che la notizia arrivi alla stampa: non correrai per noi in questa gara: {1}.
+
+{2} ha offerto alla squadra soldi di sponsor per guidare la tua macchina in quella gara e, per come stanno le cose, non possiamo permetterci di rifiutare.
+
+Non è un giudizio sulla tua guida. Riguarda solo questa gara, e il tuo contratto con noi non cambia.</value>
+  </data>
   <data name="SeasonOverviewWindow_PrepareGpError_Message" xml:space="preserve">
     <value>Errore durante la preparazione del GP: {0}</value>
   </data>
@@ -3570,17 +3582,26 @@ Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
   <data name="PaddockOpportunitiesWindow_Intro_NextRace_Format" xml:space="preserve">
     <value>Nessuna squadra ha una macchina per te per: {0}. I tuoi sponsor però possono comprarti un sedile per questa gara.</value>
   </data>
-  <data name="PaddockOpportunitiesWindow_PaidRidesHeading" xml:space="preserve">
-    <value>Gare a pagamento</value>
-  </data>
   <data name="PaddockOpportunitiesWindow_Budget_Format" xml:space="preserve">
     <value>I tuoi sponsor possono pagarti ancora {0} delle loro {1} gare in questa stagione.</value>
   </data>
-  <data name="PaddockOpportunitiesWindow_Offer_Format" xml:space="preserve">
-    <value>{0}: il sedile di {1} ({1} resta fuori per questa gara)</value>
+  <data name="PaddockOpportunitiesWindow_RidesLeftLabel" xml:space="preserve">
+    <value>GARE RIMASTE</value>
   </data>
-  <data name="PaddockOpportunitiesWindow_ContestedOffer_Format" xml:space="preserve">
-    <value>{0}: il sedile di {1}. {2} ha già offerto soldi per averlo: la squadra sceglierà uno di voi due</value>
+  <data name="PaddockOpportunitiesWindow_Tile_Replaces_Format" xml:space="preserve">
+    <value>Al posto di {0}</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Tile_Open" xml:space="preserve">
+    <value>Il sedile è tuo se paghi</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Tile_Contested_Format" xml:space="preserve">
+    <value>Anche {0} ha pagato: la squadra sceglierà uno di voi due</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Tile_ContestedBadge" xml:space="preserve">
+    <value>50 / 50</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_BuyTeamSeat_Format" xml:space="preserve">
+    <value>COMPRA IL SEDILE {0}</value>
   </data>
   <data name="PaddockOpportunitiesWindow_BidLost_Format" xml:space="preserve">
     <value>{0} ha preferito i soldi di {1}. I tuoi sponsor tengono i loro: scegli un altro sedile o vai avanti.</value>

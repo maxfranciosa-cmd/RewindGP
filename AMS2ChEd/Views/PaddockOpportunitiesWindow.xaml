@@ -13,49 +13,140 @@
          whatever the visual style. -->
     <Window.Resources>
         <Style TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
+
+        <!-- One seat on sale: a tile picturing the car, picked like a radio button -->
+        <Style x:Key="PaddockOpportunities.TileStyle" TargetType="RadioButton">
+            <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+            <Setter Property="Margin" Value="6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="GroupName" Value="PaidRides"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Frame"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="2">
+                            <Grid>
+                                <ContentPresenter/>
+                                <Grid Width="20" Height="20" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                    <Ellipse x:Name="Ring" Fill="#99141414" Stroke="{StaticResource Charcoal.TextSoftBrush}" StrokeThickness="2"/>
+                                    <Ellipse x:Name="Dot" Width="10" Height="10" Fill="{StaticResource Charcoal.RedBrush}" Visibility="Collapsed"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Frame" Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Frame" Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+                                <Setter TargetName="Frame" Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+                                <Setter TargetName="Ring" Property="Stroke" Value="{StaticResource Charcoal.RedBrush}"/>
+                                <Setter TargetName="Dot" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Frame" Property="BorderBrush" Value="{StaticResource Charcoal.AccentTextBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <Border Grid.Row="0" Style="{StaticResource Charcoal.TitleBarStyle}">
-            <TextBlock x:Name="TitleText" Style="{StaticResource Charcoal.TitleTextStyle}"/>
-        </Border>
-
-        <!-- Content: the sections are built in code-behind -->
-        <Border Grid.Row="1" Style="{StaticResource Charcoal.PanelStyle}" Margin="0,14,0,0">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel x:Name="ContentPanel">
+        <!-- Header: the race, and the rides the sponsors still pay for -->
+        <Border Grid.Row="0" Style="{StaticResource Charcoal.TitleBarStyle}" Padding="18,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center" Margin="0,0,16,0">
+                    <TextBlock x:Name="TitleText" Style="{StaticResource Charcoal.TitleTextStyle}"/>
                     <TextBlock x:Name="IntroText"
                                Style="{StaticResource Charcoal.BodyTextStyle}"
-                               Foreground="{StaticResource Charcoal.TextSoftBrush}"
+                               FontSize="13"
+                               Foreground="{StaticResource Charcoal.TextMutedBrush}"
                                TextWrapping="Wrap"
-                               LineHeight="24"
-                               Margin="0,0,0,8"/>
+                               Margin="0,4,0,0"/>
                 </StackPanel>
-            </ScrollViewer>
+                <Border x:Name="BudgetBadge"
+                        Grid.Column="1"
+                        Background="{StaticResource Charcoal.PanelBrush}"
+                        Padding="14,6"
+                        VerticalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center" Style="{StaticResource Charcoal.HeadingTextStyle}">
+                            <Run x:Name="RidesLeftRun" FontSize="28"/><Run x:Name="RidesTotalRun" FontSize="16" Foreground="{StaticResource Charcoal.TextMutedBrush}"/>
+                        </TextBlock>
+                        <TextBlock Text="{loc:Loc PaddockOpportunitiesWindow_RidesLeftLabel}"
+                                   Style="{StaticResource Charcoal.BodyTextStyle}"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource Charcoal.TextMutedBrush}"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Border>
 
-        <!-- Buttons -->
-        <StackPanel Grid.Row="2"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Margin="0,14,0,0">
-            <Button x:Name="BuyButton"
-                    Content="{loc:Loc PaddockOpportunitiesWindow_BuyButton}"
-                    Style="{StaticResource Charcoal.DialogPrimaryButtonStyle}"
-                    IsEnabled="False"
-                    Click="BuyButton_Click"/>
-            <Button x:Name="ContinueButton"
-                    Content="{loc:Loc PaddockOpportunitiesWindow_ContinueButton}"
-                    Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}"
-                    Margin="2,0,0,0"
-                    Click="ContinueButton_Click"/>
-        </StackPanel>
+        <!-- The seat the team gave to the AI driver who bid first -->
+        <TextBlock x:Name="BidLostText"
+                   Grid.Row="1"
+                   Style="{StaticResource Charcoal.BodyTextStyle}"
+                   FontSize="14"
+                   Foreground="{StaticResource Charcoal.AccentTextBrush}"
+                   TextWrapping="Wrap"
+                   Margin="0,14,0,0"
+                   Visibility="Collapsed"/>
+
+        <!-- The seats on sale: the tiles are built in code-behind -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="-6,10,-6,0">
+            <UniformGrid x:Name="TilesPanel" Columns="2" VerticalAlignment="Top"/>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="3"
+                BorderBrush="{StaticResource Charcoal.StripBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="0,14,0,0"
+                Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{loc:Loc PaddockOpportunitiesWindow_PaidRidesNote}"
+                           Style="{StaticResource Charcoal.BodyTextStyle}"
+                           FontSize="12"
+                           FontStyle="Italic"
+                           Foreground="{StaticResource Charcoal.TextMutedBrush}"
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Center"
+                           Margin="0,0,16,0"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="BuyButton"
+                            Content="{loc:Loc PaddockOpportunitiesWindow_BuyButton}"
+                            Style="{StaticResource Charcoal.DialogPrimaryButtonStyle}"
+                            IsEnabled="False"
+                            Click="BuyButton_Click"/>
+                    <Button x:Name="ContinueButton"
+                            Content="{loc:Loc PaddockOpportunitiesWindow_ContinueButton}"
+                            Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}"
+                            Margin="2,0,0,0"
+                            Click="ContinueButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

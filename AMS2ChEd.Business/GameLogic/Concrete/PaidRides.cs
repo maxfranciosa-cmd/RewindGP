@@ -42,8 +42,12 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         // a driver of this reputation or above is never stood down for a paid ride
         public const DriverReputation ProtectedReputation = DriverReputation.PRIME_STRONG_MIDFIELD;
 
-        // no paid ride stands down a driver already out of this many races in the season
-        public const int MaxAbsencesPerDriverPerSeason = 4;
+        // no paid ride stands down a driver already out of MaxAbsencesPerDriver races in the season:
+        // this many, or a quarter of the season's races when that's fewer
+        public const int MaxAbsencesCapPerSeason = 4;
+
+        public static int MaxAbsencesPerDriver(ISeason season) =>
+            Math.Min(MaxAbsencesCapPerSeason, (season.Races?.Count() ?? 0) / 4);
 
         // paid rides per season: a season pay driver brings season-level money
         public static int BudgetFor(DriverReputation reputation) => reputation switch
@@ -104,12 +108,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
         /// <summary>
         /// Whether the driver's seat can be sold at all: never a driver of PRIME_STRONG_MIDFIELD
-        /// reputation or above, and never one already out of MaxAbsencesPerDriverPerSeason races.
-        /// The cap only stops new rides: a season pack's absences can take a driver past it.
+        /// reputation or above, and never one already out of MaxAbsencesPerDriver races (4, or a
+        /// quarter of the season's races, rounded down, when that's fewer). The cap only stops new
+        /// rides: a season pack's absences can take a driver past it.
         /// </summary>
         public static bool CanBeBoughtOut(ISeason season, string driverId, DriverReputation reputation, Absence ignoring = null)
         {
-            return reputation < ProtectedReputation && AbsencesOf(season, driverId, ignoring) < MaxAbsencesPerDriverPerSeason;
+            return reputation < ProtectedReputation && AbsencesOf(season, driverId, ignoring) < MaxAbsencesPerDriver(season);
         }
 
         /// <summary>

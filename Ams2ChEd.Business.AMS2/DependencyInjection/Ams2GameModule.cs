@@ -52,6 +52,7 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             services.AddTransient<IRaceSetupAdvisor, Ams2RaceSetupAdvisor>();
             services.AddTransient<IImprovementPackageProvider, Ams2ImprovementPackageProvider>();
             services.AddTransient<IPlayerCosmeticsEditor, Ams2PlayerCosmeticsEditor>();
+            services.AddTransient<ITeamPreviewProvider, Ams2TeamPreviewProvider>();
             services.AddTransient<IRacePreparator, Ams2RacePreparator>();
             services.AddTransient<IRaceDataService, Ams2RaceDataService>();
 

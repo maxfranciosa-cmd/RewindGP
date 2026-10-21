@@ -42,6 +42,19 @@ public class DdsTextureComposer
         }
     }
 
+    // a texture (DDS or any image format) re-encoded as PNG, for showing it in the app's UI:
+    // scaled down to maxWidth first, as encoding a full-size texture costs far more than resizing it
+    public static byte[] LoadAsPng(string texturePath, int maxWidth)
+    {
+        using var image = LoadTexture(texturePath);
+        if (image.Width > maxWidth)
+            image.Mutate(x => x.Resize(maxWidth, 0));
+
+        using var output = new MemoryStream();
+        image.SaveAsPng(output);
+        return output.ToArray();
+    }
+
     public static void Compose(string basePath, string sponsorPath, string outputPath)
     {
 
