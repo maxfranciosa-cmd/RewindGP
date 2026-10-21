@@ -76,7 +76,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     entry.TeamName = seat.Team.TeamName;
                     entry.TeamShortName = seat.Team.ShortTeamName();
                     entry.TeamColor = seat.Team.Color;
-                    entry.CarNumber = seat.DriverNumber > 0 ? seat.DriverNumber : null;
+                    entry.CarNumber = seat.DriverNumber > -1 ? seat.DriverNumber : null;
                 }
                 else
                 {
