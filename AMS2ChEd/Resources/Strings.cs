@@ -1118,6 +1118,7 @@ namespace AMS2ChEd.Resources
         public static string MarketOutlookWindow_Reason_BetterFitOne => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_BetterFitOne))!;
         public static string MarketOutlookWindow_Reason_BetterFitMany => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_BetterFitMany))!;
         public static string MarketOutlookWindow_Reason_SameFit => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_SameFit))!;
+        public static string MarketOutlookWindow_Reason_NobodyFits => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_NobodyFits))!;
         public static string MarketOutlookWindow_Reason_NoRivals => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_NoRivals))!;
         public static string MarketOutlookWindow_MoreNames => ResourceManager.GetString(nameof(MarketOutlookWindow_MoreNames))!;
         public static string MarketOutlookWindow_BestHeader => ResourceManager.GetString(nameof(MarketOutlookWindow_BestHeader))!;

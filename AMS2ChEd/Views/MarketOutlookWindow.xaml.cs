@@ -208,9 +208,13 @@ namespace AMS2ChEd.Views
                 return string.Format(format, fit, NameList(seat.BetterFitRivals));
             }
 
-            return seat.SameFitRivals.Count > 0
-                ? string.Format(Strings.MarketOutlookWindow_Reason_SameFit, fit, NameList(seat.SameFitRivals))
-                : string.Format(Strings.MarketOutlookWindow_Reason_NoRivals, fit);
+            if (seat.SameFitRivals.Count == 0)
+                return string.Format(Strings.MarketOutlookWindow_Reason_NoRivals, fit);
+
+            // the same tier as an under-qualified player is no fit at all
+            return seat.PlayerFit == DriverHirer.DriverPolicyFit.UnderQualified
+                ? string.Format(Strings.MarketOutlookWindow_Reason_NobodyFits, NameList(seat.SameFitRivals))
+                : string.Format(Strings.MarketOutlookWindow_Reason_SameFit, fit, NameList(seat.SameFitRivals));
         }
 
         private string NameList(List<string> driverIds)
