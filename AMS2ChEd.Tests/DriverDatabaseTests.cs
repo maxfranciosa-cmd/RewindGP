@@ -114,7 +114,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         {
             var saveGame = CreateTestSaveGame(1996);
             saveGame.Drivers = new List<IDriverData> { Driver("nobody", "No Body", 0) };
-            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { Team("minardi", "Lunardi Fond", "#228B22", ("nobody", 0)) };
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { Team("minardi", "Lunardi Fond", "#228B22", ("nobody", -1)) };
 
             var entry = DriverDatabase.Build(saveGame).Single();
 
