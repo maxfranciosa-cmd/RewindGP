@@ -8,15 +8,31 @@
     },
     {
       "grand_prix_name_patterns": [ "Brazilian" ],
-      "year": 1991,
-      "track_options": [ { "track_id": "interlagos_1991", "dlc_id": "historical_tracks_1" } ],
+      "year": 1981,
+      "default_track_id": "jacarepagua_historic",
+      "default_number_of_laps": 71
+    },
+    {
+      "grand_prix_name_patterns": [ "Brazilian" ],
+      "year": 1990,
+      "track_options": [
+        {
+          "track_id": "interlagos_1991",
+          "dlc_id": "historical_tracks_1"
+        }
+      ],
       "default_track_id": "interlagos",
       "default_number_of_laps": 71
     },
     {
       "grand_prix_name_patterns": [ "Brazilian" ],
       "year": 1993,
-      "track_options": [ { "track_id": "interlagos_1993", "dlc_id": "historical_tracks_1" } ],
+      "track_options": [
+        {
+          "track_id": "interlagos_1993",
+          "dlc_id": "historical_tracks_1"
+        }
+      ],
       "default_track_id": "interlagos",
       "default_number_of_laps": 71
     },
@@ -35,7 +51,12 @@
     {
       "grand_prix_name_patterns": [ "European" ],
       "year": 1984,
-      "track_options": [ { "track_id": "nurb_gp_2020", "dlc_id": "nurburgring_pack" } ],
+      "track_options": [
+        {
+          "track_id": "nurb_gp_2020",
+          "dlc_id": "nurburgring_pack"
+        }
+      ],
       "default_track_id": "donington_gp",
       "default_number_of_laps": 67
     },
@@ -48,14 +69,24 @@
     {
       "grand_prix_name_patterns": [ "European" ],
       "year": 1994,
-      "track_options": [ { "track_id": "jerez_1988", "dlc_id": "historical_tracks_1" } ],
+      "track_options": [
+        {
+          "track_id": "jerez_1988",
+          "dlc_id": "historical_tracks_1"
+        }
+      ],
       "default_track_id": "jerez_2019",
       "default_number_of_laps": 76
     },
     {
       "grand_prix_name_patterns": [ "European" ],
       "year": 1995,
-      "track_options": [ { "track_id": "nurb_gp_2020", "dlc_id": "nurburgring_pack" } ],
+      "track_options": [
+        {
+          "track_id": "nurb_gp_2020",
+          "dlc_id": "nurburgring_pack"
+        }
+      ],
       "default_track_id": "donington_gp",
       "default_number_of_laps": 67
     },
@@ -68,7 +99,12 @@
     {
       "grand_prix_name_patterns": [ "European" ],
       "year": 1998,
-      "track_options": [ { "track_id": "nurb_gp_2020", "dlc_id": "nurburgring_pack" } ],
+      "track_options": [
+        {
+          "track_id": "nurb_gp_2020",
+          "dlc_id": "nurburgring_pack"
+        }
+      ],
       "default_track_id": "jerez_2019",
       "default_number_of_laps": 67
     },
@@ -105,21 +141,36 @@
     {
       "grand_prix_name_patterns": [ "Spanish" ],
       "year": 1991,
-      "track_options": [ { "track_id": "barcelona_1991", "dlc_id": "historical_tracks_1" } ],
+      "track_options": [
+        {
+          "track_id": "barcelona_1991",
+          "dlc_id": "historical_tracks_1"
+        }
+      ],
       "default_track_id": "jerez_2019",
       "default_number_of_laps": 65
     },
     {
       "grand_prix_name_patterns": [ "Spanish" ],
       "year": 2007,
-      "track_options": [ { "track_id": "barcelona_gp", "dlc_id": "barcelona_pack" } ],
+      "track_options": [
+        {
+          "track_id": "barcelona_gp",
+          "dlc_id": "barcelona_pack"
+        }
+      ],
       "default_track_id": "jerez_2019",
       "default_number_of_laps": 66
     },
     {
       "grand_prix_name_patterns": [ "Spanish" ],
       "year": 2023,
-      "track_options": [ { "track_id": "barcelona_gp_nc", "dlc_id": "barcelona_pack" } ],
+      "track_options": [
+        {
+          "track_id": "barcelona_gp_nc",
+          "dlc_id": "barcelona_pack"
+        }
+      ],
       "default_track_id": "jerez_2019",
       "default_number_of_laps": 66
     },
@@ -132,7 +183,12 @@
     {
       "grand_prix_name_patterns": [ "Canadian" ],
       "year": 1991,
-      "track_options": [ { "track_id": "montrealhistoric_1991", "dlc_id": "historical_tracks_1" } ],
+      "track_options": [
+        {
+          "track_id": "montrealhistoric_1991",
+          "dlc_id": "historical_tracks_1"
+        }
+      ],
       "default_track_id": "montrealmodern",
       "default_number_of_laps": 69
     },
@@ -145,77 +201,132 @@
     {
       "grand_prix_name_patterns": [ "British" ],
       "year": 1975,
-      "track_options": [ { "track_id": "silverstone_1975", "dlc_id": "silverstone_pack" } ],
+      "track_options": [
+        {
+          "track_id": "silverstone_1975",
+          "dlc_id": "silverstone_pack"
+        }
+      ],
       "default_track_id": "brandshatch_gp",
       "default_number_of_laps": 65
     },
     {
       "grand_prix_name_patterns": [ "British" ],
       "year": 1991,
-      "track_options": [ { "track_id": "silverstone_1991", "dlc_id": "silverstone_pack" } ],
+      "track_options": [
+        {
+          "track_id": "silverstone_1991",
+          "dlc_id": "silverstone_pack"
+        }
+      ],
       "default_track_id": "donington_gp",
       "default_number_of_laps": 61
     },
     {
       "grand_prix_name_patterns": [ "British" ],
       "year": 1994,
-      "track_options": [ { "track_id": "silverstone_2001", "dlc_id": "silverstone_pack" } ],
+      "track_options": [
+        {
+          "track_id": "silverstone_2001",
+          "dlc_id": "silverstone_pack"
+        }
+      ],
       "default_track_id": "donington_gp",
       "default_number_of_laps": 60
     },
     {
       "grand_prix_name_patterns": [ "British" ],
       "year": 2010,
-      "track_options": [ { "track_id": "silverstone", "dlc_id": "silverstone_pack" } ],
+      "track_options": [
+        {
+          "track_id": "silverstone",
+          "dlc_id": "silverstone_pack"
+        }
+      ],
       "default_track_id": "donington_gp",
       "default_number_of_laps": 52
     },
     {
       "grand_prix_name_patterns": [ "German" ],
       "year": 1977,
-      "track_options": [ { "track_id": "hockenheim_1977", "dlc_id": "hockenheim_pack" } ],
+      "track_options": [
+        {
+          "track_id": "hockenheim_1977",
+          "dlc_id": "hockenheim_pack"
+        }
+      ],
       "default_track_id": "buenos_aires_15",
       "default_number_of_laps": 45
     },
     {
       "grand_prix_name_patterns": [ "German" ],
       "year": 1988,
-      "track_options": [ { "track_id": "hockenheim_1988", "dlc_id": "hockenheim_pack" } ],
+      "track_options": [
+        {
+          "track_id": "hockenheim_1988",
+          "dlc_id": "hockenheim_pack"
+        }
+      ],
       "default_track_id": "buenos_aires_15",
       "default_number_of_laps": 45
     },
     {
       "grand_prix_name_patterns": [ "German" ],
       "year": 1994,
-      "track_options": [ { "track_id": "hockenheim_2001", "dlc_id": "hockenheim_pack" } ],
+      "track_options": [
+        {
+          "track_id": "hockenheim_2001",
+          "dlc_id": "hockenheim_pack"
+        }
+      ],
       "default_track_id": "buenos_aires_15",
       "default_number_of_laps": 45
     },
     {
       "grand_prix_name_patterns": [ "German" ],
       "year": 2002,
-      "track_options": [ { "track_id": "hockenheim", "dlc_id": "hockenheim_pack" } ],
+      "track_options": [
+        {
+          "track_id": "hockenheim",
+          "dlc_id": "hockenheim_pack"
+        }
+      ],
       "default_track_id": "buenos_aires_15",
       "default_number_of_laps": 67
     },
     {
       "grand_prix_name_patterns": [ "Hungarian" ],
       "year": 1986,
-      "track_options": [ { "track_id": "hungaroring_gp_2025", "dlc_id": "hungaroring_pack" } ],
+      "track_options": [
+        {
+          "track_id": "hungaroring_gp_2025",
+          "dlc_id": "hungaroring_pack"
+        }
+      ],
       "default_track_id": "buenos_aires_6",
       "default_number_of_laps": 77
     },
     {
       "grand_prix_name_patterns": [ "Belgian" ],
       "year": 1970,
-      "track_options": [ { "track_id": "spa-francorchamps_1970", "dlc_id": "spa_pack" } ],
+      "track_options": [
+        {
+          "track_id": "spa-francorchamps_1970",
+          "dlc_id": "spa_pack"
+        }
+      ],
       "default_track_id": "montrealhistoric",
       "default_number_of_laps": 28
     },
     {
       "grand_prix_name_patterns": [ "Belgian" ],
       "year": 1979,
-      "track_options": [ { "track_id": "spa-francorchamps_1993", "dlc_id": "spa_pack" } ],
+      "track_options": [
+        {
+          "track_id": "spa-francorchamps_1993",
+          "dlc_id": "spa_pack"
+        }
+      ],
       "default_track_id": "montrealhistoric",
       "default_number_of_laps": 44
     },
@@ -223,8 +334,14 @@
       "grand_prix_name_patterns": [ "Belgian" ],
       "year": 2004,
       "track_options": [
-        { "track_id": "spa-francorchamps_2005", "dlc_id": "historical_tracks_3" },
-        { "track_id": "spa-francorchamps_1993", "dlc_id": "spa_pack" }
+        {
+          "track_id": "spa-francorchamps_2005",
+          "dlc_id": "historical_tracks_3"
+        },
+        {
+          "track_id": "spa-francorchamps_1993",
+          "dlc_id": "spa_pack"
+        }
       ],
       "default_track_id": "montrealmodern",
       "default_number_of_laps": 44
@@ -232,35 +349,60 @@
     {
       "grand_prix_name_patterns": [ "Belgian" ],
       "year": 2007,
-      "track_options": [ { "track_id": "spa-francorchamps_2020", "dlc_id": "spa_pack" } ],
+      "track_options": [
+        {
+          "track_id": "spa-francorchamps_2020",
+          "dlc_id": "spa_pack"
+        }
+      ],
       "default_track_id": "montrealmodern",
       "default_number_of_laps": 44
     },
     {
       "grand_prix_name_patterns": [ "Italian" ],
       "year": 1971,
-      "track_options": [ { "track_id": "monza_1971", "dlc_id": "monza_pack" } ],
+      "track_options": [
+        {
+          "track_id": "monza_1971",
+          "dlc_id": "monza_pack"
+        }
+      ],
       "default_track_id": "imola_72",
       "default_number_of_laps": 55
     },
     {
       "grand_prix_name_patterns": [ "Italian" ],
       "year": 1980,
-      "track_options": [ { "track_id": "monza_1991", "dlc_id": "monza_pack" } ],
+      "track_options": [
+        {
+          "track_id": "monza_1991",
+          "dlc_id": "monza_pack"
+        }
+      ],
       "default_track_id": "imola_88",
       "default_number_of_laps": 53
     },
     {
       "grand_prix_name_patterns": [ "Italian" ],
       "year": 2000,
-      "track_options": [ { "track_id": "monza_2020", "dlc_id": "monza_pack" } ],
+      "track_options": [
+        {
+          "track_id": "monza_2020",
+          "dlc_id": "monza_pack"
+        }
+      ],
       "default_track_id": "imola",
       "default_number_of_laps": 53
     },
     {
       "grand_prix_name_patterns": [ "Portuguese" ],
       "year": 1988,
-      "track_options": [ { "track_id": "estoril_1988", "dlc_id": "historical_tracks_1" } ],
+      "track_options": [
+        {
+          "track_id": "estoril_1988",
+          "dlc_id": "historical_tracks_1"
+        }
+      ],
       "default_track_id": "estoril_2019",
       "default_number_of_laps": 70
     },
@@ -279,7 +421,12 @@
     {
       "grand_prix_name_patterns": [ "Austrian" ],
       "year": 2001,
-      "track_options": [ { "track_id": "spielberg_2001", "dlc_id": "historical_tracks_4" } ],
+      "track_options": [
+        {
+          "track_id": "spielberg_2001",
+          "dlc_id": "historical_tracks_4"
+        }
+      ],
       "default_track_id": "spielberg_gp",
       "default_number_of_laps": 71
     },
@@ -304,35 +451,60 @@
     {
       "grand_prix_name_patterns": [ "United States" ],
       "year": 1961,
-      "track_options": [ { "track_id": "watkins_glen_s", "dlc_id": "racin_usa_1" } ],
+      "track_options": [
+        {
+          "track_id": "watkins_glen_s",
+          "dlc_id": "racin_usa_1"
+        }
+      ],
       "default_track_id": "virginiafull",
       "default_number_of_laps": 59
     },
     {
       "grand_prix_name_patterns": [ "United States" ],
       "year": 1971,
-      "track_options": [ { "track_id": "watkins_glen", "dlc_id": "racin_usa_1" } ],
+      "track_options": [
+        {
+          "track_id": "watkins_glen",
+          "dlc_id": "racin_usa_1"
+        }
+      ],
       "default_track_id": "virginiafull",
       "default_number_of_laps": 59
     },
     {
       "grand_prix_name_patterns": [ "United States" ],
       "year": 1981,
-      "track_options": [ { "track_id": "long_beach", "dlc_id": "racin_usa_1" } ],
+      "track_options": [
+        {
+          "track_id": "long_beach",
+          "dlc_id": "racin_usa_1"
+        }
+      ],
       "default_track_id": "virginiafull",
       "default_number_of_laps": 59
     },
     {
       "grand_prix_name_patterns": [ "United States" ],
       "year": 2000,
-      "track_options": [ { "track_id": "indianapolis_2001_rc", "dlc_id": "historical_tracks_4" } ],
+      "track_options": [
+        {
+          "track_id": "indianapolis_2001_rc",
+          "dlc_id": "historical_tracks_4"
+        }
+      ],
       "default_track_id": "virginiafull",
       "default_number_of_laps": 59
     },
     {
       "grand_prix_name_patterns": [ "Luxembourg" ],
       "year": 0,
-      "track_options": [ { "track_id": "nurb_gp_2020", "dlc_id": "nurburgring_pack" } ],
+      "track_options": [
+        {
+          "track_id": "nurb_gp_2020",
+          "dlc_id": "nurburgring_pack"
+        }
+      ],
       "default_track_id": "donington_gp",
       "default_number_of_laps": 67
     },
@@ -351,7 +523,12 @@
     {
       "grand_prix_name_patterns": [ "French" ],
       "year": 0,
-      "track_options": [ { "track_id": "le_mans_bugatti", "dlc_id": "le_mans" } ],
+      "track_options": [
+        {
+          "track_id": "le_mans_bugatti",
+          "dlc_id": "le_mans"
+        }
+      ],
       "default_track_id": "snetterton2019_300",
       "default_number_of_laps": 72
     }
