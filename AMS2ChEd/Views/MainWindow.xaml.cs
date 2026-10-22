@@ -651,7 +651,7 @@ namespace AMS2ChEd
             var reputation = selected.Driver.Reputation;
             if (!SelectReputation(reputation))
             {
-                SelectReputation(new ReputationUpdater().GetNewReputationForInactiveDriver(reputation, age));
+                SelectReputation(new ReputationUpdater().GetNewReputationForInactiveDriver(reputation, age, decays: false));
             }
         }
 

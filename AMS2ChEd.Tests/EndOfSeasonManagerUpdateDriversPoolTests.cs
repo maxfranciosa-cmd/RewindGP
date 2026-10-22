@@ -190,7 +190,8 @@ namespace AMS2ChEd.Business.Tests.GameLogic
             _mockReputationUpdater
                 .Setup(x => x.GetNewReputationForInactiveDriver(
                     DriverReputation.PRIME_MIDFIELD,
-                    It.IsAny<int>())) // age
+                    It.IsAny<int>(), // age
+                    It.IsAny<bool>()))
                 .Returns(DriverReputation.AGEING_MIDFIELD);
 
             // Act
@@ -200,7 +201,8 @@ namespace AMS2ChEd.Business.Tests.GameLogic
             _mockReputationUpdater.Verify(
                 x => x.GetNewReputationForInactiveDriver(
                     DriverReputation.PRIME_MIDFIELD,
-                    It.IsAny<int>()),
+                    It.IsAny<int>(),
+                    true),
                 Times.Once,
                 "Should call GetNewReputationForInactiveDriver for driver without season recap");
 
@@ -270,7 +272,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
             var driversNewSeasonDictionary = new Dictionary<string, IDriverData>();
 
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>()))
+                .Setup(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), It.IsAny<bool>()))
                 .Returns(DriverReputation.AGEING_MIDFIELD);
 
             // Act
@@ -278,7 +280,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
 
             // Assert
             _mockReputationUpdater.Verify(
-                x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>()),
+                x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), It.IsAny<bool>()),
                 Times.Once,
                 "A driver with zero real races should be treated as inactive, even if still present in the standings");
             _mockReputationUpdater.Verify(
@@ -583,6 +585,80 @@ namespace AMS2ChEd.Business.Tests.GameLogic
 
         #endregion
 
+        #region UpdateDriversPoolForNextSeason - Inactivity Decay
+
+        [TestMethod]
+        public void UpdateDriversPoolForNextSeason_InactiveReserve_DoesNotDecay()
+        {
+            // Arrange
+            var saveGame = CreateSaveGameWithUnemployedDriver1(1996, 1970);
+            saveGame.CurrentSeason.Teams.First().ReserveContract = new DriverContract { DriverId = "driver1" };
+            SetupReputationUpdater(DriverReputation.PRIME_MIDFIELD, DriverReputation.PRIME_MIDFIELD);
+
+            // Act
+            _sut.UpdateDriversPoolForNextSeason(1997, saveGame, new Dictionary<string, IDriverData>());
+
+            // Assert
+            _mockReputationUpdater.Verify(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), false), Times.Once);
+            _mockReputationUpdater.Verify(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), true), Times.Never);
+        }
+
+        [TestMethod]
+        public void UpdateDriversPoolForNextSeason_InactiveAtFloorAtRetirementAge_RetiresSilently()
+        {
+            // Arrange: driver1 is 35 next season
+            var saveGame = CreateSaveGameWithUnemployedDriver1(1996, 1962);
+            SetupReputationUpdater(DriverReputation.PRIME_MIDFIELD, DriverReputation.PAY_DRIVER_WILD_CARD);
+            var driversNewSeasonDictionary = new Dictionary<string, IDriverData>
+            {
+                { "driver1", CreateDriver("driver1", DriverReputation.AGEING_MIDFIELD, 1997) }
+            };
+
+            // Act
+            _sut.UpdateDriversPoolForNextSeason(1997, saveGame, driversNewSeasonDictionary);
+
+            // Assert
+            Assert.IsFalse(saveGame.Drivers.Any(d => d.DriverId == "driver1"), "Should leave the drivers pool, new season version included");
+            Assert.IsTrue(saveGame.RetiredDrivers.Any(d => d.DriverId == "driver1"), "Should be among the retired drivers");
+        }
+
+        [TestMethod]
+        public void UpdateDriversPoolForNextSeason_InactiveAtFloorBelowRetirementAge_StaysInPool()
+        {
+            // Arrange: driver1 is 27 next season
+            var saveGame = CreateSaveGameWithUnemployedDriver1(1996, 1970);
+            SetupReputationUpdater(DriverReputation.PRIME_MIDFIELD, DriverReputation.PAY_DRIVER_WILD_CARD);
+
+            // Act
+            _sut.UpdateDriversPoolForNextSeason(1997, saveGame, new Dictionary<string, IDriverData>());
+
+            // Assert
+            var driver = saveGame.Drivers.First(d => d.DriverId == "driver1");
+            Assert.AreEqual(DriverReputation.PAY_DRIVER_WILD_CARD, driver.Reputation);
+            Assert.IsFalse(saveGame.RetiredDrivers.Any());
+        }
+
+        [TestMethod]
+        public void UpdateDriversPoolForNextSeason_InactivePlayerAtFloorAtRetirementAge_DecaysButNeverRetires()
+        {
+            // Arrange: driver1 is the player, 35 next season, without a seat
+            var saveGame = CreateSaveGameWithUnemployedDriver1(1996, 1962);
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { CreateTeamEntry("ferrari", "someone_else", "driver2") };
+            saveGame.PlayerData.DriverId = "driver1";
+            SetupReputationUpdater(DriverReputation.PRIME_MIDFIELD, DriverReputation.PAY_DRIVER_WILD_CARD);
+
+            // Act
+            _sut.UpdateDriversPoolForNextSeason(1997, saveGame, new Dictionary<string, IDriverData>());
+
+            // Assert
+            _mockReputationUpdater.Verify(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), true), Times.Once);
+            var driver = saveGame.Drivers.First(d => d.DriverId == "driver1");
+            Assert.AreEqual(DriverReputation.PAY_DRIVER_WILD_CARD, driver.Reputation);
+            Assert.IsFalse(saveGame.RetiredDrivers.Any());
+        }
+
+        #endregion
+
         #region Helper Methods
 
         private SaveGame CreateSaveGame(int year)
@@ -712,8 +788,17 @@ namespace AMS2ChEd.Business.Tests.GameLogic
         private void SetupReputationUpdater(DriverReputation oldRep, DriverReputation newRep)
         {
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputationForInactiveDriver(oldRep, It.IsAny<int>()))
+                .Setup(x => x.GetNewReputationForInactiveDriver(oldRep, It.IsAny<int>(), It.IsAny<bool>()))
                 .Returns(newRep);
+        }
+
+        // driver1 without a seat (the team keeps driver2 and the player), born in yearOfBirth
+        private SaveGame CreateSaveGameWithUnemployedDriver1(int year, int yearOfBirth)
+        {
+            var saveGame = CreateSaveGame(year);
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { CreateTeamEntry("ferrari", "player_id", "driver2") };
+            saveGame.Drivers.First(d => d.DriverId == "driver1").YearOfBirth = yearOfBirth;
+            return saveGame;
         }
 
         #endregion

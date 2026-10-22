@@ -123,5 +123,40 @@ namespace AMS2ChEd.Tests
             Assert.AreEqual(DriverReputation.AGEING_MIDFIELD, newReputation);
             CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(ReputationUpdater.OLD_DRIVER_AGE).ToList(), newReputation);
         }
+
+        [TestMethod]
+        [DataRow(DriverReputation.PAY_DRIVER_WILD_CARD, 28, DriverReputation.PAY_DRIVER_WILD_CARD)]
+        [DataRow(DriverReputation.PAY_DRIVER_SEASON, 28, DriverReputation.PAY_DRIVER_WILD_CARD)]
+        [DataRow(DriverReputation.YOUNG_TALENT, 20, DriverReputation.PAY_DRIVER_SEASON)]
+        [DataRow(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, 20, DriverReputation.YOUNG_TALENT)]
+        [DataRow(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, 20, DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN)]
+        [DataRow(DriverReputation.PRIME_MIDFIELD, 28, DriverReputation.PAY_DRIVER_SEASON)]
+        [DataRow(DriverReputation.PRIME_STRONG_MIDFIELD, 28, DriverReputation.PRIME_MIDFIELD)]
+        [DataRow(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN, 28, DriverReputation.PRIME_STRONG_MIDFIELD)]
+        [DataRow(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED, 28, DriverReputation.PRIME_STRONG_MIDFIELD)]
+        [DataRow(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, 28, DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED)]
+        [DataRow(DriverReputation.AGEING_MIDFIELD, 35, DriverReputation.PAY_DRIVER_SEASON)]
+        [DataRow(DriverReputation.AGEING_STRONG_MIDFIELD, 35, DriverReputation.AGEING_MIDFIELD)]
+        [DataRow(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED, 35, DriverReputation.AGEING_STRONG_MIDFIELD)]
+        [DataRow(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL, 35, DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED)]
+        [DataRow(DriverReputation.JUST_ONE_LAST_DANCE, 42, DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED)]
+        // crossing into an age band: remapped first, then one tier down the new band
+        [DataRow(DriverReputation.PRIME_STRONG_MIDFIELD, ReputationUpdater.OLD_DRIVER_AGE, DriverReputation.AGEING_MIDFIELD)]
+        public void GetNewReputationForInactiveDriver_Decaying_DropsOneTierInItsAgeBand(DriverReputation currentReputation, int age, DriverReputation expected)
+        {
+            var newReputation = new ReputationUpdater().GetNewReputationForInactiveDriver(currentReputation, age, decays: true);
+
+            Assert.AreEqual(expected, newReputation);
+            CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(age).ToList(), newReputation);
+        }
+
+        [TestMethod]
+        public void GetNewReputationForInactiveDriver_NotDecaying_OnlyMovesOntoTheAgeBand()
+        {
+            var updater = new ReputationUpdater();
+
+            Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, updater.GetNewReputationForInactiveDriver(DriverReputation.PRIME_STRONG_MIDFIELD, 28, decays: false));
+            Assert.AreEqual(DriverReputation.AGEING_STRONG_MIDFIELD, updater.GetNewReputationForInactiveDriver(DriverReputation.PRIME_STRONG_MIDFIELD, ReputationUpdater.OLD_DRIVER_AGE, decays: false));
+        }
     }
 }

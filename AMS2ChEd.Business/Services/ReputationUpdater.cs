@@ -104,21 +104,53 @@ namespace AMS2ChEd.Business.Services
             }
         }
 
-        public DriverReputation GetNewReputationForInactiveDriver(DriverReputation currentReputation, int age)
+        // the reputation moved onto the driver's age band; with decays, a season spent without racing
+        // also costs one tier, down to PAY_DRIVER_WILD_CARD (reserves and imported drivers don't decay)
+        public DriverReputation GetNewReputationForInactiveDriver(DriverReputation currentReputation, int age, bool decays)
         {
+            DriverReputation related;
             if (age < YOUNG_DRIVER_AGE)
             {
-                return GetRelatedYoungReputation(currentReputation);
+                related = GetRelatedYoungReputation(currentReputation);
             }
             else if (age < OLD_DRIVER_AGE)
             {
-                return GetRelatedPrimeReputation(currentReputation);
+                related = GetRelatedPrimeReputation(currentReputation);
             }
             else
             {
-                return GetRelatedAgeingReputation(currentReputation);
+                related = GetRelatedAgeingReputation(currentReputation);
             }
 
+            return decays ? DecayOneTier(related) : related;
+        }
+
+        // one step down the reputation's own age band
+        private DriverReputation DecayOneTier(DriverReputation reputation)
+        {
+            switch (reputation)
+            {
+                case DriverReputation.PAY_DRIVER_WILD_CARD: return DriverReputation.PAY_DRIVER_WILD_CARD;
+                case DriverReputation.PAY_DRIVER_SEASON: return DriverReputation.PAY_DRIVER_WILD_CARD;
+
+                case DriverReputation.YOUNG_TALENT: return DriverReputation.PAY_DRIVER_SEASON;
+                case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN: return DriverReputation.YOUNG_TALENT;
+                case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL: return DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN;
+
+                case DriverReputation.PRIME_MIDFIELD: return DriverReputation.PAY_DRIVER_SEASON;
+                case DriverReputation.PRIME_STRONG_MIDFIELD: return DriverReputation.PRIME_MIDFIELD;
+                case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN: return DriverReputation.PRIME_STRONG_MIDFIELD;
+                case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED: return DriverReputation.PRIME_STRONG_MIDFIELD;
+                case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL: return DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED;
+
+                case DriverReputation.AGEING_MIDFIELD: return DriverReputation.PAY_DRIVER_SEASON;
+                case DriverReputation.AGEING_STRONG_MIDFIELD: return DriverReputation.AGEING_MIDFIELD;
+                case DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED: return DriverReputation.AGEING_STRONG_MIDFIELD;
+                case DriverReputation.AGEING_CHAMPIONSHIP_LEVEL: return DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED;
+                case DriverReputation.JUST_ONE_LAST_DANCE: return DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED;
+
+                default: throw new Exception($"reputation not valid: {reputation}");
+            }
         }
         private DriverReputation GetRelatedYoungReputation(DriverReputation currentReputation)
         {
