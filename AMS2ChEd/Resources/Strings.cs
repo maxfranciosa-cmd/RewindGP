@@ -1124,8 +1124,11 @@ namespace AMS2ChEd.Resources
         public static string MarketOutlookWindow_Reason_EqualOne => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_EqualOne))!;
         public static string MarketOutlookWindow_Reason_EqualMany => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_EqualMany))!;
         public static string MarketOutlookWindow_Reason_Weaker => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_Weaker))!;
+        public static string MarketOutlookWindow_Reason_TooManyRivals => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_TooManyRivals))!;
+        public static string MarketOutlookWindow_Reason_WeakerTooManyRivals => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_WeakerTooManyRivals))!;
         public static string MarketOutlookWindow_Reason_OpeningCaveat_Format => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_OpeningCaveat_Format))!;
         public static string MarketOutlookWindow_Reason_NoRivals =>ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_NoRivals))!;
+        public static string MarketOutlookWindow_Reason_Crowded => ResourceManager.GetString(nameof(MarketOutlookWindow_Reason_Crowded))!;
         public static string MarketOutlookWindow_MoreNames => ResourceManager.GetString(nameof(MarketOutlookWindow_MoreNames))!;
         public static string MarketOutlookWindow_BestHeader => ResourceManager.GetString(nameof(MarketOutlookWindow_BestHeader))!;
         public static string MarketOutlookWindow_HiredStamp => ResourceManager.GetString(nameof(MarketOutlookWindow_HiredStamp))!;
@@ -1239,5 +1242,6 @@ namespace AMS2ChEd.Resources
         public static string AgentTalkWindow_Rivals_NobodyFitsOne_Format => ResourceManager.GetString(nameof(AgentTalkWindow_Rivals_NobodyFitsOne_Format))!;
         public static string AgentTalkWindow_Rivals_NobodyFitsMany_Format => ResourceManager.GetString(nameof(AgentTalkWindow_Rivals_NobodyFitsMany_Format))!;
         public static string AgentTalkWindow_Rivals_None => ResourceManager.GetString(nameof(AgentTalkWindow_Rivals_None))!;
+        public static string AgentTalkWindow_Rivals_Crowded => ResourceManager.GetString(nameof(AgentTalkWindow_Rivals_Crowded))!;
     }
 }

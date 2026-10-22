@@ -287,7 +287,7 @@ namespace AMS2ChEd.Views
             }
 
             if (seat.SameFitRivals.Count == 0)
-                return Strings.AgentTalkWindow_Rivals_None;
+                return MarketOutlookText.IsCrowded(seat) ? Strings.AgentTalkWindow_Rivals_Crowded : Strings.AgentTalkWindow_Rivals_None;
 
             // the same tier as an under-qualified player is no fit at all
             var one = seat.SameFitRivals.Count == 1;

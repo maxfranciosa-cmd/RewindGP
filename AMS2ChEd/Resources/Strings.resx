@@ -3411,10 +3411,10 @@ You can give the instruction from the season overview before the race.</value>
     <value>{0} REPUTATION</value>
   </data>
   <data name="MarketOutlookWindow_KeptTitle" xml:space="preserve">
-    <value>{0} keeps you</value>
+    <value>{0} might want to keep you</value>
   </data>
   <data name="MarketOutlookWindow_KeptText" xml:space="preserve">
-    <value>Your contract covers next season too.</value>
+    <value>Your contract covers next season too</value>
   </data>
   <data name="MarketOutlookWindow_ContractEndsTitle" xml:space="preserve">
     <value>Your contract ends</value>
@@ -3475,10 +3475,10 @@ You can give the instruction from the season overview before the race.</value>
     <value>A new team.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_BetterFitOne" xml:space="preserve">
-    <value>You're {0}, but {1} fits the seat better.</value>
+    <value>You're {0}; {1} fits the seat better.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_BetterFitMany" xml:space="preserve">
-    <value>You're {0}, and {1} fit the seat better.</value>
+    <value>You're {0}; {1} fit the seat better.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_SameFit" xml:space="preserve">
     <value>You're {0}; {1} fit the seat just as well.</value>
@@ -3499,13 +3499,16 @@ You can give the instruction from the season overview before the race.</value>
     <value>{0} carry as much weight in the paddock as you: it's an open fight.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_Weaker" xml:space="preserve">
-    <value>You have the bigger name in the paddock, which gives you the edge.</value>
+    <value>You have the bigger name in the paddock in this competition, which gives you the edge.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_OpeningCaveat_Format" xml:space="preserve">
     <value>The catch is whether the seat opens at all: if it does and you apply, getting it is {0}.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_NoRivals" xml:space="preserve">
-    <value>You're {0}, and the drivers who fit better are likely signed elsewhere first.</value>
+    <value>You're {0}, and nobody free is likely to fit the seat better.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_Crowded" xml:space="preserve">
+    <value>You're {0}; no rival stands out, but plenty of free drivers are in the running against you.</value>
   </data>
   <data name="MarketOutlookWindow_MoreNames" xml:space="preserve">
     <value>{0} and {1} more</value>
@@ -3827,7 +3830,7 @@ Your best shots: {1}.</value>
     <value>You are {0} for it, {1}</value>
   </data>
   <data name="AgentTalkWindow_Rivals_BetterFitOne_Format" xml:space="preserve">
-    <value>but {0} fits the seat better.</value>
+    <value>{0} fits the seat better.</value>
   </data>
   <data name="AgentTalkWindow_Rivals_BetterFitMany_Format" xml:space="preserve">
     <value>and {0} fit the seat better.</value>
@@ -3845,6 +3848,15 @@ Your best shots: {1}.</value>
     <value>and nobody free really fits it: {0} are under-qualified too.</value>
   </data>
   <data name="AgentTalkWindow_Rivals_None" xml:space="preserve">
-    <value>and the drivers who fit better are likely signed elsewhere first.</value>
+    <value>and nobody free is likely to fit the seat better.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_Crowded" xml:space="preserve">
+    <value>and no rival stands out, but plenty of free drivers are in the running.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_TooManyRivals" xml:space="preserve">
+    <value>There's a lot of competition for this seat.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_WeakerTooManyRivals" xml:space="preserve">
+    <value>You have the bigger name in the paddock in this competition, but they might settle for less.</value>
   </data>
 </root>

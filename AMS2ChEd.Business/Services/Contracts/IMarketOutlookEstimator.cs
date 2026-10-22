@@ -44,7 +44,8 @@ namespace AMS2ChEd.Business.Services.Contracts
 
         public DriverHirer.DriverPolicyFit PlayerFit { get; set; }
 
-        // drivers likely still free when the team picks, fitting the seat better than the player
+        // drivers likely still free when the team picks (applying, or among those it picks from), fitting
+        // the seat better than the player
         public List<string> BetterFitRivals { get; set; } = new();
 
         // drivers likely still free when the team picks, fitting the seat as well as the player

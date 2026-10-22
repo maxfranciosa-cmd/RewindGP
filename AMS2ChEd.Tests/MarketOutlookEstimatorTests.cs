@@ -87,6 +87,32 @@ namespace AMS2ChEd.Tests.Business.Services
         }
 
         [TestMethod]
+        public void Estimate_DriversTheTeamPicksFromBeyondTheirAmbition_AreNamedBiggerNameFirst()
+        {
+            // the top team's seat is beyond the veteran's and the payer's ambition, so they don't apply;
+            // but the team picks from them and the player, all under-qualified, by reputation (8, 4 and
+            // 2 tickets), and its pick wins a tie: the player signs only when picked
+            var saveGame = CreateSaveGame(
+                CreateTeam("PLAYER_TEAM", TeamReputation.SUPER_MINNOW, ("PLAYER", 10), ("MATE", 10)),
+                CreateTeam("TOP", TeamReputation.TOP_TEAM, ("OLD", 10), ("STAR", 10)));
+            AddDriver(saveGame, "PLAYER", DriverReputation.PAY_DRIVER_WILD_CARD);
+            AddDriver(saveGame, "MATE", DriverReputation.PAY_DRIVER_SEASON);
+            AddDriver(saveGame, "OLD", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, yearOfBirth: Year + 1 - 50);
+            AddDriver(saveGame, "STAR", DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL);
+            // without a team
+            AddDriver(saveGame, "VETERAN", DriverReputation.PRIME_MIDFIELD);
+            AddDriver(saveGame, "PAYER", DriverReputation.PAY_DRIVER_SEASON);
+
+            var outlook = CreateEstimator().Estimate(saveGame, NextSeason(saveGame), new Dictionary<string, IDriverData>());
+
+            var seat = outlook.Seats.Single(s => s.TeamId == "TOP" && s.Slot == 1);
+            Assert.AreEqual(DriverHirer.DriverPolicyFit.UnderQualified, seat.PlayerFit);
+            Assert.AreEqual(2 / 14.0, seat.WinChanceIfOpen, Tolerance);
+            CollectionAssert.AreEqual(new[] { "VETERAN", "PAYER" }, seat.SameFitRivals);
+            CollectionAssert.AreEqual(new[] { "VETERAN", "PAYER" }, seat.StrongerSameFitRivals);
+        }
+
+        [TestMethod]
         public void Estimate_RivalAsGoodAsThePlayer_SeatIsATossUp()
         {
             // The team picks the player or the rival provisionally, evenly; whoever it picked keeps the

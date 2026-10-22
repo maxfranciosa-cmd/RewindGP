@@ -65,6 +65,9 @@ namespace AMS2ChEd.Business.Services
             public DriverRole Role { get; set; }
             public int ExcludedDriver { get; set; } = NoDriver;
             public int ProvisionalPick { get; set; } = NoDriver;
+
+            // the drivers the team made its provisional pick from, the player aside
+            public List<int> PickPool { get; set; } = new();
             public bool IsReserve => Slot == TeamHiring.ReserveSlot;
         }
 
@@ -354,6 +357,7 @@ namespace AMS2ChEd.Business.Services
                 if (candidates.Count == 0)
                     continue;
 
+                seat.PickPool = candidates.Where(d => d != _player).ToList();
                 seat.ProvisionalPick = PickWeighted(BestFitTier(candidates, seat), random);
                 pool.Remove(seat.ProvisionalPick);
             }
@@ -487,6 +491,17 @@ namespace AMS2ChEd.Business.Services
                 tally.FreeCounts[driver]++;
             }
 
+            // whoever the team could have picked competes too, even when the seat is beyond their
+            // ambition and they don't apply: the pick is drawn by reputation, so the bigger names are
+            // the likelier ones
+            foreach (var driver in seat.PickPool)
+            {
+                if (!hired[driver] && !candidates.Contains(driver))
+                    tally.FreeCounts[driver]++;
+            }
+
+            var pick = seat.ProvisionalPick;
+
             // the player is never excluded, so excluded drivers drop out of the draw
             var playerFit = FitWeight(_player, seat);
             double tickets = _tickets[_player];
@@ -502,7 +517,6 @@ namespace AMS2ChEd.Business.Services
                     tickets += _tickets[driver];
             }
 
-            var pick = seat.ProvisionalPick;
             if (pick == _player)
             {
                 // the team's own pick: the player signs unless the drawn candidate beats them

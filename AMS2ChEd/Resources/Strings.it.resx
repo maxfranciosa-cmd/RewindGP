@@ -3411,7 +3411,7 @@ Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
     <value>REPUTAZIONE {0}</value>
   </data>
   <data name="MarketOutlookWindow_KeptTitle" xml:space="preserve">
-    <value>{0} ti conferma</value>
+    <value>{0} ti confermerebbe</value>
   </data>
   <data name="MarketOutlookWindow_KeptText" xml:space="preserve">
     <value>Il tuo contratto copre anche la prossima stagione.</value>
@@ -3475,10 +3475,10 @@ Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
     <value>Una nuova scuderia.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_BetterFitOne" xml:space="preserve">
-    <value>Sei {0}, ma {1} è più adatto al sedile.</value>
+    <value>Sei {0}; {1} è più adatto al sedile.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_BetterFitMany" xml:space="preserve">
-    <value>Sei {0}, e {1} sono più adatti al sedile.</value>
+    <value>Sei {0}; {1} sono più adatti al sedile.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_SameFit" xml:space="preserve">
     <value>Sei {0}; {1} vanno bene quanto te.</value>
@@ -3499,13 +3499,16 @@ Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
     <value>{0} hanno nel paddock lo stesso peso che hai tu: è una sfida aperta.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_Weaker" xml:space="preserve">
-    <value>Tu hai un nome più importante nel paddock, e questo ti dà un vantaggio.</value>
+    <value>Tu hai un nome più importante nel paddock in questo gruppo, e questo ti dà un vantaggio.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_OpeningCaveat_Format" xml:space="preserve">
     <value>Il problema è se il sedile si libererà davvero: se succede e ti candidi, ottenerlo è {0}.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_NoRivals" xml:space="preserve">
-    <value>Sei {0}, e i piloti più adatti probabilmente firmano prima altrove.</value>
+    <value>Sei {0}, e probabilmente nessun pilota libero è più adatto di te.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_Crowded" xml:space="preserve">
+    <value>Sei {0}; nessun rivale spicca, ma tanti piloti liberi sono in corsa contro di te.</value>
   </data>
   <data name="MarketOutlookWindow_MoreNames" xml:space="preserve">
     <value>{0} e altri {1}</value>
@@ -3827,7 +3830,7 @@ Le tue migliori occasioni: {1}.</value>
     <value>Sei {0}, {1}</value>
   </data>
   <data name="AgentTalkWindow_Rivals_BetterFitOne_Format" xml:space="preserve">
-    <value>ma {0} è più adatto.</value>
+    <value>{0} è più adatto.</value>
   </data>
   <data name="AgentTalkWindow_Rivals_BetterFitMany_Format" xml:space="preserve">
     <value>e {0} sono più adatti.</value>
@@ -3845,6 +3848,15 @@ Le tue migliori occasioni: {1}.</value>
     <value>e nessun pilota libero è davvero adatto: anche {0} sono sottoqualificati.</value>
   </data>
   <data name="AgentTalkWindow_Rivals_None" xml:space="preserve">
-    <value>e i piloti più adatti probabilmente firmano prima altrove.</value>
+    <value>e probabilmente nessun pilota libero è più adatto.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_Crowded" xml:space="preserve">
+    <value>e nessun rivale spicca, ma tanti piloti liberi sono in corsa.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_TooManyRivals" xml:space="preserve">
+    <value>C'è tanta concorrenza per questo sedile.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_WeakerTooManyRivals" xml:space="preserve">
+    <value>Tu hai un nome più importante nel paddock in questo gruppo, ma potrebbero accontentarsi di qualcuno con meno blasone.</value>
   </data>
 </root>

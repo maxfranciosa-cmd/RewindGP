@@ -18,6 +18,10 @@ namespace AMS2ChEd.Views
         // rivals named in a seat's reason before the rest are counted
         private const int NamedRivals = 3;
 
+        // rivals who fit as well as the player: from this many on, with the player more likely than not to
+        // lose the seat, the competition itself is what stands in the way
+        private const int TooManyRivals = 4;
+
         private readonly ISaveGame _saveGame;
         private readonly Dictionary<string, IDriverData> _drivers;
         private readonly Dictionary<string, ITeamEntry> _teams;
@@ -128,13 +132,18 @@ namespace AMS2ChEd.Views
             }
 
             if (seat.SameFitRivals.Count == 0)
-                return string.Format(Strings.MarketOutlookWindow_Reason_NoRivals, fit);
+                return string.Format(IsCrowded(seat) ? Strings.MarketOutlookWindow_Reason_Crowded : Strings.MarketOutlookWindow_Reason_NoRivals, fit);
 
             // the same tier as an under-qualified player is no fit at all
             return seat.PlayerFit == DriverHirer.DriverPolicyFit.UnderQualified
                 ? string.Format(Strings.MarketOutlookWindow_Reason_NobodyFits, NameList(seat.SameFitRivals))
                 : string.Format(Strings.MarketOutlookWindow_Reason_SameFit, fit, NameList(seat.SameFitRivals));
         }
+
+        // no rival is named, yet the player would likely lose the seat: the field is spread over many
+        // drivers, none of them free often enough to name
+        public static bool IsCrowded(SeatOutlook seat) =>
+            MarketOutlookEstimator.ToBand(seat.WinChanceIfOpen) < MarketChance.Likely;
 
         // among rivals who fit as well as the player, the bigger name is likelier to get the seat; empty
         // when a better fit takes it anyway, or nobody fits as well
@@ -145,18 +154,27 @@ namespace AMS2ChEd.Views
 
             if (seat.StrongerSameFitRivals.Count > 0)
             {
-                var format = seat.StrongerSameFitRivals.Count == 1 ? Strings.MarketOutlookWindow_Reason_StrongerOne : Strings.MarketOutlookWindow_Reason_StrongerMany;
-                return string.Format(format, NameList(seat.StrongerSameFitRivals));
+                // several bigger names already say why the seat is hard to get
+                return seat.StrongerSameFitRivals.Count == 1
+                    ? WithTooManyRivals(seat, string.Format(Strings.MarketOutlookWindow_Reason_StrongerOne, NameList(seat.StrongerSameFitRivals)))
+                    : string.Format(Strings.MarketOutlookWindow_Reason_StrongerMany, NameList(seat.StrongerSameFitRivals));
             }
 
             if (seat.EqualSameFitRivals.Count > 0)
             {
                 var format = seat.EqualSameFitRivals.Count == 1 ? Strings.MarketOutlookWindow_Reason_EqualOne : Strings.MarketOutlookWindow_Reason_EqualMany;
-                return string.Format(format, NameList(seat.EqualSameFitRivals));
+                return WithTooManyRivals(seat, string.Format(format, NameList(seat.EqualSameFitRivals)));
             }
 
-            return Strings.MarketOutlookWindow_Reason_Weaker;
+            // smaller names are each drawn less often than the player, but enough of them still outweigh the player
+            return HasTooManyRivals(seat) ? Strings.MarketOutlookWindow_Reason_WeakerTooManyRivals : Strings.MarketOutlookWindow_Reason_Weaker;
         }
+
+        public static bool HasTooManyRivals(SeatOutlook seat) =>
+            seat.SameFitRivals.Count >= TooManyRivals && IsCrowded(seat);
+
+        private static string WithTooManyRivals(SeatOutlook seat, string reason) =>
+            HasTooManyRivals(seat) ? reason + " " + Strings.MarketOutlookWindow_Reason_TooManyRivals : reason;
 
         // a seat the player would likely get, held down by how seldom it opens (a reserve seat at a team that
         // seldom runs one, a driver who may not retire); empty when the opening doesn't change the band
