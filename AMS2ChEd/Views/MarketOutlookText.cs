@@ -64,9 +64,13 @@ namespace AMS2ChEd.Views
 
         public int RacesToGo()
         {
+            return _saveGame.CurrentSeason.Races.Count() - RacesRun();
+        }
+
+        public int RacesRun()
+        {
             var year = _saveGame.CurrentSeason.Year;
-            var racesRun = (_saveGame.GrandPrixResults ?? Enumerable.Empty<GrandPrixResult>()).Count(g => g.Year == year);
-            return _saveGame.CurrentSeason.Races.Count() - racesRun;
+            return (_saveGame.GrandPrixResults ?? Enumerable.Empty<GrandPrixResult>()).Count(g => g.Year == year);
         }
 
         // what the player's own team decides about them, or what their situation is without one

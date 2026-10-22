@@ -43,6 +43,9 @@ namespace AMS2ChEd.Views
         // the eyes look left for one tick, right for one, then straight for four
         private const int EyeCycleTicks = 6;
 
+        // before this many races of the season are run the outlook isn't reliable yet
+        private const int EarlySeasonRaces = 3;
+
         private readonly ISaveGame _saveGame;
         private readonly MarketOutlookText _text;
         private readonly MarketOutlook _outlook;
@@ -61,8 +64,9 @@ namespace AMS2ChEd.Views
 
             MessagesList.ItemsSource = _messages;
             ContactDetailText.Text = GetContactDetail();
+            var earlySeason = _text.RacesRun() < EarlySeasonRaces;
             // nothing can change any more once the season is over
-            CautionText.Visibility = _text.RacesToGo() > 0 ? Visibility.Visible : Visibility.Collapsed;
+            CautionText.Visibility = !earlySeason && _text.RacesToGo() > 0 ? Visibility.Visible : Visibility.Collapsed;
 
             _timer = new DispatcherTimer { Interval = TickInterval };
             _timer.Tick += (_, _) =>
@@ -73,6 +77,14 @@ namespace AMS2ChEd.Views
             };
             _timer.Start();
             Closed += (_, _) => _timer.Stop();
+
+            // too few races for an outlook worth telling: the agent only introduces themselves
+            if (earlySeason)
+            {
+                Say(Strings.AgentTalkWindow_EarlySeason);
+                OptionsList.ItemsSource = new List<AgentOption> { new AgentOption { Label = Strings.AgentTalkWindow_CatchUpLater, Pick = Close } };
+                return;
+            }
 
             Say(Strings.AgentTalkWindow_Greeting);
             ShowQuestions();

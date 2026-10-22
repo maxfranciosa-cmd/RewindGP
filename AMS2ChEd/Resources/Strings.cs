@@ -1205,6 +1205,8 @@ namespace AMS2ChEd.Resources
         public static string AgentTalkWindow_Intro => ResourceManager.GetString(nameof(AgentTalkWindow_Intro))!;
         public static string AgentTalkWindow_Caution => ResourceManager.GetString(nameof(AgentTalkWindow_Caution))!;
         public static string AgentTalkWindow_Greeting => ResourceManager.GetString(nameof(AgentTalkWindow_Greeting))!;
+        public static string AgentTalkWindow_EarlySeason => ResourceManager.GetString(nameof(AgentTalkWindow_EarlySeason))!;
+        public static string AgentTalkWindow_CatchUpLater => ResourceManager.GetString(nameof(AgentTalkWindow_CatchUpLater))!;
         public static string AgentTalkWindow_AnythingElse => ResourceManager.GetString(nameof(AgentTalkWindow_AnythingElse))!;
         public static string AgentTalkWindow_Ask_OwnTeam_Format => ResourceManager.GetString(nameof(AgentTalkWindow_Ask_OwnTeam_Format))!;
         public static string AgentTalkWindow_Ask_Promotion_Format => ResourceManager.GetString(nameof(AgentTalkWindow_Ask_Promotion_Format))!;
