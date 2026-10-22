@@ -238,18 +238,12 @@ namespace AMS2ChEd.Business.Services
                     else
                         return SeasonFloorOrWildCard(standings);
 
-                case DriverReputation.PRIME_STRONG_MIDFIELD:
-                    if (standings <= 8)
-                        return DriverReputation.AGEING_STRONG_MIDFIELD;
-                    else
-                        return DriverReputation.AGEING_MIDFIELD;
-
                 case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN:
                 case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN:
                     if (standings <= 8)
                         return DriverReputation.AGEING_STRONG_MIDFIELD;
                     else
-                        return DriverReputation.PRIME_MIDFIELD;
+                        return DriverReputation.AGEING_MIDFIELD;
 
                 case DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL:
                 case DriverReputation.PRIME_CHAMPIONSHIP_LEVEL:
@@ -282,6 +276,9 @@ namespace AMS2ChEd.Business.Services
                     else
                         return SeasonFloorOrWildCard(standings);
 
+                // a strong midfielder turning 31 is judged as one already past it: a top-3 season makes
+                // them championship level either way
+                case DriverReputation.PRIME_STRONG_MIDFIELD:
                 case DriverReputation.AGEING_STRONG_MIDFIELD:
                     if (standings <= 3)
                         return DriverReputation.AGEING_CHAMPIONSHIP_LEVEL;

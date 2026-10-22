@@ -49,6 +49,13 @@ namespace AMS2ChEd.Business.Services.Contracts
 
         // drivers likely still free when the team picks, fitting the seat as well as the player
         public List<string> SameFitRivals { get; set; } = new();
+
+        // the SameFitRivals with a bigger name than the player: more likely to be drawn from the fit tier
+        // (DriverHirer.ReputationScore), and preferred as the team's own pick
+        public List<string> StrongerSameFitRivals { get; set; } = new();
+
+        // the SameFitRivals as big a name as the player: equally likely to be drawn
+        public List<string> EqualSameFitRivals { get; set; } = new();
     }
 
     public class MarketOutlook

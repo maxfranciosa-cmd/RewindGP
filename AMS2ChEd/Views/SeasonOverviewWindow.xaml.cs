@@ -775,9 +775,10 @@ namespace AMS2ChEd
 
         private void MarketOutlookButton_Click(object sender, RoutedEventArgs e)
         {
-            var marketOutlookWindow = new Views.MarketOutlookWindow(saveGame, _ams2StorageFactory, _gameLogicFactory.MarketOutlookEstimator);
-            marketOutlookWindow.Owner = this;
-            marketOutlookWindow.ShowDialog();
+            // the agent tells the outlook, and opens the full report when asked
+            var agentTalkWindow = new Views.AgentTalkWindow(saveGame, _ams2StorageFactory, _gameLogicFactory.MarketOutlookEstimator);
+            agentTalkWindow.Owner = this;
+            agentTalkWindow.ShowDialog();
         }
     }
 

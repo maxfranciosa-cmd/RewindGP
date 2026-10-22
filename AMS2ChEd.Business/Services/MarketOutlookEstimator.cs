@@ -527,9 +527,10 @@ namespace AMS2ChEd.Business.Services
             var role = tally.RoleCounts[(int)DriverRole.FIRST_DRIVER] >= tally.RoleCounts[(int)DriverRole.SECOND_DRIVER] ? DriverRole.FIRST_DRIVER : DriverRole.SECOND_DRIVER;
             int Fit(int driver) => isReserve ? ReserveFitWeight(driver, team.Reputation) : FitWeight(driver, role, team.Reputation);
             var playerFit = Fit(_player);
+            var playerScore = DriverHirer.ReputationScore(_reputations[_player]);
 
-            List<string> Named(Func<int, bool> tier) => Enumerable.Range(0, _driverIds.Count)
-                .Where(d => tally.FreeCounts[d] >= RivalShownChance * tally.Opened && tier(Fit(d)))
+            List<string> Named(Func<int, bool> rival) => Enumerable.Range(0, _driverIds.Count)
+                .Where(d => tally.FreeCounts[d] >= RivalShownChance * tally.Opened && rival(d))
                 .OrderByDescending(d => tally.FreeCounts[d] * _tickets[d])
                 .Select(d => _driverIds[d])
                 .ToList();
@@ -548,8 +549,10 @@ namespace AMS2ChEd.Business.Services
                 OpenChance = tally.Opened / (double)Replays,
                 WinChanceIfOpen = tally.PlayerWins / tally.Opened,
                 PlayerFit = _driverHirer.DoesDriverFitSeat(_reputations[_player], role, team.Reputation, isReserve),
-                BetterFitRivals = Named(fit => fit > playerFit),
-                SameFitRivals = Named(fit => fit == playerFit)
+                BetterFitRivals = Named(d => Fit(d) > playerFit),
+                SameFitRivals = Named(d => Fit(d) == playerFit),
+                StrongerSameFitRivals = Named(d => Fit(d) == playerFit && DriverHirer.ReputationScore(_reputations[d]) > playerScore),
+                EqualSameFitRivals = Named(d => Fit(d) == playerFit && DriverHirer.ReputationScore(_reputations[d]) == playerScore)
             };
             outlook.Band = ToBand(outlook.Chance);
             return outlook;

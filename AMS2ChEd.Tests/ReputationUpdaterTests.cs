@@ -99,5 +99,29 @@ namespace AMS2ChEd.Tests
             Assert.AreEqual(driver.ExpectedReputation, newReputation,
                 $"{driver.Name} {driver.Year} Expected={driver.ExpectedReputation} Actual={newReputation}");
         }
+
+        [TestMethod]
+        [DataRow(DriverReputation.PRIME_STRONG_MIDFIELD, 3, DriverReputation.AGEING_CHAMPIONSHIP_LEVEL)]
+        [DataRow(DriverReputation.AGEING_STRONG_MIDFIELD, 3, DriverReputation.AGEING_CHAMPIONSHIP_LEVEL)]
+        [DataRow(DriverReputation.PRIME_STRONG_MIDFIELD, 8, DriverReputation.AGEING_STRONG_MIDFIELD)]
+        [DataRow(DriverReputation.PRIME_STRONG_MIDFIELD, 16, DriverReputation.AGEING_MIDFIELD)]
+        [DataRow(DriverReputation.PRIME_STRONG_MIDFIELD, 17, DriverReputation.PAY_DRIVER_SEASON)]
+        public void GetNewReputation_StrongMidfielderTurningAgeing_IsJudgedAsAnAgeingOne(DriverReputation currentReputation, int standings, DriverReputation expected)
+        {
+            var newReputation = new ReputationUpdater().GetNewReputation(currentReputation, ReputationUpdater.OLD_DRIVER_AGE, standings, 0, 0, 3, 3, standings);
+
+            Assert.AreEqual(expected, newReputation);
+        }
+
+        [TestMethod]
+        [DataRow(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN)]
+        [DataRow(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN)]
+        public void GetNewReputation_UnprovenTurningAgeingOutsideTopEight_StaysAnAgeingReputation(DriverReputation currentReputation)
+        {
+            var newReputation = new ReputationUpdater().GetNewReputation(currentReputation, ReputationUpdater.OLD_DRIVER_AGE, 9, 0, 0, 3, 3, 9);
+
+            Assert.AreEqual(DriverReputation.AGEING_MIDFIELD, newReputation);
+            CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(ReputationUpdater.OLD_DRIVER_AGE).ToList(), newReputation);
+        }
     }
 }

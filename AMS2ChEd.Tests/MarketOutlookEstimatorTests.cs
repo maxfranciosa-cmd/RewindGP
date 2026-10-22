@@ -110,6 +110,30 @@ namespace AMS2ChEd.Tests.Business.Services
         }
 
         [TestMethod]
+        public void Estimate_RivalsAsGoodAsThePlayer_AreToldApartByTheirName()
+        {
+            // both rivals are a PerfectFit for the midfield team's second seat, as is the player; the
+            // veteran has a bigger name (DriverHirer.ReputationScore) than the player, the peer the same
+            var saveGame = CreateSaveGame(
+                CreateTeam("PLAYER_TEAM", TeamReputation.SUPER_MINNOW, ("PLAYER", 10), ("MATE", 10)),
+                CreateTeam("MID", TeamReputation.MIDFIELD, ("LEADER", 10), ("OLD", 10)));
+            AddDriver(saveGame, "PLAYER", DriverReputation.PRIME_MIDFIELD);
+            AddDriver(saveGame, "MATE", DriverReputation.PAY_DRIVER_SEASON);
+            AddDriver(saveGame, "LEADER", DriverReputation.PRIME_STRONG_MIDFIELD);
+            AddDriver(saveGame, "OLD", DriverReputation.PRIME_MIDFIELD, yearOfBirth: Year + 1 - 50);
+            AddDriver(saveGame, "PEER", DriverReputation.PRIME_MIDFIELD);
+            AddDriver(saveGame, "VETERAN", DriverReputation.AGEING_STRONG_MIDFIELD);
+            saveGame.CurrentSeason.Teams.Single(t => t.TeamId == "MID").Driver1Contract.Role = ContractRole.FIRST_DRIVER;
+
+            var outlook = CreateEstimator().Estimate(saveGame, NextSeason(saveGame), new Dictionary<string, IDriverData>());
+
+            var seat = outlook.Seats.Single(s => s.TeamId == "MID" && s.Slot == 2);
+            CollectionAssert.AreEquivalent(new[] { "PEER", "VETERAN" }, seat.SameFitRivals);
+            CollectionAssert.AreEqual(new[] { "VETERAN" }, seat.StrongerSameFitRivals);
+            CollectionAssert.AreEqual(new[] { "PEER" }, seat.EqualSameFitRivals);
+        }
+
+        [TestMethod]
         public void Estimate_SeatOfADriverUnderContract_OpensOnlyIfTheyRetire()
         {
             var saveGame = CreateSaveGame(

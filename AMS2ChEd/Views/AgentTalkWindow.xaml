@@ -1,0 +1,96 @@
+<!--Agent Talk Window - the driver market outlook told by the player's agent, one question at a time-->
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        mc:Ignorable="d"
+        x:Class="AMS2ChEd.Views.AgentTalkWindow"
+        Title="{loc:Loc AgentTalkWindow_Title}"
+        Height="820" Width="1220"
+        MinHeight="640" MinWidth="1000"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        Background="{StaticResource AgentTalk.WindowBackground}">
+
+    <!-- This window only holds structure. How each part looks comes from the "AgentTalk.*" styles of the
+         active visual style (Themes/<style>/AgentTalk.xaml), and each style shows only the parts it uses:
+         the retro style the agent's office (backdrop, sprite, desk) and his speech bubble with the latest
+         reply, the charcoal style the contact header and the whole conversation as messages. A message's
+         "IsPlayer" is what the styles tell the player's lines from the agent's by. -->
+    <Window.Resources>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource AgentTalk.ScrollBar}"/>
+    </Window.Resources>
+
+    <Grid Style="{StaticResource AgentTalk.Root}">
+        <Border Style="{StaticResource AgentTalk.Page}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- the contact -->
+                <Border Grid.Row="0" Style="{StaticResource AgentTalk.Header}">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Style="{StaticResource AgentTalk.Avatar}">
+                            <Path Style="{StaticResource AgentTalk.AvatarIcon}"
+                                  Data="M8,8 A4,4 0 1 1 16,8 A4,4 0 1 1 8,8 M4,21 C4,16.6 7.6,13 12,13 C16.4,13 20,16.6 20,21"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="{loc:Loc AgentTalkWindow_Title}" Style="{StaticResource AgentTalk.ContactName}"/>
+                            <TextBlock x:Name="ContactDetailText" Style="{StaticResource AgentTalk.ContactDetail}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- what the conversation is about -->
+                <Border Grid.Row="1" Style="{StaticResource AgentTalk.Notice}">
+                    <StackPanel>
+                        <TextBlock Text="{loc:Loc AgentTalkWindow_Intro}" Style="{StaticResource AgentTalk.Intro}"/>
+                        <TextBlock x:Name="CautionText" Text="{loc:Loc AgentTalkWindow_Caution}" Style="{StaticResource AgentTalk.Caution}"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- the agent in his office, with the latest reply in a speech bubble -->
+                <Grid Grid.Row="2" Style="{StaticResource AgentTalk.Stage}">
+                    <Control Style="{StaticResource AgentTalk.Backdrop}"/>
+                    <Image x:Name="AgentImage" Style="{StaticResource AgentTalk.Agent}"/>
+                    <Control Style="{StaticResource AgentTalk.Desk}"/>
+                    <ContentControl x:Name="BubbleControl" Style="{StaticResource AgentTalk.Bubble}">
+                        <TextBlock x:Name="BubbleText" Style="{StaticResource AgentTalk.BubbleText}"><Run x:Name="BubbleRun"/><Run x:Name="CursorRun" Text="█"/></TextBlock>
+                    </ContentControl>
+                </Grid>
+
+                <!-- the whole conversation -->
+                <ScrollViewer x:Name="ThreadScroll" Grid.Row="2" Style="{StaticResource AgentTalk.Thread}">
+                    <ItemsControl x:Name="MessagesList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource AgentTalk.Message}">
+                                    <TextBlock Text="{Binding Text}" Style="{StaticResource AgentTalk.MessageText}"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- what the player can say -->
+                <Border Grid.Row="3" Style="{StaticResource AgentTalk.OptionsBox}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl x:Name="OptionsList" Style="{StaticResource AgentTalk.Options}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding Label}" Click="Option_Click" Style="{StaticResource AgentTalk.Option}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

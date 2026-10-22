@@ -3486,6 +3486,24 @@ Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
   <data name="MarketOutlookWindow_Reason_NobodyFits" xml:space="preserve">
     <value>Nessun pilota libero è davvero adatto al sedile: sei sottoqualificato, come {0}.</value>
   </data>
+  <data name="MarketOutlookWindow_Reason_StrongerOne" xml:space="preserve">
+    <value>{0} però ha un nome più importante nel paddock.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_StrongerMany" xml:space="preserve">
+    <value>{0} però hanno un nome più importante nel paddock.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_EqualOne" xml:space="preserve">
+    <value>{0} ha nel paddock lo stesso peso che hai tu: è una sfida aperta.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_EqualMany" xml:space="preserve">
+    <value>{0} hanno nel paddock lo stesso peso che hai tu: è una sfida aperta.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_Weaker" xml:space="preserve">
+    <value>Hai il nome più importante nel paddock, e questo ti dà un vantaggio.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_OpeningCaveat_Format" xml:space="preserve">
+    <value>Il problema è se il sedile si libererà davvero: se succede e ti candidi, ottenerlo è {0}.</value>
+  </data>
   <data name="MarketOutlookWindow_Reason_NoRivals" xml:space="preserve">
     <value>Sei {0}, e i piloti più adatti probabilmente firmano prima altrove.</value>
   </data>
@@ -3704,5 +3722,129 @@ L'accordo vale solo per questa gara: {0} dovrebbe tornare in macchina subito dop
   </data>
   <data name="NewSeasonRosterWindow_Reserve_Format" xml:space="preserve">
     <value>{0}, che {1}, è il pilota di riserva della squadra: il primo a essere chiamato ogni volta che uno dei suoi piloti non può correre.</value>
+  </data>
+  <data name="AgentTalkWindow_Title" xml:space="preserve">
+    <value>Il tuo procuratore</value>
+  </data>
+  <data name="AgentTalkWindow_Intro" xml:space="preserve">
+    <value>Stai parlando con il tuo procuratore delle possibili opportunità per la prossima stagione.</value>
+  </data>
+  <data name="AgentTalkWindow_Caution" xml:space="preserve">
+    <value>Ricorda che tutto questo si basa sul tuo rendimento attuale e LE COSE POSSONO CAMBIARE prima della fine della stagione.</value>
+  </data>
+  <data name="AgentTalkWindow_Greeting" xml:space="preserve">
+    <value>Entra, siediti. Allora, la prossima stagione: cosa vuoi sapere?</value>
+  </data>
+  <data name="AgentTalkWindow_AnythingElse" xml:space="preserve">
+    <value>C'è altro?</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_OwnTeam_Format" xml:space="preserve">
+    <value>Potrò correre con {0} la prossima stagione?</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_Promotion_Format" xml:space="preserve">
+    <value>Posso diventare titolare con {0} l'anno prossimo?</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_AnySeat" xml:space="preserve">
+    <value>Che possibilità ho di trovare un sedile per l'anno prossimo?</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_FullReport" xml:space="preserve">
+    <value>Fammi vedere il rapporto completo.</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_Reputation" xml:space="preserve">
+    <value>Che reputazione ho nel paddock?</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_Team" xml:space="preserve">
+    <value>Voglio chiederti dei sedili che potrebbero liberarsi in una squadra.</value>
+  </data>
+  <data name="AgentTalkWindow_NeverMind" xml:space="preserve">
+    <value>Lascia stare.</value>
+  </data>
+  <data name="AgentTalkWindow_WhichTeam" xml:space="preserve">
+    <value>Quale squadra?</value>
+  </data>
+  <data name="AgentTalkWindow_FullReport" xml:space="preserve">
+    <value>Ecco il rapporto completo.</value>
+  </data>
+  <data name="AgentTalkWindow_Reputation_Format" xml:space="preserve">
+    <value>In base al tuo rendimento attuale, l'anno prossimo saresti considerato: {0}.</value>
+  </data>
+  <data name="AgentTalkWindow_PromotionYes_Format" xml:space="preserve">
+    <value>Sì. Con {0} potrebbe liberarsi un sedile da titolare perfetto per te.</value>
+  </data>
+  <data name="AgentTalkWindow_PromotionNo_Format" xml:space="preserve">
+    <value>Difficile. Con {0} non dovrebbe liberarsi nessun sedile da titolare perfetto per te.</value>
+  </data>
+  <data name="AgentTalkWindow_Overall_Format" xml:space="preserve">
+    <value>Nel complesso: {0}.
+Le tue migliori occasioni: {1}.</value>
+  </data>
+  <data name="AgentTalkWindow_Seat_First_Format" xml:space="preserve">
+    <value>{0} potrebbe cercare {1}, {2}.</value>
+  </data>
+  <data name="AgentTalkWindow_Seat_More_Format" xml:space="preserve">
+    <value>Potrebbe anche cercare {0}, {1}.</value>
+  </data>
+  <data name="AgentTalkWindow_Role_First" xml:space="preserve">
+    <value>un Primo Pilota</value>
+  </data>
+  <data name="AgentTalkWindow_Role_Second" xml:space="preserve">
+    <value>un Secondo Pilota</value>
+  </data>
+  <data name="AgentTalkWindow_Role_Reserve" xml:space="preserve">
+    <value>un Pilota di riserva</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_Retiring_Format" xml:space="preserve">
+    <value>perché {0} potrebbe ritirarsi</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_ContractEnds_Format" xml:space="preserve">
+    <value>perché il contratto di {0} scade</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_Dropped_Format" xml:space="preserve">
+    <value>perché {0} è in uscita</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_NewTeam" xml:space="preserve">
+    <value>perché è una squadra nuova</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_Reserve" xml:space="preserve">
+    <value>perché potrebbe averne uno la prossima stagione</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_ReserveIncumbent_Format" xml:space="preserve">
+    <value>perché l'accordo da riserva di {0} scade</value>
+  </data>
+  <data name="AgentTalkWindow_Chance_VeryLikely" xml:space="preserve">
+    <value>Ottenere questo sedile sembra MOLTO PROBABILE.</value>
+  </data>
+  <data name="AgentTalkWindow_Chance_Likely" xml:space="preserve">
+    <value>Ottenere questo sedile sembra PROBABILE.</value>
+  </data>
+  <data name="AgentTalkWindow_Chance_Possible" xml:space="preserve">
+    <value>Ottenere questo sedile sembra POSSIBILE.</value>
+  </data>
+  <data name="AgentTalkWindow_Chance_LongShot" xml:space="preserve">
+    <value>Ottenere questo sedile è IMPROBABILE.</value>
+  </data>
+  <data name="AgentTalkWindow_Fit_Format" xml:space="preserve">
+    <value>Sei {0}, {1}</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_BetterFitOne_Format" xml:space="preserve">
+    <value>ma {0} è più adatto.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_BetterFitMany_Format" xml:space="preserve">
+    <value>ma {0} sono più adatti.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_SameFitOne_Format" xml:space="preserve">
+    <value>e {0} va bene quanto te.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_SameFitMany_Format" xml:space="preserve">
+    <value>e {0} vanno bene quanto te.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_NobodyFitsOne_Format" xml:space="preserve">
+    <value>e nessun pilota libero è davvero adatto: anche {0} è sottoqualificato.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_NobodyFitsMany_Format" xml:space="preserve">
+    <value>e nessun pilota libero è davvero adatto: anche {0} sono sottoqualificati.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_None" xml:space="preserve">
+    <value>e i piloti più adatti probabilmente firmano prima altrove.</value>
   </data>
 </root>

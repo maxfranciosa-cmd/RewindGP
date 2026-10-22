@@ -3486,6 +3486,24 @@ You can give the instruction from the season overview before the race.</value>
   <data name="MarketOutlookWindow_Reason_NobodyFits" xml:space="preserve">
     <value>Nobody free really fits the seat: you, like {0}, are under-qualified.</value>
   </data>
+  <data name="MarketOutlookWindow_Reason_StrongerOne" xml:space="preserve">
+    <value>{0} has a bigger name in the paddock, though.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_StrongerMany" xml:space="preserve">
+    <value>{0} have a bigger name in the paddock, though.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_EqualOne" xml:space="preserve">
+    <value>{0} carries as much weight in the paddock as you: it's an open fight.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_EqualMany" xml:space="preserve">
+    <value>{0} carry as much weight in the paddock as you: it's an open fight.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_Weaker" xml:space="preserve">
+    <value>You have the bigger name in the paddock, which gives you the edge.</value>
+  </data>
+  <data name="MarketOutlookWindow_Reason_OpeningCaveat_Format" xml:space="preserve">
+    <value>The catch is whether the seat opens at all: if it does and you apply, getting it is {0}.</value>
+  </data>
   <data name="MarketOutlookWindow_Reason_NoRivals" xml:space="preserve">
     <value>You're {0}, and the drivers who fit better are likely signed elsewhere first.</value>
   </data>
@@ -3703,6 +3721,130 @@ You have earned it in the garage, at the tests and every time we called on you. 
 It is a deal for this race only: {0} is expected back in the car afterwards.</value>
   </data>
   <data name="NewSeasonRosterWindow_Reserve_Format" xml:space="preserve">
-    <value>{0}, who {1}, is the team&apos;s reserve driver: first in line whenever one of its drivers can&apos;t race.</value>
+    <value>{0}, who {1}, is the team's reserve driver: first in line whenever one of its drivers can't race.</value>
+  </data>
+  <data name="AgentTalkWindow_Title" xml:space="preserve">
+    <value>Your agent</value>
+  </data>
+  <data name="AgentTalkWindow_Intro" xml:space="preserve">
+    <value>You are speaking with your agent about the possible opportunities for next season.</value>
+  </data>
+  <data name="AgentTalkWindow_Caution" xml:space="preserve">
+    <value>Remember that all of this is based on your current performance and THINGS CAN CHANGE before the end of the season.</value>
+  </data>
+  <data name="AgentTalkWindow_Greeting" xml:space="preserve">
+    <value>Come in, sit down. So, next season: what do you want to know?</value>
+  </data>
+  <data name="AgentTalkWindow_AnythingElse" xml:space="preserve">
+    <value>Anything else?</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_OwnTeam_Format" xml:space="preserve">
+    <value>Will I be able to race for {0} next season?</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_Promotion_Format" xml:space="preserve">
+    <value>Can I get promoted at {0} next year?</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_AnySeat" xml:space="preserve">
+    <value>What are the chances I get any seat for next year?</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_FullReport" xml:space="preserve">
+    <value>Give me the full report.</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_Reputation" xml:space="preserve">
+    <value>What's my reputation in the paddock?</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_Team" xml:space="preserve">
+    <value>I want to ask you about potential openings with a team.</value>
+  </data>
+  <data name="AgentTalkWindow_NeverMind" xml:space="preserve">
+    <value>Never mind.</value>
+  </data>
+  <data name="AgentTalkWindow_WhichTeam" xml:space="preserve">
+    <value>Which team?</value>
+  </data>
+  <data name="AgentTalkWindow_FullReport" xml:space="preserve">
+    <value>Here's the full report.</value>
+  </data>
+  <data name="AgentTalkWindow_Reputation_Format" xml:space="preserve">
+    <value>Based on your current performance you would be considered {0} next year.</value>
+  </data>
+  <data name="AgentTalkWindow_PromotionYes_Format" xml:space="preserve">
+    <value>Yes. A race seat may open at {0} that you would be a perfect fit for.</value>
+  </data>
+  <data name="AgentTalkWindow_PromotionNo_Format" xml:space="preserve">
+    <value>Not likely. No race seat that would fit you perfectly is set to open at {0}.</value>
+  </data>
+  <data name="AgentTalkWindow_Overall_Format" xml:space="preserve">
+    <value>Overall: {0}.
+Your best shots: {1}.</value>
+  </data>
+  <data name="AgentTalkWindow_Seat_First_Format" xml:space="preserve">
+    <value>{0} might want to look for {1}, {2}.</value>
+  </data>
+  <data name="AgentTalkWindow_Seat_More_Format" xml:space="preserve">
+    <value>They might also want to look for {0}, {1}.</value>
+  </data>
+  <data name="AgentTalkWindow_Role_First" xml:space="preserve">
+    <value>a First Driver</value>
+  </data>
+  <data name="AgentTalkWindow_Role_Second" xml:space="preserve">
+    <value>a Second Driver</value>
+  </data>
+  <data name="AgentTalkWindow_Role_Reserve" xml:space="preserve">
+    <value>a Reserve Driver</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_Retiring_Format" xml:space="preserve">
+    <value>as {0} may retire</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_ContractEnds_Format" xml:space="preserve">
+    <value>as {0}'s contract ends</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_Dropped_Format" xml:space="preserve">
+    <value>as {0} is on the way out</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_NewTeam" xml:space="preserve">
+    <value>as they are new on the grid</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_Reserve" xml:space="preserve">
+    <value>as they may run one next season</value>
+  </data>
+  <data name="AgentTalkWindow_Opening_ReserveIncumbent_Format" xml:space="preserve">
+    <value>as {0}'s reserve deal ends</value>
+  </data>
+  <data name="AgentTalkWindow_Chance_VeryLikely" xml:space="preserve">
+    <value>Landing this seat looks VERY LIKELY.</value>
+  </data>
+  <data name="AgentTalkWindow_Chance_Likely" xml:space="preserve">
+    <value>Landing this seat looks LIKELY.</value>
+  </data>
+  <data name="AgentTalkWindow_Chance_Possible" xml:space="preserve">
+    <value>Landing this seat looks POSSIBLE.</value>
+  </data>
+  <data name="AgentTalkWindow_Chance_LongShot" xml:space="preserve">
+    <value>Landing this seat is a LONG SHOT.</value>
+  </data>
+  <data name="AgentTalkWindow_Fit_Format" xml:space="preserve">
+    <value>You are {0} for it, {1}</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_BetterFitOne_Format" xml:space="preserve">
+    <value>but {0} fits the seat better.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_BetterFitMany_Format" xml:space="preserve">
+    <value>but {0} fit the seat better.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_SameFitOne_Format" xml:space="preserve">
+    <value>and {0} fits the seat just as well.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_SameFitMany_Format" xml:space="preserve">
+    <value>and {0} fit the seat just as well.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_NobodyFitsOne_Format" xml:space="preserve">
+    <value>and nobody free really fits it: {0} is under-qualified too.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_NobodyFitsMany_Format" xml:space="preserve">
+    <value>and nobody free really fits it: {0} are under-qualified too.</value>
+  </data>
+  <data name="AgentTalkWindow_Rivals_None" xml:space="preserve">
+    <value>and the drivers who fit better are likely signed elsewhere first.</value>
   </data>
 </root>
