@@ -1252,6 +1252,9 @@ namespace AMS2ChEd.Resources
         public static string AgentTalkWindow_Reserve_FutureFirst => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureFirst))!;
         public static string AgentTalkWindow_Reserve_FutureSecond => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureSecond))!;
         public static string AgentTalkWindow_Reserve_FutureBoth => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureBoth))!;
+        public static string AgentTalkWindow_Reserve_FutureFirstMaybe => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureFirstMaybe))!;
+        public static string AgentTalkWindow_Reserve_FutureSecondMaybe => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureSecondMaybe))!;
+        public static string AgentTalkWindow_Reserve_FutureBothMaybe => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureBothMaybe))!;
         public static string AgentTalkWindow_Reserve_FutureNone => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureNone))!;
         public static string AgentTalkWindow_Reserve_Promoted => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_Promoted))!;
         public static string AgentTalkWindow_Reserve_NotPromoted => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_NotPromoted))!;

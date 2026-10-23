@@ -308,11 +308,15 @@ namespace AMS2ChEd.Views
             var lines = new List<string>
             {
                 string.Format(Strings.AgentTalkWindow_Reserve_GiveItAShot_Format, team.TeamName),
-                advice.FutureSeats switch
+                // a seat changing hands this winter may open again: new drivers usually sign for one season
+                (advice.FutureSeats, advice.FutureSeatsUncertain) switch
                 {
-                    FutureSeats.FirstDriver => Strings.AgentTalkWindow_Reserve_FutureFirst,
-                    FutureSeats.SecondDriver => Strings.AgentTalkWindow_Reserve_FutureSecond,
-                    FutureSeats.Both => Strings.AgentTalkWindow_Reserve_FutureBoth,
+                    (FutureSeats.FirstDriver, false) => Strings.AgentTalkWindow_Reserve_FutureFirst,
+                    (FutureSeats.SecondDriver, false) => Strings.AgentTalkWindow_Reserve_FutureSecond,
+                    (FutureSeats.Both, false) => Strings.AgentTalkWindow_Reserve_FutureBoth,
+                    (FutureSeats.FirstDriver, true) => Strings.AgentTalkWindow_Reserve_FutureFirstMaybe,
+                    (FutureSeats.SecondDriver, true) => Strings.AgentTalkWindow_Reserve_FutureSecondMaybe,
+                    (FutureSeats.Both, true) => Strings.AgentTalkWindow_Reserve_FutureBothMaybe,
                     _ => Strings.AgentTalkWindow_Reserve_FutureNone
                 }
             };

@@ -67,17 +67,91 @@ namespace AMS2ChEd.Tests
         }
 
         [TestMethod]
-        public void SeatEndingThisWinter_IsNotAFutureSeat_AndTheLineupIsUnknown()
+        public void SeatEndingThisWinter_MayOpenAgain_AndTheLineupIsUnknown()
         {
-            // the market fills it this winter, before a reserve could be promoted to it
+            // the market fills it this winter, usually for one season: it may open again when a
+            // reserve could be promoted
             var team = Team(("LEADER", RunsLonger, ContractRole.FIRST_DRIVER), ("WINGMAN", EndsThisWinter, ContractRole.SECOND_DRIVER));
             var outlook = Outlook(("LEADER", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL), ("WINGMAN", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN));
 
             var advice = Advise(team, outlook, DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN);
 
-            Assert.AreEqual(FutureSeats.None, advice.FutureSeats);
-            Assert.IsFalse(advice.WouldBePromoted);
+            Assert.AreEqual(FutureSeats.SecondDriver, advice.FutureSeats);
+            Assert.IsTrue(advice.FutureSeatsUncertain);
+            Assert.IsTrue(advice.WouldBePromoted);
             Assert.AreEqual(ReserveRaceTime.Unknown, advice.RaceTime);
+        }
+
+        [TestMethod]
+        public void SeatEndingAfterNextSeason_IsACertainFutureSeat()
+        {
+            var team = Team(("LEADER", RunsLonger, ContractRole.FIRST_DRIVER), ("WINGMAN", EndsAfterNextSeason, ContractRole.SECOND_DRIVER));
+            var outlook = Outlook(("LEADER", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL), ("WINGMAN", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN));
+
+            var advice = Advise(team, outlook, DriverReputation.PRIME_MIDFIELD);
+
+            Assert.AreEqual(FutureSeats.SecondDriver, advice.FutureSeats);
+            Assert.IsFalse(advice.FutureSeatsUncertain);
+        }
+
+        [TestMethod]
+        public void LikelyRetirementThisWinter_IsNotUnderContractNextSeason()
+        {
+            // Patrese at Ferrari in 1993: under contract, but 40 next year and likely to retire. The
+            // outlook expects his seat to open this winter, so the lineup isn't known and his seat may
+            // only open again
+            var team = Team(("LEADER", EndsAfterNextSeason, ContractRole.FIRST_DRIVER), ("VETERAN", EndsAfterNextSeason, ContractRole.SECOND_DRIVER));
+            var outlook = Outlook(("LEADER", DriverReputation.PRIME_STRONG_MIDFIELD), ("VETERAN", DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED));
+            outlook.Seats.Add(new SeatOutlook { TeamId = "T", Slot = 2, OpenChance = 0.78, Band = MarketChance.LongShot });
+
+            var advice = Advise(team, outlook, DriverReputation.PRIME_MIDFIELD);
+
+            Assert.AreEqual(ReserveRaceTime.Unknown, advice.RaceTime);
+            Assert.AreEqual(FutureSeats.Both, advice.FutureSeats);
+            Assert.IsTrue(advice.FutureSeatsUncertain);
+        }
+
+        [TestMethod]
+        public void UnlikelyRetirement_StillUnderContractNextSeason()
+        {
+            var team = Team(("LEADER", RunsLonger, ContractRole.FIRST_DRIVER), ("VETERAN", RunsLonger, ContractRole.SECOND_DRIVER));
+            var outlook = Outlook(("LEADER", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL), ("VETERAN", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN));
+            outlook.Seats.Add(new SeatOutlook { TeamId = "T", Slot = 2, OpenChance = 0.11, Band = MarketChance.LongShot });
+
+            var advice = Advise(team, outlook, DriverReputation.PRIME_MIDFIELD);
+
+            Assert.AreEqual(ReserveRaceTime.PossibleClash, advice.RaceTime);
+            Assert.AreEqual(FutureSeats.None, advice.FutureSeats);
+        }
+
+        [TestMethod]
+        public void OneFutureSeat_TeammateLeavingThisWinter_TakesTheSeatsOwnRole()
+        {
+            // Benetton in 1993: Schumacher's seat opens after next season, Berger's this winter. The
+            // role can't come from Berger, who won't be there: the second seat's own role is read
+            var team = Team(("LEADER", RunsLonger, ContractRole.FIRST_DRIVER), ("WINGMAN", EndsAfterNextSeason, ContractRole.SECOND_DRIVER));
+            team.Driver1Contract.Races = EndsThisWinter;
+            team.Driver1Contract.DriverId = null;
+            var outlook = Outlook(("WINGMAN", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL));
+
+            var advice = Advise(team, outlook, DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN);
+
+            // the empty first seat isn't a seat changing hands; the second keeps its SECOND_DRIVER role
+            Assert.AreEqual(FutureSeats.SecondDriver, advice.FutureSeats);
+            Assert.IsTrue(advice.WouldBePromoted);
+        }
+
+        [TestMethod]
+        public void OneFutureSeat_DriversAsEquals_RoleFromTheLeavingDriversStanding()
+        {
+            var team = Team(("STAR", EndsAfterNextSeason, ContractRole.EQUAL), ("OTHER", RunsLonger, ContractRole.EQUAL));
+            team.Driver2Contract.DriverId = null;
+            var outlook = Outlook(("STAR", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL));
+
+            var advice = Advise(team, outlook, DriverReputation.PRIME_CHAMPIONSHIP_LEVEL);
+
+            Assert.AreEqual(FutureSeats.FirstDriver, advice.FutureSeats);
+            Assert.IsTrue(advice.WouldBePromoted);
         }
 
         [TestMethod]
