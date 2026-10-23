@@ -3738,6 +3738,9 @@ L'accordo vale solo per questa gara: {0} dovrebbe tornare in macchina subito dop
   <data name="AgentTalkWindow_Greeting" xml:space="preserve">
     <value>Ciao! Allora, la prossima stagione: cosa vuoi sapere?</value>
   </data>
+  <data name="AgentTalkWindow_ContractEnds" xml:space="preserve">
+    <value>Ti servirà un sedile per la prossima stagione. Chiedimi che possibilità hai di trovarne uno, o di una squadra, e ti dirò quali sedili potrebbero liberarsi.</value>
+  </data>
   <data name="AgentTalkWindow_EarlySeason" xml:space="preserve">
     <value>Ciao, sono il tuo agente. Potrò darti indicazioni sul mercato piloti, ma è ancora presto nella stagione per avere informazioni affidabili. Riparliamone dopo qualche gara.</value>
   </data>
@@ -3899,13 +3902,13 @@ Le tue migliori occasioni: {1}.</value>
     <value>ma probabilmente non verresti promosso.</value>
   </data>
   <data name="AgentTalkWindow_Reserve_RaceTimeClash" xml:space="preserve">
-    <value>Se cerchi di correre, i due piloti sotto contratto sono piuttosto vicini tra loro, quindi potrebbero scontrarsi.</value>
+    <value>Se hai aspettative di correre qualche gara la prossima stagione, i due piloti sotto contratto sono piuttosto vicini tra loro, quindi potrebbero scontrarsi o non rispettare le gerarchie, il che ti darebbe possibilità di subentrare.</value>
   </data>
   <data name="AgentTalkWindow_Reserve_RaceTimeNoClash" xml:space="preserve">
-    <value>Se cerchi di correre, tra i due piloti sotto contratto c'è un chiaro numero uno, quindi uno scontro è improbabile.</value>
+    <value>Se hai aspettative di correre qualche gara la prossima stagione, tra i due piloti sotto contratto c'è un chiaro numero uno, quindi uno scontro è improbabile.</value>
   </data>
   <data name="AgentTalkWindow_Reserve_RaceTimeUnknown" xml:space="preserve">
-    <value>Se cerchi di correre, è difficile dirlo ora perché la formazione completa non è ancora confermata.</value>
+    <value>Se hai aspettative di correre qualche gara la prossima stagione, è difficile dirlo ora perché la formazione completa non è ancora confermata.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_TooManyRivals" xml:space="preserve">
     <value>C'è tanta concorrenza per questo sedile.</value>

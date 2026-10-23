@@ -3738,6 +3738,9 @@ It is a deal for this race only: {0} is expected back in the car afterwards.</va
   <data name="AgentTalkWindow_Greeting" xml:space="preserve">
     <value>Hey, good timing. So, next season: what do you want to know?</value>
   </data>
+  <data name="AgentTalkWindow_ContractEnds" xml:space="preserve">
+    <value>You will need a seat for next season. Ask me about the chances of getting one, or about a team, and I'll tell you which seats may open.</value>
+  </data>
   <data name="AgentTalkWindow_EarlySeason" xml:space="preserve">
     <value>Hi, I'm your agent. I'll be able to give you insights about the drivers' market, but it's too early in the season for reliable information. Let's talk again after a few races.</value>
   </data>
@@ -3899,13 +3902,13 @@ Your best shots: {1}.</value>
     <value>but you would likely not be promoted.</value>
   </data>
   <data name="AgentTalkWindow_Reserve_RaceTimeClash" xml:space="preserve">
-    <value>If you are looking for race time, the two drivers contracted are fairly close to each other so there's a possibility of a clash.</value>
+    <value>If you are looking for race time next season, the two drivers contracted are fairly close to each other so there's a possibility of them not getting along together, in which case you might be able to step in.</value>
   </data>
   <data name="AgentTalkWindow_Reserve_RaceTimeNoClash" xml:space="preserve">
-    <value>If you are looking for race time, there's a clear number one between the two drivers contracted, so a clash is unlikely.</value>
+    <value>If you are looking for race time next season, there's a clear number one between the two drivers contracted, so the possibility of one driver getting dropped for not following team orders or crashing to each other is unlikely.</value>
   </data>
   <data name="AgentTalkWindow_Reserve_RaceTimeUnknown" xml:space="preserve">
-    <value>If you are looking for race time, it's hard to tell now as the full lineup is not confirmed.</value>
+    <value>If you are looking for race time next season, it's hard to tell now as the full lineup is not confirmed.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_TooManyRivals" xml:space="preserve">
     <value>There's a lot of competition for this seat.</value>

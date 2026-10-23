@@ -173,6 +173,9 @@ namespace AMS2ChEd.Views
         private void AnswerOwnTeam()
         {
             var (title, text) = _text.PlayerVerdict(_outlook);
+            // the post-it's text points at the seats listed beside it, which the conversation doesn't show
+            if (_outlook.PlayerContractOutcome == DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED)
+                text = Strings.AgentTalkWindow_ContractEnds;
             Say(title + "\n" + text, Strings.AgentTalkWindow_AnythingElse);
         }
 
