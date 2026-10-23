@@ -225,10 +225,12 @@ namespace AMS2ChEd.Business.Services
         {
             if (currentReputation == DriverReputation.PAY_DRIVER_WILD_CARD)
             {
-                return EvaluateWildCard(age, podiums, dnfs, races);
+                return EvaluateWildCard(age, podiums, races, dnfs);
             }
 
-            var effectiveStandings = (races < totalSeasonRaces / 2.0)
+            // a part-timer is judged on where they finished; one who never got past pre-qualifying has
+            // no average (0), and is judged on the standings instead
+            var effectiveStandings = (races < totalSeasonRaces / 2.0 && averageRacePosition > 0)
                 ? (int)Math.Round(averageRacePosition, MidpointRounding.AwayFromZero)
                 : standings;
 

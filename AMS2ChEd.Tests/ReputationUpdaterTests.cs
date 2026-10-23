@@ -125,6 +125,45 @@ namespace AMS2ChEd.Tests
         }
 
         [TestMethod]
+        public void GetNewReputation_PartTimerWhoNeverPreQualified_IsJudgedOnTheStandings()
+        {
+            // three pre-qualifying failures out of sixteen races: no race position to average
+            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_SEASON, 30, standings: 38, podiums: 0, dnfs: 0, races: 3, totalSeasonRaces: 16, averageRacePosition: 0);
+
+            Assert.AreEqual(DriverReputation.PAY_DRIVER_WILD_CARD, newReputation);
+        }
+
+        // a clean season of five races, no DNFs: a wild card moves up its age band
+        [TestMethod]
+        [DataRow(22, 0, DriverReputation.YOUNG_TALENT)]
+        [DataRow(22, 1, DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN)]
+        [DataRow(28, 0, DriverReputation.PRIME_MIDFIELD)]
+        [DataRow(28, 1, DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN)]
+        [DataRow(35, 1, DriverReputation.AGEING_STRONG_MIDFIELD)]
+        public void GetNewReputation_WildCardWithCleanSeason_MovesUp(int age, int podiums, DriverReputation expected)
+        {
+            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_WILD_CARD, age, standings: 12, podiums, dnfs: 0, races: 5, totalSeasonRaces: 16, averageRacePosition: 8);
+
+            Assert.AreEqual(expected, newReputation);
+        }
+
+        [TestMethod]
+        public void GetNewReputation_WildCardWithADnf_StaysAWildCard()
+        {
+            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_WILD_CARD, 22, standings: 12, podiums: 0, dnfs: 1, races: 5, totalSeasonRaces: 16, averageRacePosition: 8);
+
+            Assert.AreEqual(DriverReputation.PAY_DRIVER_WILD_CARD, newReputation);
+        }
+
+        [TestMethod]
+        public void GetNewReputation_PartTimer_IsJudgedOnTheirAverageRacePosition()
+        {
+            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_SEASON, 30, standings: 25, podiums: 0, dnfs: 0, races: 3, totalSeasonRaces: 16, averageRacePosition: 9);
+
+            Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, newReputation);
+        }
+
+        [TestMethod]
         [DataRow(DriverReputation.PAY_DRIVER_WILD_CARD, 28, DriverReputation.PAY_DRIVER_WILD_CARD)]
         [DataRow(DriverReputation.PAY_DRIVER_SEASON, 28, DriverReputation.PAY_DRIVER_WILD_CARD)]
         [DataRow(DriverReputation.YOUNG_TALENT, 20, DriverReputation.PAY_DRIVER_SEASON)]
