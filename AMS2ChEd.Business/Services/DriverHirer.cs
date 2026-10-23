@@ -76,9 +76,11 @@ namespace AMS2ChEd.Business.Services
                                                         Tuple.Create(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED, DriverPolicyFit.PerfectFit),
                                                         Tuple.Create(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED, DriverPolicyFit.PerfectFit),
                                                         Tuple.Create(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, DriverPolicyFit.PerfectFit),
-                                                        Tuple.Create(DriverReputation.PRIME_STRONG_MIDFIELD, DriverPolicyFit.GoodFit),
+                                                        // a strong midfielder is just what a second seat here needs, and the
+                                                        // way up for the team's reserve (first refusal promotes a PerfectFit only)
+                                                        Tuple.Create(DriverReputation.PRIME_STRONG_MIDFIELD, DriverPolicyFit.PerfectFit),
                                                         Tuple.Create(DriverReputation.JUST_ONE_LAST_DANCE, DriverPolicyFit.GoodFit),
-                                                        Tuple.Create(DriverReputation.AGEING_STRONG_MIDFIELD, DriverPolicyFit.GoodFit),
+                                                        Tuple.Create(DriverReputation.AGEING_STRONG_MIDFIELD, DriverPolicyFit.PerfectFit),
                                                         Tuple.Create(DriverReputation.PRIME_MIDFIELD, DriverPolicyFit.GoodFit)
                                                      }
                     }

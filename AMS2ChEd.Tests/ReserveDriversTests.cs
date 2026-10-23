@@ -1,4 +1,4 @@
-using AMS2ChEd.Business.GameLogic.Concrete;
+﻿using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
@@ -284,6 +284,48 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             Assert.AreEqual(2, promotion.Slot);
             Assert.AreEqual(DriverRole.SECOND_DRIVER, promotion.Role);
             Assert.IsTrue(promotion.IsOffered);
+        }
+
+        [TestMethod]
+        public void GetReservePromotion_StrongMidfielderAtAMidfieldHighTeam_IsOfferedTheSecondSeat()
+        {
+            // the reserve table of a MIDFIELD_HIGH team is all midfielders: a strong one is a
+            // PerfectFit for its second seat, so they have a way into the car
+            var saveGame = OffSeasonSave(reserveId: "R1");
+            saveGame.CurrentSeason.Teams.Single(t => t.TeamId == "T1").Reputation = TeamReputation.MIDFIELD_HIGH;
+            var drops = Drops(("T1", false, true), ("T2", false, false));
+
+            foreach (var reputation in new[] { DriverReputation.PRIME_STRONG_MIDFIELD, DriverReputation.AGEING_STRONG_MIDFIELD })
+            {
+                var nextSeason = NextSeason(saveGame);
+                var promotion = _endOfSeasonManager.GetReservePromotion(saveGame, nextSeason.Teams, drops, "T1", reputation);
+
+                Assert.AreEqual(2, promotion.Slot, reputation.ToString());
+                Assert.AreEqual(DriverRole.SECOND_DRIVER, promotion.Role, reputation.ToString());
+                Assert.IsTrue(promotion.IsOffered, reputation.ToString());
+            }
+        }
+
+        [TestMethod]
+        public void ReserveAmbitions_PromotableAtAMidfieldHighTeam_ApplyThere()
+        {
+            // a reserve at a MIDFIELD_HIGH team can be promoted only as a PerfectFit for a race seat
+            // there, so these reputations take reserve roles there too, not at top teams only
+            var promotable = new[]
+            {
+                DriverReputation.PRIME_STRONG_MIDFIELD,
+                DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED,
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_WASHED,
+                DriverReputation.PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN,
+                DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN
+            };
+
+            foreach (var reputation in promotable)
+            {
+                var ambition = OffSeasonMovements.AmbitionFor(reputation, isReserve: true);
+                Assert.AreEqual(TeamReputation.MIDFIELD_HIGH, ambition.MinReputation, reputation.ToString());
+                Assert.AreEqual(TeamReputation.TOP_TEAM, ambition.MaxReputation, reputation.ToString());
+            }
         }
 
         [TestMethod]

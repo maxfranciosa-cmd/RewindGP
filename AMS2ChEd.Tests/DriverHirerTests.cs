@@ -1,4 +1,4 @@
-using AMS2ChEd.Business.Models.Concrete;
+﻿using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 
 namespace AMS2ChEd.Tests.Business.Services
@@ -140,6 +140,20 @@ namespace AMS2ChEd.Tests.Business.Services
 
             double share = primeMidfieldWins / 3000.0;
             Assert.IsTrue(share > 0.27 && share < 0.40, $"PRIME_MIDFIELD share {share:0.000}, expected about 0.333");
+        }
+
+        [TestMethod]
+        public void DoesDriverFitTeamPolicy_StrongMidfieldersForMidfieldHighSecondSeat_ArePerfectFit()
+        {
+            foreach (var reputation in new[] { DriverReputation.PRIME_STRONG_MIDFIELD, DriverReputation.AGEING_STRONG_MIDFIELD })
+            {
+                var fit = _driverHirer.DoesDriverFitTeamPolicy(reputation, DriverRole.SECOND_DRIVER, TeamReputation.MIDFIELD_HIGH);
+                Assert.AreEqual(DriverHirer.DriverPolicyFit.PerfectFit, fit, reputation.ToString());
+            }
+
+            // the lead seat still wants more than a strong midfielder
+            Assert.AreEqual(DriverHirer.DriverPolicyFit.GoodFit,
+                _driverHirer.DoesDriverFitTeamPolicy(DriverReputation.PRIME_STRONG_MIDFIELD, DriverRole.FIRST_DRIVER, TeamReputation.MIDFIELD_HIGH));
         }
 
         [TestMethod]
