@@ -1245,5 +1245,18 @@ namespace AMS2ChEd.Resources
         public static string AgentTalkWindow_Rivals_NobodyFitsMany_Format => ResourceManager.GetString(nameof(AgentTalkWindow_Rivals_NobodyFitsMany_Format))!;
         public static string AgentTalkWindow_Rivals_None => ResourceManager.GetString(nameof(AgentTalkWindow_Rivals_None))!;
         public static string AgentTalkWindow_Rivals_Crowded => ResourceManager.GetString(nameof(AgentTalkWindow_Rivals_Crowded))!;
+        public static string AgentTalkWindow_Ask_Reserve => ResourceManager.GetString(nameof(AgentTalkWindow_Ask_Reserve))!;
+        public static string AgentTalkWindow_Reserve_NoTeams => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_NoTeams))!;
+        public static string AgentTalkWindow_Reserve_OfficialSeat_Format => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_OfficialSeat_Format))!;
+        public static string AgentTalkWindow_Reserve_GiveItAShot_Format => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_GiveItAShot_Format))!;
+        public static string AgentTalkWindow_Reserve_FutureFirst => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureFirst))!;
+        public static string AgentTalkWindow_Reserve_FutureSecond => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureSecond))!;
+        public static string AgentTalkWindow_Reserve_FutureBoth => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureBoth))!;
+        public static string AgentTalkWindow_Reserve_FutureNone => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_FutureNone))!;
+        public static string AgentTalkWindow_Reserve_Promoted => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_Promoted))!;
+        public static string AgentTalkWindow_Reserve_NotPromoted => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_NotPromoted))!;
+        public static string AgentTalkWindow_Reserve_RaceTimeClash => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_RaceTimeClash))!;
+        public static string AgentTalkWindow_Reserve_RaceTimeNoClash => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_RaceTimeNoClash))!;
+        public static string AgentTalkWindow_Reserve_RaceTimeUnknown => ResourceManager.GetString(nameof(AgentTalkWindow_Reserve_RaceTimeUnknown))!;
     }
 }

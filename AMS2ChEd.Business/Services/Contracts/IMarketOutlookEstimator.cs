@@ -63,6 +63,9 @@ namespace AMS2ChEd.Business.Services.Contracts
     {
         public DriverReputation PlayerReputation { get; set; }
 
+        // every driver's reputation for next season, as the outlook worked it out (the player's included)
+        public IReadOnlyDictionary<string, DriverReputation> ProjectedReputations { get; set; } = new Dictionary<string, DriverReputation>();
+
         // null when the player has no team this season
         public string PlayerTeamId { get; set; }
 

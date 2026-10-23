@@ -153,7 +153,7 @@ namespace AMS2ChEd.Business.Services
                     }
                 }
 
-            var outlook = new MarketOutlook { PlayerReputation = _reputations[_player] };
+            var outlook = new MarketOutlook { PlayerReputation = _reputations[_player], ProjectedReputations = reputations };
             var teams = PlanTeams(saveGame, nextSeason, outlook);
 
             var employed = teams.SelectMany(t => t.Seats).Where(s => s != null).Select(s => s.Driver).ToHashSet();

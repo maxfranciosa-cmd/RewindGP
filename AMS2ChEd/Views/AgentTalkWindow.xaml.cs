@@ -1,4 +1,5 @@
 using AMS2ChEd.Business.DependencyInjection;
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
@@ -164,6 +165,7 @@ namespace AMS2ChEd.Views
             options.Add(new AgentOption { Label = Strings.AgentTalkWindow_Ask_FullReport, Pick = ShowFullReport });
             options.Add(new AgentOption { Label = Strings.AgentTalkWindow_Ask_Reputation, Pick = AnswerReputation });
             options.Add(new AgentOption { Label = Strings.AgentTalkWindow_Ask_Team, Pick = AskWhichTeam });
+            options.Add(new AgentOption { Label = Strings.AgentTalkWindow_Ask_Reserve, Pick = AskWhichReserveTeam });
 
             OptionsList.ItemsSource = options;
         }
@@ -246,6 +248,99 @@ namespace AMS2ChEd.Views
             var seats = _outlook.Seats.Where(s => s.TeamId == teamId).OrderBy(s => s.IsReserve).ThenBy(s => s.Slot).ToList();
             Say(seats.Select((seat, i) => SeatMessage(seat, i == 0)).Append(Strings.AgentTalkWindow_AnythingElse).ToArray());
             ShowQuestions();
+        }
+
+        // the teams that may run a reserve next season, the player's own race team aside
+        private void AskWhichReserveTeam()
+        {
+            var nextSeasonTeams = _text.NextSeason.Teams.ToDictionary(t => t.TeamId, t => t);
+            var teams = _saveGame.CurrentSeason.Teams
+                .Where(t => t.TeamId != OwnTeam?.TeamId &&
+                            nextSeasonTeams.TryGetValue(t.TeamId, out var next) &&
+                            EndOfSeasonManager.ReserveChance(next.Reputation) > 0)
+                .OrderByDescending(t => nextSeasonTeams[t.TeamId].Reputation)
+                .ThenBy(t => t.TeamName)
+                .ToList();
+
+            if (teams.Count == 0)
+            {
+                Say(Strings.AgentTalkWindow_Reserve_NoTeams, Strings.AgentTalkWindow_AnythingElse);
+                return;
+            }
+
+            Say(Strings.AgentTalkWindow_WhichTeam);
+
+            var options = teams
+                .Select(t => new AgentOption { Label = t.TeamName, Pick = () => AnswerReserve(t) })
+                .ToList();
+            options.Add(new AgentOption
+            {
+                Label = Strings.AgentTalkWindow_NeverMind,
+                Pick = () =>
+                {
+                    Say(Strings.AgentTalkWindow_AnythingElse);
+                    ShowQuestions();
+                }
+            });
+            OptionsList.ItemsSource = options;
+        }
+
+        // ReserveAdvice in words: an official seat first, then the seats opening the winter after next,
+        // the promotion to one of them, and the chance of race time
+        private void AnswerReserve(ITeamEntry team)
+        {
+            var nextSeasonTeam = _text.NextSeason.Teams.FirstOrDefault(t => t.TeamId == team.TeamId);
+            var advice = ReserveAdvice.For(
+                team,
+                nextSeasonTeam?.Reputation ?? team.Reputation,
+                _saveGame.CurrentSeason.Races.Count(),
+                _text.NextSeason.Races.Count(),
+                _outlook,
+                PlayerReputationAfterAReserveSeason());
+
+            if (advice.OfficialSeatNow)
+            {
+                Say(string.Format(Strings.AgentTalkWindow_Reserve_OfficialSeat_Format, team.TeamName), Strings.AgentTalkWindow_AnythingElse);
+                ShowQuestions();
+                return;
+            }
+
+            var lines = new List<string>
+            {
+                string.Format(Strings.AgentTalkWindow_Reserve_GiveItAShot_Format, team.TeamName),
+                advice.FutureSeats switch
+                {
+                    FutureSeats.FirstDriver => Strings.AgentTalkWindow_Reserve_FutureFirst,
+                    FutureSeats.SecondDriver => Strings.AgentTalkWindow_Reserve_FutureSecond,
+                    FutureSeats.Both => Strings.AgentTalkWindow_Reserve_FutureBoth,
+                    _ => Strings.AgentTalkWindow_Reserve_FutureNone
+                }
+            };
+
+            if (advice.FutureSeats != FutureSeats.None)
+                lines[1] += " " + (advice.WouldBePromoted ? Strings.AgentTalkWindow_Reserve_Promoted : Strings.AgentTalkWindow_Reserve_NotPromoted);
+
+            lines.Add(advice.RaceTime switch
+            {
+                ReserveRaceTime.PossibleClash => Strings.AgentTalkWindow_Reserve_RaceTimeClash,
+                ReserveRaceTime.UnlikelyClash => Strings.AgentTalkWindow_Reserve_RaceTimeNoClash,
+                _ => Strings.AgentTalkWindow_Reserve_RaceTimeUnknown
+            });
+
+            Say(string.Join("\n", lines), Strings.AgentTalkWindow_AnythingElse);
+            ShowQuestions();
+        }
+
+        // a season on the bench without races: next season's projection moved one more year along the
+        // age bands, with no decay for a reserve - what the team judges at the winter after next
+        private DriverReputation PlayerReputationAfterAReserveSeason()
+        {
+            var yearOfBirth = _text.Driver(_saveGame.PlayerData.DriverId)?.YearOfBirth;
+            if (yearOfBirth == null)
+                return _outlook.PlayerReputation;
+
+            var age = _text.NextSeason.Year + 1 - yearOfBirth.Value;
+            return new ReputationUpdater().GetNewReputationForInactiveDriver(_outlook.PlayerReputation, age, decays: false);
         }
 
         private string SeatMessage(SeatOutlook seat, bool isFirst)
