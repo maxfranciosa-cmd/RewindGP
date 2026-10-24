@@ -37,22 +37,6 @@
 	<Copy SourceFiles="@(SteamDlcCheckFiles)" DestinationFiles="@(SteamDlcCheckFiles->'$(OutputPath)SteamDlcCheck\%(RecursiveDir)%(Filename)%(Extension)')" />
 </Target>
 
-<!-- Copies the bundled 1996 spoof season into the build output, unless a different (official) 1996 pack
-     is installed there. Done here rather than with CopyToOutputDirectory so that Clean/Rebuild doesn't
-     treat the season files as build outputs and delete an installed pack. -->
-<Target Name="CopySpoofSeason" AfterTargets="Build">
-	<PropertyGroup>
-		<InstalledSpoofSeasonFile>$(TargetDir)Seasons\1996\season.json</InstalledSpoofSeasonFile>
-		<SpoofSeasonInstalled Condition="Exists('$(InstalledSpoofSeasonFile)')">$([System.IO.File]::ReadAllText('$(InstalledSpoofSeasonFile)').Contains('1996-spoof'))</SpoofSeasonInstalled>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<SpoofSeasonFiles Include="Seasons\1996\**\*.*" />
-	</ItemGroup>
-
-	<Copy Condition="'$(SpoofSeasonInstalled)' != 'False'" SourceFiles="@(SpoofSeasonFiles)" DestinationFiles="@(SpoofSeasonFiles->'$(TargetDir)Seasons\1996\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
-</Target>
-	
   <ItemGroup>
     <None Remove="Fonts\Soniano Sans Unicode Regular.ttf" />
     <None Remove="Fonts\Anton-Regular.ttf" />
@@ -202,10 +186,6 @@
     </None>
     <None Update="Fonts\DSEG14 OFL License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <!-- Published as usual, but copied to the build output by the CopySpoofSeason target instead. -->
-    <None Update="Seasons\1996\**">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
     <None Update="seasons_manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
