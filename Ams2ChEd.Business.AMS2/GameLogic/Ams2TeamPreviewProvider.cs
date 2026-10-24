@@ -78,11 +78,14 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 {
                     foreach (var driverId in new[] { team.Driver1Contract?.DriverId, team.Driver2Contract?.DriverId }.Where(id => !string.IsNullOrEmpty(id)))
                     {
-                        string design = drivers.TryGetValue(driverId, out var driver) ? HelmetPicker.PickHelmetFile(driver, era) : null;
-                        string path = ResolveHelmet(design, seasonDirectory) ?? ResolveHelmet(HelmetPicker.DefaultBaseHelmetFile(era), seasonDirectory);
-                        if (path == null)
+                        drivers.TryGetValue(driverId, out var driver);
+                        string path = ResolveHelmet(driver == null ? null : HelmetPicker.PickHelmetFile(driver, era), seasonDirectory);
+                        // their own design, else their generic one, else the plain default
+                        using var texture = path != null ? DdsTextureComposer.LoadImage(path)
+                            : (driver?.GenericHelmet != null ? GenericHelmetComposer.Build(driver.GenericHelmet, era) : null)
+                              ?? (ResolveHelmet(HelmetPicker.DefaultBaseHelmetFile(era), seasonDirectory) is string fallback ? DdsTextureComposer.LoadImage(fallback) : null);
+                        if (texture == null)
                             continue;
-                        using var texture = DdsTextureComposer.LoadImage(path);
                         helmets.Add(HelmetPreviewComposer.RenderHelmet(texture, maps));
                     }
 

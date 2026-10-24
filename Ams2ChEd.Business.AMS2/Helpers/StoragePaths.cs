@@ -84,6 +84,21 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             }
         }
 
+        // The generic helmet designs colour-coded for generic_helmet (<prefix><design>.png, the
+        // design's own colours in <design>.json), and overlays/<era>.png laid over them.
+        private static string _genericHelmetDesignsFolder = null;
+        public static string GenericHelmetDesignsFolder
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_genericHelmetDesignsFolder))
+                {
+                    _genericHelmetDesignsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Drivers", "base_helmet_liveries", "generic_designs");
+                }
+                return _genericHelmetDesignsFolder;
+            }
+        }
+
         // Helmet-preview lookup maps, one subfolder per helmet era (Modern, Nineties, ...).
         private static string _helmetPreviewsFolder = null;
         public static string HelmetPreviewsFolder

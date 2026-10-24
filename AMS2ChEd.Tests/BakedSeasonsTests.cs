@@ -52,7 +52,7 @@ namespace AMS2ChEd.Tests.Ams2
                 TemplateRecolour.ParseColour(livery.Suit.Harness);
             }
 
-            string helmets = Path.Combine(app, "Drivers", "base_helmet_liveries", "player_helmets", "helmets");
+            string helmets = Path.Combine(app, "Drivers", "base_helmet_liveries", "generic_designs");
             foreach (var driver in drivers)
             {
                 Assert.IsNull(driver.BaseHelmetFile, driver.DriverId);

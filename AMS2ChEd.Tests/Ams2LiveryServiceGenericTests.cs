@@ -40,6 +40,7 @@ namespace AMS2ChEd.Tests.Ams2
             Assert.AreEqual(@"temporary_textures\williams_body_diff_1996.dds", Texture(outfit, "BODY_DIFF"));
             Assert.IsNull(outfit.Elements("TEXTURE").FirstOrDefault(t => t.Attribute("NAME").Value == "ARMS_DIFF"), "a part the outfit set lacks is left out");
             Assert.IsTrue(File.Exists(Path.Combine(carFolder, "temporary_textures", "williams_body_diff_1996.dds")));
+            Assert.IsTrue(File.Exists(Path.Combine(carFolder, "temporary_textures", "damon_hill_generic_Modern_1996.png")), "the generic helmet in his colours");
         }
 
         [TestMethod]
@@ -101,7 +102,7 @@ namespace AMS2ChEd.Tests.Ams2
                     ? new GenericLivery { Template = "t", Palette = new Dictionary<string, string> { { "red", "#0C2474" } }, Tyres = "goodyear" }
                     : null
             };
-            var driver = new Ams2DriverData { DriverId = "damon_hill", Name = "Damon Hill" };
+            var driver = new Ams2DriverData { DriverId = "damon_hill", Name = "Damon Hill", GenericHelmet = withLivery ? new GenericHelmet { Design = HelmetPreviewTestMaps.TestDesign, Palette = new Dictionary<string, string> { { "red", "#0B1430" } } } : null };
             var service = new Ams2LiveryService(1996, "F-V10_Gen1", new[] { driver }, new[] { team },
                 liveryKits: new LiveryKitLoader(kits, tyreSets, tyreFiles));
             var entries = new List<EntryListEntry> { new EntryListEntry { TeamId = "williams", Driver1Id = "damon_hill", Driver1Number = 5 } };

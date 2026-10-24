@@ -310,8 +310,9 @@ namespace Ams2ChEd.Business.AMS2.Services
             var filesToDelete = Directory.GetFiles(temporaryTexturesPath, "*.dds")
                 .Where(f => !f.EndsWith(seasonSuffix, StringComparison.OrdinalIgnoreCase))
                 .ToList();
-            // Generic liveries' number sheets of other seasons, and their cache keys
+            // Generic liveries' number sheets and generic helmets of other seasons, and their cache keys
             filesToDelete.AddRange(Directory.GetFiles(temporaryTexturesPath, "*_numbers_*.png")
+                .Concat(Directory.GetFiles(temporaryTexturesPath, "*_generic_*.png"))
                 .Where(f => !f.EndsWith($"_{currentSeasonYear}.png", StringComparison.OrdinalIgnoreCase)));
             filesToDelete.AddRange(Directory.GetFiles(temporaryTexturesPath, "*.key")
                 .Where(f => !f.EndsWith($"_{currentSeasonYear}.dds.key", StringComparison.OrdinalIgnoreCase)
@@ -371,6 +372,11 @@ namespace Ams2ChEd.Business.AMS2.Services
             var helmetEra = HelmetEraFor(carModel);
             var baseHelmetFileToPick = HelmetPicker.PickHelmetFile(driver, helmetEra);
             var baseVisorFileToPick = HelmetPicker.PickVisorFile(driver, helmetEra);
+
+            // No design of their own for this model (baked data, no season pack): their generic
+            // design in their colours, before the plain default. The visor stays the default one.
+            if (string.IsNullOrEmpty(baseHelmetFileToPick) && driver.GenericHelmet != null)
+                baseHelmetFileToPick = GenerateGenericHelmet(driverId, driver.GenericHelmet, helmetEra, outputDirectory);
 
             baseHelmetFileToPick = string.IsNullOrEmpty(baseHelmetFileToPick) ? HelmetPicker.DefaultBaseHelmetFile(helmetEra) : baseHelmetFileToPick;
             baseVisorFileToPick = string.IsNullOrEmpty(baseVisorFileToPick) ? HelmetPicker.DefaultBaseVisorFile(helmetEra) : baseVisorFileToPick;
@@ -1170,6 +1176,35 @@ namespace Ams2ChEd.Business.AMS2.Services
                     new XAttribute("NAME", textureName),
                     new XAttribute("PATH", Path.Combine("..", "tyres", fileName))));
             }
+        }
+
+        /// <summary>
+        /// Writes a driver's generic helmet for one helmet model as a PNG beside the race's
+        /// textures (once per driver, model and season, then cached) and returns its full path,
+        /// or null when the design is missing - the driver then wears the plain default helmet.
+        /// </summary>
+        private string GenerateGenericHelmet(string driverId, GenericHelmet helmet, HelmetEra era, string outputDirectory)
+        {
+            string folder = StoragePaths.GenericHelmetDesignsFolder;
+            string designFile = GenericHelmetComposer.DesignFile(folder, helmet.Design, era);
+            if (!File.Exists(designFile))
+            {
+                Console.WriteLine($"Warning: generic helmet design '{helmet.Design}' not found for the {era} helmet: {driverId} wears the default one");
+                return null;
+            }
+
+            string outputPath = Path.Combine(outputDirectory, $"{driverId}_generic_{era}_{seasonYear}.png");
+            string overlayFile = GenericHelmetComposer.OverlayFile(folder, era);
+            string key = string.Join("|", designFile, File.GetLastWriteTimeUtc(designFile).Ticks,
+                File.Exists(overlayFile) ? File.GetLastWriteTimeUtc(overlayFile).Ticks : 0, GenericLiveryComposer.Describe(GenericHelmetComposer.Palette(folder, helmet)));
+            if (!GenericLiveryComposer.IsCached(outputPath, key))
+            {
+                using var image = GenericHelmetComposer.Build(helmet, era, folder);
+                image.SaveAsPng(outputPath);
+                GenericLiveryComposer.MarkCached(outputPath, key);
+                Console.WriteLine($"  Generated generic helmet ({helmet.Design}): {Path.GetFileName(outputPath)}");
+            }
+            return outputPath;
         }
 
         /// <summary>

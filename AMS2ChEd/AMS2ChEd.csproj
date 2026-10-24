@@ -100,6 +100,10 @@
     <None Update="Drivers\base_helmet_liveries\player_helmets\**\*.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <!-- The generic designs colour-coded for baked drivers' generic_helmet, with the overlays laid over them -->
+    <None Update="Drivers\base_helmet_liveries\generic_designs\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Drivers\portraits\risciacqui.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

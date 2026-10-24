@@ -110,8 +110,15 @@ namespace AMS2ChEd.Tests
                 SixLabors.ImageSharp.ImageExtensions.SaveAsPng(uv, Path.Combine(modern, "uv.png"));
             using (var shading = new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(4, 4, new SixLabors.ImageSharp.PixelFormats.Rgba32(200, 200, 200, 255)))
                 SixLabors.ImageSharp.ImageExtensions.SaveAsPng(shading, Path.Combine(modern, "shading.png"));
+            // a tiny Modern generic design, all red key
+            string designs = Ams2ChEd.Business.AMS2.Helpers.StoragePaths.GenericHelmetDesignsFolder;
+            Directory.CreateDirectory(designs);
+            using (var design = new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(8, 8, new SixLabors.ImageSharp.PixelFormats.Rgba32(255, 0, 0, 255)))
+                SixLabors.ImageSharp.ImageExtensions.SaveAsPng(design, Path.Combine(designs, TestDesign + ".png"));
             return true;
         });
+
+        public const string TestDesign = "zz_test_design";
 
         public static void Ensure() => _ = Written.Value;
     }
