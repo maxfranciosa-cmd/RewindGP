@@ -14,19 +14,30 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
         {
             try
             {
-                if (!File.Exists(StoragePaths.DriversFilePath(seasonYear)))
+                var driversPath = StoragePaths.DriversFilePath(seasonYear);
+                var bakedPath = StoragePaths.BakedDriversFilePath(seasonYear);
+                bool hasPack = File.Exists(driversPath), hasBaked = File.Exists(bakedPath);
+                if (!hasPack && !hasBaked)
                 {
-                    throw new FileNotFoundException($"Drivers database not found at: {StoragePaths.DriversFilePath(seasonYear)}");
+                    throw new FileNotFoundException($"Drivers database not found at: {driversPath}");
                 }
 
-                string json = File.ReadAllText(StoragePaths.DriversFilePath(seasonYear));
-                var driversDb = JsonSerializer.Deserialize<DriverRatingsDatabase>(json, DefaultJsonSerializerOptions.Instance);
-                return driversDb.Drivers.ToDictionary(d => d.DriverId, d => (Ams2DriverData)d);
+                // As for the season: baked drivers, with an installed pack's helmets and portraits.
+                if (hasBaked)
+                    return BakedSeasonMerge.MergeDrivers(Read(bakedPath), hasPack ? Read(driversPath) : null);
+
+                return Read(driversPath);
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error loading drivers database: {ex.Message}", ex);
             }
+        }
+
+        private static Dictionary<string, Ams2DriverData> Read(string path)
+        {
+            var driversDb = JsonSerializer.Deserialize<DriverRatingsDatabase>(File.ReadAllText(path), DefaultJsonSerializerOptions.Instance);
+            return driversDb.Drivers.ToDictionary(d => d.DriverId, d => (Ams2DriverData)d);
         }
 
         public Dictionary<string, IDriverData> LoadDriversBase(int seasonYear)

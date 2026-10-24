@@ -4,6 +4,7 @@ using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
@@ -15,13 +16,27 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             try
             {
                 var seasonPath = StoragePaths.SeasonFilePath(seasonYear);
-                if (!File.Exists(seasonPath))
+                var bakedPath = StoragePaths.BakedSeasonFilePath(seasonYear);
+                bool hasPack = File.Exists(seasonPath), hasBaked = File.Exists(bakedPath);
+                if (!hasPack && !hasBaked)
                 {
                     throw new FileNotFoundException($"Season file not found at: {seasonPath}");
                 }
 
-                string json = File.ReadAllText(seasonPath);
-                var seasonData = JsonSerializer.Deserialize<Ams2Season>(json, DefaultJsonSerializerOptions.Instance);
+                // Baked data is the season; an installed pack only lays its artwork over it. With
+                // no baked data for the year, the pack is the whole season, as before.
+                Ams2Season seasonData;
+                if (hasBaked)
+                {
+                    var warnings = new List<string>();
+                    seasonData = BakedSeasonMerge.MergeSeason(Read(bakedPath), hasPack ? Read(seasonPath) : null, warnings);
+                    foreach (var warning in warnings)
+                        Trace.TraceWarning(warning);
+                }
+                else
+                {
+                    seasonData = Read(seasonPath);
+                }
 
                 // A team with no second car for the season is represented as a real
                 // Driver2Contract with an empty DriverId (so its reserved race number
@@ -43,18 +58,17 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             }
         }
 
+        private static Ams2Season Read(string path) =>
+            JsonSerializer.Deserialize<Ams2Season>(File.ReadAllText(path), DefaultJsonSerializerOptions.Instance);
+
         public IEnumerable<string> GetAvailableSeasons()
         {
             try
             {
-                // Locally installed seasons not in the manifest
-                var fromDisk = Directory.Exists(StoragePaths.SeasonsFolder)
-                    ? Directory.GetDirectories(StoragePaths.SeasonsFolder)
-                        .Select(d => int.TryParse(Path.GetFileName(d), out var y) ? y.ToString() : "")
-                        .Where(y => !string.IsNullOrEmpty(y))
-                    : Enumerable.Empty<string>();
-
-                return fromDisk.OrderBy(s => s).ToList();
+                return YearFolders(StoragePaths.BakedSeasonsFolder, StoragePaths.BakedSeasonFilePath)
+                    .Union(YearFolders(StoragePaths.SeasonsFolder, null))
+                    .OrderBy(s => s)
+                    .ToList();
             }
             catch (Exception ex)
             {
@@ -62,7 +76,40 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             }
         }
 
+        public IEnumerable<string> GetInstalledPackSeasons()
+        {
+            try
+            {
+                // Locally installed seasons not in the manifest
+                return YearFolders(StoragePaths.SeasonsFolder, null).OrderBy(s => s).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error getting installed season packs: {ex.Message}", ex);
+            }
+        }
+
+        // Year-named folders; with requiredFile, only those holding that year's file.
+        private static IEnumerable<string> YearFolders(string folder, Func<int, string> requiredFile)
+        {
+            if (!Directory.Exists(folder))
+                return Enumerable.Empty<string>();
+
+            return Directory.GetDirectories(folder)
+                .Select(d => int.TryParse(Path.GetFileName(d), out var y) ? y : 0)
+                .Where(y => y > 0 && (requiredFile == null || File.Exists(requiredFile(y))))
+                .Select(y => y.ToString());
+        }
+
         public DateTime GetSeasonUpdateDate(int seasonYear)
+        {
+            // A missing file reads as 1601, so the newer of the two is the one that exists.
+            var baked = File.GetLastWriteTimeUtc(StoragePaths.BakedSeasonFilePath(seasonYear));
+            var pack = File.GetLastWriteTimeUtc(StoragePaths.SeasonFilePath(seasonYear));
+            return baked > pack ? baked : pack;
+        }
+
+        public DateTime GetPackUpdateDate(int seasonYear)
         {
             return File.GetLastWriteTimeUtc(StoragePaths.SeasonFilePath(seasonYear));
         }

@@ -27,6 +27,18 @@ namespace AMS2ChEd.Tests.Business.Updater
         // -------------------------------------------------------------------------
 
         [TestMethod]
+        public void GetAvailability_PlayableFromAppDataButNoPack_ReturnsNotInstalled()
+        {
+            var manifest = ManifestBuilder.Build((1996, BaseDate, "https://example.com/1996.rwgp"));
+            var mockSeasonLoader = new MockSeasonLoader();
+            mockSeasonLoader.AddBakedOnlySeason("1996");
+            var svc = SeasonManifestServiceFactory.Create(manifest, mockSeasonLoader);
+
+            Assert.AreEqual(SeasonAvailability.NotInstalled, svc.GetAvailability(1996));
+            Assert.IsFalse(svc.IsInstalled(1996));
+        }
+
+        [TestMethod]
         public void GetAvailability_InManifestButNotInstalled_ReturnsNotInstalled()
         {
             var manifest = ManifestBuilder.Build((1996, BaseDate, "https://example.com/1996.rwgp"));

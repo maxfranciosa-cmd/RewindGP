@@ -82,7 +82,7 @@ namespace AMS2ChEd.Business.Updater
         // -------------------------------------------------------------------------
 
         public bool IsInstalled(int year) =>
-            _seasonLoader.GetAvailableSeasons().Any(y => y == year.ToString());
+            _seasonLoader.GetInstalledPackSeasons().Any(y => y == year.ToString());
 
         /// <summary>
         /// Reads the slug from the installed season.json.
@@ -114,7 +114,7 @@ namespace AMS2ChEd.Business.Updater
 
             if (entry.IsDefault) return SeasonAvailability.DefaultSeason;
 
-            var fileDate = _seasonLoader.GetSeasonUpdateDate(year);
+            var fileDate = _seasonLoader.GetPackUpdateDate(year);
             return (entry.LastUpdated > fileDate.Add(TimestampTolerance) || _forceUpdate) ? SeasonAvailability.UpdateAvailable : SeasonAvailability.UpToDate;
         }
 

@@ -51,7 +51,19 @@ namespace AMS2ChEd.Tests
             _seasonsWithUpdateDates.Remove(year);
         }
 
+        // Seasons the app ships data for, with no pack installed: playable, not "installed".
+        private readonly HashSet<string> _bakedOnlySeasons = new HashSet<string>();
+        public void AddBakedOnlySeason(string year)
+        {
+            _bakedOnlySeasons.Add(year);
+        }
+
         public IEnumerable<string> GetAvailableSeasons()
+        {
+            return _seasonsWithUpdateDates.Keys.Union(_bakedOnlySeasons);
+        }
+
+        public IEnumerable<string> GetInstalledPackSeasons()
         {
             return _seasonsWithUpdateDates.Keys;
         }
