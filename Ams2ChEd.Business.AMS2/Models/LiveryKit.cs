@@ -64,6 +64,19 @@ namespace AMS2ChEd.Business.AMS2.Models
         [JsonPropertyName("fill_key")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string FillKey { get; set; }
+
+        /// <summary>
+        /// Optional palette key the digits take on this plate (a nose plate on white paint wants
+        /// different digits from a wing plate on red). Null: the team's number_fill.
+        /// </summary>
+        [JsonPropertyName("number_fill_key")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string NumberFillKey { get; set; }
+
+        /// <summary>As NumberFillKey, for the outline of a two-colour number style.</summary>
+        [JsonPropertyName("number_outline_key")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string NumberOutlineKey { get; set; }
     }
 
     /// <summary>

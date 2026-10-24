@@ -1041,7 +1041,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                 Console.WriteLine($"Warning: number style '{livery.NumberStyle}' not found: {team.TeamId} races without numbers");
 
             string key = string.Join("|", templatePath, File.GetLastWriteTimeUtc(templatePath).Ticks, GenericLiveryComposer.Describe(livery.Palette),
-                numbers ? $"{carNumber}|{stylePath}|{livery.NumberFill}|{livery.NumberOutline}" : "no numbers");
+                numbers ? $"{carNumber}|{stylePath}|{livery.NumberFill}|{livery.NumberOutline}|" + string.Join(",", template.NumbersPlacements.Select(p => $"{p.NumberFillKey}/{p.NumberOutlineKey}")) : "no numbers");
             if (GenericLiveryComposer.IsCached(outputPath, key))
             {
                 Console.WriteLine($"  Generic livery unchanged: {Path.GetFileName(outputPath)}");
@@ -1063,11 +1063,15 @@ namespace Ams2ChEd.Business.AMS2.Services
                     int height = plate.SheetSize?.Length == 2 ? plate.SheetSize[1] : 0;
                     // One sheet per team and plate size, shared by its cars (.png: not swept by
                     // the per-season clean-up, and cached on its own inputs).
-                    string sheetPath = Path.Combine(temporaryTexturesPath, $"{team.TeamId}_numbers_{width}x{height}_{seasonYear}.png");
-                    string sheetKey = $"{stylePath}|{File.GetLastWriteTimeUtc(stylePath).Ticks}|{livery.NumberFill}|{livery.NumberOutline}";
+                    // A plate can name its own digit colours (palette keys); else the team's.
+                    string fill = PaletteColour(livery.Palette, plate.NumberFillKey) ?? livery.NumberFill;
+                    string outline = PaletteColour(livery.Palette, plate.NumberOutlineKey) ?? livery.NumberOutline;
+                    string colours = $"{fill}{outline}".Replace("#", "");
+                    string sheetPath = Path.Combine(temporaryTexturesPath, $"{team.TeamId}_numbers_{width}x{height}_{colours}_{seasonYear}.png");
+                    string sheetKey = $"{stylePath}|{File.GetLastWriteTimeUtc(stylePath).Ticks}|{fill}|{outline}";
                     if (!GenericLiveryComposer.IsCached(sheetPath, sheetKey))
                     {
-                        using var sheet = GenericLiveryComposer.BuildNumberSheet(stylePath, style.TwoColour, width, height, livery.NumberFill, livery.NumberOutline);
+                        using var sheet = GenericLiveryComposer.BuildNumberSheet(stylePath, style.TwoColour, width, height, fill, outline);
                         sheet.SaveAsPng(sheetPath);
                         GenericLiveryComposer.MarkCached(sheetPath, sheetKey);
                     }
