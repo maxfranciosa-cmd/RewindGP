@@ -707,6 +707,10 @@ namespace Ams2ChEd.Business.AMS2.Services
                 // Generate helmet/visor DDS files for this car model
                 GenerateHelmetVisorDDSForCarModel(raceId, carModel, entries, temporaryTexturesPath, seasonDirectory);
 
+                // Drivers whose team has no preview of its own get one made from the helmet
+                // just generated, their number and their name.
+                var helmetPreviews = GenerateHelmetPreviews(raceId, carModel, entries, temporaryTexturesPath, seasonDirectory);
+
                 // Track preview files already copied for this car model, since LiveryPreview is a
                 // team-level field: a 2-driver team would otherwise copy the exact same source file
                 // onto the exact same destination twice back-to-back for no reason.
@@ -729,9 +733,14 @@ namespace Ams2ChEd.Business.AMS2.Services
                     var numbersPlacements = raceOverride?.NumbersPlacements ?? team.NumbersPlacements;
 
                     // Copy the preview livery file. A team with no preview (baked data with no
-                    // season pack) gets an empty PREVIEWIMAGE path: no thumbnail in AMS2's menu.
+                    // season pack) shows the driver's helmet preview, or nothing if none was made.
                     string finalPreviewPath = string.Empty;
-                    if (!string.IsNullOrEmpty(previewFile))
+                    if (string.IsNullOrEmpty(previewFile))
+                    {
+                        if (driverId != null && helmetPreviews.TryGetValue((driverId, team.TeamId), out var helmetPreview))
+                            finalPreviewPath = helmetPreview;
+                    }
+                    else
                     {
                         finalPreviewPath = Path.Combine("temporary_textures", previewFile);
                         string finalPreviewPathDirectory = Path.Combine(carModelDirectory, Path.GetDirectoryName(finalPreviewPath));
@@ -1161,6 +1170,98 @@ namespace Ams2ChEd.Business.AMS2.Services
                     new XAttribute("NAME", textureName),
                     new XAttribute("PATH", Path.Combine("..", "tyres", fileName))));
             }
+        }
+
+        /// <summary>
+        /// Writes a helmet preview for every slot of this car model whose team (or race
+        /// override) names no preview, in parallel; returns the relative path of each, by
+        /// (driver, team). Needs this race's helmet textures already written.
+        /// </summary>
+        private Dictionary<(string driverId, string teamId), string> GenerateHelmetPreviews(
+            int raceId,
+            string carModel,
+            List<(EntryListEntry entry, Ams2TeamEntry team, int driverNumber, bool forceSolidColourFallback)> entries,
+            string temporaryTexturesPath,
+            string seasonDirectory)
+        {
+            var maps = HelmetPreviewComposer.LoadMaps(Path.Combine(StoragePaths.HelmetPreviewsFolder, HelmetEraFor(carModel).ToString()));
+            if (maps == null)
+                return new Dictionary<(string, string), string>();
+
+            var jobs = entries
+                .Where(e => string.IsNullOrEmpty(e.team.LiveryOverrides?.FirstOrDefault(o => o.RaceId == raceId)?.LiveryPreview ?? e.team.LiveryPreview))
+                .Select(e => (e.team, e.driverNumber, driverId: e.driverNumber == 1 ? e.entry.Driver1Id : e.entry.Driver2Id))
+                .Where(j => !string.IsNullOrEmpty(j.driverId) && driversDict.ContainsKey(j.driverId))
+                .ToList();
+
+            var previews = new System.Collections.Concurrent.ConcurrentDictionary<(string, string), string>();
+            Parallel.ForEach(jobs, new ParallelOptions { MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount / 2) }, job =>
+            {
+                try
+                {
+                    string path = GenerateHelmetPreview(job.team, job.driverId, job.driverNumber, OverrideTextureTag(job.team, raceId), maps, temporaryTexturesPath, seasonDirectory);
+                    if (path != null)
+                        previews[(job.driverId, job.team.TeamId)] = path;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning: helmet preview for {job.driverId} failed: {ex.Message}");
+                }
+            });
+            return new Dictionary<(string, string), string>(previews);
+        }
+
+        private string GenerateHelmetPreview(Ams2TeamEntry team, string driverId, int driverNumber, string textureTag,
+            HelmetPreviewComposer.HelmetMaps maps, string temporaryTexturesPath, string seasonDirectory)
+        {
+            string helmetPath = Path.Combine(temporaryTexturesPath, $"{driverId}_{team.TeamId}{textureTag}_{seasonYear}.dds");
+            if (!File.Exists(helmetPath))
+                return null;
+
+            var driver = driversDict[driverId];
+            int carNumber = driverNumber == 1 ? team.Driver1Contract.DriverNumber : team.Driver2Contract.DriverNumber;
+            string background = PaletteColour(team.GenericLivery?.Palette, "red") ?? team.Color ?? "#808080";
+
+            // The number in the team's own style: its generic number style, or its season pack's
+            // first number sheet; otherwise lettered.
+            string sheetPath = null, sheetKey = "lettered";
+            NumberStyle style = null;
+            if (team.GenericLivery != null && liveryKits?.FindNumberStyle(team.GenericLivery.NumberStyle) is NumberStyle generic && File.Exists(liveryKits.NumberStylePath(team.GenericLivery.NumberStyle)))
+            {
+                style = generic;
+                sheetPath = liveryKits.NumberStylePath(team.GenericLivery.NumberStyle);
+                sheetKey = $"{sheetPath}|{team.GenericLivery.NumberFill}|{team.GenericLivery.NumberOutline}";
+            }
+            else if (team.NumbersPlacements?.FirstOrDefault()?.GetNumbersTexture(driverNumber) is string packSheet)
+            {
+                string resolved = Path.IsPathRooted(packSheet) ? packSheet : Path.Combine(seasonDirectory, packSheet);
+                if (File.Exists(resolved))
+                {
+                    sheetPath = resolved;
+                    sheetKey = $"{resolved}|{File.GetLastWriteTimeUtc(resolved).Ticks}";
+                }
+            }
+
+            string fileName = $"{driverId}_{team.TeamId}{textureTag}_preview_{seasonYear}.dds";
+            string outputPath = Path.Combine(temporaryTexturesPath, fileName);
+            string helmetHash;
+            using (var md5 = System.Security.Cryptography.MD5.Create())
+            using (var stream = File.OpenRead(helmetPath))
+                helmetHash = Convert.ToHexString(md5.ComputeHash(stream));
+            string key = string.Join("|", helmetHash, carNumber, driver.Name, team.TeamName, background, sheetKey);
+            if (!GenericLiveryComposer.IsCached(outputPath, key))
+            {
+                using var texture = DdsTextureComposer.LoadImage(helmetPath);
+                using var helmet = HelmetPreviewComposer.RenderHelmet(texture, maps);
+                using var sheet = sheetPath == null ? null
+                    : style != null ? GenericLiveryComposer.BuildNumberSheet(sheetPath, style.TwoColour, 0, 0, team.GenericLivery.NumberFill, team.GenericLivery.NumberOutline)
+                    : DdsTextureComposer.LoadImage(sheetPath);
+                using var card = HelmetPreviewComposer.ComposeCard(helmet, TemplateRecolour.ParseColour(background), carNumber, sheet, driver.Name, team.TeamName);
+                DdsTextureComposer.SaveAsDds(card, outputPath);
+                GenericLiveryComposer.MarkCached(outputPath, key);
+                Console.WriteLine($"  Generated helmet preview: {fileName}");
+            }
+            return Path.Combine("temporary_textures", fileName);
         }
 
         private static string PaletteColour(IReadOnlyDictionary<string, string> palette, string key) =>

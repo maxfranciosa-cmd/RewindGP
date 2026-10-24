@@ -25,6 +25,9 @@ public class DdsTextureComposer
     // system instead of repeatedly claiming every core.
     private static readonly int EncoderTaskCount = Math.Max(1, Environment.ProcessorCount / 2);
 
+    /// <summary>A .dds or ordinary image file, decoded.</summary>
+    public static Image<Rgba32> LoadImage(string texturePath) => LoadTexture(texturePath);
+
     private static Image<Rgba32> LoadTexture(string texturePath)
     {
         var isDds = Path.GetExtension(texturePath) == ".dds";

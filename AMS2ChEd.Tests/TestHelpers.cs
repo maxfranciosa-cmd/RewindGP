@@ -95,3 +95,24 @@ namespace AMS2ChEd.Tests
         }
     }
 }
+
+namespace AMS2ChEd.Tests
+{
+    // The helmet-preview maps, where the app looks for them (beside the test assembly): a tiny
+    // all-shell view of the Modern helmet, written once for the tests running in parallel.
+    public static class HelmetPreviewTestMaps
+    {
+        private static readonly Lazy<bool> Written = new Lazy<bool>(() =>
+        {
+            string modern = Path.Combine(Ams2ChEd.Business.AMS2.Helpers.StoragePaths.HelmetPreviewsFolder, "Modern");
+            Directory.CreateDirectory(modern);
+            using (var uv = new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba64>(4, 4, new SixLabors.ImageSharp.PixelFormats.Rgba64(32768, 32768, 0, 65535)))
+                SixLabors.ImageSharp.ImageExtensions.SaveAsPng(uv, Path.Combine(modern, "uv.png"));
+            using (var shading = new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(4, 4, new SixLabors.ImageSharp.PixelFormats.Rgba32(200, 200, 200, 255)))
+                SixLabors.ImageSharp.ImageExtensions.SaveAsPng(shading, Path.Combine(modern, "shading.png"));
+            return true;
+        });
+
+        public static void Ensure() => _ = Written.Value;
+    }
+}

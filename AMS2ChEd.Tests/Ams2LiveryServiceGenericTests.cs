@@ -1,3 +1,4 @@
+using Ams2ChEd.Business.AMS2.Helpers;
 using Ams2ChEd.Business.AMS2.Services;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage;
@@ -28,7 +29,8 @@ namespace AMS2ChEd.Tests.Ams2
             var xml = XDocument.Load(Path.Combine(carFolder, $"{CarModel}.xml")).Root;
             var livery = xml.Element("LIVERY_OVERRIDE");
             Assert.AreEqual(@"temporary_textures\williams_5_1996.dds", Texture(livery, "BODY"));
-            Assert.AreEqual("", livery.Element("PREVIEWIMAGE").Attribute("PATH").Value);
+            Assert.AreEqual(@"temporary_textures\damon_hill_williams_preview_1996.dds", livery.Element("PREVIEWIMAGE").Attribute("PATH").Value);
+            Assert.IsTrue(File.Exists(Path.Combine(carFolder, "temporary_textures", "damon_hill_williams_preview_1996.dds")));
             Assert.AreEqual(@"..\tyres\tire_diff.dds", Texture(livery, "TIREDIFF"));
             Assert.IsTrue(File.Exists(Path.Combine(carFolder, "..", "tyres", "tire_diff.dds")));
             Assert.IsTrue(File.Exists(Path.Combine(carFolder, "temporary_textures", "williams_5_1996.dds")));
@@ -60,6 +62,7 @@ namespace AMS2ChEd.Tests.Ams2
 
         private static (Ams2LiveryService, List<EntryListEntry>) Build(TempFolder folder, bool withLivery)
         {
+            HelmetPreviewTestMaps.Ensure();
             string kits = Path.Combine(folder.Root, "LiveryKits");
             string kit = Path.Combine(kits, CarModel);
             folder.Png(Path.Combine(kit, "templates", "t.png"), new Rgba32(255, 0, 0, 255));

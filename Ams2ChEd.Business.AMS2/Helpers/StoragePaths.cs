@@ -84,6 +84,20 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             }
         }
 
+        // Helmet-preview lookup maps, one subfolder per helmet era (Modern, Nineties, ...).
+        private static string _helmetPreviewsFolder = null;
+        public static string HelmetPreviewsFolder
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_helmetPreviewsFolder))
+                {
+                    _helmetPreviewsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "HelmetPreviews");
+                }
+                return _helmetPreviewsFolder;
+            }
+        }
+
         private static string _tyreSetsFilePath = null;
         public static string TyreSetsFilePath
         {
