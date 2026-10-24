@@ -242,7 +242,8 @@
     <None Update="Tyres\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="HelmetPreviews\**">
+    <!-- Only the maps the previews read, not any working files kept beside them. -->
+    <None Update="HelmetPreviews\**\uv.png;HelmetPreviews\**\shading.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <!-- Also embedded for WPF (Resource below); this copy is for the helmet previews drawn outside WPF. -->

@@ -86,7 +86,11 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                               ?? (ResolveHelmet(HelmetPicker.DefaultBaseHelmetFile(era), seasonDirectory) is string fallback ? DdsTextureComposer.LoadImage(fallback) : null);
                         if (texture == null)
                             continue;
-                        helmets.Add(HelmetPreviewComposer.RenderHelmet(texture, maps));
+                        // their visor, else the default one, as at race time
+                        string visorPick = driver == null ? null : HelmetPicker.PickVisorFile(driver, era);
+                        string visorPath = ResolveHelmet(string.IsNullOrEmpty(visorPick) ? HelmetPicker.DefaultBaseVisorFile(era) : visorPick, seasonDirectory);
+                        using var visor = visorPath != null ? DdsTextureComposer.LoadImage(visorPath) : null;
+                        helmets.Add(HelmetPreviewComposer.RenderHelmet(texture, maps, visor));
                     }
 
                     string colour = team.GenericLivery?.Palette?.FirstOrDefault(p => string.Equals(p.Key, "red", StringComparison.OrdinalIgnoreCase)).Value ?? team.Color ?? "#808080";

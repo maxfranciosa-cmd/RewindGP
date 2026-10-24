@@ -1257,19 +1257,19 @@ namespace Ams2ChEd.Business.AMS2.Services
             if (!File.Exists(helmetPath))
                 return null;
 
-            var driver = driversDict[driverId];
             int carNumber = driverNumber == 1 ? team.Driver1Contract.DriverNumber : team.Driver2Contract.DriverNumber;
             string background = PaletteColour(team.GenericLivery?.Palette, "red") ?? team.Color ?? "#808080";
 
             // The number in the team's own style: its generic number style, or its season pack's
             // first number sheet; otherwise lettered.
-            string sheetPath = null, sheetKey = "lettered";
+            string sheetPath = null, sheetKey = "lettered", numberFill = null, numberOutline = null;
             NumberStyle style = null;
             if (team.GenericLivery != null && liveryKits?.FindNumberStyle(team.GenericLivery.NumberStyle) is NumberStyle generic && File.Exists(liveryKits.NumberStylePath(team.GenericLivery.NumberStyle)))
             {
                 style = generic;
                 sheetPath = liveryKits.NumberStylePath(team.GenericLivery.NumberStyle);
-                sheetKey = $"{sheetPath}|{team.GenericLivery.NumberFill}|{team.GenericLivery.NumberOutline}";
+                (numberFill, numberOutline) = NumberColoursFor(team, TemplateRecolour.ParseColour(background));
+                sheetKey = $"{sheetPath}|{numberFill}|{numberOutline}";
             }
             else if (team.NumbersPlacements?.FirstOrDefault()?.GetNumbersTexture(driverNumber) is string packSheet)
             {
@@ -1283,24 +1283,52 @@ namespace Ams2ChEd.Business.AMS2.Services
 
             string fileName = $"{driverId}_{team.TeamId}{textureTag}_preview_{seasonYear}.dds";
             string outputPath = Path.Combine(temporaryTexturesPath, fileName);
-            string helmetHash;
-            using (var md5 = System.Security.Cryptography.MD5.Create())
-            using (var stream = File.OpenRead(helmetPath))
-                helmetHash = Convert.ToHexString(md5.ComputeHash(stream));
-            string key = string.Join("|", helmetHash, carNumber, driver.Name, team.TeamName, background, sheetKey);
+            // the visor written beside the helmet, when the driver has one
+            string visorPath = Path.Combine(temporaryTexturesPath, $"{driverId}_{team.TeamId}{textureTag}_{seasonYear}_visor.dds");
+            if (!File.Exists(visorPath))
+                visorPath = null;
+            string Hash(string path)
+            {
+                using var md5 = System.Security.Cryptography.MD5.Create();
+                using var stream = File.OpenRead(path);
+                return Convert.ToHexString(md5.ComputeHash(stream));
+            }
+            string key = string.Join("|", Hash(helmetPath), visorPath == null ? "no visor" : Hash(visorPath), carNumber, background, sheetKey);
             if (!GenericLiveryComposer.IsCached(outputPath, key))
             {
                 using var texture = DdsTextureComposer.LoadImage(helmetPath);
-                using var helmet = HelmetPreviewComposer.RenderHelmet(texture, maps);
+                using var visor = visorPath == null ? null : DdsTextureComposer.LoadImage(visorPath);
+                using var helmet = HelmetPreviewComposer.RenderHelmet(texture, maps, visor);
                 using var sheet = sheetPath == null ? null
-                    : style != null ? GenericLiveryComposer.BuildNumberSheet(sheetPath, style.TwoColour, 0, 0, team.GenericLivery.NumberFill, team.GenericLivery.NumberOutline)
+                    : style != null ? GenericLiveryComposer.BuildNumberSheet(sheetPath, style.TwoColour, 0, 0, numberFill, numberOutline)
                     : DdsTextureComposer.LoadImage(sheetPath);
-                using var card = HelmetPreviewComposer.ComposeCard(helmet, TemplateRecolour.ParseColour(background), carNumber, sheet, driver.Name, team.TeamName);
+                using var card = HelmetPreviewComposer.ComposeCard(helmet, TemplateRecolour.ParseColour(background), carNumber, sheet);
                 DdsTextureComposer.SaveAsDds(card, outputPath);
                 GenericLiveryComposer.MarkCached(outputPath, key);
                 Console.WriteLine($"  Generated helmet preview: {fileName}");
             }
             return Path.Combine("temporary_textures", fileName);
+        }
+
+        /// <summary>
+        /// The digit colours for the preview's number square: of the team's own number colours and
+        /// those of each plate on its template, the pair whose digits stand out most on the square.
+        /// </summary>
+        private (string fill, string outline) NumberColoursFor(Ams2TeamEntry team, SixLabors.ImageSharp.PixelFormats.Rgba32 square)
+        {
+            var livery = team.GenericLivery;
+            var candidates = new List<(string fill, string outline)> { (livery.NumberFill, livery.NumberOutline) };
+            var template = liveryKits?.FindKit(team.Ams2Car)?.FindTemplate(livery.Template);
+            foreach (var plate in template?.NumbersPlacements ?? new List<KitNumbersPlacement>())
+                candidates.Add((PaletteColour(livery.Palette, plate.NumberFillKey) ?? livery.NumberFill, PaletteColour(livery.Palette, plate.NumberOutlineKey) ?? livery.NumberOutline));
+
+            double Distance(string hex)
+            {
+                if (string.IsNullOrEmpty(hex)) return 0;
+                var c = TemplateRecolour.ParseColour(hex);
+                return Math.Sqrt(Math.Pow(c.R - square.R, 2) + Math.Pow(c.G - square.G, 2) + Math.Pow(c.B - square.B, 2));
+            }
+            return candidates.OrderByDescending(c => Distance(c.fill ?? "#FFFFFF")).First();
         }
 
         private static string PaletteColour(IReadOnlyDictionary<string, string> palette, string key) =>
