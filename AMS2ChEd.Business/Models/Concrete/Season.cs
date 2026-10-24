@@ -123,12 +123,22 @@ namespace AMS2ChEd.Business.Models.Concrete
         // why the absence happens; null for the absences a season pack brings
         [JsonPropertyName("reason")]
         public AbsenceReason? Reason { get; set; }
+
+        // INJURY and DECEASED: the race where the crash happened
+        [JsonPropertyName("incident_race_id")]
+        public int? IncidentRaceId { get; set; }
     }
 
     [JsonConverter(typeof(GenericEnumConverter<AbsenceReason>))]
     public enum AbsenceReason
     {
         // the driver stands down for one race as the player pays for the seat (PaidRides)
-        PAID_RIDE
+        PAID_RIDE,
+
+        // the driver is recovering from a crash (CrashIncidentManager)
+        INJURY,
+
+        // the driver died in a crash: an absence for every race left in the season
+        DECEASED
     }
 }

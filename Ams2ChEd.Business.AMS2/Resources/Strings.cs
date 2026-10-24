@@ -147,5 +147,9 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string Ams2ImprovementPackage_Weight_Name => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Weight_Name))!;
         public static string Ams2ImprovementPackage_Weight_Improved => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Weight_Improved))!;
         public static string Ams2ImprovementPackage_Weight_Worsened => ResourceManager.GetString(nameof(Ams2ImprovementPackage_Weight_Worsened))!;
+        public static string OptionsWindow_CrashesLabel => ResourceManager.GetString(nameof(OptionsWindow_CrashesLabel))!;
+        public static string OptionsWindow_CrashDetectionLabel => ResourceManager.GetString(nameof(OptionsWindow_CrashDetectionLabel))!;
+        public static string OptionsWindow_FatalitiesLabel => ResourceManager.GetString(nameof(OptionsWindow_FatalitiesLabel))!;
+        public static string OptionsWindow_PlayerDeathLabel => ResourceManager.GetString(nameof(OptionsWindow_PlayerDeathLabel))!;
     }
 }

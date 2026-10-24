@@ -103,12 +103,17 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 var newReputation = GetNewReputation(currentDriver, seasonRecapsByDriverId, reserveDriverIds, nextSeasonYear, saveGame.CurrentSeason.Races.Count());
 
                 // a driver without a seat who sank to the bottom at retirement age quietly retires
-                // (no send-off article: they're retired before the off-season looks for newly retired drivers)
+                // (no send-off article: they're retired before the off-season looks for newly retired drivers).
+                // So does one who died in a crash without holding a race seat: the race report was
+                // their article. One in a race seat leaves it as a retiring driver does
+                // (GetTeamSituationBeforeDriverMarket); the player is never retired, dead or alive
+                var deceasedWithoutSeat = saveGame.IsDeceased(currentDriver.DriverId) && !raceDriverIds.Contains(currentDriver.DriverId);
                 if (currentDriver.DriverId != saveGame.PlayerData.DriverId &&
-                    !raceDriverIds.Contains(currentDriver.DriverId) &&
-                    !reserveDriverIds.Contains(currentDriver.DriverId) &&
-                    IsInactive(currentDriver, seasonRecapsByDriverId) &&
-                    IsRetiringFromInactivity(newReputation, nextSeasonYear - currentDriver.YearOfBirth))
+                    (deceasedWithoutSeat ||
+                     (!raceDriverIds.Contains(currentDriver.DriverId) &&
+                      !reserveDriverIds.Contains(currentDriver.DriverId) &&
+                      IsInactive(currentDriver, seasonRecapsByDriverId) &&
+                      IsRetiringFromInactivity(newReputation, nextSeasonYear - currentDriver.YearOfBirth))))
                 {
                     retiringFromInactivity.Add(currentDriver);
                     driversNewSeasonDictionary.Remove(currentDriver.DriverId);
@@ -250,17 +255,19 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     TeamId = e.TeamId,
                     TeamQuitting = (nextSeasonTeamReputation == null),
                     Reputation = nextSeasonTeamReputation ?? e.Reputation,
+                    // a driver who died in a crash leaves the seat as a retiring one does (the
+                    // player too, who otherwise never retires)
                     Driver1 = new DriverSituation
                     {
                         DriverId = driver1.DriverId,
-                        DriverRetiring = driver1.DriverId != saveGame.PlayerData.DriverId && IsDriverRetiring(nextSeason.Year - driver1.YearOfBirth),
+                        DriverRetiring = saveGame.IsDeceased(driver1.DriverId) || (driver1.DriverId != saveGame.PlayerData.DriverId && IsDriverRetiring(nextSeason.Year - driver1.YearOfBirth)),
                         RacesLeftInContract = e.Driver1Contract.Races - saveGame.CurrentSeason.Races.Count(),
                         Reputation = driver1.Reputation
                     },
                     Driver2 = !hasDriver2 ? null : new DriverSituation
                     {
                         DriverId = driver2.DriverId,
-                        DriverRetiring = driver2.DriverId != saveGame.PlayerData.DriverId && IsDriverRetiring(nextSeason.Year - driver2.YearOfBirth),
+                        DriverRetiring = saveGame.IsDeceased(driver2.DriverId) || (driver2.DriverId != saveGame.PlayerData.DriverId && IsDriverRetiring(nextSeason.Year - driver2.YearOfBirth)),
                         RacesLeftInContract = e.Driver2Contract.Races - saveGame.CurrentSeason.Races.Count(),
                         Reputation = driver2.Reputation
                     }
@@ -417,6 +424,11 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var guaranteedHirings = new List<TeamHiring>();
             var playerId = saveGame.PlayerData.DriverId;
 
+            // a player whose driver died is never on the market again (their entry stays in the save)
+            var playerDeceased = saveGame.IsDeceased(playerId);
+            if (playerDeceased)
+                driversDictionary.Remove(playerId);
+
             foreach (var teamEntry in newSeasonTeamEntries)
             {
                 // assuming both drivers are needed if the team is not in the dropTeamsResult
@@ -443,7 +455,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
                     if (driver1DropOutcome == DriverFirerOutcome.DROPPED_RETIRING)
                     {
-                        idsOfRetiringDrivers.Add(driver1Id);
+                        if (driver1Id != playerId)
+                            idsOfRetiringDrivers.Add(driver1Id);
                         // if the driver is retiring we are marking them as processed as it won't go to the unemployment list
                         driversDictionary.Remove(driver1Id);
                     }
@@ -466,7 +479,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     {
                         if (driver2DropOutcome == DriverFirerOutcome.DROPPED_RETIRING)
                         {
-                            idsOfRetiringDrivers.Add(driver2Id);
+                            if (driver2Id != playerId)
+                                idsOfRetiringDrivers.Add(driver2Id);
                             // if the driver is retiring we are marking them as processed as it won't go to the unemployment list
                             driversDictionary.Remove(driver2Id);
                         }
@@ -640,7 +654,15 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // exclude the player from the unemployed drivers the player (they will choose on a specific screen)
             unemployedDrivers.RemoveAll(d => d.DriverId == saveGame.PlayerData.DriverId);
 
-            return _offSeasonMovements.DriversProposeToTeams(unemployedDrivers, teamProvisionalHirings.Concat(provisionalHiringsWithGeneratedDrivers).Concat(guaranteedHirings));
+            // nor are they a team's fallback when its pick signs elsewhere
+            // (OffSeasonMovements.FinalBallotResults): the player only gets a seat they applied for
+            var allHirings = teamProvisionalHirings.Concat(provisionalHiringsWithGeneratedDrivers).Concat(guaranteedHirings).ToList();
+            foreach (var hiring in allHirings)
+            {
+                hiring.OtherPotentialCandidates = hiring.OtherPotentialCandidates?.Where(d => d.Id != playerId).ToList();
+            }
+
+            return _offSeasonMovements.DriversProposeToTeams(unemployedDrivers, allHirings);
 
         }
 
@@ -915,6 +937,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             saveGame.CurrentDriverStandings = InitializeDriverStandings(newSeason);
             saveGame.CurrentConstructorStandings = InitializeConstructorStandings(newSeason);
             saveGame.NextGpIndex = 0;
+            // race ids repeat from season to season: no list is left over for the new one's first race
+            saveGame.NextGpEntryList = null;
+            saveGame.NextGpEntryListRaceId = null;
             saveGame.CurrentSeason = newSeason;
             saveGame.Reprimands = new List<Reprimand>();
 

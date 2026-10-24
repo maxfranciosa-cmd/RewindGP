@@ -661,6 +661,42 @@ namespace AMS2ChEd.Tests.Business.Services
         }
 
         [TestMethod]
+        public void FinalBallotResults_PickDeclinedByPlayerAndNoCandidates_FallsBackOnOtherPotentialCandidates()
+        {
+            // Arrange - the team picked the player, who didn't apply (TeamApplicationWindow clears
+            // the pick), and nobody else applied
+            var ballots = new[]
+            {
+                new TeamHiringBallot
+                {
+                    OriginalTeamHiring = new TeamHiring
+                    {
+                        TeamId = "T1",
+                        DriverId = null,
+                        Role = DriverRole.FIRST_DRIVER,
+                        Slot = 1,
+                        TeamReputation = TeamReputation.TOP_TEAM,
+                        DriverReputation = DriverReputation.YOUNG_TALENT,
+                        OtherPotentialCandidates = new List<DriverResume>
+                        {
+                            new DriverResume { Id = "STAR", Reputation = DriverReputation.PRIME_CHAMPIONSHIP_LEVEL }
+                        }
+                    },
+                    Candidates = new List<TeamHiringBallotCandidate>()
+                }
+            };
+
+            // Act
+            var results = _offSeasonMovements.FinalBallotResults(ballots).ToList();
+
+            // Assert - the seat isn't left to a null driver; with nobody of the pick's reputation
+            // or lower, the best one still free signs
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("STAR", results[0].DriverId);
+            Assert.AreEqual(1, results[0].Slot);
+        }
+
+        [TestMethod]
         public void FinalBallotResults_OriginalWinsButAlsoInResult_OnlyOneHiring()
         {
             // Arrange - Tests the bug where if original wins, BOTH original AND bestCandidate are added

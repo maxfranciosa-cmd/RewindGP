@@ -67,12 +67,36 @@
         /// race the player drives, AI-vs-AI contact isn't detected, and isn't invented either.
         /// </summary>
         public IReadOnlyCollection<TeammateContact> TeammateContacts { get; set; } = Array.Empty<TeammateContact>();
+
+        /// <summary>
+        /// The race's crashes: rolled for a simulated race (SimulatedIncidentGenerator), or found in
+        /// the telemetry of a race the player drives (CrashDetector, when crash detection is on).
+        /// Detected ones go past the player first, who can dismiss a misfire.
+        /// </summary>
+        public IReadOnlyCollection<RaceCrash> Crashes { get; set; } = Array.Empty<RaceCrash>();
     }
 
     public class TeammateContact
     {
         public string AtFaultDriverId { get; set; }
         public string OtherDriverId { get; set; }
+    }
+
+    public class RaceCrash
+    {
+        public string DriverId { get; set; }
+        public string TeamId { get; set; }
+        public CrashDetection.CrashSeverity Severity { get; set; }
+
+        // the car carried on after it: a lower injury chance, never fatal (CrashOutcomeRoller)
+        public bool DroveOn { get; set; }
+
+        // found in the telemetry rather than rolled: the player reviews it before it counts
+        public bool Detected { get; set; }
+
+        // what the detector measured, for the review: km/h, and the lap
+        public double? ImpactSpeedKmh { get; set; }
+        public int? Lap { get; set; }
     }
 
     /// <summary>

@@ -60,8 +60,12 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             bool playerAcceptedContract = false;
 
+            // a player whose driver died in a crash gets no letters and applies nowhere: the save
+            // carries on with every race simulated
+            var playerDeceased = saveGame.IsPlayerDeceased();
+
             // if the player is employed by a team
-            if (!string.IsNullOrEmpty(saveGame.PlayerData.TeamId))
+            if (!playerDeceased && !string.IsNullOrEmpty(saveGame.PlayerData.TeamId))
             {
                 playerAcceptedContract = await uiCallbacks.ShowContractLetterAsync(saveGame, originalNewSeason.Teams, playerDropResult, playerReputation);
             }
@@ -80,7 +84,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 TeamsWantingReserve = EndOfSeasonManager.RollReserveWishes(originalNewSeason.Teams, Random.Shared)
             };
 
-            var playerReserveTeam = saveGame.CurrentSeason.ReserveTeamOf(saveGame.PlayerData.DriverId);
+            var playerReserveTeam = playerDeceased ? null : saveGame.CurrentSeason.ReserveTeamOf(saveGame.PlayerData.DriverId);
             if (playerReserveTeam != null && originalNewSeason.Teams.Any(t => t.TeamId == playerReserveTeam.TeamId))
             {
                 var reserveLetter = new ReserveLetter
@@ -119,8 +123,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // STEP 3.5: Show a retirement send-off article for any driver who newly retired this off-season.
             // saveGame.CurrentSeason is still the season that just finished at this point, so their
             // last team can still be looked up from it before StartNewSeason (STEP 8) replaces it.
+            // Not for a driver who died in a crash: the race report was their article
             var newlyRetiredDrivers = (saveGame.RetiredDrivers ?? Enumerable.Empty<IDriverData>())
-                .Where(d => !previouslyRetiredDriverIds.Contains(d.DriverId))
+                .Where(d => !previouslyRetiredDriverIds.Contains(d.DriverId) && !saveGame.IsDeceased(d.DriverId))
                 .ToList();
 
             foreach (var retiredDriver in newlyRetiredDrivers)
@@ -134,7 +139,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // STEP 4: If player needs to apply, show team selection window
             IEnumerable<TeamHiringBallot> finalBallots = ballots;
 
-            if (!playerAcceptedContract)
+            if (!playerAcceptedContract && !playerDeceased)
             {
                 var newPlayerReputation = saveGame.Drivers.First(d => d.DriverId == saveGame.PlayerData.DriverId).Reputation;
                 var updatedBallots = await uiCallbacks.ShowTeamApplicationAsync(saveGame, ballots, dropResults, newPlayerReputation, originalNewSeason.Teams);
@@ -148,7 +153,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // STEP 5.5: Show a letter for each team the player applied to (rejections first,
             // then the acceptance if any), using the already-resolved actualNewSeason as the
             // source of truth so the letters never contradict the roster reveal in STEP 6.
-            if (!playerAcceptedContract)
+            if (!playerAcceptedContract && !playerDeceased)
             {
                 var teamApplicationResults = BuildTeamApplicationResults(saveGame, finalBallots, actualNewSeason);
                 var reputationForLetters = saveGame.Drivers.First(d => d.DriverId == saveGame.PlayerData.DriverId).Reputation;
@@ -257,10 +262,12 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         // Resolve one TeamApplicationResult per ballot the player applied to, reading the
         // outcome straight from the already-generated actualNewSeason (never recomputing the
         // ballot ourselves - FinalBallotResults uses its own Random() and could disagree).
-        private List<TeamApplicationResult> BuildTeamApplicationResults(ISaveGame saveGame, IEnumerable<TeamHiringBallot> finalBallots, ISeason actualNewSeason)
+        public static List<TeamApplicationResult> BuildTeamApplicationResults(ISaveGame saveGame, IEnumerable<TeamHiringBallot> finalBallots, ISeason actualNewSeason)
         {
             var results = new List<TeamApplicationResult>();
             var playerDriverId = saveGame.PlayerData.DriverId;
+            var seatedDriverIds = actualNewSeason.RaceDriverIds();
+            seatedDriverIds.UnionWith(actualNewSeason.ReserveDriverIds());
 
             foreach (var ballot in finalBallots)
             {
@@ -285,6 +292,11 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     : ballot.OriginalTeamHiring.GetSlot() == 1
                         ? newTeamEntry.Driver1Contract
                         : newTeamEntry.Driver2Contract;
+                var teammateContract = isReserve
+                    ? null
+                    : ballot.OriginalTeamHiring.GetSlot() == 1
+                        ? newTeamEntry.Driver2Contract
+                        : newTeamEntry.Driver1Contract;
                 var finalDriverId = finalContract?.DriverId;
 
                 // roles get reassigned by reputation once the hiring's done, so report the
@@ -298,8 +310,25 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
                 string otherDriverId;
                 DriverReputation otherDriverReputation;
+                bool otherDriverSignedElsewhere = false;
 
-                if (playerHired)
+                // ballots are settled top teams first, so the team's pick may have signed for a
+                // stronger team before this one was decided: the player never faced them
+                var pickTeam = playerHired && !string.IsNullOrEmpty(ballot.OriginalTeamHiring.DriverId) && ballot.OriginalTeamHiring.DriverId != playerDriverId
+                    ? actualNewSeason.Teams.FirstOrDefault(t =>
+                        t.Driver1Contract?.DriverId == ballot.OriginalTeamHiring.DriverId ||
+                        t.Driver2Contract?.DriverId == ballot.OriginalTeamHiring.DriverId ||
+                        t.ReserveDriverId() == ballot.OriginalTeamHiring.DriverId)
+                    : null;
+
+                if (pickTeam != null)
+                {
+                    // at this team, they took its other seat: nobody to name
+                    otherDriverSignedElsewhere = pickTeam.TeamId != teamId;
+                    otherDriverId = otherDriverSignedElsewhere ? ballot.OriginalTeamHiring.DriverId : null;
+                    otherDriverReputation = ballot.OriginalTeamHiring.DriverReputation;
+                }
+                else if (playerHired)
                 {
                     if (ballot.OriginalTeamHiring.DriverId != playerDriverId)
                     {
@@ -314,9 +343,10 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                         // they ever applied (EndOfSeasonManager.PickPotentialNewDrivers can do this
                         // for a currently-unemployed player, ahead of TeamApplicationWindow even
                         // running) - there's no head-to-head opponent to name. Fall back to the
-                        // strongest other candidate on the ballot, if any, purely for letter flavor.
+                        // strongest other candidate on the ballot, if any, purely for letter flavor -
+                        // one still without a seat, as one who signed elsewhere never lost to the player.
                         var bestOtherCandidate = ballot.Candidates?
-                            .Where(c => c.DriverId != playerDriverId)
+                            .Where(c => c.DriverId != playerDriverId && !seatedDriverIds.Contains(c.DriverId))
                             .OrderByDescending(c => c.DriverReputation)
                             .FirstOrDefault();
 
@@ -335,10 +365,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 {
                     TeamId = teamId,
                     Role = role,
+                    AdvertisedRole = ballot.OriginalTeamHiring.Role,
+                    TeammateId = string.IsNullOrEmpty(teammateContract?.DriverId) ? null : teammateContract.DriverId,
                     IsReserve = isReserve,
                     PlayerHired = playerHired,
                     OtherDriverId = otherDriverId,
                     OtherDriverReputation = otherDriverReputation,
+                    OtherDriverSignedElsewhere = otherDriverSignedElsewhere,
                     OtherDriverWasAtTeamBefore = WasDriverAtTeamBefore(saveGame, teamId, otherDriverId, isReserve)
                 });
             }
@@ -349,7 +382,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         // Was this driver already on this team last season (e.g. a contract-expired driver who
         // ended up renewing)? Checked against saveGame.CurrentSeason, which is still last
         // season's data at this point (StartNewSeason in STEP 8 hasn't run yet).
-        private bool WasDriverAtTeamBefore(ISaveGame saveGame, string teamId, string driverId, bool isReserve)
+        private static bool WasDriverAtTeamBefore(ISaveGame saveGame, string teamId, string driverId, bool isReserve)
         {
             if (string.IsNullOrEmpty(driverId)) return false;
 

@@ -118,7 +118,9 @@ namespace AMS2ChEd
             string roleName,
             TeamReputation teamReputation,
             DriverRole role,
-            bool isReserve = false)
+            bool isReserve = false,
+            string roleChangeNote = null,
+            bool otherDriverSignedElsewhere = false)
         {
             InitializeComponent();
             this.isReserve = isReserve;
@@ -131,7 +133,7 @@ namespace AMS2ChEd
 
             if (isPlayerHired)
             {
-                GenerateOffSeasonSuccessLetter(teamName, teamPrincipal, playerName, otherDriverName, otherDriverWasAtTeamBefore, playerReputation, roleName, teamReputation, role);
+                GenerateOffSeasonSuccessLetter(teamName, teamPrincipal, playerName, otherDriverName, otherDriverWasAtTeamBefore, playerReputation, roleName, teamReputation, role, roleChangeNote, otherDriverSignedElsewhere);
             }
             else
             {
@@ -139,7 +141,7 @@ namespace AMS2ChEd
             }
         }
 
-        private void GenerateOffSeasonSuccessLetter(string teamName, string teamPrincipal, string playerName, string otherDriverName, bool otherDriverWasAtTeamBefore, DriverReputation playerReputation, string roleName, TeamReputation teamReputation, DriverRole role)
+        private void GenerateOffSeasonSuccessLetter(string teamName, string teamPrincipal, string playerName, string otherDriverName, bool otherDriverWasAtTeamBefore, DriverReputation playerReputation, string roleName, TeamReputation teamReputation, DriverRole role, string roleChangeNote, bool otherDriverSignedElsewhere)
         {
             TeamNameHeader.Text = teamName.ToUpper();
 
@@ -147,10 +149,15 @@ namespace AMS2ChEd
             string beatDriverClause = string.IsNullOrEmpty(otherDriverName)
                 ? Strings.ContractLetterWindow_OffSeasonSuccess_NoRival
                 : string.Format(
-                    otherDriverWasAtTeamBefore
-                        ? Strings.ContractLetterWindow_OffSeasonSuccess_BeatIncumbent_Format
-                        : Strings.ContractLetterWindow_OffSeasonSuccess_BeatNewcomer_Format,
+                    otherDriverSignedElsewhere
+                        ? Strings.ContractLetterWindow_OffSeasonSuccess_PickSignedElsewhere_Format
+                        : otherDriverWasAtTeamBefore
+                            ? Strings.ContractLetterWindow_OffSeasonSuccess_BeatIncumbent_Format
+                            : Strings.ContractLetterWindow_OffSeasonSuccess_BeatNewcomer_Format,
                     otherDriverName);
+
+            if (!string.IsNullOrEmpty(roleChangeNote))
+                beatDriverClause = $"{beatDriverClause} {roleChangeNote}";
 
             LetterContent.Text = string.Format(Strings.ContractLetterWindow_OffSeasonSuccessLetter_Format,
                 playerName, teamName, roleName, beatDriverClause, reputationReason);

@@ -156,8 +156,10 @@ namespace AMS2ChEd.Business.Services
             var outlook = new MarketOutlook { PlayerReputation = _reputations[_player], ProjectedReputations = reputations };
             var teams = PlanTeams(saveGame, nextSeason, outlook);
 
+            // a driver who died in a crash is on nobody's shortlist
+            var deceased = saveGame.DeceasedDriverIds();
             var employed = teams.SelectMany(t => t.Seats).Where(s => s != null).Select(s => s.Driver).ToHashSet();
-            var unemployed = Enumerable.Range(0, _driverIds.Count).Where(d => !employed.Contains(d) && d != _player).ToList();
+            var unemployed = Enumerable.Range(0, _driverIds.Count).Where(d => !employed.Contains(d) && d != _player && !deceased.Contains(_driverIds[d])).ToList();
 
             var random = new Random(Seed);
             for (int replay = 0; replay < Replays; replay++)
@@ -222,8 +224,11 @@ namespace AMS2ChEd.Business.Services
                         Driver = driver,
                         ContractRole = contracts[i].Role,
                         Outcome = outcome,
-                        // the player never retires (EndOfSeasonManager.GetTeamSituationBeforeDriverMarket)
-                        RetirementChance = isPlayer ? 0 : EndOfSeasonManager.RetirementChance(nextSeason.Year - birthYears.GetValueOrDefault(driverId, nextSeason.Year)),
+                        // the player never retires (EndOfSeasonManager.GetTeamSituationBeforeDriverMarket);
+                        // a driver who died in a crash leaves the seat as a retiring one does
+                        RetirementChance = saveGame.IsDeceased(driverId) ? 1
+                            : isPlayer ? 0
+                            : EndOfSeasonManager.RetirementChance(nextSeason.Year - birthYears.GetValueOrDefault(driverId, nextSeason.Year)),
                         IsPlayer = isPlayer
                     };
                 }

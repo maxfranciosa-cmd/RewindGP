@@ -464,6 +464,50 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
+        public void ProcessAbsences_PlayerWinsTheApplication_IsRecordedAsDriverIn()
+        {
+            var saveGame = RaceSave();
+            var entryList = EntryList(saveGame);
+            var absences = new List<Absence> { new Absence { RaceId = 1, TeamId = "T1", DriverOut = "D1", DriverIn = "U3" } };
+            var provider = new Mock<IAbsenceDecisionProvider>();
+            provider.Setup(p => p.DoesPlayerWantToApply(It.IsAny<AbsenceOpportunity>(), It.IsAny<bool>())).Returns(true);
+            provider.Setup(p => p.DoesPlayerTeamAllowLeave(It.IsAny<string>(), It.IsAny<Absence>())).Returns(true);
+
+            new AbsenceManager().ProcessAbsences(entryList, absences, saveGame, provider.Object);
+
+            Assert.AreEqual("PLAYER", absences.Single().DriverIn);
+        }
+
+        [TestMethod]
+        public void ProcessAbsences_PlayerWithoutASeatBeatsAChainedStandIn_TheStandInKeepsTheirSeat()
+        {
+            var saveGame = RaceSave();
+            // the player is a free agent: someone else races in their T3 seat
+            saveGame.PlayerData.TeamId = null;
+            Team(saveGame, "T3").Driver1Contract.DriverId = "R3";
+            saveGame.Drivers.Single(d => d.DriverId == "D4").Reputation = DriverReputation.AGEING_MIDFIELD;
+            var entryList = EntryList(saveGame);
+            // D4 was to leave T2 to stand in at T1, U3 taking D4's T2 seat
+            var absences = new List<Absence>
+            {
+                new Absence
+                {
+                    RaceId = 1, TeamId = "T1", DriverOut = "D1", DriverIn = "D4",
+                    ChainedAbsence = new Absence { RaceId = 1, TeamId = "T2", DriverOut = "D4", DriverIn = "U3" }
+                }
+            };
+            var provider = new Mock<IAbsenceDecisionProvider>();
+            provider.Setup(p => p.DoesPlayerWantToApply(It.IsAny<AbsenceOpportunity>(), It.IsAny<bool>())).Returns(true);
+
+            new AbsenceManager().ProcessAbsences(entryList, absences, saveGame, provider.Object);
+
+            Assert.AreEqual("PLAYER", entryList.Single(e => e.TeamId == "T1").Driver1Id);
+            Assert.AreEqual("D4", entryList.Single(e => e.TeamId == "T2").Driver2Id);
+            Assert.AreEqual("PLAYER", absences.Single().DriverIn);
+            Assert.IsNull(absences.Single().ChainedAbsence);
+        }
+
+        [TestMethod]
         public void ProcessAbsences_PlayerIsAReserve_TheirTeamIsAskedForLeave()
         {
             var saveGame = RaceSave();

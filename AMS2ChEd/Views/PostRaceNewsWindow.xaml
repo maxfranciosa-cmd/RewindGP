@@ -66,11 +66,13 @@
                                Margin="0,5,0,0"/>
                 </StackPanel>
 
-                <Border Grid.Row="1" 
-                        Background="#c41e3a" 
+                <Border x:Name="BannerBorder"
+                        Grid.Row="1"
+                        Background="#c41e3a"
                         Padding="10,5"
                         Margin="0,0,0,15">
-                    <TextBlock Text="{loc:Loc PostRaceNewsWindow_BreakingNewsBanner}"
+                    <TextBlock x:Name="BannerText"
+                               Text="{loc:Loc PostRaceNewsWindow_BreakingNewsBanner}"
                                FontSize="34" 
                                FontWeight="Bold" 
                                FontFamily="Times New Roman"

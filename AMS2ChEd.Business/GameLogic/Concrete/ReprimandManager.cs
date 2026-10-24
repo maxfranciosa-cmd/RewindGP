@@ -232,7 +232,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var remainingRaces = saveGame.CurrentSeason.Races.Skip(raceIndex + 1).ToList();
             var absences = (saveGame.CurrentSeason.Absences ?? Enumerable.Empty<Absence>()).ToList();
 
-            var replacementId = PickReleaseReplacement(saveGame, team, remainingRaces, absences, driverId);
+            var replacementId = SubstitutePool.PickStandIn(saveGame, team, remainingRaces.Select(r => r.RaceId).ToList(), absences, driverId);
 
             foreach (var race in remainingRaces)
             {
@@ -250,41 +250,6 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             saveGame.CurrentSeason.Absences = absences;
             return replacementId;
-        }
-
-        // the team's reserve when they're free for all the remaining races, otherwise the best
-        // unemployed driver the team would accept as a stand-in, who isn't already standing in for
-        // someone else in any of the remaining races
-        private static string PickReleaseReplacement(ISaveGame saveGame, ITeamEntry team, List<Race> remainingRaces, List<Absence> absences, string releasedDriverId)
-        {
-            var remainingRaceIds = remainingRaces.Select(r => r.RaceId).ToHashSet();
-            var busyDriverIds = SubstitutePool.DriversIn(absences.Where(a => remainingRaceIds.Contains(a.RaceId)));
-
-            // the reserve is first in line, the player included when they're the reserve
-            var reserveId = team.ReserveDriverId();
-            if (reserveId != null && reserveId != releasedDriverId && !busyDriverIds.Contains(reserveId))
-                return reserveId;
-
-            var contractedDriverIds = SubstitutePool.UnavailableDriverIds(saveGame.CurrentSeason);
-
-            var retiredDriverIds = (saveGame.RetiredDrivers ?? Enumerable.Empty<IDriverData>())
-                .Select(d => d.DriverId)
-                .ToHashSet();
-
-            var maxReputation = DriverHirer.teamAbsenceSubstitutionMaxReputation.GetValueOrDefault(team.Reputation, DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL);
-
-            var candidates = saveGame.Drivers
-                .Where(d => d.DriverId != releasedDriverId &&
-                            d.DriverId != saveGame.PlayerData?.DriverId &&
-                            !contractedDriverIds.Contains(d.DriverId) &&
-                            !busyDriverIds.Contains(d.DriverId) &&
-                            !retiredDriverIds.Contains(d.DriverId))
-                .OrderByDescending(d => d.Reputation)
-                .ToList();
-
-            var pick = candidates.FirstOrDefault(d => d.Reputation <= maxReputation) ?? candidates.FirstOrDefault();
-
-            return pick?.DriverId ?? "";
         }
     }
 }

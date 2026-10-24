@@ -21,6 +21,12 @@ namespace AMS2ChEd.Business.Models
         [JsonPropertyName("nextGpEntryList")]
         public IEnumerable<EntryListEntry> NextGpEntryList { get; set; }
 
+        // the race NextGpEntryList was drawn up for: when it's the next race, its absences, paid
+        // rides and bids are already settled and the list is shown again as it is (null in saves
+        // from before it was kept, whose list is drawn up again)
+        [JsonPropertyName("next_gp_entry_list_race_id")]
+        public int? NextGpEntryListRaceId { get; set; }
+
         [JsonPropertyName("playerData")]
         public IPlayerData PlayerData { get; set; }
 
@@ -54,6 +60,10 @@ namespace AMS2ChEd.Business.Models
         // team-orders reprimands handed out during the current season (cleared at the start of each season)
         [JsonPropertyName("reprimands")]
         public List<Reprimand> Reprimands { get; set; }
+
+        // drivers hurt or killed in a crash, every season of the save (CasualtyExtensions)
+        [JsonPropertyName("casualties")]
+        public List<Casualty> Casualties { get; set; }
     }
 
     public enum PreQualiStatus

@@ -347,6 +347,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             _currentGame.GrandPrixResults = _currentGame.GrandPrixResults.Append(result);
             _currentGame.NextGpIndex++;
+            _currentGame.NextGpEntryList = null;
+            _currentGame.NextGpEntryListRaceId = null;
 
             // Update standings would happen here
             // UpdateStandings(result);

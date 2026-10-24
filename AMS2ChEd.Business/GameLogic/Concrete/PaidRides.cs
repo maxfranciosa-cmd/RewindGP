@@ -125,8 +125,15 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         /// an AI pay driver already bought at this race is still offered, with that driver as rival
         /// bidder. Empty when the budget is spent, or the player already races there.
         /// </summary>
-        public static List<PaidRideOffer> Offers(ISaveGame saveGame, int raceIndex) =>
-            Offers(saveGame, raceIndex, saveGame.PlayerData.DriverId, Remaining(saveGame), contestAiRides: true);
+        public static List<PaidRideOffer> Offers(ISaveGame saveGame, int raceIndex)
+        {
+            // nothing for a player recovering from a crash, or dead
+            var races = saveGame.CurrentSeason.Races.ToList();
+            if (raceIndex >= 0 && raceIndex < races.Count && saveGame.IsOutOfAction(saveGame.PlayerData.DriverId, races[raceIndex].RaceId))
+                return new List<PaidRideOffer>();
+
+            return Offers(saveGame, raceIndex, saveGame.PlayerData.DriverId, Remaining(saveGame), contestAiRides: true);
+        }
 
         private static List<PaidRideOffer> Offers(ISaveGame saveGame, int raceIndex, string buyerId, int remaining, bool contestAiRides)
         {
@@ -235,7 +242,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             if (raceIndex < 0 || raceIndex >= races.Count)
                 return bought;
 
-            var unavailable = SubstitutePool.UnavailableDriverIds(saveGame.CurrentSeason);
+            // nor a driver recovering from a crash, or dead
+            var unavailable = SubstitutePool.UnavailableDriverIds(saveGame, new[] { races[raceIndex].RaceId });
             unavailable.UnionWith((saveGame.RetiredDrivers ?? Enumerable.Empty<IDriverData>()).Select(d => d.DriverId));
             unavailable.Add(saveGame.PlayerData.DriverId);
 
@@ -338,6 +346,11 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             result.Race = race;
             result.ReserveTeamId = saveGame.CurrentSeason.ReserveTeamOf(playerId)?.TeamId;
+
+            // a player recovering from a crash, or dead, is offered nothing
+            if (saveGame.IsOutOfAction(playerId, race.RaceId))
+                return result;
+
             result.CallUps = absences.Where(a => SubstitutePool.DriversIn(new[] { a }).Contains(playerId)).ToList();
             result.OpenAbsences = absences
                 .Where(a => a.DriverOut != playerId && a.DriverIn != playerId && a.TeamId != saveGame.PlayerData.TeamId && a.Reason != AbsenceReason.PAID_RIDE)

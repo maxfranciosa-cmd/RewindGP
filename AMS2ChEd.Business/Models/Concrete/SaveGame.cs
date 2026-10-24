@@ -10,6 +10,7 @@ namespace AMS2ChEd.Business.Models.Concrete
         public IEnumerable<IDriverData> Drivers { get; set; }
         public int NextGpIndex { get; set; }
         public IEnumerable<EntryListEntry> NextGpEntryList { get; set; }
+        public int? NextGpEntryListRaceId { get; set; }
         public IPlayerData PlayerData { get; set; }
         public IEnumerable<GrandPrixResult> GrandPrixResults { get; set; }
         public IEnumerable<HistoricalDriverStandingEntry> CurrentDriverStandings { get; set; }
@@ -22,6 +23,44 @@ namespace AMS2ChEd.Business.Models.Concrete
         public List<EntryListEntry> PreQualiPoolEntries { get; set; }
         public List<ParticipantData> CurrentPreQualiDnpqResults { get; set; }
         public List<Reprimand> Reprimands { get; set; }
+        public List<Casualty> Casualties { get; set; }
+    }
+
+    [JsonConverter(typeof(GenericEnumConverter<CasualtyKind>))]
+    public enum CasualtyKind
+    {
+        INJURED,
+        DECEASED
+    }
+
+    /// <summary>
+    /// A driver hurt or killed in a crash. Kept on the save rather than on the driver, as the
+    /// driver's data is replaced by the next season pack's at the end of the season, and a stand-in
+    /// hurt in another team's car holds no seat an absence could say it for. A DECEASED driver never
+    /// races again (the player included, whose save carries on with every race simulated).
+    /// </summary>
+    public class Casualty
+    {
+        [JsonPropertyName("driver_id")]
+        public string DriverId { get; set; }
+
+        // the car they crashed in
+        [JsonPropertyName("team_id")]
+        public string TeamId { get; set; }
+
+        [JsonPropertyName("year")]
+        public int Year { get; set; }
+
+        // the race of the crash
+        [JsonPropertyName("race_id")]
+        public int RaceId { get; set; }
+
+        [JsonPropertyName("kind")]
+        public CasualtyKind Kind { get; set; }
+
+        // the races of that season they miss
+        [JsonPropertyName("race_ids_out")]
+        public List<int> RaceIdsOut { get; set; } = new();
     }
 
     [JsonConverter(typeof(GenericEnumConverter<ReprimandReason>))]

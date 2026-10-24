@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+
+    <!--
+      Developer tool for calibrating the crash detector - not shipped with the app.
+      Logs every car's telemetry to CSV at ~20 Hz while AMS2 runs (any session, no career needed);
+      Ctrl+F12 writes a marker. The CSV is the crash detector's test fixture format (TelemetryCsv).
+      See crash-incidents-design.md, section 6.
+    -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AMS2ChEd.Business\AMS2ChEd.Business.csproj" />
+    <ProjectReference Include="..\Ams2ChEd.Business.AMS2\Ams2ChEd.Business.AMS2.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- a plain reference in Ams2ChEd.Business.AMS2 doesn't flow on to this project's compile -->
+    <Reference Include="AMS2SharedMemoryNet">
+      <HintPath>..\Ams2ChEd.Business.AMS2\ExternalDependencies\AMS2SharedMemoryNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

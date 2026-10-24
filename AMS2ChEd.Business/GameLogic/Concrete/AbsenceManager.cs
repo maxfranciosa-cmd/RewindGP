@@ -38,7 +38,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             while (i < absences.Count)
             {
                 var currentAbsence = chainedAbsence ?? absences[i];
-                bool playerCanApply = (currentAbsence.DriverOut != saveGame.PlayerData.DriverId && saveGame.PlayerData.TeamId != currentAbsence.TeamId);
+                // not while recovering from a crash, nor ever again after a fatal one
+                bool playerCanApply = (currentAbsence.DriverOut != saveGame.PlayerData.DriverId && saveGame.PlayerData.TeamId != currentAbsence.TeamId)
+                    && !saveGame.IsOutOfAction(saveGame.PlayerData.DriverId, currentAbsence.RaceId);
 
                 if (playerCanApply)
                 {
@@ -49,7 +51,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                         TeamId = currentAbsence.TeamId,
                         RaceId = currentAbsence.RaceId,
                         DriverIn = currentAbsence.DriverIn,
-                        Reason = currentAbsence.Reason
+                        Reason = currentAbsence.Reason,
+                        IncidentRaceId = currentAbsence.IncidentRaceId
                     };
 
                     AbsenceOpportunityAvailable?.Invoke(this, new AbsenceOpportunityEventArgs { Opportunity = opportunity });
@@ -116,10 +119,18 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                             {
                                 CreateChainedAbsenceForPlayer(entryList, currentAbsence, absences, saveGame);
                             }
+                            else
+                            {
+                                // the declared stand-in no longer leaves their own seat
+                                currentAbsence.ChainedAbsence = null;
+                            }
 
                             // Player successfully steps in
                             StepInAbsence(entryList, currentAbsence, saveGame);
                             playerHasSteppedIn = true;
+
+                            // the save keeps who really raced: the declared stand-in is free again
+                            currentAbsence.DriverIn = saveGame.PlayerData.DriverId;
 
                             var decision = new AbsenceDecision
                             {
@@ -180,13 +191,14 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             // the player's team covers the seat with its reserve, if it has one free this race
             var playerTeam = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == saveGame.PlayerData.TeamId);
-            var reserveId = playerTeam == null ? null : SubstitutePool.AvailableReserve(playerTeam, absencesOfTheRace);
+            var raceIds = new[] { currentAbsence.RaceId };
+            var reserveId = playerTeam == null ? null : SubstitutePool.AvailableReserve(saveGame, playerTeam, absencesOfTheRace, raceIds);
 
             var unavailableDriverIds = entryList
                 .SelectMany(e => new[] { e.Driver1Id, e.Driver2Id })
                 .Distinct()
                 .ToHashSet();
-            unavailableDriverIds.UnionWith(SubstitutePool.UnavailableDriverIds(saveGame.CurrentSeason));
+            unavailableDriverIds.UnionWith(SubstitutePool.UnavailableDriverIds(saveGame, raceIds));
             unavailableDriverIds.UnionWith(SubstitutePool.DriversIn(absencesOfTheRace));
 
             var playerReputation = GetDriverReputation(saveGame.PlayerData.DriverId, saveGame);

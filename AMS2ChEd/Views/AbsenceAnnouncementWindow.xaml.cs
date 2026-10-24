@@ -2,6 +2,7 @@
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Resources;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace AMS2ChEd.Views
@@ -20,12 +21,17 @@ namespace AMS2ChEd.Views
             DateTime raceDate,
             bool askPlayerToApply,
             bool isConsecutiveAbsence,
-            AbsenceReason? reason = null)
+            AbsenceReason? reason = null,
+            string incidentGpName = null)
         {
             InitializeComponent();
 
             // Set the date
             DateText.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
+
+            // argument order standardized as (driverOutName, teamName, gpName, driverInName, incidentGpName)
+            object[] crashArgs = { driverOutName, teamName, gpName, driverInName, incidentGpName ?? "" };
+            var hasReplacement = !string.IsNullOrEmpty(driverInName);
 
             if (reason == AbsenceReason.PAID_RIDE)
             {
@@ -33,6 +39,22 @@ namespace AMS2ChEd.Views
                 HeadlineText.Text = string.Format(Strings.AbsenceAnnouncementWindow_Headline_PaidRide_Format,
                     driverOutName.ToUpper(), teamName.ToUpper(), driverInName.ToUpper());
                 ArticleText.Text = string.Format(Strings.AbsenceAnnouncementWindow_Article_PaidRide_Format, driverOutName, teamName, gpName, driverInName);
+            }
+            else if (reason == AbsenceReason.INJURY)
+            {
+                // still recovering from a crash
+                HeadlineText.Text = string.Format(Strings.AbsenceAnnouncementWindow_Headline_Injury_Format, crashArgs.Select(a => a.ToString().ToUpper()).ToArray());
+                ArticleText.Text = string.Format(hasReplacement
+                    ? Strings.AbsenceAnnouncementWindow_Article_Injury_Format
+                    : Strings.AbsenceAnnouncementWindow_Article_Injury_NoReplacement_Format, crashArgs);
+            }
+            else if (reason == AbsenceReason.DECEASED)
+            {
+                // the team goes on after losing its driver: never a "will miss the race"
+                HeadlineText.Text = string.Format(Strings.AbsenceAnnouncementWindow_Headline_Deceased_Format, crashArgs.Select(a => a.ToString().ToUpper()).ToArray());
+                ArticleText.Text = string.Format(hasReplacement
+                    ? Strings.AbsenceAnnouncementWindow_Article_Deceased_Format
+                    : Strings.AbsenceAnnouncementWindow_Article_Deceased_NoReplacement_Format, crashArgs);
             }
             else
             {

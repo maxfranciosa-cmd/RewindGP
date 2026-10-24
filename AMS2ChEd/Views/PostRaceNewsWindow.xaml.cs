@@ -1,6 +1,7 @@
 ﻿using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Services.CrashDetection;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Localization;
@@ -25,15 +26,29 @@ namespace AMS2ChEd.Views
             List<string> previousTopThreeDriverIds,
             DateTime grandPrixDate,
             string winnerPortraitPath,
-            IAllTimeRecordsLoader allTimeRecordsLoader = null)
+            IAllTimeRecordsLoader allTimeRecordsLoader = null,
+            IReadOnlyList<CrashNewsItem> crashNews = null)
         {
             InitializeComponent();
 
             _allTimeRecords = allTimeRecordsLoader?.Load();
+            crashNews ??= Array.Empty<CrashNewsItem>();
 
             // Set the date
             var raceJustFinished = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex - 1);
             DateText.Text = (DateTime.ParseExact(raceJustFinished.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture)).ToString("dddd, MMMM dd, yyyy");
+
+            // a driver killed in the race: the paper leads with a tribute instead of the race report
+            var fatalities = crashNews.Where(c => c.Outcome == CrashOutcomeKind.Fatal).ToList();
+            if (fatalities.Any())
+            {
+                var portrait = saveGame.Drivers.FirstOrDefault(d => d.DriverId == fatalities[0].DriverId)?.PictureUrl;
+                if (!string.IsNullOrEmpty(portrait))
+                    DriverPortraitImage.LoadPhoto(portrait);
+
+                GenerateTribute(saveGame, raceResult, fatalities);
+                return;
+            }
 
             // Load winner portrait if provided
             if (!string.IsNullOrEmpty(winnerPortraitPath))
@@ -42,7 +57,92 @@ namespace AMS2ChEd.Views
             }
 
             // Generate the article
-            GenerateArticle(saveGame, raceResult, previousWinnerStandingPosition, previousTopThreeDriverIds, allTimeRecordsLoader);
+            GenerateArticle(saveGame, raceResult, previousWinnerStandingPosition, previousTopThreeDriverIds, allTimeRecordsLoader, crashNews);
+        }
+
+        // the tribute to the driver killed in the race (more than one: the others are named too)
+        private void GenerateTribute(ISaveGame saveGame, GrandPrixResult raceResult, List<CrashNewsItem> fatalities)
+        {
+            BannerText.Text = Strings.PostRaceNewsWindow_Tribute_Banner;
+            BannerBorder.Background = System.Windows.Media.Brushes.Black;
+
+            var first = fatalities[0];
+            var name = GetDriverName(saveGame, first.DriverId);
+            var team = GetTeamName(saveGame, first.TeamId);
+            var yearOfBirth = saveGame.Drivers.FirstOrDefault(d => d.DriverId == first.DriverId)?.YearOfBirth ?? 0;
+            var age = yearOfBirth > 0 ? raceResult.Year - yearOfBirth : 0;
+
+            HeadlineText.Text = string.Format(Strings.PostRaceNewsWindow_Tribute_Headline_Format, name.ToUpper());
+
+            // argument order standardized as (name, team, gpName, year, age)
+            var article = string.Format(age > 0 ? Strings.PostRaceNewsWindow_Tribute_Opening_Format : Strings.PostRaceNewsWindow_Tribute_OpeningNoAge_Format,
+                name, team, raceResult.GrandPrixName, raceResult.Year, age) + "\n\n";
+
+            // argument order standardized as (name, wins, podiums)
+            var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, _allTimeRecords, first.DriverId);
+            var career = accolades.Wins > 1 ? Strings.PostRaceNewsWindow_Tribute_CareerWins_Format
+                : accolades.Wins == 1 ? Strings.PostRaceNewsWindow_Tribute_CareerOneWin_Format
+                : accolades.Podiums > 1 ? Strings.PostRaceNewsWindow_Tribute_CareerPodiums_Format
+                : accolades.Podiums == 1 ? Strings.PostRaceNewsWindow_Tribute_CareerOnePodium_Format
+                : accolades.HasBaseline ? Strings.PostRaceNewsWindow_Tribute_CareerNoPodium_Format
+                : null;
+            if (career != null)
+                article += string.Format(career, name, accolades.Wins, accolades.Podiums) + "\n\n";
+
+            if (fatalities.Count > 1)
+            {
+                var others = string.Join(", ", fatalities.Skip(1).Select(f => GetDriverName(saveGame, f.DriverId)));
+                article += string.Format(Strings.PostRaceNewsWindow_Tribute_AlsoKilled_Format, others, raceResult.GrandPrixName) + "\n\n";
+            }
+
+            var winner = raceResult.RaceResults?.FirstOrDefault(d => d.Position == 1);
+            if (winner != null)
+                article += string.Format(Strings.PostRaceNewsWindow_Tribute_Race_Format, GetDriverName(saveGame, winner.DriverId), GetTeamName(saveGame, winner.TeamId), raceResult.GrandPrixName) + "\n\n";
+
+            article += Strings.PostRaceNewsWindow_Tribute_Closing;
+            ArticleText.Text = article;
+        }
+
+        // the race's heavy crashes: who was hurt and for how long, who walked away
+        private string GenerateCrashParagraph(ISaveGame saveGame, GrandPrixResult raceResult, IReadOnlyList<CrashNewsItem> crashNews)
+        {
+            var sentences = new List<string>();
+            foreach (var crash in crashNews)
+            {
+                var name = GetDriverName(saveGame, crash.DriverId);
+                var team = GetTeamName(saveGame, crash.TeamId);
+
+                if (crash.Outcome == CrashOutcomeKind.Unhurt)
+                {
+                    sentences.Add(string.Format(Strings.PostRaceNewsWindow_Crash_Unhurt_Format, name, team));
+                    continue;
+                }
+
+                if (crash.DroveOn)
+                {
+                    // carried on, the injury found afterwards: to the flag, or retiring later.
+                    // Argument order standardized as (name, team), then (name, racesOut)
+                    var retired = raceResult.RaceResults?.FirstOrDefault(r => r.DriverId == crash.DriverId)?.DNF == true;
+                    sentences.Add(string.Format(retired ? Strings.PostRaceNewsWindow_Crash_DroveOn_Retired_Format : Strings.PostRaceNewsWindow_Crash_DroveOn_Finished_Format, name, team));
+                    var outTemplate = crash.RacesOut == 0 ? Strings.PostRaceNewsWindow_Crash_Out_SeasonOver_Format
+                        : crash.RacesOut == 1 ? Strings.PostRaceNewsWindow_Crash_Out_OneRace_Format
+                        : Strings.PostRaceNewsWindow_Crash_Out_Races_Format;
+                    sentences.Add(string.Format(outTemplate, name, crash.RacesOut));
+                }
+                else
+                {
+                    // argument order standardized as (name, team, racesOut)
+                    var template = crash.RacesOut == 0 ? Strings.PostRaceNewsWindow_Crash_Injured_SeasonOver_Format
+                        : crash.RacesOut == 1 ? Strings.PostRaceNewsWindow_Crash_Injured_OneRace_Format
+                        : Strings.PostRaceNewsWindow_Crash_Injured_Races_Format;
+                    sentences.Add(string.Format(template, name, team, crash.RacesOut));
+                }
+
+                if (!string.IsNullOrEmpty(crash.StandInDriverId))
+                    sentences.Add(string.Format(Strings.PostRaceNewsWindow_Crash_StandIn_Format, GetDriverName(saveGame, crash.StandInDriverId), team));
+            }
+
+            return string.Join(" ", sentences);
         }
 
         private void GenerateArticle(
@@ -50,7 +150,8 @@ namespace AMS2ChEd.Views
             GrandPrixResult raceResult,
             int previousWinnerStandingPosition,
             List<string> previousTopThreeDriverIds,
-            IAllTimeRecordsLoader allTimeRecordsLoader)
+            IAllTimeRecordsLoader allTimeRecordsLoader,
+            IReadOnlyList<CrashNewsItem> crashNews)
         {
             // Get podium finishers
             var winner = raceResult.RaceResults.FirstOrDefault(d => d.Position == 1);
@@ -212,6 +313,14 @@ namespace AMS2ChEd.Views
             if (!string.IsNullOrEmpty(topThreeBadResultParagraph))
             {
                 article += topThreeBadResultParagraph;
+                article += "\n\n";
+            }
+
+            // Heavy crashes: the injured and the lucky
+            string crashParagraph = GenerateCrashParagraph(saveGame, raceResult, crashNews);
+            if (!string.IsNullOrEmpty(crashParagraph))
+            {
+                article += crashParagraph;
                 article += "\n\n";
             }
 

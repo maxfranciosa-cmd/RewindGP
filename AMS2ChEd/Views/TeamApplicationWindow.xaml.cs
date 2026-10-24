@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
@@ -178,18 +179,13 @@ namespace AMS2ChEd.Views
                         : teamDropInfo.DropDriver2;
 
                     // Get the driver name from the team entry in the save game
-                    string droppedDriverName = null;
-                    if (isDriver1Seat)
-                    {
+                    var droppedDriverId = isDriver1Seat ? teamEntry.Driver1Contract.DriverId : teamEntry.Driver2Contract.DriverId;
+                    string droppedDriverName = allDriversDictionary[droppedDriverId].Name;
 
-                        droppedDriverName = allDriversDictionary[teamEntry.Driver1Contract.DriverId].Name;
-                    }
-                    else
-                    {
-                        droppedDriverName = allDriversDictionary[teamEntry.Driver2Contract.DriverId].Name;
-                    }
-
-                    dropReasonText = GetDropReasonText(dropOutcome, droppedDriverName);
+                    // a driver killed in a crash leaves the seat as a retiring one does, but isn't retiring
+                    dropReasonText = saveGame.IsDeceased(droppedDriverId)
+                        ? string.Format(Strings.TeamApplicationWindow_DropReason_Deceased, droppedDriverName)
+                        : GetDropReasonText(dropOutcome, droppedDriverName);
                 }
 
                 string reputationLabel = GetReputationLabel(teamEntry?.Reputation ?? TeamReputation.MINNOW);

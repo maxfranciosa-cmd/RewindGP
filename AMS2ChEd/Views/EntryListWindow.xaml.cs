@@ -233,6 +233,7 @@ namespace AMS2ChEd.Views
 
             var raceWeekendWindow = new RaceWeekendWindow(_gameLogicFactory, saveGame, simulatedRaceDataService, simulateRace: !playerParticipating);
             raceWeekendWindow.RaceCompleted += OnRaceCompleted;
+            raceWeekendWindow.CrashesApplied += OnCrashesApplied;
             raceWeekendWindow.Show();
 
 
@@ -593,6 +594,13 @@ namespace AMS2ChEd.Views
         {
             // Pass the updated saveGame back up the chain
             RaceWeekendCompleted?.Invoke(this, updatedSaveGame);
+        }
+
+        // the crashes the player confirmed after the race: the race itself was already saved
+        private void OnCrashesApplied(object sender, ISaveGame updatedSaveGame)
+        {
+            string saveName = $"{updatedSaveGame.PlayerData.Name}_{updatedSaveGame.CurrentSeason.Year}".Replace(" ", "_");
+            _ams2StorageFactory.GameStorage.SaveGame(updatedSaveGame, saveName);
         }
 
         private IEnumerable<ParticipantData> GetParticipants(List<EntryDisplay> entryDisplay)

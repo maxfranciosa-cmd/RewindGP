@@ -351,6 +351,45 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 "DROPPED driver (not retiring) should be available as a candidate");
         }
 
+        [TestMethod]
+        public void TeamPicksPotentialReplacementsDrivers_UnemployedPlayerIsNeverATeamsFallbackPick()
+        {
+            // Arrange - both of a top team's seats open, with the unemployed player in the pool.
+            // When a team's pick signs elsewhere, it falls back on its other potential candidates:
+            // the player must not be one of them, or they'd get a seat they never applied for
+            var teamOld = CreateTestTeamEntry("WILLIAMS", TeamReputation.TOP_TEAM, "MANSELL", "PATRESE");
+            var saveGame = CreateTestSaveGame(1988, new List<ITeamEntry> { teamOld });
+            saveGame.Drivers = new List<IDriverData>
+            {
+                CreateTestDriver("MANSELL", "Nigel Mansell", 1953, DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, 1989),
+                CreateTestDriver("PATRESE", "Riccardo Patrese", 1954, DriverReputation.AGEING_STRONG_MIDFIELD, 1989),
+                CreateTestDriver("PLAYER", "Player", 1965, DriverReputation.YOUNG_TALENT, 1989),
+                CreateTestDriver("MODENA", "Stefano Modena", 1963, DriverReputation.YOUNG_TALENT, 1989)
+            };
+
+            var newSeason = CreateTestSeason(1989, new List<ITeamEntry> { CreateTestTeamEntry("WILLIAMS", TeamReputation.TOP_TEAM, "MANSELL", "PATRESE") });
+            var dropResults = new List<DropTeamResult>
+            {
+                new DropTeamResult
+                {
+                    TeamId = "WILLIAMS",
+                    DropDriver1 = DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED,
+                    DropDriver2 = DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED
+                }
+            };
+
+            // Act
+            var ballots = _endOfSeasonManager.TeamPicksPotentialReplacementsDrivers(1989, saveGame, newSeason.Teams, dropResults).ToList();
+
+            // Assert
+            Assert.IsTrue(ballots.Any(), "Williams should be hiring");
+            foreach (var ballot in ballots)
+            {
+                Assert.IsFalse((ballot.OriginalTeamHiring.OtherPotentialCandidates ?? Enumerable.Empty<DriverResume>()).Any(d => d.Id == "PLAYER"),
+                    $"The player must not be a fallback pick for {ballot.OriginalTeamHiring.TeamId} slot {ballot.OriginalTeamHiring.GetSlot()}");
+            }
+        }
+
         #region Helper Methods
 
         private ISaveGame CreateTestSaveGame(int year, List<ITeamEntry> teams)

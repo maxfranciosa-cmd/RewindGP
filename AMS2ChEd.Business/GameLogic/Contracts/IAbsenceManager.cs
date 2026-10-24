@@ -32,6 +32,9 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
 
         // why the driver is out (null for a season pack's absence), for the news
         public AbsenceReason? Reason { get; set; }
+
+        // INJURY and DECEASED: the race of the crash
+        public int? IncidentRaceId { get; set; }
     }
 
     public class AbsenceDecision

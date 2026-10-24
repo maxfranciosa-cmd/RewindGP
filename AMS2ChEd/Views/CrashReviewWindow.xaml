@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="AMS2ChEd.Views.CrashReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        Title="{loc:Loc CrashReviewWindow_Title}"
+        Height="520" Width="720"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource Charcoal.BackgroundBrush}"
+        ResizeMode="NoResize">
+
+    <!-- A utility window: it wears the charcoal look ("Charcoal.*" resources of Themes/Charcoal/Base.xaml)
+         whatever the visual style. -->
+    <Window.Resources>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
+
+        <Style x:Key="HeaderText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+            <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+        <!-- one block per crash -->
+        <Style x:Key="Row" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+            <Setter Property="Padding" Value="0,8"/>
+            <Setter Property="Margin" Value="0,0,0,2"/>
+        </Style>
+        <Style x:Key="DriverText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+        <Style x:Key="DetailText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+            <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+        <Style x:Key="RowCheck" TargetType="CheckBox" BasedOn="{StaticResource Charcoal.CheckBoxStyle}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{StaticResource Charcoal.TitleBarStyle}">
+            <TextBlock x:Name="HeaderText" Style="{StaticResource Charcoal.TitleTextStyle}"/>
+        </Border>
+
+        <TextBlock Grid.Row="1"
+                   Text="{loc:Loc CrashReviewWindow_Description}"
+                   Style="{StaticResource Charcoal.BodyTextStyle}"
+                   Foreground="{StaticResource Charcoal.TextSoftBrush}"
+                   FontSize="13"
+                   TextWrapping="Wrap"
+                   Margin="0,10,0,14"/>
+
+        <Grid Grid.Row="2" Margin="0,0,0,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="110"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{loc:Loc CrashReviewWindow_DriverColumn}" Style="{StaticResource HeaderText}"/>
+            <TextBlock Grid.Column="1" Text="{loc:Loc CrashReviewWindow_DetailColumn}" Style="{StaticResource HeaderText}"/>
+            <TextBlock Grid.Column="2" Text="{loc:Loc CrashReviewWindow_KeepColumn}" Style="{StaticResource HeaderText}" HorizontalAlignment="Center"/>
+        </Grid>
+
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="CrashesPanel">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Row}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="230"/>
+                                    <ColumnDefinition Width="110"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding DriverName}" Style="{StaticResource DriverText}"/>
+                                    <TextBlock Text="{Binding TeamName}" Style="{StaticResource DetailText}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding SeverityText}" Style="{StaticResource DetailText}" Foreground="{StaticResource Charcoal.TextBrush}"/>
+                                    <TextBlock Text="{Binding DetailText}" Style="{StaticResource DetailText}"/>
+                                </StackPanel>
+                                <CheckBox Grid.Column="2" IsChecked="{Binding Keep}" Style="{StaticResource RowCheck}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <Button Grid.Row="4"
+                Content="{loc:Loc CrashReviewWindow_ConfirmButton}"
+                Style="{StaticResource Charcoal.DialogPrimaryButtonStyle}"
+                HorizontalAlignment="Right"
+                Margin="0,14,0,0"
+                Click="ConfirmButton_Click"/>
+    </Grid>
+</Window>

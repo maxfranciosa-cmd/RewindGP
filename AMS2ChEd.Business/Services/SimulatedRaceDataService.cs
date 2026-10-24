@@ -89,6 +89,7 @@ namespace AMS2ChEd.Business.Services
         {
             RaceResults = SimulateRace(QualificationResults);
             var teammateContacts = SimulatedIncidentGenerator.ApplyTeammateCollisions(RaceResults, _random);
+            var crashes = SimulatedIncidentGenerator.RollCrashes(RaceResults, teammateContacts, _saveGame.PlayerData?.DriverId, _random);
             _currentSession = new SessionData
             {
                 SessionType = SessionType.Race,
@@ -101,7 +102,8 @@ namespace AMS2ChEd.Business.Services
             {
                 CompletedSession = SessionType.Race,
                 FinalStandings = RaceResults,
-                TeammateContacts = teammateContacts
+                TeammateContacts = teammateContacts,
+                Crashes = crashes
             });
         }
 

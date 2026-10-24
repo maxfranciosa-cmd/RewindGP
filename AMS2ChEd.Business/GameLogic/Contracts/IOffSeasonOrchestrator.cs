@@ -19,7 +19,15 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
     public class TeamApplicationResult
     {
         public string TeamId { get; set; }
+
+        // the role the seat ended up with: once a team has hired, the stronger driver leads it
         public DriverRole Role { get; set; }
+
+        // the role the team's ad offered, which can differ from Role
+        public DriverRole AdvertisedRole { get; set; }
+
+        // the other race driver at the team next season, null for a reserve seat or a one-car team
+        public string TeammateId { get; set; }
 
         // an application for the team's reserve seat (Role means nothing then)
         public bool IsReserve { get; set; }
@@ -33,6 +41,10 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
         public string OtherDriverId { get; set; }
         public DriverReputation OtherDriverReputation { get; set; }
         public bool OtherDriverWasAtTeamBefore { get; set; }
+
+        // the player was hired: OtherDriverId was the team's first choice, who signed for another
+        // team before this seat was decided, so the player never beat them
+        public bool OtherDriverSignedElsewhere { get; set; }
     }
 
     /// <summary>

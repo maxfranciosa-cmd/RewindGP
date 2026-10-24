@@ -31,6 +31,11 @@ namespace Ams2ChEd.Business.AMS2.UI
             AMS2PlayerNameTextBox.Text = _settingsStorage.LoadInGameName();
             AutoLaunchCheckBox.IsChecked = _settingsStorage.LoadAutoLaunchGame();
 
+            CrashDetectionCheckBox.IsChecked = CrashIncidentSettings.LoadDetectionEnabled();
+            FatalitiesCheckBox.IsChecked = CrashIncidentSettings.LoadFatalitiesEnabled();
+            PlayerDeathCheckBox.IsChecked = CrashIncidentSettings.LoadPlayerDeathEnabled();
+            UpdatePlayerDeathCheckBox();
+
             var raceLength = _settingsStorage.LoadRaceLength();
             foreach (ComboBoxItem item in RaceLengthComboBox.Items)
             {
@@ -88,12 +93,29 @@ namespace Ams2ChEd.Business.AMS2.UI
                 {
                     AppStyleSettings.SaveStyle(AppStyleSettings.Parse((string)selectedStyle.Tag));
                 }
+
+                CrashIncidentSettings.SaveDetectionEnabled(CrashDetectionCheckBox.IsChecked == true);
+                CrashIncidentSettings.SaveFatalitiesEnabled(FatalitiesCheckBox.IsChecked == true);
+                CrashIncidentSettings.SavePlayerDeathEnabled(FatalitiesCheckBox.IsChecked == true && PlayerDeathCheckBox.IsChecked == true);
             }
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show(string.Format(Strings.OptionsWindow_SaveError_Message, ex.Message),
                     Strings.OptionsWindow_SaveError_Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        // the player's own driver can only die when anyone can
+        private void FatalitiesCheckBox_Changed(object sender, RoutedEventArgs e) => UpdatePlayerDeathCheckBox();
+
+        private void UpdatePlayerDeathCheckBox()
+        {
+            if (PlayerDeathCheckBox == null)
+                return;
+
+            PlayerDeathCheckBox.IsEnabled = FatalitiesCheckBox.IsChecked == true;
+            if (!PlayerDeathCheckBox.IsEnabled)
+                PlayerDeathCheckBox.IsChecked = false;
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:Ams2ChEd.Business.AMS2.Localization"
         Title="{loc:Loc OptionsWindow_Title}"
-        Height="600" Width="720"
+        Height="720" Width="720"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource Charcoal.BackgroundBrush}"
         ResizeMode="NoResize">
@@ -102,7 +102,29 @@
                 <CheckBox x:Name="AutoLaunchCheckBox"
                           Content="{loc:Loc OptionsWindow_AutoLaunchLabel}"
                           Style="{StaticResource Charcoal.CheckBoxStyle}"
-                          HorizontalAlignment="Left"/>
+                          HorizontalAlignment="Left"
+                          Margin="0,0,0,22"/>
+
+                <!-- Crash consequences: injuries always happen, these go beyond them -->
+                <Label Content="{loc:Loc OptionsWindow_CrashesLabel}" Style="{StaticResource Charcoal.FieldLabelStyle}"/>
+                <CheckBox x:Name="CrashDetectionCheckBox"
+                          Content="{loc:Loc OptionsWindow_CrashDetectionLabel}"
+                          Style="{StaticResource Charcoal.CheckBoxStyle}"
+                          HorizontalAlignment="Left"
+                          Margin="0,0,0,8"/>
+                <CheckBox x:Name="FatalitiesCheckBox"
+                          Content="{loc:Loc OptionsWindow_FatalitiesLabel}"
+                          Style="{StaticResource Charcoal.CheckBoxStyle}"
+                          HorizontalAlignment="Left"
+                          Margin="0,0,0,8"
+                          Checked="FatalitiesCheckBox_Changed"
+                          Unchecked="FatalitiesCheckBox_Changed"/>
+                <!-- only with fatalities on -->
+                <CheckBox x:Name="PlayerDeathCheckBox"
+                          Content="{loc:Loc OptionsWindow_PlayerDeathLabel}"
+                          Style="{StaticResource Charcoal.CheckBoxStyle}"
+                          HorizontalAlignment="Left"
+                          Margin="28,0,0,0"/>
             </StackPanel>
         </Border>
 

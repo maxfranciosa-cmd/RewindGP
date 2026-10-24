@@ -1827,6 +1827,15 @@ Benvenuto/a nel team!</value>
   <data name="ContractLetterWindow_OffSeasonSuccess_NoRival" xml:space="preserve">
     <value>A dire il vero, non abbiamo mai seriamente considerato nessun altro per questo sedile.</value>
   </data>
+  <data name="ContractLetterWindow_OffSeasonSuccess_PickSignedElsewhere_Format" xml:space="preserve">
+    <value>Non ti nascondo che non eri la nostra unica opzione: eravamo in trattativa con {0}, che però ha scelto di firmare altrove, e tu eri la scelta migliore tra i piloti ancora sul mercato.</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonSuccess_RoleDown_Format" xml:space="preserve">
+    <value>Una cosa però va chiarita: sarà {0} a guidare la squadra, quindi inizierai la stagione come nostro secondo pilota.</value>
+  </data>
+  <data name="ContractLetterWindow_OffSeasonSuccess_RoleUp_Format" xml:space="preserve">
+    <value>E visto quello che hai dimostrato, sarai tu il nostro primo pilota, davanti a {0}.</value>
+  </data>
   <data name="ContractLetterWindow_ReputationReason_PayDriverWildCard" xml:space="preserve">
     <value>Pur riconoscendo che il tuo budget porta risorse preziose al nostro team, vediamo anche del potenziale nel tuo talento grezzo. Questa opportunità ti permette di dimostrare le tue capacità quando conta di più.</value>
   </data>
@@ -3915,5 +3924,136 @@ Le tue migliori occasioni: {1}.</value>
   </data>
   <data name="MarketOutlookWindow_Reason_WeakerTooManyRivals" xml:space="preserve">
     <value>Tu hai un nome più importante nel paddock in questo gruppo, ma potrebbero accontentarsi di qualcuno con meno blasone.</value>
+  </data>
+  <data name="CrashReviewWindow_Title" xml:space="preserve">
+    <value>Incidenti</value>
+  </data>
+  <data name="CrashReviewWindow_Header_Format" xml:space="preserve">
+    <value>INCIDENTI AL {0}</value>
+  </data>
+  <data name="CrashReviewWindow_Description" xml:space="preserve">
+    <value>Rewind GP ha rilevato questi incidenti nella telemetria della gara. Togli la spunta a quelli che non sono avvenuti davvero: solo quelli che tieni possono avere conseguenze per i piloti.</value>
+  </data>
+  <data name="CrashReviewWindow_DriverColumn" xml:space="preserve">
+    <value>PILOTA</value>
+  </data>
+  <data name="CrashReviewWindow_DetailColumn" xml:space="preserve">
+    <value>INCIDENTE</value>
+  </data>
+  <data name="CrashReviewWindow_KeepColumn" xml:space="preserve">
+    <value>È AVVENUTO</value>
+  </data>
+  <data name="CrashReviewWindow_ConfirmButton" xml:space="preserve">
+    <value>CONTINUA</value>
+  </data>
+  <data name="CrashReviewWindow_Severity_Severe" xml:space="preserve">
+    <value>Incidente violento</value>
+  </data>
+  <data name="CrashReviewWindow_Severity_Moderate" xml:space="preserve">
+    <value>Incidente</value>
+  </data>
+  <data name="CrashReviewWindow_Severity_Minor" xml:space="preserve">
+    <value>Incidente lieve</value>
+  </data>
+  <data name="CrashReviewWindow_Detail_Format" xml:space="preserve">
+    <value>Giro {0}, {1} km/h</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Headline_Injury_Format" xml:space="preserve">
+    <value>{0} ANCORA IN CONVALESCENZA, SALTA IL {2}</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_Injury_Format" xml:space="preserve">
+    <value>{0} è ancora in convalescenza dopo l&apos;incidente al {4} e non potrà correre al {2}.
+
+Nel frattempo il sedile della {1} va a {3}, e la squadra spera di riavere presto il suo pilota.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_Injury_NoReplacement_Format" xml:space="preserve">
+    <value>{0} è ancora in convalescenza dopo l&apos;incidente al {4} e non potrà correre al {2}.
+
+La {1} non ha ancora indicato un sostituto.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Headline_Deceased_Format" xml:space="preserve">
+    <value>LA {1} TORNA IN PISTA SENZA {0}</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_Deceased_Format" xml:space="preserve">
+    <value>La {1} torna in pista per il {2}, ancora in lutto per la scomparsa di {0} nell&apos;incidente al {4}.
+
+La macchina va a {3}. La squadra ha scelto di continuare a correre, come {0} avrebbe voluto.</value>
+  </data>
+  <data name="AbsenceAnnouncementWindow_Article_Deceased_NoReplacement_Format" xml:space="preserve">
+    <value>La {1} torna in pista per il {2} con una sola macchina, ancora in lutto per la scomparsa di {0} nell&apos;incidente al {4}.
+
+La squadra ha scelto di continuare a correre, come {0} avrebbe voluto.</value>
+  </data>
+  <data name="TeamApplicationWindow_DropReason_Deceased" xml:space="preserve">
+    <value>{0} ci ha purtroppo lasciati</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_Banner" xml:space="preserve">
+    <value>IN MEMORIAM</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_Headline_Format" xml:space="preserve">
+    <value>L&apos;AUTOMOBILISMO PIANGE {0}</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_Opening_Format" xml:space="preserve">
+    <value>{0} ha perso la vita in un violento incidente al {2} {3}. Al volante della {1}, aveva {4} anni.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_OpeningNoAge_Format" xml:space="preserve">
+    <value>{0} ha perso la vita in un violento incidente al {2} {3}, al volante della {1}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_CareerWins_Format" xml:space="preserve">
+    <value>{0} aveva vinto {1} Gran Premi e conquistato {2} podi.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_CareerOneWin_Format" xml:space="preserve">
+    <value>{0} aveva vinto un Gran Premio, un giorno che oggi il paddock ricorda.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_CareerPodiums_Format" xml:space="preserve">
+    <value>{0} aveva conquistato {2} podi.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_CareerOnePodium_Format" xml:space="preserve">
+    <value>{0} aveva conquistato un podio, da ricordare.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_CareerNoPodium_Format" xml:space="preserve">
+    <value>{0} inseguiva ancora il primo podio.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_AlsoKilled_Format" xml:space="preserve">
+    <value>Il {1} è costato la vita anche a {0}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_Race_Format" xml:space="preserve">
+    <value>La gara è andata avanti. Ha vinto {0} con la {1}, ma sul podio nessuno ha festeggiato.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Tribute_Closing" xml:space="preserve">
+    <value>Il pensiero di tutto il paddock va alla famiglia, agli amici e alla squadra.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Crash_Unhurt_Format" xml:space="preserve">
+    <value>{0} ({1}) esce senza conseguenze da un violento incidente.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Crash_Injured_OneRace_Format" xml:space="preserve">
+    <value>Un violento incidente manda {0} ({1}) in ospedale: salterà la prossima gara.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Crash_Injured_Races_Format" xml:space="preserve">
+    <value>Un violento incidente manda {0} ({1}) in ospedale: salterà le prossime {2} gare.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Crash_Injured_SeasonOver_Format" xml:space="preserve">
+    <value>Un violento incidente manda {0} ({1}) in ospedale, a stagione ormai conclusa.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Crash_StandIn_Format" xml:space="preserve">
+    <value>Nel frattempo il sedile della {1} va a {0}.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Crash_DroveOn_Finished_Format" xml:space="preserve">
+    <value>{0} ({1}) ha portato la macchina al traguardo dopo un violento incidente, ma i controlli medici dopo la gara hanno rilevato un infortunio.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Crash_DroveOn_Retired_Format" xml:space="preserve">
+    <value>{0} ({1}) ha proseguito dopo un violento incidente prima di ritirarsi, e i controlli medici hanno poi rilevato un infortunio.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Crash_Out_OneRace_Format" xml:space="preserve">
+    <value>{0} salterà la prossima gara.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Crash_Out_Races_Format" xml:space="preserve">
+    <value>{0} salterà le prossime {1} gare.</value>
+  </data>
+  <data name="PostRaceNewsWindow_Crash_Out_SeasonOver_Format" xml:space="preserve">
+    <value>A stagione conclusa, {0} avrà l&apos;inverno per riprendersi.</value>
+  </data>
+  <data name="CrashReviewWindow_Detail_DroveOn_Format" xml:space="preserve">
+    <value>Giro {0}, {1} km/h, ha proseguito</value>
   </data>
 </root>

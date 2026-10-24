@@ -2,11 +2,13 @@
 using Ams2ChEd.Business.AMS2.Settings;
 using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Services;
+using AMS2ChEd.Business.Services.CrashDetection;
+using AMS2ChEd.Business.Settings;
 using AMS2ChEd.Business.Settings.Contracts;
 using AMS2SharedMemoryNet;
 using AMS2SharedMemoryNet.Enums;
 using AMS2SharedMemoryNet.Structs;
-using System.Text;
+using System.Diagnostics;
 
 namespace Ams2ChEd.Business.AMS2.Services
 {
@@ -65,6 +67,15 @@ namespace Ams2ChEd.Business.AMS2.Services
         private readonly HashSet<string> _playerContactDriverIds = new HashSet<string>();
         private (long Index, double Magnitude)? _lastCollisionSample;
 
+        // The standings, the UI updates and the finish check run every 500 ms. While a race is being
+        // played with crash detection on, the page is also read every 50 ms for the crash detector
+        // alone: telling an impact from heavy braking needs the speed sampled that often.
+        private static readonly TimeSpan SessionPollInterval = TimeSpan.FromMilliseconds(500);
+        private static readonly TimeSpan CrashSampleInterval = TimeSpan.FromMilliseconds(50);
+        private readonly CrashDetector _crashDetector = new CrashDetector();
+        private readonly Stopwatch _clock = new Stopwatch();
+        private bool _crashDetectionEnabled;
+
         public Ams2RaceDataService(Ams2StorageFactory storageFactory)
         {
             SettingsStorage = storageFactory.InstallSettingsStorage;
@@ -87,6 +98,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             {
                 _parser = new MemoryParser("$pcars2$");
                 _cts = new CancellationTokenSource();
+                _crashDetectionEnabled = CrashIncidentSettings.LoadDetectionEnabled();
                 IsRunning = true;
                 _pollingTask = Task.Run(() => PollLoop(_cts.Token));
             }
@@ -109,21 +121,88 @@ namespace Ams2ChEd.Business.AMS2.Services
 
         private void PollLoop(CancellationToken token)
         {
+            _clock.Restart();
+            var nextSessionPoll = TimeSpan.Zero;
+
             while (!token.IsCancellationRequested)
             {
                 try
                 {
                     var page = _parser.GetPage();
-                    ProcessPage(page);
-                    Thread.Sleep(500); // Poll every 500ms
+                    var sampling = IsSamplingForCrashes(page);
+                    if (sampling)
+                        SampleForCrashes(page);
+
+                    if (_clock.Elapsed >= nextSessionPoll)
+                    {
+                        ProcessPage(page);
+                        nextSessionPoll = _clock.Elapsed + SessionPollInterval;
+                    }
+
+                    Thread.Sleep(sampling ? CrashSampleInterval : SessionPollInterval);
                 }
                 catch (Exception ex)
                 {
                     // Log error but continue polling
                     System.Diagnostics.Debug.WriteLine($"Polling error: {ex.Message}");
                     PollingError?.Invoke(this, ex.Message);
+                    Thread.Sleep(SessionPollInterval);
                 }
             }
+        }
+
+        // a race being driven (or paused, which the detector needs to see), not a pre-qualifying
+        // session; its formation lap too, so the detector sees a restarted race start again
+        private bool IsSamplingForCrashes(AMS2Page page)
+        {
+            return _crashDetectionEnabled && !IsPreQualiSession &&
+                   page.mSessionState is (uint)SessionState.SESSION_RACE or (uint)SessionState.SESSION_FORMATION_LAP &&
+                   page.mGameState is (uint)GameState.GAME_INGAME_PLAYING or (uint)GameState.GAME_INGAME_PAUSED
+                       or (uint)GameState.GAME_INGAME_INMENU_TIME_TICKING or (uint)GameState.GAME_INGAME_RESTARTING;
+        }
+
+        private void SampleForCrashes(AMS2Page page)
+        {
+            // a page caught halfway through AMS2 writing it is skipped: the next comes 50 ms later
+            var frame = Ams2TelemetryFrameReader.Read(page, _clock.Elapsed.TotalSeconds);
+            if (frame == null)
+                return;
+
+            lock (_lock)
+            {
+                _crashDetector.Process(frame);
+            }
+        }
+
+        // the race's confirmed crashes, as the career's drivers: the player's car by its in-game name.
+        // A car still stranded where it crashed counts, though its window hasn't run out yet
+        private List<RaceCrash> DetectedCrashes()
+        {
+            _crashDetector.Flush();
+
+            var crashes = new List<RaceCrash>();
+            foreach (var incident in _crashDetector.Incidents)
+            {
+                var isPlayer = incident.CarName.ToLower() == _playerInGameNameInLowerCase;
+                var driverName = isPlayer ? _playerDriverName : incident.CarName;
+                var driverId = isPlayer ? _playerDriverId : _driverNameDriverIdLookup?.GetValueOrDefault(incident.CarName);
+                if (string.IsNullOrEmpty(driverId) || driverName == null)
+                    continue;
+
+                System.Diagnostics.Debug.WriteLine($"Crash detected: '{incident.CarName}' ({driverId}) lap {incident.Lap}, {incident.ImpactSpeed * 3.6:0} km/h, {incident.PeakDecelerationG:0.0} g, {incident.Severity}");
+
+                crashes.Add(new RaceCrash
+                {
+                    DriverId = driverId,
+                    TeamId = _driverNameTeamIdlookup?.GetValueOrDefault(driverName),
+                    Severity = incident.Severity,
+                    DroveOn = incident.DroveOn,
+                    Detected = true,
+                    ImpactSpeedKmh = incident.ImpactSpeed * 3.6,
+                    Lap = incident.Lap
+                });
+            }
+            return crashes;
         }
 
         private void ProcessPage(AMS2Page page)
@@ -142,6 +221,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                     _sessionFinishedTriggered = false;
                     _sessionHasStarted = false;
                     ResetContactTracking();
+                    _crashDetector.Reset();
                 }
                 else if (!_sessionHasStarted && page.mGameState == 2)
                 {
@@ -207,16 +287,19 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
 
             List<string> playerContactDriverIds;
+            List<RaceCrash> crashes;
             lock (_lock)
             {
                 playerContactDriverIds = sessionType == SessionType.Race ? _playerContactDriverIds.ToList() : new List<string>();
+                crashes = sessionType == SessionType.Race ? DetectedCrashes() : new List<RaceCrash>();
             }
 
             SessionFinished?.Invoke(this, new SessionFinishedEventArgs
             {
                 CompletedSession = sessionType,
                 FinalStandings = standings,
-                PlayerContactDriverIds = playerContactDriverIds
+                PlayerContactDriverIds = playerContactDriverIds,
+                Crashes = crashes
             });
         }
 
@@ -426,17 +509,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             return $"{(int)ts.TotalMinutes}:{ts.Seconds:D2}.{ts.Milliseconds:D3}";
         }
 
-        private string DecodeAms2String(char[] raw)
-        {
-            if (raw == null || raw.Length == 0)
-                return string.Empty;
-
-            byte[] bytes = raw.Select(c => (byte)c).ToArray();
-            int end = Array.IndexOf(bytes, (byte)0);
-            if (end < 0) end = bytes.Length;
-
-            return Encoding.UTF8.GetString(bytes, 0, end);
-        }
+        private string DecodeAms2String(char[] raw) => Ams2TelemetryFrameReader.DecodeName(raw);
 
         public void InitializeRaceWeekend(IEnumerable<ParticipantData> participants)
         {
@@ -452,6 +525,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             lock (_lock)
             {
                 ResetContactTracking();
+                _crashDetector.Reset();
             }
 
             // Store player's career driver information

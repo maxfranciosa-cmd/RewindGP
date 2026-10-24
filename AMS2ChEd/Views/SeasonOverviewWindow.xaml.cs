@@ -92,7 +92,6 @@ namespace AMS2ChEd
             _offSeasonOrchestrator = offSeasonOrchestrator;
             _gameLogicFactory.AbsenceManager.AbsenceOpportunityAvailable += OnAbsenceOpportunityAvailable;
             _gameLogicFactory.AbsenceManager.AbsenceDecisionMade += OnAbsenceDecisionMade;
-            MarketOutlookButton.Visibility = _gameLogicFactory.MarketOutlookEstimator == null ? Visibility.Collapsed : Visibility.Visible;
             LoadOverview();
         }
 
@@ -126,6 +125,9 @@ namespace AMS2ChEd
 
             // Set season and next GP
             SeasonText.Text = string.Format(Strings.SeasonOverviewWindow_SeasonText_Format, saveGame.CurrentSeason.Year);
+
+            // the agent has nothing to say once the player's driver died in a crash
+            MarketOutlookButton.Visibility = _gameLogicFactory.MarketOutlookEstimator == null || saveGame.IsPlayerDeceased() ? Visibility.Collapsed : Visibility.Visible;
 
             // Load player data
             LoadPlayerData();
@@ -551,7 +553,13 @@ namespace AMS2ChEd
                     return;
                 }
 
-                GenerateEntryListForTheNextRace();
+                // a list already drawn up for this race (the player closed it, or reloaded) is shown
+                // again as it is: drawing it up anew would roll every absence, paid ride and bid again
+                var nextRaceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId;
+                if (saveGame.NextGpEntryList != null && saveGame.NextGpEntryListRaceId == nextRaceId)
+                    ShowEntryListWindow();
+                else
+                    GenerateEntryListForTheNextRace();
             }
             catch (Exception ex)
             {
@@ -564,7 +572,12 @@ namespace AMS2ChEd
         {
             // NEW: Use EntryListGenerator to create entry list
             var entryList = _gameLogicFactory.EntryListGenerator.GenerateEntryList(saveGame);
-            var absences = _gameLogicFactory.EntryListGenerator.GetAbsencesForGrandPrix(saveGame);
+            // the AI pay drivers' rides wait for the player's bids, even those bought the last time
+            // this entry list was drawn up: the player can still take one over (SettlePaidRides)
+            var playerId = saveGame.PlayerData.DriverId;
+            var absences = _gameLogicFactory.EntryListGenerator.GetAbsencesForGrandPrix(saveGame)
+                .Where(a => a.Reason != AbsenceReason.PAID_RIDE || a.DriverIn == playerId)
+                .ToList();
 
             // NEW: Use AbsenceManager to process absences
             if (absences.Any())
@@ -598,6 +611,7 @@ namespace AMS2ChEd
                 saveGame.PreQualiPoolEntries = null;
                 saveGame.PreQualiStatus = PreQualiStatus.NotApplicable;
             }
+            saveGame.NextGpEntryListRaceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId;
 
             // Save the updated game state
             string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
@@ -605,7 +619,11 @@ namespace AMS2ChEd
 
             ShowImprovementPackageNews();
 
-            // Show entry list window
+            ShowEntryListWindow();
+        }
+
+        private void ShowEntryListWindow()
+        {
             var entryListWindow = new Views.EntryListWindow(_ams2StorageFactory, _settingsStorage, _gameLogicFactory, saveGame);
             entryListWindow.RaceWeekendCompleted += OnRaceWeekendCompleted;
 
@@ -812,7 +830,8 @@ namespace AMS2ChEd
                 DateTime.ParseExact(gp.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 askPlayerToApply: !playerAlreadySteppedIn && opportunity.DriverIn != _saveGame.PlayerData.DriverId && opportunity.Reason != AbsenceReason.PAID_RIDE,
                 isConsecutive,
-                opportunity.Reason);
+                opportunity.Reason,
+                IncidentGrandPrixName(opportunity.IncidentRaceId));
 
             newsWindow.Owner = _owner;
             bool? result = newsWindow.ShowDialog();
@@ -827,6 +846,13 @@ namespace AMS2ChEd
             if (e.Decision.Absence.Reason == AbsenceReason.PAID_RIDE && e.Decision.Absence.DriverOut == _saveGame.PlayerData.DriverId)
             {
                 ShowPlayerSeatSold(e.Decision.Absence, isConsecutive);
+                return;
+            }
+
+            // the player's own seat after a crash: the news says who races in it
+            if (e.Decision.Absence.Reason is AbsenceReason.INJURY or AbsenceReason.DECEASED && e.Decision.Absence.DriverOut == _saveGame.PlayerData.DriverId)
+            {
+                ShowPlayerCrashAbsence(e.Decision.Absence, isConsecutive);
                 return;
             }
 
@@ -907,6 +933,28 @@ namespace AMS2ChEd
                 AbsenceReason.PAID_RIDE);
             newsWindow.Owner = _owner;
             newsWindow.ShowDialog();
+        }
+
+        private void ShowPlayerCrashAbsence(Absence absence, bool isConsecutive)
+        {
+            var gp = GetGrandPrix(absence.RaceId);
+            var newsWindow = new AbsenceAnnouncementWindow(
+                GetDriverName(_saveGame.PlayerData.DriverId),
+                GetTeamName(absence.TeamId),
+                gp?.RaceName ?? Strings.SeasonOverviewWindow_GrandPrixFallback,
+                GetDriverName(absence.DriverIn),
+                DateTime.ParseExact(gp.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                askPlayerToApply: false,
+                isConsecutive,
+                absence.Reason,
+                IncidentGrandPrixName(absence.IncidentRaceId));
+            newsWindow.Owner = _owner;
+            newsWindow.ShowDialog();
+        }
+
+        private string IncidentGrandPrixName(int? incidentRaceId)
+        {
+            return incidentRaceId == null ? null : GetGrandPrix(incidentRaceId.Value)?.RaceName;
         }
 
         private bool WasThisDriverAbsenteThePreviousRace(ISaveGame saveGame, string driverOut)
@@ -1045,11 +1093,26 @@ namespace AMS2ChEd
                 otherDriverName = otherDriver?.Name ?? Strings.SeasonOverviewWindow_UnknownDriver;
             }
 
+            // an acceptance confirms the role the player applied for, then says so when the team
+            // has since given the lead to the stronger of its two drivers
+            var letterRole = result.PlayerHired ? result.AdvertisedRole : result.Role;
             string roleName = result.IsReserve
                 ? Strings.TeamApplicationWindow_ReserveRole
-                : result.Role == DriverRole.FIRST_DRIVER
+                : letterRole == DriverRole.FIRST_DRIVER
                     ? Strings.TeamApplicationWindow_FirstDriverRole
                     : Strings.TeamApplicationWindow_SecondDriverRole;
+
+            string roleChangeNote = null;
+            if (result.PlayerHired && !result.IsReserve && result.Role != result.AdvertisedRole && !string.IsNullOrEmpty(result.TeammateId))
+            {
+                var teammateName = saveGame.Drivers
+                    .FirstOrDefault(d => d.DriverId == result.TeammateId)?.Name ?? Strings.SeasonOverviewWindow_UnknownDriver;
+                roleChangeNote = string.Format(
+                    result.Role == DriverRole.FIRST_DRIVER
+                        ? Strings.ContractLetterWindow_OffSeasonSuccess_RoleUp_Format
+                        : Strings.ContractLetterWindow_OffSeasonSuccess_RoleDown_Format,
+                    teammateName);
+            }
 
             var letterWindow = new ContractLetterWindow(
                 teamName,
@@ -1062,8 +1125,10 @@ namespace AMS2ChEd
                 result.OtherDriverWasAtTeamBefore,
                 roleName,
                 teamEntry?.Reputation ?? TeamReputation.MINNOW,
-                result.Role,
-                result.IsReserve);
+                letterRole,
+                result.IsReserve,
+                roleChangeNote,
+                result.OtherDriverSignedElsewhere);
             letterWindow.Owner = _owner;
             letterWindow.ShowDialog();
             return Task.CompletedTask;

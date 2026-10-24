@@ -194,9 +194,8 @@ namespace AMS2ChEd.Business.Services
 
                 if (!availableCandidates.Any())
                 {
-                    var originalHireAvailable = isReserve
-                        ? !string.IsNullOrEmpty(ballot.OriginalTeamHiring.DriverId) && !hiredDriversId.Contains(ballot.OriginalTeamHiring.DriverId)
-                        : !hiredDriversId.Contains(ballot.OriginalTeamHiring.DriverId);
+                    // no original pick when the team's pick was the player, who didn't apply
+                    var originalHireAvailable = !string.IsNullOrEmpty(ballot.OriginalTeamHiring.DriverId) && !hiredDriversId.Contains(ballot.OriginalTeamHiring.DriverId);
 
                     if (originalHireAvailable)
                     {
@@ -226,10 +225,13 @@ namespace AMS2ChEd.Business.Services
                     }
                     else
                     {
-                        var firstAvailableDriverOfTheSameReputationOrLower = ballot.OriginalTeamHiring.OtherPotentialCandidates
-                                                                                                        .Where(d => !hiredDriversId.Contains(d.Id) && 
-                                                                                                         d.Reputation <= ballot.OriginalTeamHiring.DriverReputation)
-                                                                                                        .OrderByDescending(d => d.Reputation).First();
+                        // the next one down, or failing that the best one still free
+                        var stillAvailable = ballot.OriginalTeamHiring.OtherPotentialCandidates
+                                                                    .Where(d => !hiredDriversId.Contains(d.Id))
+                                                                    .OrderByDescending(d => d.Reputation)
+                                                                    .ToList();
+                        var firstAvailableDriverOfTheSameReputationOrLower = stillAvailable.FirstOrDefault(d => d.Reputation <= ballot.OriginalTeamHiring.DriverReputation)
+                                                                             ?? stillAvailable.First();
                         result.Add(new TeamHiring
                         {
                             Role = ballot.OriginalTeamHiring.Role,

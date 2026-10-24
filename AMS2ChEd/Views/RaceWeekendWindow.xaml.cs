@@ -1,10 +1,12 @@
 ﻿using AMS2ChEd.Business.DependencyInjection;
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Services.Mocks;
 using AMS2ChEd.Business.Services.RaceNumberSystem.Factory;
+using AMS2ChEd.Business.Settings;
 using AMS2ChEd.Resources;
 using System.ComponentModel;
 using System.Globalization;
@@ -107,6 +109,10 @@ namespace AMS2ChEd.Views
         private bool _isClosed;
 
         public event EventHandler<ISaveGame> RaceCompleted;
+
+        // the race's detected crashes were applied after RaceCompleted (once the player reviewed
+        // them): the save has changed again
+        public event EventHandler<ISaveGame> CrashesApplied;
         public event EventHandler<List<ParticipantData>> PreQualiResultsReady;
         public RaceWeekendWindow(GameLogicFactory gameLogicFactory, ISaveGame saveGame, SimulatedRaceDataService simulatedRaceDataService, bool simulateRace, bool preQualiMode = false)
         {
@@ -363,6 +369,14 @@ namespace AMS2ChEd.Views
                             saveGame, raceResult, preRaceStandings, e.PlayerContactDriverIds, e.TeammateContacts);
                         var grandPrixName = raceResult.GrandPrixName;
 
+                        // crashes: a simulated race's count straight away; the ones found in the
+                        // telemetry wait for the player's review, after the race is saved
+                        var raceIndex = saveGame.NextGpIndex;
+                        var crashOptions = CrashIncidentSettings.Load();
+                        var raceCrashes = e.Crashes ?? Array.Empty<RaceCrash>();
+                        var crashNews = CrashIncidentManager.ApplyRace(saveGame, raceIndex, raceCrashes.Where(c => !c.Detected), crashOptions, Random.Shared);
+                        var detectedCrashes = raceCrashes.Where(c => c.Detected).ToList();
+
                         // Add race result to history
                         saveGame.GrandPrixResults = saveGame.GrandPrixResults.Append(raceResult);
 
@@ -371,6 +385,7 @@ namespace AMS2ChEd.Views
                         // Increment to next GP
                         saveGame.NextGpIndex++;
                         saveGame.NextGpEntryList = null;
+                        saveGame.NextGpEntryListRaceId = null;
 
                         // Stop the race data service to prevent further polling
                         if (_raceDataService.IsRunning)
@@ -393,11 +408,27 @@ namespace AMS2ChEd.Views
 
                         await playerReturned;
 
-                        // Show post-race newspaper (owned by this window only while it's still open)
+                        // the crashes found in the telemetry: the player confirms each, so a misfire
+                        // never harms a career
+                        if (detectedCrashes.Any())
+                        {
+                            var reviewWindow = new CrashReviewWindow(saveGame, detectedCrashes, grandPrixName);
+                            if (!_isClosed) reviewWindow.Owner = this;
+                            reviewWindow.ShowDialog();
+
+                            if (reviewWindow.ConfirmedCrashes.Any())
+                            {
+                                crashNews.AddRange(CrashIncidentManager.ApplyRace(saveGame, raceIndex, reviewWindow.ConfirmedCrashes, crashOptions, Random.Shared));
+                                CrashesApplied?.Invoke(this, saveGame);
+                            }
+                        }
+
+                        // Show post-race newspaper (owned by this window only while it's still open):
+                        // a tribute instead when a driver was killed
                         var winnerDriverData = saveGame.Drivers.FirstOrDefault(d => d.DriverId == winner.DriverId);
                         var winnerPhoto = winnerDriverData?.PictureUrl;
                         var raceDate = DateTime.ParseExact(gpDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                        var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, raceDate, winnerPhoto, _gameLogicFactory.AllTimeRecordsLoader);
+                        var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, raceDate, winnerPhoto, _gameLogicFactory.AllTimeRecordsLoader, crashNews);
                         if (!_isClosed) newsWindow.Owner = this;
 
                         // paddock news about team-orders reprimands follows the race report
