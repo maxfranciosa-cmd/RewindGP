@@ -76,15 +76,15 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         // The kits, number styles, outfit set and tyre sets that ship with the app: every file they
-        // name exists, and every template and two-colour strip is pure key colours, so a recolour
-        // leaves no pixel in its template colour.
+        // name exists, every template is in exact key colours (fixed artwork aside) and every
+        // two-colour strip pure key colours, so a recolour leaves no pixel in its template colour.
         [TestMethod]
         public void ShippedKits_AreComplete_AndInKeyColours()
         {
             string app = Path.Combine(RepoRoot(), "AMS2ChEd");
             var loader = new LiveryKitLoader(Path.Combine(app, "LiveryKits"), Path.Combine(app, "Tyres", "tyre_sets.json"), Path.Combine(app, "Tyres", "files"));
 
-            foreach (var model in new[] { "formula_v10_g1", "mclaren_mp4_12" })
+            foreach (var model in new[] { "formula_v10_g1", "mclaren_mp4_12", "formula_v10_g2_b", "formula_v10_g2_m" })
             {
                 var kit = loader.FindKit(model);
                 Assert.IsNotNull(kit, model);
@@ -96,12 +96,13 @@ namespace AMS2ChEd.Tests.Ams2
                     string body = Path.Combine(kit.Folder, template.Body);
                     Assert.IsTrue(File.Exists(body), body);
                     using var image = Image.Load<Rgba32>(body);
-                    Assert.AreEqual(0, NonKeyPixels(image), $"{template.Id}: pixels outside the key colours");
+                    // fixed artwork (carbon, mirror glass, grilles) may stay, but nothing close to a key
+                    Assert.AreEqual(0, TemplateRecolour.CountNearKey(image, 60), $"{template.Id}: pixels near a key colour without being one");
                     Assert.IsTrue(template.NumbersPlacements.All(p => p.SheetSize?.Length == 2), $"{template.Id}: sheet sizes");
                 }
             }
 
-            foreach (var style in new[] { "sans", "sans_outline", "serif", "serif_outline" })
+            foreach (var style in new[] { "sans", "sans_outline", "serif", "serif_outline", "ferrari", "sans_italic", "sans_outline_italic", "serif_italic", "serif_outline_italic", "ferrari_italic" })
             {
                 string path = loader.NumberStylePath(style);
                 Assert.IsTrue(File.Exists(path), style);
