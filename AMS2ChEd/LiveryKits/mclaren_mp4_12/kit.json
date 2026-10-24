@@ -1,0 +1,99 @@
+{
+  "car_models": [
+    "mclaren_mp4_12"
+  ],
+  "livery_xml": "livery.xml",
+  "outfit_set": "open_wheel_90s",
+  "templates": [
+    {
+      "id": "mclaren_1996",
+      "body": "templates/mclaren_1996.png",
+      "numbers_placements": [
+        {
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2899,
+            "Y": 1457
+          },
+          "rotation": "Deg0",
+          "sheet_size": [
+            1100,
+            175
+          ]
+        },
+        {
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2516,
+            "Y": 1903
+          },
+          "rotation": "Deg0",
+          "sheet_size": [
+            1100,
+            175
+          ]
+        },
+        {
+          "number_plate_width": 176,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2139,
+            "Y": 1170
+          },
+          "rotation": "Deg180",
+          "sheet_size": [
+            880,
+            140
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ligier_1996",
+      "body": "templates/ligier_1996.png",
+      "numbers_placements": [
+        {
+          "number_plate_width": 164,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2519,
+            "Y": 2009
+          },
+          "rotation": "Deg0",
+          "sheet_size": [
+            820,
+            127
+          ]
+        },
+        {
+          "number_plate_width": 164,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2919,
+            "Y": 1580
+          },
+          "rotation": "Deg0",
+          "sheet_size": [
+            820,
+            127
+          ]
+        },
+        {
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2165,
+            "Y": 720
+          },
+          "rotation": "Deg180",
+          "sheet_size": [
+            1100,
+            170
+          ]
+        }
+      ]
+    }
+  ]
+}

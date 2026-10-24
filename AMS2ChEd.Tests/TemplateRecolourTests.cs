@@ -102,6 +102,40 @@ namespace AMS2ChEd.Tests.Ams2
             Assert.ThrowsExactly<FormatException>(() => TemplateRecolour.ParseColour(hex));
         }
 
+        [TestMethod]
+        public void Snap_PixelsNearAKey_MoveOntoIt_KeepingAlpha_FixedArtworkStays()
+        {
+            var carbon = new Rgba32(30, 30, 30);
+            var transparentNearRed = new Rgba32(250, 5, 5, 0);
+            using var image = Strip(new Rgba32(240, 10, 12, 128), carbon, transparentNearRed, TemplateRecolour.KeyColours["green"]);
+
+            int changed = TemplateRecolour.Snap(image, 40);
+
+            Assert.AreEqual(1, changed);
+            Assert.AreEqual(new Rgba32(255, 0, 0, 128), image[0, 0]);
+            Assert.AreEqual(carbon, image[1, 0]);
+            Assert.AreEqual(transparentNearRed, image[2, 0]);
+        }
+
+        [TestMethod]
+        public void Snap_RestrictedToSomeKeys_UsesOnlyThose()
+        {
+            using var image = Strip(new Rgba32(128, 128, 0));
+
+            TemplateRecolour.Snap(image, double.MaxValue, new[] { "red", "green" });
+
+            var pixel = image[0, 0];
+            Assert.IsTrue(pixel.Equals(new Rgba32(255, 0, 0)) || pixel.Equals(new Rgba32(0, 255, 0)), pixel.ToString());
+        }
+
+        [TestMethod]
+        public void CountNearKey_CountsOnlyAlmostKeyPixels()
+        {
+            using var image = Strip(new Rgba32(250, 0, 0), TemplateRecolour.KeyColours["blue"], new Rgba32(30, 30, 30), new Rgba32(0, 250, 0, 0));
+
+            Assert.AreEqual(1, TemplateRecolour.CountNearKey(image, 40));
+        }
+
         private static Image<Rgba32> Strip(params Rgba32[] pixels)
         {
             var image = new Image<Rgba32>(pixels.Length, 1);

@@ -65,6 +65,82 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             });
         }
 
+        /// <summary>
+        /// Moves every pixel within maxDistance (RGB) of one of the given key colours onto the
+        /// nearest of them, keeping its alpha; fully transparent pixels and pixels further from
+        /// every key (fixed artwork) are left alone. Used on templates drawn with anti-aliasing
+        /// before they go into a kit. Returns how many pixels changed.
+        /// </summary>
+        public static int Snap(Image<Rgba32> image, double maxDistance, IEnumerable<string> keys = null)
+        {
+            var targets = (keys ?? KeyColours.Keys).Select(k => KeyColours.TryGetValue(k, out var c) ? c
+                : throw new ArgumentException($"'{k}' is not a template key colour.", nameof(keys))).ToArray();
+            int changed = 0;
+            image.ProcessPixelRows(accessor =>
+            {
+                for (int y = 0; y < accessor.Height; y++)
+                {
+                    var row = accessor.GetRowSpan(y);
+                    for (int x = 0; x < row.Length; x++)
+                    {
+                        var pixel = row[x];
+                        if (pixel.A == 0)
+                            continue;
+                        var (nearest, distance) = Nearest(pixel, targets);
+                        if (distance == 0 || distance > maxDistance)
+                            continue;
+                        row[x] = new Rgba32(nearest.R, nearest.G, nearest.B, pixel.A);
+                        changed++;
+                    }
+                }
+            });
+            return changed;
+        }
+
+        /// <summary>
+        /// Counts the non-transparent pixels that are within maxDistance of a key colour without
+        /// being exactly one: anti-aliasing a snap pass missed, which would keep its template
+        /// colour when the kit is recoloured.
+        /// </summary>
+        public static int CountNearKey(Image<Rgba32> image, double maxDistance)
+        {
+            var targets = KeyColours.Values.ToArray();
+            int count = 0;
+            image.ProcessPixelRows(accessor =>
+            {
+                for (int y = 0; y < accessor.Height; y++)
+                {
+                    var row = accessor.GetRowSpan(y);
+                    for (int x = 0; x < row.Length; x++)
+                    {
+                        if (row[x].A == 0)
+                            continue;
+                        var (_, distance) = Nearest(row[x], targets);
+                        if (distance > 0 && distance <= maxDistance)
+                            count++;
+                    }
+                }
+            });
+            return count;
+        }
+
+        private static (Rgba32 colour, double distance) Nearest(Rgba32 pixel, Rgba32[] targets)
+        {
+            Rgba32 best = targets[0];
+            double bestDistance = double.MaxValue;
+            foreach (var target in targets)
+            {
+                int dr = pixel.R - target.R, dg = pixel.G - target.G, db = pixel.B - target.B;
+                double distance = Math.Sqrt(dr * dr + dg * dg + db * db);
+                if (distance < bestDistance)
+                {
+                    bestDistance = distance;
+                    best = target;
+                }
+            }
+            return (best, bestDistance);
+        }
+
         /// <summary>Parses a palette of "#RRGGBB" (or "#AARRGGBB") strings, as baked data stores it.</summary>
         public static Dictionary<string, Rgba32> ParsePalette(IReadOnlyDictionary<string, string> palette)
         {
