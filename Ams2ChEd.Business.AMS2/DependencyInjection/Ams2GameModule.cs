@@ -39,6 +39,8 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             services.AddSingleton<ITeamsLoader, TeamsLoader>();
             services.AddSingleton<ICarModelCapacityLoader, CarModelCapacityLoader>();
             services.AddSingleton<ILiveryKitLoader>(_ => new LiveryKitLoader());
+            // Replaces the host's plain loader: the hall of fame's names come from the baked seasons.
+            services.AddSingleton<IAllTimeRecordsLoader>(_ => new BakedNamesAllTimeRecordsLoader(new AMS2ChEd.Business.Storage.Concrete.AllTimeRecordsLoader()));
             services.AddSingleton<IGameStorage, GameStorage>();
             services.AddSingleton<IGameInstallSettingsStorage, Ams2GameInstallSettingsStorage>();
             services.AddSingleton<IVehicleLiverySlotPatcher, Ams2VehicleLiverySlotPatcher>();
