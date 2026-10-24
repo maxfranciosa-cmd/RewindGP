@@ -26,5 +26,13 @@ namespace AMS2ChEd.Business.AMS2.Models
         [JsonPropertyName("base_visor_file_70s")]
         public string BaseVisorFile70s { get; set; }
 
+        /// <summary>
+        /// Baked data only: the helmet generated when no season pack or save supplies the
+        /// driver's own. Null (and absent from the JSON) in packs and saves made before it existed.
+        /// </summary>
+        [JsonPropertyName("generic_helmet")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public GenericHelmet GenericHelmet { get; set; }
+
     }
 }

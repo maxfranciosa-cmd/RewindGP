@@ -45,6 +45,71 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             return Path.Combine(SeasonsFolder, seasonYear.ToString(), "external_liveries.json");
         }
 
+        // Baked season data ships with the app; season packs installed under SeasonsFolder only
+        // overlay their artwork on it.
+        private static string _bakedSeasonsFolder = null;
+        public static string BakedSeasonsFolder
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_bakedSeasonsFolder))
+                {
+                    _bakedSeasonsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BakedSeasons");
+                }
+                return _bakedSeasonsFolder;
+            }
+        }
+
+        public static string BakedSeasonFilePath(int seasonYear)
+        {
+            return Path.Combine(BakedSeasonsFolder, seasonYear.ToString(), "season.json");
+        }
+
+        public static string BakedDriversFilePath(int seasonYear)
+        {
+            return Path.Combine(BakedSeasonsFolder, seasonYear.ToString(), "drivers.json");
+        }
+
+        // One subfolder per kit, each holding its kit.json.
+        private static string _liveryKitsFolder = null;
+        public static string LiveryKitsFolder
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_liveryKitsFolder))
+                {
+                    _liveryKitsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LiveryKits");
+                }
+                return _liveryKitsFolder;
+            }
+        }
+
+        private static string _tyreSetsFilePath = null;
+        public static string TyreSetsFilePath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_tyreSetsFilePath))
+                {
+                    _tyreSetsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tyres", "tyre_sets.json");
+                }
+                return _tyreSetsFilePath;
+            }
+        }
+
+        private static string _tyreFilesFolder = null;
+        public static string TyreFilesFolder
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_tyreFilesFolder))
+                {
+                    _tyreFilesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tyres", "files");
+                }
+                return _tyreFilesFolder;
+            }
+        }
+
         private static string _savesPath = null;
         public static string SavesFolder
         {

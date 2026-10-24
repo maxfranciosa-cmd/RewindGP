@@ -125,6 +125,14 @@ namespace AMS2ChEd.Business.AMS2.Models
         [JsonPropertyName("livery_xml")]
         public string LiveryXml { get; set; }
 
+        /// <summary>
+        /// Baked data only: the livery generated when no season pack supplies the team's artwork.
+        /// Null (and absent from the JSON) in packs and saves made before it existed.
+        /// </summary>
+        [JsonPropertyName("generic_livery")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public GenericLivery GenericLivery { get; set; }
+
     }
 
     public enum NumberRotation
