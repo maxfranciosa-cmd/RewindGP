@@ -474,7 +474,7 @@ namespace AMS2ChEd.SeasonPackEditor.Controls
             var livery = Image.Load<Rgba32>(templatePath);
 
             // Step 1: Replace template colors
-            ReplaceTemplateColors(livery);
+            TemplateRecolour.Apply(livery, _colorMappings);
 
             if (sponsorTemplate?.Sponsors == null) return livery;
 
@@ -503,48 +503,6 @@ namespace AMS2ChEd.SeasonPackEditor.Controls
             }
 
             return livery;
-        }
-
-        private void ReplaceTemplateColors(Image<Rgba32> livery)
-        {
-            // Define original template colors
-            var templateColors = new Dictionary<string, Rgba32>
-            {
-                { "Red", new Rgba32(255, 0, 0) },
-                { "Green", new Rgba32(0, 255, 0) },
-                { "Blue", new Rgba32(0, 0, 255) },
-                { "Yellow", new Rgba32(255, 255, 0) },
-                { "Magenta", new Rgba32(255, 0, 255) },
-                { "Cyan", new Rgba32(0, 255, 255) }
-            };
-
-            // Replace each color
-            foreach (var kvp in templateColors)
-            {
-                var templateColor = kvp.Value;
-                var replacementColor = _colorMappings[kvp.Key];
-
-                // Only replace if color has changed
-                if (templateColor.Equals(replacementColor))
-                    continue;
-
-                livery.ProcessPixelRows(accessor =>
-                {
-                    for (int y = 0; y < accessor.Height; y++)
-                    {
-                        var row = accessor.GetRowSpan(y);
-                        for (int x = 0; x < row.Length; x++)
-                        {
-                            if (row[x].R == templateColor.R &&
-                                row[x].G == templateColor.G &&
-                                row[x].B == templateColor.B)
-                            {
-                                row[x] = replacementColor;
-                            }
-                        }
-                    }
-                });
-            }
         }
 
         private void ApplySponsorToPlacement(
