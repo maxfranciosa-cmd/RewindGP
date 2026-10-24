@@ -1,0 +1,946 @@
+{
+  "drivers": [
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "jean_alesi",
+      "name": "Jean Alesi",
+      "nationality": "FRA",
+      "year_of_birth": 1964,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "AGEING_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.845,
+        "avoidance_of_forced_mistakes": 0.899,
+        "avoidance_of_mistakes": 0.888,
+        "blue_flag_conceding": 0.908,
+        "consistency": 0.435,
+        "defending": 0.928,
+        "fuel_management": 0.917,
+        "qualifying_skill": 0.93,
+        "race_skill": 0.92,
+        "stamina": 0.887,
+        "start_reactions": 0.907,
+        "tyre_management": 0.919,
+        "weather_tyre_changes": 0.915,
+        "wet_skill": 0.868
+      },
+      "generic_helmet": {
+        "design": "11_chevron",
+        "palette": {
+          "red": "#FFFFFF",
+          "green": "#101010",
+          "blue": "#D01020"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "rubens_barrichello",
+      "name": "Rubens Barrichello",
+      "nationality": "BRA",
+      "year_of_birth": 1972,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PRIME_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.909,
+        "avoidance_of_forced_mistakes": 0.94,
+        "avoidance_of_mistakes": 0.928,
+        "blue_flag_conceding": 0.926,
+        "consistency": 0.351,
+        "defending": 0.933,
+        "fuel_management": 0.937,
+        "qualifying_skill": 0.921,
+        "race_skill": 0.929,
+        "stamina": 0.948,
+        "start_reactions": 0.918,
+        "tyre_management": 0.908,
+        "weather_tyre_changes": 0.914,
+        "wet_skill": 0.926
+      },
+      "generic_helmet": {
+        "design": "07_spikey",
+        "palette": {
+          "red": "#C8102E",
+          "green": "#FFFFFF",
+          "blue": "#16306E"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "david_coulthard",
+      "name": "David Coulthard",
+      "nationality": "GBR",
+      "year_of_birth": 1971,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN",
+      "rating_values": {
+        "aggression": 0.981,
+        "avoidance_of_forced_mistakes": 0.976,
+        "avoidance_of_mistakes": 0.986,
+        "blue_flag_conceding": 0.952,
+        "consistency": 0.403,
+        "defending": 0.968,
+        "fuel_management": 0.955,
+        "qualifying_skill": 0.951,
+        "race_skill": 0.944,
+        "stamina": 0.984,
+        "start_reactions": 0.939,
+        "tyre_management": 0.935,
+        "weather_tyre_changes": 0.984,
+        "wet_skill": 0.99
+      },
+      "generic_helmet": {
+        "design": "11_chevron",
+        "palette": {
+          "red": "#101A6E",
+          "green": "#FFFFFF",
+          "blue": "#FFFFFF"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "pedro_diniz",
+      "name": "Pedro Diniz",
+      "nationality": "BRA",
+      "year_of_birth": 1970,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.851,
+        "avoidance_of_forced_mistakes": 0.842,
+        "avoidance_of_mistakes": 0.84,
+        "blue_flag_conceding": 0.825,
+        "consistency": 0.2,
+        "defending": 0.783,
+        "fuel_management": 0.814,
+        "qualifying_skill": 0.86,
+        "race_skill": 0.816,
+        "stamina": 0.847,
+        "start_reactions": 0.804,
+        "tyre_management": 0.827,
+        "weather_tyre_changes": 0.828,
+        "wet_skill": 0.837
+      },
+      "generic_helmet": {
+        "design": "01_arrow",
+        "palette": {
+          "red": "#141A4E",
+          "green": "#F2C200",
+          "blue": "#C8102E",
+          "yellow": "#F2C200"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "giancarlo_fisichella",
+      "name": "Giancarlo Fisichella",
+      "nationality": "ITA",
+      "year_of_birth": 1973,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PRIME_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.866,
+        "avoidance_of_forced_mistakes": 0.885,
+        "avoidance_of_mistakes": 0.882,
+        "blue_flag_conceding": 0.907,
+        "consistency": 0.382,
+        "defending": 0.881,
+        "fuel_management": 0.894,
+        "qualifying_skill": 0.901,
+        "race_skill": 0.935,
+        "stamina": 0.897,
+        "start_reactions": 0.9,
+        "tyre_management": 0.906,
+        "weather_tyre_changes": 0.924,
+        "wet_skill": 0.939
+      },
+      "generic_helmet": {
+        "design": "13_split",
+        "palette": {
+          "red": "#1E40C0",
+          "green": "#FFFFFF",
+          "blue": "#18A33A"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "heinz_harald_frentzen",
+      "name": "Heinz-Harald Frentzen",
+      "nationality": "DEU",
+      "year_of_birth": 1967,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "AGEING_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.954,
+        "avoidance_of_forced_mistakes": 0.931,
+        "avoidance_of_mistakes": 0.953,
+        "blue_flag_conceding": 0.915,
+        "consistency": 0.413,
+        "defending": 0.939,
+        "fuel_management": 0.96,
+        "qualifying_skill": 0.936,
+        "race_skill": 0.929,
+        "stamina": 0.956,
+        "start_reactions": 0.966,
+        "tyre_management": 0.923,
+        "weather_tyre_changes": 0.952,
+        "wet_skill": 0.921
+      },
+      "generic_helmet": {
+        "design": "04_jimmy",
+        "palette": {
+          "red": "#0A1A5C",
+          "green": "#C8102E",
+          "blue": "#F2C200"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "johnny_herbert",
+      "name": "Johnny Herbert",
+      "nationality": "GBR",
+      "year_of_birth": 1964,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "AGEING_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.839,
+        "avoidance_of_forced_mistakes": 0.842,
+        "avoidance_of_mistakes": 0.888,
+        "blue_flag_conceding": 0.872,
+        "consistency": 0.316,
+        "defending": 0.832,
+        "fuel_management": 0.883,
+        "qualifying_skill": 0.872,
+        "race_skill": 0.854,
+        "stamina": 0.819,
+        "start_reactions": 0.834,
+        "tyre_management": 0.892,
+        "weather_tyre_changes": 0.853,
+        "wet_skill": 0.836
+      },
+      "generic_helmet": {
+        "design": "13_split",
+        "palette": {
+          "red": "#D01020",
+          "green": "#FFFFFF",
+          "blue": "#101010"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "damon_hill",
+      "name": "Damon Hill",
+      "nationality": "GBR",
+      "year_of_birth": 1960,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "AGEING_CHAMPIONSHIP_LEVEL_WASHED",
+      "rating_values": {
+        "aggression": 0.902,
+        "avoidance_of_forced_mistakes": 0.898,
+        "avoidance_of_mistakes": 0.91,
+        "blue_flag_conceding": 0.923,
+        "consistency": 0.415,
+        "defending": 0.909,
+        "fuel_management": 0.979,
+        "qualifying_skill": 0.899,
+        "race_skill": 0.943,
+        "stamina": 0.864,
+        "start_reactions": 0.908,
+        "tyre_management": 0.967,
+        "weather_tyre_changes": 0.921,
+        "wet_skill": 0.907
+      },
+      "generic_helmet": {
+        "design": "15_swoosh",
+        "palette": {
+          "red": "#0B1430",
+          "green": "#FFFFFF"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "mika_hakkinen",
+      "name": "Mika Häkkinen",
+      "nationality": "FIN",
+      "year_of_birth": 1968,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN",
+      "rating_values": {
+        "aggression": 0.941,
+        "avoidance_of_forced_mistakes": 0.973,
+        "avoidance_of_mistakes": 0.961,
+        "blue_flag_conceding": 0.966,
+        "consistency": 0.449,
+        "defending": 0.973,
+        "fuel_management": 0.979,
+        "qualifying_skill": 0.962,
+        "race_skill": 0.965,
+        "stamina": 0.937,
+        "start_reactions": 0.976,
+        "tyre_management": 0.955,
+        "weather_tyre_changes": 0.964,
+        "wet_skill": 0.956
+      },
+      "generic_helmet": {
+        "design": "13_split",
+        "palette": {
+          "red": "#16306E",
+          "green": "#5AB0E0",
+          "blue": "#FFFFFF"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "eddie_irvine",
+      "name": "Eddie Irvine",
+      "nationality": "GBR",
+      "year_of_birth": 1965,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "AGEING_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.894,
+        "avoidance_of_forced_mistakes": 0.953,
+        "avoidance_of_mistakes": 0.91,
+        "blue_flag_conceding": 0.941,
+        "consistency": 0.451,
+        "defending": 0.921,
+        "fuel_management": 0.954,
+        "qualifying_skill": 0.935,
+        "race_skill": 0.95,
+        "stamina": 0.899,
+        "start_reactions": 0.899,
+        "tyre_management": 0.949,
+        "weather_tyre_changes": 0.895,
+        "wet_skill": 0.899
+      },
+      "generic_helmet": {
+        "design": "14_sunset",
+        "palette": {
+          "red": "#C8102E",
+          "green": "#FFFFFF",
+          "blue": "#2E8B3A"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "jan_magnussen",
+      "name": "Jan Magnussen",
+      "nationality": "DNK",
+      "year_of_birth": 1973,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PRIME_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.841,
+        "avoidance_of_forced_mistakes": 0.847,
+        "avoidance_of_mistakes": 0.894,
+        "blue_flag_conceding": 0.86,
+        "consistency": 0.321,
+        "defending": 0.864,
+        "fuel_management": 0.847,
+        "qualifying_skill": 0.875,
+        "race_skill": 0.846,
+        "stamina": 0.896,
+        "start_reactions": 0.88,
+        "tyre_management": 0.851,
+        "weather_tyre_changes": 0.876,
+        "wet_skill": 0.844
+      },
+      "generic_helmet": {
+        "design": "13_split",
+        "palette": {
+          "red": "#F2F2F2",
+          "green": "#C8202A",
+          "blue": "#101C5C"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "shinji_nakano",
+      "name": "Shinji Nakano",
+      "nationality": "JPN",
+      "year_of_birth": 1971,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.814,
+        "avoidance_of_forced_mistakes": 0.829,
+        "avoidance_of_mistakes": 0.813,
+        "blue_flag_conceding": 0.811,
+        "consistency": 0.293,
+        "defending": 0.787,
+        "fuel_management": 0.826,
+        "qualifying_skill": 0.83,
+        "race_skill": 0.816,
+        "stamina": 0.85,
+        "start_reactions": 0.834,
+        "tyre_management": 0.841,
+        "weather_tyre_changes": 0.815,
+        "wet_skill": 0.802
+      },
+      "generic_helmet": {
+        "design": "07_spikey",
+        "palette": {
+          "red": "#D01818",
+          "green": "#101010",
+          "blue": "#F2F2F2"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "olivier_panis",
+      "name": "Olivier Panis",
+      "nationality": "FRA",
+      "year_of_birth": 1966,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "AGEING_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.828,
+        "avoidance_of_forced_mistakes": 0.843,
+        "avoidance_of_mistakes": 0.847,
+        "blue_flag_conceding": 0.859,
+        "consistency": 0.338,
+        "defending": 0.881,
+        "fuel_management": 0.871,
+        "qualifying_skill": 0.832,
+        "race_skill": 0.87,
+        "stamina": 0.82,
+        "start_reactions": 0.878,
+        "tyre_management": 0.883,
+        "weather_tyre_changes": 0.877,
+        "wet_skill": 0.883
+      },
+      "generic_helmet": {
+        "design": "07_spikey",
+        "palette": {
+          "red": "#2A2A9E",
+          "green": "#FFFFFF",
+          "blue": "#C8102E"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "ricardo_rosset",
+      "name": "Ricardo Rosset",
+      "nationality": "BRA",
+      "year_of_birth": 1968,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.866,
+        "avoidance_of_forced_mistakes": 0.853,
+        "avoidance_of_mistakes": 0.802,
+        "blue_flag_conceding": 0.798,
+        "consistency": 0.249,
+        "defending": 0.807,
+        "fuel_management": 0.828,
+        "qualifying_skill": 0.78,
+        "race_skill": 0.769,
+        "stamina": 0.818,
+        "start_reactions": 0.811,
+        "tyre_management": 0.809,
+        "weather_tyre_changes": 0.811,
+        "wet_skill": 0.85
+      },
+      "generic_helmet": {
+        "design": "12_halo",
+        "palette": {
+          "red": "#FFFFFF",
+          "green": "#F2D200",
+          "blue": "#18A33A"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "mika_salo",
+      "name": "Mika Salo",
+      "nationality": "FIN",
+      "year_of_birth": 1966,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "AGEING_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.825,
+        "avoidance_of_forced_mistakes": 0.877,
+        "avoidance_of_mistakes": 0.876,
+        "blue_flag_conceding": 0.863,
+        "consistency": 0.325,
+        "defending": 0.854,
+        "fuel_management": 0.88,
+        "qualifying_skill": 0.843,
+        "race_skill": 0.846,
+        "stamina": 0.825,
+        "start_reactions": 0.876,
+        "tyre_management": 0.878,
+        "weather_tyre_changes": 0.88,
+        "wet_skill": 0.853
+      },
+      "generic_helmet": {
+        "design": "15_swoosh",
+        "palette": {
+          "red": "#2E5FD0",
+          "green": "#FFFFFF"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "michael_schumacher",
+      "name": "Michael Schumacher",
+      "nationality": "DEU",
+      "year_of_birth": 1969,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PRIME_CHAMPIONSHIP_LEVEL",
+      "rating_values": {
+        "aggression": 0.984,
+        "avoidance_of_forced_mistakes": 0.988,
+        "avoidance_of_mistakes": 0.99,
+        "blue_flag_conceding": 0.969,
+        "consistency": 0.482,
+        "defending": 1,
+        "fuel_management": 0.989,
+        "qualifying_skill": 0.972,
+        "race_skill": 0.983,
+        "stamina": 0.989,
+        "start_reactions": 1,
+        "tyre_management": 1,
+        "weather_tyre_changes": 1,
+        "wet_skill": 0.995
+      },
+      "generic_helmet": {
+        "design": "11_chevron",
+        "palette": {
+          "red": "#FFFFFF",
+          "green": "#101010",
+          "blue": "#C8102E"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "ralf_schumacher",
+      "name": "Ralf Schumacher",
+      "nationality": "DEU",
+      "year_of_birth": 1975,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.893,
+        "avoidance_of_forced_mistakes": 0.85,
+        "avoidance_of_mistakes": 0.845,
+        "blue_flag_conceding": 0.874,
+        "consistency": 0.225,
+        "defending": 0.837,
+        "fuel_management": 0.833,
+        "qualifying_skill": 0.861,
+        "race_skill": 0.824,
+        "stamina": 0.822,
+        "start_reactions": 0.86,
+        "tyre_management": 0.8,
+        "weather_tyre_changes": 0.873,
+        "wet_skill": 0.825
+      },
+      "generic_helmet": {
+        "design": "12_halo",
+        "palette": {
+          "red": "#F2D200",
+          "green": "#101010",
+          "blue": "#101010"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "toranosuke_takagi",
+      "name": "Toranosuke Takagi",
+      "nationality": "JPN",
+      "year_of_birth": 1974,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.788,
+        "avoidance_of_forced_mistakes": 0.847,
+        "avoidance_of_mistakes": 0.803,
+        "blue_flag_conceding": 0.819,
+        "consistency": 0.322,
+        "defending": 0.78,
+        "fuel_management": 0.843,
+        "qualifying_skill": 0.822,
+        "race_skill": 0.773,
+        "stamina": 0.812,
+        "start_reactions": 0.856,
+        "tyre_management": 0.801,
+        "weather_tyre_changes": 0.85,
+        "wet_skill": 0.809
+      },
+      "generic_helmet": {
+        "design": "12_halo",
+        "palette": {
+          "red": "#20A020",
+          "green": "#20A020",
+          "blue": "#F2F2F2"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "jarno_trulli",
+      "name": "Jarno Trulli",
+      "nationality": "ITA",
+      "year_of_birth": 1974,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.892,
+        "avoidance_of_forced_mistakes": 0.916,
+        "avoidance_of_mistakes": 0.928,
+        "blue_flag_conceding": 0.928,
+        "consistency": 0.406,
+        "defending": 0.94,
+        "fuel_management": 0.9,
+        "qualifying_skill": 0.887,
+        "race_skill": 0.883,
+        "stamina": 0.926,
+        "start_reactions": 0.902,
+        "tyre_management": 0.938,
+        "weather_tyre_changes": 0.923,
+        "wet_skill": 0.945
+      },
+      "generic_helmet": {
+        "design": "13_split",
+        "palette": {
+          "red": "#1E3A8C",
+          "green": "#FFFFFF",
+          "blue": "#D01020"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "esteban_tuero",
+      "name": "Esteban Tuero",
+      "nationality": "ARG",
+      "year_of_birth": 1978,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.807,
+        "avoidance_of_forced_mistakes": 0.85,
+        "avoidance_of_mistakes": 0.811,
+        "blue_flag_conceding": 0.855,
+        "consistency": 0.288,
+        "defending": 0.813,
+        "fuel_management": 0.838,
+        "qualifying_skill": 0.836,
+        "race_skill": 0.777,
+        "stamina": 0.803,
+        "start_reactions": 0.825,
+        "tyre_management": 0.848,
+        "weather_tyre_changes": 0.839,
+        "wet_skill": 0.843
+      },
+      "generic_helmet": {
+        "design": "09_murica",
+        "palette": {
+          "red": "#F2F2F2",
+          "green": "#6CA0E0",
+          "blue": "#F2F2F2"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "jos_verstappen",
+      "name": "Jos Verstappen",
+      "nationality": "NLD",
+      "year_of_birth": 1972,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PRIME_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.867,
+        "avoidance_of_forced_mistakes": 0.858,
+        "avoidance_of_mistakes": 0.85,
+        "blue_flag_conceding": 0.876,
+        "consistency": 0.288,
+        "defending": 0.845,
+        "fuel_management": 0.885,
+        "qualifying_skill": 0.862,
+        "race_skill": 0.873,
+        "stamina": 0.863,
+        "start_reactions": 0.869,
+        "tyre_management": 0.847,
+        "weather_tyre_changes": 0.872,
+        "wet_skill": 0.887
+      },
+      "generic_helmet": {
+        "design": "11_chevron",
+        "palette": {
+          "red": "#FFFFFF",
+          "green": "#16306E",
+          "blue": "#C8102E"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "jacques_villeneuve",
+      "name": "Jacques Villeneuve",
+      "nationality": "CAN",
+      "year_of_birth": 1971,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "PRIME_CHAMPIONSHIP_LEVEL",
+      "rating_values": {
+        "aggression": 0.967,
+        "avoidance_of_forced_mistakes": 0.978,
+        "avoidance_of_mistakes": 1,
+        "blue_flag_conceding": 0.967,
+        "consistency": 0.5,
+        "defending": 0.994,
+        "fuel_management": 1,
+        "qualifying_skill": 0.975,
+        "race_skill": 0.992,
+        "stamina": 0.998,
+        "start_reactions": 0.987,
+        "tyre_management": 0.993,
+        "weather_tyre_changes": 0.973,
+        "wet_skill": 0.964
+      },
+      "generic_helmet": {
+        "design": "14_sunset",
+        "palette": {
+          "red": "#F2D200",
+          "green": "#16206E",
+          "blue": "#B070D0"
+        }
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "alexander_wurz",
+      "name": "Alexander Wurz",
+      "nationality": "AUT",
+      "year_of_birth": 1974,
+      "picture": null,
+      "favourite_numbers": [],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.95,
+        "avoidance_of_forced_mistakes": 0.906,
+        "avoidance_of_mistakes": 0.91,
+        "blue_flag_conceding": 0.906,
+        "consistency": 0.378,
+        "defending": 0.895,
+        "fuel_management": 0.911,
+        "qualifying_skill": 0.899,
+        "race_skill": 0.913,
+        "stamina": 0.931,
+        "start_reactions": 0.897,
+        "tyre_management": 0.898,
+        "weather_tyre_changes": 0.916,
+        "wet_skill": 0.913
+      },
+      "generic_helmet": {
+        "design": "07_spikey",
+        "palette": {
+          "red": "#F2F2F2",
+          "green": "#1A2070",
+          "blue": "#E04010"
+        }
+      }
+    }
+  ]
+}

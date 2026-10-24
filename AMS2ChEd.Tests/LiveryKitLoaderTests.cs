@@ -116,9 +116,12 @@ namespace AMS2ChEd.Tests.Ams2
             foreach (var part in loader.FindOutfitSet("open_wheel_90s").Parts.Values)
                 Assert.IsTrue(File.Exists(Path.Combine(loader.FindOutfitSet("open_wheel_90s").Folder, part.Shading)), part.Shading);
 
-            var tyres = loader.FindTyreSet("goodyear_f93");
-            CollectionAssert.AreEquivalent(new[] { "TIREDIFF", "TIRESPEC", "TIREBLURDIFF", "TIREBLURSPEC", "TIRENORM" }, tyres.Keys.ToArray());
-            Assert.IsTrue(tyres.Values.All(File.Exists));
+            foreach (var set in new[] { "goodyear_f93", "bridgestone_v10" })
+            {
+                var tyres = loader.FindTyreSet(set);
+                CollectionAssert.AreEquivalent(new[] { "TIREDIFF", "TIRESPEC", "TIREBLURDIFF", "TIREBLURSPEC", "TIRENORM" }, tyres.Keys.ToArray(), set);
+                Assert.IsTrue(tyres.Values.All(File.Exists), set);
+            }
         }
 
         private static int NonKeyPixels(Image<Rgba32> image)

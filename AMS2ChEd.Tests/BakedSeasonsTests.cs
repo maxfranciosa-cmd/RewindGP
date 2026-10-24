@@ -17,6 +17,7 @@ namespace AMS2ChEd.Tests.Ams2
 
         [TestMethod]
         [DataRow(1996)]
+        [DataRow(1998)]
         public void ShippedBakedSeason_LoadsAndPointsAtShippedKits(int year)
         {
             string app = Path.Combine(RepoRoot(), "AMS2ChEd");
