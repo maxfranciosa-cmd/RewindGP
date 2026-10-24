@@ -16,11 +16,13 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
         private IGameInstallSettingsStorage _installSettingsStorage;
         private ICarModelCapacityLoader _carModelCapacityLoader;
         private IVehicleLiverySlotPatcher _slotPatcher;
-        public Ams2RacePreparator(IGameInstallSettingsStorage installSettingsStorage, ICarModelCapacityLoader carModelCapacityLoader, IVehicleLiverySlotPatcher slotPatcher)
+        private ILiveryKitLoader _liveryKits;
+        public Ams2RacePreparator(IGameInstallSettingsStorage installSettingsStorage, ICarModelCapacityLoader carModelCapacityLoader, IVehicleLiverySlotPatcher slotPatcher, ILiveryKitLoader liveryKits)
         {
             _installSettingsStorage = installSettingsStorage;
             _carModelCapacityLoader = carModelCapacityLoader;
             _slotPatcher = slotPatcher;
+            _liveryKits = liveryKits;
         }
 
         public void PrepareRace(int raceId, IEnumerable<EntryListEntry> raceEntryList, IEnumerable<IDriverData> drivers, ISeason season)
@@ -63,7 +65,8 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 aiRatingsVariation: false,
                 slotPatcher: null,
                 distinctOverrideTextures: true,
-                helmetEraByCarModel: _carModelCapacityLoader.GetHelmetErasForClass(ams2Class));
+                helmetEraByCarModel: _carModelCapacityLoader.GetHelmetErasForClass(ams2Class),
+                liveryKits: _liveryKits);
 
             var races = season.Races
                 .Select(r => (r, SeasonEntryListBuilder.ForRace(season, r.RaceId)))
@@ -101,7 +104,8 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 season.Teams.Cast<Ams2TeamEntry>(),
                 modelCapacities,
                 slotPatcher: _slotPatcher,
-                helmetEraByCarModel: _carModelCapacityLoader.GetHelmetErasForClass(ams2Class));
+                helmetEraByCarModel: _carModelCapacityLoader.GetHelmetErasForClass(ams2Class),
+                liveryKits: _liveryKits);
 
             return (liveryService, seasonFileDirectory, ams2InstallationFolder);
         }

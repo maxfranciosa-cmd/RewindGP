@@ -147,8 +147,20 @@ public class DdsTextureComposer
     {
 
         // Load base livery
-        Image<Rgba32> liveryImage = LoadTexture(baseLiveryPath);
+        ApplyCarNumbers(LoadTexture(baseLiveryPath), placements, carNumber, seasonDirectory, outputPath);
+    }
 
+    /// <summary>
+    /// As above, for a livery already in memory (a generic livery just recoloured from its kit
+    /// template). Takes ownership of <paramref name="liveryImage"/> and disposes it.
+    /// </summary>
+    public static void ApplyCarNumbers(
+        Image<Rgba32> liveryImage,
+        List<NumberPlacementData> placements,
+        int carNumber,
+        string seasonDirectory,
+        string outputPath)
+    {
         // A livery's alpha channel is material data for AMS2 (how the paint shines), not transparency.
         // Blending onto it as-is turns every pixel whose mask is 0 black wherever a digit cell's
         // transparent margin is drawn, so paint on an opaque copy and put the mask back afterwards.
@@ -498,6 +510,12 @@ public class DdsTextureComposer
             }
         });
 
+        SaveAsDds(image, outputPath);
+    }
+
+    /// <summary>BC3 with mipmaps, as every texture written for AMS2.</summary>
+    public static void SaveAsDds(Image<Rgba32> image, string outputPath)
+    {
         var encoder = new BcEncoder(BCnEncoder.Shared.CompressionFormat.Bc3)
         {
             OutputOptions = {

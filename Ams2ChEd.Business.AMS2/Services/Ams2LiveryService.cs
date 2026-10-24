@@ -2,6 +2,7 @@
 using Ams2ChEd.Business.AMS2.PakPatching;
 using Ams2ChEd.Business.AMS2.PakPatching.Contracts;
 using AMS2ChEd.Business.AMS2.Models;
+using AMS2ChEd.Business.AMS2.Storage.Contracts;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
@@ -29,6 +30,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         private readonly IVehicleLiverySlotPatcher slotPatcher;
         private readonly bool distinctOverrideTextures;
         private readonly IReadOnlyDictionary<string, HelmetEra> helmetEraByCarModel;
+        private readonly ILiveryKitLoader liveryKits;
 
         /// <summary>
         /// Initialize the LiveryService
@@ -54,6 +56,10 @@ namespace Ams2ChEd.Business.AMS2.Services
         /// Car models whose drivers wear a different helmet model from the one the season's year
         /// implies (ICarModelCapacityLoader.GetHelmetErasForClass). Null: the year decides for every car.
         /// </param>
+        /// <param name="liveryKits">
+        /// The app's template kits, for teams with a generic_livery and no season-pack artwork.
+        /// Null: such teams get the solid-colour fallback, as before kits existed.
+        /// </param>
         public Ams2LiveryService(
             int seasonYear,
             string ams2Class,
@@ -63,8 +69,10 @@ namespace Ams2ChEd.Business.AMS2.Services
             bool aiRatingsVariation = true,
             IVehicleLiverySlotPatcher slotPatcher = null,
             bool distinctOverrideTextures = false,
-            IReadOnlyDictionary<string, HelmetEra> helmetEraByCarModel = null)
+            IReadOnlyDictionary<string, HelmetEra> helmetEraByCarModel = null,
+            ILiveryKitLoader liveryKits = null)
         {
+            this.liveryKits = liveryKits;
 
             this.driversData = driversData;
             this.seasonYear = seasonYear;
@@ -302,6 +310,12 @@ namespace Ams2ChEd.Business.AMS2.Services
             var filesToDelete = Directory.GetFiles(temporaryTexturesPath, "*.dds")
                 .Where(f => !f.EndsWith(seasonSuffix, StringComparison.OrdinalIgnoreCase))
                 .ToList();
+            // Generic liveries' number sheets of other seasons, and their cache keys
+            filesToDelete.AddRange(Directory.GetFiles(temporaryTexturesPath, "*_numbers_*.png")
+                .Where(f => !f.EndsWith($"_{currentSeasonYear}.png", StringComparison.OrdinalIgnoreCase)));
+            filesToDelete.AddRange(Directory.GetFiles(temporaryTexturesPath, "*.key")
+                .Where(f => !f.EndsWith($"_{currentSeasonYear}.dds.key", StringComparison.OrdinalIgnoreCase)
+                         && !f.EndsWith($"_{currentSeasonYear}.png.key", StringComparison.OrdinalIgnoreCase)));
 
             foreach (var file in filesToDelete)
             {
@@ -714,13 +728,18 @@ namespace Ams2ChEd.Business.AMS2.Services
                     // Get numbers placements (with race override support)
                     var numbersPlacements = raceOverride?.NumbersPlacements ?? team.NumbersPlacements;
 
-                    // Copy the preview livery file
-                    string finalPreviewPath = Path.Combine("temporary_textures", previewFile);
-                    string finalPreviewPathDirectory = Path.Combine(carModelDirectory, Path.GetDirectoryName(finalPreviewPath));
-                    Directory.CreateDirectory(finalPreviewPathDirectory);
-                    if (copiedPreviewFiles.Add(previewFile ?? string.Empty))
+                    // Copy the preview livery file. A team with no preview (baked data with no
+                    // season pack) gets an empty PREVIEWIMAGE path: no thumbnail in AMS2's menu.
+                    string finalPreviewPath = string.Empty;
+                    if (!string.IsNullOrEmpty(previewFile))
                     {
-                        CopyAsDDS(previewFile, seasonDirectory, finalPreviewPathDirectory);
+                        finalPreviewPath = Path.Combine("temporary_textures", previewFile);
+                        string finalPreviewPathDirectory = Path.Combine(carModelDirectory, Path.GetDirectoryName(finalPreviewPath));
+                        Directory.CreateDirectory(finalPreviewPathDirectory);
+                        if (copiedPreviewFiles.Add(previewFile))
+                        {
+                            CopyAsDDS(previewFile, seasonDirectory, finalPreviewPathDirectory);
+                        }
                     }
 
                     // Process this driver's livery - load individual team XML and append
@@ -740,6 +759,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                         raceId,
                         fallbackTextureWidth,
                         fallbackTextureHeight,
+                        carModel,
                         forceSolidColourFallback);
                 }
 
@@ -780,6 +800,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             int raceId,
             int fallbackTextureWidth,
             int fallbackTextureHeight,
+            string carModel,
             bool forceSolidColourFallback = false)
         {
             // Get driver data
@@ -800,16 +821,30 @@ namespace Ams2ChEd.Business.AMS2.Services
 
             XDocument teamDoc = null;
 
+            // The kit of the car this slot races (for an overflow slot, the sibling model's): its
+            // templates paint a team with no season-pack artwork, its livery.xml stands in for a
+            // missing team XML.
+            var kit = liveryKits?.FindKit(carModel);
+            bool usingKitXml = false;
+
             if (!File.Exists(teamXmlPath))
             {
                 Console.WriteLine($"Warning: Team livery XML not found: {teamXmlPath}");
-                if (string.IsNullOrEmpty(team.LiveryXml))
+                if (!string.IsNullOrEmpty(team.LiveryXml))
                 {
-                    Console.WriteLine($"Warning: Team livery XML not found in savefile too: {team.TeamId}");
+                    // load team xml from savefile
+                    teamDoc = XDocument.Parse(team.LiveryXml);
+                }
+                else if (kit != null && !string.IsNullOrEmpty(kit.LiveryXml) && File.Exists(Path.Combine(kit.Folder, kit.LiveryXml)))
+                {
+                    teamDoc = XDocument.Load(Path.Combine(kit.Folder, kit.LiveryXml));
+                    usingKitXml = true;
+                }
+                else
+                {
+                    Console.WriteLine($"Warning: Team livery XML not found in savefile or kit either: {team.TeamId}");
                     return null;
                 }
-                // load team xml from savefile
-                teamDoc = XDocument.Parse(team.LiveryXml);
             }
             else
             {
@@ -842,9 +877,23 @@ namespace Ams2ChEd.Business.AMS2.Services
                 string fallbackFilename = $"{team.TeamId}_{driverCarNumber}{textureTag}_{seasonYear}.dds";
                 string fallbackPath = Path.Combine(temporaryTexturesPath, fallbackFilename);
 
-                DdsTextureComposer.GenerateSolidColour(team.Color, fallbackTextureWidth, fallbackTextureHeight, fallbackPath);
+                bool generic = team.GenericLivery != null && kit?.Templates?.Count > 0;
+                if (generic)
+                {
+                    // A template livery in the team's colours, numbers on the template's own
+                    // plates; on another kit than the team's own (an overflow slot), that kit's
+                    // first template.
+                    var template = kit.FindTemplate(team.GenericLivery.Template) ?? kit.Templates[0];
+                    GenerateGenericBody(template, kit, team, driverCarNumber, fallbackPath, temporaryTexturesPath);
+                }
+                else
+                {
+                    if (team.GenericLivery != null)
+                        Console.WriteLine($"Warning: no livery kit for {carModel}: {team.TeamId} races in its solid colour");
+                    DdsTextureComposer.GenerateSolidColour(team.Color, fallbackTextureWidth, fallbackTextureHeight, fallbackPath);
+                }
 
-                if (numbersPlacements != null && numbersPlacements.Any())
+                if (!generic && numbersPlacements != null && numbersPlacements.Any())
                 {
                     ApplyCarNumbers(
                         fallbackPath,
@@ -906,6 +955,17 @@ namespace Ams2ChEd.Business.AMS2.Services
                     // Update PREVIEW texture PATH if it exists
                     var previewImageNode = clonedElement.Elements("PREVIEWIMAGE").FirstOrDefault();
                     previewImageNode.SetAttributeValue("PATH", finalLiveryPreviewPath);
+
+                    AddGenericTyres(clonedElement, team, carModelDirectory);
+                }
+                else if (element.Name == "OUTFIT_OVERRIDE" && usingKitXml)
+                {
+                    // The kit's outfit has no textures of its own: the team's suit is generated
+                    // from the kit's outfit set, or, with nothing to generate it from, the driver
+                    // keeps AMS2's default outfit.
+                    clonedElement.SetAttributeValue("LIVERY", liveryNumber);
+                    if (!FillGeneratedOutfit(clonedElement, kit, team, temporaryTexturesPath))
+                        continue;
                 }
                 else if (element.Name == "HELMET_OVERRIDE")
                 {
@@ -949,6 +1009,162 @@ namespace Ams2ChEd.Business.AMS2.Services
 
             return finalLiveryPath;
         }
+
+        /// <summary>
+        /// Writes a team's generic livery for one car: the kit template recoloured with the team
+        /// palette, the car number drawn on the template's own plates in the team's number style.
+        /// Skipped when the file on disk was made from the same inputs.
+        /// </summary>
+        private void GenerateGenericBody(KitTemplate template, LiveryKit kit, Ams2TeamEntry team, int carNumber, string outputPath, string temporaryTexturesPath)
+        {
+            var livery = team.GenericLivery;
+            string templatePath = Path.Combine(kit.Folder, template.Body);
+            var style = liveryKits.FindNumberStyle(livery.NumberStyle);
+            string stylePath = liveryKits.NumberStylePath(livery.NumberStyle);
+            bool numbers = template.NumbersPlacements?.Count > 0 && style != null && File.Exists(stylePath);
+            if (template.NumbersPlacements?.Count > 0 && !numbers)
+                Console.WriteLine($"Warning: number style '{livery.NumberStyle}' not found: {team.TeamId} races without numbers");
+
+            string key = string.Join("|", templatePath, File.GetLastWriteTimeUtc(templatePath).Ticks, GenericLiveryComposer.Describe(livery.Palette),
+                numbers ? $"{carNumber}|{stylePath}|{livery.NumberFill}|{livery.NumberOutline}" : "no numbers");
+            if (GenericLiveryComposer.IsCached(outputPath, key))
+            {
+                Console.WriteLine($"  Generic livery unchanged: {Path.GetFileName(outputPath)}");
+                return;
+            }
+
+            var body = GenericLiveryComposer.BuildBody(templatePath, livery.Palette);
+            if (!numbers)
+            {
+                using (body)
+                    DdsTextureComposer.SaveAsDds(body, outputPath);
+            }
+            else
+            {
+                var placements = new List<DdsTextureComposer.NumberPlacementData>();
+                foreach (var plate in template.NumbersPlacements)
+                {
+                    int width = plate.SheetSize?.Length == 2 ? plate.SheetSize[0] : 0;
+                    int height = plate.SheetSize?.Length == 2 ? plate.SheetSize[1] : 0;
+                    // One sheet per team and plate size, shared by its cars (.png: not swept by
+                    // the per-season clean-up, and cached on its own inputs).
+                    string sheetPath = Path.Combine(temporaryTexturesPath, $"{team.TeamId}_numbers_{width}x{height}_{seasonYear}.png");
+                    string sheetKey = $"{stylePath}|{File.GetLastWriteTimeUtc(stylePath).Ticks}|{livery.NumberFill}|{livery.NumberOutline}";
+                    if (!GenericLiveryComposer.IsCached(sheetPath, sheetKey))
+                    {
+                        using var sheet = GenericLiveryComposer.BuildNumberSheet(stylePath, style.TwoColour, width, height, livery.NumberFill, livery.NumberOutline);
+                        sheet.SaveAsPng(sheetPath);
+                        GenericLiveryComposer.MarkCached(sheetPath, sheetKey);
+                    }
+
+                    placements.Add(new DdsTextureComposer.NumberPlacementData
+                    {
+                        NumbersTexture = sheetPath,
+                        PlateWidth = plate.NumberPlateWidth,
+                        StartX = plate.StartingPoint.X,
+                        StartY = plate.StartingPoint.Y,
+                        Rotation = plate.EffectiveDegrees,
+                        FillColor = plate.FillKey != null ? PaletteColour(livery.Palette, plate.FillKey) : plate.FillColor
+                    });
+                }
+                DdsTextureComposer.ApplyCarNumbers(body, placements, carNumber, temporaryTexturesPath, outputPath);
+            }
+
+            GenericLiveryComposer.MarkCached(outputPath, key);
+            Console.WriteLine($"  Generated generic livery ({template.Id}): {Path.GetFileName(outputPath)}");
+        }
+
+        /// <summary>
+        /// Points a kit OUTFIT_OVERRIDE at suit textures generated from the kit's outfit set in the
+        /// team's suit colours (once per team per season, then cached). False when there is
+        /// nothing to generate them from: the element is then left out.
+        /// </summary>
+        private bool FillGeneratedOutfit(XElement outfit, LiveryKit kit, Ams2TeamEntry team, string temporaryTexturesPath)
+        {
+            var livery = team.GenericLivery;
+            var set = livery == null || kit == null ? null : liveryKits.FindOutfitSet(kit.OutfitSet);
+            if (set?.Parts == null)
+                return false;
+
+            var palette = livery.Suit?.Palette ?? livery.Palette;
+            bool any = false;
+            foreach (var texture in outfit.Elements("TEXTURE").ToList())
+            {
+                string name = texture.Attribute("NAME")?.Value;
+                if (name == null || !set.Parts.TryGetValue(name, out var part))
+                {
+                    texture.Remove();
+                    continue;
+                }
+
+                // A part whose key the suit palette lacks takes the palette's red.
+                string colour = part.Key == "harness"
+                    ? livery.Suit?.Harness ?? PaletteColour(palette, "red")
+                    : PaletteColour(palette, part.Key) ?? PaletteColour(palette, "red");
+                colour ??= team.Color;
+                string shadingPath = Path.Combine(set.Folder, part.Shading);
+                if (string.IsNullOrEmpty(colour) || !File.Exists(shadingPath))
+                {
+                    texture.Remove();
+                    continue;
+                }
+
+                string fileName = $"{team.TeamId}_{name.ToLowerInvariant()}_{seasonYear}.dds";
+                string outputPath = Path.Combine(temporaryTexturesPath, fileName);
+                string key = $"{shadingPath}|{File.GetLastWriteTimeUtc(shadingPath).Ticks}|{colour}";
+                if (!GenericLiveryComposer.IsCached(outputPath, key))
+                {
+                    using var image = GenericLiveryComposer.BuildOutfitPart(shadingPath, TemplateRecolour.ParseColour(colour));
+                    DdsTextureComposer.SaveAsDds(image, outputPath);
+                    GenericLiveryComposer.MarkCached(outputPath, key);
+                }
+                texture.SetAttributeValue("PATH", Path.Combine("temporary_textures", fileName));
+                any = true;
+            }
+            return any;
+        }
+
+        /// <summary>
+        /// Gives a livery the team's tyre set (generic_livery.tyres) unless its XML already names
+        /// tyre textures (a season pack's own). The files go once into the shared
+        /// Overrides/tyres folder, referenced from the car model folder as ..\tyres\.
+        /// </summary>
+        private void AddGenericTyres(XElement liveryOverride, Ams2TeamEntry team, string carModelDirectory)
+        {
+            string setId = team.GenericLivery?.Tyres;
+            if (string.IsNullOrEmpty(setId) || liveryKits == null)
+                return;
+            if (liveryOverride.Elements("TEXTURE").Any(t => (t.Attribute("NAME")?.Value ?? "").StartsWith("TIRE", StringComparison.OrdinalIgnoreCase)))
+                return;
+
+            var files = liveryKits.FindTyreSet(setId);
+            if (files == null)
+            {
+                Console.WriteLine($"Warning: tyre set '{setId}' not found: {team.TeamId} keeps its stock tyres");
+                return;
+            }
+
+            string tyresDirectory = Path.Combine(Path.GetDirectoryName(carModelDirectory), "tyres");
+            Directory.CreateDirectory(tyresDirectory);
+            foreach (var (textureName, sourcePath) in files)
+            {
+                if (!File.Exists(sourcePath))
+                {
+                    Console.WriteLine($"Warning: tyre texture not found: {sourcePath}");
+                    continue;
+                }
+                string fileName = Path.GetFileName(sourcePath);
+                string destPath = Path.Combine(tyresDirectory, fileName);
+                if (!File.Exists(destPath) || new FileInfo(destPath).Length != new FileInfo(sourcePath).Length)
+                    CopyFileOverwrite(sourcePath, destPath);
+                liveryOverride.Add(new XElement("TEXTURE",
+                    new XAttribute("NAME", textureName),
+                    new XAttribute("PATH", Path.Combine("..", "tyres", fileName))));
+            }
+        }
+
+        private static string PaletteColour(IReadOnlyDictionary<string, string> palette, string key) =>
+            palette?.FirstOrDefault(p => string.Equals(p.Key, key, StringComparison.OrdinalIgnoreCase)).Value;
 
         /// <summary>
         /// Apply car numbers to a livery texture using the NumbersPlacement specifications
