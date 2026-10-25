@@ -123,7 +123,7 @@ namespace AMS2ChEd.Views
             name.Text = Surname(driver.DriverId);
             photo.Source = null;
             placeholder.Visibility = Visibility.Visible;
-            photo.LoadPhoto(data?.PictureUrl, placeholder);
+            photo.LoadPhoto(data?.Portrait(), placeholder);
 
             var details = new List<string>();
             if (data?.YearOfBirth > 0)

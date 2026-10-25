@@ -88,7 +88,7 @@ namespace AMS2ChEd.Views
                 DateText.Text = (DateTime.ParseExact(nextRace.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture)).ToString("dddd, MMMM dd, yyyy");
 
                 // Load race poster image
-                RacePosterImage.LoadPhoto(nextRace.CoverPictureUrl);
+                RacePosterImage.LoadPhoto(nextRace.CoverPicture(saveGame.CurrentSeason.Year));
 
                 FooterText.Text = isPreQuali
                                     ? string.Format(Strings.EntryListWindow_PreQualiFooter_Format, saveGame.CurrentSeason.Year, nextRace.RaceName)

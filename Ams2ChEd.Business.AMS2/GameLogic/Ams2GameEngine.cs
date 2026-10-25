@@ -39,12 +39,35 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
         // era only: fill the eras still wearing the plain default (or nothing) with the same design.
         protected override void UpgradeConcreteSaveOnLoad(ISaveGame saveGame)
         {
+            RefreshGenericHelmets(saveGame);
+
             if (saveGame.Drivers?.FirstOrDefault(d => d.DriverId == saveGame.PlayerData?.DriverId) is not Ams2DriverData player)
                 return;
 
             var design = HelmetPicker.FindCompleteGenericHelmetDesign(player);
             if (design != null)
                 HelmetPicker.ApplyGenericHelmetDesign(player, design, onlyDefaultOrEmpty: true);
+        }
+
+        // Saves keep their own copy of every driver, but a generic helmet is a look, not career
+        // data: every driver the season's data gives one takes it as it is now, so redesigned
+        // helmets reach existing saves. The player's driver is left alone.
+        private void RefreshGenericHelmets(ISaveGame saveGame)
+        {
+            if (saveGame?.Drivers == null || saveGame.CurrentSeason == null)
+                return;
+            Dictionary<string, Ams2DriverData> seasonDrivers;
+            try
+            {
+                seasonDrivers = _storageFactory.DriversLoader.LoadDrivers(saveGame.CurrentSeason.Year);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            foreach (var driver in saveGame.Drivers.OfType<Ams2DriverData>().Where(d => d.DriverId != saveGame.PlayerData?.DriverId))
+                if (seasonDrivers.TryGetValue(driver.DriverId, out var fromSeason) && fromSeason.GenericHelmet != null)
+                    driver.GenericHelmet = fromSeason.GenericHelmet;
         }
 
         protected override ISeason LoadUpdatedSeasonForRefresh(int year)

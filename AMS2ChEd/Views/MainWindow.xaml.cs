@@ -632,7 +632,7 @@ namespace AMS2ChEd
 
         private void UpdateImportedDriverVisual(ImportableDriver selected, int seasonYear)
         {
-            ImportedDriverPhoto.LoadPhoto(selected?.Driver.PictureUrl, ImportedDriverPhotoPlaceholder);
+            ImportedDriverPhoto.LoadPhoto(selected?.Driver.Portrait(), ImportedDriverPhotoPlaceholder);
             ImportedDriverNameText.Text = selected?.Driver.Name?.ToUpper();
 
             if (selected == null)
@@ -842,10 +842,11 @@ namespace AMS2ChEd
                 return false;
 
             var nextRace = races[_latestSave.NextGpIndex];
-            if (!PictureUrlLoaderExtension.TryLoadBitmap(nextRace.CoverPictureUrl, out _))
+            string cover = nextRace.CoverPicture(season.Year);
+            if (!PictureUrlLoaderExtension.TryLoadBitmap(cover, out _))
                 return false;
 
-            photo = nextRace.CoverPictureUrl;
+            photo = cover;
             headline = string.Format(Strings.MainWindow_Cover_NextRace_Headline_Format, nextRace.RaceName?.ToUpper());
             subline = string.Format(Strings.MainWindow_Cover_NextRace_Subline_Format, _latestSave.NextGpIndex + 1, races.Count, season.Year);
             return true;
@@ -858,7 +859,7 @@ namespace AMS2ChEd
 
             var player = _latestSave.PlayerData;
             var playerDriver = _latestSave.Drivers?.FirstOrDefault(d => d.DriverId == player.DriverId);
-            if (!PictureUrlLoaderExtension.TryLoadBitmap(playerDriver?.PictureUrl, out _))
+            if (!PictureUrlLoaderExtension.TryLoadBitmap(playerDriver?.Portrait(), out _))
                 return false;
 
             var season = _latestSave.CurrentSeason;
@@ -876,7 +877,7 @@ namespace AMS2ChEd
             var teamName = season.Teams.FirstOrDefault(t => t.TeamId == player.TeamId)?.TeamName;
             subline = string.IsNullOrEmpty(teamName) ? player.Name : $"{player.Name} - {teamName}";
 
-            photo = playerDriver.PictureUrl;
+            photo = playerDriver.Portrait();
             return true;
         }
 

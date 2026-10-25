@@ -390,7 +390,7 @@ namespace AMS2ChEd
         {
             bool photoLoaded = false;
             var playerDriver = saveGame.Drivers.FirstOrDefault(d => d.DriverId == saveGame.PlayerData.DriverId);
-            PlayerPhotoImage.LoadPhoto(playerDriver?.PictureUrl, PlayerPhotoPlaceholder);
+            PlayerPhotoImage.LoadPhoto(playerDriver?.Portrait(), PlayerPhotoPlaceholder);
         }
 
         private void ShowRaceCalendarSelection()
@@ -729,7 +729,7 @@ namespace AMS2ChEd
             {
                 var driver = saveGame.Drivers.FirstOrDefault(x => x.DriverId == d.DriverId);
                 var teamName = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == d.TeamId)?.TeamName;
-                var window = new Views.DriverAccoladesWindow(saveGame, d.DriverId, driver?.Name ?? d.DriverName, teamName ?? "No Team", driver?.PictureUrl, _gameLogicFactory.AllTimeRecordsLoader);
+                var window = new Views.DriverAccoladesWindow(saveGame, d.DriverId, driver?.Name ?? d.DriverName, teamName ?? "No Team", driver?.Portrait(), _gameLogicFactory.AllTimeRecordsLoader);
                 window.Owner = this;
                 window.ShowDialog();
             }

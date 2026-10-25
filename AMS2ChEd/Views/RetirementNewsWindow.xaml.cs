@@ -18,9 +18,9 @@ namespace AMS2ChEd.Views
 
             DateText.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
 
-            if (!string.IsNullOrEmpty(retiredDriver.PictureUrl))
+            if (retiredDriver.Portrait() is string portrait)
             {
-                DriverPortraitImage.LoadPhoto(retiredDriver.PictureUrl);
+                DriverPortraitImage.LoadPhoto(portrait);
             }
 
             string teamName = GetTeamName(saveGame, lastTeamId);

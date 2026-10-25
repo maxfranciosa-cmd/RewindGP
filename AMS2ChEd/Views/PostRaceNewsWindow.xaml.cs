@@ -42,7 +42,7 @@ namespace AMS2ChEd.Views
             var fatalities = crashNews.Where(c => c.Outcome == CrashOutcomeKind.Fatal).ToList();
             if (fatalities.Any())
             {
-                var portrait = saveGame.Drivers.FirstOrDefault(d => d.DriverId == fatalities[0].DriverId)?.PictureUrl;
+                var portrait = saveGame.Drivers.FirstOrDefault(d => d.DriverId == fatalities[0].DriverId)?.Portrait();
                 if (!string.IsNullOrEmpty(portrait))
                     DriverPortraitImage.LoadPhoto(portrait);
 

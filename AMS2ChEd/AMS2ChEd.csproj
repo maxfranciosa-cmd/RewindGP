@@ -226,6 +226,9 @@
     <None Update="HelmetPreviews\**\uv.png;HelmetPreviews\**\shading.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="RaceCovers\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <!-- Also embedded for WPF (Resource below); this copy is for the helmet previews drawn outside WPF. -->
     <None Include="Fonts\Anton-Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

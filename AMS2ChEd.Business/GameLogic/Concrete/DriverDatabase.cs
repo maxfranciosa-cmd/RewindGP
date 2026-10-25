@@ -1,5 +1,6 @@
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
+using AMS2ChEd.Business.Models.Concrete;
 
 namespace AMS2ChEd.Business.GameLogic.Concrete
 {
@@ -23,6 +24,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         // null when the year of birth isn't known
         public int? Age { get; set; }
         public string PictureUrl { get; set; }
+        public GenericAvatar Avatar { get; set; }
         public DriverDatabaseStatus Status { get; set; }
         public bool IsPlayer { get; set; }
 
@@ -112,6 +114,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 Nationality = driver.Nationality,
                 Age = driver.YearOfBirth > 0 && seasonYear > 0 ? seasonYear - driver.YearOfBirth : null,
                 PictureUrl = driver.PictureUrl,
+                Avatar = driver.GenericAvatar,
                 IsPlayer = !string.IsNullOrEmpty(playerId) && driver.DriverId == playerId
             };
         }

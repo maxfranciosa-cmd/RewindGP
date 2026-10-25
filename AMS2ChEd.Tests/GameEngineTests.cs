@@ -15,6 +15,29 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             _engine = new TestableGameEngine();
         }
 
+        [TestMethod]
+        public void LoadGame_DriversTakeTheSeasonDataAvatar_OthersKeepTheirs()
+        {
+            var saveGame = CreateSaveGame();
+            var own = new GenericAvatar { Hair = "mullet" };
+            var withOwn = CreateDriver("D1", "One", DriverReputation.PRIME_MIDFIELD);
+            withOwn.GenericAvatar = own;
+            var without = CreateDriver("D2", "Two", DriverReputation.PRIME_MIDFIELD);
+            var notInSeason = CreateDriver("D3", "Three", DriverReputation.PRIME_MIDFIELD);
+            saveGame.Drivers = new List<IDriverData> { withOwn, without, notInSeason };
+            var d1 = CreateDriver("D1", "One", DriverReputation.PRIME_MIDFIELD);
+            d1.GenericAvatar = new GenericAvatar { Hair = "bald" };
+            var d2 = CreateDriver("D2", "Two", DriverReputation.PRIME_MIDFIELD);
+            d2.GenericAvatar = new GenericAvatar { Hair = "curly" };
+            _engine.DriversToReturn = new Dictionary<string, IDriverData> { ["D1"] = d1, ["D2"] = d2 };
+
+            _engine.LoadGame(saveGame);
+
+            Assert.AreEqual("bald", withOwn.GenericAvatar.Hair, "the season data's description replaces the save's");
+            Assert.AreEqual("curly", without.GenericAvatar.Hair);
+            Assert.IsNull(notInSeason.GenericAvatar);
+        }
+
         #region UpdateSeasonInsideSave Tests
 
         [TestMethod]

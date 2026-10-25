@@ -20,6 +20,11 @@ namespace AMS2ChEd.Business.Models
         [JsonPropertyName("picture")]
         string PictureUrl { get; set; }
 
+        /// <summary>The faceless portrait drawn when there is no picture (null: one picked from the id).</summary>
+        [JsonPropertyName("generic_avatar")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        GenericAvatar GenericAvatar { get; set; }
+
         [JsonPropertyName("favourite_numbers")]
         IEnumerable<int> FavouriteNumbers { get; set; }
 

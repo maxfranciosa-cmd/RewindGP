@@ -170,7 +170,8 @@ namespace AMS2ChEd.Views
         {
             bool isRacing = entry.Status == DriverDatabaseStatus.RACING;
             var teamBrush = isRacing ? ParseColor(entry.TeamColor) : null;
-            bool hasPhoto = PictureUrlLoaderExtension.TryLoadBitmap(entry.PictureUrl, out var photo);
+            string portrait = DriverPortraitExtension.Portrait(entry.DriverId, entry.PictureUrl, entry.Avatar);
+            bool hasPhoto = PictureUrlLoaderExtension.TryLoadBitmap(portrait, out var photo);
 
             return new DriverDatabaseRow
             {
@@ -196,7 +197,7 @@ namespace AMS2ChEd.Views
                     _ => string.Empty
                 },
                 IsPlayer = entry.IsPlayer,
-                PictureUrl = entry.PictureUrl,
+                PictureUrl = portrait,
                 Photo = hasPhoto ? photo : null,
                 TeamBrush = teamBrush,
                 TeamRuleBrush = teamBrush ?? noTeamBrush,

@@ -51,6 +51,24 @@ namespace AMS2ChEd.Business.Storage
         public static string ImageCacheFolder =>
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RewindGP", "ImageCache");
 
+        /// <summary>
+        /// The layers, colour sets and text layout of the race covers drawn for races with no
+        /// cover picture (see RaceCoverComposer).
+        /// </summary>
+        public static string RaceCoversFolder =>
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RaceCovers");
+
+        /// <summary>
+        /// Pictures the app draws itself (race covers, driver avatars), kept between sessions so
+        /// each is drawn once. Outside the app folder, like the image cache.
+        /// </summary>
+        public static string GeneratedArtworkFolder =>
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RewindGP", "Generated");
+
+        /// <summary>The bundled Anton font (OFL), as a file for drawing outside WPF.</summary>
+        public static string AntonFontPath =>
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fonts", "Anton-Regular.ttf");
+
         private static string _currentVersionCheckPath = null;
         public static string CurrentVersionCheckPath
         {

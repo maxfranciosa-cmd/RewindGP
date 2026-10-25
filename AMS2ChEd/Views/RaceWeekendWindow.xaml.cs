@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.DependencyInjection;
+using AMS2ChEd.Extensions;
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
@@ -426,7 +427,7 @@ namespace AMS2ChEd.Views
                         // Show post-race newspaper (owned by this window only while it's still open):
                         // a tribute instead when a driver was killed
                         var winnerDriverData = saveGame.Drivers.FirstOrDefault(d => d.DriverId == winner.DriverId);
-                        var winnerPhoto = winnerDriverData?.PictureUrl;
+                        var winnerPhoto = winnerDriverData?.Portrait();
                         var raceDate = DateTime.ParseExact(gpDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                         var newsWindow = new PostRaceNewsWindow(saveGame, raceResult, previousWinnerPosition, previousTopThreeDriverIds, raceDate, winnerPhoto, _gameLogicFactory.AllTimeRecordsLoader, crashNews);
                         if (!_isClosed) newsWindow.Owner = this;

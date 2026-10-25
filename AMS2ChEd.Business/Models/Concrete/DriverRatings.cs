@@ -14,6 +14,7 @@ namespace AMS2ChEd.Business.Models.Concrete
         public string Nationality { get; set; }
         public int YearOfBirth { get; set; }
         public string PictureUrl { get; set; }
+        public GenericAvatar GenericAvatar { get; set; }
         public IEnumerable<int> FavouriteNumbers { get; set; }
         public DriverReputation Reputation { get; set; }
         public Dictionary<string, double> RatingValues { get; set; }

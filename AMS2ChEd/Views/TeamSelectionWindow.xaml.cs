@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.DependencyInjection;
+using AMS2ChEd.Extensions;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
@@ -101,7 +102,7 @@ namespace AMS2ChEd
                     }
 
                     var driver1Data = _driversCache[driver1Id];
-                    var driver1Picture = driver1Data?.PictureUrl;
+                    var driver1Picture = driver1Data?.Portrait();
 
                     var driver1 = new Driver
                     {
@@ -127,7 +128,7 @@ namespace AMS2ChEd
                         }
 
                         var driver2Data = _driversCache[driver2Id];
-                        var driver2Picture = driver2Data?.PictureUrl;
+                        var driver2Picture = driver2Data?.Portrait();
 
                         driver2 = new Driver
                         {
@@ -145,7 +146,7 @@ namespace AMS2ChEd
                     var reserveId = teamEntry.ReserveDriverId();
                     if (reserveId != null && _driversCache.TryGetValue(reserveId, out var reserveData))
                     {
-                        var reservePicture = reserveData?.PictureUrl;
+                        var reservePicture = reserveData?.Portrait();
                         reserve = new Driver
                         {
                             DriverId = reserveData.DriverId,
@@ -190,7 +191,7 @@ namespace AMS2ChEd
                         .Select(kvp =>
                         {
                             var d = kvp.Value;
-                            var pic = d?.PictureUrl;
+                            var pic = d?.Portrait();
                             return new Driver
                             {
                                 DriverId = d.DriverId,

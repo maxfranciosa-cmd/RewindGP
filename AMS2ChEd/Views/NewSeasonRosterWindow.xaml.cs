@@ -76,7 +76,7 @@ namespace AMS2ChEd.Views
                 string statusText;
                 string descriptionText;
                 string driversText;
-                var portraitPathDriver1 = driver1?.PictureUrl;
+                var portraitPathDriver1 = driver1?.Portrait();
                 string portraitPathDriver2 = null;
 
                 if (driver2 != null)
@@ -86,7 +86,7 @@ namespace AMS2ChEd.Views
                     descriptionText = BuildDescriptionText(driver1.Name, driver2.Name,
                         driver1Reputation, driver2Reputation);
                     driversText = string.Format(Strings.NewSeasonRosterWindow_DriversText_Format, driver1.Name, driver2.Name);
-                    portraitPathDriver2 = driver2.PictureUrl;
+                    portraitPathDriver2 = driver2.Portrait();
                 }
                 else
                 {

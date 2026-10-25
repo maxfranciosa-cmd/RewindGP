@@ -1,0 +1,16 @@
+{
+  "_comment": "Generated race covers: the shared programme poster cut into layers by the livery tool's cover-template. Drawn in order: the panel colour everywhere, the chequer and title masks in their colours, the rules, fixed.png (painting and logo), then the texts in black or white, whichever reads on the panel. Boxes are poster pixels.",
+  "size": [ 735, 953 ],
+  "chequer": "chequer.png",
+  "title": "title.png",
+  "fixed": "fixed.png",
+  "rules": [
+    { "x": 0, "y": 218, "width": 735, "height": 10 },
+    { "x": 0, "y": 668, "width": 735, "height": 10 }
+  ],
+  "texts": {
+    "race_name": { "x": 28, "y": 804, "width": 679, "height": 46, "align": "left" },
+    "date": { "x": 28, "y": 862, "width": 440, "height": 24, "align": "left" },
+    "year": { "x": 470, "y": 858, "width": 237, "height": 74, "align": "right" }
+  }
+}

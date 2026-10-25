@@ -39,7 +39,7 @@ namespace AMS2ChEd.Views
             var championReputation = GetDriverReputation(saveGame, champion.DriverId);
 
             var championDriverData = saveGame.Drivers.FirstOrDefault(d => d.DriverId == champion.DriverId);
-            var championPhoto = championDriverData?.PictureUrl;
+            var championPhoto = championDriverData?.Portrait();
 
             // Load driver portrait if provided
             if (!string.IsNullOrEmpty(championPhoto))

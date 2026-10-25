@@ -171,9 +171,35 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             DriverHirer.AssignUndefinedRoles(saveGame.CurrentSeason, saveGame.Drivers);
 
             UpgradeConcreteSaveOnLoad(saveGame);
+            RefreshAvatars(saveGame);
 
             _currentGame = saveGame;
             GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
+        }
+
+        /// <summary>
+        /// Saves keep their own copy of every driver, but a look is not career data: every driver
+        /// the season's data describes takes its generic_avatar as it is now, so older saves get
+        /// avatars and changed descriptions reach existing saves. Drivers it does not describe
+        /// (generated ones) keep theirs, or get one picked from their id when shown; the player's
+        /// driver is never touched.
+        /// </summary>
+        private void RefreshAvatars(ISaveGame saveGame)
+        {
+            if (saveGame?.Drivers == null || saveGame.CurrentSeason == null)
+                return;
+            Dictionary<string, IDriverData> seasonDrivers;
+            try
+            {
+                seasonDrivers = LoadUpdatedDriversForRefresh(saveGame.CurrentSeason.Year);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            foreach (var driver in saveGame.Drivers.Where(d => d.DriverId != saveGame.PlayerData?.DriverId))
+                if (seasonDrivers.TryGetValue(driver.DriverId, out var fromSeason) && fromSeason.GenericAvatar != null)
+                    driver.GenericAvatar = fromSeason.GenericAvatar;
         }
 
         /// <summary>
