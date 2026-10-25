@@ -102,7 +102,7 @@ namespace AMS2ChEd.Tests.Ams2
                 }
             }
 
-            foreach (var style in new[] { "sans", "sans_outline", "serif", "serif_outline", "ferrari", "sans_italic", "sans_outline_italic", "serif_italic", "serif_outline_italic", "ferrari_italic" })
+            foreach (var style in new[] { "sans", "sans_outline", "serif", "serif_outline", "ferrari", "sans_italic", "sans_outline_italic", "serif_italic", "serif_outline_italic", "ferrari_italic", "arial", "arial_outline", "arial_italic", "arial_outline_italic" })
             {
                 string path = loader.NumberStylePath(style);
                 Assert.IsTrue(File.Exists(path), style);
