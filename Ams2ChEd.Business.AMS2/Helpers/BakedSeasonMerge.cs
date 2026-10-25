@@ -43,15 +43,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                     continue;
                 }
 
-                team.BaseLiveryDriver1 = packTeam.BaseLiveryDriver1;
-                team.BaseLiveryDriver2 = packTeam.BaseLiveryDriver2;
-                team.LiveryPreview = packTeam.LiveryPreview;
-                team.NumbersPlacements = packTeam.NumbersPlacements;
-                team.HelmetSponsors = packTeam.HelmetSponsors;
-                team.VisorSponsors = packTeam.VisorSponsors;
-                team.DriversSpecificHelmet = packTeam.DriversSpecificHelmet;
-                team.LiveryOverrides = packTeam.LiveryOverrides;
-                team.LiveryXml = packTeam.LiveryXml;
+                CopyTeamArtwork(packTeam, team);
             }
 
             var packCovers = (pack.Races ?? Enumerable.Empty<AMS2ChEd.Business.Models.Concrete.Race>())
@@ -80,16 +72,36 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                 if (!pack.TryGetValue(id, out var packDriver))
                     continue;
 
-                driver.BaseHelmetFile = packDriver.BaseHelmetFile;
-                driver.BaseVisorFile = packDriver.BaseVisorFile;
-                driver.BaseHelmetFile90s = packDriver.BaseHelmetFile90s;
-                driver.BaseHelmetFile80s = packDriver.BaseHelmetFile80s;
-                driver.BaseVisorFile80s = packDriver.BaseVisorFile80s;
-                driver.BaseHelmetFile70s = packDriver.BaseHelmetFile70s;
-                driver.BaseVisorFile70s = packDriver.BaseVisorFile70s;
-                driver.PictureUrl = packDriver.PictureUrl;
+                CopyDriverArtwork(packDriver, driver);
             }
             return baked;
+        }
+
+        /// <summary>The team fields a season pack supplies over baked data: its artwork.</summary>
+        public static void CopyTeamArtwork(Ams2TeamEntry from, Ams2TeamEntry to)
+        {
+            to.BaseLiveryDriver1 = from.BaseLiveryDriver1;
+            to.BaseLiveryDriver2 = from.BaseLiveryDriver2;
+            to.LiveryPreview = from.LiveryPreview;
+            to.NumbersPlacements = from.NumbersPlacements;
+            to.HelmetSponsors = from.HelmetSponsors;
+            to.VisorSponsors = from.VisorSponsors;
+            to.DriversSpecificHelmet = from.DriversSpecificHelmet;
+            to.LiveryOverrides = from.LiveryOverrides;
+            to.LiveryXml = from.LiveryXml;
+        }
+
+        /// <summary>The driver fields a season pack supplies over baked data: helmet, visor and portrait.</summary>
+        public static void CopyDriverArtwork(Ams2DriverData from, Ams2DriverData to)
+        {
+            to.BaseHelmetFile = from.BaseHelmetFile;
+            to.BaseVisorFile = from.BaseVisorFile;
+            to.BaseHelmetFile90s = from.BaseHelmetFile90s;
+            to.BaseHelmetFile80s = from.BaseHelmetFile80s;
+            to.BaseVisorFile80s = from.BaseVisorFile80s;
+            to.BaseHelmetFile70s = from.BaseHelmetFile70s;
+            to.BaseVisorFile70s = from.BaseVisorFile70s;
+            to.PictureUrl = from.PictureUrl;
         }
     }
 }

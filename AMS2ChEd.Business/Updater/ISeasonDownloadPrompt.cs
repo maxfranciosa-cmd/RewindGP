@@ -19,5 +19,12 @@ namespace AMS2ChEd.Business.Updater
         Task<bool> PromptUpdateAsync(SeasonManifestEntry entry);
 
         Task<bool> PromptSlugPickerAsync(int year, List<SeasonManifestEntry> options);
+
+        /// <summary>
+        /// Season is playable from the app's own data, and a pack with its real artwork can be
+        /// downloaded. Asks whether the player wants it now; nothing is downloaded here.
+        /// Returns true if they do.
+        /// </summary>
+        Task<bool> PromptArtworkOfferAsync(int year);
     }
 }

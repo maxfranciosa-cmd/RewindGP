@@ -670,7 +670,7 @@ namespace AMS2ChEd
 
         #endregion
 
-        private void LoadGameButton_Click(object sender, RoutedEventArgs e)
+        private async void LoadGameButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -683,7 +683,7 @@ namespace AMS2ChEd
 
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    LoadSaveAndOpenSeasonOverview(dialog.FileName);
+                    await LoadSaveAndOpenSeasonOverviewAsync(dialog.FileName);
                 }
             }
             catch (Exception ex)
@@ -693,14 +693,14 @@ namespace AMS2ChEd
             }
         }
 
-        private void ContinueButton_Click(object sender, RoutedEventArgs e)
+        private async void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
             if (_latestSavePath == null)
                 return;
 
             try
             {
-                LoadSaveAndOpenSeasonOverview(_latestSavePath);
+                await LoadSaveAndOpenSeasonOverviewAsync(_latestSavePath);
             }
             catch (Exception ex)
             {
@@ -709,17 +709,32 @@ namespace AMS2ChEd
             }
         }
 
-        private void LoadSaveAndOpenSeasonOverview(string filePath)
+        // Brings the save's current season up to the season data on disk: everything when the
+        // gameplay data changed, only the artwork when just a pack over the app's data did.
+        private void RefreshSeasonDataInsideSave(ISaveGame saveGame)
+        {
+            switch (_seasonChecker.CheckIfSaveGameNeedsRefresh(saveGame))
+            {
+                case SaveGameSeasonCheckerResult.NeedsRefresh:
+                    System.Windows.MessageBox.Show(Strings.MainWindow_ModOutOfDate_Message, Strings.MainWindow_ModOutOfDate_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _gameLogicFactory.GameEngine.UpdateSeasonInsideSave(saveGame);
+                    break;
+
+                case SaveGameSeasonCheckerResult.NeedsArtworkRefresh:
+                    System.Windows.MessageBox.Show(Strings.MainWindow_ArtworkChanged_Message, Strings.MainWindow_ArtworkChanged_Title, MessageBoxButton.OK, MessageBoxImage.Information);
+                    _gameLogicFactory.GameEngine.UpdateArtworkInsideSave(saveGame);
+                    break;
+            }
+        }
+
+        private async Task LoadSaveAndOpenSeasonOverviewAsync(string filePath)
         {
             var saveGame = _ams2StorageFactory.GameStorage.LoadGame(filePath);
 
-            var result = _seasonChecker.CheckIfSaveGameNeedsRefresh(saveGame);
+            // before the check, so an update taken here reaches the save straight away
+            await _gameLogicFactory.SeasonUpdaterOrchestrator.OfferUpdateOnLoadAsync(saveGame.CurrentSeason.Year);
 
-            if (result == SaveGameSeasonCheckerResult.NeedsRefresh)
-            {
-                System.Windows.MessageBox.Show(Strings.MainWindow_ModOutOfDate_Message, Strings.MainWindow_ModOutOfDate_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
-                _gameLogicFactory.GameEngine.UpdateSeasonInsideSave(saveGame);
-            }
+            RefreshSeasonDataInsideSave(saveGame);
 
             _gameLogicFactory.GameEngine.LoadGame(saveGame);
 
@@ -1386,13 +1401,7 @@ namespace AMS2ChEd
                 var jsonContent = File.ReadAllText(fileName);
                 var saveGame = System.Text.Json.JsonSerializer.Deserialize<SaveGame>(jsonContent, DefaultJsonSerializerOptions.Instance);
 
-                var result = _seasonChecker.CheckIfSaveGameNeedsRefresh(saveGame);
-
-                if (result == SaveGameSeasonCheckerResult.NeedsRefresh)
-                {
-                    System.Windows.MessageBox.Show(Strings.MainWindow_ModOutOfDate_Message, Strings.MainWindow_ModOutOfDate_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
-                    _gameLogicFactory.GameEngine.UpdateSeasonInsideSave(saveGame);
-                }
+                RefreshSeasonDataInsideSave(saveGame);
 
                 // Save the game
                 string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");

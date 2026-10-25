@@ -2,6 +2,7 @@
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
+using AMS2ChEd.Business.Updater.Models;
 using System.Text.Json;
 
 namespace AMS2ChEd.Tests
@@ -68,6 +69,29 @@ namespace AMS2ChEd.Tests
             return _seasonsWithUpdateDates.Keys;
         }
 
+        // Seasons the app ships data for, whether a pack is installed over them or not.
+        private readonly HashSet<string> _bakedSeasons = new HashSet<string>();
+        public void AddBakedSeason(string year)
+        {
+            _bakedSeasons.Add(year);
+        }
+
+        public IEnumerable<string> GetBakedSeasons()
+        {
+            return _bakedSeasons.Union(_bakedOnlySeasons);
+        }
+
+        private readonly Dictionary<int, SeasonDataStamp> _stamps = new Dictionary<int, SeasonDataStamp>();
+        public void SetSeasonDataStamp(int year, string baked, string pack)
+        {
+            _stamps[year] = new SeasonDataStamp { Year = year, Baked = baked, Pack = pack };
+        }
+
+        public SeasonDataStamp GetSeasonDataStamp(int seasonYear)
+        {
+            return _stamps.TryGetValue(seasonYear, out var stamp) ? stamp : null;
+        }
+
         public DateTime GetSeasonUpdateDate(int seasonYear)
         {
             return _seasonsWithUpdateDates.ContainsKey(seasonYear.ToString()) ? _seasonsWithUpdateDates[seasonYear.ToString()] : DateTime.MinValue;
@@ -90,7 +114,7 @@ namespace AMS2ChEd.Tests
         public static SeasonManifestService Create(
             string manifestJson, MockSeasonLoader mockSeasonLoader)
         {
-            var service = new SeasonManifestService("", ManifestPath, mockSeasonLoader , (path) => path == ManifestPath ? manifestJson : "{}", false);
+            var service = new SeasonManifestService(ManifestPath, mockSeasonLoader, (path) => path == ManifestPath ? manifestJson : "{}", false);
             return service;
         }
     }

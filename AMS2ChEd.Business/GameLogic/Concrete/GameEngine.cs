@@ -312,6 +312,61 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         }
 
         /// <summary>
+        /// Refreshes only the artwork of an existing save's current season, when a season pack was
+        /// installed, updated or removed over season data the app ships: gameplay data stays as
+        /// the career left it. Whatever the season data no longer has an asset for is cleared, so
+        /// the game's generated artwork takes over again. The player's driver keeps their look.
+        /// </summary>
+        public void UpdateArtworkInsideSave(ISaveGame saveGame)
+        {
+            var currentYear = saveGame.CurrentSeason.Year;
+            var updatedSeason = LoadUpdatedSeasonForRefresh(currentYear);
+
+            if (updatedSeason == null)
+                return;
+
+            var driversDict = LoadUpdatedDriversForRefresh(currentYear);
+            foreach (var driverInSave in saveGame.Drivers.Where(d => d.DriverId != saveGame.PlayerData?.DriverId))
+            {
+                if (driversDict.TryGetValue(driverInSave.DriverId, out var driverInDatabase))
+                {
+                    driverInSave.PictureUrl = driverInDatabase.PictureUrl;
+                    ApplyConcreteDriverArtworkUpdates(driverInSave, driverInDatabase);
+                }
+            }
+
+            var teamEntryDict = updatedSeason.Teams.ToDictionary(t => t.TeamId);
+            foreach (var teamEntry in saveGame.CurrentSeason.Teams)
+            {
+                if (teamEntryDict.TryGetValue(teamEntry.TeamId, out var teamFromUpdatedSeason))
+                    ApplyConcreteTeamArtworkUpdates(teamEntry, teamFromUpdatedSeason, updatedSeason.Year);
+            }
+
+            var raceInfo = updatedSeason.Races.ToDictionary(r => r.RaceId);
+            foreach (var race in saveGame.CurrentSeason.Races)
+            {
+                if (raceInfo.TryGetValue(race.RaceId, out var raceFromNewSeason))
+                    race.CoverPictureUrl = raceFromNewSeason.CoverPictureUrl;
+            }
+        }
+
+        /// <summary>
+        /// Hook for the game-specific artwork fields of a driver, copied from the season data onto
+        /// the save's driver by <see cref="UpdateArtworkInsideSave"/>.
+        /// </summary>
+        protected virtual void ApplyConcreteDriverArtworkUpdates(IDriverData driverInSave, IDriverData driverFromSeason)
+        {
+        }
+
+        /// <summary>
+        /// Hook for the game-specific artwork fields of a team entry, copied from the season data
+        /// onto the save's team by <see cref="UpdateArtworkInsideSave"/>.
+        /// </summary>
+        protected virtual void ApplyConcreteTeamArtworkUpdates(ITeamEntry teamInSave, ITeamEntry teamFromSeason, int updatedSeasonYear)
+        {
+        }
+
+        /// <summary>
         /// Loads the currently-installed season pack data for the given year, used to refresh a
         /// save whose season was previously cloned/placeholder data. Returns null when there's
         /// nothing to load (base game has no concept of on-disk season packs).

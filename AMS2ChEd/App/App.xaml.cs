@@ -94,7 +94,7 @@ namespace AMS2ChEd
                 serviceProvider.GetService<ISeasonPackInstaller>(),
                 serviceProvider.GetService<IExternalLiveriesInstaller>(),
                 serviceProvider.GetService<IExternalLiveriesPrompt>()));
-            services.AddSingleton((serviceProvider) => new SeasonManifestService(AppPaths.SeasonsFolder, AppPaths.SeasonsManifestPath(gameModule.SeasonsManifestFileName), serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate));
+            services.AddSingleton((serviceProvider) => new SeasonManifestService(AppPaths.SeasonsManifestPath(gameModule.SeasonsManifestFileName), serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate));
             services.AddSingleton(versionCheckStore);
             services.AddSingleton<ICurrentVersionCheckStore>(versionCheckStore);
             services.AddSingleton<SaveGameSeasonChecker>();

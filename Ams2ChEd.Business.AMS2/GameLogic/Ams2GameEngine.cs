@@ -86,6 +86,30 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
             PrefixTeamTexturePaths((Ams2TeamEntry)updatedTeamEntry, updatedSeasonYear);
         }
 
+        protected override void ApplyConcreteTeamArtworkUpdates(ITeamEntry teamInSave, ITeamEntry teamFromSeason, int updatedSeasonYear)
+        {
+            if (teamInSave is not Ams2TeamEntry saveTeam || teamFromSeason is not Ams2TeamEntry seasonTeam)
+                return;
+
+            BakedSeasonMerge.CopyTeamArtwork(seasonTeam, saveTeam);
+            PrefixTeamTexturePaths(saveTeam, updatedSeasonYear);
+        }
+
+        protected override void ApplyConcreteDriverArtworkUpdates(IDriverData driverInSave, IDriverData driverFromSeason)
+        {
+            if (driverInSave is Ams2DriverData saveDriver && driverFromSeason is Ams2DriverData seasonDriver)
+                BakedSeasonMerge.CopyDriverArtwork(seasonDriver, saveDriver);
+        }
+
+        // New saves are stamped with the season data they start from, so the first load after an
+        // app update can tell whether that data really changed.
+        protected override ISaveGame InitializeConcreteNewSaveGame(ISaveGame provisionalSaveGame)
+        {
+            var saveGame = base.InitializeConcreteNewSaveGame(provisionalSaveGame);
+            saveGame.SeasonDataStamp = _storageFactory.SeasonLoader.GetSeasonDataStamp(saveGame.CurrentSeason.Year);
+            return saveGame;
+        }
+
         // The team entry just came from that year's freshly-loaded season pack, whose texture
         // paths are relative to "Seasons/<year>/". Asset resolution for this save's season,
         // however, is anchored to Season.OriginalYear (set when the season was cloned before the

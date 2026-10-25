@@ -25,6 +25,8 @@ namespace AMS2ChEd.Business.Updater.Models
             SeasonAvailability.NotInstalled => "Not installed",
             SeasonAvailability.InstalledNoRemote => "Installed",
             SeasonAvailability.NotAvailable => "Not available",
+            SeasonAvailability.BakedPackAvailable => "Playable · artwork pack available",
+            SeasonAvailability.BakedOnly => "Playable",
             _ => string.Empty
         };
 
@@ -97,7 +99,38 @@ namespace AMS2ChEd.Business.Updater.Models
         NotAvailable,
 
         /// <summary>Installed locally but no longer listed in seasons.json (e.g. pack was retired).</summary>
-        InstalledNoRemote
+        InstalledNoRemote,
+
+        /// <summary>
+        /// Playable from the data the app ships, with no pack installed; seasons.json lists a pack
+        /// that would bring its real artwork. Downloading it is optional.
+        /// </summary>
+        BakedPackAvailable,
+
+        /// <summary>Playable from the data the app ships; no pack installed and none listed.</summary>
+        BakedOnly
+    }
+
+    // -------------------------------------------------------------------------
+    // What a save's season data was made of
+    // -------------------------------------------------------------------------
+
+    /// <summary>
+    /// A fingerprint of a season's data: one of the data the app ships, one of the installed
+    /// season pack (null when there is none). A save keeps the one it was last refreshed against,
+    /// so on load it can tell which of the two changed since. File times can't: every app release
+    /// rewrites the app's files.
+    /// </summary>
+    public class SeasonDataStamp
+    {
+        [JsonPropertyName("year")]
+        public int Year { get; set; }
+
+        [JsonPropertyName("baked")]
+        public string? Baked { get; set; }
+
+        [JsonPropertyName("pack")]
+        public string? Pack { get; set; }
     }
 
     // -------------------------------------------------------------------------
@@ -110,7 +143,13 @@ namespace AMS2ChEd.Business.Updater.Models
         Proceed,
 
         /// <summary>Save needs to be migrated to the current season data — load after update.</summary>
-        NeedsRefresh
+        NeedsRefresh,
+
+        /// <summary>
+        /// Only the season pack's artwork changed (installed, updated or removed over data the
+        /// app ships): refresh the save's artwork and leave its gameplay data alone.
+        /// </summary>
+        NeedsArtworkRefresh
     }
 
     // -------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.Updater.Models;
 using AMS2ChEd.Business.Services;
 using System.Text.Json.Serialization;
 
@@ -64,6 +65,11 @@ namespace AMS2ChEd.Business.Models
         // drivers hurt or killed in a crash, every season of the save (CasualtyExtensions)
         [JsonPropertyName("casualties")]
         public List<Casualty> Casualties { get; set; }
+
+        // what the current season's data was made of when the save last took it on (null in
+        // saves from before it was kept, and SaveGameSeasonChecker falls back on file times)
+        [JsonPropertyName("season_data_stamp")]
+        public SeasonDataStamp SeasonDataStamp { get; set; }
     }
 
     public enum PreQualiStatus

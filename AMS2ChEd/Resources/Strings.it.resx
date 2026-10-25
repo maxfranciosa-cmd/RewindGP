@@ -261,6 +261,22 @@ La prima gara è installata come predefinita; "{2}" passa a qualsiasi altra gara
   <data name="MainWindow_ModOutOfDate_Message" xml:space="preserve">
     <value>sembra che tu abbia installato una nuova versione di questa stagione. aggiorneremo le valutazioni dei piloti, le livree, i nomi dei team e i nomi dei piloti per la stagione corrente.</value>
   </data>
+  <data name="SeasonDownloadPrompt_ArtworkOffer_Title" xml:space="preserve">
+    <value>Grafica della stagione disponibile</value>
+  </data>
+  <data name="SeasonDownloadPrompt_ArtworkOffer_Message" xml:space="preserve">
+    <value>La stagione {0} è pronta da giocare, con livree e caschi generati.
+
+È disponibile per il download un pacchetto della stagione con le livree, i caschi e le copertine dei GP reali. Vuoi scaricarlo adesso?
+
+Se scegli No non te lo chiederemo più per questa stagione; potrai comunque scaricarlo dal catalogo delle stagioni.</value>
+  </data>
+  <data name="MainWindow_ArtworkChanged_Title" xml:space="preserve">
+    <value>Grafica della stagione cambiata</value>
+  </data>
+  <data name="MainWindow_ArtworkChanged_Message" xml:space="preserve">
+    <value>Il pacchetto di questa stagione è stato installato, aggiornato o rimosso dall'ultima volta che hai giocato. Livree, caschi, ritratti e copertine dei GP verranno aggiornati; il resto della carriera resta com'è.</value>
+  </data>
   <data name="MainWindow_LoadGameError_Message" xml:space="preserve">
     <value>Errore durante il caricamento della partita: {0}</value>
   </data>

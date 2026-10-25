@@ -2,6 +2,7 @@
 using AMS2ChEd.Business.Updater;
 using AMS2ChEd.Business.Updater.Models;
 using AMS2ChEd.Dialogs;
+using AMS2ChEd.Resources;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -104,6 +105,21 @@ namespace AMS2ChEd.Updater
             if (want != MessageBoxResult.Yes) return false;
 
             return await PromptDownloadAsync(entry);
+        }
+
+        // -------------------------------------------------------------------------
+        // Artwork offer (playable from the app's data, pack not installed)
+        // -------------------------------------------------------------------------
+
+        public Task<bool> PromptArtworkOfferAsync(int year)
+        {
+            var want = MessageBox.Show(
+                string.Format(Strings.SeasonDownloadPrompt_ArtworkOffer_Message, year),
+                Strings.SeasonDownloadPrompt_ArtworkOffer_Title,
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Information);
+
+            return Task.FromResult(want == MessageBoxResult.Yes);
         }
 
         // -------------------------------------------------------------------------

@@ -19,19 +19,49 @@ namespace AMS2ChEd.Business.Updater
             _seasonLoader = seasonLoader;
         }
 
+        /// <summary>
+        /// Tells what the save's current season needs to catch up with the season data on disk,
+        /// and stamps the save with that data: the caller is expected to carry out the refresh.
+        /// </summary>
         public SaveGameSeasonCheckerResult CheckIfSaveGameNeedsRefresh(ISaveGame save)
         {
-            if (!_seasonLoader.GetAvailableSeasons().Contains(save.CurrentSeason.Year.ToString()))
+            var year = save.CurrentSeason.Year;
+            if (!_seasonLoader.GetAvailableSeasons().Contains(year.ToString()))
                 return SaveGameSeasonCheckerResult.Proceed;
 
-            var seasonLastModified = _seasonLoader.GetSeasonUpdateDate(save.CurrentSeason.Year);
+            var current = _seasonLoader.GetSeasonDataStamp(year);
+            var result = Compare(save, current);
 
-            if (save.Timestamp.ToUniversalTime() < seasonLastModified)
+            if (current != null)
+                save.SeasonDataStamp = current;
+
+            return result;
+        }
+
+        private SaveGameSeasonCheckerResult Compare(ISaveGame save, SeasonDataStamp current)
+        {
+            var year = save.CurrentSeason.Year;
+            var stamp = save.SeasonDataStamp;
+
+            // saves from before the stamp was kept, or stamped for an earlier season of the
+            // career: the file times decide, as they used to
+            if (current == null || stamp == null || stamp.Year != year)
             {
-                return SaveGameSeasonCheckerResult.NeedsRefresh;
+                return save.Timestamp.ToUniversalTime() < _seasonLoader.GetSeasonUpdateDate(year)
+                    ? SaveGameSeasonCheckerResult.NeedsRefresh
+                    : SaveGameSeasonCheckerResult.Proceed;
             }
 
-            return SaveGameSeasonCheckerResult.Proceed;
+            if (stamp.Baked != current.Baked)
+                return SaveGameSeasonCheckerResult.NeedsRefresh;
+
+            if (stamp.Pack == current.Pack)
+                return SaveGameSeasonCheckerResult.Proceed;
+
+            // over the app's data a pack brings only artwork; without it, the pack is the season
+            return current.Baked != null
+                ? SaveGameSeasonCheckerResult.NeedsArtworkRefresh
+                : SaveGameSeasonCheckerResult.NeedsRefresh;
         }
     }
 }

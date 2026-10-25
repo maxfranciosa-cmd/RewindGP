@@ -32,6 +32,10 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             var isNextSeasonAvailable = _dataFactory.SeasonLoader.GetAvailableSeasons().Contains(nextSeasonYear.ToString());
 
+            // the save takes on the new season's data as it is now (or none, when it is unavailable
+            // and the current one is reused), so data that turns up later still reaches it
+            saveGame.SeasonDataStamp = _dataFactory.SeasonLoader.GetSeasonDataStamp(nextSeasonYear);
+
             if (!isNextSeasonAvailable)
             {
                 await uiCallbacks.ShowSeasonUnavailableWarningAsync(nextSeasonYear);

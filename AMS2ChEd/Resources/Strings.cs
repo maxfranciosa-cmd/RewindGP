@@ -65,6 +65,10 @@ namespace AMS2ChEd.Resources
         public static string MainWindow_SelectSeasonAndRaceFirst_Message => ResourceManager.GetString(nameof(MainWindow_SelectSeasonAndRaceFirst_Message))!;
         public static string MainWindow_LoadGame_DialogTitle => ResourceManager.GetString(nameof(MainWindow_LoadGame_DialogTitle))!;
         public static string MainWindow_ModOutOfDate_Message => ResourceManager.GetString(nameof(MainWindow_ModOutOfDate_Message))!;
+        public static string SeasonDownloadPrompt_ArtworkOffer_Title => ResourceManager.GetString(nameof(SeasonDownloadPrompt_ArtworkOffer_Title))!;
+        public static string SeasonDownloadPrompt_ArtworkOffer_Message => ResourceManager.GetString(nameof(SeasonDownloadPrompt_ArtworkOffer_Message))!;
+        public static string MainWindow_ArtworkChanged_Title => ResourceManager.GetString(nameof(MainWindow_ArtworkChanged_Title))!;
+        public static string MainWindow_ArtworkChanged_Message => ResourceManager.GetString(nameof(MainWindow_ArtworkChanged_Message))!;
         public static string MainWindow_LoadGameError_Message => ResourceManager.GetString(nameof(MainWindow_LoadGameError_Message))!;
         public static string MainWindow_RequiredFieldsMissing_Message => ResourceManager.GetString(nameof(MainWindow_RequiredFieldsMissing_Message))!;
         public static string MainWindow_SeasonNotInstalled_Message => ResourceManager.GetString(nameof(MainWindow_SeasonNotInstalled_Message))!;

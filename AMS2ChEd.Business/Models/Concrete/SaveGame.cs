@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.Services;
+using AMS2ChEd.Business.Updater.Models;
 using System.Numerics;
 using System.Text.Json.Serialization;
 
@@ -24,6 +25,7 @@ namespace AMS2ChEd.Business.Models.Concrete
         public List<ParticipantData> CurrentPreQualiDnpqResults { get; set; }
         public List<Reprimand> Reprimands { get; set; }
         public List<Casualty> Casualties { get; set; }
+        public SeasonDataStamp SeasonDataStamp { get; set; }
     }
 
     [JsonConverter(typeof(GenericEnumConverter<CasualtyKind>))]

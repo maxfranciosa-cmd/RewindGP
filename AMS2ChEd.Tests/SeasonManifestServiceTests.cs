@@ -27,15 +27,54 @@ namespace AMS2ChEd.Tests.Business.Updater
         // -------------------------------------------------------------------------
 
         [TestMethod]
-        public void GetAvailability_PlayableFromAppDataButNoPack_ReturnsNotInstalled()
+        public void GetAvailability_PlayableFromAppDataButNoPack_ReturnsBakedPackAvailable()
         {
             var manifest = ManifestBuilder.Build((1996, BaseDate, "https://example.com/1996.rwgp"));
             var mockSeasonLoader = new MockSeasonLoader();
             mockSeasonLoader.AddBakedOnlySeason("1996");
             var svc = SeasonManifestServiceFactory.Create(manifest, mockSeasonLoader);
 
-            Assert.AreEqual(SeasonAvailability.NotInstalled, svc.GetAvailability(1996));
+            Assert.AreEqual(SeasonAvailability.BakedPackAvailable, svc.GetAvailability(1996));
             Assert.IsFalse(svc.IsInstalled(1996));
+        }
+
+        [TestMethod]
+        public void GetAvailability_PlayableFromAppDataNoPackListed_ReturnsBakedOnly()
+        {
+            var manifest = ManifestBuilder.Build((1996, BaseDate, "https://example.com/1996.rwgp"));
+            var mockSeasonLoader = new MockSeasonLoader();
+            mockSeasonLoader.AddBakedOnlySeason("1988");
+            var svc = SeasonManifestServiceFactory.Create(manifest, mockSeasonLoader);
+
+            Assert.AreEqual(SeasonAvailability.BakedOnly, svc.GetAvailability(1988));
+        }
+
+        [TestMethod]
+        public void GetAvailability_PackInstalledOverAppData_ChecksThePackForUpdates()
+        {
+            var manifest = ManifestBuilder.Build((1996, BaseDate, "https://example.com/1996.rwgp"));
+            var mockSeasonLoader = new MockSeasonLoader();
+            mockSeasonLoader.AddBakedSeason("1996");
+            mockSeasonLoader.AddSeason("1996", BaseDate.AddDays(-5));
+            var svc = SeasonManifestServiceFactory.Create(manifest, mockSeasonLoader);
+
+            Assert.AreEqual(SeasonAvailability.UpdateAvailable, svc.GetAvailability(1996));
+        }
+
+        [TestMethod]
+        public void GetSeasonCatalog_ListsAppDataSeasonsTheManifestDoesNot()
+        {
+            var manifest = ManifestBuilder.Build((1996, BaseDate, "https://example.com/1996.rwgp"));
+            var mockSeasonLoader = new MockSeasonLoader();
+            mockSeasonLoader.AddBakedOnlySeason("1988");
+            mockSeasonLoader.AddBakedOnlySeason("1996");
+            var svc = SeasonManifestServiceFactory.Create(manifest, mockSeasonLoader);
+
+            var catalog = svc.GetSeasonCatalog();
+
+            CollectionAssert.AreEqual(new[] { 1988, 1996 }, catalog.Select(c => c.Year).ToArray());
+            Assert.AreEqual(SeasonAvailability.BakedOnly, catalog[0].Availability);
+            Assert.AreEqual(SeasonAvailability.BakedPackAvailable, catalog[1].Availability);
         }
 
         [TestMethod]

@@ -235,6 +235,66 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
         #endregion
 
+        #region UpdateArtworkInsideSave Tests
+
+        [TestMethod]
+        public void UpdateArtworkInsideSave_TakesTheArtworkAndLeavesTheCareerAlone()
+        {
+            var saveGame = CreateSaveGame();
+            var driver = CreateDriver("D1", "Save Name", DriverReputation.PRIME_MIDFIELD);
+            driver.PictureUrl = "old.png";
+            var player = CreateDriver("PLAYER", "Test Player", DriverReputation.PRIME_MIDFIELD);
+            player.PictureUrl = "player.png";
+            saveGame.Drivers = new List<IDriverData> { driver, player };
+            var team = CreateTeam("team1", "D1", 5, "PLAYER", 6);
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { team };
+            saveGame.CurrentSeason.Races = new List<Race> { new Race { RaceId = 1, RaceName = "Save GP", CoverPictureUrl = "old_cover.png" } };
+
+            var updatedSeason = CreateSeason(1994);
+            var updatedTeam = CreateTeam("team1", "other1", 1, "other2", 2);
+            updatedSeason.Teams = new List<ITeamEntry> { updatedTeam };
+            // the pack was removed: the race has no cover any more
+            updatedSeason.Races = new List<Race> { new Race { RaceId = 1, RaceName = "Season GP", CoverPictureUrl = null } };
+            _engine.SeasonToReturn = updatedSeason;
+            var fromSeason = CreateDriver("D1", "Season Name", DriverReputation.PAY_DRIVER_SEASON);
+            fromSeason.PictureUrl = "new.png";
+            var playerFromSeason = CreateDriver("PLAYER", "Season Player", DriverReputation.PAY_DRIVER_SEASON);
+            playerFromSeason.PictureUrl = "season_player.png";
+            _engine.DriversToReturn = new Dictionary<string, IDriverData> { ["D1"] = fromSeason, ["PLAYER"] = playerFromSeason };
+
+            _engine.UpdateArtworkInsideSave(saveGame);
+
+            Assert.AreSame(driver, saveGame.Drivers.First(), "the save keeps its own drivers");
+            Assert.AreEqual("new.png", driver.PictureUrl);
+            Assert.AreEqual("Save Name", driver.Name);
+            Assert.AreEqual(DriverReputation.PRIME_MIDFIELD, driver.Reputation);
+            Assert.AreEqual("player.png", player.PictureUrl, "the player keeps their look");
+
+            Assert.AreSame(team, saveGame.CurrentSeason.Teams.Single(), "the save keeps its own teams");
+            Assert.AreEqual("D1", team.Driver1Contract.DriverId);
+            Assert.AreEqual(1, _engine.TeamArtworkCalls.Count);
+            Assert.AreSame(team, _engine.TeamArtworkCalls[0].inSave);
+            Assert.AreSame(updatedTeam, _engine.TeamArtworkCalls[0].fromSeason);
+
+            var race = saveGame.CurrentSeason.Races.Single();
+            Assert.IsNull(race.CoverPictureUrl, "a cover the season data no longer has is cleared");
+            Assert.AreEqual("Save GP", race.RaceName);
+        }
+
+        [TestMethod]
+        public void UpdateArtworkInsideSave_NoSeasonData_DoesNothing()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.CurrentSeason.Races = new List<Race> { new Race { RaceId = 1, CoverPictureUrl = "old_cover.png" } };
+            _engine.SeasonToReturn = null;
+
+            _engine.UpdateArtworkInsideSave(saveGame);
+
+            Assert.AreEqual("old_cover.png", saveGame.CurrentSeason.Races.Single().CoverPictureUrl);
+        }
+
+        #endregion
+
         #region Contract roles
 
         [TestMethod]
@@ -473,6 +533,13 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             protected override void ApplyConcreteTeamEntryUpdates(ITeamEntry updatedTeamEntry, int updatedSeasonYear)
             {
                 TeamEntryUpdateCalls.Add((updatedTeamEntry, updatedSeasonYear));
+            }
+
+            public List<(ITeamEntry inSave, ITeamEntry fromSeason)> TeamArtworkCalls { get; } = new();
+
+            protected override void ApplyConcreteTeamArtworkUpdates(ITeamEntry teamInSave, ITeamEntry teamFromSeason, int updatedSeasonYear)
+            {
+                TeamArtworkCalls.Add((teamInSave, teamFromSeason));
             }
         }
     }

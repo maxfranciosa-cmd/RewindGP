@@ -166,7 +166,8 @@ namespace AMS2ChEd.Dialogs
         }
 
         public bool CanSelect => Item.Availability is SeasonAvailability.NotInstalled
-                                                   or SeasonAvailability.UpdateAvailable;
+                                                   or SeasonAvailability.UpdateAvailable
+                                                   or SeasonAvailability.BakedPackAvailable;
 
         public string DisplayName => Item.DisplayName;
         public string StatusLabel => Item.StatusLabel;

@@ -21,7 +21,6 @@ namespace AMS2ChEd.Business.Updater
     {
         private static readonly TimeSpan TimestampTolerance = TimeSpan.FromSeconds(5);
 
-        private readonly string _seasonsDir;
         private readonly string _manifestPath;
         private readonly ISeasonLoader _seasonLoader;
         private readonly Func<string, string> _readAllTextFunc;
@@ -30,13 +29,11 @@ namespace AMS2ChEd.Business.Updater
         private List<SeasonManifestEntry>? _cache;
 
         public SeasonManifestService(
-            string seasonsDir,
             string manifestPath,
             ISeasonLoader seasonLoader,
             Func<string, string> readAllTextFunc,
             bool forceUpdate)
         {
-            _seasonsDir = seasonsDir;
             _manifestPath = manifestPath;
             _seasonLoader = seasonLoader;
             _readAllTextFunc = readAllTextFunc;
@@ -124,11 +121,18 @@ namespace AMS2ChEd.Business.Updater
             var entries = GetEntriesForYear(year);
             var entriesExist = entries.Any();
 
+            // a season the app ships data for is playable without its pack, which only adds artwork
+            if (!installed && HasBakedData(year))
+                return entriesExist ? SeasonAvailability.BakedPackAvailable : SeasonAvailability.BakedOnly;
+
             if (!installed && !entriesExist) return SeasonAvailability.NotAvailable;
             if (!installed) return SeasonAvailability.NotInstalled;
             if (!entriesExist) return SeasonAvailability.InstalledNoRemote;
             return UpdateCheck(year);
         }
+
+        public bool HasBakedData(int year) =>
+            _seasonLoader.GetBakedSeasons().Any(y => y == year.ToString());
 
         /// <summary>
         /// Returns one display item per year for the catalog dialog.
@@ -143,18 +147,17 @@ namespace AMS2ChEd.Business.Updater
                 .Select(s => s.Year).Distinct()
                 .Select(y => BuildDisplayItem(y));
 
-            var fromDisk = Directory.Exists(_seasonsDir)
-                ? Directory.GetDirectories(_seasonsDir)
-                    .Select(d => int.TryParse(Path.GetFileName(d), out var y) ? y : -1)
-                    .Where(y => y > 0 && !manifestYears.Contains(y) && IsInstalled(y))
-                    .Select(y => new SeasonDisplayItem
-                    {
-                        Year = y,
-                        DisplayName = y.ToString(),
-                        InstalledSlug = GetInstalledSlug(y),
-                        Availability = SeasonAvailability.InstalledNoRemote
-                    })
-                : Enumerable.Empty<SeasonDisplayItem>();
+            // playable seasons the manifest doesn't list: a pack installed, app data, or both
+            var fromDisk = _seasonLoader.GetAvailableSeasons()
+                .Select(s => int.TryParse(s, out var y) ? y : -1)
+                .Where(y => y > 0 && !manifestYears.Contains(y))
+                .Select(y => new SeasonDisplayItem
+                {
+                    Year = y,
+                    DisplayName = y.ToString(),
+                    InstalledSlug = GetInstalledSlug(y),
+                    Availability = GetAvailability(y)
+                });
 
             return fromManifest.Concat(fromDisk)
                 .OrderBy(s => s.Year)

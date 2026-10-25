@@ -39,6 +39,7 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
 
         void LoadGame(ISaveGame saveGame);
         void UpdateSeasonInsideSave(ISaveGame saveGame);
+        void UpdateArtworkInsideSave(ISaveGame saveGame);
         void ProgressToNextGrandPrix();
         void CompleteGrandPrix(GrandPrixResult result);
     }

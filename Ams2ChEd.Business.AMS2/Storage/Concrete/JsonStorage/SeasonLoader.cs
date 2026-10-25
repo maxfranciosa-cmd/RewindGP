@@ -4,7 +4,9 @@ using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
+using AMS2ChEd.Business.Updater.Models;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Text.Json;
 
 namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
@@ -112,6 +114,39 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
         public DateTime GetPackUpdateDate(int seasonYear)
         {
             return File.GetLastWriteTimeUtc(StoragePaths.SeasonFilePath(seasonYear));
+        }
+
+        public IEnumerable<string> GetBakedSeasons()
+        {
+            return YearFolders(StoragePaths.BakedSeasonsFolder, StoragePaths.BakedSeasonFilePath).OrderBy(s => s).ToList();
+        }
+
+        public SeasonDataStamp GetSeasonDataStamp(int seasonYear)
+        {
+            return new SeasonDataStamp
+            {
+                Year = seasonYear,
+                Baked = Fingerprint(StoragePaths.BakedSeasonFilePath(seasonYear), StoragePaths.BakedDriversFilePath(seasonYear)),
+                Pack = Fingerprint(StoragePaths.SeasonFilePath(seasonYear), StoragePaths.DriversFilePath(seasonYear))
+            };
+        }
+
+        // The season and drivers files hashed together, null when neither exists. Only the json
+        // matters: a save holds the paths of the artwork, not the artwork itself.
+        private static string Fingerprint(string seasonPath, string driversPath)
+        {
+            var existing = new[] { seasonPath, driversPath }.Where(File.Exists).ToList();
+            if (existing.Count == 0)
+                return null;
+
+            using var sha = SHA256.Create();
+            foreach (var path in existing)
+            {
+                var bytes = File.ReadAllBytes(path);
+                sha.TransformBlock(bytes, 0, bytes.Length, null, 0);
+            }
+            sha.TransformFinalBlock(Array.Empty<byte>(), 0, 0);
+            return Convert.ToHexString(sha.Hash, 0, 8);
         }
 
         public ISeason LoadBaseSeason(int seasonYear)

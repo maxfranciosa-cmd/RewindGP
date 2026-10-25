@@ -261,6 +261,22 @@ The first race is installed by default; "{2}" switches to any other race.</value
   <data name="MainWindow_ModOutOfDate_Message" xml:space="preserve">
     <value>it seems that you've installed a new version of this season. we will update driver ratings, liveries, team names and driver names for the curren season.</value>
   </data>
+  <data name="SeasonDownloadPrompt_ArtworkOffer_Title" xml:space="preserve">
+    <value>Season Artwork Available</value>
+  </data>
+  <data name="SeasonDownloadPrompt_ArtworkOffer_Message" xml:space="preserve">
+    <value>The {0} season is ready to play, with generated liveries and helmets.
+
+A season pack with the real liveries, helmets and race covers is available for download. Do you want to get it now?
+
+If you choose No you won't be asked again for this season; you can still get it from the season catalog.</value>
+  </data>
+  <data name="MainWindow_ArtworkChanged_Title" xml:space="preserve">
+    <value>Season artwork changed</value>
+  </data>
+  <data name="MainWindow_ArtworkChanged_Message" xml:space="preserve">
+    <value>The season pack for this season has been installed, updated or removed since you last played. Liveries, helmets, portraits and race covers will be updated; the rest of your career stays as it is.</value>
+  </data>
   <data name="MainWindow_LoadGameError_Message" xml:space="preserve">
     <value>Error loading the game: {0}</value>
   </data>
