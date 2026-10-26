@@ -18,6 +18,9 @@ namespace AMS2ChEd.Tests.Ams2
         [TestMethod]
         [DataRow(1996)]
         [DataRow(1998)]
+        [DataRow(2022)]
+        [DataRow(2023)]
+        [DataRow(2024)]
         [DataRow(2025)]
         public void ShippedBakedSeason_LoadsAndPointsAtShippedKits(int year)
         {
@@ -65,6 +68,9 @@ namespace AMS2ChEd.Tests.Ams2
             {
                 Assert.IsNull(driver.BaseHelmetFile, driver.DriverId);
                 Assert.IsNull(driver.PictureUrl, driver.DriverId);
+                // from 2014 every driver has his own number
+                if (year >= 2014)
+                    Assert.IsTrue(driver.FavouriteNumbers?.Any(n => n > 1) == true, $"{driver.DriverId}: no favourite number");
                 var helmet = driver.GenericHelmet;
                 Assert.IsNotNull(helmet, $"{driver.DriverId}: no generic_helmet");
                 foreach (var prefix in HelmetEraPrefixes)
