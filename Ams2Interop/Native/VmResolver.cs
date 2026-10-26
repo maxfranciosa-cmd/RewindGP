@@ -34,7 +34,8 @@ namespace Ams2Interop.Native;
 /// if (!plausiblePointer(*(hit+0x110))) continue;
 /// if (!plausiblePointer(*(hit+0x248))) continue;
 /// score = CountPopulatedIntProps(candidate);               // candidate-relative, slots 0x18..0x1d8
-/// keep highest-scoring candidate; return candidate;         // = hit - 8
+/// prefer the candidate with the active flags (MasterActiveFlagsOffset), then the highest score;
+/// return candidate;                                         // = hit - 8
 /// </code>
 ///
 /// VM550 resolution (ScanForVm550) is simpler and genuinely different, not just a stripped-down
@@ -380,10 +381,20 @@ public sealed class VmResolver
             results.Add((candidate, score));
         }
 
-        results.Sort((a, b) => b.score.CompareTo(a.score));
+        // The master the screen is bound to first (see Ams2Constants.MasterActiveFlagsOffset),
+        // then the score among the rest
+        var active = results.ToDictionary(r => r.candidate, r => IsActiveMaster(r.candidate));
+        results.Sort((a, b) => active[a.candidate] != active[b.candidate]
+            ? active[b.candidate].CompareTo(active[a.candidate])
+            : b.score.CompareTo(a.score));
+        if (!results.Any(r => active[r.candidate]))
+            _log?.Invoke($"VmResolver: none of {results.Count} master candidate(s) has the active flags - picking by score");
         foreach (var (candidate, _) in results)
             yield return candidate;
     }
+
+    private bool IsActiveMaster(long master) =>
+        _mem.ReadRaw(master + Ams2Constants.MasterActiveFlagsOffset, 2, out var flags) && flags[0] == 1 && flags[1] == 1;
 
     /// <summary>
     /// VM550/generic-tag scanner - see this class's doc comment. Deliberately simpler than

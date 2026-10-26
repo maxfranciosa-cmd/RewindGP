@@ -386,7 +386,10 @@ public sealed class Ams2RaceConfigurator : IDisposable
             if (!ok)
                 errors.Add("SetCar call did not complete");
 
+            // The Custom Race screen's livery box may keep showing the previous livery: the session
+            // still starts with this one (live-confirmed 2026-10-26).
             CheckSetCarReadBack(m, trackHash, carHash, livery, unverified);
+            _log?.Invoke($"ApplyRaceConfigAsync: master=0x{m:X}, vm498={(vm498 is long l498 ? $"0x{l498:X}" : "null")}, vm550={(vm550 is long l550 ? $"0x{l550:X}" : "null")}, SetCar(track={track}/{trackHash}, car={car}/{carHash}, livery={livery}) -> {(ok ? "completed" : "NOT completed")}");
         }
 
         // AMS2's own AI-opponent vehicle-class-count recompute (see Ams2Constants.CommitRva's doc

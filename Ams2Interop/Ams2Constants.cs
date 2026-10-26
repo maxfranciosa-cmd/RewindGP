@@ -57,6 +57,13 @@ public static class Ams2Constants
     // ---- Fixed offsets ----
     public const int Vm498Offset = 0x250; // VM498 = *(master + 0x250)
 
+    /// <summary>
+    /// Two flag bytes on master, both 1 on the master the Custom Race screen is bound to and 0 on
+    /// the other, correctly-tagged masters AMS2 keeps (eleven of them, live-checked 2026-10-26).
+    /// Their "populated slots" score doesn't tell them apart: the live one can score lower.
+    /// </summary>
+    public const int MasterActiveFlagsOffset = 0x240;
+
     // ---- RVAs into AMS2AVX.exe ----
 
     /// <summary>
