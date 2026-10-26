@@ -33,6 +33,8 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             public int Size { get; init; }
             public Rgba64[] Uv { get; init; }
             public Rgba32[] Shading { get; init; }
+            /// <summary>When the maps were baked, so a rebake can retire previews made with the old ones.</summary>
+            public string Stamp { get; init; }
         }
 
         private static readonly ConcurrentDictionary<string, HelmetMaps> Maps = new(StringComparer.OrdinalIgnoreCase);
@@ -47,7 +49,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                 return null;
             using var uvImage = Image.Load<Rgba64>(uvPath);
             using var shadingImage = Image.Load<Rgba32>(shadingPath);
-            var maps = new HelmetMaps { Size = uvImage.Width, Uv = new Rgba64[uvImage.Width * uvImage.Height], Shading = new Rgba32[shadingImage.Width * shadingImage.Height] };
+            var maps = new HelmetMaps { Size = uvImage.Width, Stamp = File.GetLastWriteTimeUtc(uvPath).Ticks.ToString(), Uv = new Rgba64[uvImage.Width * uvImage.Height], Shading = new Rgba32[shadingImage.Width * shadingImage.Height] };
             uvImage.CopyPixelDataTo(maps.Uv);
             shadingImage.CopyPixelDataTo(maps.Shading);
             return Maps.GetOrAdd(folder, maps);

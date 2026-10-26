@@ -1356,7 +1356,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                 using var stream = File.OpenRead(path);
                 return Convert.ToHexString(md5.ComputeHash(stream));
             }
-            string key = string.Join("|", Hash(helmetPath), visorPath == null ? "no visor" : Hash(visorPath), carNumber, background, sheetKey);
+            string key = string.Join("|", Hash(helmetPath), visorPath == null ? "no visor" : Hash(visorPath), carNumber, background, sheetKey, maps.Stamp);
             if (!GenericLiveryComposer.IsCached(outputPath, key))
             {
                 using var texture = DdsTextureComposer.LoadImage(helmetPath);

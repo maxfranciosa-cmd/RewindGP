@@ -47,6 +47,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             ["Group C"] = High,
 
             ["F-Reiza"] = VeryHigh,
+            ["F-Ultimate"] = VeryHigh,
             ["F-Ultimate_Gen1"] = VeryHigh,
             ["F-Ultimate_Gen2"] = VeryHigh,
         };
