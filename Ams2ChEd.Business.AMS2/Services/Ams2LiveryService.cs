@@ -495,6 +495,29 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
         }
 
+        /// <summary>
+        /// The BASELIVERY of the team's livery in the installed pack of the season its body was
+        /// borrowed from (Seasons/&lt;year&gt;/liveries_xml/&lt;team_id&gt;.xml), or null when that
+        /// pack has no XML for the team (then the kit's own base stays).
+        /// </summary>
+        private static string BorrowedBaseLivery(string seasonDirectory, int sourceYear, string teamId)
+        {
+            string sourceXmlPath = Path.GetFullPath(Path.Combine(seasonDirectory, "..", sourceYear.ToString(), "liveries_xml", $"{teamId}.xml"));
+            if (!File.Exists(sourceXmlPath))
+                return null;
+
+            try
+            {
+                string baseLivery = XDocument.Load(sourceXmlPath).Root?.Element("LIVERY_OVERRIDE")?.Attribute("BASELIVERY")?.Value;
+                return string.IsNullOrWhiteSpace(baseLivery) ? null : baseLivery;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Warning: could not read {sourceXmlPath}: {ex.Message}");
+                return null;
+            }
+        }
+
         private void CopyAsDDS(string filePath, string seasonDirectory, string carModelDirectory, string destFileName = null)
         {
             // Resolve the source path (relative to seasonDirectory)
@@ -746,11 +769,11 @@ namespace Ams2ChEd.Business.AMS2.Services
                         if (driverId != null && helmetPreviews.TryGetValue((driverId, team.TeamId), out var helmetPreview))
                             finalPreviewPath = helmetPreview;
                     }
-                    else if (BakedSeasonMerge.OtherSeasonYear(previewFile) is int previewYear)
+                    else if (BakedSeasonMerge.BorrowedFileName(previewFile) is string previewFileName)
                     {
                         // A preview from another season's folder ("../2022/previews/x.dds") would
-                        // land outside temporary_textures: it goes in it, named after its year.
-                        string previewFileName = $"{previewYear}_{Path.GetFileName(previewFile)}";
+                        // land outside temporary_textures: it goes in it, named after its whole
+                        // path, since several teams' previews may share a file name.
                         finalPreviewPath = Path.Combine("temporary_textures", previewFileName);
                         if (copiedPreviewFiles.Add(previewFile))
                         {
@@ -891,6 +914,12 @@ namespace Ams2ChEd.Business.AMS2.Services
                 return null;
             }
 
+            // A borrowed body was painted against its own season's base livery (Matte, a metallic):
+            // the material AMS2 lays under it. On the kit's Default base it can show bare carbon.
+            string borrowedBaseLivery = borrowedLivery && usingKitXml
+                ? BorrowedBaseLivery(seasonDirectory, BakedSeasonMerge.OtherSeasonYear(liveryFilePath).Value, team.TeamId)
+                : null;
+
             // Handle livery file: apply numbers if placements defined, otherwise just copy
             string resolvedLiveryPath = string.IsNullOrEmpty(liveryFilePath)
                 ? null
@@ -953,6 +982,12 @@ namespace Ams2ChEd.Business.AMS2.Services
                     driverNumber,
                     textureTag);
             }
+            else if (BakedSeasonMerge.BorrowedFileName(liveryFilePath) is string borrowedFileName)
+            {
+                // several borrowed teams' bodies may share a file name (default.dds)
+                CopyAsDDS(liveryFilePath, seasonDirectory, carModelDirectory, borrowedFileName);
+                finalLiveryPath = borrowedFileName;
+            }
             else
             {
                 CopyAsDDS(liveryFilePath, seasonDirectory, carModelDirectory);
@@ -970,6 +1005,9 @@ namespace Ams2ChEd.Business.AMS2.Services
                 {
                     // Update LIVERY attribute
                     clonedElement.SetAttributeValue("LIVERY", liveryNumber);
+
+                    if (borrowedBaseLivery != null)
+                        clonedElement.SetAttributeValue("BASELIVERY", borrowedBaseLivery);
 
                     // Update NAME attribute
                     clonedElement.SetAttributeValue("NAME", $"#{driverCarNumber} {team.TeamName} - {driver.Name}");

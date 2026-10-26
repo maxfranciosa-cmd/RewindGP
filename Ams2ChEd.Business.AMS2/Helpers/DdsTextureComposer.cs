@@ -172,6 +172,9 @@ public class DdsTextureComposer
         // Get digits of the car number once
         string numberString = carNumber.ToString();
 
+        // The filled plates, whose material mask is redone once the mask is back
+        var filledPlates = new List<(NumberPlacementData Placement, int Height, Rgba32 Fill)>();
+
         // Apply each placement
         foreach (var placement in placements)
         {
@@ -189,6 +192,19 @@ public class DdsTextureComposer
             // Calculate digit dimensions
             int digitWidth = numbersImage.Width / 10;
             int digitHeight = numbersImage.Height;
+
+            if (!string.IsNullOrWhiteSpace(placement.FillColor))
+            {
+                try
+                {
+                    var fill = ParseFillColor(placement.FillColor);
+                    filledPlates.Add((placement, digitHeight, new Rgba32(fill.R, fill.G, fill.B)));
+                }
+                catch (Exception)
+                {
+                    // reported below, where the fill itself is skipped
+                }
+            }
 
             // A plate at any angle other than a quarter turn has its own path. Quarter turns keep
             // the original one below untouched, so every existing plate renders exactly as before.
@@ -233,6 +249,8 @@ public class DdsTextureComposer
         }
 
         RestoreAlpha(liveryImage, materialMask);
+        foreach (var (placement, height, fill) in filledPlates)
+            RepaintPlateMask(liveryImage, materialMask, placement, height, fill);
 
         // Encode to DDS with mipmaps
         var encoder = new BcEncoder(BCnEncoder.Shared.CompressionFormat.Bc3)
@@ -289,6 +307,85 @@ public class DdsTextureComposer
             }
         });
     }
+
+    /// <summary>
+    /// Inside a filled plate the material mask still traces the painted-over number (skin packs
+    /// give a number's paint its own finish), which AMS2 shows in reflections: the old number comes
+    /// back seen from above. Gives the plate the mask of the panel around it - the commonest value
+    /// along its edge - and the new digits the mask the old ones had (the commonest value inside
+    /// that differs from the panel), in proportion to how far each pixel's colour is from the fill.
+    /// The plate spans start + a*u + b*v, as in <see cref="ApplyAngledPlate"/>; quarter turns too.
+    /// </summary>
+    private static void RepaintPlateMask(Image<Rgba32> image, byte[] originalMask, NumberPlacementData placement, int height, Rgba32 fill)
+    {
+        double radians = placement.Rotation * Math.PI / 180.0;
+        double ux = Math.Cos(radians), uy = Math.Sin(radians), vx = -uy, vy = ux;
+        double sx = placement.StartX, sy = placement.StartY, length = placement.PlateWidth;
+        const double edge = 3;
+
+        var xs = new[] { sx, sx + length * ux, sx + length * ux + height * vx, sx + height * vx };
+        var ys = new[] { sy, sy + length * uy, sy + length * uy + height * vy, sy + height * vy };
+        int minX = Math.Max(0, (int)Math.Floor(xs.Min())), maxX = Math.Min(image.Width - 1, (int)Math.Ceiling(xs.Max()));
+        int minY = Math.Max(0, (int)Math.Floor(ys.Min())), maxY = Math.Min(image.Height - 1, (int)Math.Ceiling(ys.Max()));
+        if (minX > maxX || minY > maxY)
+            return;
+
+        // (a, b) of a pixel centre in the plate's own axes; inside when 0 <= a <= length, 0 <= b <= height
+        (double a, double b) Local(int x, int y) => ((x + 0.5 - sx) * ux + (y + 0.5 - sy) * uy, (x + 0.5 - sx) * vx + (y + 0.5 - sy) * vy);
+
+        var edgeCounts = new int[256];
+        var insideCounts = new int[256];
+        for (int y = minY; y <= maxY; y++)
+            for (int x = minX; x <= maxX; x++)
+            {
+                var (a, b) = Local(x, y);
+                if (a < 0 || a > length || b < 0 || b > height)
+                    continue;
+                byte mask = originalMask[y * image.Width + x];
+                if (a < edge || a > length - edge || b < edge || b > height - edge)
+                    edgeCounts[mask]++;
+                else
+                    insideCounts[mask]++;
+            }
+
+        int panel = Array.IndexOf(edgeCounts, edgeCounts.Max());
+        int digits = panel;
+        int digitsCount = 0;
+        for (int m = 0; m < 256; m++)
+            if (Math.Abs(m - panel) > 16 && insideCounts[m] > digitsCount) { digits = m; digitsCount = insideCounts[m]; }
+
+        image.ProcessPixelRows(accessor =>
+        {
+            // how far the drawn digits' colour is from the fill, to weigh each pixel against
+            int farthest = 0;
+            for (int y = minY; y <= maxY; y++)
+            {
+                var row = accessor.GetRowSpan(y);
+                for (int x = minX; x <= maxX; x++)
+                {
+                    var (a, b) = Local(x, y);
+                    if (a >= 0 && a <= length && b >= 0 && b <= height)
+                        farthest = Math.Max(farthest, ColourDistance(row[x], fill));
+                }
+            }
+
+            for (int y = minY; y <= maxY; y++)
+            {
+                var row = accessor.GetRowSpan(y);
+                for (int x = minX; x <= maxX; x++)
+                {
+                    var (a, b) = Local(x, y);
+                    if (a < 0 || a > length || b < 0 || b > height)
+                        continue;
+                    double t = farthest == 0 ? 0 : Math.Min(1.0, ColourDistance(row[x], fill) / (double)farthest);
+                    row[x].A = (byte)Math.Round(panel + (digits - panel) * t);
+                }
+            }
+        });
+    }
+
+    private static int ColourDistance(Rgba32 a, Rgba32 b) =>
+        Math.Max(Math.Abs(a.R - b.R), Math.Max(Math.Abs(a.G - b.G), Math.Abs(a.B - b.B)));
 
     private static void ApplySingleDigitOptimized(
         Image<Rgba32> liveryImage,

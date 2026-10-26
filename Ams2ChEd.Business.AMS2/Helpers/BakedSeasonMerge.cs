@@ -231,6 +231,21 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         private static readonly Regex OtherSeasonPrefix = new(@"^(?:\.\.[\\/](\d+)[\\/])+");
 
         /// <summary>
+        /// A flat file name, unique per source file, for a texture from another season's folder:
+        /// "../2025/external_liveries/previews/stewart/default.dds" becomes
+        /// "2025_external_liveries_previews_stewart_default.dds" (every team's preview may be called
+        /// default.dds). Null when the path does not lead into another season's folder.
+        /// </summary>
+        public static string BorrowedFileName(string path)
+        {
+            if (OtherSeasonYear(path) is not int year)
+                return null;
+
+            string rest = OtherSeasonPrefix.Replace(path, "");
+            return $"{year}_{rest.Replace('\\', '_').Replace('/', '_')}";
+        }
+
+        /// <summary>
         /// Rewrites every texture path of a team - body liveries, preview, sponsors, specific
         /// helmets, number sheets, and the same in its livery overrides. Not the livery XML,
         /// which holds XML, not a path.

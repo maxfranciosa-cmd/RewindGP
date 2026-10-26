@@ -492,6 +492,17 @@ namespace AMS2ChEd.Tests.Ams2
             Assert.AreEqual(expected, BakedSeasonMerge.OtherSeasonYear(path));
         }
 
+        [TestMethod]
+        public void BorrowedFileName_IsUniquePerSourceFile()
+        {
+            var stewart = BakedSeasonMerge.BorrowedFileName("../2025/external_liveries/previews/stewart/default.dds");
+            var williams = BakedSeasonMerge.BorrowedFileName("../2023/../2025/external_liveries/previews/williams/default.dds");
+
+            Assert.AreEqual("2025_external_liveries_previews_stewart_default.dds", stewart);
+            Assert.AreEqual("2025_external_liveries_previews_williams_default.dds", williams);
+            Assert.IsNull(BakedSeasonMerge.BorrowedFileName("previews/stewart/default.dds"));
+        }
+
         private static Ams2Season Season(params Ams2TeamEntry[] teams) => new Ams2Season
         {
             Year = 1996,
