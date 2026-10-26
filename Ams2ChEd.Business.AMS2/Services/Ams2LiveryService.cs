@@ -800,6 +800,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                         driverLivery,
                         finalPreviewPath,
                         driverNumber,
+                        CarNumber(entry, team, driverNumber),
                         currentLiveryNumber++,
                         numbersPlacements,
                         seasonDirectory,
@@ -841,6 +842,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             string liveryFilePath,
             string finalLiveryPreviewPath,
             int driverNumber, // 1 or 2
+            int carNumber,
             int liveryNumber,
             IEnumerable<NumbersPlacement> numbersPlacements,
             string seasonDirectory,
@@ -859,8 +861,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                 return null;
             }
 
-            // Get driver's car number from contract
-            int driverCarNumber = (driverNumber == 1) ? team.Driver1Contract.DriverNumber : team.Driver2Contract.DriverNumber;
+            int driverCarNumber = carNumber;
 
             // empty unless this is a season export and the team runs an override at this race
             string textureTag = OverrideTextureTag(team, raceId);
@@ -1292,7 +1293,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
             var jobs = entries
                 .Where(e => string.IsNullOrEmpty(e.team.LiveryOverrides?.FirstOrDefault(o => o.RaceId == raceId)?.LiveryPreview ?? e.team.LiveryPreview))
-                .Select(e => (e.team, e.driverNumber, driverId: e.driverNumber == 1 ? e.entry.Driver1Id : e.entry.Driver2Id))
+                .Select(e => (e.team, e.driverNumber, carNumber: CarNumber(e.entry, e.team, e.driverNumber), driverId: e.driverNumber == 1 ? e.entry.Driver1Id : e.entry.Driver2Id))
                 .Where(j => !string.IsNullOrEmpty(j.driverId) && driversDict.ContainsKey(j.driverId))
                 .ToList();
 
@@ -1301,7 +1302,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             {
                 try
                 {
-                    string path = GenerateHelmetPreview(job.team, job.driverId, job.driverNumber, OverrideTextureTag(job.team, raceId), maps, temporaryTexturesPath, seasonDirectory);
+                    string path = GenerateHelmetPreview(job.team, job.driverId, job.driverNumber, job.carNumber, OverrideTextureTag(job.team, raceId), maps, temporaryTexturesPath, seasonDirectory);
                     if (path != null)
                         previews[(job.driverId, job.team.TeamId)] = path;
                 }
@@ -1313,14 +1314,23 @@ namespace Ams2ChEd.Business.AMS2.Services
             return new Dictionary<(string, string), string>(previews);
         }
 
-        private string GenerateHelmetPreview(Ams2TeamEntry team, string driverId, int driverNumber, string textureTag,
+        // The number the car runs at this race: the entry list's, which is the substitute's own
+        // when he has one - the custom AI file names the car with it, so the livery must match.
+        private static int CarNumber(EntryListEntry entry, Ams2TeamEntry team, int driverNumber)
+        {
+            int number = driverNumber == 1 ? entry.Driver1Number : entry.Driver2Number;
+            if (number > 0)
+                return number;
+            return driverNumber == 1 ? team.Driver1Contract.DriverNumber : team.Driver2Contract.DriverNumber;
+        }
+
+        private string GenerateHelmetPreview(Ams2TeamEntry team, string driverId, int driverNumber, int carNumber, string textureTag,
             HelmetPreviewComposer.HelmetMaps maps, string temporaryTexturesPath, string seasonDirectory)
         {
             string helmetPath = Path.Combine(temporaryTexturesPath, $"{driverId}_{team.TeamId}{textureTag}_{seasonYear}.dds");
             if (!File.Exists(helmetPath))
                 return null;
 
-            int carNumber = driverNumber == 1 ? team.Driver1Contract.DriverNumber : team.Driver2Contract.DriverNumber;
             string background = PaletteColour(team.GenericLivery?.Palette, "red") ?? team.Color ?? "#808080";
 
             // The number in the team's own style: its generic number style, or its season pack's
