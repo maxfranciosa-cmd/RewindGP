@@ -1,0 +1,18 @@
+{
+  "car_models": [
+    "formula_ultimate_2024"
+  ],
+  "livery_xml": "livery.xml",
+  "body_textures": [ "BODY", "WINGS" ],
+  "templates": [
+    {
+      "id": "hybrid_1",
+      "body": "templates/hybrid_1.png",
+      "numbers_placements": [
+        { "number_plate_width": 300, "starting_point": { "IsEmpty": false, "X": 2198, "Y": 1680 }, "rotation": "Deg180", "sheet_size": [ 1500, 210 ] },
+        { "number_plate_width": 320, "starting_point": { "IsEmpty": false, "X": 1951, "Y": 3615 }, "rotation": "Deg90", "rotation_degrees": 74, "sheet_size": [ 1600, 230 ] },
+        { "number_plate_width": 320, "starting_point": { "IsEmpty": false, "X": 2056, "Y": 3922 }, "rotation": "Deg270", "rotation_degrees": 286, "sheet_size": [ 1600, 230 ] }
+      ]
+    }
+  ]
+}

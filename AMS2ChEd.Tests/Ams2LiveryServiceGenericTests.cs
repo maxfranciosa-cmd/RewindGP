@@ -29,6 +29,7 @@ namespace AMS2ChEd.Tests.Ams2
             var xml = XDocument.Load(Path.Combine(carFolder, $"{CarModel}.xml")).Root;
             var livery = xml.Element("LIVERY_OVERRIDE");
             Assert.AreEqual(@"temporary_textures\williams_5_1996.dds", Texture(livery, "BODY"));
+            Assert.AreEqual(@"temporary_textures\williams_5_1996.dds", Texture(livery, "WINGS"), "a texture the kit lists with the body's layout takes the body");
             Assert.AreEqual(@"temporary_textures\damon_hill_williams_preview_1996.dds", livery.Element("PREVIEWIMAGE").Attribute("PATH").Value);
             Assert.IsTrue(File.Exists(Path.Combine(carFolder, "temporary_textures", "damon_hill_williams_preview_1996.dds")));
             Assert.AreEqual(@"..\tyres\tire_diff.dds", Texture(livery, "TIREDIFF"));
@@ -68,9 +69,9 @@ namespace AMS2ChEd.Tests.Ams2
             string kit = Path.Combine(kits, CarModel);
             folder.Png(Path.Combine(kit, "templates", "t.png"), new Rgba32(255, 0, 0, 255));
             File.WriteAllText(Path.Combine(kit, "kit.json"), $@"{{ ""car_models"": [""{CarModel}""], ""livery_xml"": ""livery.xml"", ""outfit_set"": ""set"",
-                ""templates"": [ {{ ""id"": ""t"", ""body"": ""templates/t.png"" }} ] }}");
+                ""body_textures"": [""BODY"", ""WINGS""], ""templates"": [ {{ ""id"": ""t"", ""body"": ""templates/t.png"" }} ] }}");
             File.WriteAllText(Path.Combine(kit, "livery.xml"), @"<USER_OVERRIDES>
-  <LIVERY_OVERRIDE LIVERY="""" NAME="""" BASELIVERY=""Default""><PREVIEWIMAGE PATH="""" /><TEXTURE NAME=""BODY"" PATH="""" /></LIVERY_OVERRIDE>
+  <LIVERY_OVERRIDE LIVERY="""" NAME="""" BASELIVERY=""Default""><PREVIEWIMAGE PATH="""" /><TEXTURE NAME=""BODY"" PATH="""" /><TEXTURE NAME=""WINGS"" PATH="""" /></LIVERY_OVERRIDE>
   <HELMET_OVERRIDE LIVERY="""" BASEHELMET=""DEFAULT""><TEXTURE NAME=""BODY_DIFF"" PATH="""" /><TEXTURE NAME=""VISOR_DIFF"" PATH="""" /></HELMET_OVERRIDE>
   <OUTFIT_OVERRIDE LIVERY="""" BASEOUTFIT=""DEFAULT""><TEXTURE NAME=""BODY_DIFF"" PATH="""" /><TEXTURE NAME=""ARMS_DIFF"" PATH="""" /></OUTFIT_OVERRIDE>
 </USER_OVERRIDES>");

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generic livery for teams with no season pack artwork. The app fills every PATH and LIVERY per car. -->
+<!-- This model reads its wings from a second texture with the body's own layout: WINGS gets the generated body too (kit.json body_textures). -->
+<USER_OVERRIDES>
+  <LIVERY_OVERRIDE LIVERY="" NAME="" BASELIVERY="Default">
+    <PREVIEWIMAGE PATH="" />
+    <TEXTURE NAME="BODY" PATH="" />
+    <TEXTURE NAME="WINGS" PATH="" />
+  </LIVERY_OVERRIDE>
+  <HELMET_OVERRIDE LIVERY="" BASEHELMET="DEFAULT">
+    <TEXTURE NAME="BODY_DIFF" PATH="" />
+    <TEXTURE NAME="VISOR_DIFF" PATH="" />
+  </HELMET_OVERRIDE>
+</USER_OVERRIDES>

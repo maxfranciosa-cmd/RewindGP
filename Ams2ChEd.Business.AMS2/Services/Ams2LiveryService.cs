@@ -967,6 +967,15 @@ namespace Ams2ChEd.Business.AMS2.Services
                         bodyTexture.SetAttributeValue("PATH", finalLiveryPath);
                     }
 
+                    // The kit's XML may name more textures with the body's layout (a model's WINGS):
+                    // they take the same file.
+                    if (usingKitXml && kit.BodyTextures != null && !string.IsNullOrEmpty(finalLiveryPath))
+                    {
+                        foreach (var texture in clonedElement.Elements("TEXTURE")
+                            .Where(t => kit.BodyTextures.Contains(t.Attribute("NAME")?.Value ?? "", StringComparer.OrdinalIgnoreCase)))
+                            texture.SetAttributeValue("PATH", finalLiveryPath);
+                    }
+
                     // Update PREVIEW texture PATH if it exists
                     var previewImageNode = clonedElement.Elements("PREVIEWIMAGE").FirstOrDefault();
                     previewImageNode.SetAttributeValue("PATH", finalLiveryPreviewPath);

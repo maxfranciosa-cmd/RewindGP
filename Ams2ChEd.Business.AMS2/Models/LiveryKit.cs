@@ -21,6 +21,15 @@ namespace AMS2ChEd.Business.AMS2.Models
         [JsonPropertyName("outfit_set")]
         public string OutfitSet { get; set; }
 
+        /// <summary>
+        /// The LIVERY_OVERRIDE textures that take the generated body. A model can read some of its
+        /// parts from a second texture with the body's own layout (formula_ultimate_2024's
+        /// WINGS). Null: BODY only.
+        /// </summary>
+        [JsonPropertyName("body_textures")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public List<string> BodyTextures { get; set; }
+
         [JsonPropertyName("templates")]
         public List<KitTemplate> Templates { get; set; }
 

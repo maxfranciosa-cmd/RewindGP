@@ -18,6 +18,7 @@ namespace AMS2ChEd.Tests.Ams2
         [TestMethod]
         [DataRow(1996)]
         [DataRow(1998)]
+        [DataRow(2025)]
         public void ShippedBakedSeason_LoadsAndPointsAtShippedKits(int year)
         {
             string app = Path.Combine(RepoRoot(), "AMS2ChEd");
@@ -48,9 +49,15 @@ namespace AMS2ChEd.Tests.Ams2
                 TemplateRecolour.ParseColour(livery.NumberFill);
                 if (kits.FindNumberStyle(livery.NumberStyle).TwoColour)
                     TemplateRecolour.ParseColour(livery.NumberOutline);
-                Assert.IsNotNull(kits.FindTyreSet(livery.Tyres), $"{team.TeamId}: tyres {livery.Tyres}");
-                TemplateRecolour.ParsePalette(livery.Suit.Palette);
-                TemplateRecolour.ParseColour(livery.Suit.Harness);
+                // tyres and suit are optional: without them the car keeps its stock tyres and the
+                // suit takes the car palette (2025: stock Pirelli-style tyres, no outfit set)
+                if (livery.Tyres != null)
+                    Assert.IsNotNull(kits.FindTyreSet(livery.Tyres), $"{team.TeamId}: tyres {livery.Tyres}");
+                if (livery.Suit != null)
+                {
+                    TemplateRecolour.ParsePalette(livery.Suit.Palette);
+                    TemplateRecolour.ParseColour(livery.Suit.Harness);
+                }
             }
 
             string helmets = Path.Combine(app, "Drivers", "base_helmet_liveries", "generic_designs");
