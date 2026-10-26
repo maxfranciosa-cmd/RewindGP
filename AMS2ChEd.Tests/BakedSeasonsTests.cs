@@ -61,6 +61,14 @@ namespace AMS2ChEd.Tests.Ams2
                     TemplateRecolour.ParsePalette(livery.Suit.Palette);
                     TemplateRecolour.ParseColour(livery.Suit.Harness);
                 }
+
+                // a borrowed livery runs on the kit's livery.xml
+                if (team.CosmeticFallbacks != null)
+                {
+                    foreach (var fallback in team.CosmeticFallbacks)
+                        Assert.AreNotEqual(year, fallback.Season, $"{team.TeamId}: cosmetic fallback to its own season");
+                    Assert.IsTrue(!string.IsNullOrEmpty(kit.LiveryXml) && File.Exists(Path.Combine(kit.Folder, kit.LiveryXml)), $"{team.TeamId}: cosmetic fallbacks, but the {team.Ams2Car} kit has no livery.xml");
+                }
             }
 
             string helmets = Path.Combine(app, "Drivers", "base_helmet_liveries", "generic_designs");

@@ -133,6 +133,34 @@ namespace AMS2ChEd.Business.AMS2.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public GenericLivery GenericLivery { get; set; }
 
+        /// <summary>
+        /// Baked data only: other seasons' packs this team may borrow its artwork from, in order of
+        /// preference, when its own season's pack does not supply it. Null in packs and old data.
+        /// </summary>
+        [JsonPropertyName("cosmetic_fallbacks")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public List<CosmeticFallback> CosmeticFallbacks { get; set; }
+
+    }
+
+    /// <summary>A season pack a baked team may borrow its artwork from.</summary>
+    public class CosmeticFallback
+    {
+        [JsonPropertyName("season")]
+        public int Season { get; set; }
+
+        /// <summary>The team in that season's pack. Null: the same team_id as the baked team.</summary>
+        [JsonPropertyName("team_id")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string TeamId { get; set; }
+
+        /// <summary>
+        /// Optional: the race_id of one of that pack's livery_overrides to use as the base livery for
+        /// the whole season, instead of the pack team's base livery. Null: the pack team's base livery.
+        /// </summary>
+        [JsonPropertyName("livery_override_race_id")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public int? LiveryOverrideRaceId { get; set; }
     }
 
     public enum NumberRotation

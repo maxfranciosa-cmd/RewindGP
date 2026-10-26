@@ -495,7 +495,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
         }
 
-        private void CopyAsDDS(string filePath, string seasonDirectory, string carModelDirectory)
+        private void CopyAsDDS(string filePath, string seasonDirectory, string carModelDirectory, string destFileName = null)
         {
             // Resolve the source path (relative to seasonDirectory)
             string sourcePath = Path.IsPathRooted(filePath)
@@ -508,8 +508,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                 return;
             }
 
-            // Destination is just the filename in the car model directory
-            string fileName = Path.GetFileName(sourcePath);
+            // Destination is just the filename (unless given) in the car model directory
+            string fileName = destFileName ?? Path.GetFileName(sourcePath);
             string destPath = Path.Combine(carModelDirectory, fileName);
 
             // When filePath is already an absolute path pointing into carModelDirectory itself
@@ -746,6 +746,17 @@ namespace Ams2ChEd.Business.AMS2.Services
                         if (driverId != null && helmetPreviews.TryGetValue((driverId, team.TeamId), out var helmetPreview))
                             finalPreviewPath = helmetPreview;
                     }
+                    else if (BakedSeasonMerge.OtherSeasonYear(previewFile) is int previewYear)
+                    {
+                        // A preview from another season's folder ("../2022/previews/x.dds") would
+                        // land outside temporary_textures: it goes in it, named after its year.
+                        string previewFileName = $"{previewYear}_{Path.GetFileName(previewFile)}";
+                        finalPreviewPath = Path.Combine("temporary_textures", previewFileName);
+                        if (copiedPreviewFiles.Add(previewFile))
+                        {
+                            CopyAsDDS(previewFile, seasonDirectory, temporaryTexturesPath, previewFileName);
+                        }
+                    }
                     else
                     {
                         finalPreviewPath = Path.Combine("temporary_textures", previewFile);
@@ -842,9 +853,14 @@ namespace Ams2ChEd.Business.AMS2.Services
             var kit = liveryKits?.FindKit(carModel);
             bool usingKitXml = false;
 
-            if (!File.Exists(teamXmlPath))
+            // A baked team's livery borrowed from another season's pack is painted for the kit's
+            // XML: this season's XML of the team (if any, perhaps for another car) is not for it.
+            bool borrowedLivery = team.GenericLivery != null && BakedSeasonMerge.OtherSeasonYear(liveryFilePath) != null;
+
+            if (borrowedLivery || !File.Exists(teamXmlPath))
             {
-                Console.WriteLine($"Warning: Team livery XML not found: {teamXmlPath}");
+                if (!borrowedLivery)
+                    Console.WriteLine($"Warning: Team livery XML not found: {teamXmlPath}");
                 if (!string.IsNullOrEmpty(team.LiveryXml))
                 {
                     // load team xml from savefile

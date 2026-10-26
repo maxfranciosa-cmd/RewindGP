@@ -31,7 +31,7 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
                 if (hasBaked)
                 {
                     var warnings = new List<string>();
-                    seasonData = BakedSeasonMerge.MergeSeason(Read(bakedPath), hasPack ? Read(seasonPath) : null, warnings);
+                    seasonData = BakedSeasonMerge.MergeSeason(Read(bakedPath), hasPack ? Read(seasonPath) : null, OtherPackReader(), warnings);
                     foreach (var warning in warnings)
                         Trace.TraceWarning(warning);
                 }
@@ -62,6 +62,33 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
 
         private static Ams2Season Read(string path) =>
             JsonSerializer.Deserialize<Ams2Season>(File.ReadAllText(path), DefaultJsonSerializerOptions.Instance);
+
+        // Another year's pack, as the pack alone (never merged over that year's baked data, so
+        // fallbacks don't chain), read once per load; null when not installed or unreadable.
+        private static Func<int, Ams2Season> OtherPackReader()
+        {
+            var cache = new Dictionary<int, Ams2Season>();
+            return year =>
+            {
+                if (cache.TryGetValue(year, out var cached))
+                    return cached;
+
+                Ams2Season pack = null;
+                var path = StoragePaths.SeasonFilePath(year);
+                if (File.Exists(path))
+                {
+                    try
+                    {
+                        pack = Read(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.TraceWarning($"The {year} season pack could not be read for cosmetic fallbacks: {ex.Message}");
+                    }
+                }
+                return cache[year] = pack;
+            };
+        }
 
         public IEnumerable<string> GetAvailableSeasons()
         {
@@ -123,19 +150,35 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
 
         public SeasonDataStamp GetSeasonDataStamp(int seasonYear)
         {
+            var baked = Fingerprint(StoragePaths.BakedSeasonFilePath(seasonYear), StoragePaths.BakedDriversFilePath(seasonYear));
+
+            // Over baked data, the artwork may also come from other years' packs (cosmetic
+            // fallbacks): all of them together, in year order.
+            string cosmetics = null;
+            if (baked != null)
+            {
+                cosmetics = Fingerprint(YearFolders(StoragePaths.SeasonsFolder, null)
+                    .Select(int.Parse)
+                    .Where(y => y != seasonYear)
+                    .OrderBy(y => y)
+                    .SelectMany(y => new[] { StoragePaths.SeasonFilePath(y), StoragePaths.DriversFilePath(y) })
+                    .ToArray());
+            }
+
             return new SeasonDataStamp
             {
                 Year = seasonYear,
-                Baked = Fingerprint(StoragePaths.BakedSeasonFilePath(seasonYear), StoragePaths.BakedDriversFilePath(seasonYear)),
-                Pack = Fingerprint(StoragePaths.SeasonFilePath(seasonYear), StoragePaths.DriversFilePath(seasonYear))
+                Baked = baked,
+                Pack = Fingerprint(StoragePaths.SeasonFilePath(seasonYear), StoragePaths.DriversFilePath(seasonYear)),
+                Cosmetics = cosmetics
             };
         }
 
-        // The season and drivers files hashed together, null when neither exists. Only the json
-        // matters: a save holds the paths of the artwork, not the artwork itself.
-        private static string Fingerprint(string seasonPath, string driversPath)
+        // The given files hashed together, null when none exists. Only the json matters: a save
+        // holds the paths of the artwork, not the artwork itself.
+        private static string Fingerprint(params string[] paths)
         {
-            var existing = new[] { seasonPath, driversPath }.Where(File.Exists).ToList();
+            var existing = paths.Where(File.Exists).ToList();
             if (existing.Count == 0)
                 return null;
 

@@ -115,58 +115,11 @@ namespace AMS2ChEd.Business.AMS2.GameLogic
         // however, is anchored to Season.OriginalYear (set when the season was cloned before the
         // real pack existed) and is not reset here, so every texture reference on this team needs
         // "../<year>/" prepended to still resolve into the correct, newly-installed year's folder.
-        private static void PrefixTeamTexturePaths(Ams2TeamEntry teamEntry, int year)
+        // A path a cosmetic fallback already rebased ("../2022/...") still resolves once prefixed
+        // ("../2023/../2022/..."). The livery XML holds XML, not a path, and is left alone.
+        public static void PrefixTeamTexturePaths(Ams2TeamEntry teamEntry, int year)
         {
-            string Prefix(string path) => string.IsNullOrEmpty(path) ? path : $"../{year}/{path}";
-
-            teamEntry.BaseLiveryDriver1 = Prefix(teamEntry.BaseLiveryDriver1);
-            teamEntry.BaseLiveryDriver2 = Prefix(teamEntry.BaseLiveryDriver2);
-            teamEntry.HelmetSponsors = Prefix(teamEntry.HelmetSponsors);
-            teamEntry.VisorSponsors = Prefix(teamEntry.VisorSponsors);
-            teamEntry.LiveryPreview = Prefix(teamEntry.LiveryPreview);
-            teamEntry.LiveryXml = Prefix(teamEntry.LiveryXml);
-
-            if (teamEntry.DriversSpecificHelmet != null)
-            {
-                teamEntry.DriversSpecificHelmet = teamEntry.DriversSpecificHelmet
-                    .ToDictionary(kv => kv.Key, kv => Prefix(kv.Value));
-            }
-
-            if (teamEntry.NumbersPlacements != null)
-            {
-                foreach (var placement in teamEntry.NumbersPlacements)
-                {
-                    placement.NumbersTexture = Prefix(placement.NumbersTexture);
-                    placement.NumbersTextureDriver2 = Prefix(placement.NumbersTextureDriver2);
-                }
-            }
-
-            if (teamEntry.LiveryOverrides != null)
-            {
-                foreach (var liveryOverride in teamEntry.LiveryOverrides)
-                {
-                    liveryOverride.Driver1Livery = Prefix(liveryOverride.Driver1Livery);
-                    liveryOverride.Driver2Livery = Prefix(liveryOverride.Driver2Livery);
-                    liveryOverride.HelmetSponsors = Prefix(liveryOverride.HelmetSponsors);
-                    liveryOverride.VisorSponsors = Prefix(liveryOverride.VisorSponsors);
-                    liveryOverride.LiveryPreview = Prefix(liveryOverride.LiveryPreview);
-
-                    if (liveryOverride.DriversSpecificHelmet != null)
-                    {
-                        liveryOverride.DriversSpecificHelmet = liveryOverride.DriversSpecificHelmet
-                            .ToDictionary(kv => kv.Key, kv => Prefix(kv.Value));
-                    }
-
-                    if (liveryOverride.NumbersPlacements != null)
-                    {
-                        foreach (var placement in liveryOverride.NumbersPlacements)
-                        {
-                            placement.NumbersTexture = Prefix(placement.NumbersTexture);
-                            placement.NumbersTextureDriver2 = Prefix(placement.NumbersTextureDriver2);
-                        }
-                    }
-                }
-            }
+            BakedSeasonMerge.MapTeamPaths(teamEntry, path => $"../{year}/{path}");
         }
     }
 }

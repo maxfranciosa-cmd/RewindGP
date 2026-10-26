@@ -59,6 +59,32 @@ namespace AMS2ChEd.Tests.Business.Updater
             Assert.AreEqual(packNow, save.SeasonDataStamp.Pack);
         }
 
+        [DataTestMethod]
+        [DataRow("c1", "c2", DisplayName = "another year's pack changed")]
+        [DataRow(null, "c1", DisplayName = "stamped before cosmetic fallbacks")]
+        public void OtherPacksChangedOverAppData_NeedsArtworkRefresh(string cosmeticsBefore, string cosmeticsNow)
+        {
+            var save = CreateSave(1996, new SeasonDataStamp { Year = 1996, Baked = "b1", Pack = "p1", Cosmetics = cosmeticsBefore });
+            var loader = LoaderWith(1996, "b1", "p1");
+            loader.GetSeasonDataStamp(1996).Cosmetics = cosmeticsNow;
+            var checker = new SaveGameSeasonChecker(loader);
+
+            Assert.AreEqual(SaveGameSeasonCheckerResult.NeedsArtworkRefresh, checker.CheckIfSaveGameNeedsRefresh(save));
+            Assert.AreEqual(cosmeticsNow, save.SeasonDataStamp.Cosmetics);
+            Assert.AreEqual(SaveGameSeasonCheckerResult.Proceed, checker.CheckIfSaveGameNeedsRefresh(save), "refreshed once");
+        }
+
+        [TestMethod]
+        public void OtherPacksChangedWithNoAppData_Proceeds()
+        {
+            var save = CreateSave(1994, new SeasonDataStamp { Year = 1994, Pack = "p1", Cosmetics = "c1" });
+            var loader = LoaderWith(1994, null, "p1");
+            loader.GetSeasonDataStamp(1994).Cosmetics = "c2";
+            var checker = new SaveGameSeasonChecker(loader);
+
+            Assert.AreEqual(SaveGameSeasonCheckerResult.Proceed, checker.CheckIfSaveGameNeedsRefresh(save));
+        }
+
         [TestMethod]
         public void PackChangedWithNoAppData_NeedsRefresh()
         {

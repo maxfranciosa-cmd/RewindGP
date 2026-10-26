@@ -56,7 +56,12 @@ namespace AMS2ChEd.Business.Updater
                 return SaveGameSeasonCheckerResult.NeedsRefresh;
 
             if (stamp.Pack == current.Pack)
-                return SaveGameSeasonCheckerResult.Proceed;
+            {
+                // other years' packs lend artwork over the app's data
+                return current.Baked != null && stamp.Cosmetics != current.Cosmetics
+                    ? SaveGameSeasonCheckerResult.NeedsArtworkRefresh
+                    : SaveGameSeasonCheckerResult.Proceed;
+            }
 
             // over the app's data a pack brings only artwork; without it, the pack is the season
             return current.Baked != null

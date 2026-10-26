@@ -4,6 +4,7 @@ using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
@@ -23,8 +24,9 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
                 }
 
                 // As for the season: baked drivers, with an installed pack's helmets and portraits.
+                // What the pack lacks may come from the other years' packs.
                 if (hasBaked)
-                    return BakedSeasonMerge.MergeDrivers(Read(bakedPath), hasPack ? Read(driversPath) : null);
+                    return BakedSeasonMerge.MergeDrivers(Read(bakedPath), hasPack ? Read(driversPath) : null, seasonYear, ReadOtherPacks(seasonYear));
 
                 return Read(driversPath);
             }
@@ -32,6 +34,35 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             {
                 throw new Exception($"Error loading drivers database: {ex.Message}", ex);
             }
+        }
+
+        // The drivers of every other year's installed pack, as the pack alone; a pack that can't
+        // be read is left out.
+        private static Dictionary<int, Dictionary<string, Ams2DriverData>> ReadOtherPacks(int seasonYear)
+        {
+            var packs = new Dictionary<int, Dictionary<string, Ams2DriverData>>();
+            if (!Directory.Exists(StoragePaths.SeasonsFolder))
+                return packs;
+
+            foreach (var folder in Directory.GetDirectories(StoragePaths.SeasonsFolder))
+            {
+                if (!int.TryParse(Path.GetFileName(folder), out var year) || year <= 0 || year == seasonYear)
+                    continue;
+
+                var path = StoragePaths.DriversFilePath(year);
+                if (!File.Exists(path))
+                    continue;
+
+                try
+                {
+                    packs[year] = Read(path);
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceWarning($"The {year} season pack's drivers could not be read for cosmetic fallbacks: {ex.Message}");
+                }
+            }
+            return packs;
         }
 
         private static Dictionary<string, Ams2DriverData> Read(string path)

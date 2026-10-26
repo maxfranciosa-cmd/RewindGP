@@ -131,6 +131,14 @@ namespace AMS2ChEd.Business.Updater.Models
 
         [JsonPropertyName("pack")]
         public string? Pack { get; set; }
+
+        /// <summary>
+        /// Over data the app ships: a fingerprint of every other year's installed pack, which the
+        /// season's teams and drivers may borrow artwork from. Null without such data, with no
+        /// other pack installed, and in saves stamped before it existed.
+        /// </summary>
+        [JsonPropertyName("cosmetics")]
+        public string? Cosmetics { get; set; }
     }
 
     // -------------------------------------------------------------------------

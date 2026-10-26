@@ -434,7 +434,11 @@
         },
         "number_style": "prolamina",
         "number_fill": "#C8102E"
-      }
+      },
+      "cosmetic_fallbacks": [
+        { "season": 2022 },
+        { "season": 2024 }
+      ]
     },
     {
       "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
