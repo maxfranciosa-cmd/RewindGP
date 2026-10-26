@@ -84,12 +84,12 @@ namespace AMS2ChEd.Tests.Ams2
             string app = Path.Combine(RepoRoot(), "AMS2ChEd");
             var loader = new LiveryKitLoader(Path.Combine(app, "LiveryKits"), Path.Combine(app, "Tyres", "tyre_sets.json"), Path.Combine(app, "Tyres", "files"));
 
-            foreach (var model in new[] { "formula_v10_g1", "mclaren_mp4_12", "formula_v10_g2_b", "formula_v10_g2_m", "formula_ultimate_2024" })
+            foreach (var model in new[] { "formula_v10_g1", "mclaren_mp4_12", "formula_v10_g2_b", "formula_v10_g2_m", "formula_ultimate_2024", "formula_ultimate_2019" })
             {
                 var kit = loader.FindKit(model);
                 Assert.IsNotNull(kit, model);
                 Assert.IsTrue(File.Exists(Path.Combine(kit.Folder, kit.LiveryXml)), $"{model} livery.xml");
-                // a kit with no outfit set leaves drivers in AMS2's default suit (formula_ultimate_2024:
+                // a kit with no outfit set leaves drivers in AMS2's default suit (formula_ultimate_2024 and _2019:
                 // its driver model's torso and gloves have no shading of our own yet)
                 if (kit.OutfitSet != null)
                     Assert.IsNotNull(loader.FindOutfitSet(kit.OutfitSet), $"{model} outfit set");

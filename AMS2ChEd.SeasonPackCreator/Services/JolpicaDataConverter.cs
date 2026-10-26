@@ -34,6 +34,8 @@ namespace AMS2ChEd.Business.Services
             // the 2002-2011 and 2016-2020 team (Jolpica files the 1977-85 works team under the same id)
             {  "renault", "benetton" },
             {  "alpha_tauri", "toro_rosso" },
+            {  "alphatauri", "toro_rosso" },
+            {  "alfa", "sauber" },
             {  "rb", "toro_rosso" },
             {  "red_bull", "stewart" },
             {  "jaguar", "stewart" },
