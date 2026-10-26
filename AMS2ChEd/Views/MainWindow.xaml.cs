@@ -597,7 +597,7 @@ namespace AMS2ChEd
                     .OrderBy(y => Math.Abs(y - seasonYear))
                     .ThenBy(y => y)
                     .SelectMany(y => LoadSeasonDriversCached(y).Values.Select(d => new ImportableDriver { Driver = d, SourceYear = y }))
-                    .Where(d => d.Driver.YearOfBirth > 0 && !driversInSelectedSeason.Contains(d.Driver.DriverId))
+                    .Where(d => d.Driver.YearOfBirth > 0 && (d.Driver.YearOfBirth < seasonYear - 4) && !driversInSelectedSeason.Contains(d.Driver.DriverId))
                     .GroupBy(d => d.Driver.DriverId)
                     .Select(g => g.First())
                     .OrderBy(d => d.Driver.Name);
