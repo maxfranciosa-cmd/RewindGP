@@ -26,8 +26,9 @@ namespace Ams2ChEd.Business.AMS2.Services
         private Dictionary<string, int> _driverNameDriverNumber;
         private bool _sessionHasStarted = false;
 
-        // Player's career driver information
-        private string _playerInGameNameInLowerCase;
+        // Player's career driver information. The player's car is told apart by the name AMS2 gives
+        // it, learned from the game itself (see LearnPlayerCarName).
+        private string _playerInGameNameInLowerCase = string.Empty;
         private string _playerDriverName;
         private string _playerDriverId;
 
@@ -79,8 +80,6 @@ namespace Ams2ChEd.Business.AMS2.Services
         public Ams2RaceDataService(Ams2StorageFactory storageFactory)
         {
             SettingsStorage = storageFactory.InstallSettingsStorage;
-            var ams2SettingsStorage = SettingsStorage as Ams2GameInstallSettingsStorage;
-            _playerInGameNameInLowerCase = ams2SettingsStorage?.LoadInGameName()?.ToLower() ?? string.Empty;
             _currentSession = new SessionData
             {
                 SessionType = SessionType.Practice,
@@ -174,7 +173,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
         }
 
-        // the race's confirmed crashes, as the career's drivers: the player's car by its in-game name.
+        // the race's confirmed crashes, as the career's drivers: the player's car by its learned name.
         // A car still stranded where it crashed counts, though its window hasn't run out yet
         private List<RaceCrash> DetectedCrashes()
         {
@@ -183,7 +182,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             var crashes = new List<RaceCrash>();
             foreach (var incident in _crashDetector.Incidents)
             {
-                var isPlayer = incident.CarName.ToLower() == _playerInGameNameInLowerCase;
+                var isPlayer = IsPlayerName(incident.CarName);
                 var driverName = isPlayer ? _playerDriverName : incident.CarName;
                 var driverId = isPlayer ? _playerDriverId : _driverNameDriverIdLookup?.GetValueOrDefault(incident.CarName);
                 if (string.IsNullOrEmpty(driverId) || driverName == null)
@@ -226,9 +225,10 @@ namespace Ams2ChEd.Business.AMS2.Services
                 else if (!_sessionHasStarted && page.mGameState == 2)
                 {
                     _sessionHasStarted = true;
-                    // Capture player index at session start
                 }
- 
+
+                LearnPlayerCarName(page);
+
                 isFinished = IsSessionFinished(page);
                 standings = GetStandings(page);
 
@@ -343,6 +343,33 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
         }
 
+        // While the game is being played (not paused, in a menu, the monitor or a replay) the viewed
+        // car is the one the player drives: the camera can't follow another car until a replay. Its
+        // name is the player's, unless it is one of the career's AI drivers - all of them are named
+        // in the custom AI file, so the player can't be one of those.
+        private void LearnPlayerCarName(AMS2Page page)
+        {
+            if (page.mGameState != (uint)GameState.GAME_INGAME_PLAYING)
+                return;
+
+            var viewedIndex = Convert.ToInt64(page.mViewedParticipantIndex);
+            if (viewedIndex < 0 || viewedIndex >= page.mParticipantInfo.Length)
+                return;
+
+            var viewedName = DecodeAms2String(page.mParticipantInfo[viewedIndex].mName);
+            if (string.IsNullOrWhiteSpace(viewedName) || viewedName.ToLower() == "safety car")
+                return;
+            if (_driverNameDriverIdLookup != null && _driverNameDriverIdLookup.Keys.Any(n => string.Equals(n, viewedName, StringComparison.OrdinalIgnoreCase)))
+                return;
+
+            var learned = viewedName.ToLower();
+            if (learned != _playerInGameNameInLowerCase)
+            {
+                System.Diagnostics.Debug.WriteLine($"Player's car in AMS2: '{viewedName}'");
+                _playerInGameNameInLowerCase = learned;
+            }
+        }
+
         private bool IsPlayerTheViewedParticipant(AMS2Page page)
         {
             var viewedIndex = Convert.ToInt64(page.mViewedParticipantIndex);
@@ -350,8 +377,12 @@ namespace Ams2ChEd.Business.AMS2.Services
                 return false;
 
             var viewedName = DecodeAms2String(page.mParticipantInfo[viewedIndex].mName);
-            return viewedName.ToLower() == _playerInGameNameInLowerCase;
+            return IsPlayerName(viewedName);
         }
+
+        // nobody is the player until his car's name has been learned
+        private bool IsPlayerName(string carName) =>
+            !string.IsNullOrEmpty(_playerInGameNameInLowerCase) && carName?.ToLower() == _playerInGameNameInLowerCase;
 
         private SessionType MapSessionType(uint sessionState)
         {
@@ -446,7 +477,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                 }
 
                 // Determine if this is the player
-                bool isPlayer = decodedDriverName.ToLower() == _playerInGameNameInLowerCase;
+                bool isPlayer = IsPlayerName(decodedDriverName);
 
                 // For the player, use their career driver data; for AI, use name-based lookup
                 string driverName;

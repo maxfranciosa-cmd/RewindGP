@@ -24,7 +24,6 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string OptionsWindow_HeaderText => ResourceManager.GetString(nameof(OptionsWindow_HeaderText))!;
         public static string OptionsWindow_Ams2FolderLabel => ResourceManager.GetString(nameof(OptionsWindow_Ams2FolderLabel))!;
         public static string OptionsWindow_BrowseButton => ResourceManager.GetString(nameof(OptionsWindow_BrowseButton))!;
-        public static string OptionsWindow_InGamePlayerNameLabel => ResourceManager.GetString(nameof(OptionsWindow_InGamePlayerNameLabel))!;
         public static string OptionsWindow_RaceLengthLabel => ResourceManager.GetString(nameof(OptionsWindow_RaceLengthLabel))!;
         public static string OptionsWindow_RaceLength_Default => ResourceManager.GetString(nameof(OptionsWindow_RaceLength_Default))!;
         public static string OptionsWindow_RaceLength_OneThird => ResourceManager.GetString(nameof(OptionsWindow_RaceLength_OneThird))!;
@@ -46,8 +45,6 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string OptionsWindow_FolderPathRequired_Message => ResourceManager.GetString(nameof(OptionsWindow_FolderPathRequired_Message))!;
         public static string OptionsWindow_FolderNotFound_Title => ResourceManager.GetString(nameof(OptionsWindow_FolderNotFound_Title))!;
         public static string OptionsWindow_FolderNotFound_Message => ResourceManager.GetString(nameof(OptionsWindow_FolderNotFound_Message))!;
-        public static string OptionsWindow_PlayerNameRequired_Title => ResourceManager.GetString(nameof(OptionsWindow_PlayerNameRequired_Title))!;
-        public static string OptionsWindow_PlayerNameRequired_Message => ResourceManager.GetString(nameof(OptionsWindow_PlayerNameRequired_Message))!;
         public static string OptionsWindow_SettingsSaved_Title => ResourceManager.GetString(nameof(OptionsWindow_SettingsSaved_Title))!;
         public static string OptionsWindow_SettingsSaved_Message => ResourceManager.GetString(nameof(OptionsWindow_SettingsSaved_Message))!;
         public static string OptionsWindow_LanguageChangeRequiresRestart_Title => ResourceManager.GetString(nameof(OptionsWindow_LanguageChangeRequiresRestart_Title))!;

@@ -54,11 +54,6 @@
                             Click="BrowseButton_Click"/>
                 </Grid>
 
-                <Label Content="{loc:Loc OptionsWindow_InGamePlayerNameLabel}" Style="{StaticResource Charcoal.FieldLabelStyle}"/>
-                <TextBox x:Name="AMS2PlayerNameTextBox"
-                         Style="{StaticResource Charcoal.TextBoxStyle}"
-                         Margin="0,0,0,18"/>
-
                 <!-- Race Length Section -->
                 <Label Content="{loc:Loc OptionsWindow_RaceLengthLabel}" Style="{StaticResource Charcoal.FieldLabelStyle}"/>
                 <ComboBox x:Name="RaceLengthComboBox"

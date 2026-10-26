@@ -28,7 +28,6 @@ namespace Ams2ChEd.Business.AMS2.UI
         private void LoadSettings()
         {
             AMS2FolderTextBox.Text = _settingsStorage.LoadSettings()?.GameInstallFolder;
-            AMS2PlayerNameTextBox.Text = _settingsStorage.LoadInGameName();
             AutoLaunchCheckBox.IsChecked = _settingsStorage.LoadAutoLaunchGame();
 
             CrashDetectionCheckBox.IsChecked = CrashIncidentSettings.LoadDetectionEnabled();
@@ -70,12 +69,11 @@ namespace Ams2ChEd.Business.AMS2.UI
             StyleComboBox.SelectedItem ??= StyleComboBox.Items[0];
         }
 
-        private void SaveSettings(string path, string inGameDriverName)
+        private void SaveSettings(string path)
         {
             try
             {
                 _settingsStorage.SaveSettings(new GameInstallSettings { GameInstallFolder = path });
-                _settingsStorage.SaveInGameName(inGameDriverName);
                 _settingsStorage.SaveAutoLaunchGame(AutoLaunchCheckBox.IsChecked ?? true);
 
                 if (RaceLengthComboBox.SelectedItem is ComboBoxItem selected
@@ -162,17 +160,8 @@ namespace Ams2ChEd.Business.AMS2.UI
                 }
             }
 
-            string inGamePlayerName = AMS2PlayerNameTextBox.Text.Trim();
-
-            if (string.IsNullOrEmpty(inGamePlayerName))
-            {
-                System.Windows.MessageBox.Show(Strings.OptionsWindow_PlayerNameRequired_Message, Strings.OptionsWindow_PlayerNameRequired_Title,
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
             // Save to configuration
-            SaveSettings(folderPath, inGamePlayerName);
+            SaveSettings(folderPath);
 
             System.Windows.MessageBox.Show(Strings.OptionsWindow_SettingsSaved_Message, Strings.OptionsWindow_SettingsSaved_Title,
                 MessageBoxButton.OK, MessageBoxImage.Information);

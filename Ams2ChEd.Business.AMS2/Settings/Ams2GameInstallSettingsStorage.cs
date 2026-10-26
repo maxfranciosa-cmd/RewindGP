@@ -10,7 +10,6 @@ namespace Ams2ChEd.Business.AMS2.Settings
     public class Ams2GameInstallSettingsStorage : IGameInstallSettingsStorage
     {
         private const string FOLDERPATH_SETTINGS_KEY = "AMS2FolderPath";
-        private const string DRIVERNAME_SETTINGS_KEY = "AMS2DriverName";
         private const string RACELENGTH_SETTINGS_KEY = "AMS2RaceLength";
         private const string AUTOLAUNCH_SETTINGS_KEY = "AMS2AutoLaunchGame";
 
@@ -44,38 +43,6 @@ namespace Ams2ChEd.Business.AMS2.Settings
             {
                 GameInstallFolder = Directory.Exists(savedPath) ? savedPath : Ams2InstallPathDetector.DetectInstallPath(),
             };
-        }
-
-        public string LoadInGameName()
-        {
-            try
-            {
-                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                if (config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY] != null)
-                {
-                    return config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY].Value;
-                }
-            }
-            catch
-            {
-                // Ignore errors, will use default
-            }
-            return string.Empty;
-        }
-
-        public void SaveInGameName(string name)
-        {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            if (config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY] != null)
-            {
-                config.AppSettings.Settings[DRIVERNAME_SETTINGS_KEY].Value = name;
-            }
-            else
-            {
-                config.AppSettings.Settings.Add(DRIVERNAME_SETTINGS_KEY, name);
-            }
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
         }
 
         public Ams2RaceLength LoadRaceLength()
@@ -144,7 +111,8 @@ namespace Ams2ChEd.Business.AMS2.Settings
             ConfigurationManager.RefreshSection("appSettings");
         }
 
-        public bool NeedsPlayerSetup() => string.IsNullOrEmpty(LoadInGameName());
+        // nothing to ask: the race service learns the player's car from the game itself
+        public bool NeedsPlayerSetup() => false;
 
         public bool ShowEditor(object ownerWindow)
         {
