@@ -108,5 +108,35 @@ namespace AMS2ChEd.Business.Models
 
         [JsonPropertyName("game_file")]
         public string GameFile { get; set; }
+
+        /// <summary>
+        /// Optional: the name and description in other languages, by two-letter language code
+        /// ("it"). Name and Description above are the English default, used for every language
+        /// (or field) with no translation. Null (and absent from the JSON) in older scenarios.
+        /// </summary>
+        [JsonPropertyName("translations")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public Dictionary<string, ScenarioText> Translations { get; set; }
+
+        /// <summary>The name in the given two-letter language, or the English default.</summary>
+        public string LocalizedName(string language) => NonEmpty(Translation(language)?.Name) ?? Name;
+
+        /// <summary>The description in the given two-letter language, or the English default.</summary>
+        public string LocalizedDescription(string language) => NonEmpty(Translation(language)?.Description) ?? Description;
+
+        private ScenarioText Translation(string language) =>
+            Translations?.FirstOrDefault(t => string.Equals(t.Key, language, StringComparison.OrdinalIgnoreCase)).Value;
+
+        private static string NonEmpty(string text) => string.IsNullOrWhiteSpace(text) ? null : text;
+    }
+
+    /// <summary>A scenario's name and description in one language.</summary>
+    public class ScenarioText
+    {
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
     }
 }

@@ -33,6 +33,26 @@ namespace AMS2ChEd.Business.Storage.Contracts
         /// was last refreshed. Null when the loader can't tell, and the file times decide instead.
         /// </summary>
         SeasonDataStamp GetSeasonDataStamp(int seasonYear) => null;
+
+        /// <summary>
+        /// The folders holding each season's scenarios (one *.json per scenario), by year: those of
+        /// the installed season packs, unless the loader has scenarios of its own for that year.
+        /// </summary>
+        IEnumerable<(int Year, string Folder)> GetScenarioFolders() => ScenarioFolders(AppPaths.SeasonsFolder);
+
+        /// <summary>The "scenarios" folders of the year-named folders under <paramref name="root"/>.</summary>
+        public static IEnumerable<(int Year, string Folder)> ScenarioFolders(string root)
+        {
+            if (!Directory.Exists(root))
+                yield break;
+
+            foreach (var yearFolder in Directory.GetDirectories(root))
+            {
+                var scenarios = Path.Combine(yearFolder, "scenarios");
+                if (int.TryParse(Path.GetFileName(yearFolder), out var year) && Directory.Exists(scenarios))
+                    yield return (year, scenarios);
+            }
+        }
     }
 
     public interface ISeasonLoader<TSeason> : ISeasonLoader

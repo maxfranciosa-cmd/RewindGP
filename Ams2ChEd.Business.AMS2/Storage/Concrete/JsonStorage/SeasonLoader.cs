@@ -192,6 +192,18 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             return Convert.ToHexString(sha.Hash, 0, 8);
         }
 
+        // The scenarios shipped with the app's baked data, then those of installed packs for the
+        // years the app ships none of: a pack's copies of a baked year's scenarios are left out.
+        public IEnumerable<(int Year, string Folder)> GetScenarioFolders()
+        {
+            var baked = ISeasonLoader.ScenarioFolders(StoragePaths.BakedSeasonsFolder).ToList();
+            var bakedYears = baked.Select(b => b.Year).ToHashSet();
+            return baked
+                .Concat(ISeasonLoader.ScenarioFolders(StoragePaths.SeasonsFolder).Where(p => !bakedYears.Contains(p.Year)))
+                .OrderBy(s => s.Year)
+                .ToList();
+        }
+
         public ISeason LoadBaseSeason(int seasonYear)
         {
             return LoadSeason(seasonYear);

@@ -1,0 +1,2277 @@
+{
+  "$type": "AMS2ChEd.Business.Models.Concrete.SaveGame",
+  "currentSeason": {
+    "$type": "AMS2ChEd.Business.AMS2.Models.Ams2Season",
+    "ams2Class": "F-V10_Gen2",
+    "year": 1998,
+    "original_year": null,
+    "points_system": {
+      "1": 10,
+      "2": 6,
+      "3": 4,
+      "4": 3,
+      "5": 2,
+      "6": 1
+    },
+    "points_for_fastest_lap": 0,
+    "races": [
+      {
+        "race_id": 1,
+        "race_name": "Australian Grand Prix",
+        "race_short_name": "AUS",
+        "race_date": "1998-03-08",
+        "circuit": "Australia Albert Park Grand Prix Circuit, Melbourne",
+        "cover_picture": "https://www.progcovers.com/motor/melbourne98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 2,
+        "race_name": "Brazilian Grand Prix",
+        "race_short_name": "BRA",
+        "race_date": "1998-03-29",
+        "circuit": "Brazil Aut\u00F3dromo Jos\u00E9 Carlos Pace, S\u00E3o Paulo",
+        "cover_picture": "https://www.progcovers.com/motor/interlagos98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 3,
+        "race_name": "Argentine Grand Prix",
+        "race_short_name": "ARG",
+        "race_date": "1998-04-12",
+        "circuit": "Argentina Aut\u00F3dromo Juan y Oscar G\u00E1lvez, Buenos Aires",
+        "cover_picture": "https://www.progcovers.com/motor/buenos98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 4,
+        "race_name": "San Marino Grand Prix",
+        "race_short_name": "SMR",
+        "race_date": "1998-04-26",
+        "circuit": "Italy Autodromo Enzo e Dino Ferrari, Imola",
+        "cover_picture": "https://www.progcovers.com/motor/sanmarino98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 5,
+        "race_name": "Spanish Grand Prix",
+        "race_short_name": "ESP",
+        "race_date": "1998-05-10",
+        "circuit": "Spain Circuit de Barcelona-Catalunya, Barcelona",
+        "cover_picture": "https://www.progcovers.com/motor/barcelona98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 6,
+        "race_name": "Monaco Grand Prix",
+        "race_short_name": "MON",
+        "race_date": "1998-05-24",
+        "circuit": "Monaco Circuit de Monaco, Monte Carlo",
+        "cover_picture": "https://www.progcovers.com/motor/monaco98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 7,
+        "race_name": "Canadian Grand Prix",
+        "race_short_name": "CAN",
+        "race_date": "1998-06-07",
+        "circuit": "Canada Circuit Gilles Villeneuve, Montreal",
+        "cover_picture": "https://www.progcovers.com/motor/montreal980607.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 8,
+        "race_name": "French Grand Prix",
+        "race_short_name": "FRA",
+        "race_date": "1998-06-28",
+        "circuit": "France Circuit de Nevers Magny-Cours, Magny Cours",
+        "cover_picture": "https://www.progcovers.com/motor/magnycours98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 9,
+        "race_name": "British Grand Prix",
+        "race_short_name": "GBR",
+        "race_date": "1998-07-12",
+        "circuit": "UK Silverstone Circuit, Silverstone",
+        "cover_picture": "https://www.progcovers.com/motor/silver98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 10,
+        "race_name": "Austrian Grand Prix",
+        "race_short_name": "AUT",
+        "race_date": "1998-07-26",
+        "circuit": "Austria Red Bull Ring, Spielberg",
+        "cover_picture": "https://www.progcovers.com/motor/a1ring98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 11,
+        "race_name": "German Grand Prix",
+        "race_short_name": "GER",
+        "race_date": "1998-08-02",
+        "circuit": "Germany Hockenheimring, Hockenheim",
+        "cover_picture": "https://www.progcovers.com/motor/hock98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 12,
+        "race_name": "Hungarian Grand Prix",
+        "race_short_name": "HUN",
+        "race_date": "1998-08-16",
+        "circuit": "Hungary Hungaroring, Budapest",
+        "cover_picture": "https://www.progcovers.com/motor/hungaroring98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 13,
+        "race_name": "Belgian Grand Prix",
+        "race_short_name": "BEL",
+        "race_date": "1998-08-30",
+        "circuit": "Belgium Circuit de Spa-Francorchamps, Spa",
+        "cover_picture": "https://www.progcovers.com/motor/spa98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 14,
+        "race_name": "Italian Grand Prix",
+        "race_short_name": "ITA",
+        "race_date": "1998-09-13",
+        "circuit": "Italy Autodromo Nazionale di Monza, Monza",
+        "cover_picture": "https://www.progcovers.com/motor/monza98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 15,
+        "race_name": "Luxembourg Grand Prix",
+        "race_short_name": "LUX",
+        "race_date": "1998-09-27",
+        "circuit": "Germany N\u00FCrburgring, N\u00FCrburg",
+        "cover_picture": "https://www.progcovers.com/motor/nur98.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 16,
+        "race_name": "Japanese Grand Prix",
+        "race_short_name": "JPN",
+        "race_date": "1998-11-01",
+        "circuit": "Japan Suzuka Circuit, Suzuka",
+        "cover_picture": "https://www.progcovers.com/motor/suzuka311098.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      }
+    ],
+    "teams": [
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_b",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1.01,
+          "power_scalar": -0.971,
+          "drag_scalar": -1.014
+        },
+        "ams2carDriver2": null,
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": "car_liveries/arrows/default_1.png",
+        "base_livery_driver2": "car_liveries/arrows/default_2.png",
+        "helmet_sponsors": "",
+        "visor_sponsors": "helmet_sponsors/arrows/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/arrows/numbers_1.png",
+            "number_plate_width": 234,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 2697,
+              "Y": 772
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/arrows/numbers_2.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1650,
+              "Y": 3349
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/arrows/numbers_2.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1204,
+              "Y": 3887
+            },
+            "rotation": "Deg0"
+          }
+        ],
+        "livery_overrides": [],
+        "livery_preview": "previews/arrows/default.dds",
+        "livery_xml": null,
+        "team_id": "arrows",
+        "team_name": "Arrows Supertec",
+        "team_principal": "Tom Walkinshaw",
+        "reputation": "MIDFIELD",
+        "driver1_contract": {
+          "driver_id": "pedro_diniz",
+          "races": 16,
+          "drivernumber": 16
+        },
+        "driver2_contract": {
+          "driver_id": "mika_salo",
+          "races": 16,
+          "drivernumber": 17
+        },
+        "color": "#181418",
+        "default_prequalifying": false
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_b",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1.004,
+          "power_scalar": -0.983,
+          "drag_scalar": -1.008
+        },
+        "ams2carDriver2": null,
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": "car_liveries/benetton/default_1.png",
+        "base_livery_driver2": "car_liveries/benetton/default_2.png",
+        "helmet_sponsors": "helmet_sponsors/benetton/default.png",
+        "visor_sponsors": "helmet_sponsors/benetton/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/benetton/numbers_3.png",
+            "number_plate_width": 200,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 2715,
+              "Y": 756
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/benetton/numbers_4.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1642,
+              "Y": 3327
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/benetton/numbers_4.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1218,
+              "Y": 3873
+            },
+            "rotation": "Deg0"
+          }
+        ],
+        "livery_overrides": [
+          {
+            "race_id": 8,
+            "driver1_livery": "car_liveries/benetton/benetton_NT.png",
+            "driver2_livery": "car_liveries/benetton/benetton_NT.png",
+            "helmet_sponsors": "helmet_sponsors/benetton/MildSeven_NT_NoHalo.png",
+            "visor_sponsors": null,
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 9,
+            "driver1_livery": "car_liveries/benetton/benetton_NT.png",
+            "driver2_livery": "car_liveries/benetton/benetton_NT.png",
+            "helmet_sponsors": "helmet_sponsors/benetton/MildSeven_NT_NoHalo.png",
+            "visor_sponsors": null,
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 11,
+            "driver1_livery": "car_liveries/benetton/benetton_NT.png",
+            "driver2_livery": "car_liveries/benetton/benetton_NT.png",
+            "helmet_sponsors": "helmet_sponsors/benetton/MildSeven_NT_NoHalo.png",
+            "visor_sponsors": null,
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 15,
+            "driver1_livery": "car_liveries/benetton/benetton_NT.png",
+            "driver2_livery": "car_liveries/benetton/benetton_NT.png",
+            "helmet_sponsors": "helmet_sponsors/benetton/MildSeven_NT_NoHalo.png",
+            "visor_sponsors": null,
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          }
+        ],
+        "livery_preview": "previews/benetton/default.dds",
+        "livery_xml": null,
+        "team_id": "benetton",
+        "team_name": "Benetton Playlife",
+        "team_principal": "Flavio Briatore",
+        "reputation": "MIDFIELD_HIGH",
+        "driver1_contract": {
+          "driver_id": "giancarlo_fisichella",
+          "races": 49,
+          "drivernumber": 5
+        },
+        "driver2_contract": {
+          "driver_id": "alexander_wurz",
+          "races": 49,
+          "drivernumber": 6
+        },
+        "color": "#0188cc",
+        "default_prequalifying": false
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_m",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1.001,
+          "power_scalar": -0.995,
+          "drag_scalar": -1.001
+        },
+        "ams2carDriver2": null,
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": "car_liveries/ferrari/default_1.png",
+        "base_livery_driver2": "car_liveries/ferrari/default_2.png",
+        "helmet_sponsors": "helmet_sponsors/ferrari/default.png",
+        "visor_sponsors": "helmet_sponsors/ferrari/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/ferrari/numbers_18.png",
+            "number_plate_width": 220,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 2923,
+              "Y": 766
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/ferrari/numbers_18.png",
+            "number_plate_width": 220,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1612,
+              "Y": 3179
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/ferrari/numbers_18.png",
+            "number_plate_width": 220,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1220,
+              "Y": 3707
+            },
+            "rotation": "Deg0"
+          }
+        ],
+        "livery_overrides": [
+          {
+            "race_id": 8,
+            "driver1_livery": "car_liveries/ferrari/ferrarilNT.png",
+            "driver2_livery": "car_liveries/ferrari/ferrarilNT.png",
+            "helmet_sponsors": "helmet_sponsors/ferrari/Marlboro_NT.png",
+            "visor_sponsors": "helmet_sponsors/ferrari/default_visorNT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 9,
+            "driver1_livery": "car_liveries/ferrari/ferrarilNT.png",
+            "driver2_livery": "car_liveries/ferrari/ferrarilNT.png",
+            "helmet_sponsors": "helmet_sponsors/ferrari/Marlboro_NT.png",
+            "visor_sponsors": "helmet_sponsors/ferrari/default_visorNT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 11,
+            "driver1_livery": "car_liveries/ferrari/ferrarilNT.png",
+            "driver2_livery": "car_liveries/ferrari/ferrarilNT.png",
+            "helmet_sponsors": "helmet_sponsors/ferrari/Marlboro_NT.png",
+            "visor_sponsors": "helmet_sponsors/ferrari/default_visorNT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 15,
+            "driver1_livery": "car_liveries/ferrari/ferrarilNT.png",
+            "driver2_livery": "car_liveries/ferrari/ferrarilNT.png",
+            "helmet_sponsors": "helmet_sponsors/ferrari/Marlboro_NT.png",
+            "visor_sponsors": "helmet_sponsors/ferrari/default_visorNT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          }
+        ],
+        "livery_preview": "previews/ferrari/default.dds",
+        "livery_xml": null,
+        "team_id": "ferrari",
+        "team_name": "Ferrari",
+        "team_principal": "Jean Todt",
+        "reputation": "TOP_TEAM",
+        "driver1_contract": {
+          "driver_id": "michael_schumacher",
+          "races": 32,
+          "drivernumber": 3
+        },
+        "driver2_contract": {
+          "driver_id": "eddie_irvine",
+          "races": 32,
+          "drivernumber": 4
+        },
+        "color": "#bd0000",
+        "default_prequalifying": false
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_m",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1.006,
+          "power_scalar": -0.98,
+          "drag_scalar": -1.01
+        },
+        "ams2carDriver2": null,
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": "car_liveries/jordan/default_1.png",
+        "base_livery_driver2": "car_liveries/jordan/default_2.png",
+        "helmet_sponsors": "helmet_sponsors/jordan/default.png",
+        "visor_sponsors": "helmet_sponsors/jordan/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/jordan/arial_yellow.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 3093,
+              "Y": 752
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/jordan/arial_black.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1630,
+              "Y": 3330
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/jordan/arial_black.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1226,
+              "Y": 3877
+            },
+            "rotation": "Deg0"
+          }
+        ],
+        "livery_overrides": [
+          {
+            "race_id": 8,
+            "driver1_livery": "car_liveries/jordan/jordanNT.png",
+            "driver2_livery": "car_liveries/jordan/jordanNT.png",
+            "helmet_sponsors": "helmet_sponsors/jordan/BH_NT.png",
+            "visor_sponsors": "helmet_sponsors/jordan/jordan_visor_NT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 9,
+            "driver1_livery": "car_liveries/jordan/jordanNT.png",
+            "driver2_livery": "car_liveries/jordan/jordanNT.png",
+            "helmet_sponsors": "helmet_sponsors/jordan/BH_NT.png",
+            "visor_sponsors": "helmet_sponsors/jordan/jordan_visor_NT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 11,
+            "driver1_livery": "car_liveries/jordan/jordanNT.png",
+            "driver2_livery": "car_liveries/jordan/jordanNT.png",
+            "helmet_sponsors": "helmet_sponsors/jordan/BH_NT.png",
+            "visor_sponsors": "helmet_sponsors/jordan/jordan_visor_NT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 15,
+            "driver1_livery": "car_liveries/jordan/jordanNT.png",
+            "driver2_livery": "car_liveries/jordan/jordanNT.png",
+            "helmet_sponsors": "helmet_sponsors/jordan/BH_NT.png",
+            "visor_sponsors": "helmet_sponsors/jordan/jordan_visor_NT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          }
+        ],
+        "livery_preview": "previews/jordan/default.dds",
+        "livery_xml": null,
+        "team_id": "jordan",
+        "team_name": "Jordan Mugen-Honda",
+        "team_principal": "Eddie Jordan",
+        "reputation": "MIDFIELD_HIGH",
+        "driver1_contract": {
+          "driver_id": "david_coulthard",
+          "races": 16,
+          "drivernumber": 9
+        },
+        "driver2_contract": {
+          "driver_id": "ralf_schumacher",
+          "races": 16,
+          "drivernumber": 10
+        },
+        "color": "#ffdf00",
+        "default_prequalifying": false
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_b",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1,
+          "power_scalar": -1,
+          "drag_scalar": -1
+        },
+        "ams2carDriver2": null,
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": "car_liveries/mclaren/default_1.png",
+        "base_livery_driver2": "car_liveries/mclaren/default_2.png",
+        "helmet_sponsors": "helmet_sponsors/mclaren/default.png",
+        "visor_sponsors": "helmet_sponsors/mclaren/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/mclaren/numbers_9.png",
+            "number_plate_width": 176,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 2401,
+              "Y": 746
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/mclaren/numbers_10.png",
+            "number_plate_width": 220,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1630,
+              "Y": 3321
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/mclaren/numbers_10.png",
+            "number_plate_width": 220,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1192,
+              "Y": 3865
+            },
+            "rotation": "Deg0"
+          }
+        ],
+        "livery_overrides": [
+          {
+            "race_id": 8,
+            "driver1_livery": "car_liveries/mclaren/mclarenNT.png",
+            "driver2_livery": "car_liveries/mclaren/mclarenNT.png",
+            "helmet_sponsors": "helmet_sponsors/mclaren/WEST_NT.png",
+            "visor_sponsors": null,
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 9,
+            "driver1_livery": "car_liveries/mclaren/mclarenNT.png",
+            "driver2_livery": "car_liveries/mclaren/mclarenNT.png",
+            "helmet_sponsors": "helmet_sponsors/mclaren/WEST_NT.png",
+            "visor_sponsors": null,
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 11,
+            "driver1_livery": "car_liveries/mclaren/mclarenNT.png",
+            "driver2_livery": "car_liveries/mclaren/mclarenNT.png",
+            "helmet_sponsors": "helmet_sponsors/mclaren/WEST_NT.png",
+            "visor_sponsors": null,
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 15,
+            "driver1_livery": "car_liveries/mclaren/mclarenNT.png",
+            "driver2_livery": "car_liveries/mclaren/mclarenNT.png",
+            "helmet_sponsors": "helmet_sponsors/mclaren/WEST_NT.png",
+            "visor_sponsors": null,
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          }
+        ],
+        "livery_preview": "previews/mclaren/default.dds",
+        "livery_xml": null,
+        "team_id": "mclaren",
+        "team_name": "McLaren Mercedes",
+        "team_principal": "Ron Dennis",
+        "reputation": "TOP_TEAM",
+        "driver1_contract": {
+          "driver_id": "damon_hill",
+          "races": 49,
+          "drivernumber": 7
+        },
+        "driver2_contract": {
+          "driver_id": "mika_hakkinen",
+          "races": 49,
+          "drivernumber": 8
+        },
+        "color": "#929395",
+        "default_prequalifying": false
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_b",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1.018,
+          "power_scalar": -0.961,
+          "drag_scalar": -1.021
+        },
+        "ams2carDriver2": "formula_v10_g2_m",
+        "ams2carPerformanceMalusDriver2": {
+          "weight_scalar": -1.016,
+          "power_scalar": -0.963,
+          "drag_scalar": -1.019
+        },
+        "base_livery_driver1": "car_liveries/minardi/default_1.png",
+        "base_livery_driver2": "car_liveries/minardi/default_2.png",
+        "helmet_sponsors": "",
+        "visor_sponsors": "helmet_sponsors/minardi/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/minardi/arial_black.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 3097,
+              "Y": 748
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/minardi/numbers_2.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1644,
+              "Y": 3337
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/minardi/numbers_2.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1210,
+              "Y": 3891
+            },
+            "rotation": "Deg0"
+          }
+        ],
+        "livery_overrides": [],
+        "livery_preview": "previews/minardi/default.dds",
+        "livery_xml": null,
+        "team_id": "minardi",
+        "team_name": "Minardi Ford",
+        "team_principal": "Giancarlo Minardi",
+        "reputation": "MINNOW",
+        "driver1_contract": {
+          "driver_id": "shinji_nakano",
+          "races": 16,
+          "drivernumber": 22
+        },
+        "driver2_contract": {
+          "driver_id": "esteban_tuero",
+          "races": 16,
+          "drivernumber": 23
+        },
+        "color": "#485989",
+        "default_prequalifying": false
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_b",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1.008,
+          "power_scalar": -0.973,
+          "drag_scalar": -1.013
+        },
+        "ams2carDriver2": null,
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": "car_liveries/ligier_prost/default_1.png",
+        "base_livery_driver2": "car_liveries/ligier_prost/default_2.png",
+        "helmet_sponsors": "helmet_sponsors/ligier_prost/default.png",
+        "visor_sponsors": "helmet_sponsors/ligier_prost/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/ligier_prost/numbers_13.png",
+            "number_plate_width": 204,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 2967,
+              "Y": 756
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/ligier_prost/numbers_13.png",
+            "number_plate_width": 204,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1636,
+              "Y": 3267
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/ligier_prost/numbers_13.png",
+            "number_plate_width": 204,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1208,
+              "Y": 3809
+            },
+            "rotation": "Deg0"
+          }
+        ],
+        "livery_overrides": [
+          {
+            "race_id": 8,
+            "driver1_livery": "car_liveries/ligier_prost/prostgpNT.png",
+            "driver2_livery": "car_liveries/ligier_prost/prostgpNT.png",
+            "helmet_sponsors": null,
+            "visor_sponsors": "helmet_sponsors/ligier_prost/Prost_visor_sponsors_NT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 9,
+            "driver1_livery": "car_liveries/ligier_prost/prostgpNT.png",
+            "driver2_livery": "car_liveries/ligier_prost/prostgpNT.png",
+            "helmet_sponsors": null,
+            "visor_sponsors": "helmet_sponsors/ligier_prost/Prost_visor_sponsors_NT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 11,
+            "driver1_livery": "car_liveries/ligier_prost/prostgpNT.png",
+            "driver2_livery": "car_liveries/ligier_prost/prostgpNT.png",
+            "helmet_sponsors": null,
+            "visor_sponsors": "helmet_sponsors/ligier_prost/Prost_visor_sponsors_NT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 15,
+            "driver1_livery": "car_liveries/ligier_prost/prostgpNT.png",
+            "driver2_livery": "car_liveries/ligier_prost/prostgpNT.png",
+            "helmet_sponsors": null,
+            "visor_sponsors": "helmet_sponsors/ligier_prost/Prost_visor_sponsors_NT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          }
+        ],
+        "livery_preview": "previews/ligier_prost/default.dds",
+        "livery_xml": null,
+        "team_id": "ligier_prost",
+        "team_name": "Prost Peugeot",
+        "team_principal": "Alain Prost",
+        "reputation": "MIDFIELD",
+        "driver1_contract": {
+          "driver_id": "olivier_panis",
+          "races": 32,
+          "drivernumber": 11
+        },
+        "driver2_contract": {
+          "driver_id": "jarno_trulli",
+          "races": 32,
+          "drivernumber": 12
+        },
+        "color": "#101463",
+        "default_prequalifying": false
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_m",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1.009,
+          "power_scalar": -0.974,
+          "drag_scalar": -1.013
+        },
+        "ams2carDriver2": null,
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": "car_liveries/sauber/default_1.png",
+        "base_livery_driver2": "car_liveries/sauber/default_2.png",
+        "helmet_sponsors": "helmet_sponsors/sauber/default.png",
+        "visor_sponsors": "helmet_sponsors/sauber/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/sauber/numbers_15.png",
+            "number_plate_width": 234,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 2687,
+              "Y": 772
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/sauber/numbers_16.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1652,
+              "Y": 3351
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/sauber/numbers_16.png",
+            "number_plate_width": 188,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1218,
+              "Y": 3879
+            },
+            "rotation": "Deg0"
+          }
+        ],
+        "livery_overrides": [],
+        "livery_preview": "previews/sauber/default.dds",
+        "livery_xml": null,
+        "team_id": "sauber",
+        "team_name": "Sauber Petronas",
+        "team_principal": "Peter Sauber",
+        "reputation": "MIDFIELD",
+        "driver1_contract": {
+          "driver_id": "jean_alesi",
+          "races": 16,
+          "drivernumber": 14
+        },
+        "driver2_contract": {
+          "driver_id": "johnny_herbert",
+          "races": 16,
+          "drivernumber": 15
+        },
+        "color": "#00aaa5",
+        "default_prequalifying": false
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_b",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1.009,
+          "power_scalar": -0.974,
+          "drag_scalar": -1.013
+        },
+        "ams2carDriver2": null,
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": "car_liveries/stewart/default_1.png",
+        "base_livery_driver2": "car_liveries/stewart/default_2.png",
+        "helmet_sponsors": "helmet_sponsors/stewart/default.png",
+        "visor_sponsors": "helmet_sponsors/stewart/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/stewart/numbers_5.png",
+            "number_plate_width": 196,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 2683,
+              "Y": 752
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/stewart/numbers_5.png",
+            "number_plate_width": 196,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1646,
+              "Y": 3319
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/stewart/numbers_5.png",
+            "number_plate_width": 196,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1210,
+              "Y": 3847
+            },
+            "rotation": "Deg0"
+          }
+        ],
+        "livery_overrides": [],
+        "livery_preview": "previews/stewart/default.dds",
+        "livery_xml": null,
+        "team_id": "stewart",
+        "team_name": "Stewart Ford",
+        "team_principal": "Jackie Stewart",
+        "reputation": "MIDFIELD",
+        "driver1_contract": {
+          "driver_id": "rubens_barrichello",
+          "races": 16,
+          "drivernumber": 18
+        },
+        "driver2_contract": {
+          "driver_id": "jan_magnussen",
+          "races": 16,
+          "drivernumber": 19
+        },
+        "color": "#ffffff",
+        "default_prequalifying": false
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_m",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1.014,
+          "power_scalar": -0.964,
+          "drag_scalar": -1.017
+        },
+        "ams2carDriver2": null,
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": "car_liveries/tyrrell/default_1.png",
+        "base_livery_driver2": "car_liveries/tyrrell/default_2.png",
+        "helmet_sponsors": "",
+        "visor_sponsors": "helmet_sponsors/tyrrell/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/tyrrell/tyrrell_numbers_1.png",
+            "number_plate_width": 196,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 2827,
+              "Y": 754
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/tyrrell/tyrrell_numbers_2.png",
+            "number_plate_width": 196,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 841,
+              "Y": 2224
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/tyrrell/tyrrell_numbers_2.png",
+            "number_plate_width": 196,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1035,
+              "Y": 3242
+            },
+            "rotation": "Deg180"
+          }
+        ],
+        "livery_overrides": [],
+        "livery_preview": "previews/tyrrell/default.dds",
+        "livery_xml": null,
+        "team_id": "tyrrell",
+        "team_name": "Tyrrell Ford",
+        "team_principal": "Ken Tyrrell",
+        "reputation": "MINNOW",
+        "driver1_contract": {
+          "driver_id": "ricardo_rosset",
+          "races": 16,
+          "drivernumber": 20
+        },
+        "driver2_contract": {
+          "driver_id": "toranosuke_takagi",
+          "races": 16,
+          "drivernumber": 21
+        },
+        "color": "#CCCCCC",
+        "default_prequalifying": false
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_v10_g2_m",
+        "ams2carPerformanceMalus": {
+          "weight_scalar": -1.004,
+          "power_scalar": -0.985,
+          "drag_scalar": -1.006
+        },
+        "ams2carDriver2": null,
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": "car_liveries/williams/default_1.png",
+        "base_livery_driver2": "car_liveries/williams/default_2.png",
+        "helmet_sponsors": "",
+        "visor_sponsors": "helmet_sponsors/williams/default_visor.png",
+        "drivers_specific_helmet": null,
+        "numbers_placements": [
+          {
+            "numbers_texture": "car_liveries/williams/williams.png",
+            "number_plate_width": 180,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 2963,
+              "Y": 746
+            },
+            "rotation": "Deg270"
+          },
+          {
+            "numbers_texture": "car_liveries/williams/williams.png",
+            "number_plate_width": 180,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1646,
+              "Y": 3338
+            },
+            "rotation": "Deg0"
+          },
+          {
+            "numbers_texture": "car_liveries/williams/williams.png",
+            "number_plate_width": 180,
+            "starting_point": {
+              "IsEmpty": false,
+              "X": 1214,
+              "Y": 3872
+            },
+            "rotation": "Deg0"
+          }
+        ],
+        "livery_overrides": [
+          {
+            "race_id": 8,
+            "driver1_livery": "car_liveries/williams/williamsNT.png",
+            "driver2_livery": "car_liveries/williams/williamsNT.png",
+            "helmet_sponsors": null,
+            "visor_sponsors": "helmet_sponsors/williams/williams_visorNT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 9,
+            "driver1_livery": "car_liveries/williams/williamsNT.png",
+            "driver2_livery": "car_liveries/williams/williamsNT.png",
+            "helmet_sponsors": null,
+            "visor_sponsors": "helmet_sponsors/williams/williams_visorNT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 11,
+            "driver1_livery": "car_liveries/williams/williamsNT.png",
+            "driver2_livery": "car_liveries/williams/williamsNT.png",
+            "helmet_sponsors": null,
+            "visor_sponsors": "helmet_sponsors/williams/williams_visorNT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          },
+          {
+            "race_id": 15,
+            "driver1_livery": "car_liveries/williams/williamsNT.png",
+            "driver2_livery": "car_liveries/williams/williamsNT.png",
+            "helmet_sponsors": null,
+            "visor_sponsors": "helmet_sponsors/williams/williams_visorNT.png",
+            "drivers_specific_helmet": null,
+            "numbers_placements": null,
+            "livery_preview": null
+          }
+        ],
+        "livery_preview": "previews/williams/default.dds",
+        "livery_xml": null,
+        "team_id": "williams",
+        "team_name": "Williams Mecachrome",
+        "team_principal": "Frank Williams",
+        "reputation": "MIDFIELD_HIGH",
+        "driver1_contract": {
+          "driver_id": "jacques_villeneuve",
+          "races": 16,
+          "drivernumber": 1
+        },
+        "driver2_contract": {
+          "driver_id": "heinz_harald_frentzen",
+          "races": 16,
+          "drivernumber": 2
+        },
+        "color": "#bf0000",
+        "default_prequalifying": false
+      }
+    ],
+    "absences": [
+      {
+        "race_id": 8,
+        "teamid": "stewart",
+        "driver_out": "jan_magnussen",
+        "driver_in": "jos_verstappen",
+        "chainedAbsence": null
+      },
+      {
+        "race_id": 9,
+        "teamid": "stewart",
+        "driver_out": "jan_magnussen",
+        "driver_in": "jos_verstappen",
+        "chainedAbsence": null
+      },
+      {
+        "race_id": 10,
+        "teamid": "stewart",
+        "driver_out": "jan_magnussen",
+        "driver_in": "jos_verstappen",
+        "chainedAbsence": null
+      },
+      {
+        "race_id": 11,
+        "teamid": "stewart",
+        "driver_out": "jan_magnussen",
+        "driver_in": "jos_verstappen",
+        "chainedAbsence": null
+      },
+      {
+        "race_id": 12,
+        "teamid": "stewart",
+        "driver_out": "jan_magnussen",
+        "driver_in": "jos_verstappen",
+        "chainedAbsence": null
+      },
+      {
+        "race_id": 13,
+        "teamid": "stewart",
+        "driver_out": "jan_magnussen",
+        "driver_in": "jos_verstappen",
+        "chainedAbsence": null
+      },
+      {
+        "race_id": 14,
+        "teamid": "stewart",
+        "driver_out": "jan_magnussen",
+        "driver_in": "jos_verstappen",
+        "chainedAbsence": null
+      },
+      {
+        "race_id": 15,
+        "teamid": "stewart",
+        "driver_out": "jan_magnussen",
+        "driver_in": "jos_verstappen",
+        "chainedAbsence": null
+      },
+      {
+        "race_id": 16,
+        "teamid": "stewart",
+        "driver_out": "jan_magnussen",
+        "driver_in": "jos_verstappen",
+        "chainedAbsence": null
+      }
+    ],
+    "max_drivers_per_race": null,
+    "slug": null
+  },
+  "drivers": [
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/jean_alesi.png",
+      "base_visor_file": "../1998/helmet_liveries/jean_alesi_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "jean_alesi",
+      "name": "Jean Alesi",
+      "nationality": "FRA",
+      "year_of_birth": 1964,
+      "picture": "https://www.statsf1.com/pilotes/photos/alesi.png",
+      "favourite_numbers": [],
+      "reputation": "AGEING_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.845,
+        "avoidance_of_forced_mistakes": 0.899,
+        "avoidance_of_mistakes": 0.888,
+        "blue_flag_conceding": 0.908,
+        "consistency": 0.956,
+        "defending": 0.928,
+        "fuel_management": 0.917,
+        "qualifying_skill": 0.93,
+        "race_skill": 0.92,
+        "stamina": 0.887,
+        "start_reactions": 0.907,
+        "tyre_management": 0.919,
+        "vehicle_reliability": 0.906,
+        "weather_tyre_changes": 0.915,
+        "wet_skill": 0.868
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/rubens_barrichello.png",
+      "base_visor_file": "../1998/helmet_liveries/rubens_barrichello_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "rubens_barrichello",
+      "name": "Rubens Barrichello",
+      "nationality": "BRA",
+      "year_of_birth": 1972,
+      "picture": "https://www.statsf1.com/pilotes/photos/barrich.png",
+      "favourite_numbers": [],
+      "reputation": "PRIME_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.909,
+        "avoidance_of_forced_mistakes": 0.94,
+        "avoidance_of_mistakes": 0.928,
+        "blue_flag_conceding": 0.926,
+        "consistency": 0.899,
+        "defending": 0.933,
+        "fuel_management": 0.937,
+        "qualifying_skill": 0.921,
+        "race_skill": 0.929,
+        "stamina": 0.948,
+        "start_reactions": 0.918,
+        "tyre_management": 0.908,
+        "vehicle_reliability": 0.921,
+        "weather_tyre_changes": 0.914,
+        "wet_skill": 0.926
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/david_coulthard.png",
+      "base_visor_file": "../1998/helmet_liveries/david_coulthard_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "david_coulthard",
+      "name": "David Coulthard",
+      "nationality": "GBR",
+      "year_of_birth": 1971,
+      "picture": "https://www.statsf1.com/pilotes/photos/coulthar.png",
+      "favourite_numbers": [],
+      "reputation": "PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN",
+      "rating_values": {
+        "aggression": 0.981,
+        "avoidance_of_forced_mistakes": 0.976,
+        "avoidance_of_mistakes": 0.986,
+        "blue_flag_conceding": 0.952,
+        "consistency": 0.934,
+        "defending": 0.968,
+        "fuel_management": 0.955,
+        "qualifying_skill": 0.951,
+        "race_skill": 0.944,
+        "stamina": 0.984,
+        "start_reactions": 0.939,
+        "tyre_management": 0.935,
+        "vehicle_reliability": 0.949,
+        "weather_tyre_changes": 0.984,
+        "wet_skill": 0.99
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/pedro_diniz.png",
+      "base_visor_file": "../1998/helmet_liveries/pedro_diniz_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "pedro_diniz",
+      "name": "Pedro Diniz",
+      "nationality": "BRA",
+      "year_of_birth": 1970,
+      "picture": "https://www.statsf1.com/pilotes/photos/diniz.png",
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.851,
+        "avoidance_of_forced_mistakes": 0.842,
+        "avoidance_of_mistakes": 0.84,
+        "blue_flag_conceding": 0.825,
+        "consistency": 0.796,
+        "defending": 0.783,
+        "fuel_management": 0.814,
+        "qualifying_skill": 0.86,
+        "race_skill": 0.816,
+        "stamina": 0.847,
+        "start_reactions": 0.804,
+        "tyre_management": 0.827,
+        "vehicle_reliability": 0.84,
+        "weather_tyre_changes": 0.828,
+        "wet_skill": 0.837
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/giancarlo_fisichella.png",
+      "base_visor_file": "../1998/helmet_liveries/giancarlo_fisichella_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "giancarlo_fisichella",
+      "name": "Giancarlo Fisichella",
+      "nationality": "ITA",
+      "year_of_birth": 1973,
+      "picture": "https://www.statsf1.com/pilotes/photos/fisiche.png",
+      "favourite_numbers": [],
+      "reputation": "PRIME_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.866,
+        "avoidance_of_forced_mistakes": 0.885,
+        "avoidance_of_mistakes": 0.882,
+        "blue_flag_conceding": 0.907,
+        "consistency": 0.92,
+        "defending": 0.881,
+        "fuel_management": 0.894,
+        "qualifying_skill": 0.901,
+        "race_skill": 0.935,
+        "stamina": 0.897,
+        "start_reactions": 0.9,
+        "tyre_management": 0.906,
+        "vehicle_reliability": 0.905,
+        "weather_tyre_changes": 0.924,
+        "wet_skill": 0.939
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/heinz_harald_frentzen.png",
+      "base_visor_file": "../1998/helmet_liveries/heinz_harald_frentzen_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "heinz_harald_frentzen",
+      "name": "Heinz-Harald Frentzen",
+      "nationality": "DEU",
+      "year_of_birth": 1967,
+      "picture": "https://www.statsf1.com/pilotes/photos/frentzen.png",
+      "favourite_numbers": [],
+      "reputation": "AGEING_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.954,
+        "avoidance_of_forced_mistakes": 0.931,
+        "avoidance_of_mistakes": 0.953,
+        "blue_flag_conceding": 0.915,
+        "consistency": 0.941,
+        "defending": 0.939,
+        "fuel_management": 0.96,
+        "qualifying_skill": 0.936,
+        "race_skill": 0.929,
+        "stamina": 0.956,
+        "start_reactions": 0.966,
+        "tyre_management": 0.923,
+        "vehicle_reliability": 0.93,
+        "weather_tyre_changes": 0.952,
+        "wet_skill": 0.921
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/johnny_herbert.png",
+      "base_visor_file": "../1998/helmet_liveries/johnny_herbert_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "johnny_herbert",
+      "name": "Johnny Herbert",
+      "nationality": "GBR",
+      "year_of_birth": 1964,
+      "picture": "https://www.statsf1.com/pilotes/photos/herbert.png",
+      "favourite_numbers": [],
+      "reputation": "AGEING_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.839,
+        "avoidance_of_forced_mistakes": 0.842,
+        "avoidance_of_mistakes": 0.888,
+        "blue_flag_conceding": 0.872,
+        "consistency": 0.875,
+        "defending": 0.832,
+        "fuel_management": 0.883,
+        "qualifying_skill": 0.872,
+        "race_skill": 0.854,
+        "stamina": 0.819,
+        "start_reactions": 0.834,
+        "tyre_management": 0.892,
+        "vehicle_reliability": 0.85,
+        "weather_tyre_changes": 0.853,
+        "wet_skill": 0.836
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/damon_hill.png",
+      "base_visor_file": "../1998/helmet_liveries/damon_hill_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "damon_hill",
+      "name": "Damon Hill",
+      "nationality": "GBR",
+      "year_of_birth": 1960,
+      "picture": "https://www.statsf1.com/pilotes/photos/hilld.png",
+      "favourite_numbers": [],
+      "reputation": "AGEING_CHAMPIONSHIP_LEVEL_WASHED",
+      "rating_values": {
+        "aggression": 0.902,
+        "avoidance_of_forced_mistakes": 0.898,
+        "avoidance_of_mistakes": 0.91,
+        "blue_flag_conceding": 0.923,
+        "consistency": 0.942,
+        "defending": 0.909,
+        "fuel_management": 0.979,
+        "qualifying_skill": 0.899,
+        "race_skill": 0.943,
+        "stamina": 0.864,
+        "start_reactions": 0.908,
+        "tyre_management": 0.967,
+        "vehicle_reliability": 0.909,
+        "weather_tyre_changes": 0.921,
+        "wet_skill": 0.907
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/mika_hakkinen.png",
+      "base_visor_file": "../1998/helmet_liveries/mika_hakkinen_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "mika_hakkinen",
+      "name": "Mika H\u00E4kkinen",
+      "nationality": "FIN",
+      "year_of_birth": 1968,
+      "picture": "https://www.statsf1.com/pilotes/photos/hakkinen.png",
+      "favourite_numbers": [],
+      "reputation": "PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN",
+      "rating_values": {
+        "aggression": 0.941,
+        "avoidance_of_forced_mistakes": 0.973,
+        "avoidance_of_mistakes": 0.961,
+        "blue_flag_conceding": 0.966,
+        "consistency": 0.965,
+        "defending": 0.973,
+        "fuel_management": 0.979,
+        "qualifying_skill": 0.962,
+        "race_skill": 0.965,
+        "stamina": 0.937,
+        "start_reactions": 0.976,
+        "tyre_management": 0.955,
+        "vehicle_reliability": 0.97,
+        "weather_tyre_changes": 0.964,
+        "wet_skill": 0.956
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/eddie_irvine.png",
+      "base_visor_file": "../1998/helmet_liveries/eddie_irvine_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "eddie_irvine",
+      "name": "Eddie Irvine",
+      "nationality": "GBR",
+      "year_of_birth": 1965,
+      "picture": "https://www.statsf1.com/pilotes/photos/irvine.png",
+      "favourite_numbers": [],
+      "reputation": "AGEING_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.894,
+        "avoidance_of_forced_mistakes": 0.953,
+        "avoidance_of_mistakes": 0.91,
+        "blue_flag_conceding": 0.941,
+        "consistency": 0.967,
+        "defending": 0.921,
+        "fuel_management": 0.954,
+        "qualifying_skill": 0.935,
+        "race_skill": 0.95,
+        "stamina": 0.899,
+        "start_reactions": 0.899,
+        "tyre_management": 0.949,
+        "vehicle_reliability": 0.934,
+        "weather_tyre_changes": 0.895,
+        "wet_skill": 0.899
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/jan_magnussen.png",
+      "base_visor_file": "../1998/helmet_liveries/jan_magnussen_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "jan_magnussen",
+      "name": "Jan Magnussen",
+      "nationality": "DEN",
+      "year_of_birth": 1973,
+      "picture": "https://www.statsf1.com/pilotes/photos/magnus.png",
+      "favourite_numbers": [],
+      "reputation": "PRIME_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.841,
+        "avoidance_of_forced_mistakes": 0.847,
+        "avoidance_of_mistakes": 0.894,
+        "blue_flag_conceding": 0.86,
+        "consistency": 0.878,
+        "defending": 0.864,
+        "fuel_management": 0.847,
+        "qualifying_skill": 0.875,
+        "race_skill": 0.846,
+        "stamina": 0.896,
+        "start_reactions": 0.88,
+        "tyre_management": 0.851,
+        "vehicle_reliability": 0.868,
+        "weather_tyre_changes": 0.876,
+        "wet_skill": 0.844
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/shinji_nakano.png",
+      "base_visor_file": "../1998/helmet_liveries/shinji_nakano_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "shinji_nakano",
+      "name": "Shinji Nakano",
+      "nationality": "JPN",
+      "year_of_birth": 1971,
+      "picture": "https://www.statsf1.com/pilotes/photos/nakano.png",
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.814,
+        "avoidance_of_forced_mistakes": 0.829,
+        "avoidance_of_mistakes": 0.813,
+        "blue_flag_conceding": 0.811,
+        "consistency": 0.859,
+        "defending": 0.787,
+        "fuel_management": 0.826,
+        "qualifying_skill": 0.83,
+        "race_skill": 0.816,
+        "stamina": 0.85,
+        "start_reactions": 0.834,
+        "tyre_management": 0.841,
+        "vehicle_reliability": 0.822,
+        "weather_tyre_changes": 0.815,
+        "wet_skill": 0.802
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/olivier_panis.png",
+      "base_visor_file": "../1998/helmet_liveries/olivier_panis_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "olivier_panis",
+      "name": "Olivier Panis",
+      "nationality": "FRA",
+      "year_of_birth": 1966,
+      "picture": "https://www.statsf1.com/pilotes/photos/panis.png",
+      "favourite_numbers": [],
+      "reputation": "AGEING_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.828,
+        "avoidance_of_forced_mistakes": 0.843,
+        "avoidance_of_mistakes": 0.847,
+        "blue_flag_conceding": 0.859,
+        "consistency": 0.89,
+        "defending": 0.881,
+        "fuel_management": 0.871,
+        "qualifying_skill": 0.832,
+        "race_skill": 0.87,
+        "stamina": 0.82,
+        "start_reactions": 0.878,
+        "tyre_management": 0.883,
+        "vehicle_reliability": 0.853,
+        "weather_tyre_changes": 0.877,
+        "wet_skill": 0.883
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/ricardo_rosset.png",
+      "base_visor_file": "../1998/helmet_liveries/ricardo_rosset_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "ricardo_rosset",
+      "name": "Ricardo Rosset",
+      "nationality": "BRA",
+      "year_of_birth": 1968,
+      "picture": "https://www.statsf1.com/pilotes/photos/rosset.png",
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.866,
+        "avoidance_of_forced_mistakes": 0.853,
+        "avoidance_of_mistakes": 0.802,
+        "blue_flag_conceding": 0.798,
+        "consistency": 0.829,
+        "defending": 0.807,
+        "fuel_management": 0.828,
+        "qualifying_skill": 0.78,
+        "race_skill": 0.769,
+        "stamina": 0.818,
+        "start_reactions": 0.811,
+        "tyre_management": 0.809,
+        "vehicle_reliability": 0.821,
+        "weather_tyre_changes": 0.811,
+        "wet_skill": 0.85
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/mika_salo.png",
+      "base_visor_file": "../1998/helmet_liveries/mika_salo_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "mika_salo",
+      "name": "Mika Salo",
+      "nationality": "FIN",
+      "year_of_birth": 1966,
+      "picture": "https://www.statsf1.com/pilotes/photos/salo.png",
+      "favourite_numbers": [],
+      "reputation": "AGEING_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.825,
+        "avoidance_of_forced_mistakes": 0.877,
+        "avoidance_of_mistakes": 0.876,
+        "blue_flag_conceding": 0.863,
+        "consistency": 0.881,
+        "defending": 0.854,
+        "fuel_management": 0.88,
+        "qualifying_skill": 0.843,
+        "race_skill": 0.846,
+        "stamina": 0.825,
+        "start_reactions": 0.876,
+        "tyre_management": 0.878,
+        "vehicle_reliability": 0.85,
+        "weather_tyre_changes": 0.88,
+        "wet_skill": 0.853
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/michael_schumacher.png",
+      "base_visor_file": "../1998/helmet_liveries/michael_schumacher_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "michael_schumacher",
+      "name": "Michael Schumacher",
+      "nationality": "DEU",
+      "year_of_birth": 1969,
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacm.png",
+      "favourite_numbers": [],
+      "reputation": "PRIME_CHAMPIONSHIP_LEVEL",
+      "rating_values": {
+        "aggression": 0.984,
+        "avoidance_of_forced_mistakes": 0.988,
+        "avoidance_of_mistakes": 0.99,
+        "blue_flag_conceding": 0.969,
+        "consistency": 0.988,
+        "defending": 1,
+        "fuel_management": 0.989,
+        "qualifying_skill": 0.972,
+        "race_skill": 0.983,
+        "stamina": 0.989,
+        "start_reactions": 1,
+        "tyre_management": 1,
+        "vehicle_reliability": 1,
+        "weather_tyre_changes": 1,
+        "wet_skill": 0.995
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/ralf_schumacher.png",
+      "base_visor_file": "../1998/helmet_liveries/ralf_schumacher_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "ralf_schumacher",
+      "name": "Ralf Schumacher",
+      "nationality": "DEU",
+      "year_of_birth": 1975,
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacr.png",
+      "favourite_numbers": [],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.893,
+        "avoidance_of_forced_mistakes": 0.85,
+        "avoidance_of_mistakes": 0.845,
+        "blue_flag_conceding": 0.874,
+        "consistency": 0.813,
+        "defending": 0.837,
+        "fuel_management": 0.833,
+        "qualifying_skill": 0.861,
+        "race_skill": 0.824,
+        "stamina": 0.822,
+        "start_reactions": 0.86,
+        "tyre_management": 0.8,
+        "vehicle_reliability": 0.861,
+        "weather_tyre_changes": 0.873,
+        "wet_skill": 0.825
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/toranosuke_takagi.png",
+      "base_visor_file": "../1998/helmet_liveries/toranosuke_takagi_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "toranosuke_takagi",
+      "name": "Toranosuke Takagi",
+      "nationality": "JPN",
+      "year_of_birth": 1974,
+      "picture": "https://www.statsf1.com/pilotes/photos/takagi.png",
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.788,
+        "avoidance_of_forced_mistakes": 0.847,
+        "avoidance_of_mistakes": 0.803,
+        "blue_flag_conceding": 0.819,
+        "consistency": 0.879,
+        "defending": 0.78,
+        "fuel_management": 0.843,
+        "qualifying_skill": 0.822,
+        "race_skill": 0.773,
+        "stamina": 0.812,
+        "start_reactions": 0.856,
+        "tyre_management": 0.801,
+        "vehicle_reliability": 0.834,
+        "weather_tyre_changes": 0.85,
+        "wet_skill": 0.809
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/jarno_trulli.png",
+      "base_visor_file": "../1998/helmet_liveries/jarno_trulli_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "jarno_trulli",
+      "name": "Jarno Trulli",
+      "nationality": "ITA",
+      "year_of_birth": 1974,
+      "picture": "https://www.statsf1.com/pilotes/photos/trulli.png",
+      "favourite_numbers": [],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.892,
+        "avoidance_of_forced_mistakes": 0.916,
+        "avoidance_of_mistakes": 0.928,
+        "blue_flag_conceding": 0.928,
+        "consistency": 0.936,
+        "defending": 0.94,
+        "fuel_management": 0.9,
+        "qualifying_skill": 0.887,
+        "race_skill": 0.883,
+        "stamina": 0.926,
+        "start_reactions": 0.902,
+        "tyre_management": 0.938,
+        "vehicle_reliability": 0.92,
+        "weather_tyre_changes": 0.923,
+        "wet_skill": 0.945
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/esteban_tuero.png",
+      "base_visor_file": "../1998/helmet_liveries/esteban_tuero_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "esteban_tuero",
+      "name": "Esteban Tuero",
+      "nationality": "ARG",
+      "year_of_birth": 1978,
+      "picture": "https://www.statsf1.com/pilotes/photos/tuero.png",
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.807,
+        "avoidance_of_forced_mistakes": 0.85,
+        "avoidance_of_mistakes": 0.811,
+        "blue_flag_conceding": 0.855,
+        "consistency": 0.856,
+        "defending": 0.813,
+        "fuel_management": 0.838,
+        "qualifying_skill": 0.836,
+        "race_skill": 0.777,
+        "stamina": 0.803,
+        "start_reactions": 0.825,
+        "tyre_management": 0.848,
+        "vehicle_reliability": 0.845,
+        "weather_tyre_changes": 0.839,
+        "wet_skill": 0.843
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/jos_verstappen.png",
+      "base_visor_file": "../1998/helmet_liveries/jos_verstappen_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "jos_verstappen",
+      "name": "Jos Verstappen",
+      "nationality": "NLD",
+      "year_of_birth": 1972,
+      "picture": "https://www.statsf1.com/pilotes/photos/verstapp.png",
+      "favourite_numbers": [],
+      "reputation": "PRIME_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.867,
+        "avoidance_of_forced_mistakes": 0.858,
+        "avoidance_of_mistakes": 0.85,
+        "blue_flag_conceding": 0.876,
+        "consistency": 0.856,
+        "defending": 0.845,
+        "fuel_management": 0.885,
+        "qualifying_skill": 0.862,
+        "race_skill": 0.873,
+        "stamina": 0.863,
+        "start_reactions": 0.869,
+        "tyre_management": 0.847,
+        "vehicle_reliability": 0.857,
+        "weather_tyre_changes": 0.872,
+        "wet_skill": 0.887
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/jacques_villeneuve.png",
+      "base_visor_file": "../1998/helmet_liveries/jacques_villeneuve_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "jacques_villeneuve",
+      "name": "Jacques Villeneuve",
+      "nationality": "CAN",
+      "year_of_birth": 1971,
+      "picture": "https://www.statsf1.com/pilotes/photos/villenej.png",
+      "favourite_numbers": [],
+      "reputation": "PRIME_CHAMPIONSHIP_LEVEL",
+      "rating_values": {
+        "aggression": 0.967,
+        "avoidance_of_forced_mistakes": 0.978,
+        "avoidance_of_mistakes": 1,
+        "blue_flag_conceding": 0.967,
+        "consistency": 1,
+        "defending": 0.994,
+        "fuel_management": 1,
+        "qualifying_skill": 0.975,
+        "race_skill": 0.992,
+        "stamina": 0.998,
+        "start_reactions": 0.987,
+        "tyre_management": 0.993,
+        "vehicle_reliability": 0.987,
+        "weather_tyre_changes": 0.973,
+        "wet_skill": 0.964
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": "../1998/helmet_liveries/alexander_wurz.png",
+      "base_visor_file": "../1998/helmet_liveries/alexander_wurz_visor.png",
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "alexander_wurz",
+      "name": "Alexander Wurz",
+      "nationality": "AUT",
+      "year_of_birth": 1974,
+      "picture": "https://www.statsf1.com/pilotes/photos/wurz.png",
+      "favourite_numbers": [],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.95,
+        "avoidance_of_forced_mistakes": 0.906,
+        "avoidance_of_mistakes": 0.91,
+        "blue_flag_conceding": 0.906,
+        "consistency": 0.917,
+        "defending": 0.895,
+        "fuel_management": 0.911,
+        "qualifying_skill": 0.899,
+        "race_skill": 0.913,
+        "stamina": 0.931,
+        "start_reactions": 0.897,
+        "tyre_management": 0.898,
+        "vehicle_reliability": 0.891,
+        "weather_tyre_changes": 0.916,
+        "wet_skill": 0.913
+      }
+    }
+  ],
+  "nextGpIndex": 0,
+  "nextGpEntryList": null,
+  "playerData": {
+    "$type": "AMS2ChEd.Business.Models.Concrete.PlayerData",
+    "driverid": "damon_hill",
+    "name": "Damon Hill",
+    "nationality": "GBR",
+    "teamid": "mclaren"
+  },
+  "grandPrixResults": [],
+  "currentDriverStandings": [
+    {
+      "position": 1,
+      "driver_id": "pedro_diniz",
+      "team_id": "arrows",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 2,
+      "driver_id": "mika_salo",
+      "team_id": "arrows",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 3,
+      "driver_id": "giancarlo_fisichella",
+      "team_id": "benetton",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 4,
+      "driver_id": "alexander_wurz",
+      "team_id": "benetton",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 5,
+      "driver_id": "michael_schumacher",
+      "team_id": "ferrari",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 6,
+      "driver_id": "eddie_irvine",
+      "team_id": "ferrari",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 7,
+      "driver_id": "david_coulthard",
+      "team_id": "jordan",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 8,
+      "driver_id": "ralf_schumacher",
+      "team_id": "jordan",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 9,
+      "driver_id": "damon_hill",
+      "team_id": "mclaren",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 10,
+      "driver_id": "mika_hakkinen",
+      "team_id": "mclaren",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 11,
+      "driver_id": "shinji_nakano",
+      "team_id": "minardi",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 12,
+      "driver_id": "esteban_tuero",
+      "team_id": "minardi",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 13,
+      "driver_id": "olivier_panis",
+      "team_id": "ligier_prost",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 14,
+      "driver_id": "jarno_trulli",
+      "team_id": "ligier_prost",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 15,
+      "driver_id": "jean_alesi",
+      "team_id": "sauber",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 16,
+      "driver_id": "johnny_herbert",
+      "team_id": "sauber",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 17,
+      "driver_id": "rubens_barrichello",
+      "team_id": "stewart",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 18,
+      "driver_id": "jan_magnussen",
+      "team_id": "stewart",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 19,
+      "driver_id": "ricardo_rosset",
+      "team_id": "tyrrell",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 20,
+      "driver_id": "toranosuke_takagi",
+      "team_id": "tyrrell",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 21,
+      "driver_id": "jacques_villeneuve",
+      "team_id": "williams",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 22,
+      "driver_id": "heinz_harald_frentzen",
+      "team_id": "williams",
+      "points": 0,
+      "positions_tally": "0"
+    }
+  ],
+  "currentConstructorStandings": [
+    {
+      "position": 1,
+      "team_id": "arrows",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 2,
+      "team_id": "benetton",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 3,
+      "team_id": "ferrari",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 4,
+      "team_id": "jordan",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 5,
+      "team_id": "mclaren",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 6,
+      "team_id": "minardi",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 7,
+      "team_id": "ligier_prost",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 8,
+      "team_id": "sauber",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 9,
+      "team_id": "stewart",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 10,
+      "team_id": "tyrrell",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 11,
+      "team_id": "williams",
+      "points": 0,
+      "positions_tally": "0"
+    }
+  ],
+  "historicalDriverStandings": [],
+  "historicalConstructorStandings": [],
+  "retired_drivers": null,
+  "timestamp": "2026-06-16T21:59:06.3058837+01:00",
+  "pre-quali_status": 0,
+  "pre_quali_pool_entries": null,
+  "current_pre_quali_dnpq_results": null
+}

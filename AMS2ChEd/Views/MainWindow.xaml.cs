@@ -727,6 +727,20 @@ namespace AMS2ChEd
             }
         }
 
+        // A scenario is a starting point, not a career to protect: it always takes the season data
+        // as it is now (names, team data, artwork, from the app's data and any installed pack),
+        // keeping its own contracts, absences, standings and the reputations it sets. No question
+        // asked, and the save is stamped so its first load doesn't refresh it again.
+        private void PrepareScenarioSave(ISaveGame saveGame)
+        {
+            var year = saveGame.CurrentSeason.Year;
+            if (!_ams2StorageFactory.SeasonLoader.GetAvailableSeasons().Contains(year.ToString()))
+                return;
+
+            _gameLogicFactory.GameEngine.UpdateSeasonInsideSave(saveGame);
+            _seasonChecker.CheckIfSaveGameNeedsRefresh(saveGame);
+        }
+
         private async Task LoadSaveAndOpenSeasonOverviewAsync(string filePath)
         {
             var saveGame = _ams2StorageFactory.GameStorage.LoadGame(filePath);
@@ -1318,35 +1332,30 @@ namespace AMS2ChEd
             _scenarios.Clear();
             ScenarioComboBox.Items.Clear();
 
-           foreach(var seasonFolder in Directory.GetDirectories(AppPaths.SeasonsFolder))
-           {
-                var scenarioFolder = Path.Combine(seasonFolder, "scenarios");
-
-                if (Directory.Exists(scenarioFolder))
+            // the app's own scenarios and those of installed season packs, in the app's language
+            var language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+            foreach (var (year, scenarioFolder) in _ams2StorageFactory.SeasonLoader.GetScenarioFolders())
+            {
+                foreach (var file in Directory.GetFiles(scenarioFolder, "*.json"))
                 {
-                    var scenarioFiles = Directory.GetFiles(scenarioFolder, "*.json");
-
-                    foreach (var file in scenarioFiles)
+                    try
                     {
-                        try
-                        {
-                            var jsonContent = File.ReadAllText(file);
-                            var scenario = System.Text.Json.JsonSerializer.Deserialize<Scenario>(jsonContent, DefaultJsonSerializerOptions.Instance);
+                        var jsonContent = File.ReadAllText(file);
+                        var scenario = System.Text.Json.JsonSerializer.Deserialize<Scenario>(jsonContent, DefaultJsonSerializerOptions.Instance);
 
-                            if (scenario != null)
-                            {
-                                _scenarios.Add(scenario);
-                                ScenarioComboBox.Items.Add(string.Format(Strings.MainWindow_ScenarioListItem_Format, Path.GetFileName(seasonFolder), scenario.Name));
-                            }
-                        }
-                        catch (Exception ex)
+                        if (scenario != null)
                         {
-                            System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_LoadScenarioError_Message, Path.GetFileName(file), ex.Message),
-                                Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
+                            _scenarios.Add(scenario);
+                            ScenarioComboBox.Items.Add(string.Format(Strings.MainWindow_ScenarioListItem_Format, year, scenario.LocalizedName(language)));
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_LoadScenarioError_Message, Path.GetFileName(file), ex.Message),
+                            Strings.MainWindow_GenericError_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
                 }
-           }
+            }
 
             if (ScenarioComboBox.Items.Count > 0)
             {
@@ -1373,11 +1382,12 @@ namespace AMS2ChEd
             // Enable the start button
             CreateGameScenarioButton.IsEnabled = true;
 
-            // Display scenario name and description
-            ReputationNameText.Text = selectedScenario.Name;
+            // Display scenario name and description, in the app's language
+            var language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+            ReputationNameText.Text = selectedScenario.LocalizedName(language);
             ReputationNameText.Visibility = Visibility.Visible;
 
-            ReputationParagraphText.Text = selectedScenario.Description;
+            ReputationParagraphText.Text = selectedScenario.LocalizedDescription(language);
             ReputationParagraphText.Visibility = Visibility.Visible;
 
             // Animate the info panel
@@ -1401,7 +1411,7 @@ namespace AMS2ChEd
                 var jsonContent = File.ReadAllText(fileName);
                 var saveGame = System.Text.Json.JsonSerializer.Deserialize<SaveGame>(jsonContent, DefaultJsonSerializerOptions.Instance);
 
-                RefreshSeasonDataInsideSave(saveGame);
+                PrepareScenarioSave(saveGame);
 
                 // Save the game
                 string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
