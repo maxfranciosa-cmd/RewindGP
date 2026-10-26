@@ -117,6 +117,13 @@ application already drives) before calling `ApplyRaceConfigAsync`.
   git history); resolution is plain memory reads, validated by requiring the candidate
   container's own Race1 entry to match the independently-resolved Race1 VM550.
 
+- **Player identity** (`TryApplyPlayerIdentity`/`TryRestorePlayerIdentity`,
+  `Native/PlayerIdentityWriter.cs`): forename, surname, three-letter handle and nationality in the
+  player's profile, the "Edit info" screen - in the same settings block as the wear multipliers
+  below. Names longer than the stored ones are written as new strings in AMS2's own layout,
+  allocated in the game. **Confirmed live** with the raw writes (2026-10-26): the change shows in
+  Edit info on the next screen and in the first session loaded; the wrapper itself is not yet
+  live-tested.
 - **NOT YET LIVE-TESTED**: tyre-wear and fuel-usage multipliers
   (`TryApplyWearMultipliers`/`TryRestoreWearSettings`, `Native/GameplaySettings.cs`). These are
   AMS2's global gameplay settings, not Custom Race config: plain int fields in a settings block

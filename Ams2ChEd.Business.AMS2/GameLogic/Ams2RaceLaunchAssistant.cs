@@ -33,6 +33,11 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
         private static readonly object WearLock = new();
         private static WearSettingsSnapshot? _originalWearSettings;
 
+        // The player's own AMS2 name and nationality, held while the career driver's are in the
+        // profile (see ApplyPlayerIdentity); static for the same reason.
+        private static readonly object IdentityLock = new();
+        private static PlayerIdentity _originalPlayerIdentity;
+
         private readonly IGameInstallSettingsStorage _installSettingsStorage;
         private readonly IRacePreparator _racePreparator;
         private readonly IAms2GrandPrixTrackResolver _trackResolver;
@@ -211,6 +216,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             }
 
             await RestoreWearSettingsAsync().ConfigureAwait(true);
+            await RestorePlayerIdentityAsync().ConfigureAwait(true);
 
             var overlay = new RaceReturnOverlayWindow(ownerWindow as Window);
             var tracker = new Ams2WindowTracker(overlay);
@@ -314,7 +320,100 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 ApplyWearScaling(configurator, raceLength);
             }
 
+            ApplyPlayerIdentity(configurator, request);
+
             return true;
+        }
+
+        /// <summary>
+        /// Gives the player's AMS2 profile the career driver's name, handle and nationality, so the
+        /// timing screens show him. Best-effort: a failure leaves the player's own identity in
+        /// place, it never fails the race setup. Undone by RestorePlayerIdentityAsync once the race
+        /// is over, so other game modes and online keep the player's own name.
+        /// </summary>
+        private static void ApplyPlayerIdentity(Ams2RaceConfigurator configurator, RaceLaunchRequest request)
+        {
+            var driver = request.Drivers?.FirstOrDefault(d => d.DriverId == request.PlayerDriverId);
+            if (driver == null || string.IsNullOrWhiteSpace(driver.Name))
+            {
+                return;
+            }
+
+            // AMS2 keeps forename and surname apart: the first word is the forename, the rest the surname
+            var name = driver.Name.Trim();
+            int space = name.IndexOf(' ');
+            string forename = space > 0 ? name[..space] : name;
+            string surname = space > 0 ? name[(space + 1)..].Trim() : name;
+
+            // a nationality AMS2 has no country for keeps the player's own
+            uint? country = Ams2CountryIds.For(driver.Nationality) ?? configurator.ReadPlayerIdentity()?.CountryId;
+            if (country is not uint countryId)
+            {
+                return;
+            }
+
+            var identity = new PlayerIdentity(forename, surname, TimingHandle(surname, forename), countryId);
+            if (!configurator.TryApplyPlayerIdentity(identity, out var original))
+            {
+                LogToFile($"player identity '{identity.FullName}' NOT applied");
+                return;
+            }
+
+            lock (IdentityLock)
+            {
+                // Keep the first snapshot if one is already pending (e.g. the race was set up
+                // twice without finishing) - a later one would just be the career driver.
+                _originalPlayerIdentity ??= original;
+            }
+        }
+
+        // The three letters the timing screens show, F1 style: the surname's first three, unaccented
+        // and in capitals (the forename makes up a surname shorter than that)
+        private static string TimingHandle(string surname, string forename)
+        {
+            var letters = new string(RemoveAccents(surname + forename).Where(char.IsLetter).ToArray()).ToUpperInvariant();
+            return letters.Length > 3 ? letters[..3] : letters;
+        }
+
+        private static string RemoveAccents(string text)
+        {
+            var decomposed = text.Normalize(System.Text.NormalizationForm.FormD);
+            return new string(decomposed.Where(c => System.Globalization.CharUnicodeInfo.GetUnicodeCategory(c) != System.Globalization.UnicodeCategory.NonSpacingMark).ToArray());
+        }
+
+        /// <summary>Puts the player's own AMS2 identity back, if ApplyPlayerIdentity changed it.</summary>
+        private static async Task RestorePlayerIdentityAsync()
+        {
+            PlayerIdentity original;
+            lock (IdentityLock)
+            {
+                if (_originalPlayerIdentity is not PlayerIdentity pending)
+                {
+                    return;
+                }
+                original = pending;
+            }
+
+            try
+            {
+                using var configurator = new Ams2RaceConfigurator(
+                    new Dictionary<string, int>(), new Dictionary<string, int>(), LogToFile);
+                if (!await configurator.AttachAsync().ConfigureAwait(true) || !configurator.TryRestorePlayerIdentity(original))
+                {
+                    LogToFile("player identity NOT restored - will retry after the next session");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogToFile($"player identity restore failed: {ex.Message}");
+                return;
+            }
+
+            lock (IdentityLock)
+            {
+                _originalPlayerIdentity = null;
+            }
         }
 
         /// <summary>

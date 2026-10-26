@@ -31,6 +31,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
     private SlotWriter? _slotWriter;
     private SessionVmResolver? _sessionVmResolver;
     private GameplaySettings? _gameplaySettings;
+    private PlayerIdentityWriter? _playerIdentity;
     private long _moduleBase;
     private long _moduleSize;
 
@@ -92,6 +93,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
         _slotWriter = new SlotWriter(_mem, _exec, _moduleBase);
         _sessionVmResolver = new SessionVmResolver(_mem, _moduleBase, _moduleSize, log: _log);
         _gameplaySettings = new GameplaySettings(_mem, _moduleBase, log: _log);
+        _playerIdentity = new PlayerIdentityWriter(_mem, _moduleBase, log: _log);
 
         return true;
     }
@@ -126,6 +128,37 @@ public sealed class Ams2RaceConfigurator : IDisposable
         RequireAttached();
         if (!GameplaySettingsAvailable()) return null;
         return _gameplaySettings!.Read();
+    }
+
+    /// <summary>
+    /// Sets the player's name, handle and nationality in AMS2's profile (its "Edit info" screen),
+    /// so the timing screens show the career driver. Like the wear settings, this is the player's
+    /// own data and stays changed until restored: keep `original` and pass it to
+    /// TryRestorePlayerIdentity when the race is over. Returns false, having changed nothing, if
+    /// the profile can't be read or a value is out of range. See Native/PlayerIdentityWriter.cs.
+    /// </summary>
+    public bool TryApplyPlayerIdentity(PlayerIdentity identity, out PlayerIdentity original)
+    {
+        RequireAttached();
+        original = default!;
+        if (!GameplaySettingsAvailable()) return false;
+        return _playerIdentity!.TryApply(identity, out original);
+    }
+
+    /// <summary>Puts back the identity TryApplyPlayerIdentity replaced.</summary>
+    public bool TryRestorePlayerIdentity(PlayerIdentity original)
+    {
+        RequireAttached();
+        if (!GameplaySettingsAvailable()) return false;
+        return _playerIdentity!.TryRestore(original);
+    }
+
+    /// <summary>The player's current identity in AMS2's profile, or null if it can't be read.</summary>
+    public PlayerIdentity? ReadPlayerIdentity()
+    {
+        RequireAttached();
+        if (!GameplaySettingsAvailable()) return null;
+        return _playerIdentity!.Read();
     }
 
     /// <summary>
@@ -226,6 +259,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
         _slotWriter = null;
         _sessionVmResolver = null;
         _gameplaySettings = null;
+        _playerIdentity = null;
         Offsets = null;
     }
 

@@ -150,6 +150,22 @@ public static class Ams2Constants
     }
 
     /// <summary>
+    /// The player's profile identity inside the settings block (see GameplaySettingsPointerRva):
+    /// the nationality as the text id of the country's name (as in the game's text\general.tdb),
+    /// then pointers to the forename, surname, three-letter handle and composed full name strings
+    /// (see Native/PlayerIdentityWriter.cs). Live-confirmed 2026-10-26: a change shows in the
+    /// "Edit info" screen and in the next session.
+    /// </summary>
+    public static class PlayerIdentityOffset
+    {
+        public const int Country = 0x3D480;
+        public const int Forename = 0x3D488;
+        public const int Surname = 0x3D490;
+        public const int Handle = 0x3D498;
+        public const int FullName = 0x3D4A0;
+    }
+
+    /// <summary>
     /// Session indices into VM498's session-wrapper array: VM498 caches 8 wrapper pointers at
     /// `vm498 + 0x18 + index*8`, and each wrapper's own `+0x18` field holds that session's
     /// VM550-shaped pointer - separate, structurally-identical VM550 instances written through the

@@ -107,6 +107,18 @@ public sealed class PracticeQualifySessionConfig
 public readonly record struct WearSettingsSnapshot(int TyreWearIndex, int FuelUsageIndex);
 
 /// <summary>
+/// The player's identity in AMS2's profile ("Edit info"): names, the three-letter handle shown on
+/// the timing screens, and the nationality as AMS2's country id. Also what
+/// Ams2RaceConfigurator.TryApplyPlayerIdentity found before changing it, for
+/// TryRestorePlayerIdentity.
+/// </summary>
+public sealed record PlayerIdentity(string Forename, string Surname, string Handle, uint CountryId)
+{
+    /// <summary>The name the game shows, composed as it composes it.</summary>
+    public string FullName => $"{Forename} {Surname}";
+}
+
+/// <summary>
 /// Result of an ApplyRaceConfigAsync call. A write that was attempted but didn't read back
 /// correctly is reported, not silently ignored.
 /// </summary>
