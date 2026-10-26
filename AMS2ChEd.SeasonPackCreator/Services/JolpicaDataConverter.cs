@@ -31,6 +31,8 @@ namespace AMS2ChEd.Business.Services
             {  "leyton", "march" },
             {  "toleman", "benetton" },
             {  "alpine", "benetton" },
+            // the 2002-2011 and 2016-2020 team (Jolpica files the 1977-85 works team under the same id)
+            {  "renault", "benetton" },
             {  "alpha_tauri", "toro_rosso" },
             {  "rb", "toro_rosso" },
             {  "red_bull", "stewart" },

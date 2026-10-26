@@ -304,7 +304,12 @@
           },
           "harness": "#C8102E"
         }
-      }
+      },
+      "cosmetic_fallbacks": [
+        { "season": 1999 },
+        { "season": 2000 },
+        { "season": 2001 }
+      ]
     },
     {
       "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
@@ -419,7 +424,14 @@
           },
           "harness": "#0A1E6E"
         }
-      }
+      },
+      "cosmetic_fallbacks": [
+        { "season": 2000 },
+        { "season": 2001 },
+        { "season": 2002 },
+        { "season": 2003 },
+        { "season": 2004 }
+      ]
     },
     {
       "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
@@ -477,7 +489,15 @@
           },
           "harness": "#C8102E"
         }
-      }
+      },
+      "cosmetic_fallbacks": [
+        { "season": 1999 },
+        { "season": 2000 },
+        { "season": 2001 },
+        { "season": 2002 },
+        { "season": 2003 },
+        { "season": 2004 }
+      ]
     },
     {
       "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
@@ -648,7 +668,10 @@
           },
           "harness": "#C8102E"
         }
-      }
+      },
+      "cosmetic_fallbacks": [
+        { "season": 1999 }
+      ]
     },
     {
       "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
