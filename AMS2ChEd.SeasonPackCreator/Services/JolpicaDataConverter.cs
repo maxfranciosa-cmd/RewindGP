@@ -40,6 +40,9 @@ namespace AMS2ChEd.Business.Services
             {  "red_bull", "stewart" },
             {  "jaguar", "stewart" },
             {  "team_lotus", "lotus" },
+            {  "lotus_f1", "benetton" },
+            {  "marussia", "virgin" },
+            {  "manor", "virgin" },
         };
 
         /// <summary>
