@@ -218,6 +218,9 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             await RestoreWearSettingsAsync().ConfigureAwait(true);
             await RestorePlayerIdentityAsync().ConfigureAwait(true);
 
+            // The overlay never takes focus when it appears (ShowActivated is off): it can show up
+            // while the player is still driving the cool-down lap, and stealing focus from AMS2
+            // would leave the car without input until they click back into the game.
             var overlay = new RaceReturnOverlayWindow(ownerWindow as Window);
             var tracker = new Ams2WindowTracker(overlay);
             tracker.ProcessLost += (_, _) => overlay.DismissWithoutReturning();
