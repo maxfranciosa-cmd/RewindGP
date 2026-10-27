@@ -24,11 +24,11 @@ namespace AMS2ChEd.Business.Artwork
         public static readonly string[] HairStyles = { "bald", "buzz", "short", "side_part", "centre_part", "longer_top", "medium", "long", "curly", "mullet", "receding" };
 
         // what an avatar picked from an id chooses from: kept as it was, so those drivers keep their look
-        private static readonly string[] PickedHairStyles = { "bald", "buzz", "short", "side_part", "medium", "long", "curly", "mullet", "receding" };
+        public static readonly string[] PickedHairStyles = { "bald", "buzz", "short", "side_part", "medium", "long", "curly", "mullet", "receding" };
         public static readonly string[] FacialHairStyles = { "none", "stubble", "moustache", "goatee", "full_beard", "sideburns" };
 
-        private static readonly string[] SkinTones = { "#F1D3BC", "#E8BC98", "#D9A47C", "#C68A62", "#A86E4A", "#8A5636", "#6A3E26", "#4A2A1A" };
-        private static readonly string[] HairColours = { "#1C1814", "#2E2119", "#3B2A1E", "#5C3E26", "#8A6440", "#C9A866", "#9A4A24", "#8C8C8C" };
+        public static readonly string[] SkinTones = { "#F1D3BC", "#E8BC98", "#D9A47C", "#C68A62", "#A86E4A", "#8A5636", "#6A3E26", "#4A2A1A" };
+        public static readonly string[] HairColours = { "#1C1814", "#2E2119", "#3B2A1E", "#5C3E26", "#8A6440", "#C9A866", "#9A4A24", "#8C8C8C" };
 
         private static readonly object DrawLock = new();
 

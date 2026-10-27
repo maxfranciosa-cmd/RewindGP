@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.Helpers;
+﻿using AMS2ChEd.Business.Artwork;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services.Contracts;
@@ -30,11 +31,26 @@ namespace AMS2ChEd.Business.Services
                 RatingValues = playerToPickAsBase.RatingValues,
                 FavouriteNumbers = playerToPickAsBase.FavouriteNumbers,
                 YearOfBirth = playerToPickAsBase.YearOfBirth,
-                DriverId = $"generated_{fullDriverName.ToLower().Replace(" ", "_")}"
+                DriverId = $"generated_{fullDriverName.ToLower().Replace(" ", "_")}",
+                GenericAvatar = RandomGenericAvatar()
             };
 
 
             return InitializeDriverData(result, year);
+        }
+
+        private GenericAvatar RandomGenericAvatar()
+        {
+            
+            var result = new GenericAvatar
+            {
+                Skin = AvatarComposer.SkinTones[Random.Shared.Next(AvatarComposer.SkinTones.Length)],
+                Hair = AvatarComposer.PickedHairStyles[Random.Shared.Next(AvatarComposer.PickedHairStyles.Length)],
+                HairColour = AvatarComposer.HairColours[Random.Shared.Next(AvatarComposer.HairColours.Length)],
+                FacialHair = AvatarComposer.FacialHairStyles[Random.Shared.Next(AvatarComposer.FacialHairStyles.Length)],
+                FacialHairColour = AvatarComposer.HairColours[Random.Shared.Next(AvatarComposer.HairColours.Length)]
+            };
+            return result;
         }
 
         protected virtual IDriverData InitializeDriverData(IDriverData provisionalDriverData, int year)
