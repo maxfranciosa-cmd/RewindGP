@@ -3,6 +3,7 @@ using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
+using AMS2ChEd.Business.Services.RaceNumberSystem.Factory;
 
 namespace AMS2ChEd.Business.GameLogic.Concrete
 {
@@ -49,9 +50,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             var playerData = InitializePlayerData(playerName, playerNationality, playerAge, RaceSeatTeamId(season, selectedTeamId, replacedDriverId), playerDriverId);
 
-            allDrivers.Add(InitializePlayerDriverData(playerData, playerAge, playerReputation, season, playerDriverId, favouriteNumbers)); 
+            var driverData = InitializePlayerDriverData(playerData, playerAge, playerReputation, season, playerDriverId, favouriteNumbers);
+
+            allDrivers.Add(driverData); 
 
             _currentGame = InitializeNewSaveGame(playerData, modifiedSeason, driverStandings, constructorStandings, allDrivers);
+
+            ApplyNewNumberIfNecessary(_currentGame, driverData);
 
             GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
             return _currentGame;
@@ -116,8 +121,28 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             _currentGame = InitializeNewSaveGame(playerData, modifiedSeason, driverStandings, constructorStandings, allDrivers);
 
+            ApplyNewNumberIfNecessary(_currentGame, playerDriver);
+
             GameStateChanged?.Invoke(this, new GameStateChangedEventArgs { NewState = GameState.SeasonOverview });
             return _currentGame;
+        }
+
+        private void ApplyNewNumberIfNecessary(ISaveGame currentGame, IDriverData playerDriver)
+        {
+            var playerTeam = currentGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == currentGame.PlayerData.TeamId);
+
+            if (playerTeam == null) return;
+
+            var numberAllocation = RaceNumberAllocationFactory.GetRaceNumberAllocationService(currentGame.CurrentSeason.Year);
+
+            if(playerTeam.Driver1Contract?.DriverId == playerDriver.DriverId)
+            {
+                playerTeam.Driver1Contract.DriverNumber = numberAllocation.GetNumberForAbsence(currentGame, playerDriver.DriverId, playerTeam.Driver1Contract.DriverNumber);
+            }
+            else if (playerTeam.Driver2Contract?.DriverId == playerDriver.DriverId)
+            {
+                playerTeam.Driver2Contract.DriverNumber = numberAllocation.GetNumberForAbsence(currentGame, playerDriver.DriverId, playerTeam.Driver2Contract.DriverNumber);
+            }
         }
 
         private ISaveGame InitializeNewSaveGameFromExistingDriver(IDriverData? selectedDriver, string selectedTeamId, ISeason modifiedSeason, List<HistoricalDriverStandingEntry> driverStandings, List<ConstructorStandingEntry> constructorStandings, List<IDriverData> allDrivers)
