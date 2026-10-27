@@ -1,0 +1,79 @@
+<Window x:Class="Ams2ChEd.Business.AMS2.UI.GenericHelmetDesignerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Generic helmet designer"
+        Height="760" Width="980"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource Charcoal.BackgroundBrush}">
+
+    <!-- Developer tool: charcoal look whatever the visual style; the "Charcoal.*" resources come from the host app. -->
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{StaticResource Charcoal.TitleBarStyle}">
+            <TextBlock Text="GENERIC HELMET DESIGNER" Style="{StaticResource Charcoal.TitleTextStyle}"/>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="0,14,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="340"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource Charcoal.PanelStyle}" Margin="0,0,14,0">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top">
+                        <Label Content="Design" Style="{StaticResource Charcoal.FieldLabelStyle}"/>
+                        <ComboBox x:Name="DesignComboBox"
+                                  Style="{StaticResource Charcoal.ComboBoxStyle}"
+                                  SelectionChanged="DesignComboBox_SelectionChanged"/>
+                        <Label Content="Colours" Style="{StaticResource Charcoal.FieldLabelStyle}" Margin="0,14,0,0"/>
+                    </StackPanel>
+                    <ItemsControl x:Name="ColoursList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Key}" VerticalAlignment="Center"
+                                               Foreground="{StaticResource Charcoal.TextBrush}" FontSize="15"/>
+                                    <Button Grid.Column="1" Width="40" Height="30" Margin="0,0,8,0"
+                                            Background="{Binding Brush}" BorderBrush="#888" BorderThickness="1"
+                                            Tag="{Binding}" Click="Swatch_Click"/>
+                                    <TextBox Grid.Column="2" Text="{Binding Hex, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource Charcoal.TextBoxStyle}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DockPanel>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Style="{StaticResource Charcoal.PanelStyle}">
+                    <Image x:Name="PreviewImage" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Border>
+                <StackPanel Grid.Row="1" Margin="0,14,0,0">
+                    <Grid>
+                        <Label Content="generic_helmet json" Style="{StaticResource Charcoal.FieldLabelStyle}"/>
+                        <Button Content="Copy" HorizontalAlignment="Right" Padding="18,0" Height="28"
+                                Style="{StaticResource Charcoal.DialogSecondaryButtonStyle}" Click="CopyButton_Click"/>
+                    </Grid>
+                    <TextBox x:Name="JsonTextBox" IsReadOnly="True" AcceptsReturn="True" Height="190"
+                             FontFamily="Consolas" VerticalScrollBarVisibility="Auto"
+                             Style="{StaticResource Charcoal.TextBoxStyle}"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

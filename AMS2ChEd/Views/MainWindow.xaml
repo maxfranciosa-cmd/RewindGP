@@ -149,6 +149,11 @@
                                     Style="{StaticResource Main.FormStackedButton}"
                                     Click="DevExportSeasonPackButton_Click"/>
 
+                            <Button x:Name="DevHelmetDesignerButton"
+                                    Content="Generic helmet designer"
+                                    Style="{StaticResource Main.FormStackedButton}"
+                                    Click="DevHelmetDesignerButton_Click"/>
+
                             <Button Content="{loc:Loc MainWindow_BackButton}"
                                     Style="{StaticResource Main.FormBackButton}"
                                     Click="DevToolsBackButton_Click"/>

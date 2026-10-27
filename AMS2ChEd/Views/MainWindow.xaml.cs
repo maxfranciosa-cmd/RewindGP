@@ -48,6 +48,7 @@ namespace AMS2ChEd
         private IPlayerCosmeticsEditor _cosmeticsEditor;
         private IOffSeasonOrchestrator _offSeasonOrchestrator;
         private IPrerequisiteWindow _prerequisiteWindow;
+        private IGenericHelmetDesigner _helmetDesigner;
         public InstallSeasonModCommandAsync InstallSeasonCommand { get; set; }
 
         public MainWindow(
@@ -62,8 +63,10 @@ namespace AMS2ChEd
             ISeasonPackInstaller seasonPackInstaller,
             IOffSeasonOrchestrator offSeasonOrchestrator,
             IPlayerCosmeticsEditor cosmeticsEditor = null,
-            IPrerequisiteWindow prerequisiteWindow = null)
+            IPrerequisiteWindow prerequisiteWindow = null,
+            IGenericHelmetDesigner helmetDesigner = null)
         {
+            _helmetDesigner = helmetDesigner;
             InitializeComponent();
             _ams2StorageFactory = ams2StorageFactory;
             _installSettingsStorage = installSettingsStorage;
@@ -87,6 +90,7 @@ namespace AMS2ChEd
             HelmetSelectionLabel.Visibility = _cosmeticsEditor == null ? Visibility.Collapsed : Visibility.Visible;
             HelmetSelectionBorder.Visibility = _cosmeticsEditor == null ? Visibility.Collapsed : Visibility.Visible;
 
+            DevHelmetDesignerButton.Visibility = _helmetDesigner == null ? Visibility.Collapsed : Visibility.Visible;
             DeveloperToolsButton.Visibility = _developerModeSettings.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
@@ -296,6 +300,8 @@ namespace AMS2ChEd
             DeveloperToolsPanel.Visibility = Visibility.Visible;
             LoadDevToolsSeasons();
         }
+
+        private void DevHelmetDesignerButton_Click(object sender, RoutedEventArgs e) => _helmetDesigner?.ShowDesigner(this);
 
         private void DevToolsBackButton_Click(object sender, RoutedEventArgs e)
         {
