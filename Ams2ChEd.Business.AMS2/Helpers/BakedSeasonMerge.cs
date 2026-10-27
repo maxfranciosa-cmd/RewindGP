@@ -28,19 +28,26 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         /// resolve from this season's folder, and the team keeps its own livery XML (the kit's).
         /// </summary>
         public static Ams2Season MergeSeason(Ams2Season baked, Ams2Season pack, Func<int, Ams2Season> loadOtherPack, ICollection<string> warnings, string seasonsFolder = null)
+            => MergeSeason(baked, pack, null, loadOtherPack, warnings, seasonsFolder);
+
+        /// <summary>
+        /// As above, with the artwork the app ships for the season (SeasonCosmeticsFiles.EffectiveSeason:
+        /// only teams whose files are on disk) between the season's own pack and the fallbacks. Per
+        /// team: the pack where it paints the team, else the shipped cosmetics, else a fallback,
+        /// else nothing (the generic livery).
+        /// </summary>
+        public static Ams2Season MergeSeason(Ams2Season baked, Ams2Season pack, Ams2Season cosmetics, Func<int, Ams2Season> loadOtherPack, ICollection<string> warnings, string seasonsFolder = null)
         {
             if (pack != null && !string.IsNullOrWhiteSpace(pack.Slug))
                 baked.Slug = pack.Slug;
 
-            var packTeams = (pack?.Teams ?? Enumerable.Empty<AMS2ChEd.Business.Models.ITeamEntry>())
-                .OfType<Ams2TeamEntry>()
-                .Where(t => !string.IsNullOrEmpty(t.TeamId))
-                .GroupBy(t => t.TeamId)
-                .ToDictionary(g => g.Key, g => g.First());
+            var packTeams = TeamsById(pack);
+            var cosmeticsTeams = TeamsById(cosmetics);
 
             foreach (var team in (baked.Teams ?? Enumerable.Empty<AMS2ChEd.Business.Models.ITeamEntry>()).OfType<Ams2TeamEntry>())
             {
                 packTeams.TryGetValue(team.TeamId, out var packTeam);
+                cosmeticsTeams.TryGetValue(team.TeamId, out var cosmeticsTeam);
 
                 // A cosmetic pack names the car its artwork was painted for; one that names none
                 // is taken at its word.
@@ -49,10 +56,21 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                     warnings?.Add($"{baked.Year} {team.TeamId}: the season pack's artwork is for {packTeam.Ams2Car}, but the team races the {team.Ams2Car}; the pack's artwork for this team is ignored.");
                     packTeam = null;
                 }
+                if (cosmeticsTeam != null && !string.IsNullOrEmpty(cosmeticsTeam.Ams2Car) && !string.Equals(cosmeticsTeam.Ams2Car, team.Ams2Car, StringComparison.OrdinalIgnoreCase))
+                {
+                    warnings?.Add($"{baked.Year} {team.TeamId}: the skin pack's artwork is for {cosmeticsTeam.Ams2Car}, but the team races the {team.Ams2Car}; it is ignored.");
+                    cosmeticsTeam = null;
+                }
 
                 if (packTeam != null && HasBodyLivery(packTeam))
                 {
                     CopyTeamArtwork(packTeam, team);
+                    continue;
+                }
+
+                if (cosmeticsTeam != null && HasBodyLivery(cosmeticsTeam))
+                {
+                    CopyTeamArtwork(cosmeticsTeam, team);
                     continue;
                 }
 
@@ -79,6 +97,58 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             return baked;
         }
 
+        private static Dictionary<string, Ams2TeamEntry> TeamsById(Ams2Season season) =>
+            (season?.Teams ?? Enumerable.Empty<AMS2ChEd.Business.Models.ITeamEntry>())
+                .OfType<Ams2TeamEntry>()
+                .Where(t => !string.IsNullOrEmpty(t.TeamId))
+                .GroupBy(t => t.TeamId)
+                .ToDictionary(g => g.Key, g => g.First());
+
+        /// <summary>
+        /// Another year's artwork as a cosmetic fallback sees it: that year's pack team where the
+        /// pack paints it, else its shipped cosmetics' team (already narrowed to files on disk).
+        /// Null when neither has anything.
+        /// </summary>
+        public static Ams2Season CombineArtworkSources(Ams2Season pack, Ams2Season cosmetics)
+        {
+            if (pack == null || cosmetics == null)
+                return pack ?? cosmetics;
+
+            var teams = TeamsById(pack);
+            foreach (var (teamId, team) in TeamsById(cosmetics))
+            {
+                if (!teams.TryGetValue(teamId, out var packTeam) || !HasBodyLivery(packTeam))
+                    teams[teamId] = team;
+            }
+            return new Ams2Season { Year = pack.Year, Slug = pack.Slug, Teams = teams.Values.Cast<AMS2ChEd.Business.Models.ITeamEntry>().ToList() };
+        }
+
+        /// <summary>
+        /// Two sources of drivers' artwork as one, slot by slot: the first's where it has the slot,
+        /// else the second's. Used for another year's pack over its shipped cosmetics.
+        /// </summary>
+        public static Dictionary<string, Ams2DriverData> CombineDriverArtwork(Dictionary<string, Ams2DriverData> first, Dictionary<string, Ams2DriverData> second)
+        {
+            if (first == null || second == null)
+                return first ?? second;
+
+            var combined = new Dictionary<string, Ams2DriverData>();
+            foreach (var id in first.Keys.Union(second.Keys))
+            {
+                first.TryGetValue(id, out var a);
+                second.TryGetValue(id, out var b);
+                var driver = new Ams2DriverData { DriverId = id };
+                foreach (var slot in DriverSlots)
+                {
+                    var from = a != null && !string.IsNullOrEmpty(slot.Key(a)) ? a : b;
+                    if (from != null && !string.IsNullOrEmpty(slot.Key(from)))
+                        slot.Copy(from, driver, p => p);
+                }
+                combined[id] = driver;
+            }
+            return combined;
+        }
+
         /// <summary>
         /// Copies the pack's helmet, visor and portrait fields onto the baked drivers with the
         /// same driver_id. Drivers the baked season does not have are ignored.
@@ -98,17 +168,38 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             int year,
             IReadOnlyDictionary<int, Dictionary<string, Ams2DriverData>> otherPacks,
             string seasonsFolder = null)
+            => MergeDrivers(baked, pack, null, year, otherPacks, seasonsFolder);
+
+        /// <summary>
+        /// As above, with the artwork the app ships for the season (SeasonCosmeticsFiles.EffectiveDrivers)
+        /// between the season's own pack and the other years: per slot, the pack, else the shipped
+        /// cosmetics, else the nearest other year.
+        /// </summary>
+        public static Dictionary<string, Ams2DriverData> MergeDrivers(
+            Dictionary<string, Ams2DriverData> baked,
+            Dictionary<string, Ams2DriverData> pack,
+            Dictionary<string, Ams2DriverData> cosmetics,
+            int year,
+            IReadOnlyDictionary<int, Dictionary<string, Ams2DriverData>> otherPacks,
+            string seasonsFolder = null)
         {
             foreach (var (id, driver) in baked)
             {
-                Ams2DriverData packDriver = null;
+                Ams2DriverData packDriver = null, cosmeticsDriver = null;
                 pack?.TryGetValue(id, out packDriver);
+                cosmetics?.TryGetValue(id, out cosmeticsDriver);
 
                 foreach (var slot in DriverSlots)
                 {
                     if (packDriver != null && !string.IsNullOrEmpty(slot.Key(packDriver)))
                     {
                         slot.Copy(packDriver, driver, p => p);
+                        continue;
+                    }
+
+                    if (cosmeticsDriver != null && !string.IsNullOrEmpty(slot.Key(cosmeticsDriver)))
+                    {
+                        slot.Copy(cosmeticsDriver, driver, p => p);
                         continue;
                     }
 

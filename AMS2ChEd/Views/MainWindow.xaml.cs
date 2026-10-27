@@ -13,6 +13,7 @@ using AMS2ChEd.Commands;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Resources;
 using AMS2ChEd.Services;
+using AMS2ChEd.Updater;
 using AMS2ChEd.Views;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -64,7 +65,8 @@ namespace AMS2ChEd
             IOffSeasonOrchestrator offSeasonOrchestrator,
             IPlayerCosmeticsEditor cosmeticsEditor = null,
             IPrerequisiteWindow prerequisiteWindow = null,
-            IGenericHelmetDesigner helmetDesigner = null)
+            IGenericHelmetDesigner helmetDesigner = null,
+            SkinPackImportFlow skinPackImport = null)
         {
             _helmetDesigner = helmetDesigner;
             InitializeComponent();
@@ -78,8 +80,17 @@ namespace AMS2ChEd
             _offSeasonOrchestrator = offSeasonOrchestrator;
             _prerequisiteWindow = prerequisiteWindow;
 
-            InstallSeasonCommand = new InstallSeasonModCommandAsync(seasonPackInstaller, externalLiveriesInstaller, externalLiveriesPrompt);
+            InstallSeasonCommand = new InstallSeasonModCommandAsync(seasonPackInstaller, externalLiveriesInstaller, externalLiveriesPrompt, skinPackImport);
             InstallSeasonCommand.SeasonInstalled += OnSeasonModInstalled;
+
+            // a season pack or a skin pack archive dropped anywhere on the window is imported
+            AllowDrop = true;
+            Drop += async (_, e) =>
+            {
+                if (e.Data.GetData(System.Windows.DataFormats.FileDrop) is string[] files)
+                    foreach (var file in files)
+                        await InstallSeasonCommand.ExecuteAsync(file);
+            };
 
             InitializeGameLogic();
             InitializeAnimations();

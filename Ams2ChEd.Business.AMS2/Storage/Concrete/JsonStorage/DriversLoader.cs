@@ -23,10 +23,13 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
                     throw new FileNotFoundException($"Drivers database not found at: {driversPath}");
                 }
 
-                // As for the season: baked drivers, with an installed pack's helmets and portraits.
-                // What the pack lacks may come from the other years' packs.
+                // As for the season: baked drivers, with an installed pack's helmets and portraits,
+                // then those the app ships. What both lack may come from the other years.
                 if (hasBaked)
-                    return BakedSeasonMerge.MergeDrivers(Read(bakedPath), hasPack ? Read(driversPath) : null, seasonYear, ReadOtherPacks(seasonYear));
+                {
+                    var cosmetics = SeasonCosmeticsFiles.EffectiveDrivers(SeasonCosmeticsFiles.Read(seasonYear), seasonYear);
+                    return BakedSeasonMerge.MergeDrivers(Read(bakedPath), hasPack ? Read(driversPath) : null, cosmetics, seasonYear, ReadOtherPacks(seasonYear));
+                }
 
                 return Read(driversPath);
             }
@@ -36,33 +39,46 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             }
         }
 
-        // The drivers of every other year's installed pack, as the pack alone; a pack that can't
-        // be read is left out.
+        // Every other year's drivers' artwork: its installed pack (as the pack alone), over the
+        // artwork the app ships for it; a pack that can't be read is left out.
         private static Dictionary<int, Dictionary<string, Ams2DriverData>> ReadOtherPacks(int seasonYear)
         {
             var packs = new Dictionary<int, Dictionary<string, Ams2DriverData>>();
-            if (!Directory.Exists(StoragePaths.SeasonsFolder))
-                return packs;
-
-            foreach (var folder in Directory.GetDirectories(StoragePaths.SeasonsFolder))
+            foreach (var year in YearFolders(StoragePaths.SeasonsFolder).Union(YearFolders(StoragePaths.BakedSeasonsFolder)))
             {
-                if (!int.TryParse(Path.GetFileName(folder), out var year) || year <= 0 || year == seasonYear)
+                if (year == seasonYear)
                     continue;
 
+                Dictionary<string, Ams2DriverData> pack = null;
                 var path = StoragePaths.DriversFilePath(year);
-                if (!File.Exists(path))
-                    continue;
+                if (File.Exists(path))
+                {
+                    try
+                    {
+                        pack = Read(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.TraceWarning($"The {year} season pack's drivers could not be read for cosmetic fallbacks: {ex.Message}");
+                    }
+                }
 
-                try
-                {
-                    packs[year] = Read(path);
-                }
-                catch (Exception ex)
-                {
-                    Trace.TraceWarning($"The {year} season pack's drivers could not be read for cosmetic fallbacks: {ex.Message}");
-                }
+                var shipped = SeasonCosmeticsFiles.EffectiveDrivers(SeasonCosmeticsFiles.Read(year), year);
+                var combined = BakedSeasonMerge.CombineDriverArtwork(pack, shipped.Count == 0 ? null : shipped);
+                if (combined != null)
+                    packs[year] = combined;
             }
             return packs;
+        }
+
+        private static IEnumerable<int> YearFolders(string folder)
+        {
+            if (!Directory.Exists(folder))
+                return Enumerable.Empty<int>();
+
+            return Directory.GetDirectories(folder)
+                .Select(d => int.TryParse(Path.GetFileName(d), out var y) ? y : 0)
+                .Where(y => y > 0);
         }
 
         private static Dictionary<string, Ams2DriverData> Read(string path)

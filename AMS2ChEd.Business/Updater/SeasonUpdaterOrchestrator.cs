@@ -39,7 +39,23 @@ namespace AMS2ChEd.Business.Updater
                 case SeasonAvailability.UpToDate:
                 case SeasonAvailability.InstalledNoRemote:
                 case SeasonAvailability.BakedOnly:
+                case SeasonAvailability.BakedSkinPackImported:
                     return false;
+
+                case SeasonAvailability.BakedSkinPackAvailable:
+                    {
+                        // same "not now" memory as the artwork pack offer
+                        var declinedKey = ArtworkOfferDeclinedKey(year);
+                        if (_preferences.GetString(declinedKey) != null)
+                            return false;
+
+                        if (!await _prompt.PromptSkinPackAsync(year))
+                        {
+                            _preferences.SetString(declinedKey, "true");
+                            return false;
+                        }
+                        return true;
+                    }
 
                 case SeasonAvailability.UpdateAvailable:
                     {

@@ -38,7 +38,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             try
             {
                 Directory.CreateDirectory(tempDir);
-                ExtractArchive(downloadedPath, tempDir);
+                ArchiveFiles.ExtractAll(downloadedPath, tempDir);
 
                 var seasonDestPath = Path.Combine(_baseDirectory, "Seasons", seasonYear.ToString());
                 foreach (var entry in config.Entries)
@@ -65,34 +65,6 @@ namespace Ams2ChEd.Business.AMS2.Services
                 {
                     try { Directory.Delete(tempDir, true); }
                     catch { }
-                }
-            }
-        }
-
-        private static void ExtractArchive(string archivePath, string destinationDir)
-        {
-            if (archivePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
-            {
-                ZipFile.ExtractToDirectory(archivePath, destinationDir, overwriteFiles: true);
-            }
-            else
-            {
-                var options = new ExtractionOptions { ExtractFullPath = true, Overwrite = true };
-                using var archive = ArchiveFactory.OpenArchive(archivePath);
-
-                // Solid archives (the usual 7z, solid rar) need one sequential pass: extracting entry
-                // by entry restarts decompression from the start of the block for every file, which
-                // turns a minute's work into most of an hour on a large livery pack. SharpCompress only
-                // allows that pass on solid or 7z archives, so anything else goes entry by entry.
-                if (archive.IsSolid || archive.Type == ArchiveType.SevenZip)
-                {
-                    using var reader = archive.ExtractAllEntries();
-                    reader.WriteAllToDirectory(destinationDir, options);
-                }
-                else
-                {
-                    foreach (var entry in archive.Entries.Where(e => !e.IsDirectory))
-                        entry.WriteToDirectory(destinationDir, options);
                 }
             }
         }

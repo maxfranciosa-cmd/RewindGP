@@ -1,5 +1,6 @@
 ﻿using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater;
+using AMS2ChEd.Updater;
 using AMS2ChEd.Views;
 using Microsoft.Win32;
 using System;
@@ -23,19 +24,29 @@ namespace AMS2ChEd.Commands
         private readonly ISeasonPackInstaller _installer;
         private readonly IExternalLiveriesInstaller _externalLiveriesInstaller;
         private readonly IExternalLiveriesPrompt _externalLiveriesPrompt;
+        private readonly SkinPackImportFlow _skinPackImport;
         private bool _isExecuting;
 
         public event EventHandler<SeasonInstalledEventArgs> SeasonInstalled;
 
+        /// <summary>Raised after a skin pack archive was imported (artwork only).</summary>
+        public event EventHandler SkinPackImported;
+
         public InstallSeasonModCommandAsync(
             ISeasonPackInstaller installer,
             IExternalLiveriesInstaller externalLiveriesInstaller,
-            IExternalLiveriesPrompt externalLiveriesPrompt)
+            IExternalLiveriesPrompt externalLiveriesPrompt,
+            SkinPackImportFlow skinPackImport = null)
         {
             _installer = installer;
             _externalLiveriesInstaller = externalLiveriesInstaller;
             _externalLiveriesPrompt = externalLiveriesPrompt;
+            _skinPackImport = skinPackImport;
         }
+
+        private bool IsSkinPackArchive(string path) =>
+            _skinPackImport != null && !string.IsNullOrEmpty(path)
+            && !string.Equals(Path.GetExtension(path), _installer.PackFileExtension, StringComparison.OrdinalIgnoreCase);
 
         public event EventHandler CanExecuteChanged
         {
@@ -62,19 +73,37 @@ namespace AMS2ChEd.Commands
             {
                 var zipFilePath = parameter as string;
 
-                if (string.IsNullOrEmpty(zipFilePath) || Path.GetExtension(zipFilePath) == _installer.PackFileExtension)
+                // a file handed over (dropped) is taken as it is; otherwise ask for one
+                if (string.IsNullOrEmpty(zipFilePath))
                 {
-                    // Open file dialog
+                    // Open file dialog: season packs, and community skin packs when the game has them
                     var openFileDialog = new OpenFileDialog
                     {
-                        Title = "Select Season Mod Package",
-                        Filter = $"{_installer.PackFileFilterLabel} (*{_installer.PackFileExtension})|*{_installer.PackFileExtension}",
+                        Title = _skinPackImport == null ? "Select Season Mod Package" : "Select a season pack or a livery pack",
+                        Filter = _skinPackImport?.FileFilter ?? $"{_installer.PackFileFilterLabel} (*{_installer.PackFileExtension})|*{_installer.PackFileExtension}",
                         CheckFileExists = true,
                         CheckPathExists = true
                     };
                     if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
                     zipFilePath = openFileDialog.FileName;
+                }
+
+                if (IsSkinPackArchive(zipFilePath))
+                {
+                    _isExecuting = true;
+                    CommandManager.InvalidateRequerySuggested();
+                    try
+                    {
+                        if (await _skinPackImport.ImportFileAsync(zipFilePath, System.Windows.Application.Current?.MainWindow))
+                            SkinPackImported?.Invoke(this, EventArgs.Empty);
+                    }
+                    finally
+                    {
+                        _isExecuting = false;
+                        CommandManager.InvalidateRequerySuggested();
+                    }
+                    return;
                 }
 
                 _isExecuting = true;

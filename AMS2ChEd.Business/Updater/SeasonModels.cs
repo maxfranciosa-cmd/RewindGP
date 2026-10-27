@@ -27,6 +27,8 @@ namespace AMS2ChEd.Business.Updater.Models
             SeasonAvailability.NotAvailable => "Not available",
             SeasonAvailability.BakedPackAvailable => "Playable · artwork pack available",
             SeasonAvailability.BakedOnly => "Playable",
+            SeasonAvailability.BakedSkinPackAvailable => "Playable · liveries available",
+            SeasonAvailability.BakedSkinPackImported => "Playable · liveries installed",
             _ => string.Empty
         };
 
@@ -108,7 +110,16 @@ namespace AMS2ChEd.Business.Updater.Models
         BakedPackAvailable,
 
         /// <summary>Playable from the data the app ships; no pack installed and none listed.</summary>
-        BakedOnly
+        BakedOnly,
+
+        /// <summary>
+        /// Playable from the data the app ships, with no pack installed; the app knows the
+        /// community skin pack its liveries come from, not yet imported. Importing it is optional.
+        /// </summary>
+        BakedSkinPackAvailable,
+
+        /// <summary>Playable from the data the app ships, its community skin pack imported.</summary>
+        BakedSkinPackImported
     }
 
     // -------------------------------------------------------------------------

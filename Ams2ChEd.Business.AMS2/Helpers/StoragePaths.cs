@@ -70,6 +70,33 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             return Path.Combine(BakedSeasonsFolder, seasonYear.ToString(), "drivers.json");
         }
 
+        // The artwork the app ships for a baked season, in place of a season pack.
+        public static string CosmeticsFolder(int seasonYear)
+        {
+            return Path.Combine(BakedSeasonsFolder, seasonYear.ToString(), "cosmetics");
+        }
+
+        public static string CosmeticsFilePath(int seasonYear)
+        {
+            return Path.Combine(CosmeticsFolder(seasonYear), "cosmetics.json");
+        }
+
+        // What the player imported from the season's skin pack.
+        public static string SkinPackRecordPath(int seasonYear)
+        {
+            return Path.Combine(SeasonsFolder, seasonYear.ToString(), "skin_pack.json");
+        }
+
+        // Drivers' own helmets shipped with the app, named by their content: once per unique file,
+        // shared by every season and driver that uses it.
+        public static string OwnHelmetsFolder => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Drivers", "own_helmets");
+
+        // The visor's sponsor-strip shape, per helmet model.
+        public static string VisorMasksFolder => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Drivers", "visor_masks");
+
+        // Where a helmet carries its team's sponsors, per helmet model, for teams with no map of their own.
+        public static string HelmetSponsorMasksFolder => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Drivers", "helmet_sponsor_masks");
+
         // One subfolder per kit, each holding its kit.json.
         private static string _liveryKitsFolder = null;
         public static string LiveryKitsFolder

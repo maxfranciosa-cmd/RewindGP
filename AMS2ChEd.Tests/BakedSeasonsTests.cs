@@ -99,6 +99,69 @@ namespace AMS2ChEd.Tests.Ams2
             }
         }
 
+        [TestMethod]
+        public void ShippedCosmetics_PointOnlyAtShippedFilesOrTheSkinPack_AndShipNoSponsorArtwork()
+        {
+            string app = Path.Combine(RepoRoot(), "AMS2ChEd");
+            foreach (var folder in Directory.GetDirectories(Path.Combine(app, "BakedSeasons")))
+            {
+                if (!int.TryParse(Path.GetFileName(folder), out int year))
+                    continue;
+                var cosmetics = Ams2ChEd.Business.AMS2.Helpers.SeasonCosmeticsFiles.Read(year, Path.Combine(app, "BakedSeasons"));
+                if (!File.Exists(Path.Combine(folder, "cosmetics", "cosmetics.json")))
+                    continue;
+                Assert.IsNotNull(cosmetics, $"{year}: cosmetics.json does not load");
+
+                // a path either leads to a file the app ships, or into the skin pack's import
+                var seasonFolder = Path.Combine(app, "Seasons", year.ToString());
+                var destinations = (cosmetics.SkinPack?.Entries ?? new()).Select(e => e.DestinationPath.Replace('\\', '/')).ToHashSet(StringComparer.OrdinalIgnoreCase);
+                void Check(string path, string what)
+                {
+                    if (string.IsNullOrEmpty(path) || path.Contains("://"))
+                        return;
+                    if (path.StartsWith("../../"))
+                        Assert.IsTrue(File.Exists(Path.GetFullPath(Path.Combine(seasonFolder, path))), $"{year} {what}: {path} is not shipped");
+                    else
+                        Assert.IsTrue(path.StartsWith("external_liveries/helmet_sponsors/") || destinations.Contains(path.Replace('\\', '/')), $"{year} {what}: {path} is neither shipped nor in the skin pack");
+                }
+
+                foreach (var (teamId, team) in cosmetics.Teams)
+                {
+                    Check(team.BaseLiveryDriver1, teamId); Check(team.BaseLiveryDriver2, teamId); Check(team.LiveryPreview, teamId);
+                    Check(team.HelmetSponsors, teamId); Check(team.VisorSponsors, teamId);
+                    foreach (var p in team.NumbersPlacements ?? Enumerable.Empty<NumbersPlacement>()) { Check(p.NumbersTexture, teamId); Check(p.NumbersTextureDriver2, teamId); }
+                    foreach (var o in team.LiveryOverrides ?? Enumerable.Empty<LiveryOverride>()) { Check(o.Driver1Livery, teamId); Check(o.Driver2Livery, teamId); Check(o.LiveryPreview, teamId); }
+                }
+                foreach (var (driverId, d) in cosmetics.Drivers)
+                    foreach (var path in new[] { d.BaseHelmetFile, d.BaseVisorFile, d.BaseHelmetFile90s, d.BaseHelmetFile80s, d.BaseVisorFile80s, d.BaseHelmetFile70s, d.BaseVisorFile70s })
+                        Check(path, driverId);
+
+                // a team's own sponsor map ships with the season; without one, its helmet model's generic map must exist
+                foreach (var (teamId, helmets) in cosmetics.SkinPack?.Helmets ?? new())
+                {
+                    var map = string.IsNullOrEmpty(helmets.Map)
+                        ? Path.Combine(app, "Drivers", "helmet_sponsor_masks", $"{cosmetics.SkinPack.HelmetModel ?? "Modern"}.png")
+                        : Path.Combine(folder, "cosmetics", helmets.Map);
+                    Assert.IsTrue(File.Exists(map), $"{year} {teamId}: sponsor map {map}");
+                }
+
+                // sponsor layers are built at import; none ship
+                Assert.IsFalse(Directory.EnumerateFiles(Path.Combine(folder, "cosmetics"), "*", SearchOption.AllDirectories).Any(f => f.Contains("helmet_sponsors")), $"{year}: sponsor layers shipped");
+            }
+
+            // the helmet store holds each file once
+            var store = Path.Combine(app, "Drivers", "own_helmets");
+            if (Directory.Exists(store))
+            {
+                var duplicates = Directory.GetFiles(store, "*", SearchOption.AllDirectories)
+                    .GroupBy(f => Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(f))))
+                    .Where(g => g.Count() > 1)
+                    .Select(g => string.Join(" = ", g.Select(Path.GetFileName)))
+                    .ToList();
+                Assert.AreEqual(0, duplicates.Count, string.Join("; ", duplicates));
+            }
+        }
+
         private static string RepoRoot()
         {
             var directory = new DirectoryInfo(AppContext.BaseDirectory);

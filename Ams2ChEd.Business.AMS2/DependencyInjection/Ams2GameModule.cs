@@ -72,6 +72,7 @@ namespace Ams2ChEd.Business.AMS2.DependencyInjection
             services.AddTransient<ISeasonPackInstaller, SeasonModInstaller>();
             services.AddTransient<SeasonModInstaller>();
             services.AddSingleton<IExternalLiveriesInstaller, ExternalLiveriesInstaller>();
+            services.AddSingleton<ISkinPackImporter>(_ => new SkinPackImporter());
         }
     }
 }

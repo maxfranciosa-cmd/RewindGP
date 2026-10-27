@@ -88,6 +88,18 @@
     <None Update="Drivers\base_helmet_liveries\generic_designs\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <!-- Drivers' own helmets the baked seasons' cosmetics point at, once per unique file -->
+    <None Update="Drivers\own_helmets\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <!-- The visor's sponsor-strip shape per helmet model, cut from an imported skin pack's visor -->
+    <None Update="Drivers\visor_masks\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <!-- Where a helmet carries its team's sponsors, per helmet model, for teams with no map of their own -->
+    <None Update="Drivers\helmet_sponsor_masks\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Drivers\portraits\risciacqui.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -269,6 +281,10 @@
     <Resource Include="Fonts\VT323-Regular.ttf" />
     <Resource Include="Fonts\DSEG14Classic-Regular.ttf" />
     <Resource Include="Fonts\DSEG14Classic-Bold.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="BakedSeasons\2000\cosmetics\sponsor_maps\" />
   </ItemGroup>
 
 </Project>

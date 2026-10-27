@@ -18,18 +18,24 @@ namespace AMS2ChEd.Updater
         private readonly IExternalLiveriesInstaller _externalLiveriesInstaller;
         private readonly IExternalLiveriesPrompt _externalLiveriesPrompt;
         private readonly string _downloadUrlFormat;
+        private readonly SkinPackImportFlow _skinPackImport;
 
         public WpfSeasonDownloadPrompt(
             string downloadUrlFormat,
             ISeasonPackInstaller seasonPackInstaller,
             IExternalLiveriesInstaller externalLiveriesInstaller,
-            IExternalLiveriesPrompt externalLiveriesPrompt)
+            IExternalLiveriesPrompt externalLiveriesPrompt,
+            SkinPackImportFlow skinPackImport = null)
         {
             _seasonPackInstaller = seasonPackInstaller;
             _externalLiveriesInstaller = externalLiveriesInstaller;
             _externalLiveriesPrompt = externalLiveriesPrompt;
             _downloadUrlFormat = downloadUrlFormat;
+            _skinPackImport = skinPackImport;
         }
+
+        public Task<bool> PromptSkinPackAsync(int year) =>
+            _skinPackImport == null ? Task.FromResult(false) : _skinPackImport.GetLiveriesAsync(year, System.Windows.Application.Current?.MainWindow);
 
         // -------------------------------------------------------------------------
         // Download (not installed)

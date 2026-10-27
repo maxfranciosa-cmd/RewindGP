@@ -89,12 +89,18 @@ namespace AMS2ChEd
 
             var versionCheckStore = new JsonCurrentVersionCheckStore(AppPaths.CurrentVersionCheckPath);
             services.AddSingleton<SeasonUpdaterOrchestrator>();
+            services.AddSingleton((serviceProvider) => new SkinPackImportFlow(
+                serviceProvider.GetService<ISkinPackImporter>(),
+                serviceProvider.GetService<ISeasonPackInstaller>(),
+                serviceProvider.GetService<IExternalLiveriesInstaller>(),
+                serviceProvider.GetService<IExternalLiveriesPrompt>()));
             services.AddSingleton<ISeasonDownloadPrompt>((serviceProvider) => new WpfSeasonDownloadPrompt(
                 downloadUrlFormat,
                 serviceProvider.GetService<ISeasonPackInstaller>(),
                 serviceProvider.GetService<IExternalLiveriesInstaller>(),
-                serviceProvider.GetService<IExternalLiveriesPrompt>()));
-            services.AddSingleton((serviceProvider) => new SeasonManifestService(AppPaths.SeasonsManifestPath(gameModule.SeasonsManifestFileName), serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate));
+                serviceProvider.GetService<IExternalLiveriesPrompt>(),
+                serviceProvider.GetService<SkinPackImportFlow>()));
+            services.AddSingleton((serviceProvider) => new SeasonManifestService(AppPaths.SeasonsManifestPath(gameModule.SeasonsManifestFileName), serviceProvider.GetService<ISeasonLoader>(), File.ReadAllText, forceSeasonsUpdate, serviceProvider.GetService<ISkinPackImporter>()));
             services.AddSingleton(versionCheckStore);
             services.AddSingleton<ICurrentVersionCheckStore>(versionCheckStore);
             services.AddSingleton<SaveGameSeasonChecker>();

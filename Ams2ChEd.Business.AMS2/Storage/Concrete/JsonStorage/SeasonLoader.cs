@@ -25,13 +25,15 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
                     throw new FileNotFoundException($"Season file not found at: {seasonPath}");
                 }
 
-                // Baked data is the season; an installed pack only lays its artwork over it. With
+                // Baked data is the season; an installed pack only lays its artwork over it, then
+                // the artwork the app ships for it (where its skin pack has been imported). With
                 // no baked data for the year, the pack is the whole season, as before.
                 Ams2Season seasonData;
                 if (hasBaked)
                 {
                     var warnings = new List<string>();
-                    seasonData = BakedSeasonMerge.MergeSeason(Read(bakedPath), hasPack ? Read(seasonPath) : null, OtherPackReader(), warnings);
+                    var cosmetics = SeasonCosmeticsFiles.EffectiveSeason(SeasonCosmeticsFiles.Read(seasonYear), seasonYear);
+                    seasonData = BakedSeasonMerge.MergeSeason(Read(bakedPath), hasPack ? Read(seasonPath) : null, cosmetics, OtherPackReader(), warnings);
                     foreach (var warning in warnings)
                         Trace.TraceWarning(warning);
                 }
@@ -63,8 +65,9 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
         private static Ams2Season Read(string path) =>
             JsonSerializer.Deserialize<Ams2Season>(File.ReadAllText(path), DefaultJsonSerializerOptions.Instance);
 
-        // Another year's pack, as the pack alone (never merged over that year's baked data, so
-        // fallbacks don't chain), read once per load; null when not installed or unreadable.
+        // Another year's artwork: its pack, over the artwork the app ships for it (never merged
+        // over that year's baked data, so fallbacks don't chain), read once per load; null when
+        // that year has neither.
         private static Func<int, Ams2Season> OtherPackReader()
         {
             var cache = new Dictionary<int, Ams2Season>();
@@ -86,7 +89,8 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
                         Trace.TraceWarning($"The {year} season pack could not be read for cosmetic fallbacks: {ex.Message}");
                     }
                 }
-                return cache[year] = pack;
+                var cosmetics = SeasonCosmeticsFiles.EffectiveSeason(SeasonCosmeticsFiles.Read(year), year);
+                return cache[year] = BakedSeasonMerge.CombineArtworkSources(pack, cosmetics);
             };
         }
 
@@ -94,8 +98,10 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
         {
             try
             {
+                // a Seasons/<year> folder is a pack only with its season.json: an imported skin
+                // pack's files alone (a baked year) are not one
                 return YearFolders(StoragePaths.BakedSeasonsFolder, StoragePaths.BakedSeasonFilePath)
-                    .Union(YearFolders(StoragePaths.SeasonsFolder, null))
+                    .Union(YearFolders(StoragePaths.SeasonsFolder, StoragePaths.SeasonFilePath))
                     .OrderBy(s => s)
                     .ToList();
             }
@@ -110,7 +116,7 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             try
             {
                 // Locally installed seasons not in the manifest
-                return YearFolders(StoragePaths.SeasonsFolder, null).OrderBy(s => s).ToList();
+                return YearFolders(StoragePaths.SeasonsFolder, StoragePaths.SeasonFilePath).OrderBy(s => s).ToList();
             }
             catch (Exception ex)
             {
@@ -153,15 +159,21 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             var baked = Fingerprint(StoragePaths.BakedSeasonFilePath(seasonYear), StoragePaths.BakedDriversFilePath(seasonYear));
 
             // Over baked data, the artwork may also come from other years' packs (cosmetic
-            // fallbacks): all of them together, in year order.
+            // fallbacks) and from the cosmetics the app ships, each counting once its skin pack is
+            // imported: all of them together, in year order.
             string cosmetics = null;
             if (baked != null)
             {
-                cosmetics = Fingerprint(YearFolders(StoragePaths.SeasonsFolder, null)
+                var otherPacks = YearFolders(StoragePaths.SeasonsFolder, null)
                     .Select(int.Parse)
                     .Where(y => y != seasonYear)
-                    .OrderBy(y => y)
-                    .SelectMany(y => new[] { StoragePaths.SeasonFilePath(y), StoragePaths.DriversFilePath(y) })
+                    .SelectMany(y => new[] { (y, StoragePaths.SeasonFilePath(y)), (y, StoragePaths.DriversFilePath(y)) });
+                var shipped = YearFolders(StoragePaths.BakedSeasonsFolder, StoragePaths.CosmeticsFilePath)
+                    .Select(int.Parse)
+                    .SelectMany(y => new[] { (y, StoragePaths.CosmeticsFilePath(y)), (y, StoragePaths.SkinPackRecordPath(y)) });
+                cosmetics = Fingerprint(otherPacks.Concat(shipped)
+                    .OrderBy(f => f.Item1)
+                    .Select(f => f.Item2)
                     .ToArray());
             }
 

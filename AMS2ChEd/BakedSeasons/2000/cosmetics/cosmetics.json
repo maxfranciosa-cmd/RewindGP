@@ -1,0 +1,1369 @@
+{
+  "_comment": "Artwork the app ships for 2000 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/2000/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: mclaren.",
+  "teams": {
+    "ferrari": {
+      "ams2car": "formula_v10_g2_b",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 126,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2738,
+            "Y": 716
+          },
+          "rotation": "Deg270",
+          "fill_color": "#E70C00"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/ferrari_plate_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 104,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1590,
+            "Y": 3270
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E70C00"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/ferrari_plate_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 104,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1361,
+            "Y": 3798
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E70C00"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/2000_Ferrari3_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/2000_Ferrari3_GBR.dds",
+          "livery_preview": "external_liveries/previews/ferrari/2000_Ferrari3_GBR_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/2000_Ferrari3_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/2000_Ferrari3_GBR.dds",
+          "livery_preview": "external_liveries/previews/ferrari/2000_Ferrari3_GBR_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/2000_Ferrari3_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/2000_Ferrari3_GBR.dds",
+          "livery_preview": "external_liveries/previews/ferrari/2000_Ferrari3_GBR_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"2000 Ferrari #3 - M. Schumacher\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_Ferrari3_AUS_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_Ferrari3_AUS.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Ferrari_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Ferrari_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Ferrari3_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Ferrari3_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\99_MSchumacher_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\99_MSchumacher_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\99_MSchumacher_visor_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_ferrari_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_ferrari_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_ferrari_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_ferrari_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\red_Sabelt_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "jordan": {
+      "ams2car": "formula_v10_g2_m",
+      "base_livery_driver1": "external_liveries/car_liveries/jordan/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/jordan/default.dds",
+      "livery_preview": "external_liveries/previews/jordan/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/jordan_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 130,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2788,
+            "Y": 710
+          },
+          "rotation": "Deg270",
+          "fill_color": "#F7E710"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/jordan_plate_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 126,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1730,
+            "Y": 3402
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/jordan_plate_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 126,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1196,
+            "Y": 3934
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/jordan/2000_Jordan5_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/2000_Jordan5_GBR.dds",
+          "livery_preview": "external_liveries/previews/jordan/2000_Jordan5_GBR_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/jordan/2000_Jordan5_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/2000_Jordan5_GBR.dds",
+          "livery_preview": "external_liveries/previews/jordan/2000_Jordan5_GBR_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"2000 Jordan #5 - H-H. Frentzen\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_Jordan5_AUS_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_Jordan5_AUS.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Jordan_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Jordan_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Jordan5_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Jordan5_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Frentzen_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Jordan_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_Jordan_visor_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_jordan_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_jordan_arms_Frentzen.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_jordan_gloves_Frentzen.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_jordan_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\Black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "stewart": {
+      "ams2car": "formula_v10_g2_b",
+      "base_livery_driver1": "external_liveries/car_liveries/stewart/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/stewart/default.dds",
+      "livery_preview": "external_liveries/previews/stewart/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/stewart_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2712,
+            "Y": 765
+          },
+          "rotation": "Deg270",
+          "fill_color": "#001C08"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/stewart_side_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2940,
+            "Y": 2037
+          },
+          "rotation": "Deg270",
+          "fill_color": "#001C08"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/stewart_side_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2938,
+            "Y": 2292
+          },
+          "rotation": "Deg270",
+          "fill_color": "#001C08"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/stewart/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/stewart/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/stewart/2000_Jaguar7_Irvine_FRA.dds",
+          "driver2_livery": "external_liveries/car_liveries/stewart/2000_Jaguar7_Irvine_FRA.dds",
+          "livery_preview": "external_liveries/previews/stewart/2000_Jaguar7_Irvine_FRA_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"2000 Jaguar #7 - E. Irvine\" BASELIVERY=\"GreenMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_Jaguar7_Irvine_AUS_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_Jaguar7_Irvine_AUS.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Jaguar_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Jaguar_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Jaguar7_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Jaguar7_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Irvine_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Jaguar_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_jaguar_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_jaguar_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_jaguar_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_jaguar_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_v10_g2_m",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 124,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2690,
+            "Y": 712
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/williams_side_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 100,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 794,
+            "Y": 1504
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/williams_side_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 100,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 978,
+            "Y": 2096
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/williams/2000_Williams9_FRA.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/2000_Williams9_FRA.dds",
+          "livery_preview": "external_liveries/previews/williams/2000_Williams9_FRA_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds",
+          "livery_preview": "external_liveries/previews/williams/2000_Williams9_AUS_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds",
+          "livery_preview": "external_liveries/previews/williams/2000_Williams9_AUS_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds",
+          "livery_preview": "external_liveries/previews/williams/2000_Williams9_AUS_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds",
+          "livery_preview": "external_liveries/previews/williams/2000_Williams9_AUS_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds",
+          "livery_preview": "external_liveries/previews/williams/2000_Williams9_AUS_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"2000 Williams #9 - R. Schumacher\" BASELIVERY=\"BlueMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_Williams9_EUR_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_Williams9_EUR.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Williams_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Williams_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Williams9_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Williams9_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_RSchumacher_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Williams_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_williams_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_williams_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_williams_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_williams_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\Blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "formula_v10_g2_b",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 112,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2240,
+            "Y": 708
+          },
+          "rotation": "Deg270",
+          "fill_color": "#1892EF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/benetton_plate_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 158,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1686,
+            "Y": 3294
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/benetton_plate_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 154,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1214,
+            "Y": 3852
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/benetton/2000_Benetton11_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/2000_Benetton11_GBR.dds",
+          "livery_preview": "external_liveries/previews/benetton/2000_Benetton11_GBR_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/benetton/2000_Benetton11_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/2000_Benetton11_GBR.dds",
+          "livery_preview": "external_liveries/previews/benetton/2000_Benetton11_GBR_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"2000 Benetton #11 - G. Fisichella\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_Benetton11_AUS_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_Benetton11_AUS.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Benetton_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Benetton_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Benetton11_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Benetton11_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Fisichella_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Fisichella_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Benetton_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Benetton_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Benetton_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Benetton_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\Blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ligier_prost": {
+      "ams2car": "formula_v10_g2_m",
+      "base_livery_driver1": "external_liveries/car_liveries/ligier_prost/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ligier_prost/default.dds",
+      "livery_preview": "external_liveries/previews/ligier_prost/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/ligier_prost_side_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 170,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 440,
+            "Y": 1578
+          },
+          "rotation": "Deg0",
+          "fill_color": "#001852"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/ligier_prost_side_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 174,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 698,
+            "Y": 2020
+          },
+          "rotation": "Deg180",
+          "fill_color": "#001852"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/ligier_prost_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 200,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2684,
+            "Y": 752
+          },
+          "rotation": "Deg270",
+          "fill_color": "#001852"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/ligier_prost/2000_Prost14_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/2000_Prost14_GBR.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/2000_Prost14_GBR_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/ligier_prost/2000_Prost14_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/2000_Prost14_GBR.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/2000_Prost14_GBR_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"2000 Prost #14 - J. Alesi\" BASELIVERY=\"BlueMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_Prost14_AUS_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_Prost14_AUS.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Prost_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Prost_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Prost14_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Prost14_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Alesi_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_Alesi_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Prost_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_Alesi_Visor_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Prost_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Prost_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Prost_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Prost_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "sauber": {
+      "ams2car": "formula_v10_g2_b",
+      "base_livery_driver1": "external_liveries/car_liveries/sauber/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/sauber/default.dds",
+      "livery_preview": "external_liveries/previews/sauber/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/sauber_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 158,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3168,
+            "Y": 733
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FFE708"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/sauber_plate_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1688,
+            "Y": 3344
+          },
+          "rotation": "Deg0",
+          "fill_color": "#00AAA5"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/sauber_plate_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1212,
+            "Y": 3880
+          },
+          "rotation": "Deg0",
+          "fill_color": "#00AAA5"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"2000 Sauber #16 - P. Diniz\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_Sauber16_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_Sauber16.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Sauber_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Sauber_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Sauber16_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Sauber16_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Diniz_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Sauber_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Sauber_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Sauber_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Sauber_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Sauber_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\Blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "arrows": {
+      "ams2car": "formula_v10_g2_m",
+      "base_livery_driver1": "external_liveries/car_liveries/arrows/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/arrows/default.dds",
+      "livery_preview": "external_liveries/previews/arrows/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/arrows_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 196,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2864,
+            "Y": 752
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FF7900"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/arrows/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/arrows/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"2000 Arrows #18 - P. de la Rosa\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_Arrows18_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_Arrows18.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Arrows_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Arrows_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Arrows18_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Arrows18_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_delaRosa_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Arrows_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Arrows_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Arrows_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Arrows_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Arrows_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\Black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "minardi": {
+      "ams2car": "formula_v10_g2_b",
+      "base_livery_driver1": "external_liveries/car_liveries/minardi/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/minardi/default.dds",
+      "livery_preview": "external_liveries/previews/minardi/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/minardi_side_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 198,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 808,
+            "Y": 1478
+          },
+          "rotation": "Deg0",
+          "fill_color": "#DEE739"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/minardi_side_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 194,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1082,
+            "Y": 2136
+          },
+          "rotation": "Deg180",
+          "fill_color": "#DEE739"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/minardi_wing_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 194,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1928,
+            "Y": 3592
+          },
+          "rotation": "Deg0",
+          "fill_color": "#DEE739"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/minardi_wing_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 202,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2948,
+            "Y": 3592
+          },
+          "rotation": "Deg0",
+          "fill_color": "#DEE739"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/minardi/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"2000 Minardi #20 - M. Gené\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_Minardi20_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_Minardi20.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Minardi_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_Minardi_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Minardi20_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_Minardi20_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Gene_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Minardi_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Minardi_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Minardi_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Minardi_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_Minardi_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "bar": {
+      "ams2car": "formula_v10_g2_m",
+      "base_livery_driver1": "external_liveries/car_liveries/bar/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/bar/default.dds",
+      "livery_preview": "external_liveries/previews/bar/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/bar_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 186,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2696,
+            "Y": 750
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FFFCFC"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/bar_plate_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 138,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1702,
+            "Y": 3412
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFFCFC"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2000/cosmetics/numbers/bar_plate_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 146,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1214,
+            "Y": 3950
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFFCFC"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/bar/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/bar/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/bar/2000_BAR22_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/2000_BAR22_GBR.dds",
+          "livery_preview": "external_liveries/previews/bar/2000_BAR22_GBR_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/bar/2000_BAR22_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/2000_BAR22_GBR.dds",
+          "livery_preview": "external_liveries/previews/bar/2000_BAR22_GBR_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"2000 BAR #22 - J. Villeneuve\" BASELIVERY=\"SilverMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_BAR22_AUS_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_BAR22_AUS.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_BAR_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_BAR_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_BAR22_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_BAR22_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Villeneuve_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_BAR_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_BAR_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_BAR_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_BAR_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_BAR_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\Black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "alexander_wurz": {
+      "base_helmet_file": "../../Drivers/own_helmets/3f91cc14f0bb.png",
+      "base_visor_file": "../../Drivers/own_helmets/389386727db1.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/wurz.png"
+    },
+    "david_coulthard": {
+      "base_helmet_file": "../../Drivers/own_helmets/8aa9c60bcad3.png",
+      "base_visor_file": "../../Drivers/own_helmets/f6e18d427fb4.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/coulthar.png"
+    },
+    "eddie_irvine": {
+      "base_helmet_file": "../../Drivers/own_helmets/939ec3b9e5a1.png",
+      "base_visor_file": "../../Drivers/own_helmets/54e1e332d7f2.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/irvine.png"
+    },
+    "gaston_mazzacane": {
+      "base_helmet_file": "../../Drivers/own_helmets/640b593bbc69.png",
+      "base_visor_file": "../../Drivers/own_helmets/d13dfa192636.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/mazzacan.png"
+    },
+    "giancarlo_fisichella": {
+      "base_helmet_file": "../../Drivers/own_helmets/0253375abd43.png",
+      "base_visor_file": "../../Drivers/own_helmets/8aa5d641b1df.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/fisiche.png"
+    },
+    "heinz_harald_frentzen": {
+      "base_helmet_file": "../../Drivers/own_helmets/da66af6cd797.png",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/frentzen.png"
+    },
+    "jacques_villeneuve": {
+      "base_helmet_file": "../../Drivers/own_helmets/7a7d8577c61c.png",
+      "base_visor_file": "../../Drivers/own_helmets/a4366d7aa764.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/villenej.png"
+    },
+    "jarno_trulli": {
+      "base_helmet_file": "../../Drivers/own_helmets/e0a9cfd822da.png",
+      "base_visor_file": "../../Drivers/own_helmets/8b9ef80faadb.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/trulli.png"
+    },
+    "jean_alesi": {
+      "base_helmet_file": "../../Drivers/own_helmets/de8aa49bb800.png",
+      "base_visor_file": "../../Drivers/own_helmets/d23d64c9dcdc.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/alesi.png"
+    },
+    "jenson_button": {
+      "base_helmet_file": "../../Drivers/own_helmets/7086a8d8bf35.png",
+      "base_visor_file": "../../Drivers/own_helmets/d13dfa192636.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/button.png"
+    },
+    "johnny_herbert": {
+      "base_helmet_file": "../../Drivers/own_helmets/92ffa8a2d3c0.png",
+      "base_visor_file": "../../Drivers/own_helmets/b39db2df7a4e.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/herbert.png"
+    },
+    "jos_verstappen": {
+      "base_helmet_file": "../../Drivers/own_helmets/a73549e5eada.png",
+      "base_visor_file": "../../Drivers/own_helmets/1ca797a535e5.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/verstapp.png"
+    },
+    "luciano_burti": {
+      "base_helmet_file": "../../Drivers/own_helmets/5a1de52313ca.png",
+      "base_visor_file": "../../Drivers/own_helmets/d13dfa192636.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/burti.png"
+    },
+    "marc_gene": {
+      "base_helmet_file": "../../Drivers/own_helmets/2e87a2b34341.png",
+      "base_visor_file": "../../Drivers/own_helmets/b856ae199942.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/gene.png"
+    },
+    "michael_schumacher": {
+      "base_helmet_file": "../../Drivers/own_helmets/755cd870a8f4.png",
+      "base_visor_file": "../../Drivers/own_helmets/2eafdcacc07d.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacm.png"
+    },
+    "mika_hakkinen": {
+      "base_helmet_file": "../../Drivers/own_helmets/fff5d6bf683a.png",
+      "base_visor_file": "../../Drivers/own_helmets/b9f1402df4fa.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/hakkinen.png"
+    },
+    "mika_salo": {
+      "base_helmet_file": "../../Drivers/own_helmets/82d2365eb129.png",
+      "base_visor_file": "../../Drivers/own_helmets/ecd9c280a2d3.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/salo.png"
+    },
+    "nick_heidfeld": {
+      "base_helmet_file": "../../Drivers/own_helmets/9cf47c16c39f.png",
+      "base_visor_file": "../../Drivers/own_helmets/d13dfa192636.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/heidfeld.png"
+    },
+    "pedro_de_la_rosa": {
+      "base_helmet_file": "../../Drivers/own_helmets/82d57e46aec2.png",
+      "base_visor_file": "../../Drivers/own_helmets/0d6c327e53a9.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/delarosa.png"
+    },
+    "pedro_diniz": {
+      "base_helmet_file": "../../Drivers/own_helmets/88be7d708879.png",
+      "base_visor_file": "../../Drivers/own_helmets/1d06f84a1b3a.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/diniz.png"
+    },
+    "ralf_schumacher": {
+      "base_helmet_file": "../../Drivers/own_helmets/ed5aed820b07.png",
+      "base_visor_file": "../../Drivers/own_helmets/e85295031307.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacr.png"
+    },
+    "ricardo_zonta": {
+      "base_helmet_file": "../../Drivers/own_helmets/5c86bb34c974.png",
+      "base_visor_file": "../../Drivers/own_helmets/e85295031307.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/zonta.png"
+    },
+    "rubens_barrichello": {
+      "base_helmet_file": "../../Drivers/own_helmets/4aa21999a431.png",
+      "base_visor_file": "../../Drivers/own_helmets/a442eccbb885.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/barrich.png"
+    },
+    "olivier_panis": {
+      "base_helmet_file": "../../Drivers/own_helmets/26a3eecceeab.png",
+      "base_visor_file": "../../Drivers/own_helmets/f6e18d427fb4.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/panis.png"
+    },
+    "luca_badoer": {
+      "base_helmet_file": "../../Drivers/own_helmets/c2de4a4d3526.png",
+      "base_visor_file": "../../Drivers/own_helmets/cf969aafdbfe.png",
+      "picture": "https://www.statsf1.com/pilotes/photos/badoer.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/ams2-f1-2000-season.46375/",
+    "name": "AMS2 F1 2000 Season",
+    "detect": [
+      "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/2000_Ferrari3_AUS.dds",
+      "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/2000_Ferrari3_GBR.dds",
+      "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/2000_Jaguar7_Irvine_AUS.dds",
+      "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/2000_Jaguar7_Irvine_FRA.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp416\\F1_Season_2000\\Previews\\2000_McLaren1_AUS_preview.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp416\\F1_Season_2000\\Previews\\2000_McLaren1_GBR_preview.dds",
+        "destinationPath": "external_liveries/previews/mclaren/2000_McLaren1_GBR_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp416\\F1_Season_2000\\Previews\\2000_McLaren1_FRA_preview.dds",
+        "destinationPath": "external_liveries/previews/mclaren/2000_McLaren1_FRA_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\2000_Ferrari3_AUS.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Previews\\2000_Ferrari3_AUS_preview.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_Ferrari_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_Ferrari_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_Ferrari_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_Ferrari_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Tires\\2000_Ferrari3_tires.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Tires/2000_Ferrari3_tires.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Tires\\2000_Ferrari3_tires_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Tires/2000_Ferrari3_tires_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_ferrari_torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_ferrari_torso.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_ferrari_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_ferrari_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_ferrari_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_ferrari_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_ferrari_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_ferrari_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\red_Sabelt_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/red_Sabelt_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Helmets\\99_MSchumacher_visor_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/99_MSchumacher_visor_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\2000_Ferrari3_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/2000_Ferrari3_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Previews\\2000_Ferrari3_GBR_preview.dds",
+        "destinationPath": "external_liveries/previews/ferrari/2000_Ferrari3_GBR_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\2000_Jaguar7_Irvine_AUS.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Previews\\2000_Jaguar7_Irvine_AUS_preview.dds",
+        "destinationPath": "external_liveries/previews/stewart/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_Jaguar_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_Jaguar_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_Jaguar_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_Jaguar_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Tires\\2000_Jaguar7_tires.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Tires/2000_Jaguar7_tires.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Tires\\2000_Jaguar7_tires_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Tires/2000_Jaguar7_tires_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_jaguar_torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_jaguar_torso.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_jaguar_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_jaguar_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_jaguar_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_jaguar_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_jaguar_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_jaguar_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\2000_Jaguar7_Irvine_FRA.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/2000_Jaguar7_Irvine_FRA.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Previews\\2000_Jaguar7_Irvine_FRA_preview.dds",
+        "destinationPath": "external_liveries/previews/stewart/2000_Jaguar7_Irvine_FRA_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\2000_Benetton11_AUS.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Previews\\2000_Benetton11_AUS_preview.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_Benetton_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_Benetton_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_Benetton_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_Benetton_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Tires\\2000_Benetton11_tires.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Tires/2000_Benetton11_tires.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Tires\\2000_Benetton11_tires_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Tires/2000_Benetton11_tires_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Benetton_torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Benetton_torso.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Benetton_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Benetton_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Benetton_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Benetton_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Benetton_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Benetton_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\2000_Benetton11_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/2000_Benetton11_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Previews\\2000_Benetton11_GBR_preview.dds",
+        "destinationPath": "external_liveries/previews/benetton/2000_Benetton11_GBR_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\2000_Sauber16.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Previews\\2000_Sauber16_preview.dds",
+        "destinationPath": "external_liveries/previews/sauber/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_Sauber_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_Sauber_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_Sauber_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_Sauber_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Tires\\2000_Sauber16_tires.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Tires/2000_Sauber16_tires.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Tires\\2000_Sauber16_tires_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Tires/2000_Sauber16_tires_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Sauber_torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Sauber_torso.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Sauber_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Sauber_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Sauber_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Sauber_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Sauber_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Sauber_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\Blue_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/Blue_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\2000_Minardi20.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Previews\\2000_Minardi20_preview.dds",
+        "destinationPath": "external_liveries/previews/minardi/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_Minardi_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_Minardi_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_Minardi_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_Minardi_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_rims_lowspec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_rims_lowspec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Rims/2000_rims_lowspec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Tires\\2000_Minardi20_tires.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Tires/2000_Minardi20_tires.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Tires\\2000_Minardi20_tires_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Tires/2000_Minardi20_tires_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Minardi_torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Minardi_torso.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Minardi_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Minardi_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Minardi_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Minardi_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_gloves_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_gloves_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\2000_Minardi_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/2000_Minardi_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Helmets\\helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_b\\F1_Season_2000\\Helmets\\2000_visor_spec_black.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_visor_spec_black.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_Jordan_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_Jordan_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_Jordan_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_Jordan_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Tires\\2000_Jordan5_tires.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Tires/2000_Jordan5_tires.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Tires\\2000_Jordan5_tires_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Tires/2000_Jordan5_tires_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_jordan_torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_jordan_torso.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_jordan_arms_Frentzen.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_jordan_arms_Frentzen.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_jordan_gloves_Frentzen.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_jordan_gloves_Frentzen.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_jordan_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_jordan_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Helmets\\2000_Jordan_visor_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Jordan_visor_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\2000_Jordan5_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/2000_Jordan5_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Previews\\2000_Jordan5_GBR_preview.dds",
+        "destinationPath": "external_liveries/previews/jordan/2000_Jordan5_GBR_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\2000_Williams9_EUR.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Previews\\2000_Williams9_EUR_preview.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_Williams_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_Williams_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_Williams_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_Williams_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Tires\\2000_Williams9_tires.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Tires/2000_Williams9_tires.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Tires\\2000_Williams9_tires_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Tires/2000_Williams9_tires_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_williams_torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_williams_torso.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_williams_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_williams_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_williams_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_williams_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_williams_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_williams_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\Blue_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/Blue_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\2000_Williams9_AUS.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/2000_Williams9_AUS.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Previews\\2000_Williams9_AUS_preview.dds",
+        "destinationPath": "external_liveries/previews/williams/2000_Williams9_AUS_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\2000_Williams9_FRA.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/2000_Williams9_FRA.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Previews\\2000_Williams9_FRA_preview.dds",
+        "destinationPath": "external_liveries/previews/williams/2000_Williams9_FRA_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\2000_Prost14_AUS.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Previews\\2000_Prost14_AUS_preview.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_Prost_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_Prost_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_Prost_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_Prost_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Tires\\2000_Prost14_tires.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Tires/2000_Prost14_tires.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Tires\\2000_Prost14_tires_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Tires/2000_Prost14_tires_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_Prost_torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_Prost_torso.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_Prost_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_Prost_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_Prost_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_Prost_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_Prost_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_Prost_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Helmets\\2000_Alesi_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Alesi_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Helmets\\2000_Alesi_Visor_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Alesi_Visor_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\2000_Prost14_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/2000_Prost14_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Previews\\2000_Prost14_GBR_preview.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/2000_Prost14_GBR_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\2000_Arrows18.dds",
+        "destinationPath": "external_liveries/car_liveries/arrows/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Previews\\2000_Arrows18_preview.dds",
+        "destinationPath": "external_liveries/previews/arrows/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_Arrows_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_Arrows_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_Arrows_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_Arrows_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Tires\\2000_Arrows18_tires.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Tires/2000_Arrows18_tires.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Tires\\2000_Arrows18_tires_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Tires/2000_Arrows18_tires_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_Arrows_torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_Arrows_torso.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_Arrows_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_Arrows_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_Arrows_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_Arrows_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_Arrows_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_Arrows_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\2000_BAR22_AUS.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Previews\\2000_BAR22_AUS_preview.dds",
+        "destinationPath": "external_liveries/previews/bar/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_BAR_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_BAR_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_BAR_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_BAR_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_rims_lowspec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_rims_lowspec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Rims/2000_rims_lowspec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Tires\\2000_BAR22_tires.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Tires/2000_BAR22_tires.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Tires\\2000_BAR22_tires_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Tires/2000_BAR22_tires_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_BAR_torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_BAR_torso.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_BAR_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_BAR_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_BAR_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_BAR_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_gloves_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_gloves_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\2000_BAR_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/2000_BAR_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Suits\\Black_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Suits/Black_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Helmets\\helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Helmets\\2000_visor_spec_black.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_visor_spec_black.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\2000_BAR22_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/2000_BAR22_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Previews\\2000_BAR22_GBR_preview.dds",
+        "destinationPath": "external_liveries/previews/bar/2000_BAR22_GBR_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\2000_Jordan5_AUS.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2000_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g2_m\\F1_Season_2000\\Previews\\2000_Jordan5_AUS_preview.dds",
+        "destinationPath": "external_liveries/previews/jordan/default.dds"
+      }
+    ],
+    "helmets": {
+      "ferrari": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_MSchumacher_helmet.dds",
+        "map": "sponsor_maps/ferrari.png",
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_MSchumacher_visor.dds"
+      },
+      "benetton": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_Fisichella_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_Fisichella_visor.dds"
+      },
+      "stewart": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_Irvine_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_Jaguar_visor.dds"
+      },
+      "sauber": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_Salo_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_Sauber_visor.dds"
+      },
+      "minardi": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_Gene_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_b/F1_Season_2000/Helmets/2000_Minardi_visor.dds"
+      },
+      "jordan": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Frentzen_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Jordan_visor.dds"
+      },
+      "williams": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_RSchumacher_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Williams_visor.dds"
+      },
+      "bar": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Villeneuve_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_BAR_visor.dds"
+      },
+      "ligier_prost": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Alesi_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Prost_visor.dds"
+      },
+      "arrows": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_delaRosa_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Arrows_visor.dds"
+      },
+      "mclaren": {
+        "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp416/F1_Season_2000/Helmets/2000_Hakkinen_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp416/F1_Season_2000/Helmets/2000_McLaren_visor.dds"
+      }
+    },
+    "helmet_model": "Modern"
+  }
+}

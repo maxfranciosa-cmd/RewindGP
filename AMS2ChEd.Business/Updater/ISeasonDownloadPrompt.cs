@@ -26,5 +26,11 @@ namespace AMS2ChEd.Business.Updater
         /// Returns true if they do.
         /// </summary>
         Task<bool> PromptArtworkOfferAsync(int year);
+
+        /// <summary>
+        /// Season is playable from the app's own data, and the app knows the community skin pack
+        /// its liveries come from. Offers to get and import it now. Returns true if it was imported.
+        /// </summary>
+        Task<bool> PromptSkinPackAsync(int year) => Task.FromResult(false);
     }
 }

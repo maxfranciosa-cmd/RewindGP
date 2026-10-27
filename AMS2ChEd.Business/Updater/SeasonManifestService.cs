@@ -25,6 +25,7 @@ namespace AMS2ChEd.Business.Updater
         private readonly ISeasonLoader _seasonLoader;
         private readonly Func<string, string> _readAllTextFunc;
         private readonly bool _forceUpdate;
+        private readonly ISkinPackImporter? _skinPacks;
 
         private List<SeasonManifestEntry>? _cache;
 
@@ -32,12 +33,14 @@ namespace AMS2ChEd.Business.Updater
             string manifestPath,
             ISeasonLoader seasonLoader,
             Func<string, string> readAllTextFunc,
-            bool forceUpdate)
+            bool forceUpdate,
+            ISkinPackImporter? skinPacks = null)
         {
             _manifestPath = manifestPath;
             _seasonLoader = seasonLoader;
             _readAllTextFunc = readAllTextFunc;
             _forceUpdate = forceUpdate;
+            _skinPacks = skinPacks;
         }
 
         // -------------------------------------------------------------------------
@@ -121,9 +124,14 @@ namespace AMS2ChEd.Business.Updater
             var entries = GetEntriesForYear(year);
             var entriesExist = entries.Any();
 
-            // a season the app ships data for is playable without its pack, which only adds artwork
+            // a season the app ships data for is playable without its pack, which only adds artwork;
+            // where the app knows the season's community skin pack, that replaces the pack
             if (!installed && HasBakedData(year))
+            {
+                if (_skinPacks?.HasSkinPack(year) == true)
+                    return _skinPacks.IsImported(year) ? SeasonAvailability.BakedSkinPackImported : SeasonAvailability.BakedSkinPackAvailable;
                 return entriesExist ? SeasonAvailability.BakedPackAvailable : SeasonAvailability.BakedOnly;
+            }
 
             if (!installed && !entriesExist) return SeasonAvailability.NotAvailable;
             if (!installed) return SeasonAvailability.NotInstalled;
