@@ -1,4 +1,5 @@
-﻿using System.Resources;
+﻿using Steamworks;
+using System.Resources;
 
 namespace AMS2ChEd.Resources
 {
@@ -1355,6 +1356,7 @@ namespace AMS2ChEd.Resources
 
         public static string PostRaceNewsWindow_Closing_Standard_WithAtLeastOneChampionshipDecided => ResourceManager.GetString(nameof(PostRaceNewsWindow_Closing_Standard_WithAtLeastOneChampionshipDecided))!;
 
-
+        public static string PostRaceNewsWindow_RacesWording_Singular => ResourceManager.GetString(nameof(PostRaceNewsWindow_RacesWording_Singular))!;
+        public static string PostRaceNewsWindow_RacesWording_Plural => ResourceManager.GetString(nameof(PostRaceNewsWindow_RacesWording_Plural))!;
     }
 }

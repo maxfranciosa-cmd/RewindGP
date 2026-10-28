@@ -188,6 +188,10 @@ namespace AMS2ChEd.Views
             bool isGrandSlam = winner.FastestLap == true &&
                 (raceResult.QualifyingResults ?? new List<SessionResult>()).Any(q => q.DriverId == winner.DriverId && q.Position == 1);
 
+            var remainingRoundsWordings = saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex == 1 ?
+                    Strings.PostRaceNewsWindow_RacesWording_Singular.Split(",").Select(s => $"1 {s}").ToArray() :
+                    Strings.PostRaceNewsWindow_RacesWording_Plural.Split(",").Select(s => $"{saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex} {s}").ToArray();
+
             // Set the headline
             // Championship-clinching headlines take priority over race headlines.
             if (_driversChampionshipDecided && _constructorsChampionshipDecided)
@@ -201,7 +205,7 @@ namespace AMS2ChEd.Views
                         Strings.PostRaceNewsWindow_Headline_BothChampions5_Format,
 
                     };
-                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _driversChampionName, _constructorsChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex);
+                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _driversChampionName, _constructorsChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]);
             }
             else if (_driversChampionshipDecided)
             {
@@ -214,7 +218,7 @@ namespace AMS2ChEd.Views
                         Strings.PostRaceNewsWindow_Headline_DriversChampion5_Format,
 
                     };
-                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _driversChampionName, _constructorsChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex);
+                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _driversChampionName, _constructorsChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]);
             }
             else if (_constructorsChampionshipDecided)
             {
@@ -227,7 +231,7 @@ namespace AMS2ChEd.Views
                         Strings.PostRaceNewsWindow_Headline_ConstructorsChampion5_Format,
 
                     };
-                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _constructorsChampionName, _driversChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex);
+                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _constructorsChampionName, _driversChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]);
             }
             else
             {
@@ -264,7 +268,7 @@ namespace AMS2ChEd.Views
                         Strings.PostRaceNewsWindow_Opening_BothChampions3_Format
                     };
 
-                article += string.Format(bothChampionshipsDecidedOpenings[random.Next(bothChampionshipsDecidedOpenings.Length)], _driversChampionName, _constructorsChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex) + "\n\n";
+                article += string.Format(bothChampionshipsDecidedOpenings[random.Next(bothChampionshipsDecidedOpenings.Length)], _driversChampionName, _constructorsChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]) + "\n\n";
             }
             else if (_driversChampionshipDecided)
             {
@@ -275,7 +279,7 @@ namespace AMS2ChEd.Views
                         Strings.PostRaceNewsWindow_Opening_DriversChampion3_Format
                     };
 
-                article += string.Format(driversChampionshipsDecidedOpenings[random.Next(driversChampionshipsDecidedOpenings.Length)], _driversChampionName, _constructorsChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex) + "\n\n";
+                article += string.Format(driversChampionshipsDecidedOpenings[random.Next(driversChampionshipsDecidedOpenings.Length)], _driversChampionName, _constructorsChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]) + "\n\n";
             }
             else if (_constructorsChampionshipDecided)
             {
@@ -286,7 +290,7 @@ namespace AMS2ChEd.Views
                         Strings.PostRaceNewsWindow_Opening_ConstructorsChampion3_Format
                     };
 
-                article += string.Format(constructorsChampionshipsDecidedOpenings[random.Next(constructorsChampionshipsDecidedOpenings.Length)], _constructorsChampionName, _driversChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex) + "\n\n";
+                article += string.Format(constructorsChampionshipsDecidedOpenings[random.Next(constructorsChampionshipsDecidedOpenings.Length)], _constructorsChampionName, _driversChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]) + "\n\n";
             }
             else
             {

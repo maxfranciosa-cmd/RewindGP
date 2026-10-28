@@ -4094,7 +4094,7 @@ The team chose to race on, as {0} would have wanted.</value>
     <value>{0} SEAL THE CONSTRUCTORS' CROWN WITH {2} RACES LEFT!</value>
   </data>
   <data name="PostRaceNewsWindow_Headline_ConstructorsChampion2_Format" xml:space="preserve">
-    <value>{0} ARE WORLD CHAMPIONS — {2} ROUNDS EARLY!</value>
+    <value>{0} ARE WORLD CHAMPIONS — {2} EARLY!</value>
   </data>
   <data name="PostRaceNewsWindow_Headline_ConstructorsChampion3_Format" xml:space="preserve">
     <value>{0} PUT THE TEAM TITLE BEYOND REACH!</value>
@@ -4109,7 +4109,7 @@ The team chose to race on, as {0} would have wanted.</value>
     <value>{0} AND {1} SEAL THE DEAL WITH {2} RACES TO SPARE!</value>
   </data>
   <data name="PostRaceNewsWindow_Headline_BothChampions2_Format" xml:space="preserve">
-    <value>A DOUBLE CROWN FOR {0} AND {1} — {2} ROUNDS EARLY!</value>
+    <value>A DOUBLE CROWN FOR {0} AND {1} — {2} EARLY!</value>
   </data>
   <data name="PostRaceNewsWindow_Headline_BothChampions3_Format" xml:space="preserve">
     <value>{0} TAKES THE DRIVERS' TITLE, {1} THE TEAMS' CROWN — {2} RACES LEFT!</value>
@@ -4153,5 +4153,11 @@ The team chose to race on, as {0} would have wanted.</value>
   </data>
   <data name="PostRaceNewsWindow_Closing_Standard_WithAtLeastOneChampionshipDecided" xml:space="preserve">
     <value>With the the championship already giving a verdict, the focus now shifts to the battles that remain. While the newly crowned champion can enjoy the achievement, there are still positions to fight for and points to collect before the season reaches its conclusion. The pressure may have eased at the top, but the action is far from over.</value>
+  </data>
+  <data name="PostRaceNewsWindow_RacesWording_Singular" xml:space="preserve">
+    <value>race,round</value>
+  </data>
+  <data name="PostRaceNewsWindow_RacesWording_Plural" xml:space="preserve">
+    <value>races,rounds</value>
   </data>
 </root>
