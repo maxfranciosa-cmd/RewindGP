@@ -40,5 +40,60 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 .Where(r => !discarded.Contains(r))
                 .Sum(r => r.RaceResults.Where(sr => sr.DriverId == driverId).Sum(sr => sr.Points));
         }
+        
+        public static bool HasDriverChampionshipClinched(ISaveGame game)
+        {
+            if (game.NextGpIndex >= game.CurrentSeason.Races.Count() - 1) return true;
+
+            var first2DriversWithTheirTallies = game.CurrentDriverStandings
+                                    .Take(2)
+                                    .OrderBy(d => d.Position)
+                                    .Select(d => new { d.DriverId, d.PositionsTally, d.Points })
+                                    .ToDictionary(d => d.DriverId, d => d);
+
+            var firstDriverId = first2DriversWithTheirTallies.First().Key;
+            var secondDriverId = first2DriversWithTheirTallies.Last().Key;
+
+            var resultsFromFirstTwoDrivers = game.GrandPrixResults
+                                                    .Where(r => r.Year == game.CurrentSeason.Year && r.RaceResults.Any(sr => first2DriversWithTheirTallies.Select(d => d.DriverId).Contains(sr.DriverId)))
+                                                    .SelectMany(r => r.RaceResults)
+                                                    .ToDictionary(r => r.DriverId, r => r.Points);
+
+            var firstDriverResults = resultsFromFirstTwoDrivers[firstDriverId];
+            var secondDriverResults = resultsFromFirstTwoDrivers[secondDriverId];
+            var remainingRaces = game.CurrentSeason.Races.Skip(game.NextGpIndex + 1);
+
+            // add the maximum amount of points for the driver in second place
+            foreach(var race in remainingRaces)
+            {
+                var racePointsSystem = race.PointsSystem ?? game.CurrentSeason.PointsSystem;
+                // add the maximum points for this race to the second place driver's total
+                var maximumPoints = racePointsSystem.Values.Max() + (race.PointsForFastestLap ?? 0);
+
+                resultsFromFirstTwoDrivers[secondDriverId].Add(maximumPoints);
+                resultsFromFirstTwoDrivers[firstDriverId].Add(0);
+
+                // set the position as first for the second place driver, and add the maximum position without points to the first place driver's in their respective position tally
+                var maxPositionWithoutPoints = racePointsSystem.Keys.Select(k => int.Parse(k)).Min();
+
+                first2DriversWithTheirTallies[secondDriverId].PositionsTally.AddPosition(1);
+                first2DriversWithTheirTallies[firstDriverId].PositionsTally.AddPosition(maxPositionWithoutPoints);
+            }
+
+            // order the results by points descending and take the top N results (where N is the number of races to count towards the championship)
+            var totalPointsForFirstPlaceDriver = resultsFromFirstTwoDrivers[firstDriverId]
+                                                        .Take(Math.Max(game.CurrentSeason.RacesToCountTowardsChampionship ?? 0,  game.CurrentSeason.Races.Count()))
+                                                        .Sum();
+            var totalPointsForSecondPlaceDriver = resultsFromFirstTwoDrivers[secondDriverId]
+                                                        .Take(Math.Max(game.CurrentSeason.RacesToCountTowardsChampionship ?? 0,  game.CurrentSeason.Races.Count()))
+                                                        .Sum();
+
+            // if the first place driver is still ahead, return true. if are less, return false;
+            if (totalPointsForFirstPlaceDriver > totalPointsForSecondPlaceDriver) return true;
+            if (totalPointsForFirstPlaceDriver < totalPointsForSecondPlaceDriver) return false;
+
+            // if they are tied, if the first place driver's championship tally is greater, return true, otherwise return false
+            return first2DriversWithTheirTallies[firstDriverId].PositionsTally > first2DriversWithTheirTallies[secondDriverId].PositionsTally;
+        }
     }
 }
