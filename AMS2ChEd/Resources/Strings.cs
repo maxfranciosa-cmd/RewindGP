@@ -113,6 +113,7 @@ namespace AMS2ChEd.Resources
         public static string DriverStandingsGridWindow_Title => ResourceManager.GetString(nameof(DriverStandingsGridWindow_Title))!;
         public static string DriverStandingsGridWindow_Header => ResourceManager.GetString(nameof(DriverStandingsGridWindow_Header))!;
         public static string DriverStandingsGridWindow_SeasonYear_Format => ResourceManager.GetString(nameof(DriverStandingsGridWindow_SeasonYear_Format))!;
+        public static string DriverStandingsGridWindow_NumberOfRacesCountTowardsChampionship => ResourceManager.GetString(nameof(DriverStandingsGridWindow_NumberOfRacesCountTowardsChampionship))!;
         public static string DriverStandingsGridWindow_FooterText => ResourceManager.GetString(nameof(DriverStandingsGridWindow_FooterText))!;
         public static string DriverStandingsGridWindow_DriverColumnHeader => ResourceManager.GetString(nameof(DriverStandingsGridWindow_DriverColumnHeader))!;
 

@@ -66,6 +66,12 @@
                            FontSize="12"
                            HorizontalAlignment="Center"
                            Margin="0,0,0,10"/>
+                
+                <TextBlock x:Name="NumberOfRacesCountTowardsChampionshipText"
+                           FontFamily="Arial"
+                           FontSize="12"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10"/>
 
                 <!-- Bottom border -->
                 <Rectangle Height="2" Fill="Black" Margin="0,0,0,5"/>

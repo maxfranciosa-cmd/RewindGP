@@ -24,6 +24,17 @@ namespace AMS2ChEd
                 SeasonYearText.Text = string.Format(Strings.DriverStandingsGridWindow_SeasonYear_Format, saveGame.CurrentSeason.Year);
             }
 
+            // Set the label for the "discarded" note based on the season's scoring rules
+            if (saveGame?.CurrentSeason.RacesToCountTowardsChampionship > 0 && saveGame?.CurrentSeason.RacesToCountTowardsChampionship.Value < saveGame.CurrentSeason.Races.Count())
+            {
+                NumberOfRacesCountTowardsChampionshipText.Text = string.Format(Strings.DriverStandingsGridWindow_NumberOfRacesCountTowardsChampionship, saveGame.CurrentSeason.RacesToCountTowardsChampionship.Value); 
+                
+            }
+            else
+            {
+                NumberOfRacesCountTowardsChampionshipText.Visibility = Visibility.Collapsed;
+            }
+
             PopulateGrid(saveGame);
         }
 
