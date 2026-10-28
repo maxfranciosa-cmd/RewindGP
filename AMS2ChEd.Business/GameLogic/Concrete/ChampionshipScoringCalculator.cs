@@ -41,6 +41,58 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 .Sum(r => r.RaceResults.Where(sr => sr.DriverId == driverId).Sum(sr => sr.Points));
         }
         
+        public static bool HasConstructorChampionshipClinched(ISaveGame game)
+        {
+            if (game.NextGpIndex >= game.CurrentSeason.Races.Count() - 1) return true;
+
+            var first2TeamsWithTheirTallies = game.CurrentConstructorStandings
+                                    .Take(2)
+                                    .OrderBy(d => d.Position)
+                                    .Select(d => new { d.TeamId, d.PositionsTally, d.Points })
+                                    .ToDictionary(d => d.TeamId, d => d);
+
+            var firstTeamId = first2TeamsWithTheirTallies.First().Key;
+            var secondTeamId = first2TeamsWithTheirTallies.Last().Key;
+
+            var remainingRaces = game.CurrentSeason.Races.Skip(game.NextGpIndex + 1);
+
+            // add the maximum amount of points for the team in second place
+            var pointsToAddToSecondPlaceTeam = 0.0;
+            foreach (var race in remainingRaces)
+            {
+                var racePointsSystem = race.PointsSystem ?? game.CurrentSeason.PointsSystem;
+
+
+                // add the maximum points for this race to the second place team's total
+                var maximumPoints = racePointsSystem.Values.OrderDescending().Take(2).Sum() + (race.PointsForFastestLap ?? 0);
+
+                pointsToAddToSecondPlaceTeam += maximumPoints;
+
+                // set the position as first for the second place team, and add the maximum positions without points to the first place team's in their respective position tally
+                var maxPositionWithoutPoints = racePointsSystem.Keys.Select(k => int.Parse(k)).Max() + 1;
+
+                first2TeamsWithTheirTallies[secondTeamId].PositionsTally
+                        .AddPosition(1)
+                        .AddPosition(2);
+
+                first2TeamsWithTheirTallies[firstTeamId]
+                       .PositionsTally
+                       .AddPosition(maxPositionWithoutPoints)
+                       .AddPosition(maxPositionWithoutPoints + 1);
+            }
+
+            // order the results by points descending and take the top N results (where N is the number of races to count towards the championship)
+            var totalPointsForFirstPlaceTeam = first2TeamsWithTheirTallies[firstTeamId].Points;
+            var totalPointsForSecondPlaceTeam = first2TeamsWithTheirTallies[firstTeamId].Points + pointsToAddToSecondPlaceTeam;
+
+            // if the first place driver is still ahead, return true. if are less, return false;
+            if (totalPointsForFirstPlaceTeam > totalPointsForSecondPlaceTeam) return true;
+            if (totalPointsForFirstPlaceTeam < totalPointsForSecondPlaceTeam) return false;
+
+            // if they are tied, if the first place driver's championship tally is greater, return true, otherwise return false
+            return first2TeamsWithTheirTallies[firstTeamId].PositionsTally > first2TeamsWithTheirTallies[secondTeamId].PositionsTally;
+        }
+
         public static bool HasDriverChampionshipClinched(ISaveGame game)
         {
             if (game.NextGpIndex >= game.CurrentSeason.Races.Count() - 1) return true;
@@ -55,16 +107,17 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var secondDriverId = first2DriversWithTheirTallies.Last().Key;
 
             var resultsFromFirstTwoDrivers = game.GrandPrixResults
-                                                    .Where(r => r.Year == game.CurrentSeason.Year && r.RaceResults.Any(sr => first2DriversWithTheirTallies.Select(d => d.DriverId).Contains(sr.DriverId)))
+                                                    .Where(r => r.Year == game.CurrentSeason.Year && r.RaceResults.Any(sr => first2DriversWithTheirTallies.Keys.Contains(sr.DriverId)))
                                                     .SelectMany(r => r.RaceResults)
-                                                    .ToDictionary(r => r.DriverId, r => r.Points);
+                                                    .GroupBy(r => r.DriverId)
+                                                    .ToDictionary(g => g.Key, g => g.Select(sr => sr.Points).ToList());
 
             var firstDriverResults = resultsFromFirstTwoDrivers[firstDriverId];
             var secondDriverResults = resultsFromFirstTwoDrivers[secondDriverId];
             var remainingRaces = game.CurrentSeason.Races.Skip(game.NextGpIndex + 1);
 
             // add the maximum amount of points for the driver in second place
-            foreach(var race in remainingRaces)
+            foreach (var race in remainingRaces)
             {
                 var racePointsSystem = race.PointsSystem ?? game.CurrentSeason.PointsSystem;
                 // add the maximum points for this race to the second place driver's total
@@ -74,7 +127,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 resultsFromFirstTwoDrivers[firstDriverId].Add(0);
 
                 // set the position as first for the second place driver, and add the maximum position without points to the first place driver's in their respective position tally
-                var maxPositionWithoutPoints = racePointsSystem.Keys.Select(k => int.Parse(k)).Min();
+                var maxPositionWithoutPoints = racePointsSystem.Keys.Select(k => int.Parse(k)).Max() + 1;
 
                 first2DriversWithTheirTallies[secondDriverId].PositionsTally.AddPosition(1);
                 first2DriversWithTheirTallies[firstDriverId].PositionsTally.AddPosition(maxPositionWithoutPoints);
@@ -82,10 +135,10 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             // order the results by points descending and take the top N results (where N is the number of races to count towards the championship)
             var totalPointsForFirstPlaceDriver = resultsFromFirstTwoDrivers[firstDriverId]
-                                                        .Take(Math.Max(game.CurrentSeason.RacesToCountTowardsChampionship ?? 0,  game.CurrentSeason.Races.Count()))
+                                                        .Take(Math.Max(game.CurrentSeason.RacesToCountTowardsChampionship ?? 0, game.CurrentSeason.Races.Count()))
                                                         .Sum();
             var totalPointsForSecondPlaceDriver = resultsFromFirstTwoDrivers[secondDriverId]
-                                                        .Take(Math.Max(game.CurrentSeason.RacesToCountTowardsChampionship ?? 0,  game.CurrentSeason.Races.Count()))
+                                                        .Take(Math.Max(game.CurrentSeason.RacesToCountTowardsChampionship ?? 0, game.CurrentSeason.Races.Count()))
                                                         .Sum();
 
             // if the first place driver is still ahead, return true. if are less, return false;
