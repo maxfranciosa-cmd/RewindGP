@@ -309,12 +309,16 @@ namespace AMS2ChEd.Views
             }
 
             // Bad result for a driver who came into the weekend in the championship's top 3
-            string topThreeBadResultParagraph = GenerateTopThreeBadResultParagraph(saveGame, raceResult, previousTopThreeDriverIds);
-            if (!string.IsNullOrEmpty(topThreeBadResultParagraph))
+            if (!isFirstRace)
             {
-                article += topThreeBadResultParagraph;
-                article += "\n\n";
+                string topThreeBadResultParagraph = GenerateTopThreeBadResultParagraph(saveGame, raceResult, previousTopThreeDriverIds);
+                if (!string.IsNullOrEmpty(topThreeBadResultParagraph))
+                {
+                    article += topThreeBadResultParagraph;
+                    article += "\n\n";
+                }
             }
+            
 
             // Heavy crashes: the injured and the lucky
             string crashParagraph = GenerateCrashParagraph(saveGame, raceResult, crashNews);
