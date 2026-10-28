@@ -1311,5 +1311,50 @@ namespace AMS2ChEd.Resources
         public static string PostRaceNewsWindow_Crash_Out_Races_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Crash_Out_Races_Format))!;
         public static string PostRaceNewsWindow_Crash_Out_SeasonOver_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Crash_Out_SeasonOver_Format))!;
         public static string CrashReviewWindow_Detail_DroveOn_Format => ResourceManager.GetString(nameof(CrashReviewWindow_Detail_DroveOn_Format))!;
+        public static string PostRaceNewsWindow_Headline_DriversChampion1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_DriversChampion1_Format))!;
+        public static string PostRaceNewsWindow_Headline_DriversChampion2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_DriversChampion2_Format))!;
+        public static string PostRaceNewsWindow_Headline_DriversChampion3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_DriversChampion3_Format))!;
+        public static string PostRaceNewsWindow_Headline_DriversChampion4_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_DriversChampion4_Format))!;
+        public static string PostRaceNewsWindow_Headline_DriversChampion5_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_DriversChampion5_Format))!;
+
+        public static string PostRaceNewsWindow_Headline_ConstructorsChampion1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_ConstructorsChampion1_Format))!;
+        public static string PostRaceNewsWindow_Headline_ConstructorsChampion2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_ConstructorsChampion2_Format))!;
+        public static string PostRaceNewsWindow_Headline_ConstructorsChampion3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_ConstructorsChampion3_Format))!;
+        public static string PostRaceNewsWindow_Headline_ConstructorsChampion4_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_ConstructorsChampion4_Format))!;
+        public static string PostRaceNewsWindow_Headline_ConstructorsChampion5_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_ConstructorsChampion5_Format))!;
+
+        public static string PostRaceNewsWindow_Headline_BothChampions1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_BothChampions1_Format))!;
+        public static string PostRaceNewsWindow_Headline_BothChampions2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_BothChampions2_Format))!;
+        public static string PostRaceNewsWindow_Headline_BothChampions3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_BothChampions3_Format))!;
+        public static string PostRaceNewsWindow_Headline_BothChampions4_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_BothChampions4_Format))!;
+        public static string PostRaceNewsWindow_Headline_BothChampions5_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Headline_BothChampions5_Format))!;
+        public static string PostRaceNewsWindow_Opening_DriversChampion1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_DriversChampion1_Format))!;
+        public static string PostRaceNewsWindow_Opening_DriversChampion2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_DriversChampion2_Format))!;
+        public static string PostRaceNewsWindow_Opening_DriversChampion3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_DriversChampion3_Format))!;
+
+        public static string PostRaceNewsWindow_Opening_ConstructorsChampion1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_ConstructorsChampion1_Format))!;
+        public static string PostRaceNewsWindow_Opening_ConstructorsChampion2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_ConstructorsChampion2_Format))!;
+        public static string PostRaceNewsWindow_Opening_ConstructorsChampion3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_ConstructorsChampion3_Format))!;
+
+        public static string PostRaceNewsWindow_Opening_BothChampions1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_BothChampions1_Format))!;
+        public static string PostRaceNewsWindow_Opening_BothChampions2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_BothChampions2_Format))!;
+        public static string PostRaceNewsWindow_Opening_BothChampions3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_BothChampions3_Format))!;
+        public static string PostRaceNewsWindow_ChampUpdate_DriversChampion1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampUpdate_DriversChampion1_Format))!;
+        public static string PostRaceNewsWindow_ChampUpdate_DriversChampion2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampUpdate_DriversChampion2_Format))!;
+        public static string PostRaceNewsWindow_ChampUpdate_DriversChampion3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampUpdate_DriversChampion3_Format))!;
+
+        public static string PostRaceNewsWindow_ChampUpdate_ConstructorsChampion1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampUpdate_ConstructorsChampion1_Format))!;
+        public static string PostRaceNewsWindow_ChampUpdate_ConstructorsChampion2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampUpdate_ConstructorsChampion2_Format))!;
+        public static string PostRaceNewsWindow_ChampUpdate_ConstructorsChampion3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampUpdate_ConstructorsChampion3_Format))!;
+
+        public static string PostRaceNewsWindow_ChampUpdate_BothChampions1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampUpdate_BothChampions1_Format))!;
+        public static string PostRaceNewsWindow_ChampUpdate_BothChampions2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampUpdate_BothChampions2_Format))!;
+        public static string PostRaceNewsWindow_ChampUpdate_BothChampions3_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampUpdate_BothChampions3_Format))!;
+
+        public static string PostRaceNewsWindow_Closing_LastRace => ResourceManager.GetString(nameof(PostRaceNewsWindow_Closing_LastRace))!;
+
+        public static string PostRaceNewsWindow_Closing_Standard_WithAtLeastOneChampionshipDecided => ResourceManager.GetString(nameof(PostRaceNewsWindow_Closing_Standard_WithAtLeastOneChampionshipDecided))!;
+
+
     }
 }

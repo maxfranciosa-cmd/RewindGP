@@ -18,7 +18,10 @@ namespace AMS2ChEd.Views
     {
         // null without an all-time records loader: accolades then only count the save's own results
         private readonly AllTimeRecords _allTimeRecords;
-
+        private readonly bool _driversChampionshipDecided;
+        private readonly bool _constructorsChampionshipDecided;
+        private readonly string _driversChampionName;
+        private readonly string _constructorsChampionName;
         public PostRaceNewsWindow(
             ISaveGame saveGame,
             GrandPrixResult raceResult,
@@ -32,6 +35,11 @@ namespace AMS2ChEd.Views
             InitializeComponent();
 
             _allTimeRecords = allTimeRecordsLoader?.Load();
+            _driversChampionshipDecided = ChampionshipScoringCalculator.HasDriverChampionshipClinched(saveGame);
+            _constructorsChampionshipDecided = ChampionshipScoringCalculator.HasConstructorChampionshipClinched(saveGame);
+            _driversChampionName = _driversChampionshipDecided ? GetDriverName(saveGame, saveGame.CurrentDriverStandings.FirstOrDefault(s => s.Position == 1)?.DriverId) : null;
+            _constructorsChampionName = _constructorsChampionshipDecided ? GetTeamName(saveGame, saveGame.CurrentConstructorStandings.FirstOrDefault(s => s.Position == 1)?.TeamId) : null;
+
             crashNews ??= Array.Empty<CrashNewsItem>();
 
             // Set the date
@@ -181,7 +189,51 @@ namespace AMS2ChEd.Views
                 (raceResult.QualifyingResults ?? new List<SessionResult>()).Any(q => q.DriverId == winner.DriverId && q.Position == 1);
 
             // Set the headline
-            HeadlineText.Text = BuildHeadline(winnerName, raceResult, isMaidenWin, isGrandSlam);
+            // Championship-clinching headlines take priority over race headlines.
+            if (_driversChampionshipDecided && _constructorsChampionshipDecided)
+            {
+                var possibleHeadlines = new[]
+                    {
+                        Strings.PostRaceNewsWindow_Headline_BothChampions1_Format,
+                        Strings.PostRaceNewsWindow_Headline_BothChampions2_Format,
+                        Strings.PostRaceNewsWindow_Headline_BothChampions3_Format,
+                        Strings.PostRaceNewsWindow_Headline_BothChampions4_Format,
+                        Strings.PostRaceNewsWindow_Headline_BothChampions5_Format,
+
+                    };
+                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _driversChampionName, _constructorsChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex);
+            }
+            else if (_driversChampionshipDecided)
+            {
+                var possibleHeadlines = new[]
+                    {
+                        Strings.PostRaceNewsWindow_Headline_DriversChampion1_Format,
+                        Strings.PostRaceNewsWindow_Headline_DriversChampion2_Format,
+                        Strings.PostRaceNewsWindow_Headline_DriversChampion3_Format,
+                        Strings.PostRaceNewsWindow_Headline_DriversChampion4_Format,
+                        Strings.PostRaceNewsWindow_Headline_DriversChampion5_Format,
+
+                    };
+                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _driversChampionName, _constructorsChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex);
+            }
+            else if (_constructorsChampionshipDecided)
+            {
+                var possibleHeadlines = new[]
+                    {
+                        Strings.PostRaceNewsWindow_Headline_ConstructorsChampion1_Format,
+                        Strings.PostRaceNewsWindow_Headline_ConstructorsChampion2_Format,
+                        Strings.PostRaceNewsWindow_Headline_ConstructorsChampion3_Format,
+                        Strings.PostRaceNewsWindow_Headline_ConstructorsChampion4_Format,
+                        Strings.PostRaceNewsWindow_Headline_ConstructorsChampion5_Format,
+
+                    };
+                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _constructorsChampionName, _driversChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex);
+            }
+            else
+            {
+                // Preserve your existing race-specific headline.
+                HeadlineText.Text = BuildHeadline(winnerName, raceResult, isMaidenWin, isGrandSlam);
+            }
 
             string secondName = second != null ? GetDriverName(saveGame, second.DriverId) : Strings.PostRaceNewsWindow_UnknownName;
             string secondTeam = second != null ? GetTeamName(saveGame, second.TeamId) : Strings.PostRaceNewsWindow_UnknownName;
@@ -203,54 +255,89 @@ namespace AMS2ChEd.Views
             // regardless of English word order, so each language's resx template can freely reorder.
             object[] openingArgs = { raceResult.Year, raceResult.GrandPrixName, winnerName, winnerTeam, secondName, secondTeam, thirdName, thirdTeam };
 
-            if (isFirstRace)
+            if (_driversChampionshipDecided && _constructorsChampionshipDecided)
             {
-                var firstRaceOpenings = new[]
-                {
-                    Strings.PostRaceNewsWindow_Opening_FirstRace1_Format,
-                    Strings.PostRaceNewsWindow_Opening_FirstRace2_Format,
-                    Strings.PostRaceNewsWindow_Opening_FirstRace3_Format,
-                    Strings.PostRaceNewsWindow_Opening_FirstRace4_Format,
-                    Strings.PostRaceNewsWindow_Opening_FirstRace5_Format,
-                    Strings.PostRaceNewsWindow_Opening_FirstRace6_Format
-                };
-
-                article += string.Format(firstRaceOpenings[random.Next(firstRaceOpenings.Length)], openingArgs) + "\n\n";
-            }
-            else if (isLastRace)
-            {
-                // Check if winner is also the champion
-                bool isChampion = winnerNewPosition == 1;
-
-                if (isChampion)
-                {
-                    var championFinaleOpenings = new[]
+                var bothChampionshipsDecidedOpenings = new[]
                     {
+                        Strings.PostRaceNewsWindow_Opening_BothChampions1_Format,
+                        Strings.PostRaceNewsWindow_Opening_BothChampions2_Format,
+                        Strings.PostRaceNewsWindow_Opening_BothChampions3_Format
+                    };
+
+                article += string.Format(bothChampionshipsDecidedOpenings[random.Next(bothChampionshipsDecidedOpenings.Length)], _driversChampionName, _constructorsChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex) + "\n\n";
+            }
+            else if (_driversChampionshipDecided)
+            {
+                var driversChampionshipsDecidedOpenings = new[]
+                    {
+                        Strings.PostRaceNewsWindow_Opening_DriversChampion1_Format,
+                        Strings.PostRaceNewsWindow_Opening_DriversChampion2_Format,
+                        Strings.PostRaceNewsWindow_Opening_DriversChampion3_Format
+                    };
+
+                article += string.Format(driversChampionshipsDecidedOpenings[random.Next(driversChampionshipsDecidedOpenings.Length)], _driversChampionName, _constructorsChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex) + "\n\n";
+            }
+            else if (_constructorsChampionshipDecided)
+            {
+                var constructorsChampionshipsDecidedOpenings = new[]
+                    {
+                        Strings.PostRaceNewsWindow_Opening_ConstructorsChampion1_Format,
+                        Strings.PostRaceNewsWindow_Opening_ConstructorsChampion2_Format,
+                        Strings.PostRaceNewsWindow_Opening_ConstructorsChampion3_Format
+                    };
+
+                article += string.Format(constructorsChampionshipsDecidedOpenings[random.Next(constructorsChampionshipsDecidedOpenings.Length)], _constructorsChampionName, _driversChampionName, saveGame.CurrentSeason.Races.Count() - saveGame.NextGpIndex) + "\n\n";
+            }
+            else
+            {
+                if (isFirstRace)
+                {
+                    var firstRaceOpenings = new[]
+                    {
+                        Strings.PostRaceNewsWindow_Opening_FirstRace1_Format,
+                        Strings.PostRaceNewsWindow_Opening_FirstRace2_Format,
+                        Strings.PostRaceNewsWindow_Opening_FirstRace3_Format,
+                        Strings.PostRaceNewsWindow_Opening_FirstRace4_Format,
+                        Strings.PostRaceNewsWindow_Opening_FirstRace5_Format,
+                        Strings.PostRaceNewsWindow_Opening_FirstRace6_Format
+                    };
+
+                    article += string.Format(firstRaceOpenings[random.Next(firstRaceOpenings.Length)], openingArgs) + "\n\n";
+                }
+                else if (isLastRace)
+                {
+                    // Check if winner is also the champion
+                    bool isChampion = winnerNewPosition == 1;
+
+                    if (isChampion)
+                    {
+                        var championFinaleOpenings = new[]
+                        {
                         Strings.PostRaceNewsWindow_Opening_FinaleChampion1_Format,
                         Strings.PostRaceNewsWindow_Opening_FinaleChampion2_Format,
                         Strings.PostRaceNewsWindow_Opening_FinaleChampion3_Format,
                         Strings.PostRaceNewsWindow_Opening_FinaleChampion4_Format
                     };
 
-                    article += string.Format(championFinaleOpenings[random.Next(championFinaleOpenings.Length)], openingArgs) + "\n\n";
-                }
-                else
-                {
-                    var finaleOpenings = new[]
+                        article += string.Format(championFinaleOpenings[random.Next(championFinaleOpenings.Length)], openingArgs) + "\n\n";
+                    }
+                    else
                     {
+                        var finaleOpenings = new[]
+                        {
                         Strings.PostRaceNewsWindow_Opening_FinaleNonChampion1_Format,
                         Strings.PostRaceNewsWindow_Opening_FinaleNonChampion2_Format,
                         Strings.PostRaceNewsWindow_Opening_FinaleNonChampion3_Format,
                         Strings.PostRaceNewsWindow_Opening_FinaleNonChampion4_Format
                     };
 
-                    article += string.Format(finaleOpenings[random.Next(finaleOpenings.Length)], openingArgs) + "\n\n";
+                        article += string.Format(finaleOpenings[random.Next(finaleOpenings.Length)], openingArgs) + "\n\n";
+                    }
                 }
-            }
-            else
-            {
-                var standardOpenings = new[]
+                else
                 {
+                    var standardOpenings = new[]
+                    {
                     Strings.PostRaceNewsWindow_Opening_Standard1_Format,
                     Strings.PostRaceNewsWindow_Opening_Standard2_Format,
                     Strings.PostRaceNewsWindow_Opening_Standard3_Format,
@@ -261,7 +348,8 @@ namespace AMS2ChEd.Views
                     Strings.PostRaceNewsWindow_Opening_Standard8_Format
                 };
 
-                article += string.Format(standardOpenings[random.Next(standardOpenings.Length)], openingArgs) + "\n\n";
+                    article += string.Format(standardOpenings[random.Next(standardOpenings.Length)], openingArgs) + "\n\n";
+                }
             }
 
             // Winner's performance headline based on reputation
@@ -328,8 +416,17 @@ namespace AMS2ChEd.Views
                 article += "\n\n";
             }
 
+            article += "\n\n";
             // Championship implications
-            article += GenerateChampionshipUpdate(winnerName, winnerNewPosition, previousWinnerStandingPosition, isFirstRace, isLastRace);
+            if (!_driversChampionshipDecided)
+            {
+                article += GenerateChampionshipUpdate(
+                    winnerName,
+                    winnerNewPosition,
+                    previousWinnerStandingPosition,
+                    isFirstRace,
+                    isLastRace);
+            }
             article += "\n\n";
 
             // Current championship standings (top 3)
@@ -355,6 +452,14 @@ namespace AMS2ChEd.Views
             if (isFirstRace)
             {
                 article += Strings.PostRaceNewsWindow_Closing_FirstRace;
+            }
+            else if (isLastRace)
+            {
+                article += Strings.PostRaceNewsWindow_Closing_LastRace;
+            }
+            else if (_driversChampionshipDecided || _constructorsChampionshipDecided)
+            {
+                article += Strings.PostRaceNewsWindow_Closing_Standard_WithAtLeastOneChampionshipDecided;
             }
             else
             {
