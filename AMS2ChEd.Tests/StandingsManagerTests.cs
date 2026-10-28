@@ -20,7 +20,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         [TestMethod]
         public void UpdateStandings_NullRacesToCount_SumsAllPointsLikeBefore()
         {
-            var saveGame = CreateTestSaveGame(2024, racesToCount: null, raceCount: 4);
+            var saveGame = CreateTestSaveGame(2024, racesToCount: null, raceCount: 4, teamIds: new[] { "T1" });
 
             PlayRace(saveGame, 0, ("D1", "T1", 1), ("D2", "T1", 2)); // D1:10 D2:8
             PlayRace(saveGame, 1, ("D1", "T1", 2), ("D2", "T1", 1)); // D1:8  D2:10
@@ -37,7 +37,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         [TestMethod]
         public void UpdateStandings_MoreRacesPlayedThanRacesToCount_DropsWorstResults()
         {
-            var saveGame = CreateTestSaveGame(2024, racesToCount: 3, raceCount: 5);
+            var saveGame = CreateTestSaveGame(2024, racesToCount: 3, raceCount: 5, teamIds: new[] { "T1" });
 
             PlayRace(saveGame, 0, ("D1", "T1", 1)); // 10
             PlayRace(saveGame, 1, ("D1", "T1", 2)); // 8
@@ -53,7 +53,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         [TestMethod]
         public void UpdateStandings_FewerRacesPlayedThanRacesToCount_NothingDroppedYet()
         {
-            var saveGame = CreateTestSaveGame(2024, racesToCount: 5, raceCount: 5);
+            var saveGame = CreateTestSaveGame(2024, racesToCount: 5, raceCount: 5, teamIds: new[] { "T1" });
 
             PlayRace(saveGame, 0, ("D1", "T1", 1)); // 10
             PlayRace(saveGame, 1, ("D1", "T1", 5)); // 2
@@ -67,7 +67,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         [TestMethod]
         public void UpdateStandings_RaceDriverDidNotEnter_DoesNotAffectTheirTotal()
         {
-            var saveGame = CreateTestSaveGame(2024, racesToCount: 2, raceCount: 3);
+            var saveGame = CreateTestSaveGame(2024, racesToCount: 2, raceCount: 3, teamIds: new[] { "T1", "T2" });
 
             PlayRace(saveGame, 0, ("D1", "T1", 1), ("D2", "T2", 2)); // D1 races: 10
             PlayRace(saveGame, 1, ("D2", "T2", 1));                 // D1 sits this one out
@@ -86,7 +86,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             // Mirrors ScenarioSaveBuilder: GrandPrixResults is pre-populated with the
             // exact same object reference before UpdateStandings is called with it,
             // unlike RaceWeekendWindow which calls UpdateStandings before appending.
-            var saveGame = CreateTestSaveGame(2024, racesToCount: null, raceCount: 1);
+            var saveGame = CreateTestSaveGame(2024, racesToCount: null, raceCount: 1, teamIds: new[] { "T1" });
             var result = BuildResult(saveGame, 0, ("D1", "T1", 1)); // 10 points
 
             saveGame.GrandPrixResults = new List<GrandPrixResult> { result };
@@ -102,7 +102,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         [TestMethod]
         public void UpdateStandings_ConstructorsAlwaysCountEveryRace_RegardlessOfRacesToCount()
         {
-            var saveGame = CreateTestSaveGame(2024, racesToCount: 2, raceCount: 4);
+            var saveGame = CreateTestSaveGame(2024, racesToCount: 2, raceCount: 4, teamIds: new[] { "T1" });
             saveGame.CurrentConstructorStandings = new List<ConstructorStandingEntry>
             {
                 new ConstructorStandingEntry { TeamId = "T1", Points = 0 }
@@ -155,11 +155,176 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             Assert.AreEqual(0, discarded.Count);
         }
 
+
+        [TestMethod]
+        public void CalculateDriverSeasonPoints_AppliesBestNRule()
+        {
+            var season = new Season { RacesToCountTowardsChampionship = 3 };
+
+            var results = new List<GrandPrixResult>
+    {
+        MakeDriverResult("D1", 10),
+        MakeDriverResult("D1", 8),
+        MakeDriverResult("D1", 10),
+        MakeDriverResult("D1", 2),
+        MakeDriverResult("D1", 10)
+    };
+
+            var points = ChampionshipScoringCalculator.CalculateDriverSeasonPoints(
+                "D1", season, results);
+
+            Assert.AreEqual(30.0, points);
+        }
+
+        [TestMethod]
+        public void CalculateDriverSeasonPoints_NullRacesToCount_UsesAllResults()
+        {
+            var season = new Season { RacesToCountTowardsChampionship = null };
+
+            var results = new List<GrandPrixResult>
+    {
+        MakeDriverResult("D1", 10),
+        MakeDriverResult("D1", 8),
+        MakeDriverResult("D1", 2)
+    };
+
+            var points = ChampionshipScoringCalculator.CalculateDriverSeasonPoints(
+                "D1", season, results);
+
+            Assert.AreEqual(20.0, points);
+        }
+
+        [TestMethod]
+        public void HasDriverChampionshipClinched_WhenRivalCanStillCatchLeader_ReturnsFalse()
+        {
+            var saveGame = CreateTestSaveGame(
+                2024, racesToCount: null, raceCount: 4, teamIds: new[] { "T1", "T2" });
+
+            PlayRace(saveGame, 0, ("D1", "T1", 1), ("D2", "T2", 2));
+            PlayRace(saveGame, 1, ("D1", "T1", 1), ("D2", "T2", 2));
+
+            // D1 has 20 points. D2 has 16, with two races remaining.
+            // D2 can still overtake D1.
+            Assert.IsFalse(
+                ChampionshipScoringCalculator.HasDriverChampionshipClinched(
+                    saveGame, out _, raceIndex: 1));
+        }
+
+        [TestMethod]
+        public void HasDriverChampionshipClinched_AtExactRace_ReturnsTrueOnlyWhenTitleFirstClinched()
+        {
+            var saveGame = CreateTestSaveGame(
+                2024, racesToCount: null, raceCount: 4, teamIds: new[] { "T1", "T2" });
+
+            PlayRace(saveGame, 0, ("D1", "T1", 1), ("D2", "T2", 5));
+            PlayRace(saveGame, 1, ("D1", "T1", 1), ("D2", "T2", 5));
+
+            // After two races, D1 has 20 points and D2 has 4.
+            // Two races remain, so D2 can still theoretically score 20.
+            Assert.IsFalse(
+                ChampionshipScoringCalculator.HasDriverChampionshipClinched(
+                    saveGame, out _ , raceIndex: 1));
+
+            PlayRace(saveGame, 2, ("D1", "T1", 1), ("D2", "T2", 5));
+
+            // D1 has 30 points, while D2 can score only 12 points
+            // in total after the remaining race.
+            var clinched = ChampionshipScoringCalculator.HasDriverChampionshipClinched(
+                saveGame, out var clinchedThisExactRace, raceIndex: 2);
+            Assert.IsTrue(clinched);
+            
+            Assert.IsTrue(clinchedThisExactRace);
+
+            // The title was not first clinched at race index 1.
+            Assert.IsFalse(
+                ChampionshipScoringCalculator.HasDriverChampionshipClinched(
+                    saveGame, out _, raceIndex: 1));
+        }
+
+        [TestMethod]
+        public void HasDriverChampionshipClinched_UsesCountbackWhenMaximumPointsAreTied()
+        {
+            var saveGame = CreateTestSaveGame(
+                2024, racesToCount: null, raceCount: 3, teamIds: new[] { "T1", "T2" });
+
+            // After race 1, D1 has 10 points and D2 has 8.
+            PlayRace(saveGame, 0, ("D1", "T1", 1), ("D2", "T2", 2));
+
+            // After race 2, D1 has two wins (20 points).
+            // D2 has a second and a fifth (10 points).
+            PlayRace(saveGame, 1, ("D1", "T1", 1), ("D2", "T2", 5));
+
+            // D2's maximum is 10 + 10 = 20 points.
+            // But D1 already has two wins, while D2 can achieve only
+            // one additional win in the final race.
+            Assert.IsTrue(
+                ChampionshipScoringCalculator.HasDriverChampionshipClinched(
+                    saveGame, out _, raceIndex: 1));
+        }
+
+        [TestMethod]
+        public void HasConstructorChampionshipClinched_WhenRivalCanStillCatchLeader_ReturnsFalse()
+        {
+            var saveGame = CreateTestSaveGame(
+                2024, racesToCount: 2, raceCount: 4, teamIds: new[] { "T1", "T2" });
+
+            PlayRace(saveGame, 0,
+                ("D1", "T1", 1), ("D2", "T1", 2),
+                ("D3", "T2", 5), ("D4", "T2", 6));
+
+            PlayRace(saveGame, 1,
+                ("D1", "T1", 1), ("D2", "T1", 2),
+                ("D3", "T2", 5), ("D4", "T2", 6));
+
+            // T1 has 36 constructor points; T2 has 4.
+            // Two races remain, and T2 can theoretically score 36 more.
+            Assert.IsFalse(
+                ChampionshipScoringCalculator.HasConstructorChampionshipClinched(
+                    saveGame, out _, raceIndex: 1));
+        }
+
+        [TestMethod]
+        public void HasConstructorChampionshipClinched_AtExactRace_ReturnsTrueWhenTitleIsClinched()
+        {
+            var saveGame = CreateTestSaveGame(
+                2024, racesToCount: 2, raceCount: 4, teamIds: new[] { "T1", "T2" });
+
+            PlayRace(saveGame, 0,
+                ("D1", "T1", 1), ("D2", "T1", 2),
+                ("D3", "T2", 5), ("D4", "T2", 6));
+
+            PlayRace(saveGame, 1,
+                ("D1", "T1", 1), ("D2", "T1", 2),
+                ("D3", "T2", 5), ("D4", "T2", 6));
+
+            // T1 has 36 points. T2 can still score up to 36 more
+            // across the remaining two races, so it is not clinched yet.
+            var clinched = ChampionshipScoringCalculator.HasConstructorChampionshipClinched(
+                saveGame, out var clinchedThisExactRace, raceIndex: 1);
+            Assert.IsFalse(clinchedThisExactRace);
+
+            PlayRace(saveGame, 2,
+                ("D1", "T1", 1), ("D2", "T1", 2),
+                ("D3", "T2", 5), ("D4", "T2", 6));
+
+            // T1 has 54 points, with one race remaining.
+            // T2 cannot catch up.
+            Assert.IsTrue(
+                ChampionshipScoringCalculator.HasConstructorChampionshipClinched(
+                    saveGame, out _, raceIndex: 2));
+
+            Assert.IsTrue(
+                ChampionshipScoringCalculator.HasConstructorChampionshipClinched(
+                    saveGame, out clinchedThisExactRace, raceIndex: 2));
+            Assert.IsTrue(clinchedThisExactRace);
+        }
+
+
         #endregion
 
         #region Helper Methods
 
-        private ISaveGame CreateTestSaveGame(int year, int? racesToCount, int raceCount)
+        private ISaveGame CreateTestSaveGame(int year, int? racesToCount, int raceCount, string[] teamIds)
         {
             var races = Enumerable.Range(1, raceCount)
                 .Select(i => new Race { RaceId = i, RaceName = $"Test GP {i}" })
@@ -180,7 +345,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 CurrentSeason = season,
                 Drivers = new List<IDriverData>(),
                 CurrentDriverStandings = new List<HistoricalDriverStandingEntry>(),
-                CurrentConstructorStandings = new List<ConstructorStandingEntry>(),
+                CurrentConstructorStandings = teamIds.Select((teamId, i) => new HistoricalConstructorStandingEntry { TeamId = teamId, Points = 0, PositionsTally = new PositionsTally(), Position = i + 1 }),
                 HistoricalDriverStandings = new List<HistoricalDriverStanding>(),
                 HistoricalConstructorStandings = new List<HistoricalConstructorStanding>(),
                 GrandPrixResults = new List<GrandPrixResult>(),

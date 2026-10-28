@@ -20,8 +20,13 @@ namespace AMS2ChEd.Views
         private readonly AllTimeRecords _allTimeRecords;
         private readonly bool _driversChampionshipDecided;
         private readonly bool _constructorsChampionshipDecided;
+
+        private readonly bool _driversChampionshipDecidedAlready;
+        private readonly bool _constructorsChampionshipDecidedAlready;
         private readonly string _driversChampionName;
         private readonly string _constructorsChampionName;
+
+
         public PostRaceNewsWindow(
             ISaveGame saveGame,
             GrandPrixResult raceResult,
@@ -35,8 +40,8 @@ namespace AMS2ChEd.Views
             InitializeComponent();
 
             _allTimeRecords = allTimeRecordsLoader?.Load();
-            _driversChampionshipDecided = ChampionshipScoringCalculator.HasDriverChampionshipClinched(saveGame);
-            _constructorsChampionshipDecided = ChampionshipScoringCalculator.HasConstructorChampionshipClinched(saveGame);
+            _driversChampionshipDecided = ChampionshipScoringCalculator.HasDriverChampionshipClinched(saveGame, out _driversChampionshipDecidedAlready);
+            _constructorsChampionshipDecided = ChampionshipScoringCalculator.HasConstructorChampionshipClinched(saveGame, out _constructorsChampionshipDecidedAlready);
             _driversChampionName = _driversChampionshipDecided ? GetDriverName(saveGame, saveGame.CurrentDriverStandings.FirstOrDefault(s => s.Position == 1)?.DriverId) : null;
             _constructorsChampionName = _constructorsChampionshipDecided ? GetTeamName(saveGame, saveGame.CurrentConstructorStandings.FirstOrDefault(s => s.Position == 1)?.TeamId) : null;
 
