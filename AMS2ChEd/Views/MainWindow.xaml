@@ -160,7 +160,9 @@
                         </StackPanel>
 
                         <!-- New Game Panel -->
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel x:Name="NewGamePanel" Visibility="Collapsed" Style="{StaticResource Main.FormPanel}">
+                            
                             <Label x:Name="SelectSeasonLabel" Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource Main.FormLabel}"/>
                             <ComboBox x:Name="SeasonComboBox"
                                       Style="{StaticResource Main.ComboBox}"
@@ -251,37 +253,78 @@
                                       Style="{StaticResource Main.ComboBox}"
                                       SelectionChanged="ReputationComboBox_SelectionChanged" />
                                 </StackPanel>
-
-                                <!-- Helmet Selection -->
-                                <Label x:Name="HelmetSelectionLabel" Content="{loc:Loc MainWindow_HelmetDesignLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>
-                                <Border x:Name="HelmetSelectionBorder" Style="{StaticResource Main.HelmetBox}">
-                                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                    <!-- Helmet Selection -->
+                                    <Label x:Name="HelmetSelectionLabel" Content="{loc:Loc MainWindow_HelmetDesignLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>
+                                    <Border x:Name="HelmetSelectionBorder" Style="{StaticResource Main.HelmetBox}">
+                                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
                                                   VerticalScrollBarVisibility="Disabled">
-                                        <ItemsControl x:Name="HelmetSelectionItemsControl">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <WrapPanel Orientation="Horizontal"/>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border Style="{StaticResource Main.HelmetItem}"
+                                            <ItemsControl x:Name="HelmetSelectionItemsControl">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Style="{StaticResource Main.HelmetItem}"
                                                         MouseLeftButtonDown="HelmetPreview_Click"
                                                         Tag="{Binding}">
-                                                        <StackPanel>
-                                                            <Image Source="{Binding PreviewImagePath}"
+                                                            <StackPanel>
+                                                                <Image Source="{Binding PreviewImagePath}"
                                                                     Stretch="UniformToFill"
                                                                     VerticalAlignment="Center"
                                                                     HorizontalAlignment="Center"/>
-                                                        </StackPanel>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </ScrollViewer>
-                                </Border>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </ScrollViewer>
+                                    </Border>
+                                    <Label x:Name="AvatarLabel" Content="{loc:Loc MainWindow_AvatarLabel}" Style="{StaticResource Main.FormLabel}"/>
 
-                                <Button x:Name="CreateGameButton"
+                                    <Grid Margin="0,0,0,15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Margin="5,0,0,0">
+                                            <Border Style="{StaticResource SeasonOverview.Photo}">
+                                                <Grid>
+                                                    <TextBlock x:Name="PlayerPhotoPlaceholder"
+                                                        Text="?"
+                                                        Style="{StaticResource SeasonOverview.PhotoPlaceholder}"
+                                                        Visibility="Collapsed"/>
+                                                    <Image x:Name="PlayerPhotoImage"
+                                                        Stretch="UniformToFill"
+                                                        HorizontalAlignment="Center"/>
+
+                                                </Grid>
+                                            </Border>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                                            <StackPanel>
+                                                <Label x:Name="SkinToneLabel" Content="{loc:Loc MainWindow_SkinToneLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                                <ComboBox x:Name="SkinToneComboBox"
+                                                      Style="{StaticResource Main.ComboBox}"
+                                                      SelectionChanged="AvatarComboBox_SelectionChanged" />
+                                                <Label x:Name="HairStyleLabel" Content="{loc:Loc MainWindow_HairStyleLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                                <ComboBox x:Name="HairStyleComboBox"
+                                                      Style="{StaticResource Main.ComboBox}"
+                                                      SelectionChanged="AvatarComboBox_SelectionChanged" />
+                                                <Label x:Name="HairColourLabel" Content="{loc:Loc MainWindow_HairColourLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                                <ComboBox x:Name="HairColourComboBox"
+                                                      Style="{StaticResource Main.ComboBox}"
+                                                      SelectionChanged="AvatarComboBox_SelectionChanged" />
+                                                <Label x:Name="FacialHairLabel" Content="{loc:Loc MainWindow_FacialHairLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                                <ComboBox x:Name="FacialHairComboBox"
+                                                      Style="{StaticResource Main.ComboBox}"
+                                                      SelectionChanged="AvatarComboBox_SelectionChanged" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Button x:Name="CreateGameButton"
                                     Content="{loc:Loc MainWindow_CreateGameButton}"
                                     Style="{StaticResource Main.FormPrimaryButton}"
                                     Click="CreateGameButton_Click"/>
@@ -313,7 +356,9 @@
                             <Button Content="{loc:Loc MainWindow_BackButton}"
                                     Style="{StaticResource Main.FormBackButton}"
                                     Click="BackButton_Click"/>
-                        </StackPanel>
+                            
+                            </StackPanel>
+                        </ScrollViewer>
                     </Grid>
                 </Border>
             </Grid>

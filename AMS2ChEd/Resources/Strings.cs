@@ -1358,5 +1358,13 @@ namespace AMS2ChEd.Resources
 
         public static string PostRaceNewsWindow_RacesWording_Singular => ResourceManager.GetString(nameof(PostRaceNewsWindow_RacesWording_Singular))!;
         public static string PostRaceNewsWindow_RacesWording_Plural => ResourceManager.GetString(nameof(PostRaceNewsWindow_RacesWording_Plural))!;
+
+        public static string MainWindow_SkinToneLabel => ResourceManager.GetString(nameof(MainWindow_SkinToneLabel))!;
+        public static string MainWindow_HairStyleLabel => ResourceManager.GetString(nameof(MainWindow_HairStyleLabel))!;
+        public static string MainWindow_HairColourLabel => ResourceManager.GetString(nameof(MainWindow_HairColourLabel))!;
+        public static string MainWindow_FacialHairLabel => ResourceManager.GetString(nameof(MainWindow_FacialHairLabel))!;
+        public static string MainWindow_AvatarLabel => ResourceManager.GetString(nameof(MainWindow_AvatarLabel))!;
+
+
     }
 }

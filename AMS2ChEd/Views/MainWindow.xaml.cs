@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.DependencyInjection;
+﻿using AMS2ChEd.Business.Artwork;
+using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
@@ -15,12 +16,14 @@ using AMS2ChEd.Resources;
 using AMS2ChEd.Services;
 using AMS2ChEd.Updater;
 using AMS2ChEd.Views;
+using SixLabors.ImageSharp;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 
 namespace AMS2ChEd
 {
@@ -96,6 +99,7 @@ namespace AMS2ChEd
             InitializeAnimations();
             InitializeReputations();
             LoadSeasons();
+            InitializeAvatarOptions();
             _scenarios = new List<Scenario>();
 
             HelmetSelectionLabel.Visibility = _cosmeticsEditor == null ? Visibility.Collapsed : Visibility.Visible;
@@ -103,6 +107,38 @@ namespace AMS2ChEd
 
             DevHelmetDesignerButton.Visibility = _helmetDesigner == null ? Visibility.Collapsed : Visibility.Visible;
             DeveloperToolsButton.Visibility = _developerModeSettings.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void InitializeAvatarOptions()
+        {
+
+            var skinToneOptions = AvatarComposer.SkinTones.Select((skinTone, i) =>
+            {
+                return new ComboBoxItem { Content = i, Tag = skinTone};
+            }).ToList();
+            skinToneOptions.ForEach(o => SkinToneComboBox.Items.Add(o));
+            SkinToneComboBox.SelectedIndex = 0;
+
+            var hairStyleOptions = AvatarComposer.HairStyles.Select((hairStyle, i) =>
+            {
+                return new ComboBoxItem { Content = i, Tag = hairStyle };
+            }).ToList();
+            hairStyleOptions.ForEach(o => HairStyleComboBox.Items.Add(o));
+            HairStyleComboBox.SelectedIndex = 0;
+
+            var hairColorOptions = AvatarComposer.HairColours.Select((hairColor, i) =>
+            {
+                return new ComboBoxItem { Content = i, Tag = hairColor };
+            }).ToList();
+            hairColorOptions.ForEach(o => HairColourComboBox.Items.Add(o));
+            HairColourComboBox.SelectedIndex = 0;
+
+            var facialHairOptions = AvatarComposer.FacialHairStyles.Select((facialHair, i) =>
+            {
+                return new ComboBoxItem { Content = i, Tag = facialHair };
+            }).ToList();
+            facialHairOptions.ForEach(o => FacialHairComboBox.Items.Add(o));
+            FacialHairComboBox.SelectedIndex = 0;
         }
 
         // Must be called only after this window has been shown (e.g. right after MainWindow.Show()) —
@@ -345,6 +381,32 @@ namespace AMS2ChEd
             }
             if (DevRaceComboBox.Items.Count > 0)
                 DevRaceComboBox.SelectedIndex = 0;
+        }
+
+        private void AvatarComboBox_SelectionChanged(object seder, SelectionChangedEventArgs e)
+        {
+            var hairStyle = (string)((ComboBoxItem)HairStyleComboBox.SelectedItem)?.Tag;
+            var hairColour = (string)((ComboBoxItem)HairColourComboBox.SelectedItem)?.Tag;
+            var skinTone = (string)((ComboBoxItem)SkinToneComboBox.SelectedItem)?.Tag;
+            var facialHair = (string)((ComboBoxItem)FacialHairComboBox.SelectedItem)?.Tag;
+
+            var avatar = new GenericAvatar
+            {
+                Hair = hairStyle,
+                HairColour = hairColour,
+                Skin = skinTone,
+                FacialHair = facialHair
+            };
+
+            using var ms = new MemoryStream();
+
+            AvatarComposer.Compose(avatar).SaveAsPng(ms);
+            ms.Position = 0;
+
+            PlayerPhotoImage.Source = BitmapFrame.Create(
+                ms,
+                BitmapCreateOptions.None,
+                BitmapCacheOption.OnLoad);
         }
 
         private void DevExportCustomAiButton_Click(object sender, RoutedEventArgs e)
@@ -1078,7 +1140,8 @@ namespace AMS2ChEd
                         seasonDrivers: seasonDrivers.Values.ToList());
 
                     // add selected helmet design
-                    SetPlayerHelmetDesign(newGame);
+                    SetPlayerHelmetDesignAndAvatar(newGame);
+
                     return newGame;
                 }
 
@@ -1185,7 +1248,7 @@ namespace AMS2ChEd
             } 
         }
 
-        private void SetPlayerHelmetDesign(ISaveGame saveGame)
+        private void SetPlayerHelmetDesignAndAvatar(ISaveGame saveGame)
         {
             if (_cosmeticsEditor == null) return;
 
@@ -1194,6 +1257,14 @@ namespace AMS2ChEd
             if (selectedHelmet == null) return;
 
             _cosmeticsEditor.ApplySelectedCosmetics(playerDriverData, selectedHelmet.Id, saveGame.CurrentSeason.Year);
+
+            playerDriverData.GenericAvatar = new GenericAvatar
+            {
+                Skin = (string)((ComboBoxItem)SkinToneComboBox.SelectedItem)?.Tag,
+                Hair = (string)((ComboBoxItem)HairStyleComboBox.SelectedItem)?.Tag,
+                HairColour = (string)((ComboBoxItem)HairColourComboBox.SelectedItem)?.Tag,
+                FacialHair = (string)((ComboBoxItem)FacialHairComboBox.SelectedItem)?.Tag,
+            };
         }
 
         private async Task<bool> DownloadSeasonIfNeeded(int seasonYear)

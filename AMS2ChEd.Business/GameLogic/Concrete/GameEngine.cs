@@ -648,7 +648,6 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 Name = playerData.Name,
                 Nationality = playerData.Nationality,
                 YearOfBirth = season.Year - age,
-                PictureUrl = "drivers/portraits/default.png",
                 FavouriteNumbers = favouriteNumbers,
                 Reputation = playerReputation
             };
