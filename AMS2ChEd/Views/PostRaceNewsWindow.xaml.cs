@@ -40,8 +40,8 @@ namespace AMS2ChEd.Views
             InitializeComponent();
 
             _allTimeRecords = allTimeRecordsLoader?.Load();
-            _driversChampionshipDecided = ChampionshipScoringCalculator.HasDriverChampionshipClinched(saveGame, out _driversChampionshipDecidedAlready);
-            _constructorsChampionshipDecided = ChampionshipScoringCalculator.HasConstructorChampionshipClinched(saveGame, out _constructorsChampionshipDecidedAlready);
+            _driversChampionshipDecidedAlready = ChampionshipScoringCalculator.HasDriverChampionshipClinched(saveGame, out _driversChampionshipDecided);
+            _constructorsChampionshipDecidedAlready = ChampionshipScoringCalculator.HasConstructorChampionshipClinched(saveGame, out _constructorsChampionshipDecided);
             _driversChampionName = _driversChampionshipDecided ? GetDriverName(saveGame, saveGame.CurrentDriverStandings.FirstOrDefault(s => s.Position == 1)?.DriverId) : null;
             _constructorsChampionName = _constructorsChampionshipDecided ? GetTeamName(saveGame, saveGame.CurrentConstructorStandings.FirstOrDefault(s => s.Position == 1)?.TeamId) : null;
 
@@ -210,7 +210,7 @@ namespace AMS2ChEd.Views
                         Strings.PostRaceNewsWindow_Headline_BothChampions5_Format,
 
                     };
-                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _driversChampionName, _constructorsChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]);
+                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _driversChampionName, _constructorsChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]).ToUpper();
             }
             else if (_driversChampionshipDecided)
             {
@@ -223,7 +223,7 @@ namespace AMS2ChEd.Views
                         Strings.PostRaceNewsWindow_Headline_DriversChampion5_Format,
 
                     };
-                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _driversChampionName, _constructorsChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]);
+                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _driversChampionName, _constructorsChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]).ToUpper();
             }
             else if (_constructorsChampionshipDecided)
             {
@@ -236,7 +236,7 @@ namespace AMS2ChEd.Views
                         Strings.PostRaceNewsWindow_Headline_ConstructorsChampion5_Format,
 
                     };
-                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _constructorsChampionName, _driversChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]);
+                HeadlineText.Text = string.Format(possibleHeadlines[Random.Shared.Next(possibleHeadlines.Length)], _constructorsChampionName, _driversChampionName, remainingRoundsWordings[Random.Shared.Next(remainingRoundsWordings.Length)]).ToUpper();
             }
             else
             {
