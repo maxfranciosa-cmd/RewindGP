@@ -61,6 +61,9 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         /// <summary>The drivers' artwork fields whose files are on disk, per driver_id.</summary>
         public static Dictionary<string, Ams2DriverData> EffectiveDrivers(SeasonCosmetics cosmetics, int year, string seasonsFolder = null)
         {
+            // a portrait is a URL with no file to look for: it counts once the skin pack is imported
+            bool imported = Exists("skin_pack.json", year, seasonsFolder);
+
             var drivers = new Dictionary<string, Ams2DriverData>();
             foreach (var (driverId, source) in cosmetics?.Drivers ?? new Dictionary<string, Ams2DriverData>())
             {
@@ -68,7 +71,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                     continue;
 
                 string Keep(string path) => Exists(path, year, seasonsFolder) ? path : null;
-                var driver = new Ams2DriverData { DriverId = driverId, PictureUrl = source.PictureUrl };
+                var driver = new Ams2DriverData { DriverId = driverId, PictureUrl = imported ? source.PictureUrl : null };
 
                 // a helmet without its visor is fine (the default visor fills in); a visor alone is not
                 driver.BaseHelmetFile = Keep(source.BaseHelmetFile);

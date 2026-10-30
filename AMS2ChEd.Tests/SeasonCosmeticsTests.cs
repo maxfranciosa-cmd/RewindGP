@@ -96,6 +96,24 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         [TestMethod]
+        public void EffectiveDrivers_Portrait_OnlyOnceTheSkinPackIsImported()
+        {
+            var cosmetics = new SeasonCosmetics
+            {
+                Drivers = new Dictionary<string, Ams2DriverData>
+                {
+                    ["michael_schumacher"] = new Ams2DriverData { PictureUrl = "https://example.org/schumacher.png" }
+                }
+            };
+
+            Assert.IsNull(SeasonCosmeticsFiles.EffectiveDrivers(cosmetics, 2000, Seasons)["michael_schumacher"].PictureUrl);
+
+            Touch("skin_pack.json");
+
+            Assert.AreEqual("https://example.org/schumacher.png", SeasonCosmeticsFiles.EffectiveDrivers(cosmetics, 2000, Seasons)["michael_schumacher"].PictureUrl);
+        }
+
+        [TestMethod]
         public void MergeSeason_PackTeamWins_ThenShippedCosmetics_ThenNothing()
         {
             var baked = Season(BakedTeam("ferrari"), BakedTeam("williams"), BakedTeam("minardi"));
