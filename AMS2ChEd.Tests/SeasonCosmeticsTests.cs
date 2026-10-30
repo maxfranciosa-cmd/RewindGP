@@ -60,6 +60,23 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         [TestMethod]
+        public void EffectiveSeason_AnOverrideOfTheHelmetSponsorsAlone_CountsOnceItsLayerIsOnDisk()
+        {
+            Touch("external_liveries/car_liveries/ferrari/default.dds");
+            var team = ShippedTeam("ferrari");
+            team.LiveryOverrides = new[] { new LiveryOverride { RaceId = 9, HelmetSponsors = "external_liveries/helmet_sponsors/ferrari/Marlboro_NT.png" } };
+            var cosmetics = Cosmetics(("ferrari", team));
+
+            var before = SeasonCosmeticsFiles.EffectiveSeason(cosmetics, 2000, Seasons).Teams.OfType<Ams2TeamEntry>().Single().LiveryOverrides.Single();
+            Assert.IsNull(before.HelmetSponsors, "not imported: the team's own layer stays");
+
+            Touch("external_liveries/helmet_sponsors/ferrari/Marlboro_NT.png");
+
+            var after = SeasonCosmeticsFiles.EffectiveSeason(cosmetics, 2000, Seasons).Teams.OfType<Ams2TeamEntry>().Single().LiveryOverrides.Single();
+            Assert.AreEqual("external_liveries/helmet_sponsors/ferrari/Marlboro_NT.png", after.HelmetSponsors);
+        }
+
+        [TestMethod]
         public void EffectiveSeason_NullEntriesInLists_AreSkipped()
         {
             Touch("external_liveries/car_liveries/ferrari/default.dds");

@@ -123,6 +123,72 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         [TestMethod]
+        public async Task Import_ASample_TakesTheMapsCutOverIt_OrStandsAlone()
+        {
+            var cosmetics = Cosmetics("F1_2000_Season");
+            cosmetics.SkinPack.HelmetModel = "Nineties";
+            // ferrari on the 90s helmet: each sample with the strip the pack painted over it
+            cosmetics.SkinPack.Helmets["ferrari"] = new() { Samples = new() { "90s/marlboro.png", "90s/marlboro_NT.png" }, Helmet = "F1_2000_Season/Helmets/schumacher.png" };
+            // williams with no helmet in the archive: the sample alone, and the app's own sample is left as it is
+            cosmetics.SkinPack.Helmets["williams"] = new() { Samples = new() { "90s/rothmans.png" }, Helmet = "F1_2000_Season/Helmets/absent.png" };
+            WriteCosmetics(2000, cosmetics);
+            Directory.CreateDirectory(HelmetMasks);
+            SaveMask(Path.Combine(HelmetMasks, "Nineties.png"), 256, 128, 16);
+            var samples = Path.Combine(_root, "samples");
+            Directory.CreateDirectory(Path.Combine(samples, "90s"));
+            foreach (var name in new[] { "marlboro", "marlboro_NT", "rothmans" })
+                using (var sample = new Image<Rgba32>(512, 256))
+                {
+                    for (int x = 0; x < 512; x++) for (int y = 128; y < 192; y++) sample[x, y] = new Rgba32(0, 200, 0, 255);
+                    sample.SaveAsPng(Path.Combine(samples, "90s", $"{name}.png"));
+                }
+            var archive = Path.Combine(_root, "pack.zip");
+            BuildArchive(archive, "F1_2000_Season");
+            var importer = new SkinPackImporter(Baked, Seasons, VisorMasks, HelmetMasks, samples);
+
+            var result = await importer.ImportAsync(2000, archive);
+
+            var sponsors = Path.Combine(Seasons, "2000", "external_liveries", "helmet_sponsors");
+            foreach (var name in new[] { "marlboro", "marlboro_NT" })
+                using (var layer = SixLabors.ImageSharp.Image.Load<Rgba32>(Path.Combine(sponsors, "ferrari", $"{name}.png")))
+                {
+                    Assert.AreEqual(512, layer.Width, "the sample's size");
+                    Assert.AreEqual(new Rgba32(200, 0, 0, 255), layer[20, 10], "the strip cut from the helmet");
+                    Assert.AreEqual(new Rgba32(0, 200, 0, 255), layer[20, 150], "the sample");
+                    Assert.AreEqual(0, layer[20, 230].A, "clear in both");
+                }
+            using (var layer = SixLabors.ImageSharp.Image.Load<Rgba32>(Path.Combine(sponsors, "williams", "rothmans.png")))
+            {
+                Assert.AreEqual(new Rgba32(0, 200, 0, 255), layer[20, 150]);
+                Assert.AreEqual(0, layer[20, 10].A);
+            }
+            Assert.IsTrue(result.Notes.Any(n => n.StartsWith("ferrari") && n.Contains("90s/marlboro.png") && n.Contains("over it")), string.Join("; ", result.Notes));
+
+            importer.Remove(2000);
+
+            Assert.IsTrue(File.Exists(Path.Combine(samples, "90s", "marlboro.png")), "a removal leaves the shipped samples");
+            Assert.IsFalse(Directory.Exists(Path.Combine(Seasons, "2000")));
+        }
+
+        [TestMethod]
+        public async Task Import_ASampleTheAppDoesNotShip_FallsBackOnTheCut_WithANote()
+        {
+            var cosmetics = Cosmetics("F1_2000_Season");
+            cosmetics.SkinPack.Helmets["ferrari"].Samples = new() { "absent.png" };
+            WriteCosmetics(2000, cosmetics);
+            Directory.CreateDirectory(Path.Combine(Baked, "2000", "cosmetics", "sponsor_maps"));
+            SaveMask(Path.Combine(Baked, "2000", "cosmetics", "sponsor_maps", "ferrari.png"), 256, 256, 64);
+            var archive = Path.Combine(_root, "pack.zip");
+            BuildArchive(archive, "F1_2000_Season");
+            var importer = new SkinPackImporter(Baked, Seasons, VisorMasks, HelmetMasks, Path.Combine(_root, "samples"));
+
+            var result = await importer.ImportAsync(2000, archive);
+
+            Assert.IsTrue(File.Exists(Path.Combine(Seasons, "2000", "external_liveries", "helmet_sponsors", "ferrari", "default.png")));
+            Assert.IsTrue(result.Notes.Any(n => n.Contains("absent.png is not shipped")), string.Join("; ", result.Notes));
+        }
+
+        [TestMethod]
         public void Cut_ScalesTheTextureToTheMap_AndKeepsOnlyWhatTheMapMarks()
         {
             using var texture = new Image<Rgba32>(512, 256, new Rgba32(10, 120, 30));

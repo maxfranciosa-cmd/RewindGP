@@ -87,6 +87,9 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         // Where a helmet carries its team's sponsors, per helmet model, for teams with no map of their own.
         public static string HelmetSponsorMasksFolder => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Drivers", "helmet_sponsor_masks");
 
+        // Typical helmet sponsor layers the app ships: 2048x2048, the 90s helmet's (4096x2048) in 90s/.
+        public static string SampleHelmetSponsorsFolder => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SampleHelmetSponsors");
+
         // One subfolder per kit, each holding its kit.json.
         private static string _liveryKitsFolder = null;
         public static string LiveryKitsFolder

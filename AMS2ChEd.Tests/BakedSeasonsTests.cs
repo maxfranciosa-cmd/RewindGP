@@ -148,6 +148,8 @@ namespace AMS2ChEd.Tests.Ams2
                         ? Path.Combine(app, "Drivers", "helmet_sponsor_masks", $"{cosmetics.SkinPack.HelmetModel ?? "Modern"}.png")
                         : Path.Combine(folder, "cosmetics", helmets.Map);
                     Assert.IsTrue(File.Exists(map), $"{year} {teamId}: sponsor map {map}");
+                    foreach (var sample in helmets.Samples)
+                        Assert.IsTrue(File.Exists(Path.Combine(app, "SampleHelmetSponsors", sample)), $"{year} {teamId}: sample {sample}");
                 }
 
                 // sponsor layers are built at import; none ship

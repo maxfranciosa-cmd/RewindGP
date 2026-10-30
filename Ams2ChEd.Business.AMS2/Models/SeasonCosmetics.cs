@@ -54,6 +54,19 @@ namespace AMS2ChEd.Business.AMS2.Models
 
     public class SkinPackTeamHelmets
     {
+        /// <summary>
+        /// The sample layers the app ships for the team's sponsors (e.g. the regular one and the
+        /// tobacco-free one), relative to SampleHelmetSponsors. Each gives a layer at LayerPath,
+        /// with what is cut from the helmet over it; the team's helmet_sponsors and its livery
+        /// overrides reference those. Empty: the layer is the cut alone.
+        /// </summary>
+        [JsonPropertyName("samples")]
+        public List<string> Samples { get; set; } = new();
+
+        /// <summary>Where a sample's layer lands, relative to Seasons/&lt;year&gt;/.</summary>
+        public static string LayerPath(string teamId, string sample) =>
+            $"external_liveries/helmet_sponsors/{teamId}/{Path.GetFileNameWithoutExtension(sample)}.png";
+
         /// <summary>The archive path of a helmet the pack painted for one of the team's drivers: the team's sponsors are cut from it.</summary>
         [JsonPropertyName("helmet")]
         public string Helmet { get; set; }

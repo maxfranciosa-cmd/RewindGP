@@ -4,6 +4,7 @@ using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Updater;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace Ams2ChEd.Business.AMS2.Services
 {
@@ -22,9 +23,11 @@ namespace Ams2ChEd.Business.AMS2.Services
         private readonly string _seasonsFolder;
         private readonly string _visorMasksFolder;
         private readonly string _helmetMasksFolder;
+        private readonly string _sampleSponsorsFolder;
 
-        public SkinPackImporter(string bakedSeasonsFolder = null, string seasonsFolder = null, string visorMasksFolder = null, string helmetMasksFolder = null)
+        public SkinPackImporter(string bakedSeasonsFolder = null, string seasonsFolder = null, string visorMasksFolder = null, string helmetMasksFolder = null, string sampleSponsorsFolder = null)
         {
+            _sampleSponsorsFolder = sampleSponsorsFolder ?? StoragePaths.SampleHelmetSponsorsFolder;
             _bakedSeasonsFolder = bakedSeasonsFolder ?? StoragePaths.BakedSeasonsFolder;
             _seasonsFolder = seasonsFolder ?? StoragePaths.SeasonsFolder;
             _visorMasksFolder = visorMasksFolder ?? StoragePaths.VisorMasksFolder;
@@ -157,8 +160,9 @@ namespace Ams2ChEd.Business.AMS2.Services
             }
         }
 
-        // Per team: the pack helmet seen through the team's sponsor map (else the helmet model's
-        // generic one), and the pack visor seen through the model's visor strip.
+        // Per team: the shipped sample with the pack helmet seen through the team's sponsor map (else
+        // the helmet model's generic one) over it, and the pack visor seen through the model's visor
+        // strip.
         private void BuildSponsorLayers(int year, SeasonCosmetics cosmetics, Func<string, string> source, string seasonFolder, SkinPackRecord record, CancellationToken ct)
         {
             var model = cosmetics.SkinPack.HelmetModel ?? "Modern";
@@ -170,32 +174,54 @@ namespace Ams2ChEd.Business.AMS2.Services
                 cosmetics.Teams.TryGetValue(teamId, out var shipped);
 
                 var helmet = team.Helmet == null ? null : source(team.Helmet);
+                string problem = null;
+                Image<Rgba32> cut = null;
                 if (helmet != null)
                 {
                     var map = string.IsNullOrEmpty(team.Map)
                         ? SponsorLayerCutter.HelmetMaskPath(model, _helmetMasksFolder)
                         : Path.GetFullPath(Path.Combine(cosmeticsFolder, team.Map));
-                    var layer = SponsorLayerCutter.Cut(helmet, map, out var problem);
-                    if (layer != null)
-                    {
-                        Save(layer, seasonFolder, shipped?.HelmetSponsors ?? $"external_liveries/helmet_sponsors/{teamId}/default.png", record);
-                        layer.Dispose();
-                        record.Notes.Add($"{teamId}: helmet sponsors from {(string.IsNullOrEmpty(team.Map) ? $"the generic {model} map" : "its own map")}");
-                    }
-                    else
-                    {
-                        record.Notes.Add($"{teamId}: no helmet sponsors - {problem}");
-                    }
+                    cut = SponsorLayerCutter.Cut(helmet, map, out problem);
                 }
                 else if (team.Helmet != null)
                 {
-                    record.Notes.Add($"{teamId}: no helmet sponsors - {Path.GetFileName(team.Helmet)} is not in the archive");
+                    problem = $"{Path.GetFileName(team.Helmet)} is not in the archive";
+                }
+
+                var samples = new List<string>();
+                foreach (var sample in team.Samples ?? new List<string>())
+                {
+                    if (File.Exists(Path.Combine(_sampleSponsorsFolder, sample)))
+                        samples.Add(sample);
+                    else
+                        record.Notes.Add($"{teamId}: the sample {sample} is not shipped");
+                }
+
+                var mapName = string.IsNullOrEmpty(team.Map) ? $"the generic {model} map" : "its own map";
+                using (cut)
+                {
+                    foreach (var sample in samples)
+                    {
+                        using var layer = SponsorLayerCutter.OverSample(Path.GetFullPath(Path.Combine(_sampleSponsorsFolder, sample)), cut);
+                        Save(layer, seasonFolder, SkinPackTeamHelmets.LayerPath(teamId, sample), record);
+                        record.Notes.Add($"{teamId}: helmet sponsors from the sample {sample}{(cut != null ? $" with {mapName} over it" : "")}");
+                    }
+
+                    if (samples.Count == 0 && cut != null)
+                    {
+                        Save(cut, seasonFolder, shipped?.HelmetSponsors ?? $"external_liveries/helmet_sponsors/{teamId}/default.png", record);
+                        record.Notes.Add($"{teamId}: helmet sponsors from {mapName}");
+                    }
+                    else if (samples.Count == 0 && problem != null)
+                    {
+                        record.Notes.Add($"{teamId}: no helmet sponsors - {problem}");
+                    }
                 }
 
                 var visor = team.Visor == null ? null : source(team.Visor);
                 if (visor != null)
                 {
-                    var layer = SponsorLayerCutter.Cut(visor, SponsorLayerCutter.VisorMaskPath(model, _visorMasksFolder), out var problem);
+                    var layer = SponsorLayerCutter.Cut(visor, SponsorLayerCutter.VisorMaskPath(model, _visorMasksFolder), out var visorProblem);
                     if (layer != null)
                     {
                         Save(layer, seasonFolder, shipped?.VisorSponsors ?? $"external_liveries/helmet_sponsors/{teamId}/default_visor.png", record);
@@ -203,7 +229,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                     }
                     else
                     {
-                        record.Notes.Add($"{teamId}: no visor sponsors - {problem}");
+                        record.Notes.Add($"{teamId}: no visor sponsors - {visorProblem}");
                     }
                 }
                 else if (team.Visor != null)

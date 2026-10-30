@@ -63,6 +63,21 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             return layer;
         }
 
+        /// <summary>
+        /// A shipped sample layer with a cut laid over it (scaled to the sample), as a new layer: on
+        /// the 90s helmet, the visor strip the skin pack painted on the shell. No cut: the sample.
+        /// </summary>
+        public static Image<Rgba32> OverSample(string samplePath, Image<Rgba32> cut)
+        {
+            var layer = DdsTextureComposer.LoadImage(samplePath);
+            if (cut == null)
+                return layer;
+
+            using var sized = cut.Clone(x => x.Resize(layer.Width, layer.Height));
+            layer.Mutate(x => x.DrawImage(sized, 1f));
+            return layer;
+        }
+
         private static bool IsEmpty(Image<Rgba32> mask)
         {
             bool empty = true;
