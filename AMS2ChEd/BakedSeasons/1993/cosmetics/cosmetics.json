@@ -1,0 +1,2204 @@
+{
+  "_comment": "Artwork the app ships for 1993 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/1993/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: none.",
+  "teams": {
+    "benetton": {
+      "ams2car": "formula_hitech_g2m3",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/benetton_numbers_5.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 196,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2149,
+            "Y": 260
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFB600"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/benetton_numbers_5.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 196,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 216,
+            "Y": 3852
+          },
+          "rotation": "Deg90",
+          "fill_color": "#FFB600"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/benetton_numbers_5.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 196,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3881,
+            "Y": 4046
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FFB600"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/camel.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 7,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05can.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05can.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_can.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05don.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05don.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_donington.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/camel_NT.png"
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05fra.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05fra.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_france.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/camel_NT.png"
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05ger.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05ger.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_germany.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/camel_NT.png"
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05hun.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05hun.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_hun.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05UK.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05UK.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_UK.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/camel_NT.png"
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05late.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05late.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05late.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05late.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton05late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton05late.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview5_late.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"Benetton-Ford #5 M. Schumacher\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview5_early.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Benetton05early.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Schumacher_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Benetton_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Benetton_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Benetton_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Benetton_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ferrari": {
+      "ams2car": "formula_hitech_g2m1",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/ferrari_nose_BIG.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 240,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2165,
+            "Y": 894
+          },
+          "rotation": "Deg180",
+          "fill_color": "#960000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/ferrari_nose_BIG.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 240,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 306,
+            "Y": 3812
+          },
+          "rotation": "Deg180",
+          "fill_color": "#121212"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/ferrari_nose_BIG.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 240,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 4023,
+            "Y": 3792
+          },
+          "rotation": "Deg180",
+          "fill_color": "#121212"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/ferrari_nose_invertedTOP.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 179,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3099,
+            "Y": 3893
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E6E3E6"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/ferrari_nose_invertedBOTTOM.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 179,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3099,
+            "Y": 3677
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E6E3E6"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari28NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari28NT.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview28_donington.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo_NT.png"
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari28NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari28NT.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview28_donington.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo_NT.png"
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari28fra.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari28fra.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview28_france.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo_NT.png"
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari28ger.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari28ger.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview28_germany.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo_NT.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"52\" NAME=\"Scuderia Ferrari #28 G. Berger\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview28.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Ferrari28.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"52\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Berger_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"52\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_ferrari_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_ferrari_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_ferrari_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_ferrari_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "footwork": {
+      "ams2car": "formula_hitech_g2m3",
+      "base_livery_driver1": "external_liveries/car_liveries/footwork/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/footwork/default.dds",
+      "livery_preview": "external_liveries/previews/footwork/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/footwork_numbers_footwork.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 196,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2145,
+            "Y": 1118
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFBFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/footwork_numbers_5.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 196,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 262,
+            "Y": 3788
+          },
+          "rotation": "Deg90",
+          "fill_color": "#FFFBFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/footwork_numbers_5.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 196,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3867,
+            "Y": 3972
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FFFBFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/footwork/Marlboro_NoHalos.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/footwork/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "driver2_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "livery_preview": "external_liveries/previews/footwork/preview10_germany.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "driver2_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "livery_preview": "external_liveries/previews/footwork/preview10_germany.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/footwork/Marlboro_NoHalo_NT.png"
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "driver2_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "livery_preview": "external_liveries/previews/footwork/preview10_germany.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/footwork/Marlboro_NoHalo_NT.png"
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "driver2_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "livery_preview": "external_liveries/previews/footwork/preview10_germany.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "driver2_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "livery_preview": "external_liveries/previews/footwork/preview10_germany.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "driver2_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "livery_preview": "external_liveries/previews/footwork/preview10_germany.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "driver2_livery": "external_liveries/car_liveries/footwork/Footwork10.dds",
+          "livery_preview": "external_liveries/previews/footwork/preview10_germany.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/footwork/Marlboro_NoHalo_NT.png"
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/footwork/Marlboro_NoHalo_NT.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"56\" NAME=\"Footwork-Mugen #10 A. Suzuki\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview10.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Footwork10early.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"56\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Suzuki_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"56\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Footwork_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Footwork_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Footwork_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Footwork_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "jordan": {
+      "ams2car": "formula_hitech_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/jordan/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/jordan/default.dds",
+      "livery_preview": "external_liveries/previews/jordan/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/jordan_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2166,
+            "Y": 1629
+          },
+          "rotation": "Deg180",
+          "fill_color": "#D60000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/jordan_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1041,
+            "Y": 5856
+          },
+          "rotation": "Deg0",
+          "fill_color": "#001884"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/jordan_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2835,
+            "Y": 5853
+          },
+          "rotation": "Deg0",
+          "fill_color": "#001884"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/jordan/Jordan15don.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/Jordan15don.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview15_donington.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/jordan/Jordan15fra.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/Jordan15fra.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview15_france.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"56\" NAME=\"Jordan-Hart #15 I. Capelli\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview15.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Jordan15.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"56\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Capelli_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"56\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Jordan_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Jordan_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Jordan_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Jordan_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "larrousse": {
+      "ams2car": "formula_hitech_g2m1",
+      "base_livery_driver1": "external_liveries/car_liveries/larrousse/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/larrousse/default.dds",
+      "livery_preview": "external_liveries/previews/larrousse/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/larrousse_numbers_13.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 204,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 334,
+            "Y": 250
+          },
+          "rotation": "Deg180",
+          "fill_color": "#101410"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/larrousse_numbers_13.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 204,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 276,
+            "Y": 3742
+          },
+          "rotation": "Deg180",
+          "fill_color": "#080C42"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/larrousse_numbers_13.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 204,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 4023,
+            "Y": 3744
+          },
+          "rotation": "Deg180",
+          "fill_color": "#080C42"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/larrousse/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/larrousse/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/larrousse/Larrousse20aus.dds",
+          "driver2_livery": "external_liveries/car_liveries/larrousse/Larrousse20aus.dds",
+          "livery_preview": "external_liveries/previews/larrousse/preview20_aus.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": "external_liveries/car_liveries/larrousse/Larrousse20esp.dds",
+          "driver2_livery": "external_liveries/car_liveries/larrousse/Larrousse20esp.dds",
+          "livery_preview": "external_liveries/previews/larrousse/preview20_esp.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/larrousse/Larrousse20fra.dds",
+          "driver2_livery": "external_liveries/car_liveries/larrousse/Larrousse20fra.dds",
+          "livery_preview": "external_liveries/previews/larrousse/preview20_france.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/larrousse/Larrousse20ger.dds",
+          "driver2_livery": "external_liveries/car_liveries/larrousse/Larrousse20ger.dds",
+          "livery_preview": "external_liveries/previews/larrousse/preview20_germany.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/larrousse/Larrousse20italy.dds",
+          "driver2_livery": "external_liveries/car_liveries/larrousse/Larrousse20italy.dds",
+          "livery_preview": "external_liveries/previews/larrousse/preview19_italy.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"56\" NAME=\"Larrousse-Lamborghini #20 E. Comas\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview20.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Larrousse20kya.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"56\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Comas_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"56\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Larrousse_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Larrousse_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Larrousse_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Larrousse_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ligier_prost": {
+      "ams2car": "formula_hitech_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/ligier_prost/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ligier_prost/default.dds",
+      "livery_preview": "external_liveries/previews/ligier_prost/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/ligier_prost_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 972,
+            "Y": 5682
+          },
+          "rotation": "Deg0",
+          "fill_color": "#101410"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/ligier_prost_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2904,
+            "Y": 5676
+          },
+          "rotation": "Deg0",
+          "fill_color": "#101410"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/ligier_prost_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 429,
+            "Y": 5871
+          },
+          "rotation": "Deg90",
+          "fill_color": "#101410"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/ligier_prost_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 4077,
+            "Y": 5424
+          },
+          "rotation": "Deg90",
+          "fill_color": "#101410"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/ligier_prost/Ligier26NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/Ligier26NT.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/preview26_donington.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/ligier_prost/Ligier26NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/Ligier26NT.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/preview26_donington.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/ligier_prost/Ligier26NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/Ligier26NT.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/preview26_donington.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/ligier_prost/Ligier26fra.dds",
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/Ligier26fra.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/preview26_france.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"60\" NAME=\"Ligier-Renault #26 M. Blundell\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview26.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Ligier26.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"60\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Blundell_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"60\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Ligier_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Ligier_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Ligier_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Ligier_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "lola": {
+      "ams2car": "formula_hitech_g2m1",
+      "base_livery_driver1": "external_liveries/car_liveries/lola/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/lola/default.dds",
+      "livery_preview": "external_liveries/previews/lola/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/lola_numbers_19.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 140,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2121,
+            "Y": 464
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF1800"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/lola_numbers_18.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 316,
+            "Y": 3838
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF1800"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/lola_numbers_18.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3985,
+            "Y": 3846
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF1800"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/lola/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/lola/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/lola/BMS22NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/lola/BMS22NT.dds",
+          "livery_preview": "external_liveries/previews/lola/preview22_donington.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/lola/BMS22kya.dds",
+          "driver2_livery": "external_liveries/car_liveries/lola/BMS22kya.dds",
+          "livery_preview": "external_liveries/previews/lola/preview22.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/lola/BMS22fra.dds",
+          "driver2_livery": "external_liveries/car_liveries/lola/BMS22fra.dds",
+          "livery_preview": "external_liveries/previews/lola/preview22_france.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/lola/BMS22ger.dds",
+          "driver2_livery": "external_liveries/car_liveries/lola/BMS22ger.dds",
+          "livery_preview": "external_liveries/previews/lola/preview22_germany.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/lola/BMS22NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/lola/BMS22NT.dds",
+          "livery_preview": "external_liveries/previews/lola/preview22_donington.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"54\" NAME=\"Lola-Ferrari #22 L. Badoer\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview22.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\BMS22kya.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"54\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Badoer_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"54\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lola_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lola_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lola_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lola_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "ams2car": "mclaren_mp48",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/mclaren_numbers_mclaren_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 240,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1101,
+            "Y": 1052
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/mclaren_mclorden_side.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1362,
+            "Y": 6069
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FF0000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/mclaren_mclorden_side.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 216,
+            "Y": 5859
+          },
+          "rotation": "Deg90",
+          "fill_color": "#FF0000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/Marlboro_NoHalos.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren8_Interlagos.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren8_Interlagos.dds",
+          "livery_preview": "external_liveries/previews/mclaren/preview8_Interlagos.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren8_Donington.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren8_Donington.dds",
+          "livery_preview": "external_liveries/previews/mclaren/preview8_Donington.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/Marlboro_NoHalo_NT.png"
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren8_silverstone.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren8_silverstone.dds",
+          "livery_preview": "external_liveries/previews/mclaren/preview8_silverstone.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/Marlboro_NoHalo_NT.png"
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren8_Hockenheim.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren8_Hockenheim.dds",
+          "livery_preview": "external_liveries/previews/mclaren/preview8_Hockenheim.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/Marlboro_NoHalo_NT.png"
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren8_Suzuka.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren8_Suzuka.dds",
+          "livery_preview": "external_liveries/previews/mclaren/preview8_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren8_Suzuka.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren8_Suzuka.dds",
+          "livery_preview": "external_liveries/previews/mclaren/preview8_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren8_Donington.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren8_Donington.dds",
+          "livery_preview": "external_liveries/previews/mclaren/preview8_Donington.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/Marlboro_NoHalo_NT.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"52\" NAME=\"McLaren-Ford #8 A. Senna\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview8_Interlagos.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\McLaren8_Interlagos.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"52\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Senna_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"52\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Senna_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_McLaren_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_McLaren_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_McLaren_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "minardi": {
+      "ams2car": "formula_hitech_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/minardi/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/minardi/default.dds",
+      "livery_preview": "external_liveries/previews/minardi/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/minardi_arial_black.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 188,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2139,
+            "Y": 846
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/minardi_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1044,
+            "Y": 5895
+          },
+          "rotation": "Deg0",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/minardi_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2820,
+            "Y": 5898
+          },
+          "rotation": "Deg0",
+          "fill_color": "#101010"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/Marlboro_NoHalos.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/minardi/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi24.dds",
+          "driver2_livery": "external_liveries/car_liveries/minardi/Minardi24.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview24.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi24spa.dds",
+          "driver2_livery": "external_liveries/car_liveries/minardi/Minardi24spa.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview24_spa.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi24suz.dds",
+          "driver2_livery": "external_liveries/car_liveries/minardi/Minardi24suz.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview24_suz.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi24UK.dds",
+          "driver2_livery": "external_liveries/car_liveries/minardi/Minardi24UK.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview24_UK.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/Marlboro_NoHalo_NT.png"
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/Marlboro_NoHalo_NT.png"
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/Marlboro_NoHalo_NT.png"
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/Marlboro_NoHalo_NT.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"xx\" NAME=\"Lotus-Ford #11 P. Lamy\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview11.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Lotus11.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"xx\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Lamy_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"xx\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lotus_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lotus_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lotus_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lotus_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "sauber": {
+      "ams2car": "formula_hitech_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/sauber/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/sauber/default.dds",
+      "livery_preview": "external_liveries/previews/sauber/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/sauber_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2160,
+            "Y": 891
+          },
+          "rotation": "Deg180",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/sauber_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1023,
+            "Y": 5886
+          },
+          "rotation": "Deg0",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/sauber_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2838,
+            "Y": 5892
+          },
+          "rotation": "Deg0",
+          "fill_color": "#101010"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 12,
+          "driver1_livery": "external_liveries/car_liveries/sauber/Sauber30spa.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/Sauber30spa.dds",
+          "livery_preview": "external_liveries/previews/sauber/preview30_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/sauber/Sauber30inter.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/Sauber30inter.dds",
+          "livery_preview": "external_liveries/previews/sauber/preview30_inter.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/sauber/Sauber30kya.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/Sauber30kya.dds",
+          "livery_preview": "external_liveries/previews/sauber/preview30_kya.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/sauber/Sauber30dum.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/Sauber30dum.dds",
+          "livery_preview": "external_liveries/previews/sauber/preview30_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/sauber/Sauber30dum.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/Sauber30dum.dds",
+          "livery_preview": "external_liveries/previews/sauber/preview30_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/sauber/Sauber30dum.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/Sauber30dum.dds",
+          "livery_preview": "external_liveries/previews/sauber/preview30_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/sauber/Sauber30don.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/Sauber30don.dds",
+          "livery_preview": "external_liveries/previews/sauber/preview30don.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/sauber/Sauber30ger.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/Sauber30ger.dds",
+          "livery_preview": "external_liveries/previews/sauber/preview30ger.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"62\" NAME=\"Sauber-Mercedes #30 JJ. Lehto\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview30_kya.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Sauber30kya.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"62\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Lehto_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"62\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Sauber_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Sauber_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Sauber_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Sauber_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "lotus": {
+      "ams2car": "formula_hitech_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/lotus/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/lotus/default.dds",
+      "livery_preview": "external_liveries/previews/lotus/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/lotus_numbers_lotus1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 200,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2144,
+            "Y": 2023
+          },
+          "rotation": "Deg180",
+          "fill_color": "#00844F"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/lotus_numbers_lotus2.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 240,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1026,
+            "Y": 5880
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFD131"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/lotus_numbers_lotus2.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 240,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2826,
+            "Y": 5880
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFD131"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/lotus/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/lotus/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/lotus/Lotus12aus.dds",
+          "driver2_livery": "external_liveries/car_liveries/lotus/Lotus12aus.dds",
+          "livery_preview": "external_liveries/previews/lotus/preview12_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/lotus/Lotus12est.dds",
+          "driver2_livery": "external_liveries/car_liveries/lotus/Lotus12est.dds",
+          "livery_preview": "external_liveries/previews/lotus/preview12_est.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/lotus/Lotus12suz.dds",
+          "driver2_livery": "external_liveries/car_liveries/lotus/Lotus12suz.dds",
+          "livery_preview": "external_liveries/previews/lotus/preview12_suz.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"54\" NAME=\"Lotus-Ford #12 J. Herbert\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview12.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Lotus12.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"54\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Herbert_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"54\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lotus_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lotus_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lotus_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Lotus_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "tyrrell": {
+      "ams2car": "formula_hitech_g2m3",
+      "base_livery_driver1": "external_liveries/car_liveries/tyrrell/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/tyrrell/default.dds",
+      "livery_preview": "external_liveries/previews/tyrrell/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/tyrrell_numbers_tyrrell.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2163,
+            "Y": 626
+          },
+          "rotation": "Deg180",
+          "fill_color": "#10145A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/tyrrell_numbers_tyrrell.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3925,
+            "Y": 1394
+          },
+          "rotation": "Deg90",
+          "fill_color": "#10145A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/tyrrell_numbers_tyrrell.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3775,
+            "Y": 2406
+          },
+          "rotation": "Deg270",
+          "fill_color": "#10145A"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/tyrrell/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/tyrrell/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/tyrrell/Tyrrell3aus.dds",
+          "driver2_livery": "external_liveries/car_liveries/tyrrell/Tyrrell3aus.dds",
+          "livery_preview": "external_liveries/previews/tyrrell/preview3_late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/tyrrell/Tyrrell3don.dds",
+          "driver2_livery": "external_liveries/car_liveries/tyrrell/Tyrrell3don.dds",
+          "livery_preview": "external_liveries/previews/tyrrell/preview3_donington.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Tyrrell-Yamaha #3 U. Katayama\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview3.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Tyrrell3early.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Katayama_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Tyrrell_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Tyrrell_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Tyrrell_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Tyrrell_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_hitech_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/williams_numbers_1.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2160,
+            "Y": 594
+          },
+          "rotation": "Deg180",
+          "fill_color": "#002057"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/williams_numbers_will_ing.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 876,
+            "Y": 5680
+          },
+          "rotation": "Deg0",
+          "fill_color": "#002057"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1993/cosmetics/numbers/williams_numbers_will_ing.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 234,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2985,
+            "Y": 5680
+          },
+          "rotation": "Deg0",
+          "fill_color": "#002057"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 7,
+          "driver1_livery": "external_liveries/car_liveries/williams/Williams0can.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/Williams0can.dds",
+          "livery_preview": "external_liveries/previews/williams/preview0_can.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/williams/Williams0don.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/Williams0don.dds",
+          "livery_preview": "external_liveries/previews/williams/preview0_donington.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/williams/Williams0fra.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/Williams0fra.dds",
+          "livery_preview": "external_liveries/previews/williams/preview0_france.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/williams/Williams0don.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/Williams0don.dds",
+          "livery_preview": "external_liveries/previews/williams/preview0_donington.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/williams/Williams0don.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/Williams0don.dds",
+          "livery_preview": "external_liveries/previews/williams/preview0_donington.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Williams-Renault #0 D. Hill\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview0.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Williams0.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Hill_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Williams_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Williams_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Williams_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Williams_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "michele_alboreto": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/7de4c52e390a.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/alboreto.png"
+    },
+    "jean_alesi": {
+      "base_helmet_file": "../../Drivers/own_helmets/bf3f14157892.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/bf3f14157892.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/alesi.png"
+    },
+    "philippe_alliot": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/5cb5502d6350.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/alliot.png"
+    },
+    "michael_andretti": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/a8f6b4c2c84a.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/andrett2.png"
+    },
+    "marco_apicella": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/97af700a2326.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/apicella.png"
+    },
+    "luca_badoer": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/9b1993c5bdc7.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/badoer.png"
+    },
+    "fabrizio_barbazza": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/95c58556a756.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/barbazza.png"
+    },
+    "rubens_barrichello": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/1e9bb8428a39.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/barrich.png"
+    },
+    "gerhard_berger": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/58dc2374f507.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/berger.png"
+    },
+    "mark_blundell": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/855dd866970e.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/blundell.png"
+    },
+    "thierry_boutsen": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/09feb6ef220c.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/boutsen.png"
+    },
+    "martin_brundle": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/8c104c5f1f78.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/brundle.png"
+    },
+    "ivan_capelli": {
+      "base_helmet_file": "../../Drivers/own_helmets/6527aeb79c3e.webp",
+      "base_visor_file": "../../Drivers/own_helmets/cf969aafdbfe.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/5ada685c0017.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/capelli.png"
+    },
+    "erik_comas": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/fcb3a167faef.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/comas.png"
+    },
+    "christian_fittipaldi": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/011df7cbb00b.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/fittipac.png"
+    },
+    "jean_marc_gounon": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/7392f1dc95fc.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/gounon.png"
+    },
+    "johnny_herbert": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/69ded2e893bf.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/herbert.png"
+    },
+    "damon_hill": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/21c626edee77.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/hilld.png"
+    },
+    "mika_hakkinen": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/a75825a1ecc4.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/hakkinen.png"
+    },
+    "eddie_irvine": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/617330326abd.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/irvine.png"
+    },
+    "jj_letho": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/3df75bcf9392.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/lehto.png"
+    },
+    "ukyo_katayama": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/36989ba3ad04.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/katayama.png"
+    },
+    "pedro_lamy": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/d1ad814ef4a7.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/lamy.png"
+    },
+    "pierluigi_martini": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/7a98bf0c74b5.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/martinip.png"
+    },
+    "emanuele_naspetti": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/27bdbd22e242.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/naspetti.png"
+    },
+    "riccardo_patrese": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/3309c8b05f0d.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/patrese.png"
+    },
+    "alain_prost": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/53c9918fd656.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/prost.png"
+    },
+    "michael_schumacher": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/a33ff2a72e09.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacm.png"
+    },
+    "ayrton_senna": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/e7a648f64596.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/senna.png"
+    },
+    "aguri_suzuki": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/d00f988f1322.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/suzukia.png"
+    },
+    "toshio_suzuki": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/9c631690e31f.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/suzukit.png"
+    },
+    "derek_warwick": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/f26812dd8e65.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/warwick.png"
+    },
+    "karl_wendlinger": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/8fd8512c3f75.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/wendling.png"
+    },
+    "alessandro_zanardi": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/15656dfd873f.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/zanardi.png"
+    },
+    "andrea_de_cesaris": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/d4b34cf7daab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/decesar.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/img-f1-1993-season.68939/",
+    "name": "IMG F1 1993",
+    "detect": [
+      "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993/Benetton05can.dds",
+      "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993/Benetton05hun.dds",
+      "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993/Benetton05late.dds",
+      "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993/Tyrrell3aus.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Benetton_body.dds",
+        "destinationPath": "static_assets\\veichles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Benetton_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Benetton_arms.dds",
+        "destinationPath": "static_assets\\veichles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Benetton_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Benetton_gloves.dds",
+        "destinationPath": "static_assets\\veichles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Benetton_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Benetton_legs.dds",
+        "destinationPath": "static_assets\\veichles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Benetton_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets\\veichles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Benetton05can.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Benetton05can.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview5_can.dds",
+        "destinationPath": "external_liveries/previews/benetton/preview5_can.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Benetton05hun.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Benetton05hun.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview5_hun.dds",
+        "destinationPath": "external_liveries/previews/benetton/preview5_hun.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Benetton05late.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Benetton05late.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview5_late.dds",
+        "destinationPath": "external_liveries/previews/benetton/preview5_late.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Footwork_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3_01Kyalami/F1_Season_1993\\Suits\\93_Footwork_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Footwork_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3_01Kyalami/F1_Season_1993\\Suits\\93_Footwork_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Footwork_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3_01Kyalami/F1_Season_1993\\Suits\\93_Footwork_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Footwork_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3_01Kyalami/F1_Season_1993\\Suits\\93_Footwork_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3_01Kyalami/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Tyrrell_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993\\Suits\\93_Tyrrell_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Tyrrell_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993\\Suits\\93_Tyrrell_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Tyrrell_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993\\Suits\\93_Tyrrell_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\93_Tyrrell_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993\\Suits\\93_Tyrrell_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Tyrrell3aus.dds",
+        "destinationPath": "external_liveries/car_liveries/tyrrell/Tyrrell3aus.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview3_late.dds",
+        "destinationPath": "external_liveries/previews/tyrrell/preview3_late.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Tyrrell3don.dds",
+        "destinationPath": "external_liveries/car_liveries/tyrrell/Tyrrell3don.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview3_donington.dds",
+        "destinationPath": "external_liveries/previews/tyrrell/preview3_donington.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Williams_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Williams_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Williams_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Williams_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Williams_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Williams_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Williams_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Williams_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Williams0can.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/Williams0can.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview0_can.dds",
+        "destinationPath": "external_liveries/previews/williams/preview0_can.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Sauber_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Sauber_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Sauber_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Sauber_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Sauber_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Sauber_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Sauber_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Sauber_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Sauber30spa.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/Sauber30spa.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Sauber30inter.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/Sauber30inter.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview30_inter.dds",
+        "destinationPath": "external_liveries/previews/sauber/preview30_inter.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Sauber30kya.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/Sauber30kya.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview30_kya.dds",
+        "destinationPath": "external_liveries/previews/sauber/preview30_kya.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Sauber30dum.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/Sauber30dum.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview30_late.dds",
+        "destinationPath": "external_liveries/previews/sauber/preview30_late.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Sauber30don.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/Sauber30don.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview30don.dds",
+        "destinationPath": "external_liveries/previews/sauber/preview30don.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Sauber30ger.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/Sauber30ger.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview30ger.dds",
+        "destinationPath": "external_liveries/previews/sauber/preview30ger.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Lotus_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Lotus_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Lotus_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Lotus_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Lotus_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Lotus_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Lotus_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Lotus_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Minardi24.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/Minardi24.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview24.dds",
+        "destinationPath": "external_liveries/previews/minardi/preview24.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Minardi24spa.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/Minardi24spa.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview24_spa.dds",
+        "destinationPath": "external_liveries/previews/minardi/preview24_spa.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Minardi24suz.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/Minardi24suz.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview24_suz.dds",
+        "destinationPath": "external_liveries/previews/minardi/preview24_suz.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Lotus_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Lotus_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Lotus_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Lotus_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Lotus_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Lotus_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Lotus_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Lotus_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Lotus12aus.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/Lotus12aus.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview12_late.dds",
+        "destinationPath": "external_liveries/previews/lotus/preview12_late.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Lotus12est.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/Lotus12est.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview12_est.dds",
+        "destinationPath": "external_liveries/previews/lotus/preview12_est.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Lotus12suz.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/Lotus12suz.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview12_suz.dds",
+        "destinationPath": "external_liveries/previews/lotus/preview12_suz.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Jordan_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Jordan_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Jordan_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Jordan_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Jordan_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Jordan_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Jordan_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Jordan_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_ferrari_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_ferrari_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_ferrari_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_ferrari_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_ferrari_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_ferrari_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_ferrari_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_ferrari_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_Larrousse_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_Larrousse_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_Larrousse_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_Larrousse_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_Larrousse_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_Larrousse_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_Larrousse_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_Larrousse_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Larrousse20kya.dds",
+        "destinationPath": "external_liveries/car_liveries/larrousse/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview20.dds",
+        "destinationPath": "external_liveries/previews/larrousse/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Larrousse20aus.dds",
+        "destinationPath": "external_liveries/car_liveries/larrousse/Larrousse20aus.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview20_aus.dds",
+        "destinationPath": "external_liveries/previews/larrousse/preview20_aus.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Larrousse20esp.dds",
+        "destinationPath": "external_liveries/car_liveries/larrousse/Larrousse20esp.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview20_esp.dds",
+        "destinationPath": "external_liveries/previews/larrousse/preview20_esp.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Larrousse20fra.dds",
+        "destinationPath": "external_liveries/car_liveries/larrousse/Larrousse20fra.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview20_france.dds",
+        "destinationPath": "external_liveries/previews/larrousse/preview20_france.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Larrousse20ger.dds",
+        "destinationPath": "external_liveries/car_liveries/larrousse/Larrousse20ger.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview20_germany.dds",
+        "destinationPath": "external_liveries/previews/larrousse/preview20_germany.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Larrousse20italy.dds",
+        "destinationPath": "external_liveries/car_liveries/larrousse/Larrousse20italy.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview19_italy.dds",
+        "destinationPath": "external_liveries/previews/larrousse/preview19_italy.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_Lola_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_Lola_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_Lola_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_Lola_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_Lola_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_Lola_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\93_Lola_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\93_Lola_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\BMS22kya.dds",
+        "destinationPath": "external_liveries/car_liveries/lola/BMS22kya.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview22.dds",
+        "destinationPath": "external_liveries/previews/lola/preview22.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\Suits\\93_Senna_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/mclaren_mp48/F1_Season_1993\\Suits\\93_Senna_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\Suits\\93_McLaren_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/mclaren_mp48/F1_Season_1993\\Suits\\93_McLaren_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\Suits\\93_McLaren_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/mclaren_mp48/F1_Season_1993\\Suits\\93_McLaren_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\Suits\\93_McLaren_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/mclaren_mp48/F1_Season_1993\\Suits\\93_McLaren_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\Suits\\black_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/mclaren_mp48/F1_Season_1993\\Suits\\black_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\McLaren8_Interlagos.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren8_Interlagos.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\preview8_Interlagos.dds",
+        "destinationPath": "external_liveries/previews/mclaren/preview8_Interlagos.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\McLaren8_Suzuka.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren8_Suzuka.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\preview8_late.dds",
+        "destinationPath": "external_liveries/previews/mclaren/preview8_late.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Ligier_body.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Ligier_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Ligier_arms.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Ligier_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Ligier_gloves.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Ligier_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\93_Ligier_legs.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\93_Ligier_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/veichles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993\\Suits\\red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Tyrrell3early.dds",
+        "destinationPath": "external_liveries/car_liveries/tyrrell/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview3.dds",
+        "destinationPath": "external_liveries/previews/tyrrell/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Lotus12.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview12.dds",
+        "destinationPath": "external_liveries/previews/lotus/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Benetton05early.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview5_early.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Benetton05don.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Benetton05don.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview5_donington.dds",
+        "destinationPath": "external_liveries/previews/benetton/preview5_donington.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Benetton05fra.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Benetton05fra.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview5_france.dds",
+        "destinationPath": "external_liveries/previews/benetton/preview5_france.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Benetton05ger.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Benetton05ger.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview5_germany.dds",
+        "destinationPath": "external_liveries/previews/benetton/preview5_germany.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Benetton05UK.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Benetton05UK.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview5_UK.dds",
+        "destinationPath": "external_liveries/previews/benetton/preview5_UK.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Ferrari28.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview28.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Ferrari28NT.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari28NT.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview28_donington.dds",
+        "destinationPath": "external_liveries/previews/ferrari/preview28_donington.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Ferrari28fra.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari28fra.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview28_france.dds",
+        "destinationPath": "external_liveries/previews/ferrari/preview28_france.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\Ferrari28ger.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari28ger.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview28_germany.dds",
+        "destinationPath": "external_liveries/previews/ferrari/preview28_germany.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Footwork10.dds",
+        "destinationPath": "external_liveries/car_liveries/footwork/Footwork10.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview10_germany.dds",
+        "destinationPath": "external_liveries/previews/footwork/preview10_germany.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Jordan15.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview15.dds",
+        "destinationPath": "external_liveries/previews/jordan/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Jordan15don.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/Jordan15don.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview15_donington.dds",
+        "destinationPath": "external_liveries/previews/jordan/preview15_donington.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Jordan15fra.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/Jordan15fra.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview15_france.dds",
+        "destinationPath": "external_liveries/previews/jordan/preview15_france.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Ligier26.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview26.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Ligier26NT.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/Ligier26NT.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview26_donington.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/preview26_donington.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Ligier26fra.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/Ligier26fra.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview26_france.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/preview26_france.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\McLaren8_Interlagos.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\preview8_Interlagos.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\McLaren8_silverstone.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren8_silverstone.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\preview8_silverstone.dds",
+        "destinationPath": "external_liveries/previews/mclaren/preview8_silverstone.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\McLaren8_Hockenheim.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren8_Hockenheim.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\preview8_Hockenheim.dds",
+        "destinationPath": "external_liveries/previews/mclaren/preview8_Hockenheim.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\McLaren8_Donington.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren8_Donington.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp48\\F1_Season_1993\\preview8_Donington.dds",
+        "destinationPath": "external_liveries/previews/mclaren/preview8_Donington.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\BMS22fra.dds",
+        "destinationPath": "external_liveries/car_liveries/lola/BMS22fra.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview22_france.dds",
+        "destinationPath": "external_liveries/previews/lola/preview22_france.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\BMS22ger.dds",
+        "destinationPath": "external_liveries/car_liveries/lola/BMS22ger.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview22_germany.dds",
+        "destinationPath": "external_liveries/previews/lola/preview22_germany.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\BMS22NT.dds",
+        "destinationPath": "external_liveries/car_liveries/lola/BMS22NT.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview22_donington.dds",
+        "destinationPath": "external_liveries/previews/lola/preview22_donington.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Minardi24UK.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/Minardi24UK.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview24_UK.dds",
+        "destinationPath": "external_liveries/previews/minardi/preview24_UK.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Williams0fra.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/Williams0fra.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview0_france.dds",
+        "destinationPath": "external_liveries/previews/williams/preview0_france.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Williams0don.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/Williams0don.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview0_donington.dds",
+        "destinationPath": "external_liveries/previews/williams/preview0_donington.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\BMS22kya.dds",
+        "destinationPath": "external_liveries/car_liveries/lola/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m1\\F1_Season_1993\\preview22.dds",
+        "destinationPath": "external_liveries/previews/lola/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Minardi24.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview24.dds",
+        "destinationPath": "external_liveries/previews/minardi/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Sauber30kya.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview30_kya.dds",
+        "destinationPath": "external_liveries/previews/sauber/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\Footwork10early.dds",
+        "destinationPath": "external_liveries/car_liveries/footwork/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m3\\F1_Season_1993\\preview10.dds",
+        "destinationPath": "external_liveries/previews/footwork/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\Williams0.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1993\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_hitech_g2m2\\F1_Season_1993\\preview0.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      }
+    ],
+    "helmets": {
+      "benetton": {
+        "samples": [
+          "90s/camel.png",
+          "90s/camel_NT.png"
+        ],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993/Helmets/93_Schumacher_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "ferrari": {
+        "samples": [
+          "90s/marlboro_halo.png",
+          "90s/marlboro_halo_NT.png"
+        ],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993/Helmets/93_Alesi_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "footwork": {
+        "samples": [
+          "90s/Marlboro_NoHalos.png",
+          "90s/Marlboro_NoHalo_NT.png"
+        ],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993/Helmets/93_Warwick_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "jordan": {
+        "samples": [],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993/Helmets/93_Barrichello_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "larrousse": {
+        "samples": [],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993/Helmets/93_Alliot_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "ligier_prost": {
+        "samples": [],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993/Helmets/93_Brundle_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "lola": {
+        "samples": [],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m1/F1_Season_1993/Helmets/93_Alboreto_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "mclaren": {
+        "samples": [
+          "90s/Marlboro_NoHalos.png",
+          "90s/Marlboro_NoHalo_NT.png"
+        ],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp48/F1_Season_1993/Helmets/93_Senna_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "minardi": {
+        "samples": [
+          "90s/Marlboro_NoHalos.png",
+          "90s/Marlboro_NoHalo_NT.png"
+        ],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993/Helmets/93_Fittipaldi_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "sauber": {
+        "samples": [],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993/Helmets/93_Wendlinger_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "lotus": {
+        "samples": [],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993/Helmets/93_Zanardi_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "tyrrell": {
+        "samples": [],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993/Helmets/93_Katayama_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993/Helmets/93_Prost_helmet.dds",
+        "map": null,
+        "visor": null
+      }
+    },
+    "helmet_model": "Nineties"
+  }
+}
