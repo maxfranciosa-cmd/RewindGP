@@ -1,0 +1,18 @@
+{
+  "car_models": [
+    "mclaren_mp47"
+  ],
+  "livery_xml": "livery.xml",
+  "outfit_set": "open_wheel_90s",
+  "templates": [
+    {
+      "id": "body_1",
+      "body": "templates/body_1.png",
+      "numbers_placements": [
+        { "number_plate_width": 220, "starting_point": { "IsEmpty": false, "X": 2154, "Y": 800 }, "rotation": "Deg180", "sheet_size": [ 1100, 165 ] },
+        { "number_plate_width": 220, "starting_point": { "IsEmpty": false, "X": 924, "Y": 5850 }, "rotation": "Deg90", "sheet_size": [ 1100, 165 ] },
+        { "number_plate_width": 220, "starting_point": { "IsEmpty": false, "X": 1032, "Y": 5388 }, "rotation": "Deg270", "sheet_size": [ 1100, 165 ] }
+      ]
+    }
+  ]
+}

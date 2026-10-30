@@ -1,0 +1,18 @@
+{
+  "car_models": [
+    "formula_hitech_g1m3"
+  ],
+  "livery_xml": "livery.xml",
+  "outfit_set": "open_wheel_90s",
+  "templates": [
+    {
+      "id": "body_1",
+      "body": "templates/body_1.png",
+      "numbers_placements": [
+        { "number_plate_width": 180, "starting_point": { "IsEmpty": false, "X": 2141, "Y": 328 }, "rotation": "Deg180", "sheet_size": [ 900, 135 ] },
+        { "number_plate_width": 180, "starting_point": { "IsEmpty": false, "X": 246, "Y": 3868 }, "rotation": "Deg90", "sheet_size": [ 900, 135 ] },
+        { "number_plate_width": 180, "starting_point": { "IsEmpty": false, "X": 3841, "Y": 4042 }, "rotation": "Deg270", "sheet_size": [ 900, 135 ] }
+      ]
+    }
+  ]
+}

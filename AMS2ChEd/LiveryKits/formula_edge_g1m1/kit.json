@@ -1,0 +1,18 @@
+{
+  "car_models": [
+    "formula_edge_g1m1"
+  ],
+  "livery_xml": "livery.xml",
+  "outfit_set": "open_wheel_90s",
+  "templates": [
+    {
+      "id": "edge_1",
+      "body": "templates/edge_1.png",
+      "numbers_placements": [
+        { "number_plate_width": 220, "starting_point": { "IsEmpty": false, "X": 2160, "Y": 1500 }, "rotation": "Deg180", "sheet_size": [ 1100, 165 ] },
+        { "number_plate_width": 220, "starting_point": { "IsEmpty": false, "X": 280, "Y": 2340 }, "rotation": "Deg270", "sheet_size": [ 1100, 165 ] },
+        { "number_plate_width": 220, "starting_point": { "IsEmpty": false, "X": 3820, "Y": 2120 }, "rotation": "Deg90", "sheet_size": [ 1100, 165 ] }
+      ]
+    }
+  ]
+}
