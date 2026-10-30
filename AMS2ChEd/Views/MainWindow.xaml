@@ -206,7 +206,12 @@
                                                 Click="ImportedDriverInstallButton_Click"/>
                                     </StackPanel>
                                 </StackPanel>
-
+                                <StackPanel x:Name="ReputationFieldsPanel">
+                                    <Label Content="{loc:Loc MainWindow_ReputationLabel}" Style="{StaticResource Main.FormLabel}"/>
+                                    <ComboBox x:Name="ReputationComboBox"
+                                    Style="{StaticResource Main.ComboBox}"
+                                    SelectionChanged="ReputationComboBox_SelectionChanged" />
+                                </StackPanel>
                                 <StackPanel x:Name="CustomDriverFieldsPanel">
                                 <Label Content="{loc:Loc MainWindow_DriverNameLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>
                                 <TextBox x:Name="DriverNameTextBox" Style="{StaticResource Main.TextBox}"/>
@@ -245,14 +250,6 @@
                                                  ToolTip="{loc:Loc MainWindow_FavouriteNumbersToolTip}"/>
                                     </StackPanel>
                                 </Grid>
-                                </StackPanel>
-
-                                <StackPanel x:Name="ReputationFieldsPanel">
-                                <Label Content="{loc:Loc MainWindow_ReputationLabel}" Style="{StaticResource Main.FormLabel}"/>
-                                <ComboBox x:Name="ReputationComboBox"
-                                      Style="{StaticResource Main.ComboBox}"
-                                      SelectionChanged="ReputationComboBox_SelectionChanged" />
-                                </StackPanel>
                                     <!-- Helmet Selection -->
                                     <Label x:Name="HelmetSelectionLabel" Content="{loc:Loc MainWindow_HelmetDesignLabel}" Style="{StaticResource Main.FormLabelSpaced}"/>
                                     <Border x:Name="HelmetSelectionBorder" Style="{StaticResource Main.HelmetBox}">
@@ -323,6 +320,10 @@
                                             </StackPanel>
                                         </StackPanel>
                                     </Grid>
+                                </StackPanel>
+
+
+                                    
 
                                     <Button x:Name="CreateGameButton"
                                     Content="{loc:Loc MainWindow_CreateGameButton}"
