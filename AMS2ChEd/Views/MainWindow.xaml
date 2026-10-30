@@ -123,8 +123,9 @@
                 <!-- Forms take the place of the menu; the card has no size while both panels are collapsed -->
                 <Border Style="{StaticResource Main.FormCard}">
                     <Grid>
-                        <!-- Developer Tools Panel -->
-                        <StackPanel x:Name="DeveloperToolsPanel" Visibility="Collapsed" Style="{StaticResource Main.FormPanel}">
+                        <!-- Developer Tools Panel: above the New Game ScrollViewer, which takes every
+                             click in its area even with the form inside it collapsed -->
+                        <StackPanel x:Name="DeveloperToolsPanel" Panel.ZIndex="1" Visibility="Collapsed" Style="{StaticResource Main.FormPanel}">
                             <Label Content="{loc:Loc MainWindow_SelectSeasonLabel}" Style="{StaticResource Main.FormLabel}"/>
                             <ComboBox x:Name="DevSeasonComboBox"
                                       Style="{StaticResource Main.ComboBox}"
