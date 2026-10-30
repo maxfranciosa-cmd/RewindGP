@@ -1356,6 +1356,11 @@ namespace AMS2ChEd.Resources
 
         public static string PostRaceNewsWindow_Closing_Standard_WithAtLeastOneChampionshipDecided => ResourceManager.GetString(nameof(PostRaceNewsWindow_Closing_Standard_WithAtLeastOneChampionshipDecided))!;
 
+        public static string PostRaceNewsWindow_Opening_FinaleChampionAlreadyCrowned1_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_FinaleChampionAlreadyCrowned1_Format))!;
+        public static string PostRaceNewsWindow_Opening_FinaleChampionAlreadyCrowned2_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_Opening_FinaleChampionAlreadyCrowned2_Format))!;
+        public static string PostRaceNewsWindow_ChampAlreadyCrownedWinner_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampAlreadyCrownedWinner_Format))!;
+        public static string PostRaceNewsWindow_ChampAlreadyCrownedOther_Format => ResourceManager.GetString(nameof(PostRaceNewsWindow_ChampAlreadyCrownedOther_Format))!;
+
         public static string PostRaceNewsWindow_RacesWording_Singular => ResourceManager.GetString(nameof(PostRaceNewsWindow_RacesWording_Singular))!;
         public static string PostRaceNewsWindow_RacesWording_Plural => ResourceManager.GetString(nameof(PostRaceNewsWindow_RacesWording_Plural))!;
 

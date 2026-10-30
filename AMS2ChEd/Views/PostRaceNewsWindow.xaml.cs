@@ -18,14 +18,15 @@ namespace AMS2ChEd.Views
     {
         // null without an all-time records loader: accolades then only count the save's own results
         private readonly AllTimeRecords _allTimeRecords;
+        // decided at this race with rounds to spare: the paper leads with the coronation
         private readonly bool _driversChampionshipDecided;
         private readonly bool _constructorsChampionshipDecided;
 
+        // decided at an earlier race: old news, the paper no longer talks of a title fight
         private readonly bool _driversChampionshipDecidedAlready;
         private readonly bool _constructorsChampionshipDecidedAlready;
         private readonly string _driversChampionName;
         private readonly string _constructorsChampionName;
-
 
         public PostRaceNewsWindow(
             ISaveGame saveGame,
@@ -40,10 +41,19 @@ namespace AMS2ChEd.Views
             InitializeComponent();
 
             _allTimeRecords = allTimeRecordsLoader?.Load();
-            _driversChampionshipDecidedAlready = ChampionshipScoringCalculator.HasDriverChampionshipClinched(saveGame, out _driversChampionshipDecided);
-            _constructorsChampionshipDecidedAlready = ChampionshipScoringCalculator.HasConstructorChampionshipClinched(saveGame, out _constructorsChampionshipDecided);
-            _driversChampionName = _driversChampionshipDecided ? GetDriverName(saveGame, saveGame.CurrentDriverStandings.FirstOrDefault(s => s.Position == 1)?.DriverId) : null;
-            _constructorsChampionName = _constructorsChampionshipDecided ? GetTeamName(saveGame, saveGame.CurrentConstructorStandings.FirstOrDefault(s => s.Position == 1)?.TeamId) : null;
+            // NextGpIndex already points past the race just run; the calculator wants the race's own index.
+            // A title still open before the finale is settled by the finale itself, which the finale
+            // paragraphs already tell, so it doesn't count as decided with rounds to spare
+            int raceIndex = saveGame.NextGpIndex - 1;
+            bool isFinale = saveGame.NextGpIndex == saveGame.CurrentSeason.Races.Count();
+            bool driversClinched = ChampionshipScoringCalculator.HasDriverChampionshipClinched(saveGame, out bool driversClinchedThisRace, raceIndex);
+            bool constructorsClinched = ChampionshipScoringCalculator.HasConstructorChampionshipClinched(saveGame, out bool constructorsClinchedThisRace, raceIndex);
+            _driversChampionshipDecided = driversClinchedThisRace && !isFinale;
+            _constructorsChampionshipDecided = constructorsClinchedThisRace && !isFinale;
+            _driversChampionshipDecidedAlready = driversClinched && !driversClinchedThisRace;
+            _constructorsChampionshipDecidedAlready = constructorsClinched && !constructorsClinchedThisRace;
+            _driversChampionName = driversClinched ? GetDriverName(saveGame, saveGame.CurrentDriverStandings.FirstOrDefault(s => s.Position == 1)?.DriverId) : null;
+            _constructorsChampionName = constructorsClinched ? GetTeamName(saveGame, saveGame.CurrentConstructorStandings.FirstOrDefault(s => s.Position == 1)?.TeamId) : null;
 
             crashNews ??= Array.Empty<CrashNewsItem>();
 
@@ -318,7 +328,17 @@ namespace AMS2ChEd.Views
                     // Check if winner is also the champion
                     bool isChampion = winnerNewPosition == 1;
 
-                    if (isChampion)
+                    if (isChampion && _driversChampionshipDecidedAlready)
+                    {
+                        var alreadyCrownedFinaleOpenings = new[]
+                        {
+                        Strings.PostRaceNewsWindow_Opening_FinaleChampionAlreadyCrowned1_Format,
+                        Strings.PostRaceNewsWindow_Opening_FinaleChampionAlreadyCrowned2_Format
+                    };
+
+                        article += string.Format(alreadyCrownedFinaleOpenings[random.Next(alreadyCrownedFinaleOpenings.Length)], openingArgs) + "\n\n";
+                    }
+                    else if (isChampion)
                     {
                         var championFinaleOpenings = new[]
                         {
@@ -427,7 +447,18 @@ namespace AMS2ChEd.Views
 
             article += "\n\n";
             // Championship implications
-            if (!_driversChampionshipDecided)
+            if (_driversChampionshipDecidedAlready)
+            {
+                // the title is settled: no lead to extend nor fight to stay in. At the finale a
+                // winner other than the champion gets the usual final-standing line
+                if (winner.DriverId == saveGame.CurrentDriverStandings.FirstOrDefault(s => s.Position == 1)?.DriverId)
+                    article += string.Format(Strings.PostRaceNewsWindow_ChampAlreadyCrownedWinner_Format, winnerName);
+                else if (isLastRace)
+                    article += GenerateChampionshipUpdate(winnerName, winnerNewPosition, previousWinnerStandingPosition, isFirstRace, isLastRace);
+                else
+                    article += string.Format(Strings.PostRaceNewsWindow_ChampAlreadyCrownedOther_Format, winnerName, _driversChampionName, winnerNewPosition);
+            }
+            else if (!_driversChampionshipDecided)
             {
                 article += GenerateChampionshipUpdate(
                     winnerName,
@@ -466,7 +497,7 @@ namespace AMS2ChEd.Views
             {
                 article += Strings.PostRaceNewsWindow_Closing_LastRace;
             }
-            else if (_driversChampionshipDecided || _constructorsChampionshipDecided)
+            else if (_driversChampionshipDecided || _constructorsChampionshipDecided || _driversChampionshipDecidedAlready || _constructorsChampionshipDecidedAlready)
             {
                 article += Strings.PostRaceNewsWindow_Closing_Standard_WithAtLeastOneChampionshipDecided;
             }
