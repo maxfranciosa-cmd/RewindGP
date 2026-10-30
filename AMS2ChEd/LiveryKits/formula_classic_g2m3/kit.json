@@ -1,0 +1,18 @@
+{
+  "car_models": [
+    "formula_classic_g2m3"
+  ],
+  "livery_xml": "livery.xml",
+  "outfit_set": "open_wheel_90s",
+  "templates": [
+    {
+      "id": "body_1",
+      "body": "templates/body_1.png",
+      "numbers_placements": [
+        { "number_plate_width": 150, "starting_point": { "IsEmpty": false, "X": 2125, "Y": 930 }, "rotation": "Deg180", "sheet_size": [ 750, 112 ] },
+        { "number_plate_width": 260, "starting_point": { "IsEmpty": false, "X": 110, "Y": 3665 }, "rotation": "Deg0", "sheet_size": [ 1300, 195 ] },
+        { "number_plate_width": 265, "starting_point": { "IsEmpty": false, "X": 3690, "Y": 3665 }, "rotation": "Deg0", "sheet_size": [ 1325, 199 ] }
+      ]
+    }
+  ]
+}

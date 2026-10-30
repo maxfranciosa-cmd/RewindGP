@@ -1,0 +1,1583 @@
+{
+  "_comment": "Artwork the app ships for 1990 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/1990/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: dallara, eurobrun, onyx, life.",
+  "teams": {
+    "ferrari": {
+      "ams2car": "formula_classic_g3m1",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2158,
+            "Y": 944
+          },
+          "rotation": "Deg180",
+          "fill_color": "#9C0000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/ferrari_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 266,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 100,
+            "Y": 3674
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/ferrari_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 266,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3683,
+            "Y": 3674
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Ferrari #1 A. Prost\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview1.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body1.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Prost_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ferrari_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ferrari_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ferrari_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ferrari_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "tyrrell": {
+      "ams2car": "formula_classic_g3m4",
+      "base_livery_driver1": "external_liveries/car_liveries/tyrrell/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/tyrrell/default.dds",
+      "livery_preview": "external_liveries/previews/tyrrell/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/tyrrell_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 182,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2140,
+            "Y": 562
+          },
+          "rotation": "Deg180",
+          "fill_color": "#001E58"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/tyrrell_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 790,
+            "Y": 1690
+          },
+          "rotation": "Deg90",
+          "fill_color": "#E9E4E1"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/tyrrell_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3315,
+            "Y": 1870
+          },
+          "rotation": "Deg270",
+          "fill_color": "#E9E4E1"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/tyrrell/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/tyrrell/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Tyrrell-Ford #3 S. Nakajima\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview3.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body3.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Nakajima_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Tyrrell_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Tyrrell_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Tyrrell_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Tyrrell_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_classic_g3m3",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2158,
+            "Y": 428
+          },
+          "rotation": "Deg180",
+          "fill_color": "#10255A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/williams_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 376,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 856,
+            "Y": 3684
+          },
+          "rotation": "Deg90",
+          "fill_color": "#10255A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/williams_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 376,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3240,
+            "Y": 4060
+          },
+          "rotation": "Deg270",
+          "fill_color": "#10255A"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Williams-Renault #5 T. Boutsen\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview5.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body5.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Boutsen_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_williams_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_williams_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_williams_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_williams_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "brabham": {
+      "ams2car": "formula_classic_g3m4",
+      "base_livery_driver1": "external_liveries/car_liveries/brabham/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/brabham/default.dds",
+      "livery_preview": "external_liveries/previews/brabham/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/brabham_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 108,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2104,
+            "Y": 655
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FCFCFC"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/brabham_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 310,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 40,
+            "Y": 3722
+          },
+          "rotation": "Deg0",
+          "fill_color": "#002244"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/brabham_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 310,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3761,
+            "Y": 3722
+          },
+          "rotation": "Deg0",
+          "fill_color": "#002244"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/brabham/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/brabham/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/brabham/body7-usa.dds",
+          "driver2_livery": "external_liveries/car_liveries/brabham/body7-usa.dds",
+          "livery_preview": "external_liveries/previews/brabham/preview7-usa.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/brabham_usa_side_l.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 310,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 862,
+                "Y": 1920
+              },
+              "rotation": "Deg90",
+              "fill_color": "#0A1955"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/brabham_usa_side_r.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 310,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 3238,
+                "Y": 2160
+              },
+              "rotation": "Deg270",
+              "fill_color": "#0A1955"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/brabham_usa_nose.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 200,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 2125,
+                "Y": 548
+              },
+              "rotation": "Deg180",
+              "fill_color": "#F1F1EF"
+            }
+          ]
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/brabham/body7-usa.dds",
+          "driver2_livery": "external_liveries/car_liveries/brabham/body7-usa.dds",
+          "livery_preview": "external_liveries/previews/brabham/preview7-usa.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/brabham_usa_side_l.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 310,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 862,
+                "Y": 1920
+              },
+              "rotation": "Deg90",
+              "fill_color": "#0A1955"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/brabham_usa_side_r.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 310,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 3238,
+                "Y": 2160
+              },
+              "rotation": "Deg270",
+              "fill_color": "#0A1955"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/brabham_usa_nose.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 200,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 2125,
+                "Y": 548
+              },
+              "rotation": "Deg180",
+              "fill_color": "#F1F1EF"
+            }
+          ]
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"Brabham-Judd #7 D. Brabham\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview7.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body7.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Brabham_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Brabham_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Brabham_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Brabham_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Brabham_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "arrows": {
+      "ams2car": "formula_classic_g3m4",
+      "base_livery_driver1": "external_liveries/car_liveries/arrows/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/arrows/default.dds",
+      "livery_preview": "external_liveries/previews/arrows/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/arrows_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2125,
+            "Y": 432
+          },
+          "rotation": "Deg180",
+          "fill_color": "#E9E5E1"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/arrows_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 160,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 12,
+            "Y": 3478
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E9E5E1"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/arrows_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 160,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3917,
+            "Y": 3478
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E9E5E1"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/arrows/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/arrows/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"Arrows-Ford #9 M. Alboreto\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview9.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body9.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Alboreto_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Arrows_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Arrows_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Arrows_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Arrows_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "lotus": {
+      "ams2car": "formula_classic_g3m1",
+      "base_livery_driver1": "external_liveries/car_liveries/lotus/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/lotus/default.dds",
+      "livery_preview": "external_liveries/previews/lotus/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/lotus_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 190,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2152,
+            "Y": 642
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFAA21"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/lotus_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 192,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 66,
+            "Y": 3800
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFAA21"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/lotus_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 193,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3850,
+            "Y": 3800
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFAA21"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/lotus/camel.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/lotus/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"Lotus-Lamborghini #11 D. Warwick\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview11.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body11.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1990\\Oz_rim_diff.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1990\\Oz_rim_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Warwick_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_lotus_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_lotus_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_lotus_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_lotus_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "osella": {
+      "ams2car": "formula_classic_g3m4",
+      "base_livery_driver1": "external_liveries/car_liveries/osella/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/osella/default.dds",
+      "livery_preview": "external_liveries/previews/osella/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/osella_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 146,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2114,
+            "Y": 240
+          },
+          "rotation": "Deg180",
+          "fill_color": "#EC5B23"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/osella_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 52,
+            "Y": 3844
+          },
+          "rotation": "Deg0",
+          "fill_color": "#1E1D1D"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/osella_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 176,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3858,
+            "Y": 3844
+          },
+          "rotation": "Deg0",
+          "fill_color": "#1E1D1D"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/osella/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/osella/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"Osella-Ford #14 O. Grouillard\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview14.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body14.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Grouillard_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Osella_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Osella_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Osella_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Osella_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "march": {
+      "ams2car": "formula_classic_g3m4",
+      "base_livery_driver1": "external_liveries/car_liveries/march/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/march/default.dds",
+      "livery_preview": "external_liveries/previews/march/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/march_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 176,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1142,
+            "Y": 155
+          },
+          "rotation": "Deg0",
+          "fill_color": "#1A1C1A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/march_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 176,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2800,
+            "Y": 155
+          },
+          "rotation": "Deg0",
+          "fill_color": "#1A1C1A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/march_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 168,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 62,
+            "Y": 3884
+          },
+          "rotation": "Deg0",
+          "fill_color": "#21B2DE"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/march_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 164,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3862,
+            "Y": 3884
+          },
+          "rotation": "Deg0",
+          "fill_color": "#21B2DE"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/march/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/march/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"58\" NAME=\"Leyton House-Judd #15 M. Gugelmin\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview15.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body15.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"58\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Gugelmin_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"58\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_LeytonHouse_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_LeytonHouse_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_LeytonHouse_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_LeytonHouse_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ags": {
+      "ams2car": "formula_classic_g3m2",
+      "base_livery_driver1": "external_liveries/car_liveries/ags/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ags/default.dds",
+      "livery_preview": "external_liveries/previews/ags/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/ags_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 176,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2126,
+            "Y": 316
+          },
+          "rotation": "Deg180",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/ags_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 198,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 842,
+            "Y": 1722
+          },
+          "rotation": "Deg90",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/ags_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 198,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3256,
+            "Y": 1920
+          },
+          "rotation": "Deg270",
+          "fill_color": "#101010"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ags/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ags/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"AGS-Ford #17 G. Tarquini\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview17_Tarquini.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\17_Tarquini.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Tarquini_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ags_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ags_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ags_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ags_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "formula_classic_g3m4",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2150,
+            "Y": 382
+          },
+          "rotation": "Deg180",
+          "fill_color": "#007231"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/benetton_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 192,
+            "Y": 3868
+          },
+          "rotation": "Deg0",
+          "fill_color": "#1A1B1A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/benetton_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3718,
+            "Y": 3868
+          },
+          "rotation": "Deg0",
+          "fill_color": "#1A1B1A"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"Benetton-Ford #19 A. Nannini\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview19.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body19.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Nannini_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Benetton_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Benetton_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Benetton_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Benetton_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "minardi": {
+      "ams2car": "formula_classic_g3m2",
+      "base_livery_driver1": "external_liveries/car_liveries/minardi/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/minardi/default.dds",
+      "livery_preview": "external_liveries/previews/minardi/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/minardi_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 238,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2166,
+            "Y": 676
+          },
+          "rotation": "Deg180",
+          "fill_color": "#E6BC00"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/minardi_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 296,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 30,
+            "Y": 3852
+          },
+          "rotation": "Deg0",
+          "fill_color": "#1F1F1F"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/minardi_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 296,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3778,
+            "Y": 3852
+          },
+          "rotation": "Deg0",
+          "fill_color": "#1F1F1F"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/minardi/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"Minardi-Ford #23 P. Martini\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview23_Martini.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\23_Martini.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Martini_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Minardi_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Minardi_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Minardi_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Minardi_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ligier_prost": {
+      "ams2car": "formula_classic_g3m2",
+      "base_livery_driver1": "external_liveries/car_liveries/ligier_prost/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ligier_prost/default.dds",
+      "livery_preview": "external_liveries/previews/ligier_prost/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/ligier_prost_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 230,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2160,
+            "Y": 696
+          },
+          "rotation": "Deg180",
+          "fill_color": "#0042B2"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/ligier_prost_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 244,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 62,
+            "Y": 3622
+          },
+          "rotation": "Deg0",
+          "fill_color": "#0042B2"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/ligier_prost_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 246,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3806,
+            "Y": 3622
+          },
+          "rotation": "Deg0",
+          "fill_color": "#0042B2"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"Ligier-Ford #25 N. Larini\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview25_Larini.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\25_Larini.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Larini_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ligier_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ligier_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ligier_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_ligier_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "ams2car": "mclaren_mp45b",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/mclaren_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 208,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 540,
+            "Y": 4062
+          },
+          "rotation": "Deg270",
+          "fill_color": "#DB3815"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/mclaren_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 208,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3562,
+            "Y": 3854
+          },
+          "rotation": "Deg90",
+          "fill_color": "#DB3815"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/mclaren_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 694,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2396,
+            "Y": 470
+          },
+          "rotation": "Deg180",
+          "fill_color": "#ECEDEC"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/Marlboro_NoHalos.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"McLaren-Honda #27 A. Senna\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview27.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body27.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Senna_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Senna_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_McLaren_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_McLaren_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_McLaren_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "larrousse": {
+      "ams2car": "formula_classic_g3m1",
+      "base_livery_driver1": "external_liveries/car_liveries/larrousse/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/larrousse/default.dds",
+      "livery_preview": "external_liveries/previews/larrousse/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/larrousse_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1060,
+            "Y": 100
+          },
+          "rotation": "Deg0",
+          "fill_color": "#081829"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/larrousse_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2828,
+            "Y": 100
+          },
+          "rotation": "Deg0",
+          "fill_color": "#081829"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/larrousse_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 178,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 160,
+            "Y": 3812
+          },
+          "rotation": "Deg0",
+          "fill_color": "#081829"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/larrousse_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3768,
+            "Y": 3812
+          },
+          "rotation": "Deg0",
+          "fill_color": "#081829"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/larrousse/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/larrousse/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"Lola-Lamborghini #29 E. Bernard\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview29.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body29.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Bernard_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Lola_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Lola_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Lola_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Lola_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "coloni": {
+      "ams2car": "formula_classic_g3m4",
+      "base_livery_driver1": "external_liveries/car_liveries/coloni/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/coloni/default.dds",
+      "livery_preview": "external_liveries/previews/coloni/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/coloni_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2126,
+            "Y": 440
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFE13E"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/coloni_end_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 188,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 50,
+            "Y": 3874
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFE13E"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1990/cosmetics/numbers/coloni_end_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 184,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3856,
+            "Y": 3874
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFE13E"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/coloni/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/coloni/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"Coloni-Subaru #31 B. Gachot\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1990\\preview31.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1990\\body31.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Helmets\\90_Gachot_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1990\\Helmets\\90_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Coloni_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Coloni_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Coloni_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1990\\Suits\\90_Coloni_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1990\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "aguri_suzuki": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/d00f988f1322.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/suzukia.png"
+    },
+    "alain_prost": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/53c9918fd656.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/prost.png"
+    },
+    "alessandro_nannini": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/f8b5fb00f7eb.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/nannini.png"
+    },
+    "alex_caffi": {
+      "base_helmet_file": "../../Drivers/own_helmets/aa06e1cb979b.webp",
+      "base_visor_file": "../../Drivers/own_helmets/d4889fb5ae36.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/c9e1f76dfb59.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/caffi.png"
+    },
+    "andrea_de_cesaris": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/d4b34cf7daab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/decesar.png"
+    },
+    "ayrton_senna": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/e7a648f64596.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/senna.png"
+    },
+    "bernd_schneider": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/c46af49a56b4.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/schneide.png"
+    },
+    "bertrand_gachot": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/a65bfc57f80c.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/gachot.png"
+    },
+    "bruno_giacomelli": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/02cb6539efda.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/giacom.png"
+    },
+    "claudio_langes": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/595dbe39984b.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/langes.png"
+    },
+    "david_brabham": {
+      "base_helmet_file": "../../Drivers/own_helmets/e83af09383c6.webp",
+      "base_visor_file": "../../Drivers/own_helmets/88fc367796e1.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/5411ee8ae0a8.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/brabhamd.png"
+    },
+    "derek_warwick": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/f26812dd8e65.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/warwick.png"
+    },
+    "emanuele_pirro": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/3dec36ddc41c.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/pirro.png"
+    },
+    "eric_bernard": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/cc83cfb085ba.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/bernard.png"
+    },
+    "gabriele_tarquini": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/147b3ed515f1.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/tarquini.png"
+    },
+    "gary_brabham": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/c34161aaff21.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/brabhamg.png"
+    },
+    "gerhard_berger": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/58dc2374f507.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/berger.png"
+    },
+    "gianni_morbidelli": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/526e4d3dd56e.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/morbidel.png"
+    },
+    "gregor_foitek": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/783bae6e0883.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/foitek.png"
+    },
+    "ivan_capelli": {
+      "base_helmet_file": "../../Drivers/own_helmets/6527aeb79c3e.webp",
+      "base_visor_file": "../../Drivers/own_helmets/cf969aafdbfe.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/5ada685c0017.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/capelli.png"
+    },
+    "jean_alesi": {
+      "base_helmet_file": "../../Drivers/own_helmets/bf3f14157892.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/bf3f14157892.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/alesi.png"
+    },
+    "johnny_herbert": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/69ded2e893bf.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/herbert.png"
+    },
+    "jj_letho": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/3df75bcf9392.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/lehto.png"
+    },
+    "martin_donnelly": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/3278a9fd500b.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/donnely.png"
+    },
+    "mauricio_gugelmin": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/db852ddcf2e0.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/gugelmin.png"
+    },
+    "michele_alboreto": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/7de4c52e390a.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/alboreto.png"
+    },
+    "nelson_piquet": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/da6a14a17e41.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/piquet.png"
+    },
+    "nicola_larini": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/607d80d8cff7.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/larini.png"
+    },
+    "nigel_mansell": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/48685491df23.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/mansell.png"
+    },
+    "olivier_grouillard": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/2c7b35681b7e.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/grouilla.png"
+    },
+    "paolo_barilla": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/1c837690af00.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/barilla.png"
+    },
+    "philippe_alliot": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/5cb5502d6350.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/alliot.png"
+    },
+    "pierluigi_martini": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/7a98bf0c74b5.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/martinip.png"
+    },
+    "riccardo_patrese": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/3309c8b05f0d.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/patrese.png"
+    },
+    "roberto_moreno": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/6a1e3c4e9757.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/moreno.png"
+    },
+    "satoru_nakajima": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/2f35648970e6.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/nakajima.png"
+    },
+    "stefan_johansson": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/4334002ba4cb.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/johansso.png"
+    },
+    "stefano_modena": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/08b2e7f84126.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/modena.png"
+    },
+    "thierry_boutsen": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/09feb6ef220c.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/boutsen.png"
+    },
+    "yannick_dalmas": {
+      "base_helmet_file": "../../Drivers/own_helmets/3cc0a870ad2a.webp",
+      "base_visor_file": "../../Drivers/own_helmets/836b7c52e5a3.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/66a827d100a4.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/dalmas.png"
+    },
+    "martin_brundle": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/8c104c5f1f78.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/brundle.png"
+    },
+    "mark_blundell": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/855dd866970e.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/blundell.png"
+    },
+    "julian_bailey": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/d57b65f45be0.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/bailey.png"
+    },
+    "eric_van_de_poele": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/0ebb6f55fdc9.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/vandepo.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/img-f1-1990-season.64765/",
+    "name": "IMG F1 1990",
+    "detect": [
+      "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/body29.dds",
+      "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/17_Tarquini.dds",
+      "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/25_Larini.dds",
+      "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/23_Martini.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_ferrari_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_ferrari_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_ferrari_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_ferrari_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_ferrari_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_ferrari_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_ferrari_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_ferrari_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Oz_rim_diff.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Oz_rim_diff.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Oz_rim_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Oz_rim_blur.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_lotus_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_lotus_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_lotus_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_lotus_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_lotus_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_lotus_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_lotus_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_lotus_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\body29.dds",
+        "destinationPath": "external_liveries/car_liveries/larrousse/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\preview29.dds",
+        "destinationPath": "external_liveries/previews/larrousse/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_Lola_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_Lola_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_Lola_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_Lola_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_Lola_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_Lola_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\90_Lola_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/90_Lola_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\Helmets\\90_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Helmets/90_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\17_Tarquini.dds",
+        "destinationPath": "external_liveries/car_liveries/ags/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\preview17_Tarquini.dds",
+        "destinationPath": "external_liveries/previews/ags/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_ags_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_ags_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_ags_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_ags_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_ags_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_ags_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_ags_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_ags_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\25_Larini.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\preview25_Larini.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_ligier_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_ligier_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_ligier_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_ligier_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_ligier_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_ligier_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_ligier_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_ligier_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\23_Martini.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\preview23_Martini.dds",
+        "destinationPath": "external_liveries/previews/minardi/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_Minardi_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_Minardi_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_Minardi_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_Minardi_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_Minardi_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_Minardi_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\90_Minardi_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/90_Minardi_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m2\\F1_Season_1990\\Helmets\\90_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Helmets/90_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m3\\F1_Season_1990\\Suits\\90_williams_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m3/F1_Season_1990/Suits/90_williams_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m3\\F1_Season_1990\\Suits\\90_williams_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m3/F1_Season_1990/Suits/90_williams_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m3\\F1_Season_1990\\Suits\\90_williams_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m3/F1_Season_1990/Suits/90_williams_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m3\\F1_Season_1990\\Suits\\90_williams_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m3/F1_Season_1990/Suits/90_williams_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m3\\F1_Season_1990\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m3/F1_Season_1990/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m3\\F1_Season_1990\\Helmets\\90_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m3/F1_Season_1990/Helmets/90_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Tyrrell_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Tyrrell_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Tyrrell_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Tyrrell_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Tyrrell_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Tyrrell_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Tyrrell_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Tyrrell_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\body9.dds",
+        "destinationPath": "external_liveries/car_liveries/arrows/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\preview9.dds",
+        "destinationPath": "external_liveries/previews/arrows/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Arrows_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Arrows_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Arrows_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Arrows_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Arrows_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Arrows_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Arrows_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Arrows_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\body14.dds",
+        "destinationPath": "external_liveries/car_liveries/osella/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\preview14.dds",
+        "destinationPath": "external_liveries/previews/osella/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Osella_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Osella_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Osella_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Osella_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Osella_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Osella_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Osella_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Osella_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_LeytonHouse_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_LeytonHouse_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_LeytonHouse_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_LeytonHouse_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_LeytonHouse_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_LeytonHouse_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_LeytonHouse_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_LeytonHouse_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Benetton_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Benetton_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Benetton_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Benetton_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Benetton_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Benetton_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Benetton_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Benetton_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp45b\\F1_Season_1990\\Suits\\90_Senna_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp45b/F1_Season_1990/Suits/90_Senna_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp45b\\F1_Season_1990\\Suits\\90_McLaren_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp45b/F1_Season_1990/Suits/90_McLaren_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp45b\\F1_Season_1990\\Suits\\90_McLaren_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp45b/F1_Season_1990/Suits/90_McLaren_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp45b\\F1_Season_1990\\Suits\\90_McLaren_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp45b/F1_Season_1990/Suits/90_McLaren_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp45b\\F1_Season_1990\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp45b/F1_Season_1990/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp45b\\F1_Season_1990\\Helmets\\90_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp45b/F1_Season_1990/Helmets/90_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\body7.dds",
+        "destinationPath": "external_liveries/car_liveries/brabham/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\preview7.dds",
+        "destinationPath": "external_liveries/previews/brabham/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Brabham_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Brabham_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Brabham_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Brabham_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Brabham_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Brabham_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Brabham_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Brabham_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\blue_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/blue_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\body7-usa.dds",
+        "destinationPath": "external_liveries/car_liveries/brabham/body7-usa.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\preview7-usa.dds",
+        "destinationPath": "external_liveries/previews/brabham/preview7-usa.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\body31.dds",
+        "destinationPath": "external_liveries/car_liveries/coloni/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\preview31.dds",
+        "destinationPath": "external_liveries/previews/coloni/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Coloni_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Coloni_body.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Coloni_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Coloni_arms.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Coloni_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Coloni_gloves.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\90_Coloni_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/90_Coloni_legs.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\Helmets\\90_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Helmets/90_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\body19.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\preview19.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\body1.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\preview1.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\body3.dds",
+        "destinationPath": "external_liveries/car_liveries/tyrrell/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\preview3.dds",
+        "destinationPath": "external_liveries/previews/tyrrell/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m3\\F1_Season_1990\\body5.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m3\\F1_Season_1990\\preview5.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\body11.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m1\\F1_Season_1990\\preview11.dds",
+        "destinationPath": "external_liveries/previews/lotus/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\body15.dds",
+        "destinationPath": "external_liveries/car_liveries/march/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g3m4\\F1_Season_1990\\preview15.dds",
+        "destinationPath": "external_liveries/previews/march/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp45b\\F1_Season_1990\\body27.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[IMG] F1 1990 v1.4\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp45b\\F1_Season_1990\\preview27.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      }
+    ],
+    "helmets": {
+      "ferrari": {
+        "samples": [
+          "90s/marlboro_halo.png"
+        ],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Helmets/90_Prost_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "tyrrell": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Helmets/90_Nakajima_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m3/F1_Season_1990/Helmets/90_Boutsen_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "brabham": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Helmets/90_Brabham_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "arrows": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Helmets/90_Alboreto_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "lotus": {
+        "samples": [
+          "90s/camel.png"
+        ],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Helmets/90_Warwick_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "osella": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Helmets/90_Grouillard_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "march": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Helmets/90_Gugelmin_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "ags": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Helmets/90_Tarquini_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "benetton": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Helmets/90_Nannini_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "minardi": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Helmets/90_Martini_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "ligier_prost": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m2/F1_Season_1990/Helmets/90_Larini_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "mclaren": {
+        "samples": [
+          "90s/Marlboro_NoHalos.png"
+        ],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp45b/F1_Season_1990/Helmets/90_Senna_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "larrousse": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m1/F1_Season_1990/Helmets/90_Bernard_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "coloni": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Helmets/90_Gachot_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "eurobrun": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Helmets/90_Moreno_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "onyx": {
+        "samples": [],
+        "helmet": "[IMG] F1 1990 v1.4/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g3m4/F1_Season_1990/Helmets/90_Foitek_helmet3.dds",
+        "map": null,
+        "visor": null
+      }
+    },
+    "helmet_model": "Nineties"
+  }
+}

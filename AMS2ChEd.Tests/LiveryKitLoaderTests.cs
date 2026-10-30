@@ -84,7 +84,7 @@ namespace AMS2ChEd.Tests.Ams2
             string app = Path.Combine(RepoRoot(), "AMS2ChEd");
             var loader = new LiveryKitLoader(Path.Combine(app, "LiveryKits"), Path.Combine(app, "Tyres", "tyre_sets.json"), Path.Combine(app, "Tyres", "files"));
 
-            foreach (var model in new[] { "formula_v10_g1", "mclaren_mp4_12", "formula_v10_g2_b", "formula_v10_g2_m", "formula_ultimate_2024", "formula_ultimate_2019", "formula_edge_g1m1", "formula_edge_g1m2", "formula_edge_g1m3", "formula_hitech_g1m1", "formula_hitech_g1m2", "formula_hitech_g1m3", "formula_hitech_g1m4", "formula_hitech_g2m1", "formula_hitech_g2m2", "formula_hitech_g2m3", "formula_classic_g4m1", "formula_classic_g4m2", "formula_classic_g4m3", "mclaren_mp46", "mclaren_mp47", "mclaren_mp48" })
+            foreach (var model in new[] { "formula_v10_g1", "mclaren_mp4_12", "formula_v10_g2_b", "formula_v10_g2_m", "formula_ultimate_2024", "formula_ultimate_2019", "formula_reiza", "formula_edge_g1m1", "formula_edge_g1m2", "formula_edge_g1m3", "formula_hitech_g1m1", "formula_hitech_g1m2", "formula_hitech_g1m3", "formula_hitech_g1m4", "formula_hitech_g2m1", "formula_hitech_g2m2", "formula_hitech_g2m3", "formula_classic_g2m1", "formula_classic_g2m2", "formula_classic_g2m3", "mclaren_mp44", "formula_classic_g3m1", "formula_classic_g3m2", "formula_classic_g3m3", "formula_classic_g3m4", "mclaren_mp45b", "formula_classic_g4m1", "formula_classic_g4m2", "formula_classic_g4m3", "mclaren_mp46", "mclaren_mp47", "mclaren_mp48" })
             {
                 var kit = loader.FindKit(model);
                 Assert.IsNotNull(kit, model);

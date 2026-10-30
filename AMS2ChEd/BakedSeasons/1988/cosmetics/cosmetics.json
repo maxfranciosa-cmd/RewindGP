@@ -1,0 +1,2085 @@
+{
+  "_comment": "Artwork the app ships for 1988 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/1988/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: dallara.",
+  "teams": {
+    "lotus": {
+      "ams2car": "formula_classic_g2m3",
+      "base_livery_driver1": "external_liveries/car_liveries/lotus/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/lotus/default.dds",
+      "livery_preview": "external_liveries/previews/lotus/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/lotus_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2125,
+            "Y": 930
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFB208"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/lotus_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 260,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 110,
+            "Y": 3665
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFB208"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/lotus_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 265,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3690,
+            "Y": 3665
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFB208"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/lotus/camel.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/lotus/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/lotus/Lotus1_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/lotus/Lotus1_NT.dds",
+          "livery_preview": "external_liveries/previews/lotus/preview1_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/lotus/camel_NT.png"
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/lotus/Lotus1_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/lotus/Lotus1_NT.dds",
+          "livery_preview": "external_liveries/previews/lotus/preview1_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/lotus/camel_NT.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"1988 Lotus #1 - N. Piquet\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview1.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Lotus1.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Lotus_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Lotus_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Piquet_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\lotus_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\lotus_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\lotus_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\lotus_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "tyrrell": {
+      "ams2car": "formula_classic_g2m1",
+      "base_livery_driver1": "external_liveries/car_liveries/tyrrell/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/tyrrell/default.dds",
+      "livery_preview": "external_liveries/previews/tyrrell/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/tyrrell_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 190,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2150,
+            "Y": 525
+          },
+          "rotation": "Deg180",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/tyrrell_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 400,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 60,
+            "Y": 3640
+          },
+          "rotation": "Deg0",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/tyrrell_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 420,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3600,
+            "Y": 3640
+          },
+          "rotation": "Deg0",
+          "fill_color": "#101010"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/tyrrell/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/tyrrell/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/tyrrell/Tyrrell3_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/tyrrell/Tyrrell3_NT.dds",
+          "livery_preview": "external_liveries/previews/tyrrell/preview3_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/tyrrell/Tyrrell3_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/tyrrell/Tyrrell3_NT.dds",
+          "livery_preview": "external_liveries/previews/tyrrell/preview3_NT.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"1988 Tyrrell #3 - J. Palmer\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview3.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Tyrrell3.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Tyrrell_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Tyrrell_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Palmer_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\tyrrell_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\tyrrell_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\tyrrell_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\tyrrell_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_classic_g2m1",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 155,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2130,
+            "Y": 363
+          },
+          "rotation": "Deg180",
+          "fill_color": "#00205A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/williams_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 380,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 20,
+            "Y": 3785
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E9DDC5"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/williams_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 375,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3715,
+            "Y": 3785
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E9DDC5"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/williams/Williams5_Brundle.dds",
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": "external_liveries/car_liveries/williams/Williams5_Schlesser.dds",
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"1988 Williams #5 - N. Mansell\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview5.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Williams5.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Williams_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Williams_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Mansell_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\williams5_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\williams5_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\williams5_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\williams5_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "zakspeed": {
+      "ams2car": "formula_classic_g2m3",
+      "base_livery_driver1": "external_liveries/car_liveries/zakspeed/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/zakspeed/default.dds",
+      "livery_preview": "external_liveries/previews/zakspeed/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/zakspeed_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 135,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2120,
+            "Y": 412
+          },
+          "rotation": "Deg180",
+          "fill_color": "#BD1818"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/zakspeed_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 165,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 165,
+            "Y": 3815
+          },
+          "rotation": "Deg0",
+          "fill_color": "#BD1818"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/zakspeed_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 165,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3745,
+            "Y": 3815
+          },
+          "rotation": "Deg0",
+          "fill_color": "#BD1818"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/zakspeed/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/zakspeed/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/zakspeed/Zakspeed9_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/zakspeed/Zakspeed9_NT.dds",
+          "livery_preview": "external_liveries/previews/zakspeed/preview9_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/zakspeed/Zakspeed9_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/zakspeed/Zakspeed9_NT.dds",
+          "livery_preview": "external_liveries/previews/zakspeed/preview9_NT.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"1988 Zakspeed #9 - P. Ghinzani\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview9.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Zakspeed9.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Zakspeed_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Zakspeed_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Ghinzani_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\zakspeed_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\zakspeed_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\zakspeed_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\zakspeed_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "ams2car": "mclaren_mp44",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/mclaren_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 212,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 697,
+            "Y": 3870
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF2400"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/mclaren_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 205,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2310,
+            "Y": 3870
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF2400"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/mclaren_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 145,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3123,
+            "Y": 3480
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren11_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren11_NT.dds",
+          "livery_preview": "external_liveries/previews/mclaren/preview11_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren11_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren11_NT.dds",
+          "livery_preview": "external_liveries/previews/mclaren/preview11_NT.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"1988 McLaren #11 - A. Prost\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview11.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\McLaren11.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Prost_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Prost_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\mclaren1_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\mclaren_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\mclaren_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\mclaren_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\boss_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ags": {
+      "ams2car": "formula_classic_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/ags/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ags/default.dds",
+      "livery_preview": "external_liveries/previews/ags/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/ags_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 160,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2133,
+            "Y": 628
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF8200"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/ags_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 805,
+            "Y": 1635
+          },
+          "rotation": "Deg90",
+          "fill_color": "#101431"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/ags_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3300,
+            "Y": 1815
+          },
+          "rotation": "Deg270",
+          "fill_color": "#101431"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ags/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ags/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"1988 AGS #14 - P. Streiff\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview-ags14.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\AGS14.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_AGS_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_AGS_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Streiff_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\ags_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\ags_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\ags_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\ags_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "march": {
+      "ams2car": "formula_classic_g2m1",
+      "base_livery_driver1": "external_liveries/car_liveries/march/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/march/default.dds",
+      "livery_preview": "external_liveries/previews/march/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/march_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 140,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2123,
+            "Y": 324
+          },
+          "rotation": "Deg180",
+          "fill_color": "#21B2DE"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/march_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 200,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1235,
+            "Y": 2975
+          },
+          "rotation": "Deg90",
+          "fill_color": "#21B2DE"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/march_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 200,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2875,
+            "Y": 3175
+          },
+          "rotation": "Deg270",
+          "fill_color": "#21B2DE"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/march/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/march/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"1988 March #15 - M. Gugelmin\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview15.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\March15.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_March_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_March_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Gugelmin_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\march_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\march_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\march_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\march_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "arrows": {
+      "ams2car": "formula_classic_g2m3",
+      "base_livery_driver1": "external_liveries/car_liveries/arrows/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/arrows/default.dds",
+      "livery_preview": "external_liveries/previews/arrows/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/arrows_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 145,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2125,
+            "Y": 655
+          },
+          "rotation": "Deg180",
+          "fill_color": "#E9E5E1"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/arrows_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 45,
+            "Y": 3480
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E9E5E1"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/arrows_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3890,
+            "Y": 3480
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E9E5E1"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/arrows/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/arrows/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"1988 Arrows #17 - D. Warwick\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview17.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Arrows17.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Arrows_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Arrows_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Warwick_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\arrows_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\arrows_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\arrows_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\arrows_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "formula_classic_g2m1",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 210,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2180,
+            "Y": 367
+          },
+          "rotation": "Deg180",
+          "fill_color": "#009E42"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/camel.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton19_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton19_NT.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview19_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/camel_NT.png"
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Benetton19_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Benetton19_NT.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview19_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/camel_NT.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"1988 Benetton #19 - A. Nannini\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview19.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Benetton19.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Benetton_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Benetton_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Nannini_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\benetton_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\benetton_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\benetton19_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\benetton19_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "osella": {
+      "ams2car": "formula_classic_g2m1",
+      "base_livery_driver1": "external_liveries/car_liveries/osella/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/osella/default.dds",
+      "livery_preview": "external_liveries/previews/osella/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/osella_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 185,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2145,
+            "Y": 535
+          },
+          "rotation": "Deg180",
+          "fill_color": "#181818"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/osella_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 215,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 100,
+            "Y": 3790
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E9E5E1"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/osella_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 215,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3785,
+            "Y": 3790
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E9E5E1"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/osella/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/osella/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"58\" NAME=\"1988 Osella #21 - N. Larini\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview21.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Osella21.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Osella_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Osella_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"58\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Larini_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"58\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\88_Osella_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\88_Osella_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\88_Osella_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\88_Osella_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "rial": {
+      "ams2car": "formula_classic_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/rial/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/rial/default.dds",
+      "livery_preview": "external_liveries/previews/rial/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/rial_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 125,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2115,
+            "Y": 355
+          },
+          "rotation": "Deg180",
+          "fill_color": "#00347B"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/rial_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 197,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 150,
+            "Y": 3804
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/rial_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 190,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3735,
+            "Y": 3804
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/rial/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/rial/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/rial/Rial22_Silverstone.dds",
+          "driver2_livery": "external_liveries/car_liveries/rial/Rial22_Silverstone.dds",
+          "livery_preview": "external_liveries/previews/rial/preview-rial22_Silverstone.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/rial/Rial22_Hockenheim.dds",
+          "driver2_livery": "external_liveries/car_liveries/rial/Rial22_Hockenheim.dds",
+          "livery_preview": "external_liveries/previews/rial/preview-rial22_Hockenheim.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"52\" NAME=\"1988 Rial #22 - A. De Cesaris\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview-rial22.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Rial22.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Rial_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Rial_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"52\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_DeCesaris_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"52\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\rial_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\rial_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\rial_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\rial_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "minardi": {
+      "ams2car": "formula_classic_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/minardi/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/minardi/default.dds",
+      "livery_preview": "external_liveries/previews/minardi/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/minardi_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 145,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2125,
+            "Y": 585
+          },
+          "rotation": "Deg180",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/minardi_tri_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 142,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2027,
+            "Y": 1128
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 116.2,
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/minardi_tri_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 142,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2148,
+            "Y": 1262
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 236.6,
+          "fill_color": "#101010"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/minardi/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi23_Campos.dds",
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi23_Campos.dds",
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi23_Campos.dds",
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi23_Campos.dds",
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi23_Campos.dds",
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi23_Silverstone.dds",
+          "driver2_livery": "external_liveries/car_liveries/minardi/Minardi23_Silverstone.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview-minardi23_Silverstone.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/minardi/Minardi23_Hockenheim.dds",
+          "driver2_livery": "external_liveries/car_liveries/minardi/Minardi23_Hockenheim.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview-minardi23_Hockenheim.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"1988 Minardi #23 - P. Martini\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview-minardi23.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Minardi23.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Minardi_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Minardi_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Martini_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\minardi_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\minardi_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\minardi_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\minardi_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ligier_prost": {
+      "ams2car": "formula_classic_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/ligier_prost/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ligier_prost/default.dds",
+      "livery_preview": "external_liveries/previews/ligier_prost/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/ligier_prost_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 196,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2148,
+            "Y": 628
+          },
+          "rotation": "Deg180",
+          "fill_color": "#003D89"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/ligier_prost_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 250,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 125,
+            "Y": 3500
+          },
+          "rotation": "Deg0",
+          "fill_color": "#003D89"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/ligier_prost_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 255,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3705,
+            "Y": 3500
+          },
+          "rotation": "Deg0",
+          "fill_color": "#003D89"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/ligier_prost/ligier25_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/ligier25_NT.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/preview-ligier25_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/ligier_prost/ligier25_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/ligier25_NT.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/preview-ligier25_NT.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"1988 Ligier #25 - R. Arnoux\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview-ligier25.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\ligier25.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Ligier_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Ligier_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Arnoux_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\ligier_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\ligier_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\ligier_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\ligier_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ferrari": {
+      "ams2car": "formula_classic_g2m3",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 222,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2160,
+            "Y": 900
+          },
+          "rotation": "Deg180",
+          "fill_color": "#B50000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/ferrari_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 230,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 115,
+            "Y": 3768
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/ferrari_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 230,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3710,
+            "Y": 3768
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari27_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari27_NT.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview27_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo_NT.png"
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari27_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari27_NT.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview27_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo_NT.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"1988 Ferrari #27 - M. Alboreto\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview27.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Ferrari27.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Ferrari_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Ferrari_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Alboreto_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\ferrari27_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\ferrari_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\ferrari_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\ferrari_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "larrousse": {
+      "ams2car": "formula_classic_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/larrousse/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/larrousse/default.dds",
+      "livery_preview": "external_liveries/previews/larrousse/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/larrousse_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 208,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2158,
+            "Y": 628
+          },
+          "rotation": "Deg180",
+          "fill_color": "#00011B"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/larrousse_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 225,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 85,
+            "Y": 3825
+          },
+          "rotation": "Deg0",
+          "fill_color": "#D60018"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/larrousse_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 225,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3777,
+            "Y": 3825
+          },
+          "rotation": "Deg0",
+          "fill_color": "#D60018"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/larrousse/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/larrousse/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/larrousse/Lola29_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/larrousse/Lola29_NT.dds",
+          "livery_preview": "external_liveries/previews/larrousse/preview-lola29_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/larrousse/Lola29_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/larrousse/Lola29_NT.dds",
+          "livery_preview": "external_liveries/previews/larrousse/preview-lola29_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/larrousse/Lola29_Suzuki.dds",
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"1988 Lola #29 - Y. Dalmas\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview-lola29.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Lola29.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Lola_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Lola_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Dalmas_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\larrousse_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\larrousse_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\larrousse29_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\larrousse29_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "coloni": {
+      "ams2car": "formula_classic_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/coloni/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/coloni/default.dds",
+      "livery_preview": "external_liveries/previews/coloni/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/coloni_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 148,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2126,
+            "Y": 385
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFE13E"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/coloni_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 205,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 50,
+            "Y": 3875
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFE13E"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/coloni_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 205,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3860,
+            "Y": 3875
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFE13E"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/coloni/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/coloni/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"58\" NAME=\"1988 Coloni #31 - G. Tarquini\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview-coloni31.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\Coloni31.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Coloni_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_Coloni_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"58\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Tarquini_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"58\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\88_Coloni_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\88_Coloni_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\88_Coloni_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\88_Coloni_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "eurobrun": {
+      "ams2car": "formula_classic_g2m2",
+      "base_livery_driver1": "external_liveries/car_liveries/eurobrun/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/eurobrun/default.dds",
+      "livery_preview": "external_liveries/previews/eurobrun/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/eurobrun_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 125,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2110,
+            "Y": 405
+          },
+          "rotation": "Deg180",
+          "fill_color": "#EFEFE7"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/eurobrun_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 834,
+            "Y": 2260
+          },
+          "rotation": "Deg90",
+          "fill_color": "#EFEFE7"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/eurobrun_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 175,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3295,
+            "Y": 2440
+          },
+          "rotation": "Deg270",
+          "fill_color": "#EFEFE7"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/eurobrun_wing_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 170,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 285,
+            "Y": 3755
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1988/cosmetics/numbers/eurobrun_wing_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 170,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3852,
+            "Y": 3755
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/eurobrun/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/eurobrun/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/eurobrun/EuroBrun32_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/eurobrun/EuroBrun32_NT.dds",
+          "livery_preview": "external_liveries/previews/eurobrun/preview-eurobrun32_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/eurobrun/EuroBrun32_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/eurobrun/EuroBrun32_NT.dds",
+          "livery_preview": "external_liveries/previews/eurobrun/preview-eurobrun32_NT.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"58\" NAME=\"1988 Eurobrun #32 - O. Larrauri\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1988\\Previews\\preview-eurobrun32.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1988\\EuroBrun32.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_EuroBrun_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1988\\Rims\\1988_EuroBrun_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"58\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Helmets\\88_Larrauri_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1988\\Helmets\\88_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"58\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1988\\Suits\\eurobrun_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1988\\Suits\\eurobrun_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1988\\Suits\\eurobrun_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1988\\Suits\\eurobrun_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1988\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "adrian_campos": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/e8063d3fb097.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/campos.png"
+    },
+    "aguri_suzuki": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/d00f988f1322.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/suzukia.png"
+    },
+    "alain_prost": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/53c9918fd656.webp",
+      "base_helmet_file_80s": "../../Drivers/own_helmets/9f8a5e235266.webp",
+      "base_visor_file_80s": "../../Drivers/own_helmets/2ec8876182f1.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/prost.png"
+    },
+    "alessandro_nannini": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/f8b5fb00f7eb.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/nannini.png"
+    },
+    "alex_caffi": {
+      "base_helmet_file": "../../Drivers/own_helmets/aa06e1cb979b.webp",
+      "base_visor_file": "../../Drivers/own_helmets/d4889fb5ae36.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/c9e1f76dfb59.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/caffi.png"
+    },
+    "andrea_de_cesaris": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/d4b34cf7daab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/decesar.png"
+    },
+    "ayrton_senna": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/e7a648f64596.webp",
+      "base_helmet_file_80s": "../../Drivers/own_helmets/d30994cf813f.webp",
+      "base_visor_file_80s": "../../Drivers/own_helmets/2ec8876182f1.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/senna.png"
+    },
+    "bernd_schneider": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/c46af49a56b4.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/schneide.png"
+    },
+    "derek_warwick": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/f26812dd8e65.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/warwick.png"
+    },
+    "eddie_cheever": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/ff8aa30cd041.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/cheever.png"
+    },
+    "gabriele_tarquini": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/147b3ed515f1.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/tarquini.png"
+    },
+    "gerhard_berger": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/58dc2374f507.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/berger.png"
+    },
+    "ivan_capelli": {
+      "base_helmet_file": "../../Drivers/own_helmets/6527aeb79c3e.webp",
+      "base_visor_file": "../../Drivers/own_helmets/cf969aafdbfe.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/5ada685c0017.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/capelli.png"
+    },
+    "jean_louis_schlesser": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/1aba854acaa4.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/schlessj.png"
+    },
+    "jonathan_palmer": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/76b6fc1c80ea.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/palmer.png"
+    },
+    "julian_bailey": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/d57b65f45be0.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/bailey.png"
+    },
+    "luis_perez_sala": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/71f5a0ff7657.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/perezsal.png"
+    },
+    "martin_brundle": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/8c104c5f1f78.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/brundle.png"
+    },
+    "mauricio_gugelmin": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/db852ddcf2e0.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/gugelmin.png"
+    },
+    "michele_alboreto": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/7de4c52e390a.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/alboreto.png"
+    },
+    "nelson_piquet": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/da6a14a17e41.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/piquet.png"
+    },
+    "nicola_larini": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/607d80d8cff7.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/larini.png"
+    },
+    "nigel_mansell": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/48685491df23.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/mansell.png"
+    },
+    "oscar_larrauri": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/df502d05f77b.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/larrauri.png"
+    },
+    "philippe_alliot": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/5cb5502d6350.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/alliot.png"
+    },
+    "philippe_streiff": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/6ed52313bd89.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/streiff.png"
+    },
+    "piercarlo_ghinzani": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/db08698c38bb.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/ghinzani.png"
+    },
+    "pierluigi_martini": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/7a98bf0c74b5.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/martinip.png"
+    },
+    "pierre_henri_raphanel": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/dc546c6281e9.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/raphanel.png"
+    },
+    "rene_arnoux": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/69a6487e1d2f.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/arnoux.png"
+    },
+    "riccardo_patrese": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/3309c8b05f0d.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/patrese.png"
+    },
+    "satoru_nakajima": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/2f35648970e6.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/nakajima.png"
+    },
+    "stefan_johansson": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/4334002ba4cb.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/johansso.png"
+    },
+    "stefano_modena": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/08b2e7f84126.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/modena.png"
+    },
+    "thierry_boutsen": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/09feb6ef220c.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/boutsen.png"
+    },
+    "yannick_dalmas": {
+      "base_helmet_file": "../../Drivers/own_helmets/3cc0a870ad2a.webp",
+      "base_visor_file": "../../Drivers/own_helmets/836b7c52e5a3.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/66a827d100a4.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/dalmas.png"
+    },
+    "emanuele_pirro": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/3dec36ddc41c.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/pirro.png"
+    },
+    "roberto_moreno": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/6a1e3c4e9757.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/moreno.png"
+    },
+    "johnny_herbert": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/69ded2e893bf.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/herbert.png"
+    },
+    "jean_alesi": {
+      "base_helmet_file": "../../Drivers/own_helmets/bf3f14157892.webp",
+      "base_helmet_file_90s": "../../Drivers/own_helmets/bf3f14157892.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/alesi.png"
+    },
+    "martin_donnelly": {
+      "base_helmet_file_90s": "../../Drivers/own_helmets/3278a9fd500b.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/donnely.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/ams2-f1-1988-season.54981/",
+    "name": "AMS2 F1 1988 Season",
+    "detect": [
+      "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Williams5.dds",
+      "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Williams5_Brundle.dds",
+      "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Williams5_Schlesser.dds",
+      "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Benetton19.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Williams5.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Previews\\preview5.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_Williams_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_Williams_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_Williams_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_Williams_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\williams5_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/williams5_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\williams5_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/williams5_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\williams5_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/williams5_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\williams5_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/williams5_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Williams5_Brundle.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/Williams5_Brundle.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Williams5_Schlesser.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/Williams5_Schlesser.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Benetton19.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Previews\\preview19.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_Benetton_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_Benetton_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_Benetton_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_Benetton_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\benetton_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/benetton_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\benetton_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/benetton_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\benetton19_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/benetton19_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\benetton19_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/benetton19_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Benetton19_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Benetton19_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Previews\\preview19_NT.dds",
+        "destinationPath": "external_liveries/previews/benetton/preview19_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\March15.dds",
+        "destinationPath": "external_liveries/car_liveries/march/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Previews\\preview15.dds",
+        "destinationPath": "external_liveries/previews/march/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_March_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_March_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_March_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_March_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\march_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/march_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\march_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/march_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\march_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/march_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\march_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/march_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Tyrrell3.dds",
+        "destinationPath": "external_liveries/car_liveries/tyrrell/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Previews\\preview3.dds",
+        "destinationPath": "external_liveries/previews/tyrrell/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_Tyrrell_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_Tyrrell_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_Tyrrell_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_Tyrrell_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\tyrrell_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/tyrrell_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\tyrrell_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/tyrrell_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\tyrrell_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/tyrrell_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\tyrrell_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/tyrrell_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\blue_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/blue_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Tyrrell3_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/tyrrell/Tyrrell3_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Previews\\preview3_NT.dds",
+        "destinationPath": "external_liveries/previews/tyrrell/preview3_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\AGS14.dds",
+        "destinationPath": "external_liveries/car_liveries/ags/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-ags14.dds",
+        "destinationPath": "external_liveries/previews/ags/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_AGS_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_AGS_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_AGS_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_AGS_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\ags_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/ags_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\ags_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/ags_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\ags_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/ags_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\ags_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/ags_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rial22.dds",
+        "destinationPath": "external_liveries/car_liveries/rial/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-rial22.dds",
+        "destinationPath": "external_liveries/previews/rial/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_Rial_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_Rial_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_Rial_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_Rial_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\rial_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/rial_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\rial_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/rial_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\rial_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/rial_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\rial_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/rial_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rial22_Silverstone.dds",
+        "destinationPath": "external_liveries/car_liveries/rial/Rial22_Silverstone.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-rial22_Silverstone.dds",
+        "destinationPath": "external_liveries/previews/rial/preview-rial22_Silverstone.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rial22_Hockenheim.dds",
+        "destinationPath": "external_liveries/car_liveries/rial/Rial22_Hockenheim.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-rial22_Hockenheim.dds",
+        "destinationPath": "external_liveries/previews/rial/preview-rial22_Hockenheim.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Lola29.dds",
+        "destinationPath": "external_liveries/car_liveries/larrousse/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-lola29.dds",
+        "destinationPath": "external_liveries/previews/larrousse/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_Lola_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_Lola_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_Lola_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_Lola_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\larrousse_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/larrousse_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\larrousse_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/larrousse_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\larrousse29_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/larrousse29_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\larrousse29_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/larrousse29_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Lola29_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/larrousse/Lola29_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-lola29_NT.dds",
+        "destinationPath": "external_liveries/previews/larrousse/preview-lola29_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Lola29_Suzuki.dds",
+        "destinationPath": "external_liveries/car_liveries/larrousse/Lola29_Suzuki.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\ligier25.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-ligier25.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_Ligier_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_Ligier_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_Ligier_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_Ligier_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\ligier_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/ligier_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\ligier_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/ligier_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\ligier_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/ligier_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\ligier_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/ligier_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\ligier25_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/ligier25_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-ligier25_NT.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/preview-ligier25_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Lotus1.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Previews\\preview1.dds",
+        "destinationPath": "external_liveries/previews/lotus/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Rims\\1988_Lotus_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Rims/1988_Lotus_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Rims\\1988_Lotus_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Rims/1988_Lotus_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\lotus_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/lotus_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\lotus_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/lotus_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\lotus_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/lotus_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\lotus_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/lotus_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Lotus1_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/Lotus1_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Previews\\preview1_NT.dds",
+        "destinationPath": "external_liveries/previews/lotus/preview1_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Ferrari27.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Previews\\preview27.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Rims\\1988_Ferrari_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Rims/1988_Ferrari_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Rims\\1988_Ferrari_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Rims/1988_Ferrari_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\ferrari27_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/ferrari27_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\ferrari_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/ferrari_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\ferrari_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/ferrari_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\ferrari_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/ferrari_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Ferrari27_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari27_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Previews\\preview27_NT.dds",
+        "destinationPath": "external_liveries/previews/ferrari/preview27_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Zakspeed9.dds",
+        "destinationPath": "external_liveries/car_liveries/zakspeed/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Previews\\preview9.dds",
+        "destinationPath": "external_liveries/previews/zakspeed/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Rims\\1988_Zakspeed_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Rims/1988_Zakspeed_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Rims\\1988_Zakspeed_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Rims/1988_Zakspeed_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\zakspeed_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/zakspeed_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\zakspeed_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/zakspeed_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\zakspeed_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/zakspeed_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\zakspeed_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/zakspeed_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Zakspeed9_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/zakspeed/Zakspeed9_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Previews\\preview9_NT.dds",
+        "destinationPath": "external_liveries/previews/zakspeed/preview9_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Arrows17.dds",
+        "destinationPath": "external_liveries/car_liveries/arrows/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Previews\\preview17.dds",
+        "destinationPath": "external_liveries/previews/arrows/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Rims\\1988_Arrows_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Rims/1988_Arrows_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Rims\\1988_Arrows_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Rims/1988_Arrows_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Rims\\1988_rims_lowspec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Rims/1988_rims_lowspec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Rims/1988_rims_lowspec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\arrows_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/arrows_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\arrows_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/arrows_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\arrows_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/arrows_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\arrows_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/arrows_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Suits\\blue_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Suits/blue_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m3\\F1_Season_1988\\Helmets\\88_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Helmets/88_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp44\\F1_Season_1988\\McLaren11.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp44\\F1_Season_1988\\Previews\\preview11.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp44\\F1_Season_1988\\Suits\\mclaren1_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp44/F1_Season_1988/Suits/mclaren1_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp44\\F1_Season_1988\\Suits\\mclaren_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp44/F1_Season_1988/Suits/mclaren_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp44\\F1_Season_1988\\Suits\\mclaren_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp44/F1_Season_1988/Suits/mclaren_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp44\\F1_Season_1988\\Suits\\mclaren_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp44/F1_Season_1988/Suits/mclaren_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp44\\F1_Season_1988\\Suits\\boss_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp44/F1_Season_1988/Suits/boss_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp44\\F1_Season_1988\\Helmets\\88_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp44/F1_Season_1988/Helmets/88_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp44\\F1_Season_1988\\McLaren11_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren11_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\mclaren_mp44\\F1_Season_1988\\Previews\\preview11_NT.dds",
+        "destinationPath": "external_liveries/previews/mclaren/preview11_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Minardi23.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-minardi23.dds",
+        "destinationPath": "external_liveries/previews/minardi/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_Minardi_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_Minardi_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_Minardi_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_Minardi_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\minardi_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/minardi_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\minardi_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/minardi_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\minardi_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/minardi_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\minardi_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/minardi_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Minardi23_Campos.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/Minardi23_Campos.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Minardi23_Silverstone.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/Minardi23_Silverstone.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-minardi23_Silverstone.dds",
+        "destinationPath": "external_liveries/previews/minardi/preview-minardi23_Silverstone.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Minardi23_Hockenheim.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/Minardi23_Hockenheim.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-minardi23_Hockenheim.dds",
+        "destinationPath": "external_liveries/previews/minardi/preview-minardi23_Hockenheim.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Osella21.dds",
+        "destinationPath": "external_liveries/car_liveries/osella/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Previews\\preview21.dds",
+        "destinationPath": "external_liveries/previews/osella/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_Osella_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_Osella_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_Osella_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_Osella_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_rims_lowspec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_rims_lowspec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Rims/1988_rims_lowspec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\88_Osella_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/88_Osella_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\88_Osella_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/88_Osella_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\88_Osella_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/88_Osella_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\88_Osella_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/88_Osella_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m1\\F1_Season_1988\\Helmets\\88_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Helmets/88_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Coloni31.dds",
+        "destinationPath": "external_liveries/car_liveries/coloni/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-coloni31.dds",
+        "destinationPath": "external_liveries/previews/coloni/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_Coloni_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_Coloni_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_Coloni_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_Coloni_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\88_Coloni_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/88_Coloni_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\88_Coloni_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/88_Coloni_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\88_Coloni_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/88_Coloni_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\88_Coloni_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/88_Coloni_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\EuroBrun32.dds",
+        "destinationPath": "external_liveries/car_liveries/eurobrun/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-eurobrun32.dds",
+        "destinationPath": "external_liveries/previews/eurobrun/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_EuroBrun_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_EuroBrun_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_EuroBrun_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_EuroBrun_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_rims_lowspec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_rims_lowspec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Rims\\1988_rims_lowspec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Rims/1988_rims_lowspec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\eurobrun_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/eurobrun_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\eurobrun_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/eurobrun_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\eurobrun_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/eurobrun_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\eurobrun_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/eurobrun_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Helmets\\88_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Helmets/88_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\EuroBrun32_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/eurobrun/EuroBrun32_NT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1988_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g2m2\\F1_Season_1988\\Previews\\preview-eurobrun32_NT.dds",
+        "destinationPath": "external_liveries/previews/eurobrun/preview-eurobrun32_NT.dds"
+      }
+    ],
+    "helmets": {
+      "lotus": {
+        "samples": [
+          "90s/camel.png",
+          "90s/camel_NT.png"
+        ],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Helmets/88_Piquet_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "tyrrell": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Helmets/88_Palmer_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Helmets/88_Mansell_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "zakspeed": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Helmets/88_Ghinzani_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "ags": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Helmets/88_Streiff_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "march": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Helmets/88_Gugelmin_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "arrows": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Helmets/88_Warwick_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "benetton": {
+        "samples": [
+          "90s/camel.png",
+          "90s/camel_NT.png"
+        ],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Helmets/88_Nannini_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "osella": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m1/F1_Season_1988/Helmets/88_Larini_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "rial": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Helmets/88_DeCesaris_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "minardi": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Helmets/88_Martini_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "ligier_prost": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Helmets/88_Arnoux_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "ferrari": {
+        "samples": [
+          "90s/marlboro_halo.png",
+          "90s/marlboro_halo_NT.png"
+        ],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m3/F1_Season_1988/Helmets/88_Alboreto_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "larrousse": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Helmets/88_Dalmas_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "coloni": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Helmets/88_Tarquini_helmet.dds",
+        "map": null,
+        "visor": null
+      },
+      "eurobrun": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1988_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g2m2/F1_Season_1988/Helmets/88_Larrauri_helmet.dds",
+        "map": null,
+        "visor": null
+      }
+    },
+    "helmet_model": "Nineties"
+  }
+}

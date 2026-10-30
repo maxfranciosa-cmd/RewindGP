@@ -1,0 +1,18 @@
+{
+  "car_models": [
+    "formula_reiza"
+  ],
+  "livery_xml": "livery.xml",
+  "outfit_set": "open_wheel_90s",
+  "templates": [
+    {
+      "id": "reiza_1",
+      "body": "templates/reiza_1.png",
+      "numbers_placements": [
+        { "number_plate_width": 130, "starting_point": { "IsEmpty": false, "X": 1563, "Y": 820 }, "rotation": "Deg180", "sheet_size": [ 650, 100 ] },
+        { "number_plate_width": 130, "starting_point": { "IsEmpty": false, "X": 3825, "Y": 1891 }, "rotation": "Deg90", "sheet_size": [ 650, 100 ] },
+        { "number_plate_width": 130, "starting_point": { "IsEmpty": false, "X": 3515, "Y": 3127 }, "rotation": "Deg270", "sheet_size": [ 650, 100 ] }
+      ]
+    }
+  ]
+}
