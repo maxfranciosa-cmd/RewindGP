@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         x:Class="AMS2ChEd.SeasonOverviewWindow"
         Title="{loc:Loc SeasonOverviewWindow_Title}"
-        Height="900" Width="1200"
+        Height="1000" Width="1200"
         MinHeight="640" MinWidth="1000"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource SeasonOverview.WindowBackground}"
@@ -145,6 +145,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="26"/>
+                <RowDefinition x:Name="CompactCalendarRow" Height="Auto"/>
+                <RowDefinition Height="26"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -175,9 +177,54 @@
                             Content="{loc:Loc SeasonOverviewWindow_ProceedButton}"/>
                 </Grid>
             </Border>
+            
+            <!-- Compact calendar, only when the window is not wide enough for the full calendar -->
+            <ScrollViewer x:Name="CompactCalendarStrip"
+              Grid.Row="2"
+              Margin="0,12,0,0"
+              HorizontalScrollBarVisibility="Auto"
+              VerticalScrollBarVisibility="Disabled"
+              Visibility="Collapsed">
+                <ItemsControl x:Name="CompactCalendarItems">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="52"
+                        Height="30"
+                        Margin="2,0"
+                        ToolTip="{Binding RaceName}">
+                                <Border.Style>
+                                    <Style TargetType="Border" BasedOn="{StaticResource SeasonOverview.CalendarRow}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsNext}" Value="True">
+                                                <Setter Property="Background"
+                                            Value="{StaticResource SeasonOverview.HighlightBrush}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsDone}" Value="True">
+                                                <Setter Property="Opacity" Value="0.5"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+
+                                <TextBlock Text="{Binding RaceCode}"
+                               Style="{StaticResource SeasonOverview.RowName}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            
             <!-- Standings -->
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.15*"/>
                     <ColumnDefinition Width="24"/>

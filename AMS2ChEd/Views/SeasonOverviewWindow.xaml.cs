@@ -54,6 +54,7 @@ namespace AMS2ChEd
     {
         public int Round { get; set; }
         public string RaceName { get; set; }
+        public string RaceCode { get; set; }
         public string FormattedDate { get; set; }
         public bool IsDone { get; set; }
         public bool IsNext { get; set; }
@@ -159,10 +160,11 @@ namespace AMS2ChEd
         // the calendar sheet shown next to the standings on wide windows
         private void LoadCalendar()
         {
-            CalendarItems.ItemsSource = saveGame.CurrentSeason.Races
+            var calendar = saveGame.CurrentSeason.Races
                 .Select((race, index) => new CalendarRaceDisplay
                 {
                     Round = index + 1,
+                    RaceCode = race.RaceShortName?.ToUpperInvariant() ?? $"R{index + 1}",
                     RaceName = race.RaceName,
                     FormattedDate = DateTime.TryParseExact(race.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var raceDate)
                         ? raceDate.ToString("d MMM")
@@ -171,6 +173,8 @@ namespace AMS2ChEd
                     IsNext = index == saveGame.NextGpIndex
                 })
                 .ToList();
+            CalendarItems.ItemsSource = calendar;
+            CompactCalendarItems.ItemsSource = calendar;
         }
 
         // a wide window has room for the calendar sheet and a bigger season pass
@@ -182,6 +186,7 @@ namespace AMS2ChEd
             CalendarGapColumn.Width = new GridLength(isWide ? 24 : 0);
             CalendarColumn.Width = isWide ? new GridLength(0.9, GridUnitType.Star) : new GridLength(0);
             CalendarSheet.Visibility = isWide ? Visibility.Visible : Visibility.Collapsed;
+            CompactCalendarStrip.Visibility = isWide ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void LoadPlayerData()
