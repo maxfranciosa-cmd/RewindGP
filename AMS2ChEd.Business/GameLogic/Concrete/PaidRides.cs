@@ -233,7 +233,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         /// AI pay drivers without any contract buy their rides at this race, before the player is
         /// offered theirs. Each with budget left buys with AiBuyChance, one of the seats on sale to
         /// them picked at random; they go in a random order, every ride bought shrinking what's left
-        /// for the next. Returns the rides bought, already added to the season's absences.
+        /// for the next. A driver the season pack's absences already put in a car, at any race of the
+        /// season, buys nothing: those are the seats they paid for in that season. Returns the rides
+        /// bought, already added to the season's absences.
         /// </summary>
         public static List<Absence> BuyAiRides(ISaveGame saveGame, int raceIndex, Random random)
         {
@@ -246,6 +248,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var unavailable = SubstitutePool.UnavailableDriverIds(saveGame, new[] { races[raceIndex].RaceId });
             unavailable.UnionWith((saveGame.RetiredDrivers ?? Enumerable.Empty<IDriverData>()).Select(d => d.DriverId));
             unavailable.Add(saveGame.PlayerData.DriverId);
+            unavailable.UnionWith(SubstitutePool.DriversIn((saveGame.CurrentSeason.Absences ?? Enumerable.Empty<Absence>()).Where(a => a.Reason == null)));
 
             var buyers = saveGame.Drivers
                 .Where(d => IsPayDriver(d.Reputation) && !unavailable.Contains(d.DriverId))

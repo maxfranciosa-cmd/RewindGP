@@ -682,6 +682,30 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
+        public void PaidRides_AiRides_ADriverInThePacksAbsencesThisSeason_BuysNothing()
+        {
+            var saveGame = PaidRideSave(DriverReputation.YOUNG_TALENT);
+            saveGame.CurrentSeason.Races = Enumerable.Range(1, 8).Select(i => new Race { RaceId = i, RaceName = $"GP {i}" }).ToList();
+            AddDriver(saveGame, "LATER", DriverReputation.PAY_DRIVER_SEASON);
+            AddDriver(saveGame, "CHAINED", DriverReputation.PAY_DRIVER_SEASON);
+            AddDriver(saveGame, "INJURYCOVER", DriverReputation.PAY_DRIVER_WILD_CARD);
+            saveGame.CurrentSeason.Absences = new List<Absence>
+            {
+                new Absence { RaceId = 5, TeamId = "TOP", DriverOut = "T1A", DriverIn = "LATER" },
+                new Absence
+                {
+                    RaceId = 6, TeamId = "TOP", DriverOut = "T1A", DriverIn = "M1A",
+                    ChainedAbsence = new Absence { RaceId = 6, TeamId = "M1", DriverOut = "M1A", DriverIn = "CHAINED" }
+                },
+                new Absence { RaceId = 7, TeamId = "TOP", DriverOut = "T1A", DriverIn = "INJURYCOVER", Reason = AbsenceReason.INJURY }
+            };
+
+            var bought = PaidRides.BuyAiRides(saveGame, 0, new FixedRandom(nextDouble: 0, next: 0));
+
+            CollectionAssert.AreEqual(new[] { "INJURYCOVER" }, bought.Select(a => a.DriverIn).ToList());
+        }
+
+        [TestMethod]
         public void PaidRides_AiRides_NoRollUnderTheChance_NobodyBuys()
         {
             var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_SEASON);
