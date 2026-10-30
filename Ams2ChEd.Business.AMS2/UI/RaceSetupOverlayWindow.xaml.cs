@@ -96,6 +96,15 @@ namespace Ams2ChEd.Business.AMS2.UI
             return _autoConfigureConfirmedTcs.Task;
         }
 
+        /// <summary>
+        /// Adds a warning to the success state that the player still has to pick the circuit.
+        /// </summary>
+        public void ShowTrackLeftAsIs(string message)
+        {
+            TrackLeftAsIsText.Text = message;
+            TrackLeftAsIsText.Visibility = Visibility.Visible;
+        }
+
         public void ShowError(string message)
         {
             PromptPanel.Visibility = Visibility.Collapsed;

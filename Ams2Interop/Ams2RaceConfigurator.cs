@@ -274,11 +274,13 @@ public sealed class Ams2RaceConfigurator : IDisposable
     /// 3. Opponents are written one final time, because SetCar/commit recompute AMS2's own
     ///    opponent/class counts for the new car and overwrite them.
     /// Every field's read-back reflects its final write.
+    ///
+    /// A null <paramref name="track"/> keeps the track already selected on the screen.
     /// </summary>
     public async Task<RaceConfigResult> ApplyRaceConfigAsync(
         int livery,
         string car,
-        string track,
+        string? track,
         OpponentsConfig? opponents = null,
         SessionRulesConfig? sessionRules = null,
         PracticeQualifySessionConfig? practice = null,
@@ -305,7 +307,8 @@ public sealed class Ams2RaceConfigurator : IDisposable
         var carKnown = _carHashes.TryGetValue(car, out var carHash);
         if (!carKnown) errors.Add($"unknown car '{car}' - not present in the supplied hash dictionary");
 
-        var trackKnown = _trackHashes.TryGetValue(track, out var trackHash);
+        var trackHash = 0;
+        var trackKnown = track == null || _trackHashes.TryGetValue(track, out trackHash);
         if (!trackKnown) errors.Add($"unknown track '{track}' - not present in the supplied hash dictionary");
 
         var vm498 = _vmResolver!.ResolveVm498();
@@ -373,6 +376,13 @@ public sealed class Ams2RaceConfigurator : IDisposable
         if (!canSetCar)
             errors.Add($"car/track/livery skipped: SetCar not found for this AMS2 version ({Offsets!.Describe()})");
 
+        // SetCar can't leave the track out: to keep it, it's handed back the one already selected.
+        if (track == null && master is long selectionMaster && !_mem!.TryReadSlot(selectionMaster, Ams2Constants.MasterSlot.Track, out trackHash))
+        {
+            trackKnown = false;
+            errors.Add("car/livery could not be applied - the currently selected track could not be read");
+        }
+
         if (canSetCar && carKnown && trackKnown && master is long m)
         {
             // SetCarRva silently no-ops when its internal validation gate rejects the combination
@@ -389,7 +399,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
             // The Custom Race screen's livery box may keep showing the previous livery: the session
             // still starts with this one (live-confirmed 2026-10-26).
             CheckSetCarReadBack(m, trackHash, carHash, livery, unverified);
-            _log?.Invoke($"ApplyRaceConfigAsync: master=0x{m:X}, vm498={(vm498 is long l498 ? $"0x{l498:X}" : "null")}, vm550={(vm550 is long l550 ? $"0x{l550:X}" : "null")}, SetCar(track={track}/{trackHash}, car={car}/{carHash}, livery={livery}) -> {(ok ? "completed" : "NOT completed")}");
+            _log?.Invoke($"ApplyRaceConfigAsync: master=0x{m:X}, vm498={(vm498 is long l498 ? $"0x{l498:X}" : "null")}, vm550={(vm550 is long l550 ? $"0x{l550:X}" : "null")}, SetCar(track={track ?? "(kept)"}/{trackHash}, car={car}/{carHash}, livery={livery}) -> {(ok ? "completed" : "NOT completed")}");
         }
 
         // AMS2's own AI-opponent vehicle-class-count recompute (see Ams2Constants.CommitRva's doc

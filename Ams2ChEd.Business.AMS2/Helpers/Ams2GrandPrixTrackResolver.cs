@@ -19,8 +19,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         /// whichever era applies to this season), then walking that entry's TrackOptions in order
         /// and picking the first one whose DlcId is owned, falling back to DefaultTrackId if none
         /// are. Returns null if no entry matches or none of the matches' Year is
-        /// &lt;= seasonYear - callers should fall back to manual instructions in that case, since
-        /// Ams2RaceConfigurator.ApplyRaceConfigAsync requires a track for its single SetCar call.
+        /// &lt;= seasonYear - the race is then set up on whatever track AMS2 already has selected.
         /// </summary>
         Ams2TrackResolution ResolveTrack(string grandPrixName, string grandPrixShortName, int seasonYear);
     }

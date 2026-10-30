@@ -288,11 +288,8 @@
   <data name="Ams2RaceLaunchAssistant_RaceNotFound" xml:space="preserve">
     <value>Couldn't find this race in the current season.</value>
   </data>
-  <data name="Ams2RaceLaunchAssistant_TrackNotConfigured_Format" xml:space="preserve">
-    <value>No track is configured yet for "{0}".</value>
-  </data>
-  <data name="Ams2RaceLaunchAssistant_TrackNotInCatalog_Format" xml:space="preserve">
-    <value>Track "{0}" isn't in the track catalog yet.</value>
+  <data name="Ams2RaceLaunchAssistant_TrackLeftAsIs_Format" xml:space="preserve">
+    <value>No track is configured yet for "{0}", so the one selected in AMS2 was left as it is. Pick the circuit and race length yourself before starting.</value>
   </data>
   <data name="Ams2RaceLaunchAssistant_CarSelectionFailed" xml:space="preserve">
     <value>Couldn't resolve your car/livery for this race.</value>

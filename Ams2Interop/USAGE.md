@@ -137,7 +137,7 @@ True after a successful `AttachAsync` until `Detach()`/`Dispose()`.
 Task<RaceConfigResult> ApplyRaceConfigAsync(
     int livery,
     string car,
-    string track,
+    string? track,
     OpponentsConfig? opponents = null,
     SessionRulesConfig? sessionRules = null,
     PracticeQualifySessionConfig? practice = null,
@@ -151,7 +151,8 @@ Resolving their session VMs is plain memory reads, but may fall back to a full-p
 
 Applies `opponents`/`sessionRules` to whatever `VM498`/`VM550` currently resolve to, and
 `car`/`track`/`livery` via a single `SetCar` call, all against the currently-open Custom Race
-screen — see README.md's Status section for what's live-confirmed.
+screen — see README.md's Status section for what's live-confirmed. A null `track` keeps the track
+already selected there: `SetCar` is called with the hash read from `master`'s own track slot.
 
 Internally, in order:
 1. Resolves `VM498`/`VM550`/the master pointer (each may trigger a several-second full-process

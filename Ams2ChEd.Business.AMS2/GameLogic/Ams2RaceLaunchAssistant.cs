@@ -15,10 +15,12 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 {
     /// <summary>
     /// Launches AMS2 (if needed), shows an overlay on top of it, and applies race settings via
-    /// Ams2Interop.Ams2RaceConfigurator when the player clicks through. Anything it can't resolve
-    /// (no track mapping for this Grand Prix, missing hash-catalog entries, the live apply itself
-    /// failing) surfaces as an in-overlay error with a "continue manually" escape hatch - callers
-    /// should keep their own existing manual-instructions fallback for that case.
+    /// Ams2Interop.Ams2RaceConfigurator when the player clicks through. A Grand Prix with no usable
+    /// track mapping is still set up, on whatever track AMS2 has selected, and the player is told
+    /// to pick the circuit and race length themselves. Anything else it can't resolve (a missing
+    /// car hash-catalog entry, the live apply itself failing) surfaces as an in-overlay error with
+    /// a "continue manually" escape hatch - callers should keep their own existing
+    /// manual-instructions fallback for that case.
     /// </summary>
     public class Ams2RaceLaunchAssistant : IRaceLaunchAssistant
     {
@@ -256,17 +258,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
             var seasonYear = request.Season.OriginalYear ?? request.Season.Year;
             var trackResolution = _trackResolver.ResolveTrack(race.RaceName, race.RaceShortName, seasonYear);
-            if (trackResolution == null)
-            {
-                overlay.ShowError(string.Format(Strings.Ams2RaceLaunchAssistant_TrackNotConfigured_Format, race.RaceName));
-                return false;
-            }
-
-            if (!_hashCatalogProvider.TrackHashes.ContainsKey(trackResolution.TrackId))
-            {
-                overlay.ShowError(string.Format(Strings.Ams2RaceLaunchAssistant_TrackNotInCatalog_Format, trackResolution.TrackId));
-                return false;
-            }
+            var trackKnown = trackResolution != null && _hashCatalogProvider.TrackHashes.ContainsKey(trackResolution.TrackId);
 
             var carSelection = (_racePreparator as Ams2RacePreparator)?.GetPlayerCarSelection(
                 request.RaceId, request.EntryList, request.Drivers, request.Season, request.PlayerDriverId);
@@ -282,8 +274,12 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 return false;
             }
 
-            var raceLength = (_installSettingsStorage as Ams2GameInstallSettingsStorage)?.LoadRaceLength() ?? Ams2RaceLength.Default;
-            var sessionRules = Ams2SessionRulesBuilder.BuildSessionRules(race, raceLength, trackResolution.DefaultNumberOfLaps);
+            // Without a known track there's no lap count to shorten, so the race distance stays the
+            // player's too, and with it their tyre-wear/fuel-usage settings.
+            var raceLength = trackKnown
+                ? (_installSettingsStorage as Ams2GameInstallSettingsStorage)?.LoadRaceLength() ?? Ams2RaceLength.Default
+                : Ams2RaceLength.Default;
+            var sessionRules = Ams2SessionRulesBuilder.BuildSessionRules(race, raceLength, trackResolution?.DefaultNumberOfLaps ?? 0);
             var opponents = Ams2SessionRulesBuilder.BuildOpponentsConfig(request.EntryList.DriverCount() - 1);
             // Same for both Pre-Quali and the Actual Race - see BuildQualifyingConfig's doc
             // comment. Practice is intentionally NOT configured at all here (left null) - whatever
@@ -300,7 +296,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             var result = await configurator.ApplyRaceConfigAsync(
                 carSelection.Value.LiveryNumber,
                 carSelection.Value.CarModel,
-                trackResolution.TrackId,
+                trackKnown ? trackResolution.TrackId : null,
                 opponents,
                 sessionRules,
                 practice: null,
@@ -324,6 +320,11 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             }
 
             ApplyPlayerIdentity(configurator, request);
+
+            if (!trackKnown)
+            {
+                overlay.ShowTrackLeftAsIs(string.Format(Strings.Ams2RaceLaunchAssistant_TrackLeftAsIs_Format, race.RaceName));
+            }
 
             return true;
         }

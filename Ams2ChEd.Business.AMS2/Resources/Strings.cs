@@ -96,8 +96,7 @@ namespace Ams2ChEd.Business.AMS2.Resources
 
         public static string Ams2RaceLaunchAssistant_ProcessLost => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_ProcessLost))!;
         public static string Ams2RaceLaunchAssistant_RaceNotFound => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_RaceNotFound))!;
-        public static string Ams2RaceLaunchAssistant_TrackNotConfigured_Format => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_TrackNotConfigured_Format))!;
-        public static string Ams2RaceLaunchAssistant_TrackNotInCatalog_Format => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_TrackNotInCatalog_Format))!;
+        public static string Ams2RaceLaunchAssistant_TrackLeftAsIs_Format => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_TrackLeftAsIs_Format))!;
         public static string Ams2RaceLaunchAssistant_CarSelectionFailed => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_CarSelectionFailed))!;
         public static string Ams2RaceLaunchAssistant_CarNotInCatalog_Format => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_CarNotInCatalog_Format))!;
         public static string Ams2RaceLaunchAssistant_AttachFailed => ResourceManager.GetString(nameof(Ams2RaceLaunchAssistant_AttachFailed))!;
