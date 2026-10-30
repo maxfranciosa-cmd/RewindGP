@@ -3,6 +3,7 @@ using System.Text.Json;
 using Ams2ChEd.Business.AMS2.Helpers;
 using Ams2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
+using AMS2ChEd.Business.Storage;
 using AMS2ChEd.Business.Updater;
 using SharpCompress.Archives;
 using SharpCompress.Common;
@@ -12,11 +13,11 @@ namespace Ams2ChEd.Business.AMS2.Services
 {
     public class ExternalLiveriesInstaller : IExternalLiveriesInstaller
     {
-        private readonly string _baseDirectory;
+        private readonly string _seasonsFolder;
 
         public ExternalLiveriesInstaller(string baseDirectory = null)
         {
-            _baseDirectory = baseDirectory ?? AppDomain.CurrentDomain.BaseDirectory;
+            _seasonsFolder = baseDirectory == null ? AppPaths.SeasonsFolder : Path.Combine(baseDirectory, "Seasons");
         }
 
         public bool HasExternalLiveries(int seasonYear)
@@ -40,7 +41,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                 Directory.CreateDirectory(tempDir);
                 ArchiveFiles.ExtractAll(downloadedPath, tempDir);
 
-                var seasonDestPath = Path.Combine(_baseDirectory, "Seasons", seasonYear.ToString());
+                var seasonDestPath = Path.Combine(_seasonsFolder, seasonYear.ToString());
                 foreach (var entry in config.Entries)
                 {
                     var sourcePath = Path.Combine(tempDir, entry.SourcePath);

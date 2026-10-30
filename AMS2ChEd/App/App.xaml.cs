@@ -110,6 +110,10 @@ namespace AMS2ChEd
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            var bakedOnly = e.Args.Contains("--bakedonly");
+            if (bakedOnly)
+                AppPaths.EnableBakedOnly();
+
             ApplyCulture(e.Args);
             ApplyStyle(e.Args);
 
@@ -120,6 +124,8 @@ namespace AMS2ChEd
             _serviceProvider = services.BuildServiceProvider();
             Services = _serviceProvider; // Make it static for easy access
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            if (bakedOnly)
+                mainWindow.Title += " - BAKED ONLY";
             mainWindow.Show();
             mainWindow.ShowPrerequisiteIfNeeded();
 
@@ -128,7 +134,7 @@ namespace AMS2ChEd
 
             var args = e.Args;
 
-            _ = RunStartupChecksAsync(mainWindow, _serviceProvider.GetService<VersionCheckService>(), args)
+            _ = (bakedOnly ? Task.CompletedTask : RunStartupChecksAsync(mainWindow, _serviceProvider.GetService<VersionCheckService>(), args))
         .ContinueWith(_ =>
         {
             if (shuttingDown) return Task.CompletedTask;

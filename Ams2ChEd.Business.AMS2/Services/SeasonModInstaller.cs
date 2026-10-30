@@ -2,6 +2,7 @@
 using System.Text.Json;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
+using AMS2ChEd.Business.Storage;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
@@ -10,7 +11,7 @@ namespace AMS2ChEd.Business.AMS2.Services
 {
     public class SeasonModInstaller : ISeasonPackInstaller
     {
-        private readonly string _baseDirectory;
+        private readonly string _seasonsFolder;
 
         public string PackFileExtension => ".rwgp";
 
@@ -18,7 +19,7 @@ namespace AMS2ChEd.Business.AMS2.Services
 
         public SeasonModInstaller(string baseDirectory = null)
         {
-            _baseDirectory = baseDirectory ?? AppDomain.CurrentDomain.BaseDirectory;
+            _seasonsFolder = baseDirectory == null ? AppPaths.SeasonsFolder : Path.Combine(baseDirectory, "Seasons");
         }
 
         public SeasonModInstallResult InstallSeasonMod(string zipFilePath)
@@ -75,7 +76,7 @@ namespace AMS2ChEd.Business.AMS2.Services
                 }
 
                 // Check if season already exists
-                string seasonDestPath = Path.Combine(_baseDirectory, "seasons", seasonYear.ToString());
+                string seasonDestPath = Path.Combine(_seasonsFolder, seasonYear.ToString());
                 result.IsUpdate = Directory.Exists(seasonDestPath) && File.Exists(Path.Combine(seasonDestPath, "season.json"));
 
                 // Process season files (first 6 folders + season.json & drivers.json)
@@ -113,7 +114,7 @@ namespace AMS2ChEd.Business.AMS2.Services
 
         private void ProcessSeasonFiles(string seasonFolderPath, int seasonYear, SeasonModInstallResult result)
         {
-            string seasonDestPath = Path.Combine(_baseDirectory, "seasons", seasonYear.ToString());
+            string seasonDestPath = Path.Combine(_seasonsFolder, seasonYear.ToString());
             Directory.CreateDirectory(seasonDestPath);
 
             var seasonFolders = new[]

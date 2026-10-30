@@ -7,6 +7,21 @@ namespace AMS2ChEd.Business.Storage
     /// </summary>
     public static class AppPaths
     {
+        /// <summary>
+        /// --bakedonly: the app runs as if no pack were installed, on saves of its own, with the
+        /// real Seasons and Saves folders left alone. The folder is a sibling of Seasons because
+        /// shipped cosmetics are reached from Seasons/&lt;year&gt;/ as "../../BakedSeasons/...".
+        /// </summary>
+        public static bool BakedOnly { get; private set; }
+
+        /// <summary>Call before anything reads a path: the folders are fixed on first use.</summary>
+        public static void EnableBakedOnly()
+        {
+            BakedOnly = true;
+            _seasonsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SeasonsBakedOnly");
+            _savesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SavesBakedOnly");
+        }
+
         private static string _seasonsFolder = null;
         public static string SeasonsFolder
         {

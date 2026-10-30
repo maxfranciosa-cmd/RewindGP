@@ -1,4 +1,5 @@
 ﻿using System.Net.NetworkInformation;
+using AMS2ChEd.Business.Storage;
 
 namespace Ams2ChEd.Business.AMS2.Helpers
 {
@@ -22,18 +23,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             return Path.Combine(SeasonsFolder, seasonYear.ToString(), "drivers.json");
         }
 
-        private static string _seasonsFilePath = null;
-        public static string SeasonsFolder
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_seasonsFilePath))
-                {
-                    _seasonsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Seasons");
-                }
-                return _seasonsFilePath;
-            }
-        }
+        public static string SeasonsFolder => AppPaths.SeasonsFolder;
 
         public static string SeasonFilePath(int seasonYear)
         {
@@ -166,18 +156,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             }
         }
 
-        private static string _savesPath = null;
-        public static string SavesFolder
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_savesPath))
-                {
-                    _savesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Saves");
-                }
-                return _savesPath;
-            }
-        }
+        public static string SavesFolder => AppPaths.SavesFolder;
 
         private static string _currentVersionCheck = null;
         public static string CurrentVersionCheckPath

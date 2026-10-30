@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.Models;
+using AMS2ChEd.Business.Storage;
 using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Business.Updater.Models;
 using System;
@@ -32,6 +33,10 @@ namespace AMS2ChEd.Business.Updater
         /// </summary>
         public async Task<bool> PrepareSeasonAsync(int year)
         {
+            // a "not now" here would stay in the preferences the normal runs share
+            if (AppPaths.BakedOnly)
+                return false;
+
             var availability = _manifest.GetAvailability(year);
 
             switch (availability)
@@ -95,6 +100,9 @@ namespace AMS2ChEd.Business.Updater
         /// </summary>
         public async Task<bool> OfferUpdateOnLoadAsync(int year)
         {
+            if (AppPaths.BakedOnly)
+                return false;
+
             if (_manifest.GetAvailability(year) != SeasonAvailability.UpdateAvailable)
                 return false;
 
