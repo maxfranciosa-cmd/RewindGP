@@ -86,6 +86,27 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             return drivers;
         }
 
+        /// <summary>
+        /// Clears the helmet and visor fields of a pack's drivers whose files are not on disk, so
+        /// a pack left with dead paths can't hide the artwork the next source has.
+        /// </summary>
+        public static Dictionary<string, Ams2DriverData> DropMissingFiles(Dictionary<string, Ams2DriverData> drivers, int year, string seasonsFolder = null)
+        {
+            foreach (var driver in drivers.Values)
+            {
+                string Keep(string path) => Exists(path, year, seasonsFolder) ? path : null;
+
+                driver.BaseHelmetFile = Keep(driver.BaseHelmetFile);
+                driver.BaseVisorFile = driver.BaseHelmetFile == null ? null : Keep(driver.BaseVisorFile);
+                driver.BaseHelmetFile90s = Keep(driver.BaseHelmetFile90s);
+                driver.BaseHelmetFile80s = Keep(driver.BaseHelmetFile80s);
+                driver.BaseVisorFile80s = driver.BaseHelmetFile80s == null ? null : Keep(driver.BaseVisorFile80s);
+                driver.BaseHelmetFile70s = Keep(driver.BaseHelmetFile70s);
+                driver.BaseVisorFile70s = driver.BaseHelmetFile70s == null ? null : Keep(driver.BaseVisorFile70s);
+            }
+            return drivers;
+        }
+
         // Drops what is not on disk; false when the team's body liveries are not.
         private static bool Narrow(Ams2TeamEntry team, int year, string seasonsFolder)
         {

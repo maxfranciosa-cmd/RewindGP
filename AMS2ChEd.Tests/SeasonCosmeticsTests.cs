@@ -113,6 +113,25 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         [TestMethod]
+        public void DropMissingFiles_ClearsDeadPaths_KeepsFilesOnDiskAndPortrait()
+        {
+            Touch("helmet_liveries/alonso.png");
+            var drivers = new Dictionary<string, Ams2DriverData>
+            {
+                ["fernando_alonso"] = new Ams2DriverData { BaseHelmetFile = "helmet_liveries/alonso.png", BaseVisorFile = "helmet_liveries/missing_visor.png" },
+                ["michael_schumacher"] = new Ams2DriverData { BaseHelmetFile = "../2000/helmet_liveries/gone.png", BaseVisorFile = "helmet_liveries/alonso.png", PictureUrl = "https://example.org/schumacher.png" }
+            };
+
+            SeasonCosmeticsFiles.DropMissingFiles(drivers, 2000, Seasons);
+
+            Assert.AreEqual("helmet_liveries/alonso.png", drivers["fernando_alonso"].BaseHelmetFile);
+            Assert.IsNull(drivers["fernando_alonso"].BaseVisorFile);
+            Assert.IsNull(drivers["michael_schumacher"].BaseHelmetFile);
+            Assert.IsNull(drivers["michael_schumacher"].BaseVisorFile);
+            Assert.AreEqual("https://example.org/schumacher.png", drivers["michael_schumacher"].PictureUrl);
+        }
+
+        [TestMethod]
         public void EffectiveDrivers_Portrait_OnlyOnceTheSkinPackIsImported()
         {
             var cosmetics = new SeasonCosmetics

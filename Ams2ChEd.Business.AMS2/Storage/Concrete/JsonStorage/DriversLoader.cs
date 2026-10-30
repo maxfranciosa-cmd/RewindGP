@@ -28,7 +28,7 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
                 if (hasBaked)
                 {
                     var cosmetics = SeasonCosmeticsFiles.EffectiveDrivers(SeasonCosmeticsFiles.Read(seasonYear), seasonYear);
-                    return BakedSeasonMerge.MergeDrivers(Read(bakedPath), hasPack ? Read(driversPath) : null, cosmetics, seasonYear, ReadOtherPacks(seasonYear));
+                    return BakedSeasonMerge.MergeDrivers(Read(bakedPath), hasPack ? SeasonCosmeticsFiles.DropMissingFiles(Read(driversPath), seasonYear) : null, cosmetics, seasonYear, ReadOtherPacks(seasonYear));
                 }
 
                 return Read(driversPath);
@@ -55,7 +55,7 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
                 {
                     try
                     {
-                        pack = Read(path);
+                        pack = SeasonCosmeticsFiles.DropMissingFiles(Read(path), year);
                     }
                     catch (Exception ex)
                     {

@@ -32,6 +32,10 @@ namespace AMS2ChEd.Tests.Ams2
         [DataRow(2002)]
         [DataRow(2003)]
         [DataRow(2004)]
+        [DataRow(2005)]
+        [DataRow(2006)]
+        [DataRow(2007)]
+        [DataRow(2008)]
         [DataRow(2009)]
         [DataRow(2010)]
         [DataRow(2011)]
@@ -108,6 +112,20 @@ namespace AMS2ChEd.Tests.Ams2
                 foreach (var prefix in HelmetEraPrefixes)
                     Assert.IsTrue(File.Exists(Path.Combine(helmets, prefix + helmet.Design + ".png")), $"{driver.DriverId}: {prefix}{helmet.Design}");
                 TemplateRecolour.ParsePalette(helmet.Palette).Keys.ToList().ForEach(k => Assert.IsTrue(TemplateRecolour.KeyColours.ContainsKey(k), $"{driver.DriverId}: key {k}"));
+            }
+        }
+
+        // AMS2 can't draw an accented capital at the start of a word, and the name it reports back
+        // then stops matching the driver's.
+        [TestMethod]
+        public void ShippedDriverNames_HaveNoAccentedCapitalStartingAWord()
+        {
+            string baked = Path.Combine(RepoRoot(), "AMS2ChEd", "BakedSeasons");
+            foreach (var file in Directory.GetFiles(baked, "drivers.json", SearchOption.AllDirectories))
+            {
+                using var json = JsonDocument.Parse(File.ReadAllText(file));
+                foreach (var name in json.RootElement.GetProperty("drivers").EnumerateArray().Select(d => d.GetProperty("name").GetString()!))
+                    Assert.IsFalse(name.Split(' ', '-').Any(word => word.Length > 0 && word[0] > 127), $"{file}: {name}");
             }
         }
 

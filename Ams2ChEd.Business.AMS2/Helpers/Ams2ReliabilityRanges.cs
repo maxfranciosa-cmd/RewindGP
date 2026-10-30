@@ -43,6 +43,9 @@ namespace Ams2ChEd.Business.AMS2.Helpers
 
             ["F-V10_Gen1"] = High,
             ["F-V10_Gen2"] = High,
+            ["F-V10_Gen3"] = High,
+            ["F-V8_Gen1"] = High,
+            ["F-V8_Gen2"] = High,
             ["F-USA_Gen2"] = High,
             ["Group C"] = High,
 
