@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
+using AMS2ChEd.Business.Services.Contracts;
 
 namespace AMS2ChEd.Business.Helpers
 {
@@ -119,6 +120,15 @@ namespace AMS2ChEd.Business.Helpers
             var pick = candidates.FirstOrDefault(d => d.Reputation <= maxReputation) ?? candidates.FirstOrDefault();
 
             return pick?.DriverId ?? "";
+        }
+
+        // for a seat nobody can be found for (PickStandIn came back empty): a newly generated driver,
+        // added to the save's drivers
+        public static string GenerateStandIn(ISaveGame saveGame, IRandomDriverGenerator generator)
+        {
+            var newDriver = generator.GenerateDriver(saveGame.Drivers, saveGame.CurrentSeason.Year);
+            saveGame.Drivers = saveGame.Drivers.Concat(new[] { newDriver }).ToList();
+            return newDriver.DriverId;
         }
 
         // every driver standing in, chained absences included

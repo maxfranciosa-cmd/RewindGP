@@ -225,6 +225,31 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
+        public void ProcessRace_ThirdReprimand_NobodyFree_GeneratedDriverReplacesForTheRemainingRaces()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.NextGpIndex = 1;
+            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+            // every unemployed driver already stands in somewhere in the rest of the season
+            saveGame.CurrentSeason.Absences = new List<Absence>
+            {
+                new Absence { RaceId = 3, TeamId = "T2", DriverOut = "D3", DriverIn = "U1" },
+                new Absence { RaceId = 3, TeamId = "T2", DriverOut = "D4", DriverIn = "U2" },
+                new Absence { RaceId = 4, TeamId = "T3", DriverOut = "D5", DriverIn = "U3" }
+            };
+            var generator = new Moq.Mock<AMS2ChEd.Business.Services.Contracts.IRandomDriverGenerator>();
+            generator.Setup(g => g.GenerateDriver(Moq.It.IsAny<IEnumerable<IDriverData>>(), 1996))
+                .Returns(Driver("GEN1", DriverReputation.PAY_DRIVER_SEASON));
+            _reprimandManager = new ReprimandManager(generator.Object);
+
+            var news = Process(saveGame, CreateResult(("D2", 3), ("D1", 4)));
+
+            Assert.AreEqual("GEN1", news.Single().ReplacementDriverId);
+            Assert.IsTrue(saveGame.Drivers.Any(d => d.DriverId == "GEN1"));
+            Assert.IsTrue(saveGame.CurrentSeason.Absences.Where(a => a.DriverOut == "D2").All(a => a.DriverIn == "GEN1"));
+        }
+
+        [TestMethod]
         public void ProcessRace_ThirdReprimand_DoesNotDuplicateExistingAbsencesNorReuseBusyDrivers()
         {
             var saveGame = CreateSaveGame();

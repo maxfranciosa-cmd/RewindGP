@@ -396,6 +396,44 @@ namespace AMS2ChEd.Tests
         }
 
         [TestMethod]
+        public void ProcessAbsences_NobodyForTheSeat_GeneratedDriverCoversTheWholeSpell()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.NextGpIndex = 1;
+            var spell = Enumerable.Range(1, 3).Select(raceId => new Absence { RaceId = raceId, TeamId = "T2", DriverOut = "D3", DriverIn = "", Reason = AbsenceReason.INJURY }).ToList();
+            saveGame.CurrentSeason.Absences = spell;
+            var entryList = EntryList(saveGame);
+
+            new AbsenceManager(Generator().Object).ProcessAbsences(entryList, spell.Where(a => a.RaceId == 2).ToList(), saveGame, new Mock<IAbsenceDecisionProvider>().Object);
+
+            Assert.AreEqual("GEN1", entryList.Single(e => e.TeamId == "T2").Driver1Id);
+            Assert.IsTrue(saveGame.Drivers.Any(d => d.DriverId == "GEN1"));
+            Assert.AreEqual("", spell[0].DriverIn, "a race already run keeps its empty car");
+            Assert.AreEqual("GEN1", spell[2].DriverIn);
+        }
+
+        [TestMethod]
+        public void ProcessAbsences_PlayerLeavesAndNobodyCanCoverTheirSeat_GeneratedDriverTakesIt()
+        {
+            var saveGame = CreateSaveGame();
+            // nobody free is at or below the player's reputation, the player's team has no reserve
+            saveGame.Drivers = saveGame.Drivers.Where(d => !d.DriverId.StartsWith("U")).ToList();
+            var absences = new List<Absence> { new Absence { RaceId = 1, TeamId = "T2", DriverOut = "D3", DriverIn = "" } };
+            saveGame.CurrentSeason.Absences = absences;
+            var decisions = new Mock<IAbsenceDecisionProvider>();
+            decisions.Setup(d => d.DoesPlayerWantToApply(It.IsAny<AbsenceOpportunity>(), It.IsAny<bool>())).Returns(true);
+            decisions.Setup(d => d.DoesPlayerTeamAllowLeave(It.IsAny<string>(), It.IsAny<Absence>())).Returns(true);
+            var entryList = EntryList(saveGame);
+
+            new AbsenceManager(Generator().Object).ProcessAbsences(entryList, absences, saveGame, decisions.Object);
+
+            // GEN1 is the team's pick for D3's car, but the player outranks them; GEN2 then takes the
+            // player's own seat
+            Assert.AreEqual("PLAYER", entryList.Single(e => e.TeamId == "T2").Driver1Id);
+            Assert.AreEqual("GEN2", entryList.Single(e => e.TeamId == "T3").Driver1Id);
+        }
+
+        [TestMethod]
         public void PaidRides_InjuredPayDriver_BuysNothing()
         {
             var saveGame = CreateSaveGame();
@@ -504,6 +542,15 @@ namespace AMS2ChEd.Tests
 
         private static IEnumerable<RaceCrash> Crash(string driverId, string teamId) =>
             new[] { new RaceCrash { DriverId = driverId, TeamId = teamId, Severity = CrashSeverity.Severe } };
+
+        private static Mock<IRandomDriverGenerator> Generator()
+        {
+            var generator = new Mock<IRandomDriverGenerator>();
+            var generated = 0;
+            generator.Setup(g => g.GenerateDriver(It.IsAny<IEnumerable<IDriverData>>(), It.IsAny<int>()))
+                .Returns(() => Driver($"GEN{++generated}", DriverReputation.PAY_DRIVER_SEASON));
+            return generator;
+        }
 
         private static EndOfSeasonManager EndOfSeasonManager()
         {

@@ -3,6 +3,7 @@ using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
+using AMS2ChEd.Business.Services.Contracts;
 using AMS2ChEd.Business.Services.RaceNumberSystem.Factory;
 
 namespace AMS2ChEd.Business.GameLogic.Concrete
@@ -14,12 +15,16 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
     {
         private readonly DriverHirer _driverHirer;
 
+        // null: a seat nobody could be found for stays empty, the car isn't raced
+        private readonly IRandomDriverGenerator _randomDriverGenerator;
+
         public event EventHandler<AbsenceOpportunityEventArgs> AbsenceOpportunityAvailable;
         public event EventHandler<AbsenceDecisionEventArgs> AbsenceDecisionMade;
 
-        public AbsenceManager()
+        public AbsenceManager(IRandomDriverGenerator randomDriverGenerator = null)
         {
             _driverHirer = new DriverHirer();
+            _randomDriverGenerator = randomDriverGenerator;
         }
 
         /// <summary>
@@ -38,6 +43,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             while (i < absences.Count)
             {
                 var currentAbsence = chainedAbsence ?? absences[i];
+                FillEmptySeat(currentAbsence, saveGame);
                 // not while recovering from a crash, nor ever again after a fatal one
                 bool playerCanApply = (currentAbsence.DriverOut != saveGame.PlayerData.DriverId && saveGame.PlayerData.TeamId != currentAbsence.TeamId)
                     && !saveGame.IsOutOfAction(saveGame.PlayerData.DriverId, currentAbsence.RaceId);
@@ -221,6 +227,32 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 TeamId = saveGame.PlayerData.TeamId,
                 DriverIn = reserveId ?? substituteDriver?.DriverId ?? ""
             };
+        }
+
+        // nobody could be found for the seat when the absence was set (no free reserve, no driver
+        // without a seat left): a newly generated driver takes it, and keeps it for the rest of the
+        // same spell, so an injury or a release isn't covered by a new face every race
+        private void FillEmptySeat(Absence absence, ISaveGame saveGame)
+        {
+            if (_randomDriverGenerator == null || !string.IsNullOrEmpty(absence.DriverIn) || string.IsNullOrEmpty(absence.DriverOut))
+                return;
+
+            var newDriverId = SubstitutePool.GenerateStandIn(saveGame, _randomDriverGenerator);
+            absence.DriverIn = newDriverId;
+
+            // the races already run keep their empty car
+            var comingRaceIds = saveGame.CurrentSeason.Races.Skip(saveGame.NextGpIndex).Select(r => r.RaceId).ToHashSet();
+            foreach (var other in (saveGame.CurrentSeason.Absences ?? Enumerable.Empty<Absence>()).SelectMany(Chain))
+            {
+                if (comingRaceIds.Contains(other.RaceId) && other.TeamId == absence.TeamId && other.DriverOut == absence.DriverOut && string.IsNullOrEmpty(other.DriverIn))
+                    other.DriverIn = newDriverId;
+            }
+        }
+
+        private static IEnumerable<Absence> Chain(Absence absence)
+        {
+            for (var current = absence; current != null; current = current.ChainedAbsence)
+                yield return current;
         }
 
         private void ExecuteDeclaredAbsence(List<EntryListEntry> entryList, Absence absence, ISaveGame saveGame)

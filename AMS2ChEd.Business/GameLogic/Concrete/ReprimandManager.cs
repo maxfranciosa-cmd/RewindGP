@@ -3,6 +3,7 @@ using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
+using AMS2ChEd.Business.Services.Contracts;
 
 namespace AMS2ChEd.Business.GameLogic.Concrete
 {
@@ -16,6 +17,14 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
     {
         public const int REPRIMANDS_FOR_SEASON_END_DROP = 2;
         public const int REPRIMANDS_FOR_RELEASE = 3;
+
+        // null: a released driver nobody can be found for leaves their car empty
+        private readonly IRandomDriverGenerator _randomDriverGenerator;
+
+        public ReprimandManager(IRandomDriverGenerator randomDriverGenerator = null)
+        {
+            _randomDriverGenerator = randomDriverGenerator;
+        }
 
         public IReadOnlyList<ReprimandNewsItem> ProcessRace(
             ISaveGame saveGame,
@@ -233,6 +242,11 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var absences = (saveGame.CurrentSeason.Absences ?? Enumerable.Empty<Absence>()).ToList();
 
             var replacementId = SubstitutePool.PickStandIn(saveGame, team, remainingRaces.Select(r => r.RaceId).ToList(), absences, driverId);
+
+            // nobody free for the rest of the season: the team signs a newcomer, so the news can
+            // name them and the player is offered the seat against them
+            if (string.IsNullOrEmpty(replacementId) && _randomDriverGenerator != null && remainingRaces.Any())
+                replacementId = SubstitutePool.GenerateStandIn(saveGame, _randomDriverGenerator);
 
             foreach (var race in remainingRaces)
             {
