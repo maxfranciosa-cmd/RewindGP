@@ -879,7 +879,10 @@ namespace Ams2ChEd.Business.AMS2.Services
 
             // A baked team's livery borrowed from another season's pack is painted for the kit's
             // XML: this season's XML of the team (if any, perhaps for another car) is not for it.
-            bool borrowedLivery = team.GenericLivery != null && BakedSeasonMerge.OtherSeasonYear(liveryFilePath) != null;
+            // A path prefixed with the folder's own year (a save's artwork refresh) is not borrowed.
+            bool borrowedLivery = team.GenericLivery != null
+                && BakedSeasonMerge.OtherSeasonYear(liveryFilePath) is int liverySeason
+                && liverySeason.ToString() != Path.GetFileName(seasonDirectory);
 
             if (borrowedLivery || !File.Exists(teamXmlPath))
             {

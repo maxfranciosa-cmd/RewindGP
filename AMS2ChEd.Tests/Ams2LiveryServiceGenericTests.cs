@@ -59,10 +59,32 @@ namespace AMS2ChEd.Tests.Ams2
             Assert.IsNull(xml.Element("OUTFIT_OVERRIDE"));
         }
 
+        [TestMethod]
+        [DataRow("1996", @"Suits\pack_body.dds", DisplayName = "own season's path, prefixed by a save's artwork refresh: the team's XML")]
+        [DataRow("1995", @"temporary_textures\williams_body_diff_1996.dds", DisplayName = "another season's path: borrowed, the kit's XML")]
+        public void BodyLiveryPath_SeasonItLeadsInto_PicksTheXml(string liverySeason, string expectedSuit)
+        {
+            using var folder = new TempFolder();
+            string liveryXml = Path.Combine(folder.SeasonDirectory, "liveries_xml", "williams.xml");
+            Directory.CreateDirectory(Path.GetDirectoryName(liveryXml));
+            File.WriteAllText(liveryXml, @"<USER_OVERRIDES>
+  <LIVERY_OVERRIDE LIVERY=""1"" NAME="""" BASELIVERY=""Default""><PREVIEWIMAGE PATH="""" /><TEXTURE NAME=""BODY"" PATH="""" /></LIVERY_OVERRIDE>
+  <OUTFIT_OVERRIDE LIVERY=""1"" BASEOUTFIT=""DEFAULT""><TEXTURE NAME=""BODY_DIFF"" PATH=""Suits\pack_body.dds"" /></OUTFIT_OVERRIDE>
+</USER_OVERRIDES>");
+            folder.Png(Path.Combine(folder.Root, "Seasons", liverySeason, "car_liveries", "body.png"), new Rgba32(0, 0, 255, 255));
+            var (service, entries) = Build(folder, withLivery: true, bodyLivery: $"../{liverySeason}/car_liveries/body.png");
+
+            service.GenerateLiveriesOnly(1, entries, folder.SeasonDirectory, folder.Ams2Root);
+
+            string carFolder = Path.Combine(folder.Ams2Root, "Vehicles", "Textures", "CustomLiveries", "Overrides", CarModel);
+            var xml = XDocument.Load(Path.Combine(carFolder, $"{CarModel}.xml")).Root;
+            Assert.AreEqual(expectedSuit, Texture(xml.Element("OUTFIT_OVERRIDE"), "BODY_DIFF"));
+        }
+
         private static string Texture(XElement element, string name) =>
             element.Elements("TEXTURE").FirstOrDefault(t => t.Attribute("NAME")?.Value == name)?.Attribute("PATH")?.Value;
 
-        private static (Ams2LiveryService, List<EntryListEntry>) Build(TempFolder folder, bool withLivery)
+        private static (Ams2LiveryService, List<EntryListEntry>) Build(TempFolder folder, bool withLivery, string bodyLivery = null)
         {
             HelmetPreviewTestMaps.Ensure();
             string kits = Path.Combine(folder.Root, "LiveryKits");
@@ -97,6 +119,8 @@ namespace AMS2ChEd.Tests.Ams2
                 TeamName = "Williams Renault",
                 Color = "#0033A0",
                 Ams2Car = CarModel,
+                BaseLiveryDriver1 = bodyLivery,
+                BaseLiveryDriver2 = bodyLivery,
                 Driver1Contract = new DriverContract { DriverId = "damon_hill", DriverNumber = 5 },
                 Driver2Contract = new DriverContract(),
                 GenericLivery = withLivery
