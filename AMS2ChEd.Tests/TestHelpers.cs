@@ -112,9 +112,9 @@ namespace AMS2ChEd.Tests
         private const string ManifestPath = "/app/seasons.json";
 
         public static SeasonManifestService Create(
-            string manifestJson, MockSeasonLoader mockSeasonLoader)
+            string manifestJson, MockSeasonLoader mockSeasonLoader, ISkinPackImporter skinPacks = null)
         {
-            var service = new SeasonManifestService(ManifestPath, mockSeasonLoader, (path) => path == ManifestPath ? manifestJson : "{}", false);
+            var service = new SeasonManifestService(ManifestPath, mockSeasonLoader, (path) => path == ManifestPath ? manifestJson : "{}", false, skinPacks);
             return service;
         }
     }

@@ -124,13 +124,17 @@ namespace AMS2ChEd.Business.Updater
             var entries = GetEntriesForYear(year);
             var entriesExist = entries.Any();
 
-            // a season the app ships data for is playable without its pack, which only adds artwork;
-            // where the app knows the season's community skin pack, that replaces the pack
+            // a season the app ships data for is playable without its pack, which only adds artwork:
+            // a skin pack already imported stands; otherwise the listed pack, the fuller artwork
+            // (all its helmet sponsors), comes before the season's community skin pack
             if (!installed && HasBakedData(year))
             {
-                if (_skinPacks?.HasSkinPack(year) == true)
-                    return _skinPacks.IsImported(year) ? SeasonAvailability.BakedSkinPackImported : SeasonAvailability.BakedSkinPackAvailable;
-                return entriesExist ? SeasonAvailability.BakedPackAvailable : SeasonAvailability.BakedOnly;
+                var hasSkinPack = _skinPacks?.HasSkinPack(year) == true;
+                if (hasSkinPack && _skinPacks.IsImported(year))
+                    return SeasonAvailability.BakedSkinPackImported;
+                if (entriesExist)
+                    return SeasonAvailability.BakedPackAvailable;
+                return hasSkinPack ? SeasonAvailability.BakedSkinPackAvailable : SeasonAvailability.BakedOnly;
             }
 
             if (!installed && !entriesExist) return SeasonAvailability.NotAvailable;

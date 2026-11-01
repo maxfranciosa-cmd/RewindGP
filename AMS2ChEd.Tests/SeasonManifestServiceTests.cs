@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.Updater.Models;
+﻿using AMS2ChEd.Business.Updater;
+using AMS2ChEd.Business.Updater.Models;
 
 namespace AMS2ChEd.Tests.Business.Updater
 {
@@ -36,6 +37,40 @@ namespace AMS2ChEd.Tests.Business.Updater
 
             Assert.AreEqual(SeasonAvailability.BakedPackAvailable, svc.GetAvailability(1996));
             Assert.IsFalse(svc.IsInstalled(1996));
+        }
+
+        private static SeasonManifestService BakedSeasonWithSkinPack(string manifest, bool imported)
+        {
+            var mockSeasonLoader = new MockSeasonLoader();
+            mockSeasonLoader.AddBakedOnlySeason("1995");
+            var skinPacks = new Moq.Mock<AMS2ChEd.Business.Updater.ISkinPackImporter>();
+            skinPacks.Setup(s => s.HasSkinPack(1995)).Returns(true);
+            skinPacks.Setup(s => s.IsImported(1995)).Returns(imported);
+            return SeasonManifestServiceFactory.Create(manifest, mockSeasonLoader, skinPacks.Object);
+        }
+
+        [TestMethod]
+        public void GetAvailability_ListedPackAndSkinPack_OffersTheListedPack()
+        {
+            var svc = BakedSeasonWithSkinPack(ManifestBuilder.Build((1995, BaseDate, "https://example.com/1995.rwgp")), imported: false);
+
+            Assert.AreEqual(SeasonAvailability.BakedPackAvailable, svc.GetAvailability(1995));
+        }
+
+        [TestMethod]
+        public void GetAvailability_ListedPackAndSkinPackImported_StaysImported()
+        {
+            var svc = BakedSeasonWithSkinPack(ManifestBuilder.Build((1995, BaseDate, "https://example.com/1995.rwgp")), imported: true);
+
+            Assert.AreEqual(SeasonAvailability.BakedSkinPackImported, svc.GetAvailability(1995));
+        }
+
+        [TestMethod]
+        public void GetAvailability_SkinPackOnly_OffersTheSkinPack()
+        {
+            var svc = BakedSeasonWithSkinPack(ManifestBuilder.Build((1996, BaseDate, "https://example.com/1996.rwgp")), imported: false);
+
+            Assert.AreEqual(SeasonAvailability.BakedSkinPackAvailable, svc.GetAvailability(1995));
         }
 
         [TestMethod]
