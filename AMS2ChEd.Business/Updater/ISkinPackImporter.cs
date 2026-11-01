@@ -25,6 +25,12 @@ namespace AMS2ChEd.Business.Updater
         /// <summary>The seasons whose skin pack this archive is, best match first; empty when none.</summary>
         IReadOnlyList<int> DetectSeasons(string archivePath);
 
+        /// <summary>
+        /// When the archive holds a single file of that extension, extracts it into the folder and
+        /// returns its path; null otherwise.
+        /// </summary>
+        string ExtractSoleFile(string archivePath, string extension, string destinationFolder);
+
         Task<SkinPackImportResult> ImportAsync(int seasonYear, string archivePath, IProgress<string> progress = null, CancellationToken cancellationToken = default);
 
         /// <summary>Removes what an import wrote for the season.</summary>

@@ -54,6 +54,9 @@ namespace Ams2ChEd.Business.AMS2.Services
 
         private string RecordPath(int year) => Path.Combine(SeasonFolder(year), "skin_pack.json");
 
+        public string ExtractSoleFile(string archivePath, string extension, string destinationFolder) =>
+            ArchiveFiles.ExtractSoleFile(archivePath, extension, destinationFolder);
+
         public IReadOnlyList<int> DetectSeasons(string archivePath)
         {
             var files = ArchiveFiles.ListFiles(archivePath);

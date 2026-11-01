@@ -90,8 +90,9 @@ namespace AMS2ChEd.Updater
         }
 
         /// <summary>
-        /// Any file handed over (picked, dropped): a season pack is installed as ever; a skin pack
-        /// archive goes to the season it belongs to. True when something was imported.
+        /// Any file handed over (picked, dropped): a season pack is installed as ever, alone or as
+        /// the only file of an archive; a skin pack archive goes to the season it belongs to. True
+        /// when something was imported.
         /// </summary>
         public async Task<bool> ImportFileAsync(string path, Window owner)
         {
@@ -103,6 +104,24 @@ namespace AMS2ChEd.Updater
             {
                 MessageBox.Show(owner, $"{Path.GetFileName(path)} is neither a skin pack archive nor a season pack.", "Import", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
+            }
+
+            // a season pack the download site wrapped in an archive, with nothing else in it
+            var unpackFolder = Path.Combine(Path.GetTempPath(), $"rewindgp_pack_{Guid.NewGuid():N}");
+            try
+            {
+                var wrapped = await Task.Run(() => _importer.ExtractSoleFile(path, _packInstaller.PackFileExtension, unpackFolder));
+                if (wrapped != null)
+                    return await InstallSeasonPackAsync(wrapped, owner);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(owner, $"{Path.GetFileName(path)} could not be read: {ex.Message}", "Import", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            finally
+            {
+                try { if (Directory.Exists(unpackFolder)) Directory.Delete(unpackFolder, true); } catch { }
             }
 
             IReadOnlyList<int> years;

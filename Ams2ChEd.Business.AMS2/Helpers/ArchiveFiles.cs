@@ -47,6 +47,22 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             }
         }
 
+        /// <summary>
+        /// When the archive's only file has the given extension (a pack wrapped in a zip by its
+        /// download site), extracts it and returns where it landed; otherwise null, with nothing
+        /// extracted.
+        /// </summary>
+        public static string ExtractSoleFile(string archivePath, string extension, string destinationDir)
+        {
+            var files = ListFiles(archivePath);
+            if (files.Count != 1 || !files[0].EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+                return null;
+
+            Directory.CreateDirectory(destinationDir);
+            ExtractAll(archivePath, destinationDir);
+            return Directory.GetFiles(destinationDir, "*" + extension, SearchOption.AllDirectories).Single();
+        }
+
         public static string Normalize(string path) => path.Replace('\\', '/').TrimStart('/');
 
         /// <summary>
