@@ -1,0 +1,1804 @@
+{
+  "_comment": "Artwork the app ships for 2010 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/2010/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: none.",
+  "teams": {
+    "ferrari": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 216,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1612,
+            "Y": 694
+          },
+          "rotation": "Deg180",
+          "fill_color": "#A50C00"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_7_Ferrari.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_8_Ferrari.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Preview_7_Ferrari.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_7_Ferrari.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_8_Ferrari.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Preview_7_Ferrari.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_7_Ferrari.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_8_Ferrari.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Preview_7_Ferrari.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_7_Ferrari.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_8_Ferrari.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Preview_7_Ferrari.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_7_Ferrari_Outline.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_8_Ferrari_Outline.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Preview_7_Ferrari_Outline.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_7_Ferrari_Outline.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_8_Ferrari_Outline.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Preview_7_Ferrari_Outline.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 7,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_7_Ferrari_800.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2010_8_Ferrari_800.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Preview_7_Ferrari_800.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"2010 Ferrari #7 - F. Massa\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\7_Ferrari_blank.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\7_Ferrari_blank.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\Ferrari.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\Ferrari_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_med.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_med.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Massa.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Ferrari_Visor_Massa.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\Ferrari_Visor_Massa_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\FerrariDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\FerrariArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\FerrariGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\FerrariLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\Ferrari.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "jordan": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/jordan/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/jordan/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/jordan/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/jordan_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 140,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1564,
+            "Y": 205
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"63\" NAME=\"2010 Force India #14 - A. Sutil\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\14_ForceIndia.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\14_ForceIndia.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\ForceIndia.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\ForceIndia_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"63\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Sutil.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\ForceIndia_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\ForceIndia_visor_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"63\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\ForceIndiaDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\ForceIndiaArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\ForceIndiaGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\ForceIndiaLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\ForceIndia.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "hrt": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/hrt/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/hrt/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/hrt/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/hrt_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 216,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1606,
+            "Y": 694
+          },
+          "rotation": "Deg180",
+          "fill_color": "#212421"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/hrt/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/hrt/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_21_Hispania_early.dds",
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_early.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_21_Hispania_early.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/hrt_nose_early.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 188,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 1588,
+                "Y": 694
+              },
+              "rotation": "Deg180",
+              "fill_color": "#212421"
+            }
+          ]
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_21_Hispania_early.dds",
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_early.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_21_Hispania_early.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/hrt_nose_early.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 188,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 1588,
+                "Y": 694
+              },
+              "rotation": "Deg180",
+              "fill_color": "#212421"
+            }
+          ]
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_21_Hispania_early.dds",
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_early.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_21_Hispania_early.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/hrt_nose_early.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 188,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 1588,
+                "Y": 694
+              },
+              "rotation": "Deg180",
+              "fill_color": "#212421"
+            }
+          ]
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_21_Hispania_early.dds",
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_early.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_21_Hispania_early.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/hrt_nose_early.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 188,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 1588,
+                "Y": 694
+              },
+              "rotation": "Deg180",
+              "fill_color": "#212421"
+            }
+          ]
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_21_Hispania_Sakon.dds",
+          "driver2_livery": null,
+          "livery_preview": "external_liveries/previews/hrt/Preview_21_Hispania_Sakon.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Sakon.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_20_Hispania_Sakon.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Sakon.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_20_Hispania_Sakon.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Sakon.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_20_Hispania_Sakon.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Sakon.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_20_Hispania_Sakon.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Klien.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_20_Hispania_Klien.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Sakon.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_20_Hispania_Sakon.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Sakon.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_20_Hispania_Sakon.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Klien.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_20_Hispania_Klien.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 19,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Klien.dds",
+          "livery_preview": "external_liveries/previews/hrt/Preview_20_Hispania_Klien.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"70\" NAME=\"2010 Hispania #21 - B. Senna\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\21_Hispania.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\21_Hispania.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\Hispania.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\Hispania_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"70\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Senna.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Hispania_visor_Senna.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"70\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\HispaniaDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\HispaniaArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\HispaniaGloves_Senna.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\HispaniaLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\Hispania.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "caterham": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/caterham/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/caterham/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/caterham/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/caterham_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 88,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1536,
+            "Y": 734
+          },
+          "rotation": "Deg180",
+          "fill_color": "#001C10"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/caterham_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 94,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 548,
+            "Y": 2985
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 84.6,
+          "fill_color": "#001C10"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/caterham_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 94,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2431,
+            "Y": 3074
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 276.7,
+          "fill_color": "#001C10"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/caterham/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/caterham/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"67\" NAME=\"2010 Lotus Racing #18 - J. Trulli\" BASELIVERY=\"GreenMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\18_Lotus.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\18_Lotus.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\Lotus.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\Lotus_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"67\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Trulli.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Lotus_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"67\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\LotusDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\LotusArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\LotusGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\LotusLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\Lotus.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/mclaren_wing.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3455,
+            "Y": 485
+          },
+          "rotation": "Deg180",
+          "fill_color": "#7B797B"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/mclaren_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 185,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3788,
+            "Y": 2025
+          },
+          "rotation": "Deg90",
+          "fill_color": "#7B797B"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/mclaren_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3565,
+            "Y": 3285
+          },
+          "rotation": "Deg270",
+          "fill_color": "#7B797B"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"2010 McLaren #1 - J. Button\" BASELIVERY=\"Chrome\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\1_McLaren.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\1_McLaren.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1_Season_2010\\1_McLaren_Fres.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\McLaren.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\McLaren_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Button.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\McLaren_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\McLarenDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\McLarenArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\McLarenGloves_Button.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\McLarenLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\McLaren.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mercedes": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/mercedes/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mercedes/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mercedes/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/mercedes_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 78,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1534,
+            "Y": 860
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/mercedes_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 100,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3605,
+            "Y": 2027
+          },
+          "rotation": "Deg90",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/mercedes_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 100,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3741,
+            "Y": 3266
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mercedes/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mercedes/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"2010 Mercedes #3 - M. Schumacher\" BASELIVERY=\"SilverMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\3_Mercedes.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\3_Mercedes.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\Mercedes.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\Mercedes_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Schumacher.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Mercedes_visor_Schumacher.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\Mercedes_visor_Schumacher_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\MercedesDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\MercedesArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\MercedesGloves_Schumacher.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\MercedesLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\Mercedes.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "stewart": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/stewart/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/stewart/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/stewart/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/stewart_tail_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3608,
+            "Y": 1235
+          },
+          "rotation": "Deg270",
+          "fill_color": "#000C29"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/stewart_tail_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3550,
+            "Y": 1118
+          },
+          "rotation": "Deg90",
+          "fill_color": "#000C29"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/stewart_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 60,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1524,
+            "Y": 800
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000C29"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/stewart/REDBULL.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/stewart/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 18,
+          "driver1_livery": "external_liveries/car_liveries/stewart/F1_Season_2010_5_RedBull_Brazil.dds",
+          "driver2_livery": "external_liveries/car_liveries/stewart/F1_Season_2010_6_RedBull_Brazil.dds",
+          "livery_preview": "external_liveries/previews/stewart/Preview_5_RedBull_Brazil.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"2010 Red Bull #5 - S. Vettel\" BASELIVERY=\"BlueMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\5_RedBull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\5_RedBull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\RedBull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\RedBull_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_med.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_med.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Vettel.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\RedBull_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\RedBullDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\RedBullArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\RedBullGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\RedBullLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\RedBull.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/benetton_wing.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 100,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3438,
+            "Y": 648
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFC708"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_11_Renault_Bahrain.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_12_Renault_Bahrain.dds",
+          "livery_preview": "external_liveries/previews/benetton/Preview_11_Renault_Bahrain.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_11_Renault_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_12_Renault_Late.dds",
+          "livery_preview": "external_liveries/previews/benetton/Preview_11_Renault_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_11_Renault_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_12_Renault_Late.dds",
+          "livery_preview": "external_liveries/previews/benetton/Preview_11_Renault_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_11_Renault_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_12_Renault_Late.dds",
+          "livery_preview": "external_liveries/previews/benetton/Preview_11_Renault_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_11_Renault_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_12_Renault_Late.dds",
+          "livery_preview": "external_liveries/previews/benetton/Preview_11_Renault_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_11_Renault_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_12_Renault_Late.dds",
+          "livery_preview": "external_liveries/previews/benetton/Preview_11_Renault_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_11_Renault_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_12_Renault_Late.dds",
+          "livery_preview": "external_liveries/previews/benetton/Preview_11_Renault_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 19,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_11_Renault_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2010_12_Renault_Late.dds",
+          "livery_preview": "external_liveries/previews/benetton/Preview_11_Renault_Late.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"61\" NAME=\"2010 Renault #11 - R. Kubica\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\11_Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\11_Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\Renault_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"61\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Kubica.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Renault_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"61\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\RenaultDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\RenaultArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\RenaultGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\RenaultLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\Renault.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "sauber": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/sauber/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/sauber/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/sauber/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/sauber_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3871,
+            "Y": 1968
+          },
+          "rotation": "Deg90",
+          "fill_color": "#141414"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/sauber_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 180,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3476,
+            "Y": 3272
+          },
+          "rotation": "Deg270",
+          "fill_color": "#141414"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/sauber_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 140,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1565,
+            "Y": 816
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_40th.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_40th.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber_40th.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_40th.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_40th.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber_40th.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_Late.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_Late.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_Late.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_Late.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_Late.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_Late.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 19,
+          "driver1_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_Late.dds",
+          "livery_preview": "external_liveries/previews/sauber/Preview_23_Sauber_Late.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"72\" NAME=\"2010 BMW Sauber #23 - K. Kobayashi\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\23_Sauber_early.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\23_Sauber_early.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\Sauber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\Sauber_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"72\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Kobayashi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Sauber_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"72\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\SauberDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\SauberArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\SauberGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\SauberLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\Sauber.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "toro_rosso": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/toro_rosso/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/toro_rosso/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/toro_rosso/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/toro_rosso_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 134,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1562,
+            "Y": 832
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000C29"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/toro_rosso_tail_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 106,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3566,
+            "Y": 1124
+          },
+          "rotation": "Deg90",
+          "fill_color": "#000C29"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/toro_rosso_tail_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 106,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3598,
+            "Y": 1228
+          },
+          "rotation": "Deg270",
+          "fill_color": "#000C29"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/toro_rosso/REDBULL.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/toro_rosso/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"65\" NAME=\"2010 Toro Rosso #16 - S. Buemi\" BASELIVERY=\"BlueMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\16_ToroRosso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\16_ToroRosso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\ToroRosso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\ToroRosso_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"65\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Buemi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\ToroRosso_Visor_Buemi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\visor_spec_blue.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"65\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\ToroRossoDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\ToroRossoArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\ToroRossoGloves_Buemi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\ToroRossoLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\ToroRosso.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "virgin": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/virgin/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/virgin/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/virgin/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/virgin_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 165,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1577,
+            "Y": 162
+          },
+          "rotation": "Deg180",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/virgin_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 165,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3560,
+            "Y": 2000
+          },
+          "rotation": "Deg90",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/virgin_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 165,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3785,
+            "Y": 3285
+          },
+          "rotation": "Deg270",
+          "fill_color": "#101010"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/virgin/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/virgin/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2010_24_Virgin.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2010_25_Virgin.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_24_Virgin.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2010_24_Virgin.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2010_25_Virgin.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_24_Virgin.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2010_24_Virgin.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2010_25_Virgin.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_24_Virgin.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2010_24_Virgin.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2010_25_Virgin.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_24_Virgin.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"73\" NAME=\"2010 Virgin #24 - T. Glock\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\24_Virgin_Late.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\24_Virgin_Late.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\Virgin.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\Virgin_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"73\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Glock.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Virgin_visor_Glock.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\Virgin_visor_Glock_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"73\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\VirginDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\VirginArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\VirginGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\VirginLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\Virgin.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2010/cosmetics/numbers/williams_wing.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3450,
+            "Y": 745
+          },
+          "rotation": "Deg180",
+          "fill_color": "#081431"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/williams/F1_Season_2010_9_Williams_Belgium.dds",
+          "driver2_livery": null,
+          "livery_preview": "external_liveries/previews/williams/Preview_9_Williams_Belgium.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"2010 Williams #9 - R. Barrichello\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2010\\Preview\\9_Williams.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2010\\9_Williams.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2010\\Rims\\Williams.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2010\\Rims\\Williams_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2010\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Barrichello.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2010\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2010\\Helmet\\Williams_Visor_Barrichello.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2010\\Helmet\\visor_spec_blue.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2010\\Driver\\WilliamsDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2010\\Driver\\WilliamsArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2010\\Driver\\WilliamsGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2010\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2010\\Driver\\WilliamsLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2010\\Harness\\Williams.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "adrian_sutil": {
+      "base_helmet_file": "../../Drivers/own_helmets/5469b91b7b86.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "bruno_senna": {
+      "base_helmet_file": "../../Drivers/own_helmets/8e023a3594da.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "christian_klien": {
+      "base_helmet_file": "../../Drivers/own_helmets/338c2460093b.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "felipe_massa": {
+      "base_helmet_file": "../../Drivers/own_helmets/a2705ff2c14d.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "fernando_alonso": {
+      "base_helmet_file": "../../Drivers/own_helmets/638ab8a28cdf.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "heikki_kovalainen": {
+      "base_helmet_file": "../../Drivers/own_helmets/977aa772cd20.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "jaime_alguersuari": {
+      "base_helmet_file": "../../Drivers/own_helmets/869f6a1eb244.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "jarno_trulli": {
+      "base_helmet_file": "../../Drivers/own_helmets/590afaf88778.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "jenson_button": {
+      "base_helmet_file": "../../Drivers/own_helmets/d52c07cf88ad.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "kamui_kobayashi": {
+      "base_helmet_file": "../../Drivers/own_helmets/ddfdf1684719.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "karun_chandhok": {
+      "base_helmet_file": "../../Drivers/own_helmets/d2b4c14e4124.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "lewis_hamilton": {
+      "base_helmet_file": "../../Drivers/own_helmets/7375063d5b23.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "lucas_di_grassi": {
+      "base_helmet_file": "../../Drivers/own_helmets/695165873149.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "mark_webber": {
+      "base_helmet_file": "../../Drivers/own_helmets/55aafcffc7e1.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "michael_schumacher": {
+      "base_helmet_file": "../../Drivers/own_helmets/2583e802b669.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "nick_heidfeld": {
+      "base_helmet_file": "../../Drivers/own_helmets/777a80e4ee6e.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "nico_hulkenberg": {
+      "base_helmet_file": "../../Drivers/own_helmets/250aa74e965a.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "nico_rosberg": {
+      "base_helmet_file": "../../Drivers/own_helmets/7259ddf006a7.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "pedro_de_la_rosa": {
+      "base_helmet_file": "../../Drivers/own_helmets/1c2fb94c8052.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "robert_kubica": {
+      "base_helmet_file": "../../Drivers/own_helmets/dc73b9c21445.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "rubens_barrichello": {
+      "base_helmet_file": "../../Drivers/own_helmets/daf155c18e9b.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "sakon_yamamoto": {
+      "base_helmet_file": "../../Drivers/own_helmets/baf7d5e718a7.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "sebastian_vettel": {
+      "base_helmet_file": "../../Drivers/own_helmets/0d84b084b65f.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "sebastien_buemi": {
+      "base_helmet_file": "../../Drivers/own_helmets/43dd6d42bf31.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "timo_glock": {
+      "base_helmet_file": "../../Drivers/own_helmets/5f34b7fc6856.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "vitaly_petrov": {
+      "base_helmet_file": "../../Drivers/own_helmets/cd73575dae3e.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "vitantonio_liuzzi": {
+      "base_helmet_file": "../../Drivers/own_helmets/f3572d5dbb74.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/f1-2010-skinpack-for-formula-v8-gen-3.81401/",
+    "name": "F1 2010 Skinpack for Formula V8 Gen 3",
+    "detect": [
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/7_Ferrari_blank.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/8_Ferrari_blank.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/7_Ferrari.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/8_Ferrari.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\7_Ferrari_blank.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\8_Ferrari_blank.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\7_Ferrari_blank.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Ferrari.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Ferrari.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Ferrari_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Ferrari_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\FerrariDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/FerrariDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\FerrariArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/FerrariArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\FerrariGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/FerrariGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\FerrariLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/FerrariLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\Ferrari.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/Ferrari.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Ferrari_Visor_Massa_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Ferrari_Visor_Massa_spec.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\7_Ferrari.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2010_7_Ferrari.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\8_Ferrari.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2010_8_Ferrari.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\7_Ferrari.dds",
+        "destinationPath": "external_liveries/previews/ferrari/Preview_7_Ferrari.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\7_Ferrari_Outline.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2010_7_Ferrari_Outline.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\8_Ferrari_Outline.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2010_8_Ferrari_Outline.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\7_Ferrari_Outline.dds",
+        "destinationPath": "external_liveries/previews/ferrari/Preview_7_Ferrari_Outline.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\7_Ferrari_800.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2010_7_Ferrari_800.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\8_Ferrari_800.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2010_8_Ferrari_800.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\7_Ferrari_800.dds",
+        "destinationPath": "external_liveries/previews/ferrari/Preview_7_Ferrari_800.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\14_ForceIndia.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\15_ForceIndia.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\14_ForceIndia.dds",
+        "destinationPath": "external_liveries/previews/jordan/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\ForceIndia.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/ForceIndia.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\ForceIndia_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/ForceIndia_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\ForceIndiaDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/ForceIndiaDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\ForceIndiaArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/ForceIndiaArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\ForceIndiaGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/ForceIndiaGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\ForceIndiaLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/ForceIndiaLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\ForceIndia.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/ForceIndia.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\ForceIndia_visor_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/ForceIndia_visor_spec.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\21_Hispania.dds",
+        "destinationPath": "external_liveries/car_liveries/hrt/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\20_Hispania.dds",
+        "destinationPath": "external_liveries/car_liveries/hrt/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\21_Hispania.dds",
+        "destinationPath": "external_liveries/previews/hrt/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Hispania.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Hispania.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Hispania_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Hispania_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\HispaniaDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/HispaniaDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\HispaniaArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/HispaniaArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\HispaniaGloves_Senna.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/HispaniaGloves_Senna.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\HispaniaLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/HispaniaLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\Hispania.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/Hispania.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\21_Hispania_early.dds",
+        "destinationPath": "external_liveries/car_liveries/hrt/F1_Season_2010_21_Hispania_early.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\20_Hispania_early.dds",
+        "destinationPath": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_early.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\21_Hispania_early.dds",
+        "destinationPath": "external_liveries/previews/hrt/Preview_21_Hispania_early.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\21_Hispania_Sakon.dds",
+        "destinationPath": "external_liveries/car_liveries/hrt/F1_Season_2010_21_Hispania_Sakon.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\21_Hispania_Sakon.dds",
+        "destinationPath": "external_liveries/previews/hrt/Preview_21_Hispania_Sakon.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\20_Hispania_Sakon.dds",
+        "destinationPath": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Sakon.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\20_Hispania_Sakon.dds",
+        "destinationPath": "external_liveries/previews/hrt/Preview_20_Hispania_Sakon.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\20_Hispania_Klien.dds",
+        "destinationPath": "external_liveries/car_liveries/hrt/F1_Season_2010_20_Hispania_Klien.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\20_Hispania_Klien.dds",
+        "destinationPath": "external_liveries/previews/hrt/Preview_20_Hispania_Klien.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\18_Lotus.dds",
+        "destinationPath": "external_liveries/car_liveries/caterham/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\19_Lotus.dds",
+        "destinationPath": "external_liveries/car_liveries/caterham/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\18_Lotus.dds",
+        "destinationPath": "external_liveries/previews/caterham/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Lotus.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Lotus.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Lotus_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Lotus_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\LotusDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/LotusDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\LotusArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/LotusArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\LotusGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/LotusGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\LotusLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/LotusLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\Lotus.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/Lotus.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\3_Mercedes.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\4_Mercedes.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\3_Mercedes.dds",
+        "destinationPath": "external_liveries/previews/mercedes/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Mercedes.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Mercedes.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Mercedes_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Mercedes_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\MercedesDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/MercedesDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\MercedesArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/MercedesArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\MercedesGloves_Schumacher.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/MercedesGloves_Schumacher.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\MercedesLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/MercedesLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\Mercedes.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/Mercedes.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Mercedes_visor_Schumacher_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Mercedes_visor_Schumacher_spec.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\5_RedBull.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\6_RedBull.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\5_RedBull.dds",
+        "destinationPath": "external_liveries/previews/stewart/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\RedBull.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/RedBull.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\RedBull_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/RedBull_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\spec_med.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/spec_med.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\spec_blur_med.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/spec_blur_med.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\RedBullDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/RedBullDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\RedBullArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/RedBullArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\RedBullGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/RedBullGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\RedBullLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/RedBullLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\RedBull.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/RedBull.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\5_RedBull_Brazil.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/F1_Season_2010_5_RedBull_Brazil.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\6_RedBull_Brazil.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/F1_Season_2010_6_RedBull_Brazil.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\5_RedBull_Brazil.dds",
+        "destinationPath": "external_liveries/previews/stewart/Preview_5_RedBull_Brazil.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\11_Renault.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\12_Renault.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\11_Renault.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Renault.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Renault.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Renault_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Renault_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\RenaultDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/RenaultDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\RenaultArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/RenaultArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\RenaultGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/RenaultGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\RenaultLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/RenaultLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\Renault.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/Renault.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\11_Renault_Bahrain.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2010_11_Renault_Bahrain.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\12_Renault_Bahrain.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2010_12_Renault_Bahrain.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\11_Renault_Bahrain.dds",
+        "destinationPath": "external_liveries/previews/benetton/Preview_11_Renault_Bahrain.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\11_Renault_Late.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2010_11_Renault_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\12_Renault_Late.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2010_12_Renault_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\11_Renault_Late.dds",
+        "destinationPath": "external_liveries/previews/benetton/Preview_11_Renault_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\23_Sauber_early.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\22_Sauber_early.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\23_Sauber_early.dds",
+        "destinationPath": "external_liveries/previews/sauber/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Sauber.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Sauber.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Sauber_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Sauber_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\SauberDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/SauberDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\SauberArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/SauberArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\SauberGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/SauberGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\SauberLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/SauberLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\Sauber.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/Sauber.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\23_Sauber.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\22_Sauber.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\23_Sauber.dds",
+        "destinationPath": "external_liveries/previews/sauber/Preview_23_Sauber.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\23_Sauber_40th.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_40th.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\22_Sauber_40th.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_40th.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\23_Sauber_40th.dds",
+        "destinationPath": "external_liveries/previews/sauber/Preview_23_Sauber_40th.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\23_Sauber_Late.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/F1_Season_2010_23_Sauber_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\22_Sauber_Late.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/F1_Season_2010_22_Sauber_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\23_Sauber_Late.dds",
+        "destinationPath": "external_liveries/previews/sauber/Preview_23_Sauber_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\16_ToroRosso.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\17_ToroRosso.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\16_ToroRosso.dds",
+        "destinationPath": "external_liveries/previews/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\ToroRosso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/ToroRosso.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\ToroRosso_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/ToroRosso_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\ToroRossoDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/ToroRossoDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\ToroRossoArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/ToroRossoArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\ToroRossoGloves_Buemi.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/ToroRossoGloves_Buemi.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\ToroRossoLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/ToroRossoLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\ToroRosso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/ToroRosso.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\24_Virgin_Late.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\25_Virgin_Late.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\24_Virgin_Late.dds",
+        "destinationPath": "external_liveries/previews/virgin/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Virgin.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Virgin.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Virgin_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Virgin_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\VirginDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/VirginDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\VirginArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/VirginArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\VirginGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/VirginGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\VirginLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/VirginLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\Virgin.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/Virgin.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Virgin_visor_Glock_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Virgin_visor_Glock_spec.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\24_Virgin.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/F1_Season_2010_24_Virgin.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\25_Virgin.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/F1_Season_2010_25_Virgin.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\24_Virgin.dds",
+        "destinationPath": "external_liveries/previews/virgin/Preview_24_Virgin.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\9_Williams.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\10_Williams.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\9_Williams.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Williams.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Williams.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\Williams_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/Williams_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\WilliamsDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/WilliamsDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\WilliamsArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/WilliamsArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\WilliamsGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/WilliamsGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\WilliamsLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/WilliamsLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\Williams.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/Williams.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\visor_spec_blue.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/visor_spec_blue.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\9_Williams_Belgium.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/F1_Season_2010_9_Williams_Belgium.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\9_Williams_Belgium.dds",
+        "destinationPath": "external_liveries/previews/williams/Preview_9_Williams_Belgium.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\1_McLaren.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Preview\\1_McLaren.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\1_McLaren_Fres.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/1_McLaren_Fres.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\McLaren.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/McLaren.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\McLaren_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/McLaren_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\spec_low.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/spec_low.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Rims\\spec_blur_low.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Rims/spec_blur_low.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\McLarenDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/McLarenDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\McLarenArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/McLarenArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\McLarenGloves_Button.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/McLarenGloves_Button.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\spec_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/spec_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Driver\\McLarenLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Driver/McLarenLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Harness\\McLaren.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Harness/McLaren.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\spec_helmet.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/spec_helmet.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\visor_spec_black.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/visor_spec_black.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Ferrari_Visor_Massa.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/ferrari/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\ForceIndia_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/jordan/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Hispania_visor_Senna.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/hrt/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Lotus_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/caterham/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\McLaren_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/mclaren/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Mercedes_visor_Schumacher.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/mercedes/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\RedBull_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/stewart/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Renault_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/benetton/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Sauber_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/sauber/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\ToroRosso_Visor_Buemi.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/toro_rosso/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Virgin_visor_Glock.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/virgin/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2010\\Helmet\\Williams_Visor_Barrichello.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/williams/default_visor.dds"
+      }
+    ],
+    "helmets": {
+      "ferrari": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Alonso.dds",
+        "map": "sponsor_maps/ferrari.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Ferrari_Visor_Massa.dds"
+      },
+      "jordan": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Sutil.dds",
+        "map": "sponsor_maps/jordan.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/ForceIndia_visor.dds"
+      },
+      "hrt": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Senna.dds",
+        "map": "sponsor_maps/hrt.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Hispania_Visor_Senna.dds"
+      },
+      "caterham": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Trulli.dds",
+        "map": "sponsor_maps/caterham.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Lotus_visor.dds"
+      },
+      "mclaren": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Button.dds",
+        "map": "sponsor_maps/mclaren.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/McLaren_visor.dds"
+      },
+      "mercedes": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Schumacher.dds",
+        "map": "sponsor_maps/mercedes.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Mercedes_visor_Schumacher.dds"
+      },
+      "stewart": {
+        "samples": [
+          "REDBULL/REDBULL.png"
+        ],
+        "helmet": null,
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/RedBull_visor.dds"
+      },
+      "benetton": {
+        "samples": [],
+        "helmet": null,
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Renault_visor.dds"
+      },
+      "sauber": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/delaRosa.dds",
+        "map": "sponsor_maps/sauber.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Sauber_visor.dds"
+      },
+      "toro_rosso": {
+        "samples": [
+          "REDBULL/REDBULL.png"
+        ],
+        "helmet": null,
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/ToroRosso_Visor_Buemi.dds"
+      },
+      "virgin": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Glock.dds",
+        "map": "sponsor_maps/virgin.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Virgin_visor_Glock.dds"
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Barrichello.dds",
+        "map": "sponsor_maps/williams.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2010/Helmet/Williams_Visor_Barrichello.dds"
+      }
+    },
+    "helmet_model": "Modern"
+  }
+}
