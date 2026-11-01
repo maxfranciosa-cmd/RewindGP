@@ -1,0 +1,1619 @@
+{
+  "_comment": "Artwork the app ships for 2016 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/2016/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: none.",
+  "teams": {
+    "ferrari": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 300,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2178,
+            "Y": 1566
+          },
+          "rotation": "Deg180",
+          "fill_color": "#DE0400"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"2016 Ferrari #5 - S. Vettel\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\5_Ferrari.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\5_Ferrari.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\Ferrari.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\Ferrari_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Vettel.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Vettel_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\FerrariDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\FerrariArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\FerrariGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\FerrariLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\Ferrari.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "jordan": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/jordan/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/jordan/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/jordan/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/jordan_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 340,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2218,
+            "Y": 1554
+          },
+          "rotation": "Deg180",
+          "fill_color": "#5A5D5A"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2016_27_ForceIndia_NA.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2016_11_ForceIndia_NA.dds",
+          "livery_preview": "external_liveries/previews/jordan/Preview_27_ForceIndia_NA.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 21,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2016_27_ForceIndia_NA.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2016_11_ForceIndia_NA.dds",
+          "livery_preview": "external_liveries/previews/jordan/Preview_27_ForceIndia_NA.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"2016 Force India #27 - N. Hülkenberg\" BASELIVERY=\"SilverMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\27_ForceIndia.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\27_ForceIndia.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\ForceIndia.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\ForceIndia_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Hulkenberg.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Hulkenberg_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\ForceIndiaDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\ForceIndiaArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\ForceIndiaGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\ForceIndiaLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\ForceIndia.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "haas": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/haas/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/haas/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/haas/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/haas_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 186,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2136,
+            "Y": 1559
+          },
+          "rotation": "Deg180",
+          "fill_color": "#4A555A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/haas_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 212,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1322,
+            "Y": 2236
+          },
+          "rotation": "Deg0",
+          "fill_color": "#BDC7CE"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/haas_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 214,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2520,
+            "Y": 2236
+          },
+          "rotation": "Deg0",
+          "fill_color": "#BDC7CE"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/haas_num_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 190,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1580,
+            "Y": 2341
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 122,
+          "fill_color": null
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/haas_num_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 190,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2480,
+            "Y": 2378
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 301.5,
+          "fill_color": null
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/haas/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/haas/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"71\" NAME=\"2016 Haas #8 - R. Grosjean\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\8_Haas.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\8_Haas.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\Haas.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\Haas_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"71\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Grosjean.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Grosjean_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"71\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\HaasDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\HaasArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\HaasGloves_Grosjean.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\HaasLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\Haas.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "virgin": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/virgin/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/virgin/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/virgin/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 8,
+            "Y": 1960
+          },
+          "rotation": "Deg0",
+          "fill_color": "#0061D6"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 122,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3950,
+            "Y": 1960
+          },
+          "rotation": "Deg0",
+          "fill_color": "#0061D6"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 226,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2150,
+            "Y": 1776
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF5121"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/virgin/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/virgin/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_early.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_88_Manor_early.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_early.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_side_l.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 120,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 8,
+                "Y": 1960
+              },
+              "rotation": "Deg0",
+              "fill_color": "#00306B"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_side_r.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 122,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 3950,
+                "Y": 1960
+              },
+              "rotation": "Deg0",
+              "fill_color": "#00306B"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_nose.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 226,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 2139,
+                "Y": 1776
+              },
+              "rotation": "Deg180",
+              "fill_color": "#FF5121"
+            }
+          ]
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_early.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_88_Manor_early.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_early.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_side_l.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 120,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 8,
+                "Y": 1960
+              },
+              "rotation": "Deg0",
+              "fill_color": "#00306B"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_side_r.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 122,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 3950,
+                "Y": 1960
+              },
+              "rotation": "Deg0",
+              "fill_color": "#00306B"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_nose.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 226,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 2139,
+                "Y": 1776
+              },
+              "rotation": "Deg180",
+              "fill_color": "#FF5121"
+            }
+          ]
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_early.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_88_Manor_early.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_early.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_side_l.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 120,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 8,
+                "Y": 1960
+              },
+              "rotation": "Deg0",
+              "fill_color": "#00306B"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_side_r.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 122,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 3950,
+                "Y": 1960
+              },
+              "rotation": "Deg0",
+              "fill_color": "#00306B"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_nose.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 226,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 2139,
+                "Y": 1776
+              },
+              "rotation": "Deg180",
+              "fill_color": "#FF5121"
+            }
+          ]
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_early.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_88_Manor_early.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_early.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_side_l.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 120,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 8,
+                "Y": 1960
+              },
+              "rotation": "Deg0",
+              "fill_color": "#00306B"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_side_r.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 122,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 3950,
+                "Y": 1960
+              },
+              "rotation": "Deg0",
+              "fill_color": "#00306B"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/virgin_nose.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 226,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 2139,
+                "Y": 1776
+              },
+              "rotation": "Deg180",
+              "fill_color": "#FF5121"
+            }
+          ]
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_Late.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_Late.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_Late.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_Late.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_Late.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_End.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_End.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_End.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 19,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_Late.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 20,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_End.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_End.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_End.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 21,
+          "driver1_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_End.dds",
+          "driver2_livery": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_End.dds",
+          "livery_preview": "external_liveries/previews/virgin/Preview_94_Manor_End.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"69\" NAME=\"2016 Manor #94 - P. Wehrlein\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\94_Manor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\94_Manor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\Manor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\Manor_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"69\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Wehrlein.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Wehrlein_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"69\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\ManorDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\ManorArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\ManorGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\ManorLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\Manor.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/mclaren_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 300,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2190,
+            "Y": 1415
+          },
+          "rotation": "Deg180",
+          "fill_color": "#111112"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/F1_Season_2016_47_McLaren_NA.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/F1_Season_2016_22_McLaren_NA.dds",
+          "livery_preview": "external_liveries/previews/mclaren/Preview_47_McLaren_NA.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 21,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/F1_Season_2016_14_McLaren_NA.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/F1_Season_2016_22_McLaren_NA.dds",
+          "livery_preview": "external_liveries/previews/mclaren/Preview_14_McLaren_NA.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"67\" NAME=\"2016 McLaren #14 - F. Alonso\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\14_McLaren.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\14_McLaren.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\McLaren.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\McLaren_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"67\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Alonso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Alonso_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"67\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\McLarenDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\McLarenArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\McLarenGloves_Alonso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\McLarenLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\McLaren.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mercedes": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/mercedes/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mercedes/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mercedes/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/mercedes_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 296,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2184,
+            "Y": 1806
+          },
+          "rotation": "Deg180",
+          "fill_color": "#73797B"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mercedes/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mercedes/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"2016 Mercedes #44 - L. Hamilton\" BASELIVERY=\"SilverMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\44_Mercedes.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\44_Mercedes.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\Mercedes.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\Mercedes_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Hamilton.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Hamilton_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\MercedesDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\MercedesArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\MercedesGloves_Hamilton.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\MercedesLegs_Hamilton.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\Mercedes.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "stewart": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/stewart/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/stewart/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/stewart/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/stewart_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 118,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 10,
+            "Y": 1958
+          },
+          "rotation": "Deg0",
+          "fill_color": "#081021"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/stewart_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 118,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3950,
+            "Y": 1958
+          },
+          "rotation": "Deg0",
+          "fill_color": "#081021"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/stewart_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 202,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2127,
+            "Y": 1868
+          },
+          "rotation": "Deg180",
+          "fill_color": "#081021"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/stewart/REDBULL.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/stewart/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/stewart/F1_Season_2016_26_RedBull.dds",
+          "livery_preview": "external_liveries/previews/stewart/Preview_26_RedBull.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/stewart/F1_Season_2016_26_RedBull.dds",
+          "livery_preview": "external_liveries/previews/stewart/Preview_26_RedBull.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/stewart/F1_Season_2016_26_RedBull.dds",
+          "livery_preview": "external_liveries/previews/stewart/Preview_26_RedBull.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/stewart/F1_Season_2016_26_RedBull.dds",
+          "livery_preview": "external_liveries/previews/stewart/Preview_26_RedBull.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"2016 Red Bull #3 - D. Ricciardo\" BASELIVERY=\"Matte\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\3_RedBull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\3_RedBull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\RedBull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\RedBull_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Ricciardo.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\RedBull_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\RedBullDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\RedBullArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\RedBullGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\RedBullLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\RedBull.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 272,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2162,
+            "Y": 1509
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFC718"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/benetton_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 8,
+            "Y": 1962
+          },
+          "rotation": "Deg0",
+          "fill_color": "#080408"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/benetton_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3950,
+            "Y": 1962
+          },
+          "rotation": "Deg0",
+          "fill_color": "#080408"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"61\" NAME=\"2016 Renault #20 - K. Magnussen\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\20_Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\20_Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\Renault_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"61\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Magnussen.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Magnussen_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"61\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\RenaultDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\RenaultArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\RenaultGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\RenaultLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\Renault.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "sauber": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/sauber/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/sauber/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/sauber/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/sauber_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 192,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2128,
+            "Y": 1044
+          },
+          "rotation": "Deg180",
+          "fill_color": "#001C94"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/sauber_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 302,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1502,
+            "Y": 1980
+          },
+          "rotation": "Deg90",
+          "fill_color": "#001C94"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/sauber_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 302,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2552,
+            "Y": 2282
+          },
+          "rotation": "Deg270",
+          "fill_color": "#001C94"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"65\" NAME=\"2016 Sauber #9 - M. Ericsson\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\9_Sauber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\9_Sauber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\Sauber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\Sauber_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"65\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Ericsson.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Ericsson_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"65\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\SauberDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\SauberArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\SauberGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\SauberLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\Sauber.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "toro_rosso": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/toro_rosso/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/toro_rosso/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/toro_rosso/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/toro_rosso_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 8,
+            "Y": 1958
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000C29"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/toro_rosso_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 120,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3950,
+            "Y": 1958
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000C29"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/toro_rosso_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 226,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2148,
+            "Y": 1960
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000C29"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/toro_rosso/REDBULL.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/toro_rosso/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/toro_rosso/F1_Season_2016_33_ToroRosso.dds",
+          "livery_preview": "external_liveries/previews/toro_rosso/Preview_33_ToroRosso.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/toro_rosso/F1_Season_2016_33_ToroRosso.dds",
+          "livery_preview": "external_liveries/previews/toro_rosso/Preview_33_ToroRosso.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/toro_rosso/F1_Season_2016_33_ToroRosso.dds",
+          "livery_preview": "external_liveries/previews/toro_rosso/Preview_33_ToroRosso.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/toro_rosso/F1_Season_2016_33_ToroRosso.dds",
+          "livery_preview": "external_liveries/previews/toro_rosso/Preview_33_ToroRosso.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"64\" NAME=\"2016 Toro Rosso #55 - C. Sainz\" BASELIVERY=\"BlueMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\55_ToroRosso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\55_ToroRosso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\ToroRosso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\ToroRosso_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"64\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Sainz.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Sainz_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"64\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\ToroRossoDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\ToroRossoArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\ToroRossoGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\ToroRossoLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\ToroRosso.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_ultimate_2016",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 184,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2122,
+            "Y": 1500
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/williams_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 118,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 8,
+            "Y": 2054
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2016/cosmetics/numbers/williams_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 118,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3950,
+            "Y": 2054
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/williams/F1_Season_2016_19_Williams_NA.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/F1_Season_2016_77_Williams_NA.dds",
+          "livery_preview": "external_liveries/previews/williams/Preview_19_Williams_NA.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 20,
+          "driver1_livery": "external_liveries/car_liveries/williams/F1_Season_2016_19_Williams_Brazil.dds",
+          "driver2_livery": null,
+          "livery_preview": "external_liveries/previews/williams/Preview_19_Williams_Brazil.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 21,
+          "driver1_livery": "external_liveries/car_liveries/williams/F1_Season_2016_19_Williams_AbuDhabi.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/F1_Season_2016_77_Williams_AbuDhabi.dds",
+          "livery_preview": "external_liveries/previews/williams/Preview_19_Williams_AbuDhabi.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"2016 Williams #19 - F. Massa\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2016\\Preview\\19_Williams.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2016\\19_Williams.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2016\\Rims\\Williams.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2016\\Rims\\Williams_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2016\\Rims\\spec_blur_low.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Massa.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2016\\Helmet\\spec_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2016\\Helmet\\Massa_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2016\\Driver\\WilliamsDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2016\\Driver\\WilliamsArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2016\\Driver\\WilliamsGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2016\\Driver\\spec_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2016\\Driver\\WilliamsLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2016\\Harness\\Williams.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "carlos_sainz": {
+      "base_helmet_file": "../../Drivers/own_helmets/793a671b5143.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "daniel_ricciardo": {
+      "base_helmet_file": "../../Drivers/own_helmets/f293b3e3dd1f.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "daniil_kvyat": {
+      "base_helmet_file": "../../Drivers/own_helmets/84750e10e595.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "esteban_gutierrez": {
+      "base_helmet_file": "../../Drivers/own_helmets/c4ba565d8925.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "esteban_ocon": {
+      "base_helmet_file": "../../Drivers/own_helmets/4f91c79ae8e2.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "felipe_massa": {
+      "base_helmet_file": "../../Drivers/own_helmets/a2705ff2c14d.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "felipe_nasr": {
+      "base_helmet_file": "../../Drivers/own_helmets/eaf7813a3178.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "fernando_alonso": {
+      "base_helmet_file": "../../Drivers/own_helmets/638ab8a28cdf.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "jenson_button": {
+      "base_helmet_file": "../../Drivers/own_helmets/d52c07cf88ad.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "jolyon_palmer": {
+      "base_helmet_file": "../../Drivers/own_helmets/59d94eda973e.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "kevin_magnussen": {
+      "base_helmet_file": "../../Drivers/own_helmets/6403bd97a4ee.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "kimi_raikkonen": {
+      "base_helmet_file": "../../Drivers/own_helmets/5723669fa1ce.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "lewis_hamilton": {
+      "base_helmet_file": "../../Drivers/own_helmets/4f42abfd4ec0.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "marcus_ericsson": {
+      "base_helmet_file": "../../Drivers/own_helmets/01b184dafc93.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "max_verstappen": {
+      "base_helmet_file": "../../Drivers/own_helmets/d1c10f12c0e9.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "nico_hulkenberg": {
+      "base_helmet_file": "../../Drivers/own_helmets/5b922d957c44.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "nico_rosberg": {
+      "base_helmet_file": "../../Drivers/own_helmets/16cb191cb7e2.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "pascal_wehrlein": {
+      "base_helmet_file": "../../Drivers/own_helmets/cf5c1aefa337.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "rio_haryanto": {
+      "base_helmet_file": "../../Drivers/own_helmets/6a0c340b4726.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "romain_grosjean": {
+      "base_helmet_file": "../../Drivers/own_helmets/06e16d04a2b8.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "sebastian_vettel": {
+      "base_helmet_file": "../../Drivers/own_helmets/8ee03b108240.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "sergio_perez": {
+      "base_helmet_file": "../../Drivers/own_helmets/79b05b8b2431.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "stoffel_vandoorne": {
+      "base_helmet_file": "../../Drivers/own_helmets/b925d242500e.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "valtteri_bottas": {
+      "base_helmet_file": "../../Drivers/own_helmets/a902e96a0b39.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/f1-2016-skinpack-for-formula-hybrid-gen-1.83382/",
+    "name": "F1 2016 Skinpack for Formula Hybrid Gen 1",
+    "detect": [
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/5_Ferrari.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/7_Ferrari.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/27_ForceIndia.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/11_ForceIndia.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\5_Ferrari.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\7_Ferrari.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\5_Ferrari.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Ferrari.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Ferrari.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Ferrari_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Ferrari_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\FerrariDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/FerrariDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\FerrariArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/FerrariArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\FerrariGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/FerrariGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\FerrariLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/FerrariLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\Ferrari.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/Ferrari.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\27_ForceIndia.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\11_ForceIndia.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\27_ForceIndia.dds",
+        "destinationPath": "external_liveries/previews/jordan/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\ForceIndia.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/ForceIndia.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\ForceIndia_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/ForceIndia_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ForceIndiaDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ForceIndiaDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ForceIndiaArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ForceIndiaArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ForceIndiaGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ForceIndiaGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ForceIndiaLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ForceIndiaLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\ForceIndia.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/ForceIndia.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\27_ForceIndia_NA.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2016_27_ForceIndia_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\11_ForceIndia_NA.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2016_11_ForceIndia_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\27_ForceIndia_NA.dds",
+        "destinationPath": "external_liveries/previews/jordan/Preview_27_ForceIndia_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\8_Haas.dds",
+        "destinationPath": "external_liveries/car_liveries/haas/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\21_Haas.dds",
+        "destinationPath": "external_liveries/car_liveries/haas/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\8_Haas.dds",
+        "destinationPath": "external_liveries/previews/haas/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Haas.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Haas.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Haas_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Haas_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\HaasDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/HaasDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\HaasArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/HaasArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\HaasGloves_Grosjean.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/HaasGloves_Grosjean.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\HaasLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/HaasLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\Haas.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/Haas.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\94_Manor.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\88_Manor.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\94_Manor.dds",
+        "destinationPath": "external_liveries/previews/virgin/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Manor.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Manor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Manor_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Manor_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ManorDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ManorDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ManorArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ManorArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ManorGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ManorGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ManorLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ManorLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\Manor.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/Manor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\94_Manor_early.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_early.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\88_Manor_early.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/F1_Season_2016_88_Manor_early.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\94_Manor_early.dds",
+        "destinationPath": "external_liveries/previews/virgin/Preview_94_Manor_early.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\94_Manor_Late.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\31_Manor_Late.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\94_Manor_Late.dds",
+        "destinationPath": "external_liveries/previews/virgin/Preview_94_Manor_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\94_Manor_End.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/F1_Season_2016_94_Manor_End.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\31_Manor_End.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/F1_Season_2016_31_Manor_End.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\94_Manor_End.dds",
+        "destinationPath": "external_liveries/previews/virgin/Preview_94_Manor_End.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\14_McLaren.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\22_McLaren.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\14_McLaren.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\McLaren.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/McLaren.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\McLaren_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/McLaren_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\McLarenDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/McLarenDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\McLarenArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/McLarenArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\McLarenGloves_Alonso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/McLarenGloves_Alonso.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\McLarenLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/McLarenLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\McLaren.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/McLaren.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\47_McLaren_NA.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/F1_Season_2016_47_McLaren_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\47_McLaren_NA.dds",
+        "destinationPath": "external_liveries/previews/mclaren/Preview_47_McLaren_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\14_McLaren_NA.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/F1_Season_2016_14_McLaren_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\22_McLaren_NA.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/F1_Season_2016_22_McLaren_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\14_McLaren_NA.dds",
+        "destinationPath": "external_liveries/previews/mclaren/Preview_14_McLaren_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\44_Mercedes.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\6_Mercedes.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\44_Mercedes.dds",
+        "destinationPath": "external_liveries/previews/mercedes/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Mercedes.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Mercedes.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Mercedes_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Mercedes_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\MercedesDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/MercedesDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\MercedesArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/MercedesArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\MercedesGloves_Hamilton.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/MercedesGloves_Hamilton.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\MercedesLegs_Hamilton.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/MercedesLegs_Hamilton.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\Mercedes.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/Mercedes.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\3_RedBull.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\33_RedBull.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\3_RedBull.dds",
+        "destinationPath": "external_liveries/previews/stewart/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\RedBull.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/RedBull.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\RedBull_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/RedBull_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\RedBullDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/RedBullDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\RedBullArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/RedBullArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\RedBullGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/RedBullGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\RedBullLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/RedBullLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\RedBull.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/RedBull.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\26_RedBull.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/F1_Season_2016_26_RedBull.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\26_RedBull.dds",
+        "destinationPath": "external_liveries/previews/stewart/Preview_26_RedBull.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\20_Renault.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\30_Renault.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\20_Renault.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Renault.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Renault.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Renault_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Renault_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\RenaultDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/RenaultDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\RenaultArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/RenaultArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\RenaultGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/RenaultGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\RenaultLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/RenaultLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\Renault.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/Renault.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\9_Sauber.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\12_Sauber.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\9_Sauber.dds",
+        "destinationPath": "external_liveries/previews/sauber/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Sauber.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Sauber.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Sauber_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Sauber_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\SauberDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/SauberDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\SauberArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/SauberArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\SauberGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/SauberGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\SauberLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/SauberLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\Sauber.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/Sauber.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\55_ToroRosso.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\26_ToroRosso.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\55_ToroRosso.dds",
+        "destinationPath": "external_liveries/previews/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\ToroRosso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/ToroRosso.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\ToroRosso_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/ToroRosso_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ToroRossoDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ToroRossoDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ToroRossoArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ToroRossoArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ToroRossoGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ToroRossoGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\ToroRossoLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/ToroRossoLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\ToroRosso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/ToroRosso.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\33_ToroRosso.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/F1_Season_2016_33_ToroRosso.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\33_ToroRosso.dds",
+        "destinationPath": "external_liveries/previews/toro_rosso/Preview_33_ToroRosso.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\19_Williams.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\77_Williams.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\19_Williams.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Williams.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Williams.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\Williams_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/Williams_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\spec_low.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/spec_low.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Rims\\spec_blur_low.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Rims/spec_blur_low.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\WilliamsDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/WilliamsDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\WilliamsArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/WilliamsArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\WilliamsGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/WilliamsGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\spec_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/spec_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Driver\\WilliamsLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Driver/WilliamsLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Harness\\Williams.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Harness/Williams.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\19_Williams_NA.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/F1_Season_2016_19_Williams_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\77_Williams_NA.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/F1_Season_2016_77_Williams_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\19_Williams_NA.dds",
+        "destinationPath": "external_liveries/previews/williams/Preview_19_Williams_NA.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\19_Williams_Brazil.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/F1_Season_2016_19_Williams_Brazil.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\19_Williams_Brazil.dds",
+        "destinationPath": "external_liveries/previews/williams/Preview_19_Williams_Brazil.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\19_Williams_AbuDhabi.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/F1_Season_2016_19_Williams_AbuDhabi.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\77_Williams_AbuDhabi.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/F1_Season_2016_77_Williams_AbuDhabi.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Preview\\19_Williams_AbuDhabi.dds",
+        "destinationPath": "external_liveries/previews/williams/Preview_19_Williams_AbuDhabi.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\Raikkonen_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/ferrari/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\Perez_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/jordan/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\Grosjean_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/haas/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\Wehrlein_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/virgin/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\Alonso_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/mclaren/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\Hamilton_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/mercedes/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\RedBull_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/stewart/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\Magnussen_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/benetton/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\Ericsson_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/sauber/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\Sainz_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/toro_rosso/default_visor.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2016\\F1_Season_2016\\Helmet\\Bottas_visor.dds",
+        "destinationPath": "external_liveries/helmet_sponsors/williams/default_visor.dds"
+      }
+    ],
+    "helmets": {
+      "ferrari": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Vettel.dds",
+        "map": "sponsor_maps/ferrari.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Raikkonen_visor.dds"
+      },
+      "jordan": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Hulkenberg.dds",
+        "map": "sponsor_maps/jordan.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Perez_visor.dds"
+      },
+      "haas": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Grosjean.dds",
+        "map": "sponsor_maps/haas.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Grosjean_visor.dds"
+      },
+      "virgin": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Haryanto.dds",
+        "map": "sponsor_maps/virgin.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Wehrlein_visor.dds"
+      },
+      "mclaren": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Alonso.dds",
+        "map": "sponsor_maps/mclaren.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Alonso_visor.dds"
+      },
+      "mercedes": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Hamilton.dds",
+        "map": "sponsor_maps/mercedes.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Hamilton_visor.dds"
+      },
+      "stewart": {
+        "samples": [
+          "REDBULL/REDBULL.png"
+        ],
+        "helmet": null,
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/RedBull_visor.dds"
+      },
+      "benetton": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Palmer.dds",
+        "map": "sponsor_maps/benetton.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Magnussen_visor.dds"
+      },
+      "sauber": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Ericsson.dds",
+        "map": "sponsor_maps/sauber.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Ericsson_visor.dds"
+      },
+      "toro_rosso": {
+        "samples": [
+          "REDBULL/REDBULL.png"
+        ],
+        "helmet": null,
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/ToroRosso_visor.dds"
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Bottas.dds",
+        "map": "sponsor_maps/williams.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2016/F1_Season_2016/Helmet/Bottas_visor.dds"
+      }
+    },
+    "helmet_model": "Modern"
+  }
+}
