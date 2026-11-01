@@ -111,7 +111,18 @@ namespace AMS2ChEd.Business.Services.RaceNumberSystem
 
         public int GetNumberForAbsence(ISaveGame saveGame, string driverInId, int numberToSubstitute)
         {
-            var usedNumbers = saveGame.CurrentSeason.Teams.SelectMany( t=> new[] { t.Driver1Contract.DriverNumber, t.Driver2Contract.DriverNumber }).ToHashSet();
+            var usedNumbers = saveGame
+                                .CurrentSeason
+                                .Teams
+                                .SelectMany( t => 
+                                        new[] {
+                                            new { t.Driver1Contract.DriverNumber, t.Driver1Contract.DriverId },
+                                            new { t.Driver2Contract.DriverNumber, t.Driver2Contract.DriverId }
+                                            }
+                                        )
+                                .Where(d => d.DriverId != driverInId) // Exclude the absent driver
+                                .Select(d => d.DriverNumber)
+                                .ToHashSet();
             var driverData = saveGame.Drivers.FirstOrDefault(d => d.DriverId == driverInId);
             return AssignFavoriteOrAvailableNumber(driverData,usedNumbers,saveGame.CurrentSeason.Year);
         }
