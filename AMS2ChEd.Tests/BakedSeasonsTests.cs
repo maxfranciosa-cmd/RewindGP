@@ -61,7 +61,7 @@ namespace AMS2ChEd.Tests.Ams2
 
             Assert.AreEqual(year, season.Year);
             foreach (var race in season.Races)
-                Assert.IsNull(race.CoverPictureUrl, $"race {race.RaceId}: cover_picture");
+                Assert.IsTrue(race.CoverPictureUrl == null || race.CoverPictureUrl.StartsWith("https://www.progcovers.com/motor/"), $"race {race.RaceId}: cover_picture {race.CoverPictureUrl}");
             foreach (var team in season.Teams.Cast<Ams2TeamEntry>())
             {
                 Assert.IsNull(team.BaseLiveryDriver1, team.TeamId);
@@ -103,7 +103,7 @@ namespace AMS2ChEd.Tests.Ams2
             foreach (var driver in drivers)
             {
                 Assert.IsNull(driver.BaseHelmetFile, driver.DriverId);
-                Assert.IsNull(driver.PictureUrl, driver.DriverId);
+                Assert.IsTrue(driver.PictureUrl?.StartsWith("https://www.statsf1.com/pilotes/photos/") == true, $"{driver.DriverId}: picture {driver.PictureUrl}");
                 // from 2014 every driver has his own number
                 if (year >= 2014)
                     Assert.IsTrue(driver.FavouriteNumbers?.Any(n => n > 1) == true, $"{driver.DriverId}: no favourite number");
