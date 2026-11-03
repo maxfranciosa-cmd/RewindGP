@@ -187,9 +187,12 @@ public sealed class Ams2RaceConfigurator : IDisposable
         }
         catch (Exception ex)
         {
-            // resolution must never be what stops a race being set up: worst case is the old behaviour
-            _log?.Invoke($"AttachAsync: offset resolution failed ({ex.Message}) - using built-in offsets, unverified");
-            return Ams2ResolvedOffsets.BuiltIn(moduleBase);
+            // the same rule as any other "nothing to resolve with" path: built-in values only on a
+            // build they're confirmed on (or, while none is recorded, unverified with a warning)
+            string? buildId = null;
+            try { buildId = ModuleImage.TryReadBuildId(_mem!, moduleBase); }
+            catch (Exception) { /* unknown build - BuiltInFallback treats it as unconfirmed */ }
+            return Ams2OffsetResolver.BuiltInFallback(moduleBase, buildId, $"offset resolution failed ({ex.Message})", _log);
         }
     }
 

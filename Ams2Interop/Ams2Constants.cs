@@ -39,6 +39,19 @@ public static class Ams2Constants
         public const long SetCarRva = 0x3fcac0;
         public const long CommitRva = 0x3fc830;
         public const long GameplaySettingsPointerRva = 0x29889E8;
+
+        /// <summary>
+        /// ModuleImage.BuildId values of the AMS2AVX.exe builds these values are KNOWN to work on
+        /// (a real launch applied car, track and date correctly). Ams2OffsetResolver only falls back
+        /// to them unchecked on one of these builds: on any other build, once this list isn't empty,
+        /// every patch-sensitive feature is switched off instead (Ams2OffsetSource.BuiltInRejected).
+        ///
+        /// While the list is EMPTY the old behaviour is kept - the values are used on any build, with
+        /// a warning in the log - because nobody has recorded the confirmed build's id yet, and an
+        /// empty list must not switch the interop off for everyone.
+        /// </summary>
+        // TODO(Mazzimo): fill from "Ams2Interop.Tool status" output
+        public static readonly string[] ConfirmedBuildIds = Array.Empty<string>();
     }
 
     // ---- RTTI / type-tag values ----

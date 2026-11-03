@@ -20,8 +20,10 @@ public sealed class Ams2OffsetOptions
 /// <summary>
 /// Works out the patch-sensitive values for the running AMS2 build:
 ///
-/// 1. No signature file (or unreadable module): the built-in values, unverified - exactly the
-///    behaviour from before signatures existed, so nothing changes until a file is generated.
+/// 1. No signature file (or unreadable module): the built-in values - but only on a build they're
+///    known to work on (see BuiltInFallback and Ams2Constants.BuiltIn.ConfirmedBuildIds). While no
+///    build has been recorded as confirmed, they're used on any build with a warning, which is the
+///    behaviour from before signatures existed.
 /// 2. This build is in the cache: the cached values, after a cheap re-check of the code
 ///    signatures right at the cached addresses.
 /// 3. Otherwise every signature is scanned for. Values that match exactly once are used; the rest
@@ -32,6 +34,9 @@ public static class Ams2OffsetResolver
 {
     public static Ams2ResolvedOffsets Resolve(ProcessMemory mem, long moduleBase, Ams2OffsetOptions options, Action<string>? log = null)
     {
+        // Read first, before any early return: the built-in fallback is only trusted on a known build.
+        var buildId = ModuleImage.TryReadBuildId(mem, moduleBase, log);
+
         Ams2SignatureFile? signatures;
         try
         {
@@ -39,24 +44,56 @@ public static class Ams2OffsetResolver
         }
         catch (Exception ex) when (ex is IOException or JsonException or InvalidDataException or UnauthorizedAccessException)
         {
-            log?.Invoke($"Ams2OffsetResolver: signature file unreadable ({ex.Message}) - using built-in offsets, unverified");
-            return Ams2ResolvedOffsets.BuiltIn(moduleBase);
+            return BuiltInFallback(moduleBase, buildId, $"signature file unreadable ({ex.Message})", log);
         }
 
         if (signatures == null)
-        {
-            log?.Invoke($"Ams2OffsetResolver: no signature file at '{options.SignatureFilePath}' - using built-in offsets, unverified");
-            return Ams2ResolvedOffsets.BuiltIn(moduleBase);
-        }
+            return BuiltInFallback(moduleBase, buildId, $"no signature file at '{options.SignatureFilePath}'", log);
 
         var image = ModuleImage.TryRead(mem, moduleBase, log);
         if (image == null)
-        {
-            log?.Invoke("Ams2OffsetResolver: module image unreadable - using built-in offsets, unverified");
-            return Ams2ResolvedOffsets.BuiltIn(moduleBase);
-        }
+            return BuiltInFallback(moduleBase, buildId, "module image unreadable", log);
 
         return Resolve(image, moduleBase, signatures, options.CacheFilePath, log);
+    }
+
+    /// <summary>
+    /// What to use when there's nothing to find the values with (<paramref name="why"/> says what
+    /// was missing): Ams2Constants.BuiltIn, but only on a build it's known to work on.
+    ///
+    /// - confirmed list empty: the built-in values, with a warning naming the build - nobody has
+    ///   recorded the confirmed build yet, so this keeps the behaviour from before the list existed.
+    /// - running build in the list: the built-in values.
+    /// - otherwise (not in the list, or the build id couldn't be read): nothing at all, so every
+    ///   feature is off and IsDegraded is true - a patched build must not be written to through
+    ///   values derived for another one.
+    /// </summary>
+    /// <param name="confirmedBuildIds">Defaults to Ams2Constants.BuiltIn.ConfirmedBuildIds; a parameter so tests needn't touch the constant.</param>
+    public static Ams2ResolvedOffsets BuiltInFallback(long moduleBase, string? buildId, string why, Action<string>? log = null,
+        IReadOnlyCollection<string>? confirmedBuildIds = null)
+    {
+        confirmedBuildIds ??= Ams2Constants.BuiltIn.ConfirmedBuildIds;
+        var build = buildId ?? "unknown (PE header unreadable)";
+
+        if (confirmedBuildIds.Count == 0)
+        {
+            log?.Invoke($"Ams2OffsetResolver: WARNING - {why}; using the built-in offsets UNVERIFIED for AMS2 build {build}: " +
+                        "no build has been recorded in Ams2Constants.BuiltIn.ConfirmedBuildIds yet");
+            return Ams2ResolvedOffsets.BuiltIn(moduleBase, buildId, "unverified - no confirmed build recorded");
+        }
+
+        if (buildId != null && confirmedBuildIds.Contains(buildId, StringComparer.OrdinalIgnoreCase))
+        {
+            log?.Invoke($"Ams2OffsetResolver: {why}; using the built-in offsets - AMS2 build {buildId} is a confirmed build");
+            return Ams2ResolvedOffsets.BuiltIn(moduleBase, buildId, "confirmed build");
+        }
+
+        var reason = buildId == null
+            ? "the running build couldn't be identified, so the built-in offsets can't be checked against the confirmed builds"
+            : "the running build isn't one the built-in offsets are confirmed on";
+        var rejected = Ams2ResolvedOffsets.Rejected(moduleBase, buildId, reason);
+        log?.Invoke($"Ams2OffsetResolver: {why}; {reason} - every patch-sensitive feature is off. {rejected.Describe()}");
+        return rejected;
     }
 
     /// <summary>Steps 2 and 3 above, over an already-read image - separated out so it can be tested without a process.</summary>

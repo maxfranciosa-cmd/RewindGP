@@ -51,7 +51,14 @@ public enum Ams2OffsetSource
     Cached,
 
     /// <summary>Values found by signature on this run.</summary>
-    Scanned
+    Scanned,
+
+    /// <summary>
+    /// Nothing resolved: there was no signature to find the values with, and the running build
+    /// (or an unreadable one) isn't in Ams2Constants.BuiltIn.ConfirmedBuildIds, so the built-in
+    /// values can't be trusted either. Every Can* is false.
+    /// </summary>
+    BuiltInRejected
 }
 
 /// <summary>
@@ -67,17 +74,25 @@ public sealed class Ams2ResolvedOffsets
     public IReadOnlyDictionary<string, long> Rvas { get; }
     public IReadOnlyList<string> Missing { get; }
 
-    public Ams2ResolvedOffsets(long moduleBase, string? buildId, Ams2OffsetSource source, IReadOnlyDictionary<string, long> rvas)
+    /// <summary>Why the values came out this way, when that isn't obvious from Source (e.g. why the built-in ones were rejected); null otherwise.</summary>
+    public string? Note { get; }
+
+    public Ams2ResolvedOffsets(long moduleBase, string? buildId, Ams2OffsetSource source, IReadOnlyDictionary<string, long> rvas, string? note = null)
     {
         ModuleBase = moduleBase;
         BuildId = buildId;
         Source = source;
         Rvas = rvas;
+        Note = note;
         Missing = Ams2OffsetNames.All.Where(n => !rvas.ContainsKey(n)).ToArray();
     }
 
-    public static Ams2ResolvedOffsets BuiltIn(long moduleBase, string? buildId = null) =>
-        new(moduleBase, buildId, Ams2OffsetSource.BuiltInUnverified, Ams2OffsetNames.BuiltInRvas);
+    public static Ams2ResolvedOffsets BuiltIn(long moduleBase, string? buildId = null, string? note = null) =>
+        new(moduleBase, buildId, Ams2OffsetSource.BuiltInUnverified, Ams2OffsetNames.BuiltInRvas, note);
+
+    /// <summary>No values at all - see Ams2OffsetSource.BuiltInRejected.</summary>
+    public static Ams2ResolvedOffsets Rejected(long moduleBase, string? buildId, string reason) =>
+        new(moduleBase, buildId, Ams2OffsetSource.BuiltInRejected, new Dictionary<string, long>(), reason);
 
     public bool Has(string name) => Rvas.ContainsKey(name);
 
@@ -107,6 +122,7 @@ public sealed class Ams2ResolvedOffsets
 
     public string Describe() =>
         $"AMS2 build {BuildId ?? "unknown"}: offsets {Source}"
+        + (Note != null ? $" ({Note})" : "")
         + (Missing.Count > 0 ? $", NOT found: {string.Join(", ", Missing)}" : ", all found");
 }
 

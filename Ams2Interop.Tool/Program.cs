@@ -5,7 +5,8 @@ using Ams2Interop.Signatures;
 //
 //   status   [--signatures <file>] [--cache <file>]
 //       Resolves the offsets for the running build exactly as the app does, and says which were
-//       found and how (built-in unverified / cached / scanned). Read-only.
+//       found and how (built-in unverified / cached / scanned / built-in rejected). Prints the
+//       build id to copy into Ams2Constants.BuiltIn.ConfirmedBuildIds. Read-only.
 //
 //   generate [<output file>]
 //       Builds a signature file from the running build, taking Ams2Constants.BuiltIn as correct.
@@ -38,7 +39,17 @@ if (!await configurator.AttachAsync())
 if (command == "status")
 {
     var offsets = configurator.Offsets!;
+    var confirmed = Ams2Constants.BuiltIn.ConfirmedBuildIds;
     Console.WriteLine();
+    Console.WriteLine("========================================================");
+    Console.WriteLine($"  AMS2 BUILD ID: {offsets.BuildId ?? "UNKNOWN (PE header unreadable)"}");
+    Console.WriteLine(confirmed.Length == 0
+        ? "  (Ams2Constants.BuiltIn.ConfirmedBuildIds is empty - if the built-in values work on this"
+          + Environment.NewLine + "   build, copy the id above into it)"
+        : offsets.BuildId != null && confirmed.Contains(offsets.BuildId, StringComparer.OrdinalIgnoreCase)
+            ? "  (a confirmed build for Ams2Constants.BuiltIn)"
+            : "  (NOT one of Ams2Constants.BuiltIn.ConfirmedBuildIds)");
+    Console.WriteLine("========================================================");
     Console.WriteLine(offsets.Describe());
     foreach (var name in Ams2OffsetNames.All)
     {

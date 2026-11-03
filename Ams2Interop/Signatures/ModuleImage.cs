@@ -35,16 +35,22 @@ public sealed class ModuleImage
         SizeOfImage = sizeOfImage;
     }
 
-    /// <summary>Reads the PE headers and the code section of the module loaded at <paramref name="moduleBase"/>; null when the headers don't look like a PE image or the section can't be read.</summary>
-    public static ModuleImage? TryRead(ProcessMemory mem, long moduleBase, Action<string>? log = null)
-    {
-        if (!mem.ReadRaw(moduleBase, 0x1000, out var headers))
-        {
-            log?.Invoke("ModuleImage: could not read the PE headers");
-            return null;
-        }
+    /// <summary>
+    /// Just the build id (see BuildId) from the PE headers, without reading the code section - for
+    /// the paths that need to know which build is running but have no signatures to scan with.
+    /// Null when the headers can't be read or don't look like a PE image.
+    /// </summary>
+    public static string? TryReadBuildId(ProcessMemory mem, long moduleBase, Action<string>? log = null) =>
+        mem.ReadRaw(moduleBase, 0x1000, out var headers) && TryParseHeaders(headers, log) is { } parsed ? parsed.BuildId : null;
 
-        if (headers[0] != (byte)'M' || headers[1] != (byte)'Z')
+    /// <summary>The build id of a PE header block (the first 0x1000 bytes of the image); null when it isn't one. Pure, so testable.</summary>
+    public static string? BuildIdFromHeaders(byte[] headers) => TryParseHeaders(headers, null)?.BuildId;
+
+    private sealed record ParsedHeaders(string BuildId, uint SizeOfImage, int SectionCount, int SectionTable);
+
+    private static ParsedHeaders? TryParseHeaders(byte[] headers, Action<string>? log)
+    {
+        if (headers.Length < 0x40 || headers[0] != (byte)'M' || headers[1] != (byte)'Z')
         {
             log?.Invoke("ModuleImage: no MZ signature at the module base");
             return null;
@@ -65,8 +71,25 @@ public sealed class ModuleImage
         uint sizeOfImage = BinaryPrimitives.ReadUInt32LittleEndian(headers.AsSpan(optionalHeader + 56));
         uint checkSum = BinaryPrimitives.ReadUInt32LittleEndian(headers.AsSpan(optionalHeader + 64));
 
+        string buildId = string.Format(CultureInfo.InvariantCulture, "{0:X8}-{1:X8}-{2:X8}", timeDateStamp, sizeOfImage, checkSum);
+        return new ParsedHeaders(buildId, sizeOfImage, sectionCount, optionalHeader + optionalHeaderSize);
+    }
+
+    /// <summary>Reads the PE headers and the code section of the module loaded at <paramref name="moduleBase"/>; null when the headers don't look like a PE image or the section can't be read.</summary>
+    public static ModuleImage? TryRead(ProcessMemory mem, long moduleBase, Action<string>? log = null)
+    {
+        if (!mem.ReadRaw(moduleBase, 0x1000, out var headers))
+        {
+            log?.Invoke("ModuleImage: could not read the PE headers");
+            return null;
+        }
+
+        if (TryParseHeaders(headers, log) is not { } parsed) return null;
+        int sectionCount = parsed.SectionCount;
+        uint sizeOfImage = parsed.SizeOfImage;
+
         // the code section: ".text" if present, otherwise the largest executable section
-        int sectionTable = optionalHeader + optionalHeaderSize;
+        int sectionTable = parsed.SectionTable;
         long textRva = -1;
         int textSize = 0;
         bool foundNamedText = false;
@@ -109,7 +132,6 @@ public sealed class ModuleImage
             Buffer.BlockCopy(chunk, 0, text, offset, length);
         }
 
-        string buildId = string.Format(CultureInfo.InvariantCulture, "{0:X8}-{1:X8}-{2:X8}", timeDateStamp, sizeOfImage, checkSum);
-        return new ModuleImage(buildId, textRva, text, sizeOfImage);
+        return new ModuleImage(parsed.BuildId, textRva, text, sizeOfImage);
     }
 }
