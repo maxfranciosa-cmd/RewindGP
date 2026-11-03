@@ -1,5 +1,6 @@
 using Ams2ChEd.Business.AMS2.Helpers;
 using Ams2ChEd.Business.AMS2.Resources;
+using Ams2ChEd.Business.AMS2.Services;
 using Ams2ChEd.Business.AMS2.Settings;
 using Ams2ChEd.Business.AMS2.UI;
 using Ams2Interop;
@@ -28,6 +29,9 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
         // to actually come to the foreground first, instead of the overlay flashing up over its own
         // loading/menu screens the moment the window is created.
         private static readonly TimeSpan OverlayRevealDelay = TimeSpan.FromSeconds(10);
+
+        // The most a race setup waits for the signature-file download it started (see Ams2SignatureUpdater).
+        private static readonly TimeSpan SignatureDownloadMaxWait = TimeSpan.FromSeconds(5);
 
         // The player's own tyre-wear/fuel-usage settings, held while a shortened race has them
         // scaled up (see ApplyWearScaling). Static because this class is registered transient -
@@ -65,6 +69,9 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
         public async Task<bool> ShowSetupOverlayAsync(RaceLaunchRequest request, object ownerWindow, CancellationToken ct = default)
         {
+            // fetch the latest signature file while AMS2 starts up (once per app run) - see Ams2SignatureUpdater
+            Ams2SignatureUpdater.StartDownload(LogToFile);
+
             var autoLaunch = (_installSettingsStorage as Ams2GameInstallSettingsStorage)?.LoadAutoLaunchGame() ?? true;
 
             // Show the overlay immediately, in its initial state, rather than only creating it once
@@ -286,7 +293,10 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             // the player already has selected for Practice is left exactly as-is.
             var qualifying = Ams2SessionRulesBuilder.BuildQualifyingConfig();
 
-            using var configurator = new Ams2RaceConfigurator(_hashCatalogProvider.CarHashes, _hashCatalogProvider.TrackHashes, LogToFile);
+            // normally long finished by now; a slow connection only delays the launch this much
+            await Ams2SignatureUpdater.WaitForDownloadAsync(SignatureDownloadMaxWait).ConfigureAwait(true);
+            using var configurator = new Ams2RaceConfigurator(_hashCatalogProvider.CarHashes, _hashCatalogProvider.TrackHashes, LogToFile,
+                Ams2SignatureUpdater.OffsetOptions(LogToFile));
             if (!await configurator.AttachAsync(ct).ConfigureAwait(true))
             {
                 overlay.ShowError(Strings.Ams2RaceLaunchAssistant_AttachFailed);
@@ -403,7 +413,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             try
             {
                 using var configurator = new Ams2RaceConfigurator(
-                    new Dictionary<string, int>(), new Dictionary<string, int>(), LogToFile);
+                    new Dictionary<string, int>(), new Dictionary<string, int>(), LogToFile, Ams2SignatureUpdater.OffsetOptions(LogToFile));
                 if (!await configurator.AttachAsync().ConfigureAwait(true) || !configurator.TryRestorePlayerIdentity(original, Ams2CountryIds.KnownIds))
                 {
                     LogToFile("player identity NOT restored - will retry after the next session");
@@ -466,7 +476,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             try
             {
                 using var configurator = new Ams2RaceConfigurator(
-                    new Dictionary<string, int>(), new Dictionary<string, int>(), LogToFile);
+                    new Dictionary<string, int>(), new Dictionary<string, int>(), LogToFile, Ams2SignatureUpdater.OffsetOptions(LogToFile));
                 if (!await configurator.AttachAsync().ConfigureAwait(true) || !configurator.TryRestoreWearSettings(original))
                 {
                     LogToFile("wear settings NOT restored - will retry after the next session");

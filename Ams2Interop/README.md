@@ -44,10 +44,15 @@ Resolved per AMS2 build on `AttachAsync`, by `Signatures/Ams2OffsetResolver`:
    every `Can*` is off and the app says the AMS2 version isn't recognised. **While the list is
    empty** (it is until someone records the confirmed build - see the workflow below) the
    built-in values are used on any build, with a warning naming the build in the log.
-2. **Build already in the cache** (`%LocalAppData%\Ams2Interop\offsets_cache.json`, keyed by the
+2. **Build listed in the file's `known_builds`** - the values recorded there for that exact build
+   (`Ams2OffsetSource.KnownBuild`). These are values confirmed by hand on that build, so a build
+   whose signatures broke can be supported by editing the file, with no rebuild. An entry missing
+   a value, or pointing a function outside the code section (or data outside the image), is
+   ignored with a log line, and the build is resolved as below.
+3. **Build already in the cache** (`%LocalAppData%\Ams2Interop\offsets_cache.json`, keyed by the
    exe's link timestamp, image size and checksum) - the cached values, after a cheap re-check that
    at least one of each function's code signatures still matches where it should.
-3. **Unknown build** - every signature is scanned for in the code section. Each value has
+4. **Unknown build** - every signature is scanned for in the code section. Each value has
    several (format version 2 of the file; version 1 files still load as one per value):
    - a function: its start, plus up to two alternates from later instruction boundaries of the
      same function (stored with their offset from the start), each with every call target and
@@ -62,6 +67,19 @@ Resolved per AMS2 build on `AttachAsync`, by `Signatures/Ams2OffsetResolver`:
 Anything not found switches off only the features that need it (`Ams2ResolvedOffsets.Can*`):
 `ApplyRaceConfigAsync` reports it in `Errors` and applies everything else, and the app tells the
 player the AMS2 version isn't recognised.
+
+**Updating the file without an app release.** The signature file is data, so the app also
+fetches it online (`Ams2ChEd.Business.AMS2/Services/Ams2SignatureUpdater.cs`): each race launch
+starts a download (once per app run) of
+
+    https://raw.githubusercontent.com/maxfranciosa-cmd/RewindGP/main/Ams2Interop/ams2_signatures.json
+
+into `%LocalAppData%\RewindGP\ams2_signatures.json`, and waits at most 5 s for it before
+attaching. The newer of that and the copy shipped with the app (by `generated_at`; a tie goes to
+the download) is used. A download replaces the local copy only if it parses as a signature file
+with something in it; offline, a 404 or a bad file just leave things as they were. So pushing a
+new `ams2_signatures.json` to `main` updates every player on their next launch. Bump
+`generated_at` when editing the file by hand, so it wins over an older copy.
 
 ### Layouts (slot numbers and struct offsets)
 
@@ -114,11 +132,21 @@ Do this with AMS2 running, on Windows, ideally before the next AMS2 patch:
    real launch), copy the build id into `Ams2Constants.BuiltIn.ConfirmedBuildIds`.
 3. `dotnet run --project Ams2Interop.Tool -- generate Ams2Interop/ams2_signatures.json`. Only
    commit the file if the tool reports every signature as built (it lists each one, and warns
-   about values that only got a single signature).
-4. Rebuild. The `.csproj` copies the file next to the app automatically.
+   about values that only got a single signature). It also records the build in `known_builds`,
+   keeping the builds already in the file.
+4. Rebuild. The `.csproj` copies the file next to the app automatically. Push it to `main` too,
+   so installed apps download it.
 5. After a future AMS2 patch, run `status` again. If everything is found by scan and the layout
-   checks pass in a test launch, nothing needs doing. If something is missing, re-derive only
-   that value, update `BuiltIn` and `ConfirmedBuildIds`, then regenerate.
+   checks pass in a test launch, nothing needs doing: each player's app finds the values itself.
+   If something is missing, no app release is needed:
+   1. re-derive only that value;
+   2. add the new build to `known_builds` in `Ams2Interop/ams2_signatures.json`, with every
+      value (RVAs, as in the existing entries), and bump `generated_at`;
+   3. run `generate` on the new build: it takes that entry as correct and rebuilds the
+      signatures from it, so the following patches can be found by scan again;
+   4. push the file to `main`.
+
+   `BuiltIn` and `ConfirmedBuildIds` only need changing for the no-signature-file fallback.
 6. **In-game verifications still outstanding:**
    - slot 28 / weather mode: `Vm550Slot.WeatherType` vs. the older "always 12" note (both
      flagged UNCONFIRMED / CONFLICTING in `Ams2Constants.cs`)
