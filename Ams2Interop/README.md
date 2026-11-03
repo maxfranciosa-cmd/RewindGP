@@ -123,17 +123,38 @@ Do this with AMS2 running, on Windows, ideally before the next AMS2 patch:
    keeping the builds already in the file.
 4. Rebuild. The `.csproj` copies the file next to the app automatically, so it is in the
    release zip too.
-5. After a future AMS2 patch, run `status` again. If everything is found by scan and the layout
-   checks pass in a test launch, nothing needs doing: each player's app finds the values itself.
-   If something is missing, no code change is needed:
-   1. re-derive only that value;
-   2. add the new build to `known_builds` in `Ams2Interop/ams2_signatures.json`, with every
-      value (RVAs, as in the existing entries);
-   3. run `generate` on the new build: it takes that entry as correct and rebuilds the
-      signatures from it, so the following patches can be found by scan again;
-   4. commit the file and release.
+5. After a future AMS2 patch, run `status` again (Custom Race opened once), then do a test race
+   launch and check `%LocalAppData%\RewindGP\ams2interop.log`:
+   - **Everything found, launch works** - nothing needs doing: each player's app finds the
+     values itself. To record the build as confirmed anyway, paste the `known_builds` entry
+     `status` prints into the signature file, run `generate`, commit and release.
+   - **An object tag missing** (`Vm550IdentityTag`, `Vm498IdentityTag`, `Vm498ContainerTag` -
+     one signature each, so the likeliest to break): run `find-tags --save
+     Ams2Interop/ams2_signatures.json` with Custom Race open (see below). It writes the build's
+     `known_builds` entry. Test-launch, then `generate`, commit and release - no code change.
+   - **A function, `IntPropertyTypeTag` or the settings pointer missing**: re-derive that value
+     by hand, add the build to `known_builds` with all eight values (RVAs, as in the existing
+     entries), then `generate`, commit and release. The survey needs `IntPropertyTypeTag`, so
+     re-derive that one first if it's the one missing.
+   - **The launch fails its layout check** (the log names the slots), or a setting lands in the
+     wrong place: run `find-slots` and apply the constant changes it prints to
+     `Ams2Constants.cs`, then release. This is the one case that needs a code change.
 
-   `BuiltIn` and `ConfirmedBuildIds` only need changing for the no-signature-file fallback.
+   `generate` refuses to run on a build that has no `known_builds` entry and isn't in
+   `ConfirmedBuildIds`: otherwise it would take the old build's built-in addresses as correct
+   for the new one, and record them as confirmed. `BuiltIn` and `ConfirmedBuildIds` only need
+   changing for the no-signature-file fallback.
+
+   **`find-tags` / `find-slots`** (`Discovery/CustomRaceSurvey.cs`; read-only) work without
+   trusting the current tags or slot numbers. Open a single race in Custom Race and change the
+   settings the tool asks for, one at a time. After each change it finds the int properties whose
+   values moved (every int property is found through `IntPropertyTypeTag`), every pointer to
+   them, and the object each pointer belongs to (walking back to a vtable + tag header). That
+   gives the object's tag and the property's slot. A tag is only decided when it shows up in
+   every step for its object and beats every other candidate. A slot is only decided when exactly
+   the expected number of slots changed in that object. Anything else is reported with its
+   candidates. Both also check the fixed offsets around the slots: VM498 inside master, master's
+   active flags, the session wrappers, and the packed date.
 6. **In-game verifications still outstanding:**
    - slot 28 / weather mode: `Vm550Slot.WeatherType` vs. the older "always 12" note (both
      flagged UNCONFIRMED / CONFLICTING in `Ams2Constants.cs`)

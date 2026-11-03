@@ -11,6 +11,15 @@ public interface IMemoryReader
     bool ReadRaw(long address, int length, out byte[] buffer);
 }
 
+/// <summary>
+/// An IMemoryReader that can also list its readable memory - what MemoryScanner sweeps. ProcessMemory
+/// lists the target's committed, private, readable pages; fakes list their mapped regions.
+/// </summary>
+public interface IScannableMemory : IMemoryReader
+{
+    IEnumerable<(long Base, long Size)> ReadableRegions();
+}
+
 /// <summary>Raw out-of-process writes (ProcessMemory) - see ProcessMemory.TryWriteInt32's doc comment for the caveats.</summary>
 public interface IMemoryWriter
 {

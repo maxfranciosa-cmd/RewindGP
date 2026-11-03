@@ -7,6 +7,9 @@ public sealed class Ams2SignatureGenerationResult
     public IReadOnlyList<string> Failed { get; init; } = Array.Empty<string>();
     public IReadOnlyList<string> Report { get; init; } = Array.Empty<string>();
     public bool Complete => Failed.Count == 0;
+
+    /// <summary>Set when nothing was generated because the values to generate from couldn't be trusted for this build.</summary>
+    public string? RefusedBecause { get; init; }
 }
 
 /// <summary>
@@ -22,6 +25,19 @@ public sealed class Ams2SignatureGenerationResult
 /// </summary>
 public static class Ams2SignatureGenerator
 {
+    /// <summary>
+    /// The values that may be generated from (and so recorded as confirmed) for a build: its own
+    /// known_builds entry in the file being regenerated, else the built-in values - but only on a
+    /// build they were confirmed on. Null otherwise: on a new build the built-in values are the
+    /// old build's addresses, and signatures built at whatever code sits there now would still
+    /// "verify" against the same wrong values.
+    /// </summary>
+    public static IReadOnlyDictionary<string, long>? TrustedValuesFor(string buildId, Ams2SignatureFile? existing, IEnumerable<string> confirmedBuildIds)
+    {
+        if (existing?.KnownBuild(buildId) is { } known) return known;
+        return confirmedBuildIds.Contains(buildId, StringComparer.OrdinalIgnoreCase) ? Ams2OffsetNames.BuiltInRvas : null;
+    }
+
     public const int MaxCodeAlternates = 2;
     public const int MaxDataSignatures = 3;
 

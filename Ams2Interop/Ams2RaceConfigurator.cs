@@ -209,11 +209,43 @@ public sealed class Ams2RaceConfigurator : IDisposable
             _log?.Invoke($"GenerateSignatures: existing '{outputPath}' unreadable ({ex.Message}) - its known builds are not kept");
         }
 
-        var truth = knownRvas ?? (IReadOnlyDictionary<string, long>?)existing?.KnownBuild(image.BuildId) ?? Ams2OffsetNames.BuiltInRvas;
+        // the values generated from are recorded as CONFIRMED for this build, so they must be known
+        // to be right for it (see TrustedValuesFor)
+        var truth = knownRvas ?? Ams2SignatureGenerator.TrustedValuesFor(image.BuildId, existing, Ams2Constants.BuiltIn.ConfirmedBuildIds);
+        if (truth == null)
+        {
+            var refusal = $"build {image.BuildId} has no known_builds entry in '{outputPath}' and isn't one of "
+                          + "Ams2Constants.BuiltIn.ConfirmedBuildIds - add its values to known_builds first";
+            _log?.Invoke($"GenerateSignatures: refused - {refusal}");
+            return new Ams2SignatureGenerationResult { Failed = Ams2OffsetNames.All, Report = new[] { refusal }, RefusedBecause = refusal };
+        }
+
         var result = Ams2SignatureGenerator.Generate(image, truth, existing?.KnownBuilds);
         foreach (var line in result.Report) _log?.Invoke($"GenerateSignatures: {line}");
         if (result.Complete) result.File.Save(outputPath);
         return result;
+    }
+
+    /// <summary>
+    /// The developer survey (Ams2Interop.Tool find-tags / find-slots) over the attached process -
+    /// reads only. Needs IntPropertyTypeTag for this build; null when it isn't resolved.
+    /// </summary>
+    public Discovery.CustomRaceSurvey? CreateSurvey()
+    {
+        RequireAttached();
+        if (Offsets?.Has(Ams2OffsetNames.IntPropertyTypeTag) != true) return null;
+        return new Discovery.CustomRaceSurvey(_mem!, _moduleBase, _moduleSize, Ams2Constants.IntPropertyTypeTag, _log);
+    }
+
+    /// <summary>The object tags this build currently resolves (absolute), for the survey to compare against.</summary>
+    public IReadOnlyDictionary<Discovery.SurveyObject, long> CurrentSurveyTags()
+    {
+        var tags = new Dictionary<Discovery.SurveyObject, long>();
+        if (Offsets == null) return tags;
+        foreach (var kind in Enum.GetValues<Discovery.SurveyObject>())
+            if (Offsets.Has(Discovery.SurveyReport.OffsetName(kind)))
+                tags[kind] = Offsets.Absolute(Discovery.SurveyReport.OffsetName(kind));
+        return tags;
     }
 
     private Ams2ResolvedOffsets ResolveOffsets(long moduleBase)

@@ -8,8 +8,33 @@ namespace Ams2Interop.Native;
 /// as invalid rather than trusted, since the objects this resolves can legitimately be absent
 /// (e.g. the player hasn't opened Custom Race yet).
 /// </summary>
-public sealed class ProcessMemory : IMemoryReader, IMemoryWriter, IDisposable
+public sealed class ProcessMemory : IScannableMemory, IMemoryWriter, IDisposable
 {
+    /// <summary>The target's committed, private, readable (non-guard) regions, lowest address first - what MemoryScanner sweeps.</summary>
+    public IEnumerable<(long Base, long Size)> ReadableRegions()
+    {
+        var address = IntPtr.Zero;
+        var mbiSize = (uint)Marshal.SizeOf<NativeMethods.MEMORY_BASIC_INFORMATION>();
+
+        while (NativeMethods.VirtualQueryEx(Handle, address, out var mbi, mbiSize) != IntPtr.Zero)
+        {
+            var regionSize = (long)mbi.RegionSize;
+            if (regionSize <= 0) break;
+            var nextAddress = (long)mbi.BaseAddress + regionSize;
+
+            var qualifies = mbi.State == NativeMethods.MEM_COMMIT
+                             && mbi.Type == NativeMethods.MEM_PRIVATE
+                             && (mbi.Protect & NativeMethods.PAGE_NOACCESS) == 0
+                             && (mbi.Protect & NativeMethods.PAGE_GUARD) == 0;
+
+            if (qualifies)
+                yield return ((long)mbi.BaseAddress, regionSize);
+
+            if (nextAddress <= (long)address) break; // guard against a non-advancing region
+            address = (IntPtr)nextAddress;
+        }
+    }
+
     public IntPtr Handle { get; }
 
     private ProcessMemory(IntPtr handle)

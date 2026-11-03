@@ -8,13 +8,15 @@ namespace AMS2ChEd.Tests.Ams2Interop
     /// ReadProcessMemory on an unmapped page. Writes made through IMemoryWriter are recorded (the
     /// "fake writer"); setup writes through Put* aren't.
     /// </summary>
-    internal sealed class FakeMemory : IMemoryReader, IMemoryWriter
+    internal sealed class FakeMemory : IScannableMemory, IMemoryWriter
     {
         private readonly List<(long Base, byte[] Bytes)> _regions = new();
 
         public List<(long Address, byte[] Bytes)> RawWrites { get; } = new();
 
         public void Map(long address, int size) => _regions.Add((address, new byte[size]));
+
+        public IEnumerable<(long Base, long Size)> ReadableRegions() => _regions.Select(r => (r.Base, (long)r.Bytes.Length)).OrderBy(r => r.Base).ToList();
 
         public void PutInt64(long address, long value) => Put(address, BitConverter.GetBytes(value));
         public void PutInt32(long address, int value) => Put(address, BitConverter.GetBytes(value));
