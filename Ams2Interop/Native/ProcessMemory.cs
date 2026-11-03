@@ -8,7 +8,7 @@ namespace Ams2Interop.Native;
 /// as invalid rather than trusted, since the objects this resolves can legitimately be absent
 /// (e.g. the player hasn't opened Custom Race yet).
 /// </summary>
-public sealed class ProcessMemory : IDisposable
+public sealed class ProcessMemory : IMemoryReader, IMemoryWriter, IDisposable
 {
     public IntPtr Handle { get; }
 
@@ -69,25 +69,15 @@ public sealed class ProcessMemory : IDisposable
     /// Plausibility check: value - 0x100000000 &lt; 0x700000000 (unsigned). This tells "a
     /// plausible pointer" apart from "garbage/zero," not a strict validity guarantee.
     /// </summary>
-    public bool TryReadPointerSafe(long address, out long pointer)
-    {
-        if (!TryReadInt64(address, out pointer)) return false;
-        var biased = unchecked((ulong)pointer) - 0x100000000UL;
-        return biased < 0x700000000UL;
-    }
+    public bool TryReadPointerSafe(long address, out long pointer) => MemoryReads.TryReadPointerSafe(this, address, out pointer);
 
     /// <summary>
     /// Resolves a VM498/VM550 slot's int value: node = *(vmBase + slot*8); validates the type
-    /// tag at node-0x18 == IntPropertyTypeTag; returns the int at node+0x18c.
+    /// tag at node-0x18 == IntPropertyTypeTag; returns the int at node+0x18c. Same read as
+    /// MemoryReads.ReadSlot, which the layout checks use to say which step failed.
     /// </summary>
-    public bool TryReadSlot(long vmBase, int slot, out int value)
-    {
-        value = 0;
-        if (!TryReadPointerSafe(vmBase + slot * 8L, out var node)) return false;
-        if (!TryReadInt64(node - 0x18, out var typeTag)) return false;
-        if (typeTag != Ams2Constants.IntPropertyTypeTag) return false;
-        return TryReadInt32(node + 0x18c, out value);
-    }
+    public bool TryReadSlot(long vmBase, int slot, out int value) =>
+        MemoryReads.TryReadSlot(this, vmBase, slot, Ams2Constants.IntPropertyTypeTag, out value);
 
     public void Dispose() => NativeMethods.CloseHandle(Handle);
 }

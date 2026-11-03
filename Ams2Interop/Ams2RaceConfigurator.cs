@@ -278,6 +278,11 @@ public sealed class Ams2RaceConfigurator : IDisposable
     ///    opponent/class counts for the new car and overwrite them.
     /// Every field's read-back reflects its final write.
     ///
+    /// Before anything is written, each object's layout is checked (Native/Ams2LayoutCheck.cs):
+    /// an object that fails is left untouched, and a failing race VM550 stops the whole call -
+    /// opponents or SetCar into a half-trusted layout would be pointless. Either way the result's
+    /// LayoutCheckFailed is set and the failing slots are listed in UnverifiedFields.
+    ///
     /// A null <paramref name="track"/> keeps the track already selected on the screen.
     /// </summary>
     public async Task<RaceConfigResult> ApplyRaceConfigAsync(
@@ -349,19 +354,27 @@ public sealed class Ams2RaceConfigurator : IDisposable
         if (qualifying != null && qualifyVm is null)
             errors.Add("qualifying config supplied but its session VM could not be resolved - see SessionVmResolver's doc comment");
 
-        void ApplyOnce()
+        var targets = new CustomRaceTargets
         {
-            if (opponents != null && vm498 is long v498) ApplyOpponents(v498, opponents, opponentsUnverified);
-            // vm498 is passed through regardless of `opponents` - ApplySessionRules needs it too,
-            // for the VM498 packed-date write alongside VM550's slots (see TrySetVm498PackedDate).
-            // practiceVm/qualifyVm/race2Vm are passed through regardless of `practice`/`qualifying`
-            // too, for RaceDate's Race2/Practice1/Qualifying1 propagation (see needsDateSync above).
-            if (sessionRules != null && vm550 is long v550) ApplySessionRules(v550, vm498, sessionRules, unverified, practiceVm, qualifyVm, race2Vm);
-            if (practice != null && practiceVm is long pVm) ApplyPracticeOrQualifying(pVm, practice, "Practice", unverified);
-            if (qualifying != null && qualifyVm is long qVm) ApplyPracticeOrQualifying(qVm, qualifying, "Qualifying", unverified);
-        }
+            Vm498 = vm498, Vm550 = vm550, Master = master,
+            Practice1Vm = practiceVm, Qualifying1Vm = qualifyVm, Race2Vm = race2Vm,
+        };
+        var writer = new CustomRaceWriter(_mem!, _mem!, _slotWriter!, Ams2Constants.IntPropertyTypeTag, _log);
 
-        ApplyOnce();
+        // Read-only, before the first write: an object whose slots don't hold what this build's
+        // layout says they should is not written to at all.
+        var layout = writer.CheckLayout(targets);
+        if (layout.RaceVmFailed)
+        {
+            errors.Add("race settings not applied: the Custom Race session layout doesn't match what this AMS2 version is expected to have");
+            unverified.AddRange(layout.Failures);
+            _log?.Invoke($"ApplyRaceConfigAsync: skipped - {errors[^1]}");
+            return new RaceConfigResult { Errors = errors, UnverifiedFields = unverified, LayoutCheckFailed = true };
+        }
+        if (opponents != null && layout.Vm498Failed)
+            errors.Add("opponents not applied: VM498's layout doesn't match what this AMS2 version is expected to have");
+
+        writer.ApplyOnce(targets, layout, opponents, sessionRules, practice, qualifying, unverified, opponentsUnverified);
 
         // SlotWriter already reads back each write immediately, so this delay isn't about our write
         // landing - it's about outlasting AMS2's own Custom Race screen re-initializing some of its
@@ -370,7 +383,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
         await Task.Delay(TimeSpan.FromSeconds(2), ct).ConfigureAwait(false);
         unverified.Clear(); // only the second, later write's verification result is meaningful
         opponentsUnverified.Clear();
-        ApplyOnce();
+        writer.ApplyOnce(targets, layout, opponents, sessionRules, practice, qualifying, unverified, opponentsUnverified);
 
         // SetCar is a direct function call, not a staged slot write, so it isn't part of the
         // two-write cycle above - but it runs AFTER that cycle settles, for the same reason the
@@ -379,14 +392,20 @@ public sealed class Ams2RaceConfigurator : IDisposable
         if (!canSetCar)
             errors.Add($"car/track/livery skipped: SetCar not found for this AMS2 version ({Offsets!.Describe()})");
 
+        // master's selection slots are SetCar's only read-back: if they don't read cleanly,
+        // SetCar's effect couldn't be verified, so it (and commit, which also takes master) isn't run.
+        var masterTrusted = master is long checkedMaster && writer.CheckMasterLayout(checkedMaster, layout);
+        if (master is not null && !masterTrusted)
+            errors.Add("car/track/livery not applied: master's selection slots don't read as this AMS2 version is expected to have them");
+
         // SetCar can't leave the track out: to keep it, it's handed back the one already selected.
-        if (track == null && master is long selectionMaster && !_mem!.TryReadSlot(selectionMaster, Ams2Constants.MasterSlot.Track, out trackHash))
+        if (track == null && masterTrusted && master is long selectionMaster && !_mem!.TryReadSlot(selectionMaster, Ams2Constants.MasterSlot.Track, out trackHash))
         {
             trackKnown = false;
             errors.Add("car/livery could not be applied - the currently selected track could not be read");
         }
 
-        if (canSetCar && carKnown && trackKnown && master is long m)
+        if (canSetCar && carKnown && trackKnown && masterTrusted && master is long m)
         {
             // SetCarRva silently no-ops when its internal validation gate rejects the combination
             // (see Ams2Constants.SetCarValidationGateRva). Calling the gate directly would say why,
@@ -401,7 +420,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
 
             // The Custom Race screen's livery box may keep showing the previous livery: the session
             // still starts with this one (live-confirmed 2026-10-26).
-            CheckSetCarReadBack(m, trackHash, carHash, livery, unverified);
+            writer.CheckSetCarReadBack(m, trackHash, carHash, livery, unverified);
             _log?.Invoke($"ApplyRaceConfigAsync: master=0x{m:X}, vm498={(vm498 is long l498 ? $"0x{l498:X}" : "null")}, vm550={(vm550 is long l550 ? $"0x{l550:X}" : "null")}, SetCar(track={track ?? "(kept)"}/{trackHash}, car={car}/{carHash}, livery={livery}) -> {(ok ? "completed" : "NOT completed")}");
         }
 
@@ -412,7 +431,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
         if (sessionRules != null && !canCommit)
             errors.Add($"opponent class recount skipped: commit not found for this AMS2 version ({Offsets!.Describe()})");
 
-        if (canCommit && sessionRules != null && master is long commitMaster)
+        if (canCommit && sessionRules != null && masterTrusted && master is long commitMaster)
         {
             var commitAddress = _moduleBase + Ams2Constants.CommitRva;
             var committed = await Task.Run(() => _exec!.Call(commitAddress, commitMaster, 0), ct)
@@ -425,18 +444,20 @@ public sealed class Ams2RaceConfigurator : IDisposable
         // what the two ApplyOnce passes wrote (live-confirmed: RivalCount reset to the class maximum,
         // and a count above the number of same-class cars makes AMS2 pad the grid with other
         // classes). So opponents are written once more, last, and verified from this final write.
-        if (opponents != null && vm498 is long finalVm498)
+        if (opponents != null && vm498 is long finalVm498 && !layout.Vm498Failed)
         {
             opponentsUnverified.Clear();
-            ApplyOpponents(finalVm498, opponents, opponentsUnverified);
+            writer.ApplyOpponents(finalVm498, opponents, opponentsUnverified);
         }
         unverified.AddRange(opponentsUnverified);
+        unverified.AddRange(layout.Failures);
 
         _log?.Invoke($"ApplyRaceConfigAsync: done - {errors.Count} error(s), {unverified.Count} unverified field(s)"
+            + (layout.AnyFailed ? " | LAYOUT CHECK FAILED" : "")
             + (errors.Count > 0 ? $" | errors: {string.Join("; ", errors)}" : "")
             + (unverified.Count > 0 ? $" | unverified: {string.Join("; ", unverified.Select(u => $"{u.Item1}(wanted={u.Item2}, actual={u.Item3?.ToString() ?? "null"})"))}" : ""));
 
-        return new RaceConfigResult { Errors = errors, UnverifiedFields = unverified };
+        return new RaceConfigResult { Errors = errors, UnverifiedFields = unverified, LayoutCheckFailed = layout.AnyFailed };
     }
 
     /// <summary>See Ams2Constants.SetCarValidationGateRva's doc comment for the full evidence behind each code.</summary>
@@ -450,261 +471,6 @@ public sealed class Ams2RaceConfigurator : IDisposable
         6 => "livery index not found for this car",
         _ => "unknown code",
     };
-
-    /// <summary>
-    /// Reads back master's own current-selection slots (see Ams2Constants.MasterSlot's doc
-    /// comment) after a SetCar call and reports any mismatch the same way TrySet does for every
-    /// other field.
-    /// </summary>
-    private void CheckSetCarReadBack(long master, int trackHash, int carHash, int livery, List<(string, int, int?)> unverified)
-    {
-        var trackOk = _mem!.TryReadSlot(master, Ams2Constants.MasterSlot.Track, out var actualTrack);
-        if (!trackOk || actualTrack != trackHash) unverified.Add(("SetCar(track)", trackHash, trackOk ? actualTrack : null));
-
-        var carOk = _mem.TryReadSlot(master, Ams2Constants.MasterSlot.Car, out var actualCar);
-        if (!carOk || actualCar != carHash) unverified.Add(("SetCar(car)", carHash, carOk ? actualCar : null));
-
-        var liveryOk = _mem.TryReadSlot(master, Ams2Constants.MasterSlot.Livery, out var actualLivery);
-        if (!liveryOk || actualLivery != livery) unverified.Add(("SetCar(livery)", livery, liveryOk ? actualLivery : null));
-    }
-
-    private void ApplyOpponents(long vm498, OpponentsConfig cfg, List<(string, int, int?)> unverified)
-    {
-        TrySet(vm498, Ams2Constants.Vm498Slot.NumOpponentsType, (int?)cfg.NumOpponentsType, nameof(cfg.NumOpponentsType), unverified);
-        TrySet(vm498, Ams2Constants.Vm498Slot.OpponentsTypeKind, (int?)cfg.OpponentsType, nameof(cfg.OpponentsType), unverified);
-        TrySet(vm498, Ams2Constants.Vm498Slot.RivalCount, cfg.OpponentCount, nameof(cfg.OpponentCount), unverified);
-        // Mirrors RivalCount - see Vm498Slot.RivalCountPerClass's doc comment.
-        TrySet(vm498, Ams2Constants.Vm498Slot.RivalCountPerClass, cfg.OpponentCount, $"{nameof(cfg.OpponentCount)}(perClass)", unverified);
-
-        if (cfg.Skill is int skill)
-        {
-            if (skill is < 70 or > 120) unverified.Add(($"{nameof(cfg.Skill)} (out of range 70-120)", skill, null));
-            else TrySet(vm498, Ams2Constants.Vm498Slot.Skill, skill, nameof(cfg.Skill), unverified);
-        }
-
-        if (cfg.AiWetWeatherSkill is int wetSkill)
-        {
-            if (wetSkill is < 0 or > 200) unverified.Add(($"{nameof(cfg.AiWetWeatherSkill)} (out of range 0-200)", wetSkill, null));
-            else TrySet(vm498, Ams2Constants.Vm498Slot.WetWeatherSkill, wetSkill, nameof(cfg.AiWetWeatherSkill), unverified);
-        }
-
-        TrySet(vm498, Ams2Constants.Vm498Slot.MistakeFrequency, (int?)cfg.AiMistakeFrequency, nameof(cfg.AiMistakeFrequency), unverified);
-    }
-
-    private void ApplySessionRules(long vm550, long? vm498, SessionRulesConfig cfg, List<(string, int, int?)> unverified,
-        long? practice1Vm, long? qualifying1Vm, long? race2Vm)
-    {
-        TrySet(vm550, Ams2Constants.Vm550Slot.PrivateQuali, (int?)cfg.PrivateQualiSession, nameof(cfg.PrivateQualiSession), unverified);
-        TrySet(vm550, Ams2Constants.Vm550Slot.MandatoryPit, (int?)cfg.MandatoryPitStop, nameof(cfg.MandatoryPitStop), unverified);
-        TrySet(vm550, Ams2Constants.Vm550Slot.RollingStart, (int?)cfg.RollingStart, nameof(cfg.RollingStart), unverified);
-        TrySet(vm550, Ams2Constants.Vm550Slot.Refuelling, (int?)cfg.RefuellingAllowed, nameof(cfg.RefuellingAllowed), unverified);
-        TrySet(vm550, Ams2Constants.Vm550Slot.TimeProgression, (int?)cfg.TimeProgression, nameof(cfg.TimeProgression), unverified);
-        TrySet(vm550, Ams2Constants.Vm550Slot.DateType, (int?)cfg.DateType, nameof(cfg.DateType), unverified);
-        TrySet(vm550, Ams2Constants.Vm550Slot.MinTyres, (int?)cfg.PitMinTyres, nameof(cfg.PitMinTyres), unverified);
-        TrySet(vm550, Ams2Constants.Vm550Slot.MinFuel, (int?)cfg.PitMinFuel, nameof(cfg.PitMinFuel), unverified);
-
-        if (cfg.StartHour is int hour)
-        {
-            if (hour is < 0 or > 23) unverified.Add(($"{nameof(cfg.StartHour)} (out of range 0-23)", hour, null));
-            else TrySet(vm550, Ams2Constants.Vm550Slot.Hour, hour, nameof(cfg.StartHour), unverified);
-        }
-
-        if (cfg.RaceDate is DateTime raceDate)
-        {
-            // Only meaningful when DateType is Custom - AMS2 only reads the day/month/year slots
-            // for the DateType=Custom case. Writing them with DateType left at Default/Current
-            // wouldn't do anything wrong, but it also wouldn't do anything AMS2 pays attention to
-            // - so it's reported as unverified instead of silently attempted, the same way an
-            // out-of-range Skill/AiWetWeatherSkill value is reported above rather than sent.
-            if (cfg.DateType != DateType.Custom)
-            {
-                unverified.Add((
-                    $"{nameof(cfg.RaceDate)} (ignored - DateType is {cfg.DateType?.ToString() ?? "null"}, not Custom)",
-                    0, null));
-            }
-            else
-            {
-                // Year and month first, day last: AMS2's own date control clamps Day against
-                // whatever Month/Year are already set at the moment Day is written. Writing Day
-                // first validates it against the OLD month/year (whatever AMS2 still had from
-                // before), which silently clamps it whenever the old month has fewer days than the
-                // target day needs - and Month/Year changing afterward doesn't retroactively fix
-                // it. Setting Month/Year first means Day is finally validated against the correct
-                // target date.
-                TrySet(vm550, Ams2Constants.Vm550Slot.Year, raceDate.Year, $"{nameof(cfg.RaceDate)}(year)", unverified);
-                TrySet(vm550, Ams2Constants.Vm550Slot.Month, raceDate.Month, $"{nameof(cfg.RaceDate)}(month)", unverified);
-                TrySet(vm550, Ams2Constants.Vm550Slot.Day, raceDate.Day, $"{nameof(cfg.RaceDate)}(day)", unverified);
-                TrySet(vm550, Ams2Constants.Vm550Slot.DateType, (int?)cfg.DateType, nameof(cfg.DateType), unverified);
-
-                // Also raw-write VM498's own packed date field alongside the VM550 slots above
-                // (see Vm498PackedDate's doc comment) - neither write alone changes the race's
-                // actual date; both together do (live-confirmed). AMS2's own Custom Race menu
-                // display can still lag until the submenu is re-visited - cosmetic only.
-                TrySetVm498PackedDate(vm498, raceDate, unverified);
-
-                // AMS2's own handler for activating the in-game "Race Settings" submenu
-                // ("CustomEventRaceSettingsDialog") is the ONLY thing that normally propagates
-                // Race1's date (what vm550 above already is)
-                // into Race2/Practice1/Qualifying1's own Day/Month/Year slots, via the exact same
-                // generic setter TrySet/SlotWriter uses - and it only runs when the player manually
-                // opens that submenu. Without this, Race2/Practice1/Qualifying1 keep whatever date
-                // they already had (real-world "today" by default) even though Race1 - and the
-                // Race Settings display, which reads Race1 - are correct. Mirrors that handler
-                // exactly: Year/Month/Day only, no DateType, no Hour (each target keeps its own -
-                // the native handler re-applies each target's own existing Hour unchanged, it never
-                // takes it from Race1).
-                PropagateDateToOtherSession(race2Vm, raceDate, "Race2", unverified);
-                PropagateDateToOtherSession(practice1Vm, raceDate, "Practice1", unverified);
-                PropagateDateToOtherSession(qualifying1Vm, raceDate, "Qualifying1", unverified);
-            }
-        }
-
-        // Slot 7 is a binary time-vs-laps switch, not a format enum - the two write sites are
-        // mutually exclusive.
-        if (cfg.DurationType is DurationType durationType && cfg.DurationValue is int durationValue)
-        {
-            if (durationType == DurationType.LapBased)
-            {
-                TrySet(vm550, Ams2Constants.Vm550Slot.DurationTypeFlag, 1, nameof(cfg.DurationType), unverified);
-                TrySet(vm550, Ams2Constants.Vm550Slot.LapCount, durationValue, $"{nameof(cfg.DurationValue)}(laps)", unverified);
-            }
-            else
-            {
-                TrySet(vm550, Ams2Constants.Vm550Slot.DurationTypeFlag, 0, nameof(cfg.DurationType), unverified);
-                TrySet(vm550, Ams2Constants.Vm550Slot.DurationMinutes, durationValue, $"{nameof(cfg.DurationValue)}(minutes)", unverified);
-            }
-        }
-
-        if (cfg.Weather != null) ApplyWeather(vm550, cfg.Weather, "Race", unverified);
-    }
-
-    /// <summary>
-    /// Applies duration/start-hour/weather to a Practice1/Qualifying1 VM pointer, reusing the
-    /// exact same Vm550Slot numbers ApplySessionRules uses against the main VM550, on the theory
-    /// that these are structurally-identical VM550 instances. See
-    /// PracticeQualifySessionConfig/SessionVmResolver's doc comments for what's confirmed vs. not.
-    /// </summary>
-    private void ApplyPracticeOrQualifying(long sessionVm, PracticeQualifySessionConfig cfg, string label, List<(string, int, int?)> unverified)
-    {
-        if (cfg.Enabled is OnOff enabled)
-        {
-            // Writes the confirmed 3-slot pattern exactly (see Vm550Slot.SessionEnabled's doc
-            // comment) rather than writing slot 3 alone - the paired slots' independent meaning
-            // isn't decoded, but they're never written independently of SessionEnabled, so
-            // neither does this.
-            var isOn = enabled == OnOff.On;
-            TrySet(sessionVm, Ams2Constants.Vm550Slot.SessionEnabled, isOn ? 1 : 0, $"{label}.{nameof(cfg.Enabled)}", unverified);
-            TrySet(sessionVm, Ams2Constants.Vm550Slot.SessionEnabledPaired1, isOn ? 1 : -1, $"{label}.{nameof(cfg.Enabled)}(paired1)", unverified);
-            TrySet(sessionVm, Ams2Constants.Vm550Slot.SessionEnabledPaired2, isOn ? -1 : 1, $"{label}.{nameof(cfg.Enabled)}(paired2)", unverified);
-        }
-
-        // Always TimeBased(0) - Practice/Qualifying have no lap-based option in AMS2, unlike the
-        // race session, so DurationTypeFlag is written automatically rather than exposed.
-        if (cfg.DurationValue is int durationValue)
-        {
-            TrySet(sessionVm, Ams2Constants.Vm550Slot.DurationTypeFlag, 0, $"{label}.{nameof(cfg.DurationValue)}(type)", unverified);
-            TrySet(sessionVm, Ams2Constants.Vm550Slot.DurationMinutes, durationValue, $"{label}.{nameof(cfg.DurationValue)}(minutes)", unverified);
-        }
-
-        if (cfg.StartHour is int hour)
-        {
-            if (hour is < 0 or > 23) unverified.Add(($"{label}.{nameof(cfg.StartHour)} (out of range 0-23)", hour, null));
-            else TrySet(sessionVm, Ams2Constants.Vm550Slot.Hour, hour, $"{label}.{nameof(cfg.StartHour)}", unverified);
-        }
-
-        if (cfg.Weather != null) ApplyWeather(sessionVm, cfg.Weather, label, unverified);
-    }
-
-    /// <summary>
-    /// Shared by ApplySessionRules (against the main VM550) and ApplyPracticeOrQualifying
-    /// (against a resolved session VM) - see SessionWeatherConfig's doc comment for the slot
-    /// layout and what's confirmed vs. not. Writes exactly the slots given (1-4) and the matching
-    /// count; does NOT pre-fill unset slots itself - AMS2 repeats the last given slot on its own
-    /// when count &lt; 4 (see WeatherSlotCount's doc comment), so there's nothing for this method to
-    /// fill in.
-    /// </summary>
-    private void ApplyWeather(long vmBase, SessionWeatherConfig cfg, string label, List<(string, int, int?)> unverified)
-    {
-        if (cfg.HistoricalWeather is bool historical && historical)
-        {
-            TrySet(vmBase, Ams2Constants.Vm550Slot.WeatherType, 2, $"{label}.Weather(Historical)", unverified);
-            TrySet(vmBase, Ams2Constants.Vm550Slot.WeatherSlotCount, 0, $"{label}.Weather(count)", unverified);
-            return;
-        }
-
-        if (cfg.Slots is not { Count: > 0 } slots) return;
-        if (slots.Count > 4)
-        {
-            unverified.Add(($"{label}.Weather (too many slots: {slots.Count}, max 4)", slots.Count, null));
-            return;
-        }
-
-        TrySet(vmBase, Ams2Constants.Vm550Slot.WeatherType, 0, $"{label}.Weather(Historical)", unverified);
-        TrySet(vmBase, Ams2Constants.Vm550Slot.WeatherSlotCount, slots.Count, $"{label}.Weather(count)", unverified);
-
-        Span<int> slotOffsets =
-        [
-            Ams2Constants.Vm550Slot.WeatherSlot1, Ams2Constants.Vm550Slot.WeatherSlot2,
-            Ams2Constants.Vm550Slot.WeatherSlot3, Ams2Constants.Vm550Slot.WeatherSlot4,
-        ];
-        for (var i = 0; i < slots.Count; i++)
-            TrySet(vmBase, slotOffsets[i], (int)slots[i], $"{label}.Weather(slot{i + 1})", unverified);
-    }
-
-    private void TrySet(long vmBase, int slot, int? value, string fieldName, List<(string, int, int?)> unverified)
-    {
-        if (value is not int v) return; // null = don't force
-        if (!_slotWriter!.TrySetSlot(vmBase, slot, v, out var actual))
-            unverified.Add((fieldName, v, actual));
-    }
-
-    /// <summary>
-    /// Writes RaceDate's year/month/day into another session's VM550-shaped pointer (Race2/
-    /// Practice1/Qualifying1) - see SessionVmResolver.ResolveRace2's doc comment for why this is
-    /// needed at all. `sessionVm` being null means the resolve itself failed (reported here, same
-    /// convention as everything else in this file), not that the write was attempted and rejected.
-    /// </summary>
-    private void PropagateDateToOtherSession(long? sessionVm, DateTime raceDate, string label, List<(string, int, int?)> unverified)
-    {
-        if (sessionVm is not long vm)
-        {
-            unverified.Add(($"RaceDate({label} propagation - session VM not resolved)", 0, null));
-            return;
-        }
-        TrySet(vm, Ams2Constants.Vm550Slot.Year, raceDate.Year, $"RaceDate({label} year)", unverified);
-        TrySet(vm, Ams2Constants.Vm550Slot.Month, raceDate.Month, $"RaceDate({label} month)", unverified);
-        TrySet(vm, Ams2Constants.Vm550Slot.Day, raceDate.Day, $"RaceDate({label} day)", unverified);
-    }
-
-    /// <summary>
-    /// Raw-writes VM498's own packed date field (see Vm498PackedDate's doc comment) - a plain
-    /// struct field, NOT an int-property slot, so this goes through ProcessMemory directly rather
-    /// than SlotWriter/TrySet. Preserves the field's own top 7 bits (unknown flags) rather than
-    /// zeroing them. Reports into `unverified` the same way TrySet does: silently succeeds, or
-    /// records what was wanted vs. what's actually there afterward.
-    /// </summary>
-    private void TrySetVm498PackedDate(long? vm498, DateTime raceDate, List<(string, int, int?)> unverified)
-    {
-        const string field = "RaceDate(vm498 packed)";
-        if (vm498 is not long v498)
-        {
-            unverified.Add((field, 0, null)); // vm498 not resolved - couldn't even attempt this
-            return;
-        }
-
-        var address = v498 + Ams2Constants.Vm498DatePackedOffset;
-        if (!_mem!.TryReadInt32(address, out var beforeRaw))
-        {
-            unverified.Add((field, 0, null));
-            return;
-        }
-
-        var newRaw = Vm498PackedDate.Encode(raceDate.Year, raceDate.Month, raceDate.Day, unchecked((uint)beforeRaw));
-        _mem.TryWriteInt32(address, unchecked((int)newRaw));
-
-        if (!_mem.TryReadInt32(address, out var afterRaw) || afterRaw != unchecked((int)newRaw))
-            unverified.Add((field, unchecked((int)newRaw), afterRaw));
-    }
 
     private bool TryResolveModuleBase(out long baseAddress, out long moduleSize)
     {

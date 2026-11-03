@@ -7,7 +7,7 @@ namespace Ams2Interop.Native;
 /// some fields (RollingStart among them), so this goes through AMS2's own setter for every field
 /// instead.
 /// </summary>
-public sealed class SlotWriter
+public sealed class SlotWriter : ISlotSetter
 {
     private readonly ProcessMemory _mem;
     private readonly RemoteExecutor _exec;

@@ -130,4 +130,12 @@ public sealed class RaceConfigResult
 
     public IReadOnlyList<(string Field, int Wanted, int? Got)> UnverifiedFields { get; init; } =
         Array.Empty<(string, int, int?)>();
+
+    /// <summary>
+    /// A Custom Race object didn't have the layout this AMS2 version is expected to have (see
+    /// Native/Ams2LayoutCheck.cs), so nothing was written to it - most likely an AMS2 update moved
+    /// something. Callers should treat it like Ams2ResolvedOffsets.IsDegraded: the game version
+    /// isn't recognised. The failing slots are listed in UnverifiedFields as "LayoutCheck(...)".
+    /// </summary>
+    public bool LayoutCheckFailed { get; init; }
 }

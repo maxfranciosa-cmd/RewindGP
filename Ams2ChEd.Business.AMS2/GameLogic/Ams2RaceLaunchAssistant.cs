@@ -305,9 +305,10 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
             if (!result.Success)
             {
-                // an AMS2 update that moved something the signatures couldn't find again: say so,
-                // rather than the generic message that suggests a one-off glitch
-                overlay.ShowError(configurator.Offsets?.IsDegraded == true
+                // an AMS2 update that moved something the signatures couldn't find again, or whose
+                // Custom Race layout no longer reads as expected: say so, rather than the generic
+                // message that suggests a one-off glitch
+                overlay.ShowError(configurator.Offsets?.IsDegraded == true || result.LayoutCheckFailed
                     ? Strings.Ams2RaceLaunchAssistant_GameVersionNotRecognised
                     : Strings.Ams2RaceLaunchAssistant_ApplyFailed);
                 return false;
