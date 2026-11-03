@@ -186,6 +186,21 @@ public static class Ams2Constants
     }
 
     /// <summary>
+    /// Where the wear settings sit RELATIVE TO the player identity in the settings block, so they
+    /// can follow it when an AMS2 update moves the block's fields (see
+    /// Native/SettingsBlockLayout.cs): TyreWear = Country - TyreWearBeforeCountry, FuelUsage =
+    /// Country - FuelUsageBeforeCountry. Derived from the confirmed offsets above
+    /// (0x3D480 - 0x3D3C0, 0x3D480 - 0x3D3C4) - ASSUMED, UNCONFIRMED across patches: an update
+    /// that moves the identity and the wear settings by different amounts breaks it, which is why
+    /// the derived fields must still read as valid indices before they're used.
+    /// </summary>
+    public static class SettingsBlockDelta
+    {
+        public const int TyreWearBeforeCountry = PlayerIdentityOffset.Country - GameplaySettingsOffset.TyreWear;   // 0xC0
+        public const int FuelUsageBeforeCountry = PlayerIdentityOffset.Country - GameplaySettingsOffset.FuelUsage; // 0xBC
+    }
+
+    /// <summary>
     /// Session indices into VM498's session-wrapper array: VM498 caches 8 wrapper pointers at
     /// `vm498 + 0x18 + index*8`, and each wrapper's own `+0x18` field holds that session's
     /// VM550-shaped pointer - separate, structurally-identical VM550 instances written through the

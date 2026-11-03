@@ -92,10 +92,31 @@ public sealed class Ams2RaceConfigurator : IDisposable
         _vmResolver = new VmResolver(_mem, _moduleBase, _moduleSize, log: _log);
         _slotWriter = new SlotWriter(_mem, _exec, _moduleBase);
         _sessionVmResolver = new SessionVmResolver(_mem, _moduleBase, _moduleSize, log: _log);
-        _gameplaySettings = new GameplaySettings(_mem, _moduleBase, log: _log);
-        _playerIdentity = new PlayerIdentityWriter(_mem, _moduleBase, log: _log);
+        // The settings block's layout is resolved once per attach (lazily, on first use) and
+        // re-validated before every read/write - see Native/SettingsBlockLayout.cs.
+        var settingsPointer = Offsets.CanChangeGameplaySettings ? _moduleBase + Ams2Constants.GameplaySettingsPointerRva : (long?)null;
+        var settingsBlock = new SettingsBlockAccess(_mem, settingsPointer, _log);
+        _gameplaySettings = new GameplaySettings(_mem, _mem, settingsBlock, _log);
+        _playerIdentity = new PlayerIdentityWriter(_mem, _mem, settingsBlock, AllocateInGame, _log);
 
         return true;
+    }
+
+    /// <summary>
+    /// True when TryApplyWearMultipliers can write: the settings pointer was found for this build
+    /// (Ams2ResolvedOffsets.CanChangeGameplaySettings) AND tyre wear/fuel usage were located in the
+    /// block relative to the player identity (Native/SettingsBlockLayout.cs). Reads the game.
+    /// </summary>
+    public bool CanChangeWearSettings => IsAttached && Offsets?.CanChangeGameplaySettings != false && _gameplaySettings!.IsAvailable;
+
+    /// <summary>True when TryApplyPlayerIdentity can write: the settings pointer was found and the identity located in the block. Reads the game.</summary>
+    public bool CanChangePlayerIdentity => IsAttached && Offsets?.CanChangeGameplaySettings != false && _playerIdentity!.IsAvailable;
+
+    private long? AllocateInGame(int size)
+    {
+        var memory = NativeMethods.VirtualAllocEx(_mem!.Handle, IntPtr.Zero, (uint)size,
+            NativeMethods.MEM_COMMIT | NativeMethods.MEM_RESERVE, NativeMethods.PAGE_READWRITE);
+        return memory == IntPtr.Zero ? null : (long)memory;
     }
 
     /// <summary>
@@ -103,8 +124,8 @@ public sealed class Ams2RaceConfigurator : IDisposable
     /// that one alone. These are the player's own game settings, not Custom Race config: they
     /// don't need the Custom Race screen open, and they stay changed until restored, so keep
     /// `original` and pass it to TryRestoreWearSettings when the race is over. Returns false,
-    /// having changed nothing, if the settings can't be read or a multiplier is out of range.
-    /// See Native/GameplaySettings.cs.
+    /// having changed nothing, if the settings can't be read or a multiplier is out of range, or
+    /// if CanChangeWearSettings is off for this build. See Native/GameplaySettings.cs.
     /// </summary>
     public bool TryApplyWearMultipliers(int? tyreWearMultiplier, int? fuelUsageMultiplier, out WearSettingsSnapshot original)
     {
@@ -114,7 +135,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
         return _gameplaySettings!.TryApply(tyreWearMultiplier, fuelUsageMultiplier, out original);
     }
 
-    /// <summary>Puts back the tyre-wear/fuel-usage settings TryApplyWearMultipliers replaced.</summary>
+    /// <summary>Puts back the tyre-wear/fuel-usage settings TryApplyWearMultipliers replaced - only to the offsets they were read from.</summary>
     public bool TryRestoreWearSettings(WearSettingsSnapshot original)
     {
         RequireAttached();
@@ -135,22 +156,28 @@ public sealed class Ams2RaceConfigurator : IDisposable
     /// so the timing screens show the career driver. Like the wear settings, this is the player's
     /// own data and stays changed until restored: keep `original` and pass it to
     /// TryRestorePlayerIdentity when the race is over. Returns false, having changed nothing, if
-    /// the profile can't be read or a value is out of range. See Native/PlayerIdentityWriter.cs.
+    /// the profile can't be read, a value is out of range, CanChangePlayerIdentity is off for this
+    /// build, or the stored nationality isn't plausible. See Native/PlayerIdentityWriter.cs.
     /// </summary>
-    public bool TryApplyPlayerIdentity(PlayerIdentity identity, out PlayerIdentity original)
+    /// <param name="knownCountryIds">
+    /// AMS2's country ids, if the caller has them (this library doesn't): the nationality currently
+    /// stored, and the new one, must both be in the set - a stored value outside it means the
+    /// field isn't where it's expected to be.
+    /// </param>
+    public bool TryApplyPlayerIdentity(PlayerIdentity identity, out PlayerIdentity original, IReadOnlySet<uint>? knownCountryIds = null)
     {
         RequireAttached();
         original = default!;
         if (!GameplaySettingsAvailable()) return false;
-        return _playerIdentity!.TryApply(identity, out original);
+        return _playerIdentity!.TryApply(identity, out original, knownCountryIds);
     }
 
-    /// <summary>Puts back the identity TryApplyPlayerIdentity replaced.</summary>
-    public bool TryRestorePlayerIdentity(PlayerIdentity original)
+    /// <summary>Puts back the identity TryApplyPlayerIdentity replaced - only to the offsets it was read from.</summary>
+    public bool TryRestorePlayerIdentity(PlayerIdentity original, IReadOnlySet<uint>? knownCountryIds = null)
     {
         RequireAttached();
         if (!GameplaySettingsAvailable()) return false;
-        return _playerIdentity!.TryRestore(original);
+        return _playerIdentity!.TryRestore(original, knownCountryIds);
     }
 
     /// <summary>The player's current identity in AMS2's profile, or null if it can't be read.</summary>

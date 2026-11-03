@@ -214,6 +214,13 @@
             ["ZWE"] = 0x7048526C, // Zimbabwe
         };
 
+        /// <summary>
+        /// Every country id AMS2's profile can hold - handed to Ams2RaceConfigurator's identity
+        /// calls, which refuse to overwrite a stored nationality outside this set (a sign the
+        /// profile isn't laid out where the interop expects it).
+        /// </summary>
+        public static IReadOnlySet<uint> KnownIds { get; } = new HashSet<uint>(Ids.Values);
+
         /// <summary>The AMS2 country id for a nationality code, or null when AMS2 has no such country.</summary>
         public static uint? For(string nationality)
         {

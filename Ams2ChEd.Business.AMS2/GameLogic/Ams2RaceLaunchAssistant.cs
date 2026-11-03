@@ -358,9 +358,10 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             }
 
             var identity = new PlayerIdentity(forename, surname, TimingHandle(surname, forename), countryId);
-            if (!configurator.TryApplyPlayerIdentity(identity, out var original))
+            if (!configurator.TryApplyPlayerIdentity(identity, out var original, Ams2CountryIds.KnownIds))
             {
-                LogToFile($"player identity '{identity.FullName}' NOT applied");
+                LogToFile($"player identity '{identity.FullName}' NOT applied"
+                    + (configurator.CanChangePlayerIdentity ? "" : " - the profile isn't where this AMS2 version is expected to keep it"));
                 return;
             }
 
@@ -403,7 +404,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             {
                 using var configurator = new Ams2RaceConfigurator(
                     new Dictionary<string, int>(), new Dictionary<string, int>(), LogToFile);
-                if (!await configurator.AttachAsync().ConfigureAwait(true) || !configurator.TryRestorePlayerIdentity(original))
+                if (!await configurator.AttachAsync().ConfigureAwait(true) || !configurator.TryRestorePlayerIdentity(original, Ams2CountryIds.KnownIds))
                 {
                     LogToFile("player identity NOT restored - will retry after the next session");
                     return;
@@ -436,7 +437,8 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
             if (!configurator.TryApplyWearMultipliers(multiplier, multiplier, out var original))
             {
-                LogToFile($"wear scaling x{multiplier} NOT applied");
+                LogToFile($"wear scaling x{multiplier} NOT applied"
+                    + (configurator.CanChangeWearSettings ? "" : " - tyre wear/fuel usage aren't where this AMS2 version is expected to keep them"));
                 return;
             }
 

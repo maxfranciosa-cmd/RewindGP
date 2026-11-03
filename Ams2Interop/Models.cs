@@ -104,7 +104,16 @@ public sealed class PracticeQualifySessionConfig
 /// Ams2RaceConfigurator.TryApplyWearMultipliers found before changing them, to be handed back to
 /// TryRestoreWearSettings once the race is over.
 /// </summary>
-public readonly record struct WearSettingsSnapshot(int TyreWearIndex, int FuelUsageIndex);
+public readonly record struct WearSettingsSnapshot(int TyreWearIndex, int FuelUsageIndex)
+{
+    /// <summary>
+    /// Where the settings block's player identity (its Country field) was when these values were
+    /// read - the anchor the wear fields' offsets are derived from (see Native/SettingsBlockLayout.cs).
+    /// TryRestoreWearSettings refuses to write if the layout now resolves elsewhere. Null on a
+    /// snapshot built by hand: then the currently resolved layout is used.
+    /// </summary>
+    public int? LayoutAnchor { get; init; }
+}
 
 /// <summary>
 /// The player's identity in AMS2's profile ("Edit info"): names, the three-letter handle shown on
@@ -116,6 +125,17 @@ public sealed record PlayerIdentity(string Forename, string Surname, string Hand
 {
     /// <summary>The name the game shows, composed as it composes it.</summary>
     public string FullName => $"{Forename} {Surname}";
+
+    /// <summary>
+    /// The settings block offset of the Country field this identity was read at (see
+    /// Native/SettingsBlockLayout.cs); TryRestorePlayerIdentity refuses to write if the layout now
+    /// resolves elsewhere. Null on an identity built by the caller.
+    /// </summary>
+    public int? LayoutAnchor { get; init; }
+
+    /// <summary>Same names, handle and nationality, whatever the LayoutAnchor.</summary>
+    public bool SameValues(PlayerIdentity other) =>
+        Forename == other.Forename && Surname == other.Surname && Handle == other.Handle && CountryId == other.CountryId;
 }
 
 /// <summary>

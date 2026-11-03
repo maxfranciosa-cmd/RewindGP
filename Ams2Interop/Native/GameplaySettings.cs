@@ -9,22 +9,26 @@ namespace Ams2Interop.Native;
 /// Because they're the player's own global settings, a caller that changes them is expected to
 /// put them back afterwards: TryApply hands back the values it found, TryRestore writes them back.
 ///
-/// SAFETY: nothing is written unless both fields currently hold a valid index (0-8). A value
-/// outside that range means the block's layout isn't what this code expects (most likely an AMS2
-/// update moved it), and writing would corrupt whatever actually lives there.
+/// SAFETY: the fields are found relative to the player identity (see SettingsBlockLayout), which
+/// can be recognised in the block, rather than trusted at fixed offsets - many neighbouring
+/// settings are also 0-8, so a range check alone wouldn't catch a shifted layout. On top of that,
+/// nothing is written unless both fields currently hold a valid index (0-8), and TryRestore only
+/// writes to the offsets TryApply read from (WearSettingsSnapshot.LayoutAnchor).
 /// </summary>
 public sealed class GameplaySettings
 {
-    private const int MaxIndex = 8;
+    private const int MaxIndex = SettingsBlockLayout.MaxWearIndex;
 
-    private readonly ProcessMemory _mem;
-    private readonly long _moduleBase;
+    private readonly IMemoryReader _mem;
+    private readonly IMemoryWriter _writer;
+    private readonly SettingsBlockAccess _block;
     private readonly Action<string>? _log;
 
-    public GameplaySettings(ProcessMemory mem, long moduleBase, Action<string>? log = null)
+    public GameplaySettings(IMemoryReader mem, IMemoryWriter writer, SettingsBlockAccess block, Action<string>? log = null)
     {
         _mem = mem;
-        _moduleBase = moduleBase;
+        _writer = writer;
+        _block = block;
         _log = log;
     }
 
@@ -38,25 +42,11 @@ public sealed class GameplaySettings
     /// </summary>
     public static int? FuelUsageIndex(int multiplier) => multiplier is >= 2 and <= 5 ? 8 - multiplier : null;
 
+    /// <summary>The wear settings' offsets are resolved (and re-validated) for this build - Ams2RaceConfigurator.CanChangeWearSettings.</summary>
+    public bool IsAvailable => Layout() != null;
+
     /// <summary>Current values, or null if the settings block can't be resolved or doesn't look as expected.</summary>
-    public WearSettingsSnapshot? Read()
-    {
-        if (!TryResolveBlock(out var block)) return null;
-        if (!_mem.TryReadInt32(block + Ams2Constants.GameplaySettingsOffset.TyreWear, out var tyre) ||
-            !_mem.TryReadInt32(block + Ams2Constants.GameplaySettingsOffset.FuelUsage, out var fuel))
-        {
-            _log?.Invoke("GameplaySettings: tyre wear/fuel usage could not be read");
-            return null;
-        }
-
-        if (tyre is < 0 or > MaxIndex || fuel is < 0 or > MaxIndex)
-        {
-            _log?.Invoke($"GameplaySettings: tyre wear={tyre}, fuel usage={fuel} out of range 0-{MaxIndex} - unexpected layout, not touching it");
-            return null;
-        }
-
-        return new WearSettingsSnapshot(tyre, fuel);
-    }
+    public WearSettingsSnapshot? Read() => Layout() is SettingsBlockLayout layout ? Read(layout) : null;
 
     /// <summary>
     /// Sets tyre wear and/or fuel usage to the given multipliers (null = leave alone). `original`
@@ -81,44 +71,60 @@ public sealed class GameplaySettings
             return false;
         }
 
-        if (Read() is not WearSettingsSnapshot current) return false;
+        if (Layout() is not SettingsBlockLayout layout || Read(layout) is not WearSettingsSnapshot current) return false;
         original = current;
 
-        return Write(new WearSettingsSnapshot(tyreIndex ?? current.TyreWearIndex, fuelIndex ?? current.FuelUsageIndex));
+        return Write(layout, new WearSettingsSnapshot(tyreIndex ?? current.TyreWearIndex, fuelIndex ?? current.FuelUsageIndex));
     }
 
-    /// <summary>Writes back values previously handed out by TryApply.</summary>
+    /// <summary>Writes back values previously handed out by TryApply - only to the offsets they were read from.</summary>
     public bool TryRestore(WearSettingsSnapshot original)
     {
         if (original.TyreWearIndex is < 0 or > MaxIndex || original.FuelUsageIndex is < 0 or > MaxIndex) return false;
-        // Same layout guard as TryApply - never write into a block that doesn't read back sanely.
-        return Read() is not null && Write(original);
-    }
-
-    private bool Write(WearSettingsSnapshot values)
-    {
-        if (!TryResolveBlock(out var block)) return false;
-
-        _mem.TryWriteInt32(block + Ams2Constants.GameplaySettingsOffset.TyreWear, values.TyreWearIndex);
-        _mem.TryWriteInt32(block + Ams2Constants.GameplaySettingsOffset.FuelUsage, values.FuelUsageIndex);
-
-        var landed = Read() is WearSettingsSnapshot after && after == values;
-        if (!landed) _log?.Invoke($"GameplaySettings: write of tyre wear={values.TyreWearIndex}, fuel usage={values.FuelUsageIndex} did not read back");
-        return landed;
-    }
-
-    private bool TryResolveBlock(out long block)
-    {
-        // Wider than ProcessMemory.TryReadPointerSafe's heap-shaped range on purpose: this block
-        // isn't one of the Custom Race heap objects, so only "a user-mode address" is required.
-        if (_mem.TryReadInt64(_moduleBase + Ams2Constants.GameplaySettingsPointerRva, out block) &&
-            unchecked((ulong)block) - 0x10000UL < 0x7FFFFFFF0000UL)
+        if (Layout() is not SettingsBlockLayout layout) return false;
+        if (original.LayoutAnchor is int anchor && anchor != layout.CountryOffset)
         {
-            return true;
+            _log?.Invoke($"GameplaySettings: the settings were read with the identity at +0x{anchor:X}, it now resolves at +0x{layout.CountryOffset:X} - not restoring into a different layout");
+            return false;
+        }
+        // Same layout guard as TryApply - never write into a block that doesn't read back sanely.
+        return Read(layout) is not null && Write(layout, original);
+    }
+
+    private SettingsBlockLayout? Layout()
+    {
+        var layout = _block.Current();
+        if (layout is { WearResolved: true }) return layout;
+        if (layout != null) _log?.Invoke("GameplaySettings: tyre wear/fuel usage not resolved in the settings block for this AMS2 version - not touching them");
+        return null;
+    }
+
+    private WearSettingsSnapshot? Read(SettingsBlockLayout layout)
+    {
+        if (!_mem.TryReadInt32(layout.Block + layout.TyreWearOffset, out var tyre) ||
+            !_mem.TryReadInt32(layout.Block + layout.FuelUsageOffset, out var fuel))
+        {
+            _log?.Invoke("GameplaySettings: tyre wear/fuel usage could not be read");
+            return null;
         }
 
-        _log?.Invoke("GameplaySettings: settings block pointer not resolved");
-        block = 0;
-        return false;
+        if (tyre is < 0 or > MaxIndex || fuel is < 0 or > MaxIndex)
+        {
+            _log?.Invoke($"GameplaySettings: tyre wear={tyre}, fuel usage={fuel} out of range 0-{MaxIndex} - unexpected layout, not touching it");
+            return null;
+        }
+
+        return new WearSettingsSnapshot(tyre, fuel) { LayoutAnchor = layout.CountryOffset };
+    }
+
+    private bool Write(SettingsBlockLayout layout, WearSettingsSnapshot values)
+    {
+        _writer.TryWriteInt32(layout.Block + layout.TyreWearOffset, values.TyreWearIndex);
+        _writer.TryWriteInt32(layout.Block + layout.FuelUsageOffset, values.FuelUsageIndex);
+
+        var landed = Read(layout) is WearSettingsSnapshot after
+                     && after.TyreWearIndex == values.TyreWearIndex && after.FuelUsageIndex == values.FuelUsageIndex;
+        if (!landed) _log?.Invoke($"GameplaySettings: write of tyre wear={values.TyreWearIndex}, fuel usage={values.FuelUsageIndex} did not read back");
+        return landed;
     }
 }
