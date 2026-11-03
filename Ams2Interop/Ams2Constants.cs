@@ -322,7 +322,15 @@ public static class Ams2Constants
         public const int MandatoryPit = 20;
         public const int MinTyres = 21;           // valid: {-1,0,2,4}
         public const int MinFuel = 22;            // valid: {-1,0,2,4}
-        public const int Fcy = 23;                // 0-5, 0 = off; meaning of 1-5 not decoded
+        /// <summary>
+        /// "Scheduled Full Course Yellow", from the race's session settings - NOT the "Full Course
+        /// Yellow enabled" switch, which lives on a different settings page (with the pit speed
+        /// limit) and isn't a VM550 slot here. Identified from which page the setting sits on
+        /// (2026-11-03), not from a live read. 0 = off; values 1-5 not decoded, and whether the
+        /// setting has more options than that is UNCONFIRMED. Not written by the interop - only
+        /// range-checked by Ams2LayoutCheck.
+        /// </summary>
+        public const int ScheduledFcy = 23;
         public const int Refuelling = 24;
         public const int TimeProgression = 27;    // 0x1b - 1=real,2=x2,3=x5,4=x10
         /// <summary>

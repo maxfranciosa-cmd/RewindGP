@@ -126,7 +126,7 @@ namespace AMS2ChEd.Tests.Ams2Interop
             SetSlot(vm, Ams2Constants.Vm550Slot.RollingStart, 0);
             SetSlot(vm, Ams2Constants.Vm550Slot.MinTyres, -1);
             SetSlot(vm, Ams2Constants.Vm550Slot.MinFuel, 4);
-            SetSlot(vm, Ams2Constants.Vm550Slot.Fcy, 0);
+            SetSlot(vm, Ams2Constants.Vm550Slot.ScheduledFcy, 0);
             return vm;
         }
 

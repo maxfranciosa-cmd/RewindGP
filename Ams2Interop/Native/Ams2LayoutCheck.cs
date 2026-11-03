@@ -66,7 +66,7 @@ public sealed class Ams2LayoutCheck
         new Expectation(nameof(Ams2Constants.Vm550Slot.RollingStart), Ams2Constants.Vm550Slot.RollingStart, "{0, 1}", v => v is 0 or 1),
         new Expectation(nameof(Ams2Constants.Vm550Slot.MinTyres), Ams2Constants.Vm550Slot.MinTyres, "{-1, 0, 2, 4}", v => v is -1 or 0 or 2 or 4),
         new Expectation(nameof(Ams2Constants.Vm550Slot.MinFuel), Ams2Constants.Vm550Slot.MinFuel, "{-1, 0, 2, 4}", v => v is -1 or 0 or 2 or 4),
-        new Expectation(nameof(Ams2Constants.Vm550Slot.Fcy), Ams2Constants.Vm550Slot.Fcy, "0-5", v => Between(v, 0, 5)),
+        new Expectation(nameof(Ams2Constants.Vm550Slot.ScheduledFcy), Ams2Constants.Vm550Slot.ScheduledFcy, "0-5", v => Between(v, 0, 5)),
     };
 
     /// <summary>

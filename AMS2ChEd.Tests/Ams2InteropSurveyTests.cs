@@ -243,13 +243,13 @@ namespace AMS2ChEd.Tests.Ams2Interop
         public void Survey_SkippedStep_ReportedAsSkipped()
         {
             var g = BuildPatchedGame();
-            var steps = CustomRaceSurvey.TagSteps.Append(CustomRaceSurvey.SlotSteps.Single(s => s.Slots[0].Name == "Fcy")).ToList();
+            var steps = CustomRaceSurvey.TagSteps.Append(CustomRaceSurvey.SlotSteps.Single(s => s.Slots[0].Name == "ScheduledFcy")).ToList();
 
             var report = Survey(g).Run(steps, Developer(g), OldTags);
 
-            var fcy = report.Slots.Single(s => s.Name == "Fcy");
-            Assert.IsNull(fcy.NewSlot);
-            Assert.AreEqual("skipped", fcy.Note);
+            var scheduledFcy = report.Slots.Single(s => s.Name == "ScheduledFcy");
+            Assert.IsNull(scheduledFcy.NewSlot);
+            Assert.AreEqual("skipped", scheduledFcy.Note);
         }
 
         [TestMethod]

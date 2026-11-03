@@ -50,7 +50,7 @@ namespace AMS2ChEd.Tests.Ams2Interop
         {
             var race = new FakeCustomRace();
             var vm = race.NewVm550();
-            race.SetSlot(vm, Ams2Constants.Vm550Slot.Fcy, 0, tag: FakeCustomRace.Tag + 0x40);
+            race.SetSlot(vm, Ams2Constants.Vm550Slot.ScheduledFcy, 0, tag: FakeCustomRace.Tag + 0x40);
 
             var result = new Ams2LayoutCheck(race.Mem, FakeCustomRace.Tag).CheckVm550(vm);
 

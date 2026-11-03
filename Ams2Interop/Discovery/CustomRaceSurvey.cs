@@ -112,7 +112,7 @@ public sealed class CustomRaceSurvey
             V550("Toggle the MANDATORY PIT STOP", nameof(Ams2Constants.Vm550Slot.MandatoryPit), Ams2Constants.Vm550Slot.MandatoryPit),
             V550("Change the MINIMUM TYRE change (pit rules)", nameof(Ams2Constants.Vm550Slot.MinTyres), Ams2Constants.Vm550Slot.MinTyres),
             V550("Change the MINIMUM FUEL (pit rules)", nameof(Ams2Constants.Vm550Slot.MinFuel), Ams2Constants.Vm550Slot.MinFuel),
-            V550("Change the FULL COURSE YELLOW setting", nameof(Ams2Constants.Vm550Slot.Fcy), Ams2Constants.Vm550Slot.Fcy),
+            V550("Change SCHEDULED FULL COURSE YELLOW (session settings, not the FCY on/off switch)", nameof(Ams2Constants.Vm550Slot.ScheduledFcy), Ams2Constants.Vm550Slot.ScheduledFcy),
             V550("Toggle REFUELLING", nameof(Ams2Constants.Vm550Slot.Refuelling), Ams2Constants.Vm550Slot.Refuelling),
             V550("Change the TIME PROGRESSION", nameof(Ams2Constants.Vm550Slot.TimeProgression), Ams2Constants.Vm550Slot.TimeProgression),
             V550("Switch the weather between CUSTOM and HISTORIC", nameof(Ams2Constants.Vm550Slot.WeatherType), Ams2Constants.Vm550Slot.WeatherType),
