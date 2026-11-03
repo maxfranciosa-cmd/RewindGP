@@ -29,38 +29,102 @@ Two things learned the hard way:
 
 ## Surviving AMS2 patches
 
-The patch-sensitive values (the setter/SetCar/commit RVAs, the four type tags and the gameplay
-settings pointer) are resolved per AMS2 build on `AttachAsync`, by `Signatures/Ams2OffsetResolver`:
+**Goal:** after any AMS2 patch, every value the interop writes into the game is either found
+again automatically, or its feature switches itself off before writing. Nothing is ever written
+to an address or field that can't be confirmed for the running build.
 
-1. **No `ams2_signatures.json` yet** - the hand-derived `Ams2Constants.BuiltIn` values are used
-   unverified. This is exactly the behaviour from before signatures existed.
+### Patch-sensitive values (RVAs, type tags, the settings pointer)
+
+Resolved per AMS2 build on `AttachAsync`, by `Signatures/Ams2OffsetResolver`:
+
+1. **No `ams2_signatures.json` (or the module can't be read)** - the hand-derived
+   `Ams2Constants.BuiltIn` values, but only on a build listed in
+   `Ams2Constants.BuiltIn.ConfirmedBuildIds` (`Ams2OffsetResolver.BuiltInFallback`). On any other
+   build, or when the build id can't be read, nothing is resolved (`Ams2OffsetSource.BuiltInRejected`):
+   every `Can*` is off and the app says the AMS2 version isn't recognised. **While the list is
+   empty** (it is until someone records the confirmed build - see the workflow below) the
+   built-in values are used on any build, with a warning naming the build in the log.
 2. **Build already in the cache** (`%LocalAppData%\Ams2Interop\offsets_cache.json`, keyed by the
-   exe's link timestamp, image size and checksum) - the cached values, after a cheap re-check.
-3. **Unknown build** - each signature is scanned for in the code section. A code signature is the
-   start of the function with every call target and RIP-relative displacement wildcarded; a data
-   signature is an instruction that references the tag/pointer, and the new address is read back
-   out of that instruction. A value is only used when its signature matches exactly once; a
-   complete result is cached.
+   exe's link timestamp, image size and checksum) - the cached values, after a cheap re-check that
+   at least one of each function's code signatures still matches where it should.
+3. **Unknown build** - every signature is scanned for in the code section. Each value has
+   several (format version 2 of the file; version 1 files still load as one per value):
+   - a function: its start, plus up to two alternates from later instruction boundaries of the
+     same function (stored with their offset from the start), each with every call target and
+     RIP-relative displacement wildcarded;
+   - a data value (tag, pointer): up to three patterns, each from a different instruction that
+     references it; the new address is read back out of the instruction.
+
+   A value is used when at least one of its signatures matches exactly once **and** every one
+   that matched agrees. Signatures that disagree make the value missing (both candidates are
+   logged). A complete result is cached.
 
 Anything not found switches off only the features that need it (`Ams2ResolvedOffsets.Can*`):
 `ApplyRaceConfigAsync` reports it in `Errors` and applies everything else, and the app tells the
-player the AMS2 version isn't recognised. Nothing is ever called or written through a value that
-wasn't found for the running build - except in case 1, as before.
+player the AMS2 version isn't recognised.
 
-**One-time setup** - generate the signature file on a build where the built-in values work (the
-current one), then commit it in this folder; `Ams2Interop.csproj` copies it next to the app:
+### Layouts (slot numbers and struct offsets)
 
-```
-dotnet run --project Ams2Interop.Tool -- generate Ams2Interop/ams2_signatures.json
-```
+Slot numbers and field offsets are constants and can't be found by signature, so they're checked
+by reading before anything is written:
 
-**After an AMS2 update** - run `dotnet run --project Ams2Interop.Tool -- status`. If everything is
-found, there's nothing to do. If something isn't (a function was actually rewritten), re-derive
-just that value by hand as before, update `Ams2Constants.BuiltIn`, confirm it live, and run
-`generate` again on the new build.
+- **Custom Race objects** (`Native/Ams2LayoutCheck.cs`) - before the first write, the race VM550,
+  each session VM (Practice1, Qualifying1, Race2) and VM498 have a conservative set of slots read
+  through the same node/tag/`+0x18c` path the writes use; master's selection slots are read
+  before `SetCar`. One slot unreadable, wrongly tagged or out of range fails the whole object, and
+  nothing is written to it. A failing race VM550 skips the whole race config; a failing master
+  skips `SetCar` and commit. `RaceConfigResult.LayoutCheckFailed` is set, and the app shows the
+  "game version not recognised" message, the same as for missing offsets.
+- **VM498's packed date** (`vm498 + 0x188`, a raw write) - only overwritten if its current value
+  decodes as a plausible date.
+- **The settings block** (`Native/SettingsBlockLayout.cs`) - the player identity is found by its
+  four AMS2 string pointers, at the usual offsets or by a bounded scan for exactly one such run;
+  tyre wear and fuel usage are derived from it and must read as valid indices. Wear and identity
+  have their own gates (`CanChangeWearSettings`, `CanChangePlayerIdentity`); restores only write
+  to the offsets the values were read from.
+- **After commit** - VM498's class-count slots are read back as an advisory check (not fatal).
 
 `X64LengthDecoder` is a length decoder only - it covers the legacy opcode maps and VEX, and stops
 a pattern at anything it doesn't recognise (e.g. EVEX) rather than guessing.
+
+### Coverage map: everything the interop writes
+
+| # | What is written | How | Address/layout dependency | Protection |
+|---|---|---|---|---|
+| 1 | **Race session rules** (VM550): duration, laps, start hour, date Y/M/D, date type, time progression, rolling start, pit rules, refuelling, private quali, weather mode/count/slots | `SlotWriter` -> AMS2 setter | setter RVA, `IntPropertyTypeTag`, VM550 tag, `Vm550Slot` numbers, value offset `node + 0x18c` | confirmed-build gate or signatures (several per value, must agree); tag check; **race VM550 layout check before any write - failure skips the whole race config**; read-back |
+| 2 | **Practice1 / Qualifying1 / Race2 sessions**: enable trio, duration, start hour, weather, date propagation | `SlotWriter` | as #1, plus the session-wrapper array (`vm498 + 0x18 + i*8`, wrapper `+0x18`) | as #1; Race1-anchored resolver; **per-session layout check - a failing session is skipped** |
+| 3 | **Opponents** (VM498): count type, kind, rival count (+ per class), skill, wet skill, mistakes | `SlotWriter` | as #1, plus VM498 tag, `Vm498Offset = 0x250`, `Vm498Slot` numbers | as #1; **VM498 layout check - failure skips opponents and the packed date** |
+| 4 | **VM498 packed date** at `vm498 + 0x188` | **raw** write (preserves top 7 bits) | struct offset `0x188` | VM498 layout check; **current value must decode as a plausible date**; read-back |
+| 5 | **Car / track / livery** | remote call `SetCar` | `SetCar` RVA; `MasterSlot` numbers for the read-back | signatures; **master layout check before the call**; `CheckSetCarReadBack` |
+| 6 | **Opponent class recount** | remote call `Commit` | `Commit` RVA | signatures; master layout check; **advisory read-back of VM498 slots 37/39** (UNCONFIRMED, not fatal) |
+| 7 | **Tyre wear / fuel usage** | **raw** writes | settings-block pointer (signature); offsets derived from the identity (`SettingsBlockDelta`) | **identity-anchored layout**, values must read 0-8 at the derived offsets; re-validated before each write; restore only at the apply-time offsets |
+| 8 | **Player identity**: country, forename, surname, handle, full name | `VirtualAllocEx` + **raw** pointer writes | settings-block pointer; identity found by its strings (normally `0x3D480-0x3D4A0`); AMS2 string header (`BLOW`) | identity located by four valid strings (constants, else unique scan hit); **stored nationality non-zero and a known country id**; re-validated before each write; restore only at the apply-time offsets; read-back |
+
+Not a patch risk: the car/track hash catalogs (`IAms2HashCatalogProvider`,
+`Ams2InteropHashCatalogLoader`) are data files. New AMS2 content is missing from them until it's
+added, and that already falls back to the manual-instructions flow.
+
+### Developer workflow
+
+Do this with AMS2 running, on Windows, ideally before the next AMS2 patch:
+
+1. `dotnet run --project Ams2Interop.Tool -- status`. This shows the build id (boxed at the top)
+   and whether the built-in values resolve.
+2. If the build is the one `BuiltIn` was confirmed on (car, track and date apply correctly in a
+   real launch), copy the build id into `Ams2Constants.BuiltIn.ConfirmedBuildIds`.
+3. `dotnet run --project Ams2Interop.Tool -- generate Ams2Interop/ams2_signatures.json`. Only
+   commit the file if the tool reports every signature as built (it lists each one, and warns
+   about values that only got a single signature).
+4. Rebuild. The `.csproj` copies the file next to the app automatically.
+5. After a future AMS2 patch, run `status` again. If everything is found by scan and the layout
+   checks pass in a test launch, nothing needs doing. If something is missing, re-derive only
+   that value, update `BuiltIn` and `ConfirmedBuildIds`, then regenerate.
+6. **In-game verifications still outstanding:**
+   - slot 28 / weather mode: `Vm550Slot.WeatherType` vs. the older "always 12" note (both
+     flagged UNCONFIRMED / CONFLICTING in `Ams2Constants.cs`)
+   - the `WeatherType` enum's value-to-weather mapping (`Enums.cs`)
+   - what VM498 slots 37-40 mean (the post-commit check reads 37/39 as class counts)
+   - the identity -> tyre/fuel deltas (`Ams2Constants.SettingsBlockDelta`) after the next patch
 
 ## Architecture
 
@@ -128,8 +192,9 @@ application already drives) before calling `ApplyRaceConfigAsync`.
   (`TryApplyWearMultipliers`/`TryRestoreWearSettings`, `Native/GameplaySettings.cs`). These are
   AMS2's global gameplay settings, not Custom Race config: plain int fields in a settings block
   reached through one module-global pointer, written directly. The caller is responsible for
-  restoring the player's own values afterwards. Nothing is written unless both fields currently
-  read as a valid index, so a moved layout after a game update fails safe.
+  restoring the player's own values afterwards. Both fields are located relative to the player
+  identity (`Native/SettingsBlockLayout.cs`), and nothing is written unless both currently read
+  as a valid index there, so a moved layout after a game update fails safe.
 
 ## What's a known simplification
 
@@ -170,3 +235,42 @@ troubleshooting table.
    through your own application's UI, before calling into this library.
 3. This performs a full-process memory scan (`Native/MemoryScanner.cs`) whenever there's no
    cached pointer - expect a multi-second stall the first time `VmResolver` runs after attaching.
+
+## Future work
+
+### RTTI-based tag lookup (investigated, not implemented)
+
+The four type tags are the values most likely to need re-deriving by hand when a signature
+breaks. Could they be found through MSVC RTTI instead (a `.?AV...@@` TypeDescriptor name ->
+its CompleteObjectLocator -> the vtable that points at it), from the module image alone?
+
+What the code establishes:
+
+- **The identity/container tags** (`Vm498IdentityTag`, `Vm550IdentityTag`, `Vm498ContainerTag`)
+  are compared by value at `object + 8`. The qword at `object + 0` is only required to lie in the
+  module's range (`VmResolver.IsModuleRangePointer`, "candidate's own vtable-slot qword") - it's
+  never compared to anything, so the primary vtable isn't what identifies these objects.
+- **`IntPropertyTypeTag`** is read at `node - 0x18`, which is the first qword of the property
+  descriptor the generic setter is called with (`SlotWriter`: `propertyDescriptor = node - 0x18`).
+  The first qword of a C++ object is normally its vtable pointer, so this tag is plausibly the
+  int-property descriptor's vtable.
+- `Ams2Constants.BuiltIn`'s patch history says the identity/container tags move together as one
+  data block while `IntPropertyTypeTag` sits elsewhere, which fits vtables (or RTTI data) laid
+  out per class, but doesn't prove it.
+
+What is NOT established: whether the `+8` tags are vtables at all. An object with a second base
+class would carry that base's vtable pointer at `+8`, which would make them secondary vtables;
+but they could just as well be pointers to some static per-class descriptor that isn't RTTI.
+Nothing in the code or comments says which, and the class names they'd be looked up by are
+unknown. So it isn't implemented.
+
+How to settle it, with the game running (reads only):
+
+1. Read the qword just before each tag (`tag - 8`). For a vtable, that's its
+   CompleteObjectLocator: in x64 images its `signature` field is 1, and its `offset` field would
+   be 8 for the `+8` tags (a secondary base) or 0 for `IntPropertyTypeTag`.
+2. Follow the COL's TypeDescriptor RVA and read the decorated name (`.?AV<Class>@@`).
+3. If all four check out, a resolver could look each class name up in the image's `.data`
+   (TypeDescriptors), find the COLs that reference it, and the vtables that reference those -
+   independent of any code pattern. It would need the image's data sections, not just `.text`,
+   which `ModuleImage` doesn't read today.

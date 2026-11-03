@@ -114,7 +114,9 @@ the per-build offset cache live; the defaults (`ams2_signatures.json` next to th
 `%LocalAppData%\Ams2Interop\offsets_cache.json`) suit most callers. After `AttachAsync`, the
 `Offsets` property says which AMS2 build is running, how its offsets were obtained, and which
 features are available (`CanWriteSlots`, `CanSetCar`, `CanCommit`, `CanChangeGameplaySettings`) -
-see README.md, "Surviving AMS2 patches".
+see README.md, "Surviving AMS2 patches". `CanChangeGameplaySettings` only means the settings
+block was found; the configurator's own `CanChangeWearSettings` / `CanChangePlayerIdentity` also
+require the fields inside it to be located.
 
 ### `AttachAsync(CancellationToken ct = default) : Task<bool>`
 
@@ -187,6 +189,22 @@ alone. Only needs `AttachAsync` — not the Custom Race screen. These are the pl
 settings and stay changed until you put them back, so keep `original` and pass it to
 `TryRestoreWearSettings` once the race is over. Returns `false`, having written nothing, if a
 multiplier is out of range or the settings don't read back as valid (e.g. after a game update).
+`CanChangeWearSettings` says up front whether the fields were located for this build (see
+`Native/SettingsBlockLayout.cs`). The snapshot remembers where the values were read
+(`LayoutAnchor`), and a restore into a layout that now resolves elsewhere is refused.
+
+### `TryApplyPlayerIdentity(...)` / `TryRestorePlayerIdentity(...)`
+
+```csharp
+bool TryApplyPlayerIdentity(PlayerIdentity identity, out PlayerIdentity original, IReadOnlySet<uint>? knownCountryIds = null)
+bool TryRestorePlayerIdentity(PlayerIdentity original, IReadOnlySet<uint>? knownCountryIds = null)
+PlayerIdentity? ReadPlayerIdentity()
+```
+
+Same pattern as the wear settings, gated by `CanChangePlayerIdentity`. Pass AMS2's country ids
+as `knownCountryIds` when you have them (this library doesn't): the nationality currently stored,
+and the new one, must both be in the set, and a stored nationality of 0 is always refused - either
+means the field isn't where it's expected to be.
 
 ### `Detach()` / `Dispose()`
 
@@ -267,11 +285,19 @@ with an older note saying slot 28 is always sent as the constant 12 - needs in-g
 ```csharp
 public sealed class RaceConfigResult
 {
-    public bool Success => UnverifiedFields.Count == 0 && Errors.Count == 0;
+    public bool Success => Errors.Count == 0 && UnverifiedFields.All(u => AdvisoryFields.Contains(u.Field));
     public IReadOnlyList<string> Errors { get; init; }
     public IReadOnlyList<(string Field, int Wanted, int? Got)> UnverifiedFields { get; init; }
+    public IReadOnlyCollection<string> AdvisoryFields { get; init; }
+    public bool LayoutCheckFailed { get; init; }
 }
 ```
+
+`LayoutCheckFailed` means a Custom Race object didn't read as this AMS2 version is expected to
+lay it out (`Native/Ams2LayoutCheck.cs`), so nothing was written to it - treat it like
+`Offsets.IsDegraded`: the game version isn't recognised. The failing slots are listed in
+`UnverifiedFields` as `LayoutCheck(...)` entries. `AdvisoryFields` names entries reported for
+diagnosis only, which don't affect `Success` - so far only "Commit result unverified".
 
 `Success` is a real signal — it's worth understanding exactly what it does and doesn't cover:
 
