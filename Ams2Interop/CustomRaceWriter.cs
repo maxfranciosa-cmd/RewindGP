@@ -74,6 +74,15 @@ public sealed class CustomRaceWriter
     public const string Practice1Label = "Practice1";
     public const string Qualifying1Label = "Qualifying1";
     public const string Race2Label = "Race2";
+    public const string Vm498PackedDateLabel = "VM498 packed date";
+
+    /// <summary>
+    /// What a VM498 packed date field must decode as before it's overwritten: year 1900-2100,
+    /// month 1-12, day 1-31. The field is seeded from the local date when VM498 is built, so a
+    /// real one always passes; a value from a moved struct almost never does.
+    /// </summary>
+    public static bool IsPlausiblePackedDate(Vm498PackedDate.Decoded date) =>
+        date.Year is >= 1900 and <= 2100 && date.Month is >= 1 and <= 12 && date.Day is >= 1 and <= 31;
 
     private readonly IMemoryReader _mem;
     private readonly IMemoryWriter _raw;
@@ -240,7 +249,7 @@ public sealed class CustomRaceWriter
                 // actual date; both together do (live-confirmed). AMS2's own Custom Race menu
                 // display can still lag until the submenu is re-visited - cosmetic only.
                 // Skipped (the layout failure is already reported) when VM498 failed its check.
-                if (!layout.Vm498Failed) TrySetVm498PackedDate(t.Vm498, raceDate, unverified);
+                if (!layout.Vm498Failed) TrySetVm498PackedDate(t.Vm498, layout, raceDate, unverified);
 
                 // AMS2's own handler for activating the in-game "Race Settings" submenu
                 // ("CustomEventRaceSettingsDialog") is the ONLY thing that normally propagates
@@ -384,8 +393,13 @@ public sealed class CustomRaceWriter
     /// than the setter. Preserves the field's own top 7 bits (unknown flags) rather than zeroing
     /// them. Reports into `unverified` the same way TrySet does: silently succeeds, or records
     /// what was wanted vs. what's actually there afterward.
+    ///
+    /// The slot check (Ams2LayoutCheck) can't cover this field - it isn't a slot - and a read-back
+    /// only proves the write landed, not that it landed in the date. So the field's CURRENT value
+    /// must already decode as a plausible date (IsPlausiblePackedDate); if it doesn't, the struct
+    /// has most likely moved, nothing is written, and it's reported as a layout failure.
     /// </summary>
-    private void TrySetVm498PackedDate(long? vm498, DateTime raceDate, List<(string, int, int?)> unverified)
+    private void TrySetVm498PackedDate(long? vm498, CustomRaceLayout layout, DateTime raceDate, List<(string, int, int?)> unverified)
     {
         const string field = "RaceDate(vm498 packed)";
         if (vm498 is not long v498)
@@ -400,6 +414,22 @@ public sealed class CustomRaceWriter
             unverified.Add((field, 0, null));
             return;
         }
+
+        if (layout.Failed(Vm498PackedDateLabel)) return; // already refused (and reported) on an earlier pass
+
+        var before = Vm498PackedDate.Decode(unchecked((uint)beforeRaw));
+        if (!IsPlausiblePackedDate(before))
+        {
+            layout.RecordProblem(Vm498PackedDateLabel,
+                $"{field} (unexpected layout: +0x{Ams2Constants.Vm498DatePackedOffset:X} decodes as {before.Year}-{before.Month}-{before.Day}, not a date - not written)",
+                0, beforeRaw);
+            _log?.Invoke($"LayoutCheck: VM498 packed date at 0x{address:X} = 0x{beforeRaw:X8} decodes as {before.Year}-{before.Month}-{before.Day} - unexpected layout, NOT written");
+            return;
+        }
+
+        // Diagnostics only: the game syncs the two lazily, so a difference is normal.
+        if (layout.RaceVmDate is { } vm550Date && vm550Date != (before.Day, before.Month, before.Year))
+            _log?.Invoke($"CustomRaceWriter: VM498 packed date {before.Year}-{before.Month:D2}-{before.Day:D2} differs from the race VM550's {vm550Date.Year}-{vm550Date.Month:D2}-{vm550Date.Day:D2} (normal - AMS2 syncs them lazily)");
 
         var newRaw = Vm498PackedDate.Encode(raceDate.Year, raceDate.Month, raceDate.Day, unchecked((uint)beforeRaw));
         _raw.TryWriteInt32(address, unchecked((int)newRaw));
