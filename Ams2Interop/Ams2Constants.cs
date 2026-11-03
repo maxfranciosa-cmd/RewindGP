@@ -326,9 +326,10 @@ public static class Ams2Constants
         /// "Scheduled Full Course Yellow", from the race's session settings - NOT the "Full Course
         /// Yellow enabled" switch, which lives on a different settings page (with the pit speed
         /// limit) and isn't a VM550 slot here. Identified from which page the setting sits on
-        /// (2026-11-03), not from a live read. 0 = off; values 1-5 not decoded, and whether the
-        /// setting has more options than that is UNCONFIRMED. Not written by the interop - only
-        /// range-checked by Ams2LayoutCheck.
+        /// (2026-11-03), not from a live read. The setting has five options: No, 25% / 50% / 75%
+        /// race distance, Random. 0 = No; the value of each other option is UNCONFIRMED (most
+        /// likely 1-4 in that order). Not written by the interop - only range-checked by
+        /// Ams2LayoutCheck, whose 0-5 accepts all five options whichever way they're numbered.
         /// </summary>
         public const int ScheduledFcy = 23;
         public const int Refuelling = 24;
