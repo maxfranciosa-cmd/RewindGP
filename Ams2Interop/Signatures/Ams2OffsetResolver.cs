@@ -24,9 +24,11 @@ public sealed class Ams2OffsetOptions
 ///    known to work on (see BuiltInFallback and Ams2Constants.BuiltIn.ConfirmedBuildIds). While no
 ///    build has been recorded as confirmed, they're used on any build with a warning, which is the
 ///    behaviour from before signatures existed.
-/// 2. This build is in the cache: the cached values, after a cheap re-check of the code
+/// 2. This build is in the signature file's known_builds: those values, confirmed by hand for it
+///    (after a sanity check of where they point - see KnownBuildValues).
+/// 3. This build is in the cache: the cached values, after a cheap re-check of the code
 ///    signatures right at the cached addresses.
-/// 3. Otherwise every signature is scanned for. Values that match exactly once are used; the rest
+/// 4. Otherwise every signature is scanned for. Values that match exactly once are used; the rest
 ///    are reported as missing and their features switched off - never guessed. A complete result
 ///    is cached so the next launch on this build skips the scan.
 /// </summary>
@@ -96,9 +98,16 @@ public static class Ams2OffsetResolver
         return rejected;
     }
 
-    /// <summary>Steps 2 and 3 above, over an already-read image - separated out so it can be tested without a process.</summary>
+    /// <summary>Steps 2 to 4 above, over an already-read image - separated out so it can be tested without a process.</summary>
     public static Ams2ResolvedOffsets Resolve(ModuleImage image, long moduleBase, Ams2SignatureFile signatures, string? cacheFilePath, Action<string>? log = null)
     {
+        if (KnownBuildValues(image, signatures, log) is { } known)
+        {
+            var fromFile = new Ams2ResolvedOffsets(moduleBase, image.BuildId, Ams2OffsetSource.KnownBuild, known);
+            log?.Invoke($"Ams2OffsetResolver: {fromFile.Describe()}");
+            return fromFile;
+        }
+
         var cache = cacheFilePath != null ? OffsetCache.Load(cacheFilePath, log) : new OffsetCache();
 
         if (cache.Builds.TryGetValue(image.BuildId, out var cached) && CachedStillValid(image, signatures, cached))
@@ -176,6 +185,35 @@ public static class Ams2OffsetResolver
             log?.Invoke($"Ams2OffsetResolver: '{name}' found by {resolved.Count} of {signatures.Count} signatures "
                         + $"(#{string.Join(", #", resolved.Select(r => r.Index))})");
         return resolved[0].Rva;
+    }
+
+    /// <summary>
+    /// The signature file's known_builds entry for this build, if it has one and it holds together:
+    /// every value present, functions inside the code section, data inside the image. An entry
+    /// that doesn't is ignored (logged), and the build is resolved by cache/scan as usual - a typo
+    /// in a hand-edited file must not point a remote call somewhere random.
+    /// </summary>
+    private static Dictionary<string, long>? KnownBuildValues(ModuleImage image, Ams2SignatureFile signatures, Action<string>? log)
+    {
+        if (signatures.KnownBuild(image.BuildId) is not { } entry) return null;
+
+        var problems = new List<string>();
+        foreach (var name in Ams2OffsetNames.All)
+        {
+            if (!entry.TryGetValue(name, out var rva))
+                problems.Add($"'{name}' missing");
+            else if (Ams2OffsetNames.Code.Contains(name) ? rva < image.TextRva || rva >= image.TextRva + image.Text.Length
+                                                         : rva <= 0 || rva >= image.SizeOfImage)
+                problems.Add($"'{name}' 0x{rva:X} outside the {(Ams2OffsetNames.Code.Contains(name) ? "code section" : "image")}");
+        }
+
+        if (problems.Count > 0)
+        {
+            log?.Invoke($"Ams2OffsetResolver: known_builds entry for {image.BuildId} ignored ({string.Join(", ", problems)})");
+            return null;
+        }
+
+        return Ams2OffsetNames.All.ToDictionary(n => n, n => entry[n]);
     }
 
     private static bool CachedStillValid(ModuleImage image, Ams2SignatureFile signatures, Dictionary<string, long> cached)

@@ -200,7 +200,17 @@ public sealed class Ams2RaceConfigurator : IDisposable
         var image = ModuleImage.TryRead(_mem!, _moduleBase, _log)
             ?? throw new InvalidOperationException("could not read AMS2AVX.exe's code section");
 
-        var result = Ams2SignatureGenerator.Generate(image, knownRvas ?? Ams2OffsetNames.BuiltInRvas);
+        // regenerating over an existing file: keep its known builds, and if it lists this build,
+        // generate from those values (hand-derived for it) rather than the compiled-in ones
+        Ams2SignatureFile? existing = null;
+        try { existing = Ams2SignatureFile.Load(outputPath); }
+        catch (Exception ex) when (ex is IOException or InvalidDataException or System.Text.Json.JsonException)
+        {
+            _log?.Invoke($"GenerateSignatures: existing '{outputPath}' unreadable ({ex.Message}) - its known builds are not kept");
+        }
+
+        var truth = knownRvas ?? (IReadOnlyDictionary<string, long>?)existing?.KnownBuild(image.BuildId) ?? Ams2OffsetNames.BuiltInRvas;
+        var result = Ams2SignatureGenerator.Generate(image, truth, existing?.KnownBuilds);
         foreach (var line in result.Report) _log?.Invoke($"GenerateSignatures: {line}");
         if (result.Complete) result.File.Save(outputPath);
         return result;

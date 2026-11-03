@@ -145,7 +145,7 @@ namespace AMS2ChEd.Tests.Ams2Interop
             var oldBuild = FakeBuild.Create(textPadding: 0, dataShift: 0);
             var signatures = Ams2SignatureGenerator.Generate(oldBuild.Image, oldBuild.Rvas).File;
 
-            var newBuild = FakeBuild.Create(textPadding: 0x40, dataShift: 0, rewriteSetCar: true);
+            var newBuild = FakeBuild.Create(textPadding: 0x40, dataShift: 0, rewriteSetCar: true, buildId: "NEW-BUILD");
             var offsets = Ams2OffsetResolver.Resolve(newBuild.Image, Ams2Constants.DefaultImageBase, signatures, cacheFilePath: null);
 
             CollectionAssert.AreEqual(new[] { Ams2OffsetNames.SetCar }, offsets.Missing.ToArray());
@@ -259,6 +259,7 @@ namespace AMS2ChEd.Tests.Ams2Interop
         {
             var build = FakeBuild.Create(textPadding: 0, dataShift: 0);
             var signatures = Ams2SignatureGenerator.Generate(build.Image, build.Rvas).File;
+            signatures.KnownBuilds.Clear(); // resolve by signature, not by the entry for this very build
             // a second "setter" signature that actually finds commit
             signatures.Signatures[Ams2OffsetNames.Setter].Add(signatures.Signatures[Ams2OffsetNames.Commit][0]);
             var log = new List<string>();
@@ -338,6 +339,93 @@ namespace AMS2ChEd.Tests.Ams2Interop
             {
                 File.Delete(cachePath);
             }
+        }
+
+        [TestMethod]
+        public void Resolve_KnownBuild_UsedWithoutAnySignatureMatching()
+        {
+            var build = FakeBuild.Create(textPadding: 0x60, dataShift: 0x80, buildId: "NEW-BUILD");
+            var file = new Ams2SignatureFile();
+            file.KnownBuilds["new-build"] = new Dictionary<string, long>(build.Rvas); // ids compare ignoring case
+
+            var offsets = Ams2OffsetResolver.Resolve(build.Image, Ams2Constants.DefaultImageBase, file, cacheFilePath: null);
+
+            Assert.AreEqual(Ams2OffsetSource.KnownBuild, offsets.Source);
+            Assert.IsFalse(offsets.IsDegraded, offsets.Describe());
+            foreach (var name in Ams2OffsetNames.All)
+                Assert.AreEqual(build.Rvas[name], offsets.Rvas[name], name);
+        }
+
+        [TestMethod]
+        public void Resolve_KnownBuildPointingOutsideTheCode_IgnoredAndScannedInstead()
+        {
+            var build = FakeBuild.Create(textPadding: 0, dataShift: 0);
+            var file = Ams2SignatureGenerator.Generate(build.Image, build.Rvas).File;
+            file.KnownBuilds["OLD-BUILD"][Ams2OffsetNames.SetCar] = 0x10; // before the code section
+            var log = new List<string>();
+
+            var offsets = Ams2OffsetResolver.Resolve(build.Image, Ams2Constants.DefaultImageBase, file, cacheFilePath: null, log.Add);
+
+            Assert.AreEqual(Ams2OffsetSource.Scanned, offsets.Source);
+            Assert.AreEqual(build.Rvas[Ams2OffsetNames.SetCar], offsets.Rvas[Ams2OffsetNames.SetCar]);
+            Assert.IsTrue(log.Any(l => l.Contains("known_builds entry for OLD-BUILD ignored") && l.Contains("SetCar")));
+        }
+
+        [TestMethod]
+        public void Resolve_KnownBuildMissingAValue_Ignored()
+        {
+            var build = FakeBuild.Create(textPadding: 0, dataShift: 0);
+            var file = Ams2SignatureGenerator.Generate(build.Image, build.Rvas).File;
+            file.KnownBuilds["OLD-BUILD"].Remove(Ams2OffsetNames.Commit);
+
+            var offsets = Ams2OffsetResolver.Resolve(build.Image, Ams2Constants.DefaultImageBase, file, cacheFilePath: null);
+
+            Assert.AreEqual(Ams2OffsetSource.Scanned, offsets.Source);
+            Assert.IsFalse(offsets.IsDegraded, offsets.Describe());
+        }
+
+        [TestMethod]
+        public void Generate_RecordsThisBuildAndKeepsEarlierKnownBuilds()
+        {
+            var build = FakeBuild.Create(textPadding: 0, dataShift: 0);
+            var earlier = new Dictionary<string, Dictionary<string, long>>
+            {
+                ["EARLIER-BUILD"] = new() { [Ams2OffsetNames.Setter] = 0x1234 },
+                ["old-build"] = new() { [Ams2OffsetNames.Setter] = 0x9999 }, // the same build: replaced, not duplicated
+            };
+
+            var file = Ams2SignatureGenerator.Generate(build.Image, build.Rvas, earlier).File;
+
+            Assert.AreEqual(2, file.KnownBuilds.Count);
+            Assert.AreEqual(0x1234, file.KnownBuilds["EARLIER-BUILD"][Ams2OffsetNames.Setter]);
+            CollectionAssert.AreEquivalent(build.Rvas.ToList(), file.KnownBuild("OLD-BUILD")!.ToList());
+        }
+
+        [TestMethod]
+        public void Generate_Incomplete_RecordsNoKnownBuild()
+        {
+            var build = FakeBuild.Create(textPadding: 0, dataShift: 0);
+            var rvas = new Dictionary<string, long>(build.Rvas);
+            rvas.Remove(Ams2OffsetNames.Commit);
+
+            var result = Ams2SignatureGenerator.Generate(build.Image, rvas);
+
+            Assert.IsFalse(result.Complete);
+            Assert.AreEqual(0, result.File.KnownBuilds.Count);
+        }
+
+        [TestMethod]
+        public void SignatureFile_KnownBuilds_RoundTripAndOptional()
+        {
+            var withNull = Ams2SignatureFile.Parse("{\"format_version\": 2, \"signatures\": {}, \"known_builds\": null}");
+            var without = Ams2SignatureFile.Parse("{\"format_version\": 2, \"signatures\": {}}");
+            var with = Ams2SignatureFile.Parse(
+                "{\"format_version\": 2, \"signatures\": {}, \"known_builds\": {\"6AAABF2C-02EE1000-00000000\": {\"Setter\": 4895792}}}");
+
+            Assert.AreEqual(0, withNull.KnownBuilds.Count);
+            Assert.AreEqual(0, without.KnownBuilds.Count);
+            Assert.AreEqual(0x4ab430, with.KnownBuild("6aaabf2c-02ee1000-00000000")![Ams2OffsetNames.Setter]);
+            Assert.IsNull(with.KnownBuild("OTHER"));
         }
 
         [TestMethod]

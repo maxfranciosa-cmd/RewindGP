@@ -25,9 +25,15 @@ public static class Ams2SignatureGenerator
     public const int MaxCodeAlternates = 2;
     public const int MaxDataSignatures = 3;
 
-    public static Ams2SignatureGenerationResult Generate(ModuleImage image, IReadOnlyDictionary<string, long> knownRvas)
+    /// <param name="previousKnownBuilds">known_builds of the file being regenerated: kept, so regenerating never forgets a confirmed build.</param>
+    public static Ams2SignatureGenerationResult Generate(ModuleImage image, IReadOnlyDictionary<string, long> knownRvas,
+        IReadOnlyDictionary<string, Dictionary<string, long>>? previousKnownBuilds = null)
     {
         var file = new Ams2SignatureFile { GeneratedFromBuild = image.BuildId, GeneratedAt = DateTime.UtcNow };
+        if (previousKnownBuilds != null)
+            foreach (var (buildId, values) in previousKnownBuilds)
+                if (!string.Equals(buildId, image.BuildId, StringComparison.OrdinalIgnoreCase))
+                    file.KnownBuilds[buildId] = new Dictionary<string, long>(values);
         var failed = new List<string>();
         var report = new List<string> { $"build {image.BuildId}, code section at RVA 0x{image.TextRva:X}, {image.Text.Length:N0} bytes" };
 
@@ -71,6 +77,14 @@ public static class Ams2SignatureGenerator
                 failed.Add(name);
                 report.Add($"{name}: 0x{rva:X} -> NO unique signature found");
             }
+        }
+
+        // the values generated from are, by this method's contract, the confirmed ones for this build
+        if (failed.Count == 0)
+        {
+            file.KnownBuilds[image.BuildId] = Ams2OffsetNames.All.ToDictionary(n => n, n => knownRvas[n]);
+            report.Add($"known_builds: {image.BuildId} recorded" +
+                       (file.KnownBuilds.Count > 1 ? $" (kept {file.KnownBuilds.Count - 1} earlier build(s))" : ""));
         }
 
         return new Ams2SignatureGenerationResult { File = file, Failed = failed, Report = report };

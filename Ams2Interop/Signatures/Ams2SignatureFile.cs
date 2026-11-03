@@ -32,6 +32,29 @@ public sealed class Ams2SignatureFile
     [JsonPropertyName("signatures")]
     public Dictionary<string, List<Ams2Signature>> Signatures { get; set; } = new();
 
+    private Dictionary<string, Dictionary<string, long>> _knownBuilds = new();
+
+    /// <summary>
+    /// Build id -> offset name -> RVA, for builds these exact values are CONFIRMED working on (a real
+    /// launch applied car, track and date). Used as-is on that build, ahead of the cache and the
+    /// scan, so a build whose signatures broke can be supported by editing this file alone - no
+    /// rebuild. "generate" adds the build it ran on and keeps the entries already in the file.
+    /// Optional: absent in version 1 files and in version 2 files written before it existed (older
+    /// readers ignore it).
+    /// </summary>
+    [JsonPropertyName("known_builds")]
+    public Dictionary<string, Dictionary<string, long>> KnownBuilds
+    {
+        get => _knownBuilds;
+        set => _knownBuilds = value ?? new();
+    }
+
+    /// <summary>The known_builds entry for a build id, ignoring case; null when there's none.</summary>
+    public Dictionary<string, long>? KnownBuild(string? buildId) =>
+        buildId == null
+            ? null
+            : KnownBuilds.FirstOrDefault(kv => string.Equals(kv.Key, buildId, StringComparison.OrdinalIgnoreCase)).Value;
+
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,

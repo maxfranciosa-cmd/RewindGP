@@ -47,6 +47,12 @@ public enum Ams2OffsetSource
     /// </summary>
     BuiltInUnverified,
 
+    /// <summary>
+    /// Values listed for this exact build in the signature file's known_builds (confirmed working on
+    /// it by hand). Lets a build whose signatures broke be supported by a data update alone.
+    /// </summary>
+    KnownBuild,
+
     /// <summary>Values found by signature for this exact build on an earlier run.</summary>
     Cached,
 

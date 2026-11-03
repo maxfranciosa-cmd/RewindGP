@@ -5,13 +5,15 @@ using Ams2Interop.Signatures;
 //
 //   status   [--signatures <file>] [--cache <file>]
 //       Resolves the offsets for the running build exactly as the app does, and says which were
-//       found and how (built-in unverified / cached / scanned / built-in rejected). Prints the
-//       build id to copy into Ams2Constants.BuiltIn.ConfirmedBuildIds. Read-only.
+//       found and how (built-in unverified / known build / cached / scanned / built-in rejected).
+//       Prints the build id to copy into Ams2Constants.BuiltIn.ConfirmedBuildIds. Read-only.
 //
 //   generate [<output file>]
-//       Builds a signature file from the running build, taking Ams2Constants.BuiltIn as correct.
-//       Only run it on a build those values are confirmed working on. Default output:
-//       ams2_signatures.json in the current directory - copy it into the Ams2Interop project folder.
+//       Builds a signature file from the running build, taking as correct the output file's own
+//       known_builds entry for this build if it has one, else Ams2Constants.BuiltIn. Only run it
+//       on a build those values are confirmed working on. Records the build in known_builds and
+//       keeps the known builds already in the output file. Default output: ams2_signatures.json in
+//       the current directory - copy it into the Ams2Interop project folder.
 
 var command = args.FirstOrDefault()?.ToLowerInvariant();
 if (command is not ("status" or "generate"))
@@ -49,6 +51,8 @@ if (command == "status")
         : offsets.BuildId != null && confirmed.Contains(offsets.BuildId, StringComparer.OrdinalIgnoreCase)
             ? "  (a confirmed build for Ams2Constants.BuiltIn)"
             : "  (NOT one of Ams2Constants.BuiltIn.ConfirmedBuildIds)");
+    if (offsets.Source == Ams2OffsetSource.KnownBuild)
+        Console.WriteLine("  (listed in the signature file's known_builds - its values are used)");
     Console.WriteLine("========================================================");
     Console.WriteLine(offsets.Describe());
     foreach (var name in Ams2OffsetNames.All)
