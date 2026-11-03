@@ -241,6 +241,16 @@ public static class Ams2Constants
         public const int OpponentsTypeKind = 31;  // 0=identical, 1=same class, 2=multiclass
         // Slots 37-40 are also written by CommitRva. 37/39 looked like the number of cars
         // available in the selected class (26 in the one live read); 38/40 are undecoded.
+
+        /// <summary>
+        /// Written by CommitRva; UNCONFIRMED meaning - looked like the number of cars available in
+        /// the selected class (26 in the one live read). Only read, as a sanity check after commit
+        /// (see CustomRaceWriter.CheckCommitResult).
+        /// </summary>
+        public const int CommitClassCountA = 37;
+
+        /// <summary>See CommitClassCountA - same reading, same caveat.</summary>
+        public const int CommitClassCountB = 39;
     }
 
     /// <summary>VM550 slots (session / rules).</summary>

@@ -426,8 +426,9 @@ public sealed class Ams2RaceConfigurator : IDisposable
 
         // AMS2's own AI-opponent vehicle-class-count recompute (see Ams2Constants.CommitRva's doc
         // comment) - mirrors what SetCarRva itself calls internally when values change. Unrelated
-        // to RaceDate/session fields. No read-back verification is available for it.
+        // to RaceDate/session fields. Its only read-back is CheckCommitResult's advisory sanity check.
         var canCommit = Offsets?.CanCommit != false;
+        List<(string Field, int Wanted, int? Got)> commitProblems = new();
         if (sessionRules != null && !canCommit)
             errors.Add($"opponent class recount skipped: commit not found for this AMS2 version ({Offsets!.Describe()})");
 
@@ -437,7 +438,9 @@ public sealed class Ams2RaceConfigurator : IDisposable
             var committed = await Task.Run(() => _exec!.Call(commitAddress, commitMaster, 0), ct)
                 .ConfigureAwait(false);
             if (!committed)
-                errors.Add("commit call did not complete (no read-back verification is available for this call)");
+                errors.Add("commit call did not complete");
+            else
+                commitProblems = writer.CheckCommitResult(vm498, layout);
         }
 
         // SetCar/commit recompute AMS2's own opponent counts for the newly-selected car, overwriting
@@ -451,13 +454,20 @@ public sealed class Ams2RaceConfigurator : IDisposable
         }
         unverified.AddRange(opponentsUnverified);
         unverified.AddRange(layout.Failures);
+        unverified.AddRange(commitProblems);
 
         _log?.Invoke($"ApplyRaceConfigAsync: done - {errors.Count} error(s), {unverified.Count} unverified field(s)"
             + (layout.AnyFailed ? " | LAYOUT CHECK FAILED" : "")
             + (errors.Count > 0 ? $" | errors: {string.Join("; ", errors)}" : "")
             + (unverified.Count > 0 ? $" | unverified: {string.Join("; ", unverified.Select(u => $"{u.Item1}(wanted={u.Item2}, actual={u.Item3?.ToString() ?? "null"})"))}" : ""));
 
-        return new RaceConfigResult { Errors = errors, UnverifiedFields = unverified, LayoutCheckFailed = layout.AnyFailed };
+        return new RaceConfigResult
+        {
+            Errors = errors,
+            UnverifiedFields = unverified,
+            AdvisoryFields = commitProblems.Select(p => p.Field).ToArray(),
+            LayoutCheckFailed = layout.AnyFailed
+        };
     }
 
     /// <summary>See Ams2Constants.SetCarValidationGateRva's doc comment for the full evidence behind each code.</summary>

@@ -124,7 +124,15 @@ public sealed record PlayerIdentity(string Forename, string Surname, string Hand
 /// </summary>
 public sealed class RaceConfigResult
 {
-    public bool Success => UnverifiedFields.Count == 0 && Errors.Count == 0;
+    /// <summary>No errors, and nothing unverified except AdvisoryFields entries.</summary>
+    public bool Success => Errors.Count == 0 && UnverifiedFields.All(u => AdvisoryFields.Contains(u.Field));
+
+    /// <summary>
+    /// Names of UnverifiedFields entries that are reported for diagnosis only and don't make the
+    /// call unsuccessful - so far only the UNCONFIRMED sanity check after commit
+    /// ("Commit result unverified", see CustomRaceWriter.CheckCommitResult).
+    /// </summary>
+    public IReadOnlyCollection<string> AdvisoryFields { get; init; } = Array.Empty<string>();
 
     public IReadOnlyList<string> Errors { get; init; } = Array.Empty<string>();
 

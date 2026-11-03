@@ -176,6 +176,40 @@ public sealed class CustomRaceWriter
         if (!liveryOk || actualLivery != livery) unverified.Add(("SetCar(livery)", livery, liveryOk ? actualLivery : null));
     }
 
+    /// <summary>Prefix of the UnverifiedFields entries CheckCommitResult adds - advisory only, see RaceConfigResult.AdvisoryFields.</summary>
+    public const string CommitResultField = "Commit result unverified";
+
+    /// <summary>
+    /// Sanity check after a COMPLETED commit call, which otherwise has no read-back: the VM498
+    /// slots Ams2Constants says commit writes (Vm498Slot.CommitClassCountA/B, 37 and 39) must read
+    /// with a valid tag and hold 1-64 (MaxPlausibleRivalCount) - a class count.
+    ///
+    /// UNCONFIRMED: what these slots mean is only partly decoded (one live read, 26), so a failure
+    /// here is logged and returned as an advisory entry ("Commit result unverified") - it does NOT
+    /// fail the launch. Nothing is checked when VM498 isn't resolved or failed its layout check
+    /// (its slots can't be trusted to mean anything then).
+    /// </summary>
+    public List<(string Field, int Wanted, int? Got)> CheckCommitResult(long? vm498, CustomRaceLayout layout)
+    {
+        var problems = new List<(string, int, int?)>();
+        if (vm498 is not long v498 || layout.Vm498Failed)
+        {
+            _log?.Invoke("CustomRaceWriter: commit result not checked - VM498 not resolved or failed its layout check");
+            return problems;
+        }
+
+        foreach (var slot in new[] { Ams2Constants.Vm498Slot.CommitClassCountA, Ams2Constants.Vm498Slot.CommitClassCountB })
+        {
+            var status = _mem.ReadSlot(v498, slot, _intPropertyTag, out var value);
+            if (status == SlotReadStatus.Ok && value is >= 1 and <= Ams2LayoutCheck.MaxPlausibleRivalCount) continue;
+
+            var what = status == SlotReadStatus.Ok ? $"= {value}, expected 1-{Ams2LayoutCheck.MaxPlausibleRivalCount}" : status.ToString();
+            problems.Add(($"{CommitResultField} (VM498 slot {slot} {what})", 0, status == SlotReadStatus.Ok ? value : null));
+            _log?.Invoke($"CustomRaceWriter: {CommitResultField} - VM498 slot {slot} {what} (UNCONFIRMED check, not failing the launch)");
+        }
+        return problems;
+    }
+
     /// <summary>Writes the opponents to VM498. Callers must not call it when the VM498 layout check failed.</summary>
     public void ApplyOpponents(long vm498, OpponentsConfig cfg, List<(string, int, int?)> unverified)
     {
