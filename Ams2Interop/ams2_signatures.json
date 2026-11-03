@@ -1,0 +1,131 @@
+{
+  "format_version": 2,
+  "generated_from_build": "6AAABF2C-02EE1000-00000000",
+  "generated_at": "2026-11-03T21:55:47.0377372Z",
+  "signatures": {
+    "Setter": [
+      {
+        "kind": "code",
+        "pattern": "48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 48 8B 41 08 8B F2 48 8B F9 4C 63 40 04 41 39 94 08 94 01 00 00"
+      },
+      {
+        "kind": "code",
+        "pattern": "74 1C 41 89 94 08 94 01 00 00 48 8B 41 08 48 83 C1 08",
+        "offset": 36
+      },
+      {
+        "kind": "code",
+        "pattern": "4C 63 40 04 49 03 C8 E8 ?? ?? ?? ?? 48 8B 47 08 48 63 48 04 48 83 C1 08 48 03 CF E8 ?? ?? ?? ?? 48 8B 57 08 48 63 42 04 83 BC 38 54 01 00 00 00 75 04 33 DB EB 14",
+        "offset": 54
+      }
+    ],
+    "SetCar": [
+      {
+        "kind": "code",
+        "pattern": "44 89 44 24 18 89 54 24 10 55 53 56 41 55 41 56"
+      },
+      {
+        "kind": "code",
+        "pattern": "41 57 48 8D AC 24 28 FF FF FF 48 81 EC D8 01 00 00 45 8B F1",
+        "offset": 16
+      },
+      {
+        "kind": "code",
+        "pattern": "44 89 4C 24 40 45 8B F8 8B DA 4C 8B E9 E8 ?? ?? ?? ??",
+        "offset": 36
+      }
+    ],
+    "Commit": [
+      {
+        "kind": "code",
+        "pattern": "48 8B C4 55 41 57 48 8D 68 A1 48 81 EC B8 00 00 00"
+      },
+      {
+        "kind": "code",
+        "pattern": "48 83 B9 50 02 00 00 00 4C 8B F9 0F 84 ?? ?? ?? ??",
+        "offset": 17
+      },
+      {
+        "kind": "code",
+        "pattern": "48 89 58 08 48 89 78 18 48 8B 81 E0 00 00 00 8B 98 8C 01 00 00",
+        "offset": 34
+      }
+    ],
+    "IntPropertyTypeTag": [
+      {
+        "kind": "data_ref",
+        "pattern": "48 8D 05 ?? ?? ?? ?? 33 F6 89 74 24 60 48 89 01",
+        "disp_offset": 3,
+        "instruction_length": 7
+      },
+      {
+        "kind": "data_ref",
+        "pattern": "48 8D 05 ?? ?? ?? ?? 48 8B D3 48 89 07 48 8B 47 08",
+        "disp_offset": 3,
+        "instruction_length": 7
+      },
+      {
+        "kind": "data_ref",
+        "pattern": "48 8D 05 ?? ?? ?? ?? 48 89 6C 24 38 48 89 06 48 8B D9",
+        "disp_offset": 3,
+        "instruction_length": 7
+      }
+    ],
+    "Vm498IdentityTag": [
+      {
+        "kind": "data_ref",
+        "pattern": "48 8D 05 ?? ?? ?? ?? 48 8B D9 33 FF 89 7C 24 48 48 89 41 08 48 81 C1 A8 01 00 00",
+        "disp_offset": 3,
+        "instruction_length": 7
+      }
+    ],
+    "Vm550IdentityTag": [
+      {
+        "kind": "data_ref",
+        "pattern": "48 8D 05 ?? ?? ?? ?? C7 44 24 38 00 00 00 00 48 89 41 08 48 8B F9",
+        "disp_offset": 3,
+        "instruction_length": 7
+      }
+    ],
+    "Vm498ContainerTag": [
+      {
+        "kind": "data_ref",
+        "pattern": "48 8D 05 ?? ?? ?? ?? 48 8B D9 33 FF 89 7C 24 38 48 89 41 08 48 81 C1 70 02 00 00",
+        "disp_offset": 3,
+        "instruction_length": 7
+      }
+    ],
+    "GameplaySettingsPointer": [
+      {
+        "kind": "data_ref",
+        "pattern": "48 8B 05 ?? ?? ?? ?? 44 39 B0 E0 09 00 00 74 55",
+        "disp_offset": 3,
+        "instruction_length": 7
+      },
+      {
+        "kind": "data_ref",
+        "pattern": "48 8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 85 C0 7E 0A",
+        "disp_offset": 3,
+        "instruction_length": 7
+      },
+      {
+        "kind": "data_ref",
+        "pattern": "48 8B 05 ?? ?? ?? ?? 83 B8 14 0B 00 00 02 75 43",
+        "disp_offset": 3,
+        "instruction_length": 7
+      }
+    ]
+  },
+  "known_builds": {
+    "6AAABF2C-02EE1000-00000000": {
+      "Setter": 4895792,
+      "SetCar": 4180672,
+      "Commit": 4180016,
+      "IntPropertyTypeTag": 33494616,
+      "Vm498IdentityTag": 33409832,
+      "Vm550IdentityTag": 33410016,
+      "Vm498ContainerTag": 33412376,
+      "GameplaySettingsPointer": 43551208
+    }
+  }
+}
