@@ -253,13 +253,14 @@ qualifying) — same shape either way, applied against whichever VM that config 
 |---|---|---|
 | `Slots` | `IReadOnlyList<WeatherType>?` | 1–4 slots, in order. AMS2 itself repeats the last slot when fewer than 4 are given — this library doesn't pre-fill the rest. More than 4 is rejected (`UnverifiedFields`), not truncated. |
 
-`WeatherType` values are AMS2's own catalogue: `Clear`, `LightClouds`, `MediumClouds`,
-`HeavyClouds`, `Overcast`, `LightRain`, `Rain`, `Storm`, `Thunderstorm`, `Hazy`, `FogWithRain`,
-`HeavyFog`, `HeavyFogWithRain`, `Fog`, `Random`.
+`WeatherType` values: `Clear`, `LightClouds`, `MediumClouds`, `HeavyClouds`, `Overcast`,
+`LightRain`, `Rain`, `Storm`, `Thunderstorm`, `Hazy`, `FogWithRain`, `HeavyFog`,
+`HeavyFogWithRain`, `Fog`, `Random` - the value-to-weather mapping is unconfirmed (see the
+warning on the enum in `Enums.cs`).
 
-**Open question**: whether writing slot values alone actually changes the weather AMS2 uses, or
-whether — mirroring `RaceDate` needing `DateType=Custom` first — there's a separate RealHistoric-
-vs-Custom mode slot that also needs setting. No such slot has been identified.
+The historic-vs-custom mode is its own slot, `Vm550Slot.WeatherType` (28), written before the
+slots: 0 for custom, 2 (with a count of 0) for `HistoricalWeather`. **UNCONFIRMED / CONFLICTING**
+with an older note saying slot 28 is always sent as the constant 12 - needs in-game verification.
 
 ## Interpreting `RaceConfigResult`
 

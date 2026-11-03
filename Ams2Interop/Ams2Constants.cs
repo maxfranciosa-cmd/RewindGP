@@ -123,7 +123,8 @@ public static class Ams2Constants
     /// STALE for the current build (this value predates the 2026-09-20 patch). Extrapolating the
     /// +0x120 patch delta predicts `0x3fb500`, but that's unobserved. Ams2RaceConfigurator does NOT
     /// call it - remote-calling an unconfirmed address can crash the game. Confirm the real value
-    /// before re-enabling.
+    /// before re-enabling. Deliberately kept out of Ams2OffsetNames (no signature is generated or
+    /// resolved for it): nothing may call it until it's re-derived and live-confirmed.
     /// </summary>
     public const long SetCarValidationGateRva = 0x3fb3e0; // KNOWN STALE - do not call without re-deriving; predicted (unconfirmed) replacement: 0x3fb500
 
@@ -290,8 +291,9 @@ public static class Ams2Constants
         /// VM550 (race session) same as any other slot, and independently on Practice1/Qualifying1's
         /// own VMs - the underlying slot is per-session, not shared, even though all three sessions
         /// are typically sent the same count.
-        /// UNCONFIRMED whether a separate RealHistoric-vs-Custom mode slot also needs setting
-        /// first (mirrors the RaceDate/DateType relationship) - none was identified.
+        /// The historic-vs-custom weather mode has its own slot, WeatherType (28): ApplyWeather
+        /// writes it (0 = custom, 2 = historic) before this count - see WeatherType's
+        /// UNCONFIRMED / CONFLICTING note.
         /// </summary>
         public const int WeatherSlotCount = 0x20;
 
@@ -303,6 +305,10 @@ public static class Ams2Constants
         // Slot 0x1c (28) is always sent as the constant 12, part of the same
         // "WEATHER(28/32/33/36/39/42)" group, but it never varies with user input, so its
         // purpose/meaning wasn't decoded and it's not exposed here.
+        // UNCONFIRMED / CONFLICTING: the note above predates WeatherType below, which IS slot 28
+        // (0x1c) and IS written by ApplyWeather as 0 (custom) or 2 (historic). The two readings
+        // contradict each other - which one holds needs in-game verification (set custom and
+        // historic weather in AMS2's UI and read slot 28 each time). Behaviour is unchanged.
 
         public const int DurationTypeFlag = 7;    // 0 = time mode, 1 = laps mode - a binary switch, NOT a format enum
         public const int DurationMinutes = 8;     // used only when DurationTypeFlag == 0
@@ -315,6 +321,14 @@ public static class Ams2Constants
         public const int Fcy = 23;                // 0-5, 0 = off; meaning of 1-5 not decoded
         public const int Refuelling = 24;
         public const int TimeProgression = 27;    // 0x1b - 1=real,2=x2,3=x5,4=x10
+        /// <summary>
+        /// Weather mode: 0 = custom (the WeatherSlot values apply), 2 = historic - written by
+        /// ApplyWeather ahead of WeatherSlotCount.
+        /// UNCONFIRMED / CONFLICTING: this is the same slot (28 = 0x1c) that the note above
+        /// WeatherSlot4 describes as "always sent as the constant 12" and never varying with user
+        /// input. Both can't be right; needs in-game verification. Not part of Ams2LayoutCheck
+        /// for that reason.
+        /// </summary>
         public const int WeatherType = 28;          // 0=custom,2=historic
         public const int DateType = 48;
         public const int Hour = 51;               // 0x33

@@ -145,10 +145,16 @@ application already drives) before calling `ApplyRaceConfigAsync`.
   overwrites the opponent count, which is why opponents are written again after it.
 - **Practice/Qualifying `Enabled`/weather are confirmed by analysis, not live-tested by this
   library** — see the EXPERIMENTAL bullet above. `Enabled` replicates a 3-slot write pattern
-  (`Vm550Slot.SessionEnabled`/`SessionEnabledPaired1`/`SessionEnabledPaired2`). Weather has one
-  known open question: whether writing slot values alone is sufficient, or whether — mirroring
-  `RaceDate` needing `DateType=Custom` — there's a separate RealHistoric-vs-Custom mode slot that
-  also needs setting first. No such slot has been identified.
+  (`Vm550Slot.SessionEnabled`/`SessionEnabledPaired1`/`SessionEnabledPaired2`). Weather's
+  historic-vs-custom mode has its own slot, `Vm550Slot.WeatherType` (28): `ApplyWeather` writes 0
+  (custom) or 2 (historic) before the count. **UNCONFIRMED / CONFLICTING**: an older note in
+  `Ams2Constants.cs` says slot 28 (0x1c) is always sent as the constant 12 and never varies with
+  user input. Both readings are kept, flagged, and need checking in game.
+- **The car/track hash catalogs are data, not a patch risk** — `IAms2HashCatalogProvider` /
+  `Ams2InteropHashCatalogLoader` (in `Ams2ChEd.Business.AMS2`) map car and track names to AMS2's
+  hashes from data files. Content AMS2 adds after those files were last updated simply isn't in
+  them; that already surfaces as an unknown car/track and falls back to the manual-instructions
+  flow, so nothing is written for it.
 
 ## Usage
 

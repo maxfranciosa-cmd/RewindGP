@@ -56,10 +56,12 @@ public sealed class SessionRulesConfig
 /// exactly the slots you give it and lets AMS2 handle the repeat, rather than pre-filling the
 /// remaining slots itself.
 ///
-/// UNCONFIRMED whether writing slot values alone is enough, or whether - mirroring RaceDate
-/// needing DateType=Custom first - there's a separate RealHistoric-vs-Custom weather-mode slot
-/// that also needs setting. No such slot has been identified. If slots write and
-/// verify but the weather doesn't visibly change in-game, that's the first thing to suspect.
+/// The historic-vs-custom weather mode is its own slot, Vm550Slot.WeatherType (28): ApplyWeather
+/// writes 0 (custom) before the slots, or 2 (historic, with a count of 0) when HistoricalWeather
+/// is set - mirroring RaceDate needing DateType=Custom. UNCONFIRMED / CONFLICTING: an older note
+/// on Ams2Constants.Vm550Slot says slot 28 is always sent as the constant 12; which reading holds
+/// needs in-game verification (see Vm550Slot.WeatherType). If slots write and verify but the
+/// weather doesn't visibly change in-game, that's the first thing to suspect.
 /// </summary>
 public sealed class SessionWeatherConfig
 {
