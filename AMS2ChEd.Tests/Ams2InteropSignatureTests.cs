@@ -106,7 +106,7 @@ namespace AMS2ChEd.Tests.Ams2Interop
 
             Assert.IsTrue(result.Complete, string.Join("\n", result.Report));
             foreach (var name in Ams2OffsetNames.All)
-                Assert.AreEqual(build.Rvas[name], result.File.Signatures[name].Resolve(build.Image), name);
+                Assert.AreEqual(build.Rvas[name], result.File.Signatures[name][0].Resolve(build.Image), name);
         }
 
         [TestMethod]
@@ -114,7 +114,7 @@ namespace AMS2ChEd.Tests.Ams2Interop
         {
             var build = FakeBuild.Create(textPadding: 0, dataShift: 0);
 
-            var setter = Ams2SignatureGenerator.Generate(build.Image, build.Rvas).File.Signatures[Ams2OffsetNames.Setter];
+            var setter = Ams2SignatureGenerator.Generate(build.Image, build.Rvas).File.Signatures[Ams2OffsetNames.Setter][0];
 
             // the decoy shares the setter's first 14 bytes, so 16 alone wouldn't be unique
             Assert.IsTrue(BytePattern.Parse(setter.Pattern).Length > 14);
@@ -214,11 +214,129 @@ namespace AMS2ChEd.Tests.Ams2Interop
 
                 Assert.AreEqual(generated.GeneratedFromBuild, loaded.GeneratedFromBuild);
                 foreach (var name in Ams2OffsetNames.All)
-                    Assert.AreEqual(build.Rvas[name], loaded.Signatures[name].Resolve(build.Image), name);
+                    Assert.AreEqual(build.Rvas[name], loaded.Signatures[name][0].Resolve(build.Image), name);
             }
             finally
             {
                 File.Delete(path);
+            }
+        }
+
+        [TestMethod]
+        public void Generate_KeepsAlternates_EachLeadingBackToTheKnownValue()
+        {
+            var build = FakeBuild.Create(textPadding: 0, dataShift: 0);
+
+            var file = Ams2SignatureGenerator.Generate(build.Image, build.Rvas).File;
+
+            var setter = file.Signatures[Ams2OffsetNames.Setter];
+            Assert.IsTrue(setter.Count > 1, "the setter should have at least one alternate");
+            Assert.IsNull(setter[0].Offset, "the primary pattern starts at the function itself");
+            Assert.IsTrue(setter.Skip(1).All(s => s.Offset > 0));
+            Assert.AreEqual(setter.Count, setter.Select(s => s.Offset).Distinct().Count(), "alternates start at distinct boundaries");
+            foreach (var name in Ams2OffsetNames.All)
+                foreach (var signature in file.Signatures[name])
+                    Assert.AreEqual(build.Rvas[name], signature.Resolve(build.Image), name);
+        }
+
+        [TestMethod]
+        public void Resolve_PrimaryPatternBroken_AnAlternateStillFindsTheValue()
+        {
+            var oldBuild = FakeBuild.Create(textPadding: 0, dataShift: 0);
+            var signatures = Ams2SignatureGenerator.Generate(oldBuild.Image, oldBuild.Rvas).File;
+
+            var newBuild = FakeBuild.Create(textPadding: 0x60, dataShift: 0x80, rewriteSetterPrologue: true, buildId: "NEW-BUILD");
+
+            Assert.IsNull(signatures.Signatures[Ams2OffsetNames.Setter][0].Resolve(newBuild.Image), "the primary must really be broken");
+            var offsets = Ams2OffsetResolver.Resolve(newBuild.Image, Ams2Constants.DefaultImageBase, signatures, cacheFilePath: null);
+
+            Assert.IsFalse(offsets.IsDegraded, offsets.Describe());
+            Assert.AreEqual(newBuild.Rvas[Ams2OffsetNames.Setter], offsets.Rvas[Ams2OffsetNames.Setter]);
+        }
+
+        [TestMethod]
+        public void Resolve_SignaturesDisagree_ValueIsMissing()
+        {
+            var build = FakeBuild.Create(textPadding: 0, dataShift: 0);
+            var signatures = Ams2SignatureGenerator.Generate(build.Image, build.Rvas).File;
+            // a second "setter" signature that actually finds commit
+            signatures.Signatures[Ams2OffsetNames.Setter].Add(signatures.Signatures[Ams2OffsetNames.Commit][0]);
+            var log = new List<string>();
+
+            var offsets = Ams2OffsetResolver.Resolve(build.Image, Ams2Constants.DefaultImageBase, signatures, cacheFilePath: null, log.Add);
+
+            CollectionAssert.AreEqual(new[] { Ams2OffsetNames.Setter }, offsets.Missing.ToArray());
+            Assert.IsFalse(offsets.CanWriteSlots);
+            var disagreement = log.Single(l => l.Contains("disagree"));
+            StringAssert.Contains(disagreement, $"0x{build.Rvas[Ams2OffsetNames.Setter]:X}");
+            StringAssert.Contains(disagreement, $"0x{build.Rvas[Ams2OffsetNames.Commit]:X}");
+        }
+
+        [TestMethod]
+        public void SignatureFile_FormatVersion1_StillLoadsAndResolves()
+        {
+            var oldBuild = FakeBuild.Create(textPadding: 0, dataShift: 0);
+            var generated = Ams2SignatureGenerator.Generate(oldBuild.Image, oldBuild.Rvas).File;
+            // the version-1 shape: one signature object per name, no offsets
+            var v1Json = System.Text.Json.JsonSerializer.Serialize(new Dictionary<string, object?>
+            {
+                ["format_version"] = 1,
+                ["generated_from_build"] = "OLD-BUILD",
+                ["generated_at"] = new DateTime(2026, 9, 28, 0, 0, 0, DateTimeKind.Utc),
+                ["signatures"] = generated.Signatures.ToDictionary(kv => kv.Key, kv => (object)new Dictionary<string, object?>
+                {
+                    ["kind"] = kv.Value[0].Kind,
+                    ["pattern"] = kv.Value[0].Pattern,
+                    ["disp_offset"] = kv.Value[0].DispOffset,
+                    ["instruction_length"] = kv.Value[0].InstructionLength,
+                }),
+            });
+            var path = Path.Combine(Path.GetTempPath(), $"ams2_signatures_v1_{Guid.NewGuid():N}.json");
+            try
+            {
+                File.WriteAllText(path, v1Json);
+
+                var loaded = Ams2SignatureFile.Load(path)!;
+                var newBuild = FakeBuild.Create(textPadding: 0x120, dataShift: 0x1A0, buildId: "NEW-BUILD");
+                var offsets = Ams2OffsetResolver.Resolve(newBuild.Image, Ams2Constants.DefaultImageBase, loaded, cacheFilePath: null);
+
+                Assert.AreEqual("OLD-BUILD", loaded.GeneratedFromBuild);
+                Assert.IsTrue(loaded.Signatures.Values.All(list => list.Count == 1));
+                Assert.IsFalse(offsets.IsDegraded, offsets.Describe());
+                foreach (var name in Ams2OffsetNames.All)
+                    Assert.AreEqual(newBuild.Rvas[name], offsets.Rvas[name], name);
+            }
+            finally
+            {
+                File.Delete(path);
+            }
+        }
+
+        [TestMethod]
+        public void SignatureFile_UnknownFormatVersion_Throws()
+        {
+            Assert.Throws<InvalidDataException>(() => Ams2SignatureFile.Parse("{\"format_version\": 7, \"signatures\": {}}"));
+        }
+
+        [TestMethod]
+        public void Resolve_CachedBuildWithBrokenPrimary_CacheAcceptedThroughAnAlternate()
+        {
+            var cachePath = Path.Combine(Path.GetTempPath(), $"ams2_offsets_{Guid.NewGuid():N}.json");
+            try
+            {
+                var oldBuild = FakeBuild.Create(textPadding: 0, dataShift: 0);
+                var signatures = Ams2SignatureGenerator.Generate(oldBuild.Image, oldBuild.Rvas).File;
+                var newBuild = FakeBuild.Create(textPadding: 0x60, dataShift: 0, rewriteSetterPrologue: true, buildId: "NEW-BUILD");
+
+                Ams2OffsetResolver.Resolve(newBuild.Image, Ams2Constants.DefaultImageBase, signatures, cachePath);
+                var second = Ams2OffsetResolver.Resolve(newBuild.Image, Ams2Constants.DefaultImageBase, signatures, cachePath);
+
+                Assert.AreEqual(Ams2OffsetSource.Cached, second.Source);
+                Assert.AreEqual(newBuild.Rvas[Ams2OffsetNames.Setter], second.Rvas[Ams2OffsetNames.Setter]);
+            }
+            finally
+            {
+                File.Delete(cachePath);
             }
         }
 
@@ -247,7 +365,8 @@ namespace AMS2ChEd.Tests.Ams2Interop
             public ModuleImage Image { get; private init; } = null!;
             public Dictionary<string, long> Rvas { get; private init; } = null!;
 
-            public static FakeBuild Create(int textPadding, long dataShift, bool rewriteSetCar = false, string buildId = "OLD-BUILD")
+            public static FakeBuild Create(int textPadding, long dataShift, bool rewriteSetCar = false, string buildId = "OLD-BUILD",
+                bool rewriteSetterPrologue = false)
             {
                 var data = new Dictionary<string, long>
                 {
@@ -270,7 +389,8 @@ namespace AMS2ChEd.Tests.Ams2Interop
                 asm.Pad(0x30);
 
                 asm.Label(Ams2OffsetNames.Setter);
-                asm.Emit("48 89 5C 24 08 57 48 83 EC 20 48 8B D9 8B FA");
+                // a patch that changes only the first instruction: mov [rsp+10h], rsi instead of mov [rsp+8], rbx
+                asm.Emit(rewriteSetterPrologue ? "48 89 74 24 10 57 48 83 EC 20 48 8B D9 8B FA" : "48 89 5C 24 08 57 48 83 EC 20 48 8B D9 8B FA");
                 asm.EmitRip("48 8D 05", Ams2OffsetNames.IntPropertyTypeTag);
                 asm.Emit("48 39 43 E8 75 0F 89 BB 8C 01 00 00");
                 asm.EmitRel("E8", "Elsewhere");

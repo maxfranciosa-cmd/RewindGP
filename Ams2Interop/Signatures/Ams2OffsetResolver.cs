@@ -111,32 +111,17 @@ public static class Ams2OffsetResolver
         var found = new Dictionary<string, long>();
         foreach (var name in Ams2OffsetNames.All)
         {
-            if (!signatures.Signatures.TryGetValue(name, out var signature))
+            if (!signatures.Signatures.TryGetValue(name, out var list) || list.Count == 0)
             {
                 log?.Invoke($"Ams2OffsetResolver: no signature for '{name}'");
                 continue;
             }
 
-            long? rva;
-            try
-            {
-                rva = signature.Resolve(image);
-            }
-            catch (Exception ex) when (ex is FormatException or ArgumentException)
-            {
-                log?.Invoke($"Ams2OffsetResolver: signature for '{name}' is malformed ({ex.Message})");
-                continue;
-            }
-
-            if (rva is long value)
+            if (ResolveName(name, list, image, log) is long value)
             {
                 found[name] = value;
                 if (Ams2OffsetNames.BuiltInRvas.TryGetValue(name, out var builtIn) && builtIn != value)
                     log?.Invoke($"Ams2OffsetResolver: '{name}' moved: built-in 0x{builtIn:X} -> 0x{value:X}");
-            }
-            else
-            {
-                log?.Invoke($"Ams2OffsetResolver: '{name}' NOT found (signature matched zero or several places)");
             }
         }
 
@@ -152,15 +137,70 @@ public static class Ams2OffsetResolver
         return scanned;
     }
 
+    /// <summary>
+    /// One value from all of its signatures: accepted when at least one resolves uniquely AND every
+    /// signature that resolved agrees on the RVA. Signatures that match nowhere (or several places)
+    /// are simply outvoted - that's what a patch breaking one pattern looks like. Two that resolve
+    /// to different places mean at least one found the wrong thing, and there's no telling which:
+    /// the value is treated as missing, and every candidate is logged.
+    /// </summary>
+    public static long? ResolveName(string name, IReadOnlyList<Ams2Signature> signatures, ModuleImage image, Action<string>? log = null)
+    {
+        var resolved = new List<(int Index, long Rva)>();
+        for (int i = 0; i < signatures.Count; i++)
+        {
+            try
+            {
+                if (signatures[i].Resolve(image) is long rva) resolved.Add((i, rva));
+            }
+            catch (Exception ex) when (ex is FormatException or ArgumentException)
+            {
+                log?.Invoke($"Ams2OffsetResolver: signature #{i} for '{name}' is malformed ({ex.Message})");
+            }
+        }
+
+        if (resolved.Count == 0)
+        {
+            log?.Invoke($"Ams2OffsetResolver: '{name}' NOT found (none of its {signatures.Count} signature(s) matched exactly once)");
+            return null;
+        }
+
+        if (resolved.Select(r => r.Rva).Distinct().Count() > 1)
+        {
+            log?.Invoke($"Ams2OffsetResolver: '{name}' NOT trusted - its signatures disagree: "
+                        + string.Join(", ", resolved.Select(r => $"#{r.Index} -> 0x{r.Rva:X}")));
+            return null;
+        }
+
+        if (resolved.Count < signatures.Count)
+            log?.Invoke($"Ams2OffsetResolver: '{name}' found by {resolved.Count} of {signatures.Count} signatures "
+                        + $"(#{string.Join(", #", resolved.Select(r => r.Index))})");
+        return resolved[0].Rva;
+    }
+
     private static bool CachedStillValid(ModuleImage image, Ams2SignatureFile signatures, Dictionary<string, long> cached)
     {
         if (Ams2OffsetNames.All.Any(n => !cached.ContainsKey(n))) return false;
         foreach (var name in Ams2OffsetNames.Code)
         {
-            if (signatures.Signatures.TryGetValue(name, out var signature) && !signature.StillMatchesAt(image, cached[name]))
+            // any one code signature still matching where it should is enough
+            if (signatures.Signatures.TryGetValue(name, out var list) && list.Count > 0 &&
+                !list.Any(signature => StillMatchesSafely(signature, image, cached[name])))
                 return false;
         }
         return true;
+    }
+
+    private static bool StillMatchesSafely(Ams2Signature signature, ModuleImage image, long rva)
+    {
+        try
+        {
+            return signature.StillMatchesAt(image, rva);
+        }
+        catch (Exception ex) when (ex is FormatException or ArgumentException)
+        {
+            return false;
+        }
     }
 
     private sealed class OffsetCache

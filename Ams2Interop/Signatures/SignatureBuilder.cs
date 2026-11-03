@@ -33,22 +33,80 @@ public static class SignatureBuilder
         => BuildUniquePatternFrom(text, offset, minLength, maxLength, out _);
 
     /// <summary>
+    /// The function-start pattern (offset 0) plus up to <paramref name="maxAlternates"/> alternates,
+    /// each a unique pattern starting at a later instruction boundary of the same function, with
+    /// its offset from the function start. Alternates are taken from boundaries past the end of
+    /// the previous kept pattern first (so they share no bytes with it, and a patch that breaks one
+    /// is less likely to break the next), then from any remaining later boundary. Like the primary,
+    /// nothing past the function's first ret/int3 is used. Empty when even the primary can't be built.
+    /// </summary>
+    public static List<(int OffsetIntoFunction, BytePattern Pattern)> BuildCodeSignatures(byte[] text, int functionOffset,
+        int maxAlternates = 2, int minLength = DefaultMinLength, int maxLength = DefaultMaxLength)
+    {
+        var result = new List<(int, BytePattern)>();
+        var primary = BuildUniquePatternFrom(text, functionOffset, minLength, maxLength, out _);
+        if (primary != null)
+            result.Add((0, primary));
+
+        var boundaries = InstructionBoundaries(text, functionOffset).Where(b => b > functionOffset).ToList();
+        var used = new HashSet<int>();
+        int nextFree = functionOffset + (primary?.Length ?? 0);
+
+        // pass 1: no overlap with the previous kept pattern; pass 2: any later boundary
+        for (int pass = 0; pass < 2 && result.Count(r => r.Item1 != 0) < maxAlternates; pass++)
+        {
+            foreach (var boundary in boundaries)
+            {
+                if (result.Count(r => r.Item1 != 0) >= maxAlternates) break;
+                if (used.Contains(boundary) || (pass == 0 && boundary < nextFree)) continue;
+                if (BuildUniquePatternFrom(text, boundary, minLength, maxLength, out _) is not BytePattern alternate) continue;
+                used.Add(boundary);
+                result.Add((boundary - functionOffset, alternate));
+                nextFree = boundary + alternate.Length;
+            }
+        }
+        return result;
+    }
+
+    /// <summary>
     /// A unique pattern for one of the instructions that reference <paramref name="targetRva"/>
     /// RIP-relatively - the shortest of the first few candidates - or null when no reference
     /// yields one.
     /// </summary>
     public static DataRefSignature? BuildDataRefSignature(byte[] text, long textRva, long targetRva,
         int minLength = DefaultMinLength, int maxLength = DefaultMaxLength)
+        => BuildDataRefSignatures(text, textRva, targetRva, 1, minLength, maxLength).FirstOrDefault();
+
+    /// <summary>
+    /// Up to <paramref name="maxCount"/> unique patterns, each from a DISTINCT instruction
+    /// referencing <paramref name="targetRva"/>, shortest first (from the first few candidates).
+    /// </summary>
+    public static List<DataRefSignature> BuildDataRefSignatures(byte[] text, long textRva, long targetRva, int maxCount,
+        int minLength = DefaultMinLength, int maxLength = DefaultMaxLength)
     {
-        DataRefSignature? best = null;
+        var candidates = new List<DataRefSignature>();
         foreach (var reference in FindRipReferences(text, textRva, targetRva).Take(MaxReferenceCandidates))
         {
             var pattern = BuildUniquePatternFrom(text, reference, minLength, maxLength, out var first);
             if (pattern == null) continue;
-            if (best == null || pattern.Length < best.Pattern.Length)
-                best = new DataRefSignature(pattern, first.RipDisp32Offset, first.Length);
+            candidates.Add(new DataRefSignature(pattern, first.RipDisp32Offset, first.Length));
         }
-        return best;
+        // OrderBy is stable, so equal lengths keep the reference order
+        return candidates.OrderBy(c => c.Pattern.Length).Take(maxCount).ToList();
+    }
+
+    /// <summary>Start offsets of each instruction of the function at <paramref name="functionOffset"/>, up to and including its first ret/int3 (or the first undecodable byte).</summary>
+    private static IEnumerable<int> InstructionBoundaries(byte[] text, int functionOffset, int maxBytes = 1024)
+    {
+        int position = functionOffset;
+        while (position >= 0 && position < text.Length && position - functionOffset < maxBytes)
+        {
+            if (!X64LengthDecoder.TryDecode(text.AsSpan(position), out var ins)) yield break;
+            yield return position;
+            byte opcode = text[position + PrefixLength(text, position)];
+            if (opcode is 0xC3 or 0xCC) yield break;
+            position += ins.Length;
+        }
     }
 
     /// <summary>Offsets in <paramref name="text"/> of every instruction whose RIP-relative operand points at <paramref name="targetRva"/>.</summary>
