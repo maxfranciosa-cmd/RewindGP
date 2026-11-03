@@ -50,8 +50,12 @@ public static class Ams2Constants
         /// a warning in the log - because nobody has recorded the confirmed build's id yet, and an
         /// empty list must not switch the interop off for everyone.
         /// </summary>
-        // TODO(Mazzimo): fill from "Ams2Interop.Tool status" output
-        public static readonly string[] ConfirmedBuildIds = Array.Empty<string>();
+        // Add a build here only after a real launch applied car, track and date correctly on it
+        // (id from "Ams2Interop.Tool status").
+        public static readonly string[] ConfirmedBuildIds =
+        {
+            "6AAABF2C-02EE1000-00000000", // CONFIRMED 2026-11-03: race config applied in a real launch
+        };
     }
 
     // ---- RTTI / type-tag values ----
