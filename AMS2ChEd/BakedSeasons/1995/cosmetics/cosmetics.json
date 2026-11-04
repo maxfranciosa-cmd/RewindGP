@@ -1,5 +1,5 @@
 {
-  "_comment": "Artwork the app ships for 1995 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/1995/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: none.",
+  "_comment": "Artwork the app ships for 1995 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/1995/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: none. Helmet and visor sponsor layers that ship from the old pack (Add-BakedHelmetSponsors.ps1) take the place of built ones for: benetton, ferrari, arrows, forti, jordan, ligier_prost, mclaren, minardi, pacific, sauber, simtek, tyrrell, williams.",
   "teams": {
     "benetton": {
       "ams2car": "formula_edge_g1m2",
@@ -41,7 +41,7 @@
           "fill_color": "#00357B"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/MildSeven.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/0c936826f7ae.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -51,7 +51,7 @@
           "driver2_livery": "car_liveries/benetton/Benetton1_NT.dds",
           "livery_preview": "previews/benetton/preview1_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/MildSeven_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9b6d5cb5681f.webp"
         },
         {
           "race_id": 8,
@@ -59,7 +59,7 @@
           "driver2_livery": "car_liveries/benetton/Benetton1_NT.dds",
           "livery_preview": "previews/benetton/preview1_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/MildSeven_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9b6d5cb5681f.webp"
         },
         {
           "race_id": 9,
@@ -67,7 +67,7 @@
           "driver2_livery": "car_liveries/benetton/Benetton1_NT.dds",
           "livery_preview": "previews/benetton/preview1_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/MildSeven_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9b6d5cb5681f.webp"
         },
         {
           "race_id": 14,
@@ -75,7 +75,7 @@
           "driver2_livery": "car_liveries/benetton/Benetton1_NT.dds",
           "livery_preview": "previews/benetton/preview1_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/MildSeven_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9b6d5cb5681f.webp"
         }
       ],
       "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"1995 Benetton #1 - M. Schumacher\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1995\\Previews\\preview1.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1995\\Benetton1.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Benetton_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Benetton_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Helmets\\95_Schumacher_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1995\\Helmets\\95_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_benetton_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_benetton_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_benetton_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_benetton_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1995\\Harness\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
@@ -131,7 +131,7 @@
           "fill_color": "#EFF0EF"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/066df2ff57a7.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -141,7 +141,7 @@
           "driver2_livery": "car_liveries/ferrari/Ferrari27_NT.dds",
           "livery_preview": "previews/ferrari/preview27_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/3107c407701a.webp"
         },
         {
           "race_id": 8,
@@ -149,7 +149,7 @@
           "driver2_livery": "car_liveries/ferrari/Ferrari27_NT.dds",
           "livery_preview": "previews/ferrari/preview27_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/3107c407701a.webp"
         },
         {
           "race_id": 9,
@@ -157,7 +157,7 @@
           "driver2_livery": "car_liveries/ferrari/Ferrari27_NT.dds",
           "livery_preview": "previews/ferrari/preview27_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/3107c407701a.webp"
         }
       ],
       "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"1995 Ferrari #27 - J. Alesi\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1995\\Previews\\preview27.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1995\\Ferrari27.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Ferrari_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Ferrari_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_goldspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_goldspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Helmets\\95_Alesi_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1995\\Helmets\\95_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_ferrari_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_ferrari_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_ferrari_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_ferrari_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1995\\Harness\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
@@ -202,7 +202,7 @@
           "fill_color": "#002873"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/arrows/default.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/65df97fa2042.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/arrows/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -312,7 +312,7 @@
           "fill_color": "#F7CE3A"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/forti/Marlboro_NoHalos.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9149e03e16f8.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/forti/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -322,7 +322,7 @@
           "driver2_livery": "car_liveries/forti/Forti22_NT.dds",
           "livery_preview": "previews/forti/preview22_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/forti/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9c05f895ad3c.webp"
         },
         {
           "race_id": 8,
@@ -330,7 +330,7 @@
           "driver2_livery": "car_liveries/forti/Forti22_NT.dds",
           "livery_preview": "previews/forti/preview22_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/forti/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9c05f895ad3c.webp"
         },
         {
           "race_id": 9,
@@ -338,7 +338,7 @@
           "driver2_livery": "car_liveries/forti/Forti22_NT.dds",
           "livery_preview": "previews/forti/preview22_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/forti/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9c05f895ad3c.webp"
         },
         {
           "race_id": 14,
@@ -346,7 +346,7 @@
           "driver2_livery": "car_liveries/forti/Forti22_NT.dds",
           "livery_preview": "previews/forti/preview22_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/forti/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9c05f895ad3c.webp"
         },
         {
           "race_id": 10,
@@ -440,7 +440,7 @@
           "fill_color": "#FFFFFF"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/Marlboro_NoHalos.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/b56f05cfdc70.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -532,7 +532,7 @@
           "driver2_livery": "car_liveries/jordan/Jordan14_NT.dds",
           "livery_preview": "previews/jordan/preview14_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/f13672a88105.webp"
         },
         {
           "race_id": 8,
@@ -540,7 +540,7 @@
           "driver2_livery": "car_liveries/jordan/Jordan14_NT.dds",
           "livery_preview": "previews/jordan/preview14_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/f13672a88105.webp"
         },
         {
           "race_id": 9,
@@ -548,7 +548,7 @@
           "driver2_livery": "car_liveries/jordan/Jordan14_NT.dds",
           "livery_preview": "previews/jordan/preview14_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/f13672a88105.webp"
         },
         {
           "race_id": 14,
@@ -556,7 +556,7 @@
           "driver2_livery": "car_liveries/jordan/Jordan14_NT.dds",
           "livery_preview": "previews/jordan/preview14_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/f13672a88105.webp"
         }
       ],
       "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"1995 Jordan #14 - R. Barrichello\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1995\\Previews\\preview14.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1995\\Jordan14.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Jordan_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Jordan_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Helmets\\95_Barrichello_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1995\\Helmets\\95_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_jordan_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_jordan_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_jordan_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_jordan_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1995\\Harness\\blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
@@ -612,7 +612,7 @@
           "fill_color": "#000052"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/82ca4effa339.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -621,28 +621,32 @@
           "driver1_livery": "car_liveries/ligier_prost/Ligier26_NT.dds",
           "driver2_livery": "car_liveries/ligier_prost/Ligier26_NT.dds",
           "livery_preview": "previews/ligier_prost/preview26_NT.dds",
-          "numbers_placements": null
+          "numbers_placements": null,
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/7c73cce8aba8.webp"
         },
         {
           "race_id": 8,
           "driver1_livery": "car_liveries/ligier_prost/Ligier26_NT.dds",
           "driver2_livery": "car_liveries/ligier_prost/Ligier26_NT.dds",
           "livery_preview": "previews/ligier_prost/preview26_NT.dds",
-          "numbers_placements": null
+          "numbers_placements": null,
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/7c73cce8aba8.webp"
         },
         {
           "race_id": 9,
           "driver1_livery": "car_liveries/ligier_prost/Ligier26_NT.dds",
           "driver2_livery": "car_liveries/ligier_prost/Ligier26_NT.dds",
           "livery_preview": "previews/ligier_prost/preview26_NT.dds",
-          "numbers_placements": null
+          "numbers_placements": null,
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/7c73cce8aba8.webp"
         },
         {
           "race_id": 14,
           "driver1_livery": "car_liveries/ligier_prost/Ligier26_NT.dds",
           "driver2_livery": "car_liveries/ligier_prost/Ligier26_NT.dds",
           "livery_preview": "previews/ligier_prost/preview26_NT.dds",
-          "numbers_placements": null
+          "numbers_placements": null,
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/7c73cce8aba8.webp"
         }
       ],
       "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"62\" NAME=\"1995 Ligier #26 - O. Panis\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1995\\Previews\\preview26.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1995\\Ligier26.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Ligier_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Ligier_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_goldspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_goldspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"62\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Helmets\\95_Panis_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1995\\Helmets\\95_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"62\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_ligier_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_ligier_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_ligier_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_ligier_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1995\\Harness\\blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
@@ -687,7 +691,7 @@
           "fill_color": "#FF2400"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/marlboro_halo.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/58ea56be4cc9.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -697,7 +701,7 @@
           "driver2_livery": "car_liveries/mclaren/McLaren8_NT.dds",
           "livery_preview": "previews/mclaren/preview8_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/marlboro_halo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/7dad91cb81a5.webp"
         },
         {
           "race_id": 8,
@@ -705,7 +709,7 @@
           "driver2_livery": "car_liveries/mclaren/McLaren8_NT.dds",
           "livery_preview": "previews/mclaren/preview8_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/marlboro_halo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/7dad91cb81a5.webp"
         },
         {
           "race_id": 9,
@@ -713,7 +717,7 @@
           "driver2_livery": "car_liveries/mclaren/McLaren8_NT.dds",
           "livery_preview": "previews/mclaren/preview8_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/marlboro_halo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/7dad91cb81a5.webp"
         },
         {
           "race_id": 14,
@@ -721,7 +725,7 @@
           "driver2_livery": "car_liveries/mclaren/McLaren8_NT.dds",
           "livery_preview": "previews/mclaren/preview8_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/marlboro_halo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/7dad91cb81a5.webp"
         }
       ],
       "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"58\" NAME=\"1995 McLaren #8 - M. Häkkinen\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1995\\Previews\\preview8.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1995\\McLaren8.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1995\\Rims\\95_McLaren_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1995\\Rims\\95_McLaren_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"58\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Helmets\\95_Hakkinen_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1995\\Helmets\\95_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"58\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_mclaren_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_mclaren_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_mclaren_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_mclaren_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1995\\Harness\\black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
@@ -777,7 +781,7 @@
           "fill_color": "#212021"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/Marlboro_NoHalos.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/93634d109161.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/minardi/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -787,7 +791,7 @@
           "driver2_livery": "car_liveries/minardi/Minardi23_NT.dds",
           "livery_preview": "previews/minardi/preview23_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9a93de086e46.webp"
         },
         {
           "race_id": 8,
@@ -795,7 +799,7 @@
           "driver2_livery": "car_liveries/minardi/Minardi23_NT.dds",
           "livery_preview": "previews/minardi/preview23_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9a93de086e46.webp"
         },
         {
           "race_id": 9,
@@ -803,7 +807,7 @@
           "driver2_livery": "car_liveries/minardi/Minardi23_NT.dds",
           "livery_preview": "previews/minardi/preview23_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9a93de086e46.webp"
         },
         {
           "race_id": 14,
@@ -811,7 +815,7 @@
           "driver2_livery": "car_liveries/minardi/Minardi23_NT.dds",
           "livery_preview": "previews/minardi/preview23_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/Marlboro_NoHalo_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/9a93de086e46.webp"
         }
       ],
       "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"1995 Minardi #23 - P. Martini\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1995\\Previews\\preview23.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1995\\Minardi23.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Minardi_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Minardi_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Helmets\\95_Martini_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1995\\Helmets\\95_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_minardi_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_minardi_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_minardi_gloves_Badoer.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_minardi_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1995\\Harness\\blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
@@ -856,7 +860,7 @@
           "fill_color": "#214DAD"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/pacific/default.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/65df97fa2042.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/pacific/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [],
@@ -902,7 +906,7 @@
           "fill_color": "#001021"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/b62b30cce530.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -977,7 +981,7 @@
           "fill_color": "#372086"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/simtek/default.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/4980d3fe6ef4.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/simtek/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [],
@@ -1023,7 +1027,7 @@
           "fill_color": "#FFFFFF"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/tyrrell/MildSeven.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/e9d3b42a6839.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/tyrrell/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -1115,7 +1119,7 @@
           "driver2_livery": "car_liveries/tyrrell/Tyrrell3_NT.dds",
           "livery_preview": "previews/tyrrell/preview3_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/tyrrell/MildSeven_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/626a7398c7bc.webp"
         },
         {
           "race_id": 8,
@@ -1123,7 +1127,7 @@
           "driver2_livery": "car_liveries/tyrrell/Tyrrell3_NT.dds",
           "livery_preview": "previews/tyrrell/preview3_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/tyrrell/MildSeven_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/626a7398c7bc.webp"
         },
         {
           "race_id": 9,
@@ -1131,7 +1135,7 @@
           "driver2_livery": "car_liveries/tyrrell/Tyrrell3_NT.dds",
           "livery_preview": "previews/tyrrell/preview3_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/tyrrell/MildSeven_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/626a7398c7bc.webp"
         }
       ],
       "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"1995 Tyrrell #3 - U. Katayama\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1995\\Previews\\preview3_late.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1995\\Tyrrell3_late.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Tyrrell_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Tyrrell_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Helmets\\95_Katayama_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1995\\Helmets\\95_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_tyrrell_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_tyrrell_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_tyrrell_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_tyrrell_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1995\\Harness\\blue_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
@@ -1176,7 +1180,7 @@
           "fill_color": "#FFFFFF"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/Rothmans.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/c8f7b173d709.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [
@@ -1186,7 +1190,7 @@
           "driver2_livery": "car_liveries/williams/Williams5_NT.dds",
           "livery_preview": "previews/williams/preview5_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/williams/Rothmans_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/b0292a44531a.webp"
         },
         {
           "race_id": 8,
@@ -1194,7 +1198,7 @@
           "driver2_livery": "car_liveries/williams/Williams5_NT.dds",
           "livery_preview": "previews/williams/preview5_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/williams/Rothmans_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/b0292a44531a.webp"
         },
         {
           "race_id": 9,
@@ -1202,7 +1206,7 @@
           "driver2_livery": "car_liveries/williams/Williams5_NT.dds",
           "livery_preview": "previews/williams/preview5_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/williams/Rothmans_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/b0292a44531a.webp"
         },
         {
           "race_id": 14,
@@ -1210,7 +1214,7 @@
           "driver2_livery": "car_liveries/williams/Williams5_NT.dds",
           "livery_preview": "previews/williams/preview5_NT.dds",
           "numbers_placements": null,
-          "helmet_sponsors": "external_liveries/helmet_sponsors/williams/Rothmans_NT.png"
+          "helmet_sponsors": "../../Drivers/team_helmet_sponsors/b0292a44531a.webp"
         }
       ],
       "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"1995 Williams #5 - D. Hill\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1995\\Previews\\preview5.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1995\\Williams5.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Williams_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1995\\Rims\\95_Williams_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1995\\Rims\\95_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Helmets\\95_Hill_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1995\\Helmets\\95_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_williams_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_williams_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_williams_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1995\\Suits\\95_williams_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1995\\Harness\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
@@ -2065,110 +2069,7 @@
         "destinationPath": "previews/tyrrell/default.dds"
       }
     ],
-    "helmets": {
-      "benetton": {
-        "samples": [
-          "90s/MildSeven.png",
-          "90s/MildSeven_NT.png"
-        ],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m2/F1_Season_1995/Helmets/95_Schumacher_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "ferrari": {
-        "samples": [
-          "90s/marlboro_halo.png",
-          "90s/marlboro_halo_NT.png"
-        ],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m1/F1_Season_1995/Helmets/95_Alesi_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "arrows": {
-        "samples": [],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m3/F1_Season_1995/Helmets/95_Morbidelli_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "forti": {
-        "samples": [
-          "90s/Marlboro_NoHalos.png",
-          "90s/Marlboro_NoHalo_NT.png"
-        ],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m3/F1_Season_1995/Helmets/95_Diniz_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "jordan": {
-        "samples": [
-          "90s/Marlboro_NoHalos.png",
-          "90s/Marlboro_NoHalo_NT.png"
-        ],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m2/F1_Season_1995/Helmets/95_Barrichello_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "ligier_prost": {
-        "samples": [],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m2/F1_Season_1995/Helmets/95_Suzuki_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "mclaren": {
-        "samples": [
-          "90s/marlboro_halo.png",
-          "90s/marlboro_halo_NT.png"
-        ],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m2/F1_Season_1995/Helmets/95_Hakkinen_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "minardi": {
-        "samples": [
-          "90s/Marlboro_NoHalos.png",
-          "90s/Marlboro_NoHalo_NT.png"
-        ],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m3/F1_Season_1995/Helmets/95_Martini_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "pacific": {
-        "samples": [],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m3/F1_Season_1995/Helmets/95_Gachot_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "sauber": {
-        "samples": [],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m3/F1_Season_1995/Helmets/95_Frentzen_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "simtek": {
-        "samples": [],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m1/F1_Season_1995/Helmets/95_Verstappen_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "tyrrell": {
-        "samples": [
-          "90s/MildSeven.png",
-          "90s/MildSeven_NT.png"
-        ],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m2/F1_Season_1995/Helmets/95_Katayama_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "williams": {
-        "samples": [
-          "90s/Rothmans.png",
-          "90s/Rothmans_NT.png"
-        ],
-        "helmet": "[AMS2]F1_1995_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_edge_g1m2/F1_Season_1995/Helmets/95_Hill_helmet.dds",
-        "map": null,
-        "visor": null
-      }
-    },
+    "helmets": {},
     "helmet_model": "Nineties"
   }
 }

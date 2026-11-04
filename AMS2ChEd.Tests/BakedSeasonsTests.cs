@@ -130,7 +130,7 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         [TestMethod]
-        public void ShippedCosmetics_PointOnlyAtShippedFilesOrTheSkinPack_AndShipNoSponsorArtwork()
+        public void ShippedCosmetics_PointOnlyAtShippedFilesOrTheSkinPack_AndShipSponsorLayersOnlyInTheirStore()
         {
             string app = Path.Combine(RepoRoot(), "AMS2ChEd");
             foreach (var folder in Directory.GetDirectories(Path.Combine(app, "BakedSeasons")))
@@ -160,7 +160,7 @@ namespace AMS2ChEd.Tests.Ams2
                     Check(team.BaseLiveryDriver1, teamId); Check(team.BaseLiveryDriver2, teamId); Check(team.LiveryPreview, teamId);
                     Check(team.HelmetSponsors, teamId); Check(team.VisorSponsors, teamId);
                     foreach (var p in team.NumbersPlacements ?? Enumerable.Empty<NumbersPlacement>()) { Check(p.NumbersTexture, teamId); Check(p.NumbersTextureDriver2, teamId); }
-                    foreach (var o in team.LiveryOverrides ?? Enumerable.Empty<LiveryOverride>()) { Check(o.Driver1Livery, teamId); Check(o.Driver2Livery, teamId); Check(o.LiveryPreview, teamId); }
+                    foreach (var o in team.LiveryOverrides ?? Enumerable.Empty<LiveryOverride>()) { Check(o.Driver1Livery, teamId); Check(o.Driver2Livery, teamId); Check(o.LiveryPreview, teamId); Check(o.HelmetSponsors, teamId); Check(o.VisorSponsors, teamId); }
                 }
                 foreach (var (driverId, d) in cosmetics.Drivers)
                     foreach (var path in new[] { d.BaseHelmetFile, d.BaseVisorFile, d.BaseHelmetFile90s, d.BaseHelmetFile80s, d.BaseVisorFile80s, d.BaseHelmetFile70s, d.BaseVisorFile70s })
@@ -177,14 +177,15 @@ namespace AMS2ChEd.Tests.Ams2
                         Assert.IsTrue(File.Exists(Path.Combine(app, "SampleHelmetSponsors", sample)), $"{year} {teamId}: sample {sample}");
                 }
 
-                // sponsor layers are built at import; none ship
+                // sponsor layers are built at import, or ship in their store (Drivers/team_helmet_sponsors); none in the season's folder
                 Assert.IsFalse(Directory.EnumerateFiles(Path.Combine(folder, "cosmetics"), "*", SearchOption.AllDirectories).Any(f => f.Contains("helmet_sponsors")), $"{year}: sponsor layers shipped");
             }
 
-            // the helmet store holds each file once
-            var store = Path.Combine(app, "Drivers", "own_helmets");
-            if (Directory.Exists(store))
+            // each store holds each file once
+            foreach (var store in new[] { Path.Combine(app, "Drivers", "own_helmets"), Path.Combine(app, "Drivers", "team_helmet_sponsors") })
             {
+                if (!Directory.Exists(store))
+                    continue;
                 var duplicates = Directory.GetFiles(store, "*", SearchOption.AllDirectories)
                     .GroupBy(f => Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(f))))
                     .Where(g => g.Count() > 1)

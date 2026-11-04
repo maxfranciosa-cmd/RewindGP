@@ -50,11 +50,11 @@ namespace AMS2ChEd.Tests.Business.Updater
         }
 
         [TestMethod]
-        public void GetAvailability_ListedPackAndSkinPack_OffersTheListedPack()
+        public void GetAvailability_ListedPackAndSkinPack_OffersTheSkinPack()
         {
             var svc = BakedSeasonWithSkinPack(ManifestBuilder.Build((1995, BaseDate, "https://example.com/1995.rwgp")), imported: false);
 
-            Assert.AreEqual(SeasonAvailability.BakedPackAvailable, svc.GetAvailability(1995));
+            Assert.AreEqual(SeasonAvailability.BakedSkinPackAvailable, svc.GetAvailability(1995));
         }
 
         [TestMethod]

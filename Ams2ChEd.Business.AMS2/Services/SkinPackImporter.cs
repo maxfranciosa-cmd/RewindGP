@@ -212,7 +212,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
                     if (samples.Count == 0 && cut != null)
                     {
-                        Save(cut, seasonFolder, shipped?.HelmetSponsors ?? $"external_liveries/helmet_sponsors/{teamId}/default.png", record);
+                        Save(cut, seasonFolder, ImportedLayerPath(shipped?.HelmetSponsors) ?? $"external_liveries/helmet_sponsors/{teamId}/default.png", record);
                         record.Notes.Add($"{teamId}: helmet sponsors from {mapName}");
                     }
                     else if (samples.Count == 0 && problem != null)
@@ -227,7 +227,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                     var layer = SponsorLayerCutter.Cut(visor, SponsorLayerCutter.VisorMaskPath(model, _visorMasksFolder), out var visorProblem);
                     if (layer != null)
                     {
-                        Save(layer, seasonFolder, shipped?.VisorSponsors ?? $"external_liveries/helmet_sponsors/{teamId}/default_visor.png", record);
+                        Save(layer, seasonFolder, ImportedLayerPath(shipped?.VisorSponsors) ?? $"external_liveries/helmet_sponsors/{teamId}/default_visor.png", record);
                         layer.Dispose();
                     }
                     else
@@ -241,6 +241,11 @@ namespace Ams2ChEd.Business.AMS2.Services
                 }
             }
         }
+
+        // The cosmetics' layer path when it is one the import writes; a layer the app ships (in a
+        // store outside the season's folder) is never overwritten, the cut lands at its default path.
+        private static string ImportedLayerPath(string path) =>
+            path != null && path.Replace('\\', '/').StartsWith("external_liveries/", StringComparison.OrdinalIgnoreCase) ? path : null;
 
         private static void Save(SixLabors.ImageSharp.Image layer, string seasonFolder, string path, SkinPackRecord record)
         {

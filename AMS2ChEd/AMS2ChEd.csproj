@@ -92,6 +92,10 @@
     <None Update="Drivers\own_helmets\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <!-- Old season packs' own helmet and visor sponsor layers the baked seasons' cosmetics point at, once per unique file -->
+    <None Update="Drivers\team_helmet_sponsors\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <!-- The visor's sponsor-strip shape per helmet model, cut from an imported skin pack's visor -->
     <None Update="Drivers\visor_masks\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

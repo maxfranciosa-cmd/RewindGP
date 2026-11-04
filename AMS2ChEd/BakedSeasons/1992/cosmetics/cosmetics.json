@@ -1,5 +1,5 @@
 {
-  "_comment": "Artwork the app ships for 1992 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/1992/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: fondmetal, larrousse.",
+  "_comment": "Artwork the app ships for 1992 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/1992/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: fondmetal, larrousse. Helmet and visor sponsor layers that ship from the old pack (Add-BakedHelmetSponsors.ps1) take the place of built ones for: benetton, ferrari, footwork, ligier_prost, mclaren, williams.",
   "teams": {
     "benetton": {
       "ams2car": "formula_hitech_g1m3",
@@ -44,7 +44,7 @@
           "fill_color": "#FFFFB600"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/camel.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/8af7a288efd5.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [],
@@ -602,7 +602,7 @@
           "fill_color": "#FF141414"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/marlboro_halo.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/066df2ff57a7.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [],
@@ -651,7 +651,7 @@
           "fill_color": "#FFECEBEC"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/footwork/default.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/1ec05d7a8a58.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/footwork/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [],
@@ -761,7 +761,7 @@
           "fill_color": "#FF101410"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/f460b35309f4.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [],
@@ -921,7 +921,7 @@
           "fill_color": "#FFFF2800"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/Marlboro_NoHalos.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/bb05683e82d3.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [],
@@ -1166,7 +1166,7 @@
           "fill_color": "#FF002057"
         }
       ],
-      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "helmet_sponsors": "../../Drivers/team_helmet_sponsors/c4db8afbda07.webp",
       "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
       "drivers_specific_helmet": null,
       "livery_overrides": [],
@@ -1810,14 +1810,6 @@
       }
     ],
     "helmets": {
-      "benetton": {
-        "samples": [
-          "90s/camel.png"
-        ],
-        "helmet": "[IMG] F1 1992/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g1m3/F1_Season_1992/Helmets/92_Schumacher_helmet.dds",
-        "map": null,
-        "visor": null
-      },
       "brabham": {
         "samples": [],
         "helmet": "[IMG] F1 1992/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g1m3/F1_Season_1992/Helmets/92_Hill_helmet.dds",
@@ -1830,43 +1822,15 @@
         "map": null,
         "visor": null
       },
-      "ferrari": {
-        "samples": [
-          "90s/marlboro_halo.png"
-        ],
-        "helmet": "[IMG] F1 1992/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g1m1/F1_Season_1992/Helmets/92_Alesi_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "footwork": {
-        "samples": [],
-        "helmet": "[IMG] F1 1992/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g1m4/F1_Season_1992/Helmets/92_Alboreto_helmet.dds",
-        "map": null,
-        "visor": null
-      },
       "jordan": {
         "samples": [],
         "helmet": "[IMG] F1 1992/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g1m1/F1_Season_1992/Helmets/92_Modena_helmet.dds",
         "map": null,
         "visor": null
       },
-      "ligier_prost": {
-        "samples": [],
-        "helmet": "[IMG] F1 1992/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g1m4/F1_Season_1992/Helmets/92_Boutsen_helmet.dds",
-        "map": null,
-        "visor": null
-      },
       "march": {
         "samples": [],
         "helmet": "[IMG] F1 1992/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g1m4/F1_Season_1992/Helmets/92_Belmondo_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "mclaren": {
-        "samples": [
-          "90s/Marlboro_NoHalos.png"
-        ],
-        "helmet": "[IMG] F1 1992/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp47/F1_Season_1992/Helmets/92_Senna_helmet.dds",
         "map": null,
         "visor": null
       },
@@ -1891,12 +1855,6 @@
       "tyrrell": {
         "samples": [],
         "helmet": "[IMG] F1 1992/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g1m3/F1_Season_1992/Helmets/92_Grouillard_helmet.dds",
-        "map": null,
-        "visor": null
-      },
-      "williams": {
-        "samples": [],
-        "helmet": "[IMG] F1 1992/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g1m2/F1_Season_1992/Helmets/92_Mansell_helmet.dds",
         "map": null,
         "visor": null
       }
