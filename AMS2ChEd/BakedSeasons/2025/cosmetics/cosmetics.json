@@ -1,0 +1,1473 @@
+{
+  "_comment": "Artwork the app ships for 2025 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/2025/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: none.",
+  "teams": {
+    "benetton": {
+      "ams2car": "formula_ultimate_2024",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2125,
+            "Y": 1452
+          },
+          "rotation": "Deg180",
+          "fill_color": "#F761B5"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1960,
+            "Y": 3746
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 80.39999999999998,
+          "fill_color": "#FFF761B5"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2105,
+            "Y": 3906
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 275.29999999999995,
+          "fill_color": "#FFF761B5"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/benetton/Alpine_Livery Doohan.dds",
+          "livery_preview": "external_liveries/previews/benetton/Alpine_Doohan.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/benetton/Alpine_Livery Doohan.dds",
+          "livery_preview": "external_liveries/previews/benetton/Alpine_Doohan.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/benetton/Alpine_Livery Doohan.dds",
+          "livery_preview": "external_liveries/previews/benetton/Alpine_Doohan.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/benetton/Alpine_Livery Doohan.dds",
+          "livery_preview": "external_liveries/previews/benetton/Alpine_Doohan.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/benetton/Alpine_Livery Doohan.dds",
+          "livery_preview": "external_liveries/previews/benetton/Alpine_Doohan.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 6,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/benetton/Alpine_Livery Doohan.dds",
+          "livery_preview": "external_liveries/previews/benetton/Alpine_Doohan.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 21,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Alpine Mercado Libre_Livery Gasly.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Alpine Mercado Libre_Livery Colapinto.dds",
+          "livery_preview": "external_liveries/previews/benetton/Alpine Mercado Libre_Gasly.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"61\" NAME=\"Pierre Gasly #10\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2025 Skinpack\\Alpine\\Gasly.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2025 Skinpack\\Alpine\\Livery Gasly.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WINGS\" PATH=\"F1 2025 Skinpack\\Alpine\\Alpine Wings.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2025 Skinpack\\Alpine\\Alpine Wheel Cover.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2025 Skinpack\\Alpine\\Alpine Wheel Cover Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"61\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\Alpine\\Gasly Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\Alpine\\Gasly Visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"61\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Alpine\\Alpine Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Alpine\\Alpine Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Alpine\\Alpine Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Alpine\\Alpine Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Alpine\\Alpine Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "jordan": {
+      "ams2car": "formula_ultimate_2024",
+      "base_livery_driver1": "external_liveries/car_liveries/jordan/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/jordan/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/jordan/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/jordan_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 205,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2150,
+            "Y": 1476
+          },
+          "rotation": "Deg180",
+          "fill_color": "#083439"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/jordan_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 213,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1769,
+            "Y": 3737
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 81,
+          "fill_color": "#083439"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/jordan_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 235,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2272,
+            "Y": 3963
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 280.4,
+          "fill_color": "#083439"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"Fernando Alonso #14\" BASELIVERY=\"BlueGreenMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2025 Skinpack\\Aston Martin\\Alonso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2025 Skinpack\\Aston Martin\\Livery Alonso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WINGS\" PATH=\"F1 2025 Skinpack\\Aston Martin\\Aston Martin Wings.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2025 Skinpack\\Aston Martin\\Aston Martin Wheel Cover.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2025 Skinpack\\Aston Martin\\Aston Martin Wheel Cover Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\Aston Martin\\Alonso Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\Aston Martin\\Alonso Visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Aston Martin\\Aston Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Aston Martin\\Aston Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Aston Martin\\Aston Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Aston Martin\\Aston Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Aston Martin\\Aston Martin Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ferrari": {
+      "ams2car": "formula_ultimate_2024",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 255,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2175,
+            "Y": 1435
+          },
+          "rotation": "Deg180",
+          "fill_color": "#7B0010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/ferrari_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 316,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1965,
+            "Y": 3553
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 80.4,
+          "fill_color": "#7B0010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/ferrari_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 305,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2076,
+            "Y": 3865
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 275.3,
+          "fill_color": "#7B0010"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari Miami_Livery Leclerc.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari Miami_Livery Hamilton.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari Miami_Leclerc.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari Monaco_Livery Leclerc.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari Monaco_Livery Hamilton.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari Monaco_Leclerc.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari Monaco_Livery Leclerc.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari Monaco_Livery Hamilton.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari Monaco_Leclerc.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari Monza_Livery Leclerc.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari Monza_Livery Hamilton.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari Monza_Leclerc.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 21,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari Monaco_Livery Leclerc.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari Monaco_Livery Hamilton.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari Monaco_Leclerc.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"Charles Leclerc #16\" BASELIVERY=\"Matte\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2025 Skinpack\\Ferrari\\Leclerc.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2025 Skinpack\\Ferrari\\Livery Leclerc.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WINGS\" PATH=\"F1 2025 Skinpack\\Ferrari\\Leclerc Wings.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2025 Skinpack\\Ferrari\\Ferrari Wheel Cover.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2025 Skinpack\\Ferrari\\Ferrari Wheel Cover.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\Ferrari\\Leclerc Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\Ferrari\\Leclerc Visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Ferrari\\Ferrari Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Ferrari\\Ferrari Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Ferrari\\Ferrari Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Ferrari\\Ferrari Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Ferrari\\Ferrari Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "haas": {
+      "ams2car": "formula_ultimate_2024",
+      "base_livery_driver1": "external_liveries/car_liveries/haas/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/haas/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/haas/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/haas_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 225,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2157,
+            "Y": 1432
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/haas_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 238,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1716,
+            "Y": 3762
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 75,
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/haas_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 225,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2348,
+            "Y": 3984
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 282,
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/haas/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/haas/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/haas/Haas Suzuka_Livery Ocon.dds",
+          "driver2_livery": "external_liveries/car_liveries/haas/Haas Suzuka_Livery Bearman.dds",
+          "livery_preview": "external_liveries/previews/haas/Haas Suzuka_Ocon.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"63\" NAME=\"Esteban Ocon #31\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2025 Skinpack\\Haas\\Ocon.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2025 Skinpack\\Haas\\Livery Ocon.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WINGS\" PATH=\"F1 2025 Skinpack\\Haas\\Haas Wings.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2025 Skinpack\\Haas\\Haas Wheel Cover.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2025 Skinpack\\Haas\\Haas Wheel Cover Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"63\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\Haas\\Ocon Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\Haas\\Ocon Visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"63\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Haas\\Haas Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Haas\\Haas Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Haas\\Haas Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Haas\\Haas Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Haas\\Haas Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "ams2car": "formula_ultimate_2024",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/mclaren_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 250,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2172,
+            "Y": 1673
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF8200"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/mclaren_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 252,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1832,
+            "Y": 3714
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 74,
+          "fill_color": "#FF8200"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/mclaren_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 263,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2193,
+            "Y": 3948
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 286.7,
+          "fill_color": "#FF8200"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/MONSTER.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren Monaco_Livery Norris.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren Monaco_Livery Piastri.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren Monaco_Norris.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren Silverstone_Livery Norris.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren Silverstone_Livery Piastri.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren Silverstone_Norris.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"Lando Norris #4\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2025 Skinpack\\McLaren\\Norris.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2025 Skinpack\\McLaren\\Livery Norris.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WINGS\" PATH=\"F1 2025 Skinpack\\McLaren\\McLaren Wings.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2025 Skinpack\\McLaren\\McLaren Wheel Cover.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2025 Skinpack\\McLaren\\McLaren Wheel Cover Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\McLaren\\Norris Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\McLaren\\Norris Visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\McLaren\\Norris Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\McLaren\\McLaren Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\McLaren\\McLaren Glove.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\McLaren\\McLaren Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\McLaren\\McLaren Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mercedes": {
+      "ams2car": "formula_ultimate_2024",
+      "base_livery_driver1": "external_liveries/car_liveries/mercedes/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mercedes/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mercedes/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/mercedes_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 232,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2164,
+            "Y": 1674
+          },
+          "rotation": "Deg180",
+          "fill_color": "#737573"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/mercedes_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 232,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1980,
+            "Y": 3744
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 80.39999999999998,
+          "fill_color": "#FF000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/mercedes_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 232,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2061,
+            "Y": 3952
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 286.70000000000005,
+          "fill_color": "#FF000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mercedes/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mercedes/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"58\" NAME=\"Kimi Antonelli #12\" BASELIVERY=\"SilverMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2025 Skinpack\\Mercedes\\Antonelli.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2025 Skinpack\\Mercedes\\Livery Antonelli.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WINGS\" PATH=\"F1 2025 Skinpack\\Mercedes\\Mercedes Wings.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2025 Skinpack\\Mercedes\\Mercedes Wheel Cover.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2025 Skinpack\\Mercedes\\Mercedes Wheel Cover Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"58\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\helmets\\Mercedes\\Antonelli Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2025 Skinpack\\helmets\\Mercedes\\Antonelli Visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"58\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Mercedes\\Mercedes Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Mercedes\\Mercedes Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Mercedes\\Antonelli Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Mercedes\\Mercedes Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Mercedes\\Mercedes Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "toro_rosso": {
+      "ams2car": "formula_ultimate_2024",
+      "base_livery_driver1": "external_liveries/car_liveries/toro_rosso/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/toro_rosso/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/toro_rosso/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/toro_rosso_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 222,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2154,
+            "Y": 1480
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/toro_rosso_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 222,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2093,
+            "Y": 3896
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 275.29999999999995,
+          "fill_color": "#FFFFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/toro_rosso_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 222,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1960,
+            "Y": 3662
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 80.39999999999998,
+          "fill_color": "#FFFFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/toro_rosso/REDBULL_LRonly.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/toro_rosso/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/toro_rosso/RB_Livery Tsunoda.dds",
+          "livery_preview": "external_liveries/previews/toro_rosso/RB_Tsunoda.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/toro_rosso/RB_Livery Tsunoda.dds",
+          "livery_preview": "external_liveries/previews/toro_rosso/RB_Tsunoda.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/toro_rosso/RB Miami_Livery Hadjar.dds",
+          "driver2_livery": "external_liveries/car_liveries/toro_rosso/RB Miami_Livery Lawson.dds",
+          "livery_preview": "external_liveries/previews/toro_rosso/RB Miami_Hadjar.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"66\" NAME=\"Isack Hadjar #6\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2025 Skinpack\\RB\\Hadjar.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2025 Skinpack\\RB\\Livery Hadjar.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WINGS\" PATH=\"F1 2025 Skinpack\\RB\\RB Wings.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2025 Skinpack\\RB\\RB Wheel Cover.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2025 Skinpack\\RB\\RB Wheel Cover Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"66\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\helmets\\RB\\Hadjar Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2025 Skinpack\\helmets\\RB\\Hadjar Visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"66\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\RB\\RB Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\RB\\RB Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\RB\\RB Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\RB\\RB Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\RB\\RB Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "stewart": {
+      "ams2car": "formula_ultimate_2024",
+      "base_livery_driver1": "external_liveries/car_liveries/stewart/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/stewart/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/stewart/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/stewart_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 250,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2175,
+            "Y": 1540
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000718"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/stewart_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 230,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2068,
+            "Y": 3966
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 282.2,
+          "fill_color": "#000718"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/stewart_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 230,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1960,
+            "Y": 3743
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 75.5,
+          "fill_color": "#000818"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/stewart/REDBULL.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/stewart/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/stewart/Red Bull_Livery Lawson.dds",
+          "livery_preview": "external_liveries/previews/stewart/Red Bull_Lawson.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/stewart/Red Bull_Livery Lawson.dds",
+          "livery_preview": "external_liveries/previews/stewart/Red Bull_Lawson.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/stewart/Red Bull Suzuka_Livery Verstappen.dds",
+          "driver2_livery": "external_liveries/car_liveries/stewart/Red Bull Suzuka_Livery Tsunoda.dds",
+          "livery_preview": "external_liveries/previews/stewart/Red Bull Suzuka_Verstappen.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 7,
+          "driver1_livery": "external_liveries/car_liveries/stewart/Red Bull Imola_Livery Verstappen.dds",
+          "driver2_livery": "external_liveries/car_liveries/stewart/Red Bull Imola_Livery Tsunoda.dds",
+          "livery_preview": "external_liveries/previews/stewart/Red Bull Imola_Verstappen.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Max Verstappen #1\" BASELIVERY=\"Matte\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2025 Skinpack\\Red Bull\\Verstappen.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2025 Skinpack\\Red Bull\\Livery Verstappen.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WINGS\" PATH=\"F1 2025 Skinpack\\Red Bull\\Red Bull gives you Wings.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2025 Skinpack\\Red Bull\\Red Bull Wheel Cover.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2025 Skinpack\\Red Bull\\Red Bull Wheel Cover Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\Red Bull\\Verstappen Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2025 Skinpack\\Helmets\\Red Bull\\Verstappen Visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Red Bull\\Red Bull Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Red Bull\\Red Bull Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Red Bull\\Red Bull Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Red Bull\\Red Bull Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Red Bull\\Red Bull Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "sauber": {
+      "ams2car": "formula_ultimate_2024",
+      "base_livery_driver1": "external_liveries/car_liveries/sauber/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/sauber/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/sauber/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/sauber_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 230,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2155,
+            "Y": 1505
+          },
+          "rotation": "Deg180",
+          "fill_color": "#00CB00"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/sauber_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 291,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1966,
+            "Y": 3681
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 80,
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/sauber_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 268,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2079,
+            "Y": 3977
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 277,
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/sauber/Stake F1 Team Miami_Livery Bortoleto.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/Stake F1 Team Miami_Livery Huelkenberg.dds",
+          "livery_preview": "external_liveries/previews/sauber/Stake F1 Team Miami_Bortoleto.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"70\" NAME=\"Gabriel Bortoleto #5\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2025 Skinpack\\Stake F1 Team\\Bortoleto.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2025 Skinpack\\Stake F1 Team\\Livery Bortoleto.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2025 Skinpack\\Stake F1 Team\\Sauber Wheel Cover.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2025 Skinpack\\Stake F1 Team\\Sauber Wheel Cover Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"70\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\helmets\\Stake F1 Team\\Bortoleto Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2025 Skinpack\\helmets\\Stake F1 Team\\Bortoleto Visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"70\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Stake F1 Team\\Sauber Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Stake F1 Team\\Sauber Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Stake F1 Team\\Sauber Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Stake F1 Team\\Sauber Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Stake F1 Team\\Sauber Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_ultimate_2024",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default_driver2.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 240,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2165,
+            "Y": 1317
+          },
+          "rotation": "Deg180",
+          "fill_color": "#082452"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 240,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2089,
+            "Y": 3960
+          },
+          "rotation": "Deg270",
+          "rotation_degrees": 275.29999999999995,
+          "fill_color": "#FF2182FF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2025/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 240,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1970,
+            "Y": 3726
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 80.39999999999998,
+          "fill_color": "#FF2182FF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 21,
+          "driver1_livery": "external_liveries/car_liveries/williams/Williams Interlagos_Livery Albon.dds",
+          "driver2_livery": "external_liveries/car_liveries/williams/Williams Interlagos_Livery Sainz.dds",
+          "livery_preview": "external_liveries/previews/williams/Williams Interlagos_Albon.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"67\" NAME=\"Alexander Albon #23\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2025 Skinpack\\Williams\\Albon.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2025 Skinpack\\Williams\\Livery Albon.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WINGS\" PATH=\"F1 2025 Skinpack\\Williams\\Williams Wings.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2025 Skinpack\\Williams\\Williams Wheel Cover.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2025 Skinpack\\Williams\\Williams Wheel Cover Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"67\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\helmets\\Williams\\Albon Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2025 Skinpack\\helmets\\Williams\\Albon Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2025 Skinpack\\helmets\\Williams\\Albon Visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"67\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Williams\\Williams Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Williams\\Williams Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Williams\\Williams Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Williams\\Williams Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2025 Skinpack\\Suits\\Williams\\Williams Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "alexander_albon": {
+      "base_helmet_file": "../../Drivers/own_helmets/9884d67d8df2.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/albon.png"
+    },
+    "andrea_kimi_antonelli": {
+      "base_helmet_file": "../../Drivers/own_helmets/21fee4ac6d5e.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "carlos_sainz": {
+      "base_helmet_file": "../../Drivers/own_helmets/4414690c0515.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/sainz.png"
+    },
+    "charles_leclerc": {
+      "base_helmet_file": "../../Drivers/own_helmets/a83139cee9c4.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/leclerc.png"
+    },
+    "esteban_ocon": {
+      "base_helmet_file": "../../Drivers/own_helmets/180ca658fe91.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/ocon.png"
+    },
+    "fernando_alonso": {
+      "base_helmet_file": "../../Drivers/own_helmets/962a83c5ff7c.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/alonso.png"
+    },
+    "franco_colapinto": {
+      "base_helmet_file": "../../Drivers/own_helmets/eb6e20107b4d.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "gabriel_bortoleto": {
+      "base_helmet_file": "../../Drivers/own_helmets/08b41129c80f.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "george_russell": {
+      "base_helmet_file": "../../Drivers/own_helmets/7d54953226a8.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/russellg.png"
+    },
+    "isack_hadjar": {
+      "base_helmet_file": "../../Drivers/own_helmets/b86fad7dbdee.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "jack_doohan": {
+      "base_helmet_file": "../../Drivers/own_helmets/c7867f30fcb0.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "lance_stroll": {
+      "base_helmet_file": "../../Drivers/own_helmets/0aea5ce9056d.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/stroll.png"
+    },
+    "lando_norris": {
+      "base_helmet_file": "../../Drivers/own_helmets/140fd61b6978.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/norris.png"
+    },
+    "lewis_hamilton": {
+      "base_helmet_file": "../../Drivers/own_helmets/e65a02c825bc.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/hamiltol.png"
+    },
+    "liam_lawson": {
+      "base_helmet_file": "../../Drivers/own_helmets/b5a1e6b516a7.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/lawson.png"
+    },
+    "max_verstappen": {
+      "base_helmet_file": "../../Drivers/own_helmets/253099515c5b.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/verstapm.png"
+    },
+    "nico_hulkenberg": {
+      "base_helmet_file": "../../Drivers/own_helmets/89af33c23ea6.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/hulkenbe.png"
+    },
+    "oliver_bearman": {
+      "base_helmet_file": "../../Drivers/own_helmets/96f5826f8293.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp"
+    },
+    "oscar_piastri": {
+      "base_helmet_file": "../../Drivers/own_helmets/1c0b2c32fd01.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/piastri.png"
+    },
+    "pierre_gasly": {
+      "base_helmet_file": "../../Drivers/own_helmets/fcb04634a462.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/gasly.png"
+    },
+    "yuki_tsunoda": {
+      "base_helmet_file": "../../Drivers/own_helmets/8bfc3aa9cecf.webp",
+      "base_visor_file": "../../Drivers/own_helmets/ade0bed308ab.webp",
+      "picture": "https://www.statsf1.com/pilotes/photos/tsunoda.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/f1-2025-skinpack.75192/",
+    "name": "F1 2025 Skinpack V1.45",
+    "detect": [
+      "F1_2025_Skinpack_V1.45/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Red Bull/Livery Lawson.dds",
+      "F1_2025_Skinpack_V1.45/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Special Liveries/Red Bull Imola/Livery Verstappen.dds",
+      "F1_2025_Skinpack_V1.45/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Special Liveries/Red Bull Imola/Livery Tsunoda.dds",
+      "F1_2025_Skinpack_V1.45/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Special Liveries/McLaren Monaco/Livery Norris.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Red Bull\\Red Bull gives you Wings.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Red Bull/Red Bull gives you Wings.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Red Bull\\Red Bull Wheel Cover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Red Bull/Red Bull Wheel Cover.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Red Bull\\Red Bull Wheel Cover Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Red Bull/Red Bull Wheel Cover Blur.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Red Bull\\Red Bull Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Red Bull/Red Bull Torso.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Red Bull\\Red Bull Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Red Bull/Red Bull Arms.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Red Bull\\Red Bull Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Red Bull/Red Bull Gloves.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Red Bull\\Red Bull Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Red Bull/Red Bull Legs.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Red Bull\\Red Bull Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Red Bull/Red Bull Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Red Bull\\Livery Lawson.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/Red Bull_Livery Lawson.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Red Bull\\Lawson.dds",
+        "destinationPath": "external_liveries/previews/stewart/Red Bull_Lawson.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Red Bull Imola\\Livery Verstappen.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/Red Bull Imola_Livery Verstappen.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Red Bull Imola\\Livery Tsunoda.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/Red Bull Imola_Livery Tsunoda.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Red Bull Imola\\Verstappen.dds",
+        "destinationPath": "external_liveries/previews/stewart/Red Bull Imola_Verstappen.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\McLaren\\McLaren Wings.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/McLaren/McLaren Wings.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\McLaren\\McLaren Wheel Cover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/McLaren/McLaren Wheel Cover.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\McLaren\\McLaren Wheel Cover Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/McLaren/McLaren Wheel Cover Blur.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\McLaren\\Norris Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/McLaren/Norris Torso.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\McLaren\\McLaren Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/McLaren/McLaren Arms.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\McLaren\\McLaren Glove.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/McLaren/McLaren Glove.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\McLaren\\McLaren Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/McLaren/McLaren Legs.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\McLaren\\McLaren Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/McLaren/McLaren Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\McLaren Monaco\\Livery Norris.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren Monaco_Livery Norris.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\McLaren Monaco\\Livery Piastri.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren Monaco_Livery Piastri.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\McLaren Monaco\\Norris.dds",
+        "destinationPath": "external_liveries/previews/mclaren/McLaren Monaco_Norris.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\McLaren Silverstone\\Livery Norris.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren Silverstone_Livery Norris.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\McLaren Silverstone\\Livery Piastri.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren Silverstone_Livery Piastri.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\McLaren Silverstone\\Norris.dds",
+        "destinationPath": "external_liveries/previews/mclaren/McLaren Silverstone_Norris.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Ferrari\\Leclerc Wings.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Ferrari/Leclerc Wings.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Ferrari\\Ferrari Wheel Cover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Ferrari/Ferrari Wheel Cover.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Ferrari\\Ferrari Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Ferrari/Ferrari Torso.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Ferrari\\Ferrari Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Ferrari/Ferrari Arms.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Ferrari\\Ferrari Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Ferrari/Ferrari Gloves.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Ferrari\\Ferrari Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Ferrari/Ferrari Legs.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Ferrari\\Ferrari Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Ferrari/Ferrari Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Ferrari Miami\\Livery Leclerc.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari Miami_Livery Leclerc.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Ferrari Miami\\Livery Hamilton.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari Miami_Livery Hamilton.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Ferrari Miami\\Leclerc.dds",
+        "destinationPath": "external_liveries/previews/ferrari/Ferrari Miami_Leclerc.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Ferrari Monza\\Livery Leclerc.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari Monza_Livery Leclerc.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Ferrari Monza\\Livery Hamilton.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari Monza_Livery Hamilton.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Ferrari Monza\\Leclerc.dds",
+        "destinationPath": "external_liveries/previews/ferrari/Ferrari Monza_Leclerc.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Ferrari Monaco\\Livery Leclerc.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari Monaco_Livery Leclerc.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Ferrari Monaco\\Livery Hamilton.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari Monaco_Livery Hamilton.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Ferrari Monaco\\Leclerc.dds",
+        "destinationPath": "external_liveries/previews/ferrari/Ferrari Monaco_Leclerc.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Mercedes\\Mercedes Wings.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Mercedes/Mercedes Wings.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Mercedes\\Mercedes Wheel Cover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Mercedes/Mercedes Wheel Cover.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Mercedes\\Mercedes Wheel Cover Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Mercedes/Mercedes Wheel Cover Blur.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Mercedes\\Mercedes Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Mercedes/Mercedes Torso.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Mercedes\\Mercedes Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Mercedes/Mercedes Arms.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Mercedes\\Antonelli Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Mercedes/Antonelli Gloves.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Mercedes\\Mercedes Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Mercedes/Mercedes Legs.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Mercedes\\Mercedes Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Mercedes/Mercedes Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Aston Martin\\Aston Martin Wings.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Aston Martin/Aston Martin Wings.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Aston Martin\\Aston Martin Wheel Cover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Aston Martin/Aston Martin Wheel Cover.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Aston Martin\\Aston Martin Wheel Cover Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Aston Martin/Aston Martin Wheel Cover Blur.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Aston Martin\\Aston Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Aston Martin/Aston Torso.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Aston Martin\\Aston Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Aston Martin/Aston Arms.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Aston Martin\\Aston Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Aston Martin/Aston Gloves.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Aston Martin\\Aston Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Aston Martin/Aston Legs.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Aston Martin\\Aston Martin Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Aston Martin/Aston Martin Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Alpine\\Alpine Wings.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Alpine/Alpine Wings.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Alpine\\Alpine Wheel Cover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Alpine/Alpine Wheel Cover.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Alpine\\Alpine Wheel Cover Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Alpine/Alpine Wheel Cover Blur.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Alpine\\Alpine Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Alpine/Alpine Torso.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Alpine\\Alpine Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Alpine/Alpine Arms.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Alpine\\Alpine Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Alpine/Alpine Gloves.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Alpine\\Alpine Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Alpine/Alpine Legs.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Alpine\\Alpine Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Alpine/Alpine Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Alpine\\Livery Doohan.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Alpine_Livery Doohan.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Alpine\\Doohan.dds",
+        "destinationPath": "external_liveries/previews/benetton/Alpine_Doohan.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Alpine Mercado Libre\\Livery Gasly.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Alpine Mercado Libre_Livery Gasly.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Alpine Mercado Libre\\Livery Colapinto.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Alpine Mercado Libre_Livery Colapinto.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Alpine Mercado Libre\\Gasly.dds",
+        "destinationPath": "external_liveries/previews/benetton/Alpine Mercado Libre_Gasly.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Haas\\Haas Wings.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Haas/Haas Wings.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Haas\\Haas Wheel Cover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Haas/Haas Wheel Cover.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Haas\\Haas Wheel Cover Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Haas/Haas Wheel Cover Blur.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Haas\\Haas Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Haas/Haas Torso.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Haas\\Haas Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Haas/Haas Arms.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Haas\\Haas Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Haas/Haas Gloves.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Haas\\Haas Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Haas/Haas Legs.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Haas\\Haas Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Haas/Haas Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\RB\\RB Wings.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/RB/RB Wings.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\RB\\RB Wheel Cover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/RB/RB Wheel Cover.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\RB\\RB Wheel Cover Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/RB/RB Wheel Cover Blur.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\RB\\RB Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/RB/RB Torso.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\RB\\RB Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/RB/RB Arms.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\RB\\RB Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/RB/RB Gloves.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\RB\\RB Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/RB/RB Legs.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\RB\\RB Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/RB/RB Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\RB\\Livery Tsunoda.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/RB_Livery Tsunoda.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\RB\\Tsunoda.dds",
+        "destinationPath": "external_liveries/previews/toro_rosso/RB_Tsunoda.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Williams\\Williams Wings.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Williams/Williams Wings.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Williams\\Williams Wheel Cover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Williams/Williams Wheel Cover.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Williams\\Williams Wheel Cover Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Williams/Williams Wheel Cover Blur.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Williams\\Williams Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Williams/Williams Torso.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Williams\\Williams Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Williams/Williams Arms.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Williams\\Williams Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Williams/Williams Gloves.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Williams\\Williams Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Williams/Williams Legs.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Williams\\Williams Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Williams/Williams Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\helmets\\Williams\\Albon Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Williams/Albon Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Williams Interlagos\\Livery Albon.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/Williams Interlagos_Livery Albon.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Williams Interlagos\\Livery Sainz.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/Williams Interlagos_Livery Sainz.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Williams Interlagos\\Albon.dds",
+        "destinationPath": "external_liveries/previews/williams/Williams Interlagos_Albon.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Stake F1 Team\\Sauber Wheel Cover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Stake F1 Team/Sauber Wheel Cover.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Stake F1 Team\\Sauber Wheel Cover Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Stake F1 Team/Sauber Wheel Cover Blur.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Stake F1 Team\\Sauber Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Stake F1 Team/Sauber Torso.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Stake F1 Team\\Sauber Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Stake F1 Team/Sauber Arms.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Stake F1 Team\\Sauber Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Stake F1 Team/Sauber Gloves.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Stake F1 Team\\Sauber Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Stake F1 Team/Sauber Legs.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Suits\\Stake F1 Team\\Sauber Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/Suits/Stake F1 Team/Sauber Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Stake F1 Team Miami\\Livery Bortoleto.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/Stake F1 Team Miami_Livery Bortoleto.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Stake F1 Team Miami\\Livery Huelkenberg.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/Stake F1 Team Miami_Livery Huelkenberg.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Stake F1 Team Miami\\Bortoleto.dds",
+        "destinationPath": "external_liveries/previews/sauber/Stake F1 Team Miami_Bortoleto.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Aston Martin\\Livery Alonso.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Aston Martin\\Livery Stroll.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Aston Martin\\Alonso.dds",
+        "destinationPath": "external_liveries/previews/jordan/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Stake F1 Team\\Livery Bortoleto.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Stake F1 Team\\Livery Huelkenberg.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Stake F1 Team\\Bortoleto.dds",
+        "destinationPath": "external_liveries/previews/sauber/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Red Bull\\Livery Verstappen.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Red Bull\\Livery Tsunoda.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Red Bull\\Verstappen.dds",
+        "destinationPath": "external_liveries/previews/stewart/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Red Bull Suzuka\\Livery Verstappen.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/Red Bull Suzuka_Livery Verstappen.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Red Bull Suzuka\\Livery Tsunoda.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/Red Bull Suzuka_Livery Tsunoda.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Red Bull Suzuka\\Verstappen.dds",
+        "destinationPath": "external_liveries/previews/stewart/Red Bull Suzuka_Verstappen.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Haas\\Livery Ocon.dds",
+        "destinationPath": "external_liveries/car_liveries/haas/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Haas\\Livery Bearman.dds",
+        "destinationPath": "external_liveries/car_liveries/haas/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Haas\\Ocon.dds",
+        "destinationPath": "external_liveries/previews/haas/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Haas Suzuka\\Livery Ocon.dds",
+        "destinationPath": "external_liveries/car_liveries/haas/Haas Suzuka_Livery Ocon.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Haas Suzuka\\Livery Bearman.dds",
+        "destinationPath": "external_liveries/car_liveries/haas/Haas Suzuka_Livery Bearman.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\Haas Suzuka\\Ocon.dds",
+        "destinationPath": "external_liveries/previews/haas/Haas Suzuka_Ocon.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Ferrari\\Livery Leclerc.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Ferrari\\Livery Hamilton.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Ferrari\\Leclerc.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Alpine\\Livery Gasly.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Alpine\\Livery Colapinto.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Alpine\\Gasly.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\RB\\Livery Hadjar.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\RB\\Livery Lawson.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\RB\\Hadjar.dds",
+        "destinationPath": "external_liveries/previews/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\RB Miami\\Livery Hadjar.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/RB Miami_Livery Hadjar.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\RB Miami\\Livery Lawson.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/RB Miami_Livery Lawson.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Special Liveries\\RB Miami\\Hadjar.dds",
+        "destinationPath": "external_liveries/previews/toro_rosso/RB Miami_Hadjar.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Williams\\Livery Sainz.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Williams\\Albon.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\McLaren\\Livery Norris.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\McLaren\\Livery Piastri.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\McLaren\\Norris.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Mercedes\\Livery Antonelli.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/default.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Mercedes\\Livery Russell.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1_2025_Skinpack_V1.45\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2024\\F1 2025 Skinpack\\Mercedes\\Antonelli.dds",
+        "destinationPath": "external_liveries/previews/mercedes/default.dds"
+      }
+    ],
+    "helmets": {
+      "stewart": {
+        "samples": [
+          "REDBULL/REDBULL.png"
+        ],
+        "helmet": null,
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Red Bull/Verstappen Visor.dds"
+      },
+      "toro_rosso": {
+        "samples": [
+          "REDBULL/REDBULL_LRonly.png"
+        ],
+        "helmet": null,
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/RB/Hadjar Visor.dds"
+      },
+      "mclaren": {
+        "samples": [
+          "MONSTER.png"
+        ],
+        "helmet": null,
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/McLaren/Norris Visor.dds"
+      },
+      "ferrari": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Ferrari/Leclerc Helmet.dds",
+        "map": "sponsor_maps/ferrari.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Ferrari/Leclerc Visor.dds"
+      },
+      "mercedes": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Mercedes/Russell Helmet.dds",
+        "map": "sponsor_maps/mercedes.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Mercedes/Russell Visor.dds"
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Williams/Albon Helmet.dds",
+        "map": "sponsor_maps/williams.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Williams/Williams Visor.dds"
+      },
+      "haas": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Haas/Ocon Helmet.dds",
+        "map": "sponsor_maps/haas.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Haas/Ocon Visor.dds"
+      },
+      "jordan": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Aston Martin/Stroll Helmet.dds",
+        "map": "sponsor_maps/jordan.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Aston Martin/Stroll Visor.dds"
+      },
+      "sauber": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Stake F1 Team/Bortoleto Helmet.dds",
+        "map": "sponsor_maps/sauber.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Stake F1 Team/Bortoleto Visor.dds"
+      },
+      "benetton": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Alpine/Colapinto Helmet.dds",
+        "map": "sponsor_maps/benetton.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2024/F1 2025 Skinpack/helmets/Alpine/Colapinto Visor.dds"
+      }
+    },
+    "helmet_model": "Modern"
+  }
+}

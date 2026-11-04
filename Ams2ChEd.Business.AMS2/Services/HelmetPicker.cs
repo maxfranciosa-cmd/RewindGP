@@ -53,22 +53,37 @@ namespace Ams2ChEd.Business.AMS2.Services
 
         public static string DefaultBaseVisorFile(int year) => DefaultBaseVisorFile(EraForYear(year));
 
-        public static string PickHelmetFile(Ams2DriverData driver, HelmetEra era) => era switch
+        public static string PickHelmetFile(Ams2DriverData driver, HelmetEra era) => CurrentPlayerHelmetPath(era switch
         {
             HelmetEra.Seventies => driver.BaseHelmetFile70s,
             HelmetEra.Eighties => driver.BaseHelmetFile80s,
             HelmetEra.Nineties => driver.BaseHelmetFile90s,
             _ => driver.BaseHelmetFile
-        };
+        });
 
         // The 90s helmet has no separate visor texture.
-        public static string PickVisorFile(Ams2DriverData driver, HelmetEra era) => era switch
+        public static string PickVisorFile(Ams2DriverData driver, HelmetEra era) => CurrentPlayerHelmetPath(era switch
         {
             HelmetEra.Seventies => driver.BaseVisorFile70s,
             HelmetEra.Eighties => driver.BaseVisorFile80s,
             HelmetEra.Nineties => "",
             _ => driver.BaseVisorFile
-        };
+        });
+
+        /// <summary>
+        /// The player helmets (player_helmets/helmets and visors) ship as WebP since 2026-11-04;
+        /// saves made before still name the PNG they replaced. Maps such a path to the WebP,
+        /// leaving every other path as it is.
+        /// </summary>
+        public static string CurrentPlayerHelmetPath(string path)
+        {
+            if (string.IsNullOrEmpty(path)
+                || !path.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
+                || !path.Replace('\\', '/').Contains("/player_helmets/", StringComparison.OrdinalIgnoreCase)
+                || path.Replace('\\', '/').Contains("/player_helmets/previews/", StringComparison.OrdinalIgnoreCase))
+                return path;
+            return Path.ChangeExtension(path, ".webp");
+        }
 
         public static string DefaultBaseHelmetFile(HelmetEra era) => era switch
         {
@@ -178,7 +193,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         {
             var helmetFileNames = new[] { driver.BaseHelmetFile, driver.BaseHelmetFile90s, driver.BaseHelmetFile80s, driver.BaseHelmetFile70s }
                 .Where(f => !string.IsNullOrEmpty(f))
-                .Select(Path.GetFileName)
+                .Select(f => Path.GetFileName(CurrentPlayerHelmetPath(f)))
                 .ToList();
             return LoadCompleteGenericHelmetDesigns()
                 .FirstOrDefault(g => g.Any(h => helmetFileNames.Contains(Path.GetFileName(h.HelmetFile), StringComparer.OrdinalIgnoreCase)));

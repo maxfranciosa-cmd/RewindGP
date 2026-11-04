@@ -194,8 +194,8 @@ namespace Ams2ChEd.Business.AMS2.UI
 
             // Try to find a matching default design
             var match = helmets.FirstOrDefault(h =>
-                h.HelmetDesign.HelmetFile == helmetFile &&
-                (h.HelmetDesign.VisorFile ?? "") == (visorFile ?? ""));
+                h.HelmetDesign.HelmetFile == HelmetPicker.CurrentPlayerHelmetPath(helmetFile) &&
+                (h.HelmetDesign.VisorFile ?? "") == (HelmetPicker.CurrentPlayerHelmetPath(visorFile) ?? ""));
 
             if (match != null)
             {
