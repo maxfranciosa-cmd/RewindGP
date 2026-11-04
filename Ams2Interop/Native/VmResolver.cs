@@ -159,11 +159,14 @@ public sealed class VmResolver
     }
 
     /// <summary>
-    /// Session/rules VM. Tries three tiers, cheapest/most-reliable first (see this class's doc
+    /// Session/rules VM. Tries four tiers, cheapest/most-reliable first (see this class's doc
     /// comment for the full algorithm):
     ///
     /// 1. Structural walk from master. Kept as a free first attempt (a few hundred pointer reads,
     ///    no full scan).
+    /// 1b. Race1 of master's own VM498 session table (FindVm550ViaSessionTable) - the same entry
+    ///    SessionVmResolver anchors on, so the race and the other sessions always agree. Live
+    ///    2026-11-04 tiers 1 and 2 found nothing and tier 3 had four VM550s tied on its top score.
     /// 2. Master-context-pair scan: whatever resolves "the current race context" caches master
     ///    and VM550 together, adjacent, in a small struct:
     ///    <code>{ unknown_ptr @ -0x18, 0 @ -0x8, vm550 @ 0x0, master @ +0x8 }</code>
@@ -195,6 +198,17 @@ public sealed class VmResolver
                 return sv;
             }
 
+            // Race1 straight from master's own session table: the entry SessionVmResolver anchors
+            // on. The scans below can't tell Race1 from the other sessions' VMs or from leftover
+            // copies - live, four VM550s tied on the top score (Race1, Qualifying1 and two
+            // leftovers), so the pick was a coin toss and a leftover left the race unconfigured.
+            var fromTable = FindVm550ViaSessionTable(m);
+            if (fromTable is long tv && ValidateVm550(tv))
+            {
+                _cachedVm550 = tv;
+                return tv;
+            }
+
             if (allowFullScan)
             {
                 var viaContext = FindVm550ViaMasterContextPair(m);
@@ -213,6 +227,7 @@ public sealed class VmResolver
         {
             tried++;
             if (!ValidateVm550(candidate)) continue;
+            _log?.Invoke($"VmResolver: vm550 0x{candidate:X} taken from the full scan (highest score) - it may not be Race1");
             _cachedVm550 = candidate;
             return candidate;
         }
@@ -320,6 +335,21 @@ public sealed class VmResolver
     /// pointers if that fails. Returns null (never throws) if neither level finds anything -
     /// callers fall back to the master-context-pair scan, then the global tag scan.
     /// </summary>
+    /// <summary>
+    /// Race1's VM550 from master's own VM498 session table: VM498 caches 8 session wrappers at
+    /// +0x18..+0x50 (Ams2Constants.SessionIndex), each wrapper's +0x18 holding that session's
+    /// VM550. Null unless the entry is a populated, correctly-tagged VM550 instance.
+    /// </summary>
+    private long? FindVm550ViaSessionTable(long master)
+    {
+        if (!_mem.TryReadPointerSafe(master + Ams2Constants.Vm498Offset, out var vm498)) return null;
+        if (!_mem.TryReadPointerSafe(vm498 + 0x18 + Ams2Constants.SessionIndex.Race1 * 8, out var wrapper)) return null;
+        if (!_mem.TryReadPointerSafe(wrapper + 0x18, out var candidate) || !IsPlausiblePointer(candidate)) return null;
+        if (!_mem.TryReadInt64(candidate, out var vtbl) || !IsModuleRangePointer(vtbl)) return null;
+        if (!_mem.TryReadInt64(candidate + 8, out var tag) || tag != Ams2Constants.Vm550IdentityTag) return null;
+        return CountPopulatedIntProps(candidate) > 0 ? candidate : null;
+    }
+
     private long? FindVm550Structural(long master)
     {
         if (!IsPlausiblePointer(master)) return null;

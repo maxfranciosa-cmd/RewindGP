@@ -18,8 +18,9 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         /// &lt;= <paramref name="seasonYear"/> (so a venue/GP with several dated entries resolves to
         /// whichever era applies to this season), then walking that entry's TrackOptions in order
         /// and picking the first one whose DlcId is owned, falling back to DefaultTrackId if none
-        /// are. Returns null if no entry matches or none of the matches' Year is
-        /// &lt;= seasonYear - the race is then set up on whatever track AMS2 already has selected.
+        /// are. An entry with no usable track gives TrackId null with its lap count. Returns null
+        /// if no entry matches or none of the matches' Year is &lt;= seasonYear. Without a TrackId
+        /// the race is set up on whatever track AMS2 already has selected.
         /// </summary>
         Ams2TrackResolution ResolveTrack(string grandPrixName, string grandPrixShortName, int seasonYear);
     }
@@ -51,13 +52,14 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                 ?.TrackId
                 ?? entry.DefaultTrackId;
 
-            // An entry can legitimately have no usable track yet (default_track_id: null in the
-            // registry, e.g. a Grand Prix whose venue isn't in the installed track catalog) -
-            // treat that exactly like "no entry matched" rather than handing back a resolution
-            // with a null TrackId that would blow up the caller's hash-catalog lookup.
+            // An entry can legitimately have no usable track (default_track_id: null, e.g. a Grand
+            // Prix whose venue AMS2 doesn't have): its lap count still sets the race distance, on
+            // whatever track the player has selected. With neither, it's as good as no match.
             if (string.IsNullOrEmpty(trackId))
             {
-                return null;
+                return entry.DefaultNumberOfLaps > 0
+                    ? new Ams2TrackResolution { TrackId = null, DefaultNumberOfLaps = entry.DefaultNumberOfLaps }
+                    : null;
             }
 
             return new Ams2TrackResolution

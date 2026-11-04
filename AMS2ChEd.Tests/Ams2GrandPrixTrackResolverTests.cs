@@ -144,7 +144,7 @@ namespace AMS2ChEd.Tests
         }
 
         [TestMethod]
-        public void ResolveTrack_MatchingEntryHasNullDefaultTrackIdAndNoDlc_ReturnsNullRatherThanCrashing()
+        public void ResolveTrack_MatchingEntryHasNullDefaultTrackIdAndNoDlc_ReturnsTheLapsWithoutATrack()
         {
             var entry = new Ams2TrackMappingEntry
             {
@@ -158,7 +158,24 @@ namespace AMS2ChEd.Tests
 
             var result = resolver.ResolveTrack("Australian Grand Prix", "AUS", seasonYear: 1996);
 
-            Assert.IsNull(result);
+            Assert.IsNotNull(result);
+            Assert.IsNull(result.TrackId);
+            Assert.AreEqual(58, result.DefaultNumberOfLaps);
+        }
+
+        [TestMethod]
+        public void ResolveTrack_MatchingEntryHasNeitherTrackNorLaps_ReturnsNull()
+        {
+            var entry = new Ams2TrackMappingEntry
+            {
+                GrandPrixNamePatterns = new List<string> { "Australian" },
+                Year = 0,
+                DefaultTrackId = null,
+                DefaultNumberOfLaps = 0,
+            };
+            var resolver = MakeResolver(new List<Ams2TrackMappingEntry> { entry });
+
+            Assert.IsNull(resolver.ResolveTrack("Australian Grand Prix", "AUS", seasonYear: 1996));
         }
 
         [TestMethod]

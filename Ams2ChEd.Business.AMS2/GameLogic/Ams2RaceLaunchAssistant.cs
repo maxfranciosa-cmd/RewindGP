@@ -258,7 +258,9 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
             var seasonYear = request.Season.OriginalYear ?? request.Season.Year;
             var trackResolution = _trackResolver.ResolveTrack(race.RaceName, race.RaceShortName, seasonYear);
-            var trackKnown = trackResolution != null && _hashCatalogProvider.TrackHashes.ContainsKey(trackResolution.TrackId);
+            var trackKnown = trackResolution?.TrackId != null && _hashCatalogProvider.TrackHashes.ContainsKey(trackResolution.TrackId);
+            // the Grand Prix's lap count, even when AMS2 has no track for it (the track is then left as is)
+            var lapsKnown = trackResolution?.DefaultNumberOfLaps > 0;
 
             var carSelection = (_racePreparator as Ams2RacePreparator)?.GetPlayerCarSelection(
                 request.RaceId, request.EntryList, request.Drivers, request.Season, request.PlayerDriverId);
@@ -274,9 +276,10 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 return false;
             }
 
-            // Without a known track there's no lap count to shorten, so the race distance stays the
-            // player's too, and with it their tyre-wear/fuel-usage settings.
-            var raceLength = trackKnown
+            // Without a known lap count there's nothing to shorten, so the race distance stays the
+            // player's, and with it their tyre-wear/fuel-usage settings. Every other setting is
+            // applied either way.
+            var raceLength = lapsKnown
                 ? (_installSettingsStorage as Ams2GameInstallSettingsStorage)?.LoadRaceLength() ?? Ams2RaceLength.Default
                 : Ams2RaceLength.Default;
             var sessionRules = Ams2SessionRulesBuilder.BuildSessionRules(race, raceLength, trackResolution?.DefaultNumberOfLaps ?? 0);
