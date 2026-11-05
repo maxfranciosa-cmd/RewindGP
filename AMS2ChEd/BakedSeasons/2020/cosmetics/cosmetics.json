@@ -1,0 +1,1203 @@
+{
+  "_comment": "Artwork the app ships for 2020 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/2020/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: none.",
+  "teams": {
+    "sauber": {
+      "ams2car": "formula_ultimate_2019",
+      "base_livery_driver1": "external_liveries/car_liveries/sauber/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/sauber/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/sauber/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/sauber_fin_top.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 103,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3477,
+            "Y": 231
+          },
+          "rotation": "Deg180",
+          "fill_color": "#8E0000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/sauber_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 112,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1021,
+            "Y": 1992
+          },
+          "rotation": "Deg90",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/sauber_fin_bottom.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 103,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3376,
+            "Y": 3850
+          },
+          "rotation": "Deg0",
+          "fill_color": "#8E0000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"65\" NAME=\"2020 Alfa Romeo #7 K. RÃ¤ikkÃ¶nen\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2020\\Previews\\2020_preview7.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2020\\2020_AlfaRomeo7.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_AlfaRomeo_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_AlfaRomeo_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"65\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Raikkonen_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2020\\Helmets\\2020_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Raikkonen_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"65\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_AlfaRomeo_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_AlfaRomeo_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_AlfaRomeo_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2020\\Suits\\2020_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_AlfaRomeo_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2020\\Harness\\2020_AlfaRomeo_belt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "toro_rosso": {
+      "ams2car": "formula_ultimate_2019",
+      "base_livery_driver1": "external_liveries/car_liveries/toro_rosso/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/toro_rosso/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/toro_rosso/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/toro_rosso_fin_top.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 113,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3587,
+            "Y": 196
+          },
+          "rotation": "Deg180",
+          "fill_color": "#1B2029"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/toro_rosso_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 174,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1080,
+            "Y": 1962
+          },
+          "rotation": "Deg90",
+          "fill_color": "#1B2029"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/toro_rosso_fin_bottom.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 113,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3474,
+            "Y": 3886
+          },
+          "rotation": "Deg0",
+          "fill_color": "#1B2029"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/toro_rosso_halo.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 71,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 520,
+            "Y": 924
+          },
+          "rotation": "Deg180",
+          "fill_color": "#1B2029"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/toro_rosso/REDBULL_LRonly.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/toro_rosso/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"61\" NAME=\"2020 AlphaTauri #10 P. Gasly\" BASELIVERY=\"Matte\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2020\\Previews\\2020_preview10.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2020\\2020_AlphaTauri10.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_AlphaTauri_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_AlphaTauri_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"61\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Gasly_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2020\\Helmets\\2020_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Gasly_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"61\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_AlphaTauri_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_AlphaTauri_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_AlphaTauri_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2020\\Suits\\2020_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_AlphaTauri_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2020\\Harness\\2020_Sabelt_belt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ferrari": {
+      "ams2car": "formula_ultimate_2019",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/ferrari_fin_top.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 106,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3444,
+            "Y": 250
+          },
+          "rotation": "Deg180",
+          "fill_color": "#E70800"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 235,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 800,
+            "Y": 1925
+          },
+          "rotation": "Deg90",
+          "fill_color": "#E70800"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/ferrari_fin_bottom.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 106,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3340,
+            "Y": 3831
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E70800"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2020_2020_Ferrari5_Mugello.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2020_2020_Ferrari16_Mugello.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Previews_2020_preview5_Mugello.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/ferrari_mug_fin_top.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 121,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 3454,
+                "Y": 251
+              },
+              "rotation": "Deg180",
+              "fill_color": "#390410"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/ferrari_mug_nose.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 235,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 802,
+                "Y": 1925
+              },
+              "rotation": "Deg90",
+              "fill_color": "#390410"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/ferrari_mug_fin_bottom.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 121,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 3328,
+                "Y": 3830
+              },
+              "rotation": "Deg0",
+              "fill_color": "#390410"
+            }
+          ]
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"2020 Ferrari #5 S. Vettel\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2020\\Previews\\2020_preview5.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2020\\2020_Ferrari5.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_Ferrari_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_Ferrari_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Vettel_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2020\\Helmets\\2020_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Vettel_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Ferrari_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Ferrari_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Ferrari_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2020\\Suits\\2020_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Ferrari_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2020\\Harness\\2020_Sabelt_belt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "haas": {
+      "ams2car": "formula_ultimate_2019",
+      "base_livery_driver1": "external_liveries/car_liveries/haas/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/haas/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/haas/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/haas_fin_top.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 107,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3451,
+            "Y": 245
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/haas_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 172,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 766,
+            "Y": 1962
+          },
+          "rotation": "Deg90",
+          "fill_color": "#B5B2B5"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/haas_fin_bottom.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 108,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3346,
+            "Y": 3834
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/haas/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/haas/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 16,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/haas/F1_Season_2020_2020_Haas51.dds",
+          "livery_preview": "external_liveries/previews/haas/Previews_2020_preview51.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/haas/F1_Season_2020_2020_Haas51.dds",
+          "livery_preview": "external_liveries/previews/haas/Previews_2020_preview51.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"68\" NAME=\"2020 Haas #20 K. Magnussen\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2020\\Previews\\2020_preview20.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2020\\2020_Haas20.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_Haas_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_Haas_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"68\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Magnussen_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2020\\Helmets\\2020_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Magnussen_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"68\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Haas_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Haas_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Haas_Gloves_Magnussen.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2020\\Suits\\2020_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Haas_legs_Magnussen.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2020\\Harness\\2020_Sabeltsmall_belt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "ams2car": "formula_ultimate_2019",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/mclaren_fin_top.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 131,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3489,
+            "Y": 235
+          },
+          "rotation": "Deg180",
+          "fill_color": "#060606"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/mclaren_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 259,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1113,
+            "Y": 1918
+          },
+          "rotation": "Deg90",
+          "fill_color": "#FF7D00"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/mclaren_fin_bottom.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 130,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3360,
+            "Y": 3846
+          },
+          "rotation": "Deg0",
+          "fill_color": "#060606"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"58\" NAME=\"2020 Mclaren #4 L. Norris\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2020\\Previews\\2020_preview4.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2020\\2020_McLaren4.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_McLaren_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_McLaren_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"58\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Norris_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2020\\Helmets\\2020_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Norris_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"58\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_McLaren_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_McLaren_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_McLaren_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2020\\Suits\\2020_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_McLaren_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2020\\Harness\\2020_McLaren_belt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mercedes": {
+      "ams2car": "formula_ultimate_2019",
+      "base_livery_driver1": "external_liveries/car_liveries/mercedes/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mercedes/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mercedes/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/mercedes_fin_top.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 265,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3864,
+            "Y": 1672
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/mercedes_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 245,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1074,
+            "Y": 1925
+          },
+          "rotation": "Deg90",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/mercedes_fin_bottom.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 258,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3591,
+            "Y": 2414
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mercedes/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mercedes/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 16,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/mercedes/F1_Season_2020_2020_Mercedes63.dds",
+          "livery_preview": "external_liveries/previews/mercedes/Previews_2020_preview63_Sakhir.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"52\" NAME=\"2020 Mercedes #77 V. Bottas\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2020\\Previews\\2020_preview77.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2020\\2020_Mercedes77.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_Mercedes_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_Mercedes_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"52\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Bottas_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2020\\Helmets\\2020_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Bottas_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"52\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Mercedes_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Mercedes_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Mercedes_gloves_Bottas.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2020\\Suits\\2020_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Mercedes_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2020\\Harness\\2020_Mercedes_belt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "jordan": {
+      "ams2car": "formula_ultimate_2019",
+      "base_livery_driver1": "external_liveries/car_liveries/jordan/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/jordan/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/jordan/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/jordan_fin_top.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 106,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3516,
+            "Y": 222
+          },
+          "rotation": "Deg180",
+          "fill_color": "#E786BD"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/jordan_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 250,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1098,
+            "Y": 1915
+          },
+          "rotation": "Deg90",
+          "fill_color": "#E786BD"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/jordan_fin_bottom.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 108,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3412,
+            "Y": 3858
+          },
+          "rotation": "Deg0",
+          "fill_color": "#E786BD"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 4,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2020_2020_RacingPoint27.dds",
+          "livery_preview": "external_liveries/previews/jordan/Previews_2020_preview27.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2020_2020_RacingPoint27.dds",
+          "livery_preview": "external_liveries/previews/jordan/Previews_2020_preview27.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2020_2020_RacingPoint27.dds",
+          "driver2_livery": null,
+          "livery_preview": "external_liveries/previews/jordan/Previews_2020_preview27.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"64\" NAME=\"2020 Racing Point #18 L. Stroll\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2020\\Previews\\2020_preview18.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2020\\2020_RacingPoint18.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_RacingPoint_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_RacingPoint_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"64\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Stroll_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2020\\Helmets\\2020_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Stroll_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"64\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_RacingPoint_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_RacingPoint_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_RacingPoint_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2020\\Suits\\2020_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_RacingPoint_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2020\\Harness\\2020_Sabeltsmall_belt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "stewart": {
+      "ams2car": "formula_ultimate_2019",
+      "base_livery_driver1": "external_liveries/car_liveries/stewart/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/stewart/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/stewart/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/stewart_fin_top.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 260,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 4005,
+            "Y": 1667
+          },
+          "rotation": "Deg180",
+          "fill_color": "#001429"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/stewart_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 289,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1180,
+            "Y": 1909
+          },
+          "rotation": "Deg90",
+          "fill_color": "#001429"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/stewart_fin_bottom.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 260,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3745,
+            "Y": 2429
+          },
+          "rotation": "Deg0",
+          "fill_color": "#001429"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/stewart/REDBULL.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/stewart/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"56\" NAME=\"2020 Red Bull #23 A. Albon\" BASELIVERY=\"Matte\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2020\\Previews\\2020_preview23.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2020\\2020_RedBull23.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_RedBull_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_RedBull_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"56\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Albon_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2020\\Helmets\\2020_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Albon_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"56\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_RedBull_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_RedBull_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_RedBull_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2020\\Suits\\2020_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_RedBull_legs_Albon.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2020\\Harness\\2020_Sabelt_belt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "formula_ultimate_2019",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/benetton_fin_top.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 133,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3479,
+            "Y": 243
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 205,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 799,
+            "Y": 1950
+          },
+          "rotation": "Deg90",
+          "fill_color": "#FFD300"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/benetton_fin_bottom.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 133,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3348,
+            "Y": 3838
+          },
+          "rotation": "Deg0",
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"2020 Renault #3 D. Ricciardo\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2020\\Previews\\2020_preview3.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2020\\2020_Renault3.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_Renault_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_Renault_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Ricciardo_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2020\\Helmets\\2020_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Ricciardo_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Renault_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Renault_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Renault_Gloves_Ricciardo.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2020\\Suits\\2020_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Renault_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2020\\Harness\\2020_Renault_belt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_ultimate_2019",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/williams_fin_top.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 99,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3446,
+            "Y": 218
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 196,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1102,
+            "Y": 1950
+          },
+          "rotation": "Deg90",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2020/cosmetics/numbers/williams_fin_bottom.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 99,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3347,
+            "Y": 3862
+          },
+          "rotation": "Deg0",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 16,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/williams/F1_Season_2020_2020_Williams89.dds",
+          "livery_preview": "external_liveries/previews/williams/Previews_2020_preview89.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"70\" NAME=\"2020 Williams #6 N. Latifi\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2020\\Previews\\2020_preview6.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2020\\2020_Williams6.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_Williams_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2020\\Rims\\2020_Williams_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"70\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Latifi_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2020\\Helmets\\2020_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2020\\Helmets\\2020_Latifi_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"70\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Williams_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Williams_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Williams_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2020\\Suits\\2020_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2020\\Suits\\2020_Williams_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2020\\Harness\\2020_Williams_belt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "alexander_albon": {
+      "picture": "https://www.statsf1.com/pilotes/photos/albon.png"
+    },
+    "antonio_giovinazzi": {
+      "picture": "https://www.statsf1.com/pilotes/photos/giovinaz.png"
+    },
+    "carlos_sainz": {
+      "picture": "https://www.statsf1.com/pilotes/photos/sainz.png"
+    },
+    "charles_leclerc": {
+      "picture": "https://www.statsf1.com/pilotes/photos/leclerc.png"
+    },
+    "daniel_ricciardo": {
+      "picture": "https://www.statsf1.com/pilotes/photos/ricciard.png"
+    },
+    "daniil_kvyat": {
+      "picture": "https://www.statsf1.com/pilotes/photos/kvyat.png"
+    },
+    "esteban_ocon": {
+      "picture": "https://www.statsf1.com/pilotes/photos/ocon.png"
+    },
+    "george_russell": {
+      "picture": "https://www.statsf1.com/pilotes/photos/russellg.png"
+    },
+    "jack_aitken": {
+      "picture": "https://www.statsf1.com/pilotes/photos/aitken.png"
+    },
+    "kevin_magnussen": {
+      "picture": "https://www.statsf1.com/pilotes/photos/magnusk.png"
+    },
+    "kimi_raikkonen": {
+      "picture": "https://www.statsf1.com/pilotes/photos/raikkone.png"
+    },
+    "lance_stroll": {
+      "picture": "https://www.statsf1.com/pilotes/photos/stroll.png"
+    },
+    "lando_norris": {
+      "picture": "https://www.statsf1.com/pilotes/photos/norris.png"
+    },
+    "lewis_hamilton": {
+      "picture": "https://www.statsf1.com/pilotes/photos/hamiltol.png"
+    },
+    "max_verstappen": {
+      "picture": "https://www.statsf1.com/pilotes/photos/verstapm.png"
+    },
+    "nicholas_latifi": {
+      "picture": "https://www.statsf1.com/pilotes/photos/latifi.png"
+    },
+    "nico_hulkenberg": {
+      "picture": "https://www.statsf1.com/pilotes/photos/hulkenbe.png"
+    },
+    "pierre_gasly": {
+      "picture": "https://www.statsf1.com/pilotes/photos/gasly.png"
+    },
+    "pietro_fittipaldi": {
+      "picture": "https://www.statsf1.com/pilotes/photos/fittipap.png"
+    },
+    "romain_grosjean": {
+      "picture": "https://www.statsf1.com/pilotes/photos/grosjean.png"
+    },
+    "sebastian_vettel": {
+      "picture": "https://www.statsf1.com/pilotes/photos/vettel.png"
+    },
+    "sergio_perez": {
+      "picture": "https://www.statsf1.com/pilotes/photos/perez.png"
+    },
+    "valtteri_bottas": {
+      "picture": "https://www.statsf1.com/pilotes/photos/bottas.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/ams2-f1-2020-season.81518/",
+    "name": "[AMS2] F1 2020 Season 1.01",
+    "detect": [
+      "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/2020_AlfaRomeo7.dds",
+      "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/2020_AlfaRomeo99.dds",
+      "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/2020_AlphaTauri10.dds",
+      "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/2020_AlphaTauri26.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_AlfaRomeo7.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_AlfaRomeo99.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview7.dds",
+        "destinationPath": "external_liveries/previews/sauber/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_AlfaRomeo_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_AlfaRomeo_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_AlfaRomeo_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_AlfaRomeo_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_AlfaRomeo_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_AlfaRomeo_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_AlfaRomeo_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_AlfaRomeo_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_AlfaRomeo_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_AlfaRomeo_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_AlfaRomeo_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_AlfaRomeo_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Harness\\2020_AlfaRomeo_belt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Harness/2020_AlfaRomeo_belt.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_AlphaTauri10.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_AlphaTauri26.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview10.dds",
+        "destinationPath": "external_liveries/previews/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_AlphaTauri_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_AlphaTauri_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_AlphaTauri_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_AlphaTauri_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_AlphaTauri_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_AlphaTauri_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_AlphaTauri_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_AlphaTauri_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_AlphaTauri_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_AlphaTauri_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_AlphaTauri_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_AlphaTauri_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Ferrari5.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Ferrari16.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview5.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_Ferrari_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_Ferrari_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_Ferrari_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_Ferrari_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Ferrari_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Ferrari_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Ferrari_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Ferrari_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Ferrari_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Ferrari_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Ferrari_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Ferrari_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Ferrari5_Mugello.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2020_2020_Ferrari5_Mugello.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Ferrari16_Mugello.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2020_2020_Ferrari16_Mugello.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview5_Mugello.dds",
+        "destinationPath": "external_liveries/previews/ferrari/Previews_2020_preview5_Mugello.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Haas20.dds",
+        "destinationPath": "external_liveries/car_liveries/haas/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Haas8.dds",
+        "destinationPath": "external_liveries/car_liveries/haas/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview20.dds",
+        "destinationPath": "external_liveries/previews/haas/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_Haas_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_Haas_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_Haas_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_Haas_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Haas_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Haas_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Haas_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Haas_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Haas_Gloves_Magnussen.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Haas_Gloves_Magnussen.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Haas_legs_Magnussen.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Haas_legs_Magnussen.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Haas51.dds",
+        "destinationPath": "external_liveries/car_liveries/haas/F1_Season_2020_2020_Haas51.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview51.dds",
+        "destinationPath": "external_liveries/previews/haas/Previews_2020_preview51.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_McLaren4.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_McLaren55.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview4.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_McLaren_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_McLaren_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_McLaren_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_McLaren_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_McLaren_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_McLaren_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_McLaren_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_McLaren_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_McLaren_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_McLaren_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_McLaren_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_McLaren_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Harness\\2020_McLaren_belt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Harness/2020_McLaren_belt.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Mercedes77.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Mercedes44.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview77.dds",
+        "destinationPath": "external_liveries/previews/mercedes/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_Mercedes_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_Mercedes_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_Mercedes_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_Mercedes_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Mercedes_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Mercedes_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Mercedes_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Mercedes_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Mercedes_gloves_Bottas.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Mercedes_gloves_Bottas.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Mercedes_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Mercedes_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Harness\\2020_Mercedes_belt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Harness/2020_Mercedes_belt.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Mercedes63.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/F1_Season_2020_2020_Mercedes63.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview63_Sakhir.dds",
+        "destinationPath": "external_liveries/previews/mercedes/Previews_2020_preview63_Sakhir.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_RacingPoint18.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_RacingPoint11.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview18.dds",
+        "destinationPath": "external_liveries/previews/jordan/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_RacingPoint_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_RacingPoint_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_RacingPoint_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_RacingPoint_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_RacingPoint_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_RacingPoint_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_RacingPoint_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_RacingPoint_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_RacingPoint_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_RacingPoint_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_RacingPoint_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_RacingPoint_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Harness\\2020_Sabeltsmall_belt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Harness/2020_Sabeltsmall_belt.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_RacingPoint27.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2020_2020_RacingPoint27.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview27.dds",
+        "destinationPath": "external_liveries/previews/jordan/Previews_2020_preview27.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_RedBull23.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_RedBull33.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview23.dds",
+        "destinationPath": "external_liveries/previews/stewart/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_RedBull_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_RedBull_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_RedBull_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_RedBull_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_RedBull_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_RedBull_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_RedBull_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_RedBull_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_RedBull_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_RedBull_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_RedBull_legs_Albon.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_RedBull_legs_Albon.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Harness\\2020_Sabelt_belt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Harness/2020_Sabelt_belt.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Renault3.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Renault31.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview3.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_Renault_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_Renault_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_Renault_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_Renault_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Renault_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Renault_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Renault_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Renault_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Renault_Gloves_Ricciardo.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Renault_Gloves_Ricciardo.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Renault_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Renault_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Harness\\2020_Renault_belt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Harness/2020_Renault_belt.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Williams6.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Williams63.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview6.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_Williams_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_Williams_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_Williams_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_Williams_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_rims_lowspec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_rims_lowspec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Rims\\2020_rims_lowspec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Rims/2020_rims_lowspec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Williams_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Williams_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Williams_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Williams_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Williams_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Williams_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_gloves_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_gloves_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Suits\\2020_Williams_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Suits/2020_Williams_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Harness\\2020_Williams_belt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Harness/2020_Williams_belt.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Helmets\\2020_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\2020_Williams89.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/F1_Season_2020_2020_Williams89.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2020_Season\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_ultimate_2019\\F1_Season_2020\\Previews\\2020_preview89.dds",
+        "destinationPath": "external_liveries/previews/williams/Previews_2020_preview89.dds"
+      }
+    ],
+    "helmets": {
+      "sauber": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Raikkonen_helmet.dds",
+        "map": "sponsor_maps/sauber.png",
+        "visor": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Raikkonen_visor.dds"
+      },
+      "toro_rosso": {
+        "samples": [
+          "REDBULL/REDBULL_LRonly.png"
+        ],
+        "helmet": null,
+        "map": null,
+        "visor": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Gasly_visor.dds"
+      },
+      "ferrari": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Vettel_Helmet.dds",
+        "map": "sponsor_maps/ferrari.png",
+        "visor": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Leclerc_Visor.dds"
+      },
+      "haas": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Magnussen_helmet.dds",
+        "map": "sponsor_maps/haas.png",
+        "visor": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Magnussen_visor.dds"
+      },
+      "mclaren": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Norris_Helmet.dds",
+        "map": "sponsor_maps/mclaren.png",
+        "visor": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Norris_visor.dds"
+      },
+      "mercedes": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Hamilton_Helmet.dds",
+        "map": "sponsor_maps/mercedes.png",
+        "visor": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Hamilton_visor.dds"
+      },
+      "jordan": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Stroll_helmet.dds",
+        "map": "sponsor_maps/jordan.png",
+        "visor": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Stroll_visor.dds"
+      },
+      "stewart": {
+        "samples": [
+          "REDBULL/REDBULL.png"
+        ],
+        "helmet": null,
+        "map": null,
+        "visor": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Verstappen_Visor.dds"
+      },
+      "benetton": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Ricciardo_helmet.dds",
+        "map": "sponsor_maps/benetton.png",
+        "visor": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Ricciardo_visor.dds"
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Russell_Helmet.dds",
+        "map": "sponsor_maps/williams.png",
+        "visor": "[AMS2]F1_2020_Season/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_ultimate_2019/F1_Season_2020/Helmets/2020_Russell_visor.dds"
+      }
+    },
+    "helmet_model": "Modern"
+  }
+}
