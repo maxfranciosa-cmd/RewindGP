@@ -1,0 +1,1520 @@
+{
+  "_comment": "Artwork the app ships for 2005 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/2005/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: mclaren.",
+  "teams": {
+    "bar": {
+      "ams2car": "formula_v10_g3_m",
+      "base_livery_driver1": "external_liveries/car_liveries/bar/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/bar/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/bar/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/bar_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 288,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2193,
+            "Y": 1647
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/bar/LuckyStrike.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/bar/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 2,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/bar/F1_Season_2005_4_BAR_Davidson.dds",
+          "livery_preview": "external_liveries/previews/bar/preview_4_BAR_Davidson.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/bar/F1_Season_2005_3_BAR_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/F1_Season_2005_4_BAR_NT.dds",
+          "livery_preview": "external_liveries/previews/bar/preview_3_BAR_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_nt.png"
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/bar/F1_Season_2005_3_BAR_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/F1_Season_2005_4_BAR_NT.dds",
+          "livery_preview": "external_liveries/previews/bar/preview_3_BAR_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_nt.png"
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/bar/F1_Season_2005_3_BAR_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/F1_Season_2005_4_BAR_NT.dds",
+          "livery_preview": "external_liveries/previews/bar/preview_3_BAR_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_nt.png"
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/bar/F1_Season_2005_3_BAR_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/F1_Season_2005_4_BAR_NT.dds",
+          "livery_preview": "external_liveries/previews/bar/preview_3_BAR_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_nt.png"
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/bar/F1_Season_2005_3_BAR_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/F1_Season_2005_4_BAR_NT.dds",
+          "livery_preview": "external_liveries/previews/bar/preview_3_BAR_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_nt.png"
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/bar/F1_Season_2005_3_BAR_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/F1_Season_2005_4_BAR_NT.dds",
+          "livery_preview": "external_liveries/previews/bar/preview_3_BAR_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_nt.png"
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/bar/F1_Season_2005_3_BAR_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/F1_Season_2005_4_BAR_NT.dds",
+          "livery_preview": "external_liveries/previews/bar/preview_3_BAR_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_nt.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"2005 BAR #3 - J. Button\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2005\\preview\\3_BAR.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2005\\3_BAR.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2005\\Rims\\BAR.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2005\\Rims\\BAR_Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2005\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2005\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2005\\Tires\\3_BAR.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2005\\Tires\\3_BAR_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Button.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Button_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2005\\Helmet\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2005\\Helmet\\visor_spec_blue.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Driver\\BARDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2005\\Driver\\BARArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2005\\Driver\\BARGloves_Button.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2005\\Driver\\Gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2005\\Driver\\BARLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2005\\Harness\\BAR.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ferrari": {
+      "ams2car": "formula_v10_g3_b",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 92,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2094,
+            "Y": 1394
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/ferrari_top_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 117,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1867,
+            "Y": 239
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF0000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/ferrari_top_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 117,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2347,
+            "Y": 239
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF0000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/Marlboro.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_1_Ferrari_NT_Canada.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_2_Ferrari_NT_Canada.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview_1_Ferrari_NT_Canada.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt_visor.png"
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_1_Ferrari_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_2_Ferrari_NT.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview_1_Ferrari_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt_visor.png"
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_1_Ferrari_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_2_Ferrari_NT.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview_1_Ferrari_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt_visor.png"
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_1_Ferrari_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_2_Ferrari_NT.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview_1_Ferrari_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt_visor.png"
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_1_Ferrari_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_2_Ferrari_NT.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview_1_Ferrari_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt_visor.png"
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_1_Ferrari_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_2_Ferrari_NT.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview_1_Ferrari_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt_visor.png"
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_1_Ferrari_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_2005_2_Ferrari_NT.dds",
+          "livery_preview": "external_liveries/previews/ferrari/preview_1_Ferrari_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_nt_visor.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"2005 Ferrari #1 - M. Schumacher\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2005\\preview\\1_Ferrari.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2005\\1_Ferrari.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2005\\Rims\\Ferrari.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2005\\Rims\\Ferrari_Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2005\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2005\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2005\\Tires\\1_Ferrari.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2005\\Tires\\1_Ferrari_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Helmet\\MSchumacher.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2005\\Helmet\\MSchumacher_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2005\\Helmet\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2005\\Helmet\\MSchumacher_visor_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Driver\\FerrariDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2005\\Driver\\FerrariArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2005\\Driver\\FerrariGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2005\\Driver\\Gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2005\\Driver\\FerrariLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2005\\Harness\\Ferrari.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "jordan": {
+      "ams2car": "formula_v10_g3_b",
+      "base_livery_driver1": "external_liveries/car_liveries/jordan/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/jordan/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/jordan/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/jordan_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 174,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3485,
+            "Y": 173
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFDF00"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 7,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_Mid.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_Mid.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_Mid.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_Mid.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_Mid.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_Mid.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_Mid.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_Mid.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_Mid.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_Mid.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_Mid.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_Mid.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_NT.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_Late.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_NT.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_NT.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_NT.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_NT.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_Late.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_Late.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_Late.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 19,
+          "driver1_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_Late.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_Late.dds",
+          "livery_preview": "external_liveries/previews/jordan/preview_18_Jordan_Late.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"2005 Jordan #18 - T. Monteiro\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2005\\preview\\18_Jordan_Early.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2005\\18_Jordan_Early.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2005\\Rims\\Jordan.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2005\\Rims\\Jordan_Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2005\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2005\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2005\\Tires\\18_Jordan.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2005\\Tires\\18_Jordan_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Monteiro.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Jordan_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2005\\Helmet\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2005\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Driver\\JordanDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2005\\Driver\\JordanArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2005\\Driver\\JordanGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2005\\Driver\\Gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2005\\Driver\\JordanLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2005\\Harness\\Jordan.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "minardi": {
+      "ams2car": "formula_v10_g3_b",
+      "base_livery_driver1": "external_liveries/car_liveries/minardi/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/minardi/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/minardi/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/minardi_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 194,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3498,
+            "Y": 256
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/minardi/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 12,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/minardi/F1_Season_2005_20_Minardi_Doornbos.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview_20_Minardi_Doornbos.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/minardi/F1_Season_2005_20_Minardi_Doornbos.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview_20_Minardi_Doornbos.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/minardi/F1_Season_2005_20_Minardi_Doornbos.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview_20_Minardi_Doornbos.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/minardi/F1_Season_2005_20_Minardi_Doornbos.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview_20_Minardi_Doornbos.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/minardi/F1_Season_2005_20_Minardi_Doornbos.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview_20_Minardi_Doornbos.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/minardi/F1_Season_2005_20_Minardi_Doornbos.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview_20_Minardi_Doornbos.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/minardi/F1_Season_2005_20_Minardi_Doornbos.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview_20_Minardi_Doornbos.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 19,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/minardi/F1_Season_2005_20_Minardi_Doornbos.dds",
+          "livery_preview": "external_liveries/previews/minardi/preview_20_Minardi_Doornbos.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"56\" NAME=\"2005 Minardi #21 - C. Albers\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2005\\preview\\21_Minardi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2005\\21_Minardi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2005\\Rims\\Minardi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2005\\Rims\\Minardi_Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2005\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2005\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2005\\Tires\\21_Minardi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2005\\Tires\\21_Minardi_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"56\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Albers.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Albers_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2005\\Helmet\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2005\\Helmet\\Albers_visor_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"56\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Driver\\MinardiDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2005\\Driver\\MinardiArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2005\\Driver\\MinardiGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2005\\Driver\\Gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2005\\Driver\\MinardiLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2005\\Harness\\Minardi.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "stewart": {
+      "ams2car": "formula_v10_g3_m",
+      "base_livery_driver1": "external_liveries/car_liveries/stewart/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/stewart/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/stewart/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/stewart_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 276,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2184,
+            "Y": 1400
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000C29"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/stewart/REDBULL.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/stewart/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/stewart/F1_Season_2005_14_RedBull_Monaco.dds",
+          "driver2_livery": "external_liveries/car_liveries/stewart/F1_Season_2005_15_RedBull_Monaco.dds",
+          "livery_preview": "external_liveries/previews/stewart/preview_14_RedBull_Monaco.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"2005 Red Bull #14 - D. Coulthard\" BASELIVERY=\"SilverMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2005\\preview\\14_RedBull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2005\\14_RedBull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2005\\Rims\\RedBull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2005\\Rims\\RedBull_Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2005\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2005\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2005\\Tires\\14_RedBull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2005\\Tires\\14_RedBull_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Coulthard.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2005\\Helmet\\RedBull_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2005\\Helmet\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2005\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Driver\\RedBullDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2005\\Driver\\RedBullArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2005\\Driver\\RedBullGloves_Coulthard.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2005\\Driver\\Gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2005\\Driver\\RedBullLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2005\\Harness\\RedBull.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "renault_r25",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 116,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2106,
+            "Y": 1058
+          },
+          "rotation": "Deg180",
+          "fill_color": "#F7BA21"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/MildSeven_NoHalo.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_5_Renault_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_6_Renault_NT.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview_5_Renault_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_5_Renault_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_6_Renault_NT.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview_5_Renault_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_5_Renault_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_6_Renault_NT.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview_5_Renault_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_5_Renault_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_6_Renault_NT.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview_5_Renault_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_5_Renault_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_6_Renault_NT.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview_5_Renault_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_5_Renault_NT.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2005_6_Renault_NT.dds",
+          "livery_preview": "external_liveries/previews/benetton/preview_5_Renault_NT.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"2005 Renault #5 - F. Alonso\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2005\\preview\\5_Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2005\\5_Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2005\\Rims\\Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2005\\Rims\\Renault_Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2005\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2005\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2005\\Tires\\5_Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2005\\Tires\\5_Renault_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Alonso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Renault_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2005\\Helmet\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2005\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Driver\\RenaultDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2005\\Driver\\RenaultArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2005\\Driver\\RenaultGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2005\\Driver\\Gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2005\\Driver\\RenaultLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2005\\Harness\\Renault.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "sauber": {
+      "ams2car": "formula_v10_g3_m",
+      "base_livery_driver1": "external_liveries/car_liveries/sauber/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/sauber/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/sauber/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/sauber_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 222,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2154,
+            "Y": 1828
+          },
+          "rotation": "Deg180",
+          "fill_color": "#002473"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"2005 Sauber #11 - J. Villeneuve\" BASELIVERY=\"BlueMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2005\\preview\\11_Sauber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2005\\11_Sauber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2005\\Rims\\Sauber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2005\\Rims\\Sauber_Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2005\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2005\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2005\\Tires\\11_Sauber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2005\\Tires\\11_Sauber_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Villeneuve.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Sauber_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2005\\Helmet\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2005\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Driver\\SauberDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2005\\Driver\\SauberArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2005\\Driver\\SauberGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2005\\Driver\\Gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2005\\Driver\\SauberLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2005\\Harness\\Sauber.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "toyota": {
+      "ams2car": "formula_v10_g3_m",
+      "base_livery_driver1": "external_liveries/car_liveries/toyota/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/toyota/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/toyota/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/toyota_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 153,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2123,
+            "Y": 1224
+          },
+          "rotation": "Deg180",
+          "fill_color": "#CE0400"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/toyota/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/toyota/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"2005 Toyota #16 - J. Trulli\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2005\\preview\\16_Toyota.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2005\\16_Toyota.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2005\\Rims\\Toyota.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2005\\Rims\\Toyota_Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2005\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2005\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2005\\Tires\\16_Toyota.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2005\\Tires\\16_Toyota_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Trulli.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Toyota_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2005\\Helmet\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2005\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Driver\\ToyotaDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2005\\Driver\\ToyotaArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2005\\Driver\\ToyotaGloves_Trulli.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2005\\Driver\\Gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2005\\Driver\\ToyotaLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2005\\Harness\\Toyota.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_v10_g3_m",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2005/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 243,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3526,
+            "Y": 225
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"2005 Williams #7 - M. Webber\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2005\\preview\\7_Williams.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2005\\7_Williams.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2005\\Rims\\Williams.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2005\\Rims\\Williams_Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2005\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2005\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2005\\Tires\\7_Williams.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2005\\Tires\\7_Williams_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Webber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2005\\Helmet\\Williams_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2005\\Helmet\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2005\\Helmet\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2005\\Driver\\WilliamsDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2005\\Driver\\WilliamsArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2005\\Driver\\WilliamsGloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2005\\Driver\\Gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2005\\Driver\\WilliamsLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2005\\Harness\\Williams.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/WEST.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "livery_overrides": [
+        {
+          "race_id": 8,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/variant_nt.png"
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/variant_nt.png"
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/variant_nt.png"
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/variant_nt.png"
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/variant_nt.png"
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/variant_nt.png"
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/variant_nt.png"
+        }
+      ]
+    }
+  },
+  "drivers": {
+    "alexander_wurz": {
+      "picture": "https://www.statsf1.com/pilotes/photos/wurz.png"
+    },
+    "anthony_davidson": {
+      "picture": "https://www.statsf1.com/pilotes/photos/davidson.png"
+    },
+    "antonio_pizzonia": {
+      "picture": "https://www.statsf1.com/pilotes/photos/pizzonia.png"
+    },
+    "christian_klien": {
+      "picture": "https://www.statsf1.com/pilotes/photos/klien.png"
+    },
+    "christijan_albers": {
+      "picture": "https://www.statsf1.com/pilotes/photos/albers.png"
+    },
+    "david_coulthard": {
+      "picture": "https://www.statsf1.com/pilotes/photos/coulthar.png"
+    },
+    "felipe_massa": {
+      "picture": "https://www.statsf1.com/pilotes/photos/massa.png"
+    },
+    "fernando_alonso": {
+      "picture": "https://www.statsf1.com/pilotes/photos/alonso.png"
+    },
+    "giancarlo_fisichella": {
+      "picture": "https://www.statsf1.com/pilotes/photos/fisiche.png"
+    },
+    "jacques_villeneuve": {
+      "picture": "https://www.statsf1.com/pilotes/photos/villenej.png"
+    },
+    "jarno_trulli": {
+      "picture": "https://www.statsf1.com/pilotes/photos/trulli.png"
+    },
+    "jenson_button": {
+      "picture": "https://www.statsf1.com/pilotes/photos/button.png"
+    },
+    "juan_pablo_montoya": {
+      "picture": "https://www.statsf1.com/pilotes/photos/montoya.png"
+    },
+    "kimi_raikkonen": {
+      "picture": "https://www.statsf1.com/pilotes/photos/raikkone.png"
+    },
+    "mark_webber": {
+      "picture": "https://www.statsf1.com/pilotes/photos/webber.png"
+    },
+    "michael_schumacher": {
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacm.png"
+    },
+    "narain_karthikeyan": {
+      "picture": "https://www.statsf1.com/pilotes/photos/karthike.png"
+    },
+    "nick_heidfeld": {
+      "picture": "https://www.statsf1.com/pilotes/photos/heidfeld.png"
+    },
+    "patrick_friesacher": {
+      "picture": "https://www.statsf1.com/pilotes/photos/friesach.png"
+    },
+    "pedro_de_la_rosa": {
+      "picture": "https://www.statsf1.com/pilotes/photos/delarosa.png"
+    },
+    "ralf_schumacher": {
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacr.png"
+    },
+    "ricardo_zonta": {
+      "picture": "https://www.statsf1.com/pilotes/photos/zonta.png"
+    },
+    "robert_doornbos": {
+      "picture": "https://www.statsf1.com/pilotes/photos/doornbos.png"
+    },
+    "rubens_barrichello": {
+      "picture": "https://www.statsf1.com/pilotes/photos/barrich.png"
+    },
+    "takuma_sato": {
+      "picture": "https://www.statsf1.com/pilotes/photos/sato.png"
+    },
+    "tiago_monteiro": {
+      "picture": "https://www.statsf1.com/pilotes/photos/monteiro.png"
+    },
+    "vitantonio_liuzzi": {
+      "picture": "https://www.statsf1.com/pilotes/photos/liuzzi.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/f1-2005-skinpack-for-formula-v10-gen-3.85455/",
+    "name": "F1 2005 Skinpack for Formula V10 Gen 3",
+    "detect": [
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/1_Ferrari.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/2_Ferrari.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/1_Ferrari_NT_Canada.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/2_Ferrari_NT_Canada.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\1_Ferrari.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\2_Ferrari.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\preview\\1_Ferrari.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Rims\\Ferrari.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Rims/Ferrari.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Rims\\Ferrari_Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Rims/Ferrari_Blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Tires\\1_Ferrari.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Tires/1_Ferrari.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Tires\\1_Ferrari_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Tires/1_Ferrari_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\FerrariDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/FerrariDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\FerrariArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/FerrariArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\FerrariGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/FerrariGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\FerrariLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/FerrariLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Harness\\Ferrari.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Harness/Ferrari.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Helmet\\MSchumacher_visor_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Helmet/MSchumacher_visor_spec.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\1_Ferrari_NT_Canada.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2005_1_Ferrari_NT_Canada.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\2_Ferrari_NT_Canada.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2005_2_Ferrari_NT_Canada.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\preview\\1_Ferrari_NT_Canada.dds",
+        "destinationPath": "external_liveries/previews/ferrari/preview_1_Ferrari_NT_Canada.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\1_Ferrari_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2005_1_Ferrari_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\2_Ferrari_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_2005_2_Ferrari_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\preview\\1_Ferrari_NT.dds",
+        "destinationPath": "external_liveries/previews/ferrari/preview_1_Ferrari_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\18_Jordan_Early.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\19_Jordan_Early.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\preview\\18_Jordan_Early.dds",
+        "destinationPath": "external_liveries/previews/jordan/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Rims\\Jordan.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Rims/Jordan.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Rims\\Jordan_Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Rims/Jordan_Blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Tires\\18_Jordan.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Tires/18_Jordan.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Tires\\18_Jordan_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Tires/18_Jordan_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\JordanDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/JordanDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\JordanArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/JordanArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\JordanGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/JordanGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\JordanLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/JordanLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Harness\\Jordan.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Harness/Jordan.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Helmet\\visor_spec_black.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Helmet/visor_spec_black.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\18_Jordan_Mid.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_Mid.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\19_Jordan_Mid.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_Mid.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\preview\\18_Jordan_Mid.dds",
+        "destinationPath": "external_liveries/previews/jordan/preview_18_Jordan_Mid.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\18_Jordan.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\19_Jordan.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\preview\\18_Jordan.dds",
+        "destinationPath": "external_liveries/previews/jordan/preview_18_Jordan.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\18_Jordan_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\19_Jordan_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\preview\\18_Jordan_NT.dds",
+        "destinationPath": "external_liveries/previews/jordan/preview_18_Jordan_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\18_Jordan_Late.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2005_18_Jordan_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\19_Jordan_Late.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/F1_Season_2005_19_Jordan_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\preview\\18_Jordan_Late.dds",
+        "destinationPath": "external_liveries/previews/jordan/preview_18_Jordan_Late.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\21_Minardi.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\20_Minardi.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\preview\\21_Minardi.dds",
+        "destinationPath": "external_liveries/previews/minardi/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Rims\\Minardi.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Rims/Minardi.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Rims\\Minardi_Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Rims/Minardi_Blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Rims\\low.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Rims/low.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Rims\\low_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Rims/low_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Tires\\21_Minardi.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Tires/21_Minardi.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Tires\\21_Minardi_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Tires/21_Minardi_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\MinardiDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/MinardiDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\MinardiArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/MinardiArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\MinardiGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/MinardiGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\Gloves_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/Gloves_spec.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Driver\\MinardiLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Driver/MinardiLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Harness\\Minardi.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Harness/Minardi.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\Helmet\\Albers_visor_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Helmet/Albers_visor_spec.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\20_Minardi_Doornbos.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/F1_Season_2005_20_Minardi_Doornbos.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_b\\F1_Season_2005\\preview\\20_Minardi_Doornbos.dds",
+        "destinationPath": "external_liveries/previews/minardi/preview_20_Minardi_Doornbos.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\3_BAR.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\4_BAR.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\preview\\3_BAR.dds",
+        "destinationPath": "external_liveries/previews/bar/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\BAR.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/BAR.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\BAR_Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/BAR_Blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Tires\\3_BAR.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Tires/3_BAR.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Tires\\3_BAR_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Tires/3_BAR_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\BARDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/BARDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\BARArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/BARArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\BARGloves_Button.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/BARGloves_Button.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\BARLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/BARLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Harness\\BAR.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Harness/BAR.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Helmet\\visor_spec_blue.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/visor_spec_blue.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\4_BAR_Davidson.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/F1_Season_2005_4_BAR_Davidson.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\preview\\4_BAR_Davidson.dds",
+        "destinationPath": "external_liveries/previews/bar/preview_4_BAR_Davidson.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\3_BAR_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/F1_Season_2005_3_BAR_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\4_BAR_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/F1_Season_2005_4_BAR_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\preview\\3_BAR_NT.dds",
+        "destinationPath": "external_liveries/previews/bar/preview_3_BAR_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\7_Williams.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\8_Williams.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\preview\\7_Williams.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\Williams.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/Williams.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\Williams_Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/Williams_Blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Tires\\7_Williams.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Tires/7_Williams.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Tires\\7_Williams_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Tires/7_Williams_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\WilliamsDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/WilliamsDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\WilliamsArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/WilliamsArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\WilliamsGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/WilliamsGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\WilliamsLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/WilliamsLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Harness\\Williams.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Harness/Williams.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\11_Sauber.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\12_Sauber.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\preview\\11_Sauber.dds",
+        "destinationPath": "external_liveries/previews/sauber/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\Sauber.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/Sauber.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\Sauber_Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/Sauber_Blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Tires\\11_Sauber.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Tires/11_Sauber.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Tires\\11_Sauber_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Tires/11_Sauber_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\SauberDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/SauberDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\SauberArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/SauberArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\SauberGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/SauberGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\SauberLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/SauberLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Harness\\Sauber.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Harness/Sauber.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\14_RedBull.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\15_RedBull.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\preview\\14_RedBull.dds",
+        "destinationPath": "external_liveries/previews/stewart/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\RedBull.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/RedBull.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\RedBull_Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/RedBull_Blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Tires\\14_RedBull.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Tires/14_RedBull.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Tires\\14_RedBull_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Tires/14_RedBull_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\RedBullDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/RedBullDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\RedBullArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/RedBullArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\RedBullGloves_Coulthard.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/RedBullGloves_Coulthard.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\RedBullLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/RedBullLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Harness\\RedBull.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Harness/RedBull.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\14_RedBull_Monaco.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/F1_Season_2005_14_RedBull_Monaco.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\15_RedBull_Monaco.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/F1_Season_2005_15_RedBull_Monaco.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\preview\\14_RedBull_Monaco.dds",
+        "destinationPath": "external_liveries/previews/stewart/preview_14_RedBull_Monaco.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\16_Toyota.dds",
+        "destinationPath": "external_liveries/car_liveries/toyota/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\17_Toyota.dds",
+        "destinationPath": "external_liveries/car_liveries/toyota/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\preview\\16_Toyota.dds",
+        "destinationPath": "external_liveries/previews/toyota/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\Toyota.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/Toyota.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\Toyota_Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/Toyota_Blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\low.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/low.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\low_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Rims/low_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Tires\\16_Toyota.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Tires/16_Toyota.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Tires\\16_Toyota_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Tires/16_Toyota_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\ToyotaDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/ToyotaDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\ToyotaArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/ToyotaArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\ToyotaGloves_Trulli.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/ToyotaGloves_Trulli.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\Gloves_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/Gloves_spec.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Driver\\ToyotaLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Driver/ToyotaLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Harness\\Toyota.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Harness/Toyota.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Helmet\\visor_spec_black.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/visor_spec_black.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\5_Renault.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\6_Renault.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\preview\\5_Renault.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\Renault.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Rims/Renault.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\Renault_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Rims/Renault_Blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\low.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Rims/low.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v10_g3_m\\F1_Season_2005\\Rims\\low_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Rims/low_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\Tires\\5_Renault.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Tires/5_Renault.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\Tires\\5_Renault_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Tires/5_Renault_blur.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\Driver\\RenaultDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Driver/RenaultDriver.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\Driver\\RenaultArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Driver/RenaultArms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\Driver\\RenaultGloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Driver/RenaultGloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\Driver\\Gloves_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Driver/Gloves_spec.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\Driver\\RenaultLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Driver/RenaultLegs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\Harness\\Renault.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Harness/Renault.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\Helmet\\visor_spec_black.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Helmet/visor_spec_black.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\5_Renault_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2005_5_Renault_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\6_Renault_NT.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2005_6_Renault_NT.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r25\\F1_Season_2005\\preview\\5_Renault_NT.dds",
+        "destinationPath": "external_liveries/previews/benetton/preview_5_Renault_NT.dds"
+      }
+    ],
+    "helmets": {
+      "ferrari": {
+        "samples": [
+          "MARLBORO/Marlboro.png"
+        ],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Helmet/MSchumacher.dds",
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Helmet/MSchumacher_visor.dds",
+        "variants": [
+          {
+            "name": "nt",
+            "races": [
+              8,
+              9,
+              10,
+              11,
+              14,
+              15,
+              16
+            ],
+            "sample": "MARLBORO/Marlboro_NT.png",
+            "helmet": null,
+            "map": null,
+            "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Helmet/MSchumacher_NT_visor.dds",
+            "visor_map": null,
+            "clear_visor": false
+          }
+        ]
+      },
+      "bar": {
+        "samples": [
+          "LUCKY STRIKE/LuckyStrike.png"
+        ],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/Button.dds",
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/Button_visor.dds",
+        "variants": [
+          {
+            "name": "nt",
+            "races": [
+              8,
+              9,
+              10,
+              11,
+              14,
+              15,
+              16
+            ],
+            "sample": "LUCKY STRIKE/LuckyStrike_NT.png",
+            "helmet": null,
+            "map": null,
+            "visor": null,
+            "visor_map": null,
+            "clear_visor": false
+          }
+        ]
+      },
+      "benetton": {
+        "samples": [
+          "MILD SEVEN/MildSeven_NoHalo.png"
+        ],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Helmet/Alonso.dds",
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/renault_r25/F1_Season_2005/Helmet/Renault_visor.dds",
+        "variants": [
+          {
+            "name": "nt",
+            "races": [
+              8,
+              10,
+              11,
+              14,
+              15,
+              16
+            ],
+            "sample": "MILD SEVEN/MildSeven_NT_NoHalo.png",
+            "helmet": null,
+            "map": null,
+            "visor": null,
+            "visor_map": null,
+            "clear_visor": false
+          }
+        ]
+      },
+      "mclaren": {
+        "samples": [
+          "WEST/WEST.png"
+        ],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp420/F1_Season_2005/Helmet/Montoya.dds",
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp420/F1_Season_2005/Helmet/McLaren_visor.dds",
+        "variants": [
+          {
+            "name": "nt",
+            "races": [
+              8,
+              9,
+              10,
+              11,
+              14,
+              15,
+              16
+            ],
+            "sample": "WEST/WEST_NT.png",
+            "helmet": null,
+            "map": null,
+            "visor": null,
+            "visor_map": null,
+            "clear_visor": false
+          }
+        ]
+      },
+      "stewart": {
+        "samples": [
+          "REDBULL/REDBULL.png"
+        ],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/Coulthard.dds",
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/RedBull_visor.dds"
+      },
+      "jordan": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Helmet/Monteiro.dds",
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Helmet/Jordan_visor.dds"
+      },
+      "minardi": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Helmet/Albers.dds",
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_b/F1_Season_2005/Helmet/Albers_visor.dds"
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/Webber.dds",
+        "map": "sponsor_maps/williams.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/Williams_visor.dds"
+      },
+      "sauber": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/Villeneuve.dds",
+        "map": "sponsor_maps/sauber.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/Sauber_visor.dds"
+      },
+      "toyota": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/Trulli.dds",
+        "map": "sponsor_maps/toyota.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g3_m/F1_Season_2005/Helmet/Toyota_visor.dds"
+      }
+    },
+    "helmet_model": "Modern"
+  }
+}

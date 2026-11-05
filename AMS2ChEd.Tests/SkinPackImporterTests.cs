@@ -265,6 +265,22 @@ namespace AMS2ChEd.Tests.Ams2
             Assert.AreEqual(0, layer[20, 20].A);
         }
 
+        [TestMethod]
+        public void Cut_Opaque_IgnoresTheTexturesAlpha_ElseKeepsIt()
+        {
+            // a helmet painted with alpha 0 over its sponsors (the 2006 pack's McLaren), or a see-through visor
+            using var texture = new Image<Rgba32>(64, 64, new Rgba32(200, 10, 10, 0));
+            using var mask = new Image<Rgba32>(64, 64);
+            for (int x = 10; x < 20; x++) for (int y = 10; y < 20; y++) mask[x, y] = new Rgba32(255, 255, 255, 255);
+
+            using var helmet = SponsorLayerCutter.Cut(texture, mask, opaque: true);
+            using var visor = SponsorLayerCutter.Cut(texture, mask);
+
+            Assert.AreEqual(new Rgba32(200, 10, 10, 255), helmet[15, 15]);
+            Assert.AreEqual(0, helmet[30, 30].A, "outside the map");
+            Assert.AreEqual(0, visor[15, 15].A);
+        }
+
         // a mask of the given size, opaque white over its top rows
         private static void SaveMask(string path, int width, int height, int rows)
         {

@@ -21,8 +21,12 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         public static string HelmetMaskPath(string helmetModel, string masksFolder = null) =>
             Path.Combine(masksFolder ?? StoragePaths.HelmetSponsorMasksFolder, $"{helmetModel}.png");
 
-        /// <summary>The layer, or null with the reason when the map is missing or empty.</summary>
-        public static Image<Rgba32> Cut(string texturePath, string maskPath, out string problem)
+        /// <summary>
+        /// The layer, or null with the reason when the map is missing or empty. <paramref name="opaque"/>
+        /// ignores the texture's own alpha: a helmet shell is solid in game whatever its alpha says
+        /// (packs leave it 0 over whole areas), while a visor's alpha is its transparency.
+        /// </summary>
+        public static Image<Rgba32> Cut(string texturePath, string maskPath, out string problem, bool opaque = false)
         {
             if (!File.Exists(maskPath))
             {
@@ -39,10 +43,10 @@ namespace Ams2ChEd.Business.AMS2.Helpers
 
             using var texture = DdsTextureComposer.LoadImage(texturePath);
             problem = null;
-            return Cut(texture, mask);
+            return Cut(texture, mask, opaque);
         }
 
-        public static Image<Rgba32> Cut(Image<Rgba32> texture, Image<Rgba32> mask)
+        public static Image<Rgba32> Cut(Image<Rgba32> texture, Image<Rgba32> mask, bool opaque = false)
         {
             using var sized = texture.Width == mask.Width && texture.Height == mask.Height
                 ? texture.Clone()
@@ -57,7 +61,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                     var t = textureRows.GetRowSpan(y);
                     var m = maskRows.GetRowSpan(y);
                     for (int x = 0; x < o.Length; x++)
-                        o[x] = m[x].A == 0 ? new Rgba32(0, 0, 0, 0) : new Rgba32(t[x].R, t[x].G, t[x].B, (byte)(t[x].A * m[x].A / 255));
+                        o[x] = m[x].A == 0 ? new Rgba32(0, 0, 0, 0) : new Rgba32(t[x].R, t[x].G, t[x].B, (byte)((opaque ? 255 : t[x].A) * m[x].A / 255));
                 }
             });
             return layer;

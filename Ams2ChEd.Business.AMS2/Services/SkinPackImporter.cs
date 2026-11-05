@@ -276,7 +276,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             var mapPath = string.IsNullOrEmpty(map)
                 ? SponsorLayerCutter.HelmetMaskPath(model, _helmetMasksFolder)
                 : Path.GetFullPath(Path.Combine(cosmeticsFolder, map));
-            return SponsorLayerCutter.Cut(helmet, mapPath, out problem);
+            return SponsorLayerCutter.Cut(helmet, mapPath, out problem, opaque: true);
         }
 
         // The pack visor seen through the visor map (else the helmet model's visor strip).

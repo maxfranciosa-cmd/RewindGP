@@ -1,0 +1,852 @@
+{
+  "_comment": "Artwork the app ships for 2007 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/2007/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: super_aguri.",
+  "teams": {
+    "sauber": {
+      "ams2car": "formula_v8_g2",
+      "base_livery_driver1": "external_liveries/car_liveries/sauber/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/sauber/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/sauber/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/sauber_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 221,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2160,
+            "Y": 1500
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"BMW Sauber F1 Team #9\" BASELIVERY=\"BlueMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2007\\preview9.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2007\\9_BMW.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\9_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2007\\5_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\bmw_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2007\\bmw_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2007\\bmw_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2007\\bmw_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2007\\30_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ferrari": {
+      "ams2car": "formula_v8_g2",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 232,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2165,
+            "Y": 1274
+          },
+          "rotation": "Deg180",
+          "fill_color": "#B20408"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/Marlboro_NT.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_early_nt.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_early_nt.dds",
+          "livery_preview": "external_liveries/previews/ferrari/F1 2007_preview5_early_nt.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_early_nt.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_early_nt.dds",
+          "livery_preview": "external_liveries/previews/ferrari/F1 2007_preview5_early_nt.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_early_t.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_early_t.dds",
+          "livery_preview": "external_liveries/previews/ferrari/F1 2007_preview5_early_t.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco.png"
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_early_nt.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_early_nt.dds",
+          "livery_preview": "external_liveries/previews/ferrari/F1 2007_preview5_early_nt.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_early_t.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_early_t.dds",
+          "livery_preview": "external_liveries/previews/ferrari/F1 2007_preview5_early_t.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco.png"
+        },
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_early_nt.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_early_nt.dds",
+          "livery_preview": "external_liveries/previews/ferrari/F1 2007_preview5_early_nt.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 7,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_early_nt.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_early_nt.dds",
+          "livery_preview": "external_liveries/previews/ferrari/F1 2007_preview5_early_nt.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_t.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_t.dds",
+          "livery_preview": "external_liveries/previews/ferrari/F1 2007_preview5_t.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"Scuderia Ferrari #5\" BASELIVERY=\"RedMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2007\\preview5.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2007\\5_Ferrari.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\5_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2007\\3A_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\ferrari_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2007\\ferrari_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2007\\ferrari_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2007\\ferrari_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2007\\30_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "bar": {
+      "ams2car": "formula_v8_g2",
+      "base_livery_driver1": "external_liveries/car_liveries/bar/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/bar/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/bar/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/bar_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 351,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2224,
+            "Y": 1110
+          },
+          "rotation": "Deg180",
+          "fill_color": "#162508"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/bar_rear_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 351,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 441,
+            "Y": 5238
+          },
+          "rotation": "Deg0",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/bar_rear_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 351,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3304,
+            "Y": 5238
+          },
+          "rotation": "Deg0",
+          "fill_color": "#101010"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/bar/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/bar/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"Honda Racing F1 Team #7\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2007\\preview7.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2007\\7_Honda.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\7_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2007\\4_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\honda_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2007\\honda_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2007\\honda_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2007\\honda_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2007\\30_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "ams2car": "formula_v8_g2",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/mclaren_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 302,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2200,
+            "Y": 1284
+          },
+          "rotation": "Deg180",
+          "fill_color": "#686968"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Vodafone Mclaren Mercedes #1\" BASELIVERY=\"Chrome\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2007\\preview1.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2007\\1_McLaren.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2007\\1_McLaren_fresnel.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\1_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2007\\1_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\mclaren_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2007\\mclaren_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2007\\mclaren_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2007\\mclaren_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2007\\30_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "stewart": {
+      "ams2car": "formula_v8_g2",
+      "base_livery_driver1": "external_liveries/car_liveries/stewart/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/stewart/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/stewart/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/stewart_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 192,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2147,
+            "Y": 1465
+          },
+          "rotation": "Deg180",
+          "fill_color": "#001731"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/stewart/REDBULL.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/stewart/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"61\" NAME=\"Red Bull Racing #14\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2007\\preview14.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2007\\14_redbull.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"61\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\14_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2007\\7_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"61\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\redbull_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2007\\redbull_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2007\\redbull_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2007\\redbull_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2007\\30_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "renault_r28",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 200,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2149,
+            "Y": 1537
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFC800"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"ING Renault F1 Team #3\" BASELIVERY=\"Chrome\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2007\\preview3.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2007\\3_Renault.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WCOVERDIFF\" PATH=\"F1 2007\\renault_wcover.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\3_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2007\\2_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\renault_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2007\\renault_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2007\\renault_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2007\\renault_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2007\\30_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "jordan": {
+      "ams2car": "formula_v8_g2",
+      "base_livery_driver1": "external_liveries/car_liveries/jordan/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/jordan/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/jordan/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/jordan_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 208,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2144,
+            "Y": 1120
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"67\" NAME=\"Etihad Aldar Spyker F1 Team #20\" BASELIVERY=\"RedMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2007\\preview20.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2007\\20_spyker.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"67\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\20_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2007\\10_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"67\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\spyker_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2007\\spyker_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2007\\spyker_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2007\\spyker_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2007\\30_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "toro_rosso": {
+      "ams2car": "formula_v8_g2",
+      "base_livery_driver1": "external_liveries/car_liveries/toro_rosso/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/toro_rosso/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/toro_rosso/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/toro_rosso_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 247,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2171,
+            "Y": 1489
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000E2E"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/toro_rosso/REDBULL_LRonly.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/toro_rosso/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"65\" NAME=\"Scuderia Toro Rosso #18\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2007\\preview18.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2007\\18_tororosso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2007\\TR_Rim.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"65\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\18_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2007\\9_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"65\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\tororosso_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2007\\tororosso_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2007\\tororosso_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2007\\tororosso_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2007\\30_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "toyota": {
+      "ams2car": "formula_v8_g2",
+      "base_livery_driver1": "external_liveries/car_liveries/toyota/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/toyota/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/toyota/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/toyota_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 181,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2139,
+            "Y": 1278
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF0002"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/toyota/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/toyota/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"Panasonic Toyota Racing #11\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2007\\preview11.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2007\\11_toyota.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\11_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2007\\6_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\toyota_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2007\\toyota_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2007\\toyota_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2007\\toyota_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2007\\30_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_v8_g2",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2007/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 223,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2156,
+            "Y": 741
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"63\" NAME=\"ATT Williams #16\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2007\\preview16.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2007\\16_williams.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"63\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\16_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2007\\8_visor.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"63\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2007\\williams_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2007\\williams_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2007\\williams_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2007\\williams_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2007\\30_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "adrian_sutil": {
+      "picture": "https://www.statsf1.com/pilotes/photos/sutil.png"
+    },
+    "alexander_wurz": {
+      "picture": "https://www.statsf1.com/pilotes/photos/wurz.png"
+    },
+    "anthony_davidson": {
+      "picture": "https://www.statsf1.com/pilotes/photos/davidson.png"
+    },
+    "christijan_albers": {
+      "picture": "https://www.statsf1.com/pilotes/photos/albers.png"
+    },
+    "david_coulthard": {
+      "picture": "https://www.statsf1.com/pilotes/photos/coulthar.png"
+    },
+    "felipe_massa": {
+      "picture": "https://www.statsf1.com/pilotes/photos/massa.png"
+    },
+    "fernando_alonso": {
+      "picture": "https://www.statsf1.com/pilotes/photos/alonso.png"
+    },
+    "giancarlo_fisichella": {
+      "picture": "https://www.statsf1.com/pilotes/photos/fisiche.png"
+    },
+    "heikki_kovalainen": {
+      "picture": "https://www.statsf1.com/pilotes/photos/kovalain.png"
+    },
+    "jarno_trulli": {
+      "picture": "https://www.statsf1.com/pilotes/photos/trulli.png"
+    },
+    "jenson_button": {
+      "picture": "https://www.statsf1.com/pilotes/photos/button.png"
+    },
+    "kazuki_nakajima": {
+      "picture": "https://www.statsf1.com/pilotes/photos/nakajimk.png"
+    },
+    "kimi_raikkonen": {
+      "picture": "https://www.statsf1.com/pilotes/photos/raikkone.png"
+    },
+    "lewis_hamilton": {
+      "picture": "https://www.statsf1.com/pilotes/photos/hamiltol.png"
+    },
+    "mark_webber": {
+      "picture": "https://www.statsf1.com/pilotes/photos/webber.png"
+    },
+    "markus_winkelhock": {
+      "picture": "https://www.statsf1.com/pilotes/photos/winkelk.png"
+    },
+    "nick_heidfeld": {
+      "picture": "https://www.statsf1.com/pilotes/photos/heidfeld.png"
+    },
+    "nico_rosberg": {
+      "picture": "https://www.statsf1.com/pilotes/photos/rosbergn.png"
+    },
+    "ralf_schumacher": {
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacr.png"
+    },
+    "robert_kubica": {
+      "picture": "https://www.statsf1.com/pilotes/photos/kubica.png"
+    },
+    "rubens_barrichello": {
+      "picture": "https://www.statsf1.com/pilotes/photos/barrich.png"
+    },
+    "sakon_yamamoto": {
+      "picture": "https://www.statsf1.com/pilotes/photos/yamamoto.png"
+    },
+    "scott_speed": {
+      "picture": "https://www.statsf1.com/pilotes/photos/speed.png"
+    },
+    "sebastian_vettel": {
+      "picture": "https://www.statsf1.com/pilotes/photos/vettel.png"
+    },
+    "takuma_sato": {
+      "picture": "https://www.statsf1.com/pilotes/photos/sato.png"
+    },
+    "vitantonio_liuzzi": {
+      "picture": "https://www.statsf1.com/pilotes/photos/liuzzi.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/f1-2007-season-skinpack.85650/",
+    "name": "F1 2007 Season Skinpack 1.11",
+    "detect": [
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/1_McLaren.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/2_Mclaren.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/5_Ferrari.dds",
+      "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/6_Ferrari.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\1_McLaren.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\2_Mclaren.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview1.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\1_McLaren_fresnel.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/1_McLaren_fresnel.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\mclaren_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/mclaren_body.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\mclaren_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/mclaren_arms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\mclaren_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/mclaren_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\mclaren_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/mclaren_legs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\5_Ferrari.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\6_Ferrari.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview5.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\ferrari_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/ferrari_body.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\ferrari_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/ferrari_arms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\ferrari_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/ferrari_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\ferrari_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/ferrari_legs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\5_Ferrari_early_t.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_early_t.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\6_Ferrari_early_t.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_early_t.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview5_early_t.dds",
+        "destinationPath": "external_liveries/previews/ferrari/F1 2007_preview5_early_t.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\5_Ferrari_early_nt.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_early_nt.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\6_Ferrari_early_nt.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_early_nt.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview5_early_nt.dds",
+        "destinationPath": "external_liveries/previews/ferrari/F1 2007_preview5_early_nt.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\5_Ferrari_t.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1 2007_5_Ferrari_t.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\6_Ferrari_t.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1 2007_6_Ferrari_t.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview5_t.dds",
+        "destinationPath": "external_liveries/previews/ferrari/F1 2007_preview5_t.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\7_Honda.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\8_Honda.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview7.dds",
+        "destinationPath": "external_liveries/previews/bar/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\honda_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/honda_body.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\honda_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/honda_arms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\honda_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/honda_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\honda_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/honda_legs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\9_BMW.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\10_BMW.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview9.dds",
+        "destinationPath": "external_liveries/previews/sauber/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\bmw_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/bmw_body.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\bmw_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/bmw_arms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\bmw_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/bmw_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\bmw_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/bmw_legs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\11_toyota.dds",
+        "destinationPath": "external_liveries/car_liveries/toyota/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\12_toyota.dds",
+        "destinationPath": "external_liveries/car_liveries/toyota/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview11.dds",
+        "destinationPath": "external_liveries/previews/toyota/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\toyota_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/toyota_body.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\toyota_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/toyota_arms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\toyota_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/toyota_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\toyota_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/toyota_legs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\14_redbull.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\15_redbull.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview14.dds",
+        "destinationPath": "external_liveries/previews/stewart/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\redbull_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/redbull_body.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\redbull_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/redbull_arms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\redbull_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/redbull_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\redbull_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/redbull_legs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\16_williams.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\17_williams.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview16.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\williams_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/williams_body.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\williams_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/williams_arms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\williams_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/williams_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\williams_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/williams_legs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\18_tororosso.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\19_tororosso.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview18.dds",
+        "destinationPath": "external_liveries/previews/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\TR_Rim.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/TR_Rim.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\tororosso_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/tororosso_body.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\tororosso_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/tororosso_arms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\tororosso_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/tororosso_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\tororosso_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/tororosso_legs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\20_spyker.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\21_spyker.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\preview20.dds",
+        "destinationPath": "external_liveries/previews/jordan/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\spyker_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/spyker_body.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\spyker_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/spyker_arms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\spyker_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/spyker_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\spyker_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/spyker_legs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g2\\F1 2007\\30_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/30_safety_harness.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r28\\F1 2007\\3_Renault.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r28\\F1 2007\\4_Renault.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default_driver2.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r28\\F1 2007\\preview3.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r28\\F1 2007\\renault_wcover.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r28/F1 2007/renault_wcover.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r28\\F1 2007\\renault_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r28/F1 2007/renault_body.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r28\\F1 2007\\renault_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r28/F1 2007/renault_arms.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r28\\F1 2007\\renault_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r28/F1 2007/renault_gloves.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r28\\F1 2007\\renault_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r28/F1 2007/renault_legs.dds"
+      },
+      {
+        "sourcePath": "Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r28\\F1 2007\\30_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r28/F1 2007/30_safety_harness.dds"
+      }
+    ],
+    "helmets": {
+      "ferrari": {
+        "samples": [
+          "MARLBORO/Marlboro_NT.png"
+        ],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/5_helmet.dds",
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/3A_visor.dds",
+        "variants": [
+          {
+            "name": "tobacco",
+            "races": [
+              3,
+              5,
+              16
+            ],
+            "sample": "MARLBORO/Marlboro.png",
+            "helmet": null,
+            "map": null,
+            "visor": null,
+            "visor_map": null,
+            "clear_visor": false
+          }
+        ]
+      },
+      "stewart": {
+        "samples": [
+          "REDBULL/REDBULL.png"
+        ],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/14_helmet.dds",
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/7_visor.dds"
+      },
+      "toro_rosso": {
+        "samples": [
+          "REDBULL/REDBULL_LRonly.png"
+        ],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/18_helmet.dds",
+        "map": null,
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/9_visor.dds"
+      },
+      "mclaren": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/1_helmet.dds",
+        "map": "sponsor_maps/mclaren.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/1_visor.dds"
+      },
+      "bar": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/8_helmet.dds",
+        "map": "sponsor_maps/bar.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/4_visor.dds"
+      },
+      "sauber": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/9_helmet.dds",
+        "map": "sponsor_maps/sauber.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/5_visor.dds"
+      },
+      "toyota": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/11_helmet.dds",
+        "map": "sponsor_maps/toyota.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/6_visor.dds"
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/16_helmet.dds",
+        "map": "sponsor_maps/williams.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/8_visor.dds"
+      },
+      "jordan": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/20_helmet.dds",
+        "map": "sponsor_maps/jordan.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g2/F1 2007/10_visor.dds"
+      },
+      "benetton": {
+        "samples": [],
+        "helmet": "Vehicles/Textures/CustomLiveries/Overrides/renault_r28/F1 2007/3_helmet.dds",
+        "map": "sponsor_maps/benetton.png",
+        "visor": "Vehicles/Textures/CustomLiveries/Overrides/renault_r28/F1 2007/2_visor.dds"
+      }
+    },
+    "helmet_model": "Modern"
+  }
+}

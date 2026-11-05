@@ -1,0 +1,1924 @@
+{
+  "_comment": "Artwork the app ships for 2006 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/2006/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: none.",
+  "teams": {
+    "sauber": {
+      "ams2car": "formula_v8_g1_m",
+      "base_livery_driver1": "external_liveries/car_liveries/sauber/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/sauber/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/sauber/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/sauber_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 200,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2140,
+            "Y": 1666
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 13,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/sauber/BMW Sauber_Livery Kubica.dds",
+          "livery_preview": "external_liveries/previews/sauber/BMW Sauber_Preview Kubica.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/sauber/BMW Sauber_Livery Kubica.dds",
+          "livery_preview": "external_liveries/previews/sauber/BMW Sauber_Preview Kubica.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/sauber/BMW Sauber_Livery Kubica.dds",
+          "livery_preview": "external_liveries/previews/sauber/BMW Sauber_Preview Kubica.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/sauber/BMW Sauber_Livery Kubica.dds",
+          "livery_preview": "external_liveries/previews/sauber/BMW Sauber_Preview Kubica 2.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/sauber/BMW Sauber_Livery Kubica.dds",
+          "livery_preview": "external_liveries/previews/sauber/BMW Sauber_Preview Kubica 2.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": "external_liveries/car_liveries/sauber/BMW Sauber Interlagos_Livery Heidfeld.dds",
+          "driver2_livery": "external_liveries/car_liveries/sauber/BMW Sauber Interlagos_Livery Kubica.dds",
+          "livery_preview": "external_liveries/previews/sauber/BMW Sauber Interlagos_Preview Heidfeld.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"Nick Heidfeld #16\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\BMW Sauber\\Preview Heidfeld.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\BMW Sauber\\Livery Heidfeld.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2006 Skinpack\\BMW Sauber\\BMW Sauber Rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2006 Skinpack\\BMW Sauber\\BMW Sauber Rims Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1 2006 Skinpack\\BMW Sauber\\\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2006 Skinpack\\BMW Sauber\\\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\BMW Sauber\\Tires Heidfeld.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\BMW Sauber\\Tires Heidfeld Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\helmets\\BMW Sauber\\Heidfeld Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\helmets\\BMW Sauber\\Heidfeld Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\helmets\\BMW Sauber\\Heidfeld Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\BMW Sauber\\BMW Sauber Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\BMW Sauber\\BMW Sauber Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\BMW Sauber\\BMW Sauber Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\BMW Sauber\\BMW Sauber Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\BMW Sauber\\BMW Sauber Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\BMW Sauber\\BMW Sauber Seatbelt.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ferrari": {
+      "ams2car": "formula_v8_g1_b",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 112,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2106,
+            "Y": 1358
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFCFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/ferrari_top_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 117,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1867,
+            "Y": 239
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF0000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/ferrari_top_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 117,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2345,
+            "Y": 239
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FF0000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/Marlboro_NT.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery MSC.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery Massa.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari_Preview MSC.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco_visor.png"
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery MSC.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery Massa.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari_Preview MSC.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco_visor.png"
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery MSC.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery Massa.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari_Preview MSC.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco_visor.png"
+        },
+        {
+          "race_id": 7,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery MSC.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery Massa.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari_Preview MSC.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco_visor.png"
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery MSC.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery Massa.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari_Preview MSC.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco_visor.png"
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery MSC.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/Ferrari_Livery Massa.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Ferrari_Preview MSC.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco.png",
+          "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/variant_tobacco_visor.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Michael Schumacher #5\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\No Tabacco\\Ferrari\\Preview MSC.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\No Tabacco\\Ferrari\\Livery MSC.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2006 Skinpack\\No Tabacco\\Ferrari\\Ferrari Rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2006 Skinpack\\No Tabacco\\Ferrari\\Ferrari Rims blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1 2006 Skinpack\\No Tabacco\\Ferrari\\Spec MSC.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2006 Skinpack\\No Tabacco\\Ferrari\\Fresnel.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\Ferrari\\Tires MSC.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\Ferrari\\Tires MSC Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\Ferrari\\MSC NT Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Ferrari\\MSC Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\Ferrari\\MSC NT Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Ferrari\\MSC Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Ferrari\\Ferrari Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Ferrari\\Ferrari Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Ferrari\\Schumi NT Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Ferrari\\Ferrari Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Ferrari\\Ferrari Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "bar": {
+      "ams2car": "formula_v8_g1_m",
+      "base_livery_driver1": "external_liveries/car_liveries/bar/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/bar/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/bar/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/bar_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 232,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2126,
+            "Y": 1436
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/bar_side_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 39,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1803,
+            "Y": 3404
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/bar_side_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 39,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2300,
+            "Y": 3389
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/bar/LuckyStrike_NT.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/bar/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/bar/Honda_Livery Barrichello.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/Honda_Livery Button.dds",
+          "livery_preview": "external_liveries/previews/bar/Honda_Preview Barrichello.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_tobacco.png"
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/bar/Honda_Livery Barrichello.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/Honda_Livery Button.dds",
+          "livery_preview": "external_liveries/previews/bar/Honda_Preview Barrichello.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_tobacco.png"
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/bar/Honda_Livery Barrichello.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/Honda_Livery Button.dds",
+          "livery_preview": "external_liveries/previews/bar/Honda_Preview Barrichello.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_tobacco.png"
+        },
+        {
+          "race_id": 7,
+          "driver1_livery": "external_liveries/car_liveries/bar/Honda_Livery Barrichello.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/Honda_Livery Button.dds",
+          "livery_preview": "external_liveries/previews/bar/Honda_Preview Barrichello Monaco.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_tobacco.png"
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/bar/Honda Turkey_Livery Barrichello.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/Honda Turkey_Livery Button.dds",
+          "livery_preview": "external_liveries/previews/bar/Honda Turkey_Preview Barrichello.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/bar/Honda China_Livery Barrichello.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/Honda China_Livery Button.dds",
+          "livery_preview": "external_liveries/previews/bar/Honda China_Preview Barrichello.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_tobacco.png"
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": "external_liveries/car_liveries/bar/Honda_Livery Barrichello.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/Honda_Livery Button.dds",
+          "livery_preview": "external_liveries/previews/bar/Honda_Preview Barrichello.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/bar/variant_tobacco.png"
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": "external_liveries/car_liveries/bar/Honda Last Blast_Livery Barrichello.dds",
+          "driver2_livery": "external_liveries/car_liveries/bar/Honda Last Blast_Livery Button.dds",
+          "livery_preview": "external_liveries/previews/bar/Honda Last Blast_Preview Barrichello.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"Rubens Barrichello #11\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\No Tabacco\\Honda\\Preview Barrichello.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\No Tabacco\\Honda\\Livery Barrichello.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2006 Skinpack\\No Tabacco\\Honda\\Honda Rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2006 Skinpack\\No Tabacco\\Honda\\Honda Rims Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1 2006 Skinpack\\No Tabacco\\Honda\\Spec Honda.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2006 Skinpack\\No Tabacco\\Honda\\Fresnel Honda.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\Honda\\Tires Barrichello.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\Honda\\Tires Barrichello Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\Honda\\Barrichello NT Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Honda\\Barrichello Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\Honda\\Barrichello Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Honda\\Honda Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Honda\\Honda Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Honda\\Honda Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Honda\\Honda Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Honda\\Honda Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Honda\\Honda Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "ams2car": "formula_v8_g1_m",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/mclaren_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 256,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2175,
+            "Y": 1666
+          },
+          "rotation": "Deg180",
+          "fill_color": "#7B7973"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren Keep Walking_Livery Raikkonen.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren Keep Walking_Livery Montoya.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren Keep Walking_Preview Raikkonen.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren France_Livery Raikkonen.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren France_Livery De La Rosa.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren France_Preview Raikkonen.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren_Livery De La Rosa.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren_Preview De La Rosa.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren_Livery De La Rosa.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren_Preview De La Rosa.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/McLaren Turkey_Livery Raikkonen.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren Turkey_Livery De La Rosa.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren Turkey_Preview Raikkonen.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren_Livery De La Rosa.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren_Preview De La Rosa.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren_Livery De La Rosa.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren_Preview De La Rosa.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren_Livery De La Rosa.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren_Preview De La Rosa.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/mclaren/McLaren_Livery De La Rosa.dds",
+          "livery_preview": "external_liveries/previews/mclaren/McLaren_Preview De La Rosa.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Kimi Raikkonen #3\" BASELIVERY=\"SilverChrome\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\McLaren\\Preview Raikkonen.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\McLaren\\Livery Raikkonen.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2006 Skinpack\\McLaren\\McLaren Rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2006 Skinpack\\McLaren\\McLaren Rims Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1 2006 Skinpack\\McLaren\\.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2006 Skinpack\\McLaren\\Livery Raikkonen Fresnel.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\McLaren\\Tires Raikkonen.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\McLaren\\Tires Raikkonen Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\McLaren\\Raikkonen Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\McLaren\\Raikkonen Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\McLaren\\Raikkonen Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\McLaren\\McLaren Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\McLaren\\McLaren Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\McLaren\\McLaren Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\McLaren\\McLaren Glove.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\McLaren\\McLaren Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\McLaren\\McLaren Seatbelt.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "jordan": {
+      "ams2car": "formula_v8_g1_b",
+      "base_livery_driver1": "external_liveries/car_liveries/jordan/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/jordan/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/jordan/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/jordan_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 150,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3480,
+            "Y": 159
+          },
+          "rotation": "Deg180",
+          "fill_color": "#2B292B"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/jordan_top_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 126,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1869,
+            "Y": 243
+          },
+          "rotation": "Deg180",
+          "fill_color": "#DE3C21"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/jordan_top_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 126,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2353,
+            "Y": 243
+          },
+          "rotation": "Deg180",
+          "fill_color": "#DE3C21"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/jordan/Spyker_Livery Monteiro.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/Spyker_Livery Albers.dds",
+          "livery_preview": "external_liveries/previews/jordan/Spyker_Preview Monteiro.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": "external_liveries/car_liveries/jordan/Spyker_Livery Monteiro.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/Spyker_Livery Albers.dds",
+          "livery_preview": "external_liveries/previews/jordan/Spyker_Preview Monteiro.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": "external_liveries/car_liveries/jordan/Spyker_Livery Monteiro.dds",
+          "driver2_livery": "external_liveries/car_liveries/jordan/Spyker_Livery Albers.dds",
+          "livery_preview": "external_liveries/previews/jordan/Spyker_Preview Monteiro.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"Tiago Monteiro #18\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\Midland\\Preview Monteiro.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\Midland\\Livery Monteiro.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2006 Skinpack\\Midland\\Midland Rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2006 Skinpack\\Midland\\Midland Rims Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1 2006 Skinpack\\Midland\\Spec Midland.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2006 Skinpack\\Midland\\Fresnel Midland.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\Midland\\Tires Monteiro.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\Midland\\Tires Monteiro Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\helmets\\Midland\\Monteiro Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\helmets\\Midland\\Monteiro Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\helmets\\Midland\\Monteiro Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Midland\\Midland Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Midland\\Midland Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Midland\\Midland Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Midland\\Midland Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Midland\\Midland Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Midland\\Midland Seatbelt.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "stewart": {
+      "ams2car": "formula_v8_g1_m",
+      "base_livery_driver1": "external_liveries/car_liveries/stewart/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/stewart/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/stewart/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/stewart_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 281,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2171,
+            "Y": 1438
+          },
+          "rotation": "Deg180",
+          "fill_color": "#001039"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/stewart/REDBULL.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/stewart/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 7,
+          "driver1_livery": "external_liveries/car_liveries/stewart/Red Bull Monaco_Livery Coulthard.dds",
+          "driver2_livery": "external_liveries/car_liveries/stewart/Red Bull Monaco_Livery Klien.dds",
+          "livery_preview": "external_liveries/previews/stewart/Red Bull Monaco_Preview Coulthard.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/stewart/Red Bull_Livery Doornbos.dds",
+          "livery_preview": "external_liveries/previews/stewart/Red Bull_Preview Doornbos.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/stewart/Red Bull_Livery Doornbos.dds",
+          "livery_preview": "external_liveries/previews/stewart/Red Bull_Preview Doornbos.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/stewart/Red Bull_Livery Doornbos.dds",
+          "livery_preview": "external_liveries/previews/stewart/Red Bull_Preview Doornbos.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"David Coulthard #14\" BASELIVERY=\"SilverMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\Red Bull\\Preview Coulthard.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\Red Bull\\Livery Coulthard.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2006 Skinpack\\Red Bull\\Red Bull Rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2006 Skinpack\\Red Bull\\Red Bull Rims Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1 2006 Skinpack\\Red Bull\\Spec Red Bull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2006 Skinpack\\Red Bull\\Fresnel Red Bull.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\Red Bull\\Tires Coulthard.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\Red Bull\\Tires Coulthard Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\Red Bull\\Coulthard Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Red Bull\\Coulthard Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\Red Bull\\Coulthard Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Red Bull\\Red Bull Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Red Bull\\Red Bull Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Red Bull\\Red Bull Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Red Bull\\Red Bull Coulthard Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Red Bull\\Red Bull Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Red Bull\\Red Bull Seatbelt.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "renault_r26",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 127,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2111,
+            "Y": 1376
+          },
+          "rotation": "Deg180",
+          "fill_color": "#F7BA21"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/MildSeven_NoHalo.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Renault NT_Livery Alonso.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Renault NT_Livery Fisichella.dds",
+          "livery_preview": "external_liveries/previews/benetton/Renault NT_Preview Alonso.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Renault NT_Livery Alonso.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Renault NT_Livery Fisichella.dds",
+          "livery_preview": "external_liveries/previews/benetton/Renault NT_Preview Alonso.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 8,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Renault Silverstone_Livery Alonso.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Renault Silverstone_Livery Fisichella.dds",
+          "livery_preview": "external_liveries/previews/benetton/Renault Silverstone_Preview Alonso.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Renault Canada_Livery Alonso.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Renault Canada_Livery Fisichella.dds",
+          "livery_preview": "external_liveries/previews/benetton/Renault Canada_Preview Alonso.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Renault France_Livery Alonso.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Renault France_Livery Fisichella.dds",
+          "livery_preview": "external_liveries/previews/benetton/Renault France_Preview Alonso.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Renault NT_Livery Alonso.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Renault NT_Livery Fisichella.dds",
+          "livery_preview": "external_liveries/previews/benetton/Renault NT_Preview Alonso.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Renault Turkey_Livery Alonso.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Renault Turkey_Livery Fisichella.dds",
+          "livery_preview": "external_liveries/previews/benetton/Renault Turkey_Preview Alonso.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Renault NT_Livery Alonso.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Renault NT_Livery Fisichella.dds",
+          "livery_preview": "external_liveries/previews/benetton/Renault NT_Preview Alonso.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": "external_liveries/car_liveries/benetton/Renault NT_Livery Alonso.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/Renault NT_Livery Fisichella.dds",
+          "livery_preview": "external_liveries/previews/benetton/Renault NT_Preview Alonso.dds",
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/variant_nt.png"
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Fernando Alonso #1\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\Renault\\Preview Alonso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\Renault\\Livery Alonso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\Tires Alonso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\Tires Alonso Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\Alonso Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Alonso Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\Alonso Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Renault Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Renault Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Renault Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Renault Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Renault Seatbelt.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "super_aguri": {
+      "ams2car": "formula_v8_g1_b",
+      "base_livery_driver1": "external_liveries/car_liveries/super_aguri/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/super_aguri/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/super_aguri/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/super_aguri_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 230,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2163,
+            "Y": 1446
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/super_aguri/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/super_aguri/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/super_aguri/Super Aguri_Livery Sato.dds",
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri_Livery Ide.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri_Preview Sato.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/super_aguri/Super Aguri_Livery Sato.dds",
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri_Livery Ide.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri_Preview Sato.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/super_aguri/Super Aguri_Livery Sato.dds",
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri_Livery Ide.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri_Preview Sato.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 2_Livery Ide.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri Livery 2_Preview Ide.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Sato.dds",
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Yamamoto.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri Livery 3_Preview Sato.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Sato.dds",
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Yamamoto.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri Livery 3_Preview Sato.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Sato.dds",
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Yamamoto.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri Livery 3_Preview Sato.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Sato.dds",
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Yamamoto.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri Livery 3_Preview Sato.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Sato.dds",
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Yamamoto.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri Livery 3_Preview Sato.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 17,
+          "driver1_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Sato.dds",
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Yamamoto.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri Livery 3_Preview Sato.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 18,
+          "driver1_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Sato.dds",
+          "driver2_livery": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Yamamoto.dds",
+          "livery_preview": "external_liveries/previews/super_aguri/Super Aguri Livery 3_Preview Sato.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"Takuma Sato #22\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Preview Sato.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Livery Sato.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Super Aguri Rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Super Aguri Rims Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Spec Super Aguri.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Fresnel Super Aguri.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\Super Aguri\\Tires Sato.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\Super Aguri\\Tires Sato Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\helmets\\Super Aguri\\Sato Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\helmets\\Super Aguri\\Sato Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\helmets\\Super Aguri\\Sato Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Super Aguri\\Super Aguri Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Super Aguri\\Super Aguri Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Super Aguri\\Super Aguri Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Super Aguri\\Super Aguri Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Super Aguri\\Super Aguri Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Super Aguri\\Super Aguri Seatbelt.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "toro_rosso": {
+      "ams2car": "formula_v8_g1_m",
+      "base_livery_driver1": "external_liveries/car_liveries/toro_rosso/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/toro_rosso/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/toro_rosso/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/toro_rosso_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 326,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2210,
+            "Y": 1438
+          },
+          "rotation": "Deg180",
+          "fill_color": "#081022"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/toro_rosso/REDBULL_LRonly.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/toro_rosso/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"Vitantonio Liuzzi #20\" BASELIVERY=\"SilverMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\Toro Rosso\\Preview Liuzzi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\Toro Rosso\\Livery Liuzzi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2006 Skinpack\\Toro Rosso\\Toro Rosso Rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2006 Skinpack\\Toro Rosso\\Toro Rosso Rims Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\low.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\low_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1 2006 Skinpack\\Toro Rosso\\Spec Toro Rosso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2006 Skinpack\\Toro Rosso\\Fresnel Toro Rosso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\Toro Rosso\\Tires Liuzzi.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\Toro Rosso\\Tires Liuzzi Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\helmets\\Toro Rosso\\Liuzzi Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\helmets\\Toro Rosso\\Liuzzi Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\helmets\\Toro Rosso\\Liuzzi Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Toro Rosso\\Toro Rosso Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Toro Rosso\\ToroRossoDriver.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Toro Rosso\\ToroRossoArms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Toro Rosso\\Liuzzi Yellow Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Toro Rosso\\ToroRossoLegs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Toro Rosso\\Toro Rosso Seatbelt.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "toyota": {
+      "ams2car": "formula_v8_g1_b",
+      "base_livery_driver1": "external_liveries/car_liveries/toyota/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/toyota/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/toyota/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/toyota_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 174,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2135,
+            "Y": 1428
+          },
+          "rotation": "Deg180",
+          "fill_color": "#D63429"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/toyota/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/toyota/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"Ralf Schumacher #7\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\Toyota\\Preview RSC.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\Toyota\\Livery RSC.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2006 Skinpack\\Toyota\\Toyota Rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2006 Skinpack\\Toyota\\Toyota Rims Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1 2006 Skinpack\\Toyota\\Spec Toyota.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2006 Skinpack\\Toyota\\Fresnel RSC.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\Toyota\\Tires RSC.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\Toyota\\Tires RSC Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\helmets\\Toyota\\RSC Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\helmets\\Toyota\\RSC Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\helmets\\Toyota\\RSC Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Toyota\\Toyota Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Toyota\\Toyota Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Toyota\\Toyota Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Toyota\\Toyota Gloves RSC.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Toyota\\Toyota Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Toyota\\Toyota Seatbelt.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_v8_g1_b",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2006/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 211,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2152,
+            "Y": 1392
+          },
+          "rotation": "Deg180",
+          "fill_color": "#081C39"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"Mark Webber #9\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1 2006 Skinpack\\Williams\\Preview Webber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1 2006 Skinpack\\Williams\\Livery Webber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1 2006 Skinpack\\Williams\\Williams Rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1 2006 Skinpack\\Williams\\Williams Rims Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1 2006 Skinpack\\Rims\\high_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1 2006 Skinpack\\Williams\\.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1 2006 Skinpack\\Williams\\.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1 2006 Skinpack\\Williams\\Tires Webber.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1 2006 Skinpack\\Williams\\Tires Webber Blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1 2006 Skinpack\\Tire Norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1 2006 Skinpack\\Tire Spec Blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\Williams\\Webber Helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Williams\\Webber Helmet Spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1 2006 Skinpack\\Helmets\\Williams\\Webber Visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1 2006 Skinpack\\Helmets\\Williams\\Williams Visor Spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Williams\\Williams Torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Williams\\Williams Arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Williams\\Williams Gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Williams\\Williams Legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1 2006 Skinpack\\Suits\\Williams\\Williams Seatbelt.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_SPEC\" PATH=\"F1 2006 Skinpack\\Suits\\Suit spec.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "christian_klien": {
+      "picture": "https://www.statsf1.com/pilotes/photos/klien.png"
+    },
+    "christijan_albers": {
+      "picture": "https://www.statsf1.com/pilotes/photos/albers.png"
+    },
+    "david_coulthard": {
+      "picture": "https://www.statsf1.com/pilotes/photos/coulthar.png"
+    },
+    "felipe_massa": {
+      "picture": "https://www.statsf1.com/pilotes/photos/massa.png"
+    },
+    "fernando_alonso": {
+      "picture": "https://www.statsf1.com/pilotes/photos/alonso.png"
+    },
+    "franck_montagny": {
+      "picture": "https://www.statsf1.com/pilotes/photos/montagny.png"
+    },
+    "giancarlo_fisichella": {
+      "picture": "https://www.statsf1.com/pilotes/photos/fisiche.png"
+    },
+    "jacques_villeneuve": {
+      "picture": "https://www.statsf1.com/pilotes/photos/villenej.png"
+    },
+    "jarno_trulli": {
+      "picture": "https://www.statsf1.com/pilotes/photos/trulli.png"
+    },
+    "jenson_button": {
+      "picture": "https://www.statsf1.com/pilotes/photos/button.png"
+    },
+    "juan_pablo_montoya": {
+      "picture": "https://www.statsf1.com/pilotes/photos/montoya.png"
+    },
+    "kimi_raikkonen": {
+      "picture": "https://www.statsf1.com/pilotes/photos/raikkone.png"
+    },
+    "mark_webber": {
+      "picture": "https://www.statsf1.com/pilotes/photos/webber.png"
+    },
+    "michael_schumacher": {
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacm.png"
+    },
+    "nick_heidfeld": {
+      "picture": "https://www.statsf1.com/pilotes/photos/heidfeld.png"
+    },
+    "nico_rosberg": {
+      "picture": "https://www.statsf1.com/pilotes/photos/rosbergn.png"
+    },
+    "pedro_de_la_rosa": {
+      "picture": "https://www.statsf1.com/pilotes/photos/delarosa.png"
+    },
+    "ralf_schumacher": {
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacr.png"
+    },
+    "robert_doornbos": {
+      "picture": "https://www.statsf1.com/pilotes/photos/doornbos.png"
+    },
+    "robert_kubica": {
+      "picture": "https://www.statsf1.com/pilotes/photos/kubica.png"
+    },
+    "rubens_barrichello": {
+      "picture": "https://www.statsf1.com/pilotes/photos/barrich.png"
+    },
+    "sakon_yamamoto": {
+      "picture": "https://www.statsf1.com/pilotes/photos/yamamoto.png"
+    },
+    "scott_speed": {
+      "picture": "https://www.statsf1.com/pilotes/photos/speed.png"
+    },
+    "takuma_sato": {
+      "picture": "https://www.statsf1.com/pilotes/photos/sato.png"
+    },
+    "tiago_monteiro": {
+      "picture": "https://www.statsf1.com/pilotes/photos/monteiro.png"
+    },
+    "vitantonio_liuzzi": {
+      "picture": "https://www.statsf1.com/pilotes/photos/liuzzi.png"
+    },
+    "yuji_ide": {
+      "picture": "https://www.statsf1.com/pilotes/photos/ide.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/f1-2006-skinpack.84740/",
+    "name": "F1 2006 Skinpack V1.15",
+    "detect": [
+      "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/No Tabacco/Ferrari/Livery MSC.dds",
+      "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/No Tabacco/Ferrari/Livery Massa.dds",
+      "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Ferrari/Livery MSC.dds",
+      "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Ferrari/Livery Massa.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\No Tabacco\\Ferrari\\Livery MSC.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\No Tabacco\\Ferrari\\Livery Massa.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\No Tabacco\\Ferrari\\Preview MSC.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\No Tabacco\\Ferrari\\Ferrari Rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/No Tabacco/Ferrari/Ferrari Rims.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\No Tabacco\\Ferrari\\Ferrari Rims blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/No Tabacco/Ferrari/Ferrari Rims blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Ferrari\\Tires MSC.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Ferrari/Tires MSC.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Ferrari\\Tires MSC Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Ferrari/Tires MSC Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Ferrari\\Ferrari Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Ferrari/Ferrari Torso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Ferrari\\Ferrari Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Ferrari/Ferrari Arms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Ferrari\\Schumi NT Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Ferrari/Schumi NT Gloves.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Ferrari\\Ferrari Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Ferrari/Ferrari Legs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Ferrari\\Ferrari Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Ferrari/Ferrari Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Helmets\\Ferrari\\MSC Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Ferrari/MSC Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Helmets\\Ferrari\\MSC Visor Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Ferrari/MSC Visor Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Ferrari\\Livery MSC.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari_Livery MSC.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Ferrari\\Livery Massa.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/Ferrari_Livery Massa.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Ferrari\\Preview MSC.dds",
+        "destinationPath": "external_liveries/previews/ferrari/Ferrari_Preview MSC.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Toyota\\Livery RSC.dds",
+        "destinationPath": "external_liveries/car_liveries/toyota/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Toyota\\Livery Trulli.dds",
+        "destinationPath": "external_liveries/car_liveries/toyota/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Toyota\\Preview RSC.dds",
+        "destinationPath": "external_liveries/previews/toyota/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Toyota\\Toyota Rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Toyota/Toyota Rims.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Toyota\\Toyota Rims Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Toyota/Toyota Rims Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Toyota\\Tires RSC.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Toyota/Tires RSC.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Toyota\\Tires RSC Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Toyota/Tires RSC Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Toyota\\Toyota Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Toyota/Toyota Torso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Toyota\\Toyota Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Toyota/Toyota Arms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Toyota\\Toyota Gloves RSC.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Toyota/Toyota Gloves RSC.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Toyota\\Toyota Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Toyota/Toyota Legs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Toyota\\Toyota Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Toyota/Toyota Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\helmets\\Toyota\\RSC Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/helmets/Toyota/RSC Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Helmets\\Toyota\\Toyota Visor Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Toyota/Toyota Visor Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Williams\\Livery Webber.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Williams\\Livery Rosberg.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Williams\\Preview Webber.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Williams\\Williams Rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Williams/Williams Rims.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Williams\\Williams Rims Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Williams/Williams Rims Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Williams\\Tires Webber.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Williams/Tires Webber.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Williams\\Tires Webber Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Williams/Tires Webber Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Williams\\Williams Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Williams/Williams Torso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Williams\\Williams Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Williams/Williams Arms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Williams\\Williams Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Williams/Williams Gloves.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Williams\\Williams Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Williams/Williams Legs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Williams\\Williams Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Williams/Williams Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Helmets\\Williams\\Webber Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Williams/Webber Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Helmets\\Williams\\Williams Visor Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Williams/Williams Visor Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Midland\\Livery Monteiro.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Midland\\Livery Albers.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Midland\\Preview Monteiro.dds",
+        "destinationPath": "external_liveries/previews/jordan/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Midland\\Midland Rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Midland/Midland Rims.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Midland\\Midland Rims Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Midland/Midland Rims Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Midland\\Tires Monteiro.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Midland/Tires Monteiro.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Midland\\Tires Monteiro Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Midland/Tires Monteiro Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Midland\\Midland Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Midland/Midland Torso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Midland\\Midland Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Midland/Midland Arms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Midland\\Midland Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Midland/Midland Gloves.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Midland\\Midland Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Midland/Midland Legs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Midland\\Midland Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Midland/Midland Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\helmets\\Midland\\Monteiro Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/helmets/Midland/Monteiro Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Helmets\\Midland\\Midland Visor Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Midland/Midland Visor Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Spyker\\Livery Monteiro.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/Spyker_Livery Monteiro.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Spyker\\Livery Albers.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/Spyker_Livery Albers.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Spyker\\Preview Monteiro.dds",
+        "destinationPath": "external_liveries/previews/jordan/Spyker_Preview Monteiro.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Livery Sato.dds",
+        "destinationPath": "external_liveries/car_liveries/super_aguri/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Livery Montagny.dds",
+        "destinationPath": "external_liveries/car_liveries/super_aguri/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Preview Sato.dds",
+        "destinationPath": "external_liveries/previews/super_aguri/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Super Aguri Rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Special Liveries/Super Aguri Livery 2/Super Aguri Rims.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Super Aguri Rims Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Special Liveries/Super Aguri Livery 2/Super Aguri Rims Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Rims\\high.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Rims/high.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Rims\\high_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Rims/high_blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Super Aguri\\Tires Sato.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Super Aguri/Tires Sato.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Super Aguri\\Tires Sato Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Super Aguri/Tires Sato Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Tire Norm.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Tire Norm.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Super Aguri\\Super Aguri Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Super Aguri/Super Aguri Torso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Super Aguri\\Super Aguri Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Super Aguri/Super Aguri Arms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Super Aguri\\Super Aguri Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Super Aguri/Super Aguri Gloves.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Suit spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Suit spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Super Aguri\\Super Aguri Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Super Aguri/Super Aguri Legs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Suits\\Super Aguri\\Super Aguri Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Suits/Super Aguri/Super Aguri Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\helmets\\Super Aguri\\Sato Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/helmets/Super Aguri/Sato Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Helmets\\Super Aguri\\Super Aguri Visor Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Super Aguri/Super Aguri Visor Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Super Aguri\\Livery Sato.dds",
+        "destinationPath": "external_liveries/car_liveries/super_aguri/Super Aguri_Livery Sato.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Super Aguri\\Livery Ide.dds",
+        "destinationPath": "external_liveries/car_liveries/super_aguri/Super Aguri_Livery Ide.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Super Aguri\\Preview Sato.dds",
+        "destinationPath": "external_liveries/previews/super_aguri/Super Aguri_Preview Sato.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Livery Ide.dds",
+        "destinationPath": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 2_Livery Ide.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 2\\Preview Ide.dds",
+        "destinationPath": "external_liveries/previews/super_aguri/Super Aguri Livery 2_Preview Ide.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 3\\Livery Sato.dds",
+        "destinationPath": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Sato.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 3\\Livery Yamamoto.dds",
+        "destinationPath": "external_liveries/car_liveries/super_aguri/Super Aguri Livery 3_Livery Yamamoto.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_b\\F1 2006 Skinpack\\Special Liveries\\Super Aguri Livery 3\\Preview Sato.dds",
+        "destinationPath": "external_liveries/previews/super_aguri/Super Aguri Livery 3_Preview Sato.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\McLaren\\Livery Raikkonen.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\McLaren\\Livery Montoya.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\McLaren\\Preview Raikkonen.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\McLaren\\McLaren Rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/McLaren/McLaren Rims.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\McLaren\\McLaren Rims Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/McLaren/McLaren Rims Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\McLaren\\Livery Raikkonen Fresnel.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/McLaren/Livery Raikkonen Fresnel.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\McLaren\\Tires Raikkonen.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/McLaren/Tires Raikkonen.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\McLaren\\Tires Raikkonen Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/McLaren/Tires Raikkonen Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\McLaren\\McLaren Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/McLaren/McLaren Torso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\McLaren\\McLaren Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/McLaren/McLaren Arms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\McLaren\\McLaren Glove.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/McLaren/McLaren Glove.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\McLaren\\McLaren Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/McLaren/McLaren Legs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\McLaren\\McLaren Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/McLaren/McLaren Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Helmets\\McLaren\\Raikkonen Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/McLaren/Raikkonen Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Helmets\\McLaren\\McLaren Visor Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/McLaren/McLaren Visor Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\McLaren Keep Walking\\Livery Raikkonen.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren Keep Walking_Livery Raikkonen.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\McLaren Keep Walking\\Livery Montoya.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren Keep Walking_Livery Montoya.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\McLaren Keep Walking\\Preview Raikkonen.dds",
+        "destinationPath": "external_liveries/previews/mclaren/McLaren Keep Walking_Preview Raikkonen.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\McLaren France\\Livery Raikkonen.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren France_Livery Raikkonen.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\McLaren France\\Livery De La Rosa.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren France_Livery De La Rosa.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\McLaren France\\Preview Raikkonen.dds",
+        "destinationPath": "external_liveries/previews/mclaren/McLaren France_Preview Raikkonen.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\McLaren Turkey\\Livery Raikkonen.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren Turkey_Livery Raikkonen.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\McLaren Turkey\\Livery De La Rosa.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren Turkey_Livery De La Rosa.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\McLaren Turkey\\Preview Raikkonen.dds",
+        "destinationPath": "external_liveries/previews/mclaren/McLaren Turkey_Preview Raikkonen.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\McLaren\\Livery De La Rosa.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/McLaren_Livery De La Rosa.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\McLaren\\Preview De La Rosa.dds",
+        "destinationPath": "external_liveries/previews/mclaren/McLaren_Preview De La Rosa.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\No Tabacco\\Honda\\Livery Barrichello.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\No Tabacco\\Honda\\Livery Button.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\No Tabacco\\Honda\\Preview Barrichello.dds",
+        "destinationPath": "external_liveries/previews/bar/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\No Tabacco\\Honda\\Honda Rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/No Tabacco/Honda/Honda Rims.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\No Tabacco\\Honda\\Honda Rims Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/No Tabacco/Honda/Honda Rims Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Honda\\Tires Barrichello.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Honda/Tires Barrichello.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Honda\\Tires Barrichello Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Honda/Tires Barrichello Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Honda\\Honda Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Honda/Honda Torso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Honda\\Honda Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Honda/Honda Arms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Honda\\Honda Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Honda/Honda Gloves.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Honda\\Honda Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Honda/Honda Legs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Honda\\Honda Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Honda/Honda Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Helmets\\Honda\\Barrichello Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/Honda/Barrichello Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Helmets\\Honda\\Honda Visor Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/Honda/Honda Visor Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Honda\\Preview Barrichello Monaco.dds",
+        "destinationPath": "external_liveries/previews/bar/Honda_Preview Barrichello Monaco.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Honda Turkey\\Livery Barrichello.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/Honda Turkey_Livery Barrichello.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Honda Turkey\\Livery Button.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/Honda Turkey_Livery Button.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Honda Turkey\\Preview Barrichello.dds",
+        "destinationPath": "external_liveries/previews/bar/Honda Turkey_Preview Barrichello.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Honda China\\Livery Barrichello.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/Honda China_Livery Barrichello.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Honda China\\Livery Button.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/Honda China_Livery Button.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Honda China\\Preview Barrichello.dds",
+        "destinationPath": "external_liveries/previews/bar/Honda China_Preview Barrichello.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Honda\\Livery Barrichello.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/Honda_Livery Barrichello.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Honda\\Livery Button.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/Honda_Livery Button.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Honda\\Preview Barrichello.dds",
+        "destinationPath": "external_liveries/previews/bar/Honda_Preview Barrichello.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Honda Last Blast\\Livery Barrichello.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/Honda Last Blast_Livery Barrichello.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Honda Last Blast\\Livery Button.dds",
+        "destinationPath": "external_liveries/car_liveries/bar/Honda Last Blast_Livery Button.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Honda Last Blast\\Preview Barrichello.dds",
+        "destinationPath": "external_liveries/previews/bar/Honda Last Blast_Preview Barrichello.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Red Bull\\Livery Coulthard.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Red Bull\\Livery Klien.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Red Bull\\Preview Coulthard.dds",
+        "destinationPath": "external_liveries/previews/stewart/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Red Bull\\Red Bull Rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Red Bull/Red Bull Rims.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Red Bull\\Red Bull Rims Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Red Bull/Red Bull Rims Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Red Bull\\Tires Coulthard.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Red Bull/Tires Coulthard.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Red Bull\\Tires Coulthard Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Red Bull/Tires Coulthard Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Red Bull\\Red Bull Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Red Bull/Red Bull Torso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Red Bull\\Red Bull Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Red Bull/Red Bull Arms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Red Bull\\Red Bull Coulthard Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Red Bull/Red Bull Coulthard Gloves.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Red Bull\\Red Bull Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Red Bull/Red Bull Legs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Red Bull\\Red Bull Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Red Bull/Red Bull Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Helmets\\Red Bull\\Coulthard Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/Red Bull/Coulthard Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Helmets\\Red Bull\\Red Bull Visor Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/Red Bull/Red Bull Visor Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Red Bull Monaco\\Livery Coulthard.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/Red Bull Monaco_Livery Coulthard.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Red Bull Monaco\\Livery Klien.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/Red Bull Monaco_Livery Klien.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\Red Bull Monaco\\Preview Coulthard.dds",
+        "destinationPath": "external_liveries/previews/stewart/Red Bull Monaco_Preview Coulthard.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Red Bull\\Livery Doornbos.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/Red Bull_Livery Doornbos.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Red Bull\\Preview Doornbos.dds",
+        "destinationPath": "external_liveries/previews/stewart/Red Bull_Preview Doornbos.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\BMW Sauber\\Livery Heidfeld.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\BMW Sauber\\Livery Villeneuve.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\BMW Sauber\\Preview Heidfeld.dds",
+        "destinationPath": "external_liveries/previews/sauber/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\BMW Sauber\\BMW Sauber Rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/BMW Sauber/BMW Sauber Rims.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\BMW Sauber\\BMW Sauber Rims Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/BMW Sauber/BMW Sauber Rims Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Rims\\high.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Rims/high.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Rims\\high_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Rims/high_blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\BMW Sauber\\Tires Heidfeld.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/BMW Sauber/Tires Heidfeld.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\BMW Sauber\\Tires Heidfeld Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/BMW Sauber/Tires Heidfeld Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\BMW Sauber\\BMW Sauber Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/BMW Sauber/BMW Sauber Torso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\BMW Sauber\\BMW Sauber Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/BMW Sauber/BMW Sauber Arms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\BMW Sauber\\BMW Sauber Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/BMW Sauber/BMW Sauber Gloves.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\BMW Sauber\\BMW Sauber Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/BMW Sauber/BMW Sauber Legs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\BMW Sauber\\BMW Sauber Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/BMW Sauber/BMW Sauber Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\helmets\\BMW Sauber\\Heidfeld Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/helmets/BMW Sauber/Heidfeld Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Helmets\\BMW Sauber\\BMW Sauber Visor Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/BMW Sauber/BMW Sauber Visor Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\BMW Sauber\\Preview Kubica.dds",
+        "destinationPath": "external_liveries/previews/sauber/BMW Sauber_Preview Kubica.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\BMW Sauber\\Livery Kubica.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/BMW Sauber_Livery Kubica.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\BMW Sauber\\Preview Kubica 2.dds",
+        "destinationPath": "external_liveries/previews/sauber/BMW Sauber_Preview Kubica 2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\BMW Sauber Interlagos\\Livery Heidfeld.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/BMW Sauber Interlagos_Livery Heidfeld.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\BMW Sauber Interlagos\\Livery Kubica.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/BMW Sauber Interlagos_Livery Kubica.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Special Liveries\\BMW Sauber Interlagos\\Preview Heidfeld.dds",
+        "destinationPath": "external_liveries/previews/sauber/BMW Sauber Interlagos_Preview Heidfeld.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Toro Rosso\\Livery Liuzzi.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Toro Rosso\\Livery Speed.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Toro Rosso\\Preview Liuzzi.dds",
+        "destinationPath": "external_liveries/previews/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Toro Rosso\\Toro Rosso Rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Toro Rosso/Toro Rosso Rims.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Toro Rosso\\Toro Rosso Rims Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Toro Rosso/Toro Rosso Rims Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Rims\\low.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Rims/low.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Rims\\low_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Rims/low_blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Toro Rosso\\Tires Liuzzi.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Toro Rosso/Tires Liuzzi.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Toro Rosso\\Tires Liuzzi Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Toro Rosso/Tires Liuzzi Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Tire Norm.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Tire Norm.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Toro Rosso\\ToroRossoDriver.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Toro Rosso/ToroRossoDriver.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Toro Rosso\\ToroRossoArms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Toro Rosso/ToroRossoArms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Toro Rosso\\Liuzzi Yellow Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Toro Rosso/Liuzzi Yellow Gloves.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Suit spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Suit spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Toro Rosso\\ToroRossoLegs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Toro Rosso/ToroRossoLegs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\Suits\\Toro Rosso\\Toro Rosso Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Suits/Toro Rosso/Toro Rosso Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_v8_g1_m\\F1 2006 Skinpack\\helmets\\Toro Rosso\\Liuzzi Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/helmets/Toro Rosso/Liuzzi Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault\\Livery Alonso.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault\\Livery Fisichella.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default_driver2.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault\\Preview Alonso.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Tires Alonso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Tires Alonso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Tires Alonso Blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Tires Alonso Blur.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Tire Norm.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Tire Norm.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Suits\\Renault Torso.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Suits/Renault Torso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Suits\\Renault Arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Suits/Renault Arms.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Suits\\Renault Gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Suits/Renault Gloves.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Suits\\Suit spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Suits/Suit spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Suits\\Renault Legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Suits/Renault Legs.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Suits\\Renault Seatbelt.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Suits/Renault Seatbelt.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Helmets\\Alonso Helmet Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Helmets/Alonso Helmet Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Helmets\\Visor Spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Helmets/Visor Spec.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault Silverstone\\Livery Alonso.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Renault Silverstone_Livery Alonso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault Silverstone\\Livery Fisichella.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Renault Silverstone_Livery Fisichella.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault Silverstone\\Preview Alonso.dds",
+        "destinationPath": "external_liveries/previews/benetton/Renault Silverstone_Preview Alonso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault Canada\\Livery Alonso.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Renault Canada_Livery Alonso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault Canada\\Livery Fisichella.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Renault Canada_Livery Fisichella.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault Canada\\Preview Alonso.dds",
+        "destinationPath": "external_liveries/previews/benetton/Renault Canada_Preview Alonso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault France\\Livery Alonso.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Renault France_Livery Alonso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault France\\Livery Fisichella.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Renault France_Livery Fisichella.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault France\\Preview Alonso.dds",
+        "destinationPath": "external_liveries/previews/benetton/Renault France_Preview Alonso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault Turkey\\Livery Alonso.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Renault Turkey_Livery Alonso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault Turkey\\Livery Fisichella.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Renault Turkey_Livery Fisichella.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault Turkey\\Preview Alonso.dds",
+        "destinationPath": "external_liveries/previews/benetton/Renault Turkey_Preview Alonso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault NT\\Livery Alonso.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Renault NT_Livery Alonso.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault NT\\Livery Fisichella.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/Renault NT_Livery Fisichella.dds"
+      },
+      {
+        "sourcePath": "F1 2006 Skinpack V1.15\\Automobilista 2\\Vehicles\\Textures\\CustomLiveries\\Overrides\\renault_r26\\F1 2006 Skinpack\\Renault NT\\Preview Alonso.dds",
+        "destinationPath": "external_liveries/previews/benetton/Renault NT_Preview Alonso.dds"
+      }
+    ],
+    "helmets": {
+      "ferrari": {
+        "samples": [
+          "MARLBORO/Marlboro_NT.png"
+        ],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Ferrari/MSC Helmet.dds",
+        "map": null,
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Ferrari/MSC NT Visor.dds",
+        "variants": [
+          {
+            "name": "tobacco",
+            "races": [
+              1,
+              2,
+              3,
+              7,
+              16,
+              17
+            ],
+            "sample": "MARLBORO/Marlboro.png",
+            "helmet": null,
+            "map": null,
+            "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Ferrari/MSC Visor.dds",
+            "visor_map": null,
+            "clear_visor": false
+          }
+        ]
+      },
+      "bar": {
+        "samples": [
+          "LUCKY STRIKE/LuckyStrike_NT.png"
+        ],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/Honda/Barrichello Helmet.dds",
+        "map": null,
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/Honda/Barrichello Visor.dds",
+        "variants": [
+          {
+            "name": "tobacco",
+            "races": [
+              1,
+              2,
+              3,
+              7,
+              16,
+              17
+            ],
+            "sample": "LUCKY STRIKE/LuckyStrike.png",
+            "helmet": null,
+            "map": null,
+            "visor": null,
+            "visor_map": null,
+            "clear_visor": false
+          }
+        ]
+      },
+      "benetton": {
+        "samples": [
+          "MILD SEVEN/MildSeven_NoHalo.png"
+        ],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Helmets/Alonso Helmet.dds",
+        "map": null,
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/renault_r26/F1 2006 Skinpack/Helmets/Alonso Visor.dds",
+        "variants": [
+          {
+            "name": "nt",
+            "races": [
+              4,
+              5,
+              8,
+              11,
+              12,
+              14,
+              15,
+              18
+            ],
+            "sample": "MILD SEVEN/MildSeven_NT_NoHalo.png",
+            "helmet": null,
+            "map": null,
+            "visor": null,
+            "visor_map": null,
+            "clear_visor": false
+          }
+        ]
+      },
+      "stewart": {
+        "samples": [
+          "REDBULL/REDBULL.png"
+        ],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/Red Bull/Coulthard Helmet.dds",
+        "map": null,
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/Red Bull/Coulthard Visor.dds"
+      },
+      "toro_rosso": {
+        "samples": [
+          "REDBULL/REDBULL_LRonly.png"
+        ],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/Toro Rosso/Liuzzi Helmet.dds",
+        "map": null,
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/Toro Rosso/Liuzzi Visor.dds"
+      },
+      "mclaren": {
+        "samples": [],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/McLaren/Raikkonen Helmet.dds",
+        "map": "sponsor_maps/mclaren.png",
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/McLaren/Raikkonen Visor.dds"
+      },
+      "sauber": {
+        "samples": [],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/BMW Sauber/Heidfeld Helmet.dds",
+        "map": "sponsor_maps/sauber.png",
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_m/F1 2006 Skinpack/Helmets/BMW Sauber/Heidfeld Visor.dds"
+      },
+      "toyota": {
+        "samples": [],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Toyota/RSC Helmet.dds",
+        "map": "sponsor_maps/toyota.png",
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Toyota/RSC Visor.dds"
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Williams/Webber Helmet.dds",
+        "map": "sponsor_maps/williams.png",
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Williams/Webber Visor.dds"
+      },
+      "jordan": {
+        "samples": [],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Midland/Monteiro Helmet.dds",
+        "map": null,
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Midland/Monteiro Visor.dds"
+      },
+      "super_aguri": {
+        "samples": [],
+        "helmet": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Super Aguri/Sato Helmet.dds",
+        "map": "sponsor_maps/super_aguri.png",
+        "visor": "F1 2006 Skinpack V1.15/Automobilista 2/Vehicles/Textures/CustomLiveries/Overrides/formula_v8_g1_b/F1 2006 Skinpack/Helmets/Super Aguri/Sato Visor.dds"
+      }
+    },
+    "helmet_model": "Modern"
+  }
+}

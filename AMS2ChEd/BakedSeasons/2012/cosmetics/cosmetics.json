@@ -1,0 +1,1235 @@
+{
+  "_comment": "Artwork the app ships for 2012 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/2012/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: none.",
+  "teams": {
+    "caterham": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/caterham/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/caterham/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/caterham/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/caterham_cover.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 108,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3444,
+            "Y": 622
+          },
+          "rotation": "Deg180",
+          "fill_color": "#001D0A"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/caterham/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/caterham/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"69\" NAME=\"2012 Caterham #20 - H. Kovalainen\" BASELIVERY=\"GreenMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\Caterham20p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\Caterham20.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Caterham_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Caterham_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"69\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Kovalainen_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Caterham_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"69\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Caterham_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Caterham_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Caterham_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Caterham_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_Caterham_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ferrari": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 190,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1592,
+            "Y": 812
+          },
+          "rotation": "Deg180",
+          "fill_color": "#A50000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"2012 Ferrari #5 - F. Alonso\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\Ferrari05p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\Ferrari05.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Ferrari_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Ferrari_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Alonso_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Alonso_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_blue.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Ferrari_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Ferrari_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Ferrari_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Ferrari_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_Ferrari_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "jordan": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/jordan/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/jordan/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/jordan/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/jordan_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 142,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1566,
+            "Y": 257
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/jordan/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/jordan/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"61\" NAME=\"2012 Force India #11 - P. di Resta\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\ForceIndia11p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\ForceIndia11.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_ForceIndia_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_ForceIndia_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"61\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_DiResta_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_ForceIndia_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"61\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_ForceIndia_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_ForceIndia_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_ForceIndia_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_ForceIndia_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_ForceIndia_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "hrt": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/hrt/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/hrt/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/hrt/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/hrt_cover.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 146,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3464,
+            "Y": 766
+          },
+          "rotation": "Deg180",
+          "fill_color": "#E7E7E7"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/hrt/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/hrt/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"71\" NAME=\"2012 HRT #22 - P. de la Rosa\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\HRT22p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\HRT22.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_HRT_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_HRT_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"71\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_DelaRosa_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_DelaRosa_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"71\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_HRT_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_HRT_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_DelaRosa_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_HRT_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_HRT_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/benetton_cover.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 168,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3474,
+            "Y": 776
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/benetton_wing_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 92,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3431,
+            "Y": 1128
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#000000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/benetton_wing_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 94,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3735,
+            "Y": 1220
+          },
+          "rotation": "Deg270",
+          "fill_color": "#000000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2012_Lotus09_Monaco.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2012_Lotus10_Monaco.dds",
+          "livery_preview": "external_liveries/previews/benetton/Previews_Lotus09_Monacop.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/benetton/F1_Season_2012_Lotus09_UK.dds",
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2012_Lotus10_UK.dds",
+          "livery_preview": "external_liveries/previews/benetton/Previews_Lotus09_UKp.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/benetton/F1_Season_2012_Lotus10_Dambrosio.dds",
+          "livery_preview": "external_liveries/previews/benetton/Previews_Lotus10_Dambrosiop.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"2012 Lotus #9 - K. Räikkönen\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\Lotus09p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\Lotus09.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Lotus_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Lotus_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Raikkonen_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Lotus_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Lotus_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Lotus_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Lotus_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Lotus_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_Lotus_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "virgin": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/virgin/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/virgin/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/virgin/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/virgin_cover.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 110,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3446,
+            "Y": 243
+          },
+          "rotation": "Deg180",
+          "fill_color": "#E70C08"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/virgin_side_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 84,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1212,
+            "Y": 2235
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#E70C08"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/virgin_side_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 78,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1782,
+            "Y": 2408
+          },
+          "rotation": "Deg270",
+          "fill_color": "#E70C08"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/virgin/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/virgin/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"73\" NAME=\"2012 Marussia #24 - T. Glock\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\Marussia24p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\Marussia24.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Marussia_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Marussia_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"73\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Glock_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Marussia_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"73\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Marussia_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Marussia_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Marussia_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Marussia_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_Marussia_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/mclaren_cover.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 169,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3475,
+            "Y": 712
+          },
+          "rotation": "Deg180",
+          "fill_color": "#363536"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/mclaren_side_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 126,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3706,
+            "Y": 2008
+          },
+          "rotation": "Deg270",
+          "fill_color": "#363536"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/mclaren_side_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 125,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3486,
+            "Y": 3148
+          },
+          "rotation": "Deg270",
+          "fill_color": "#363536"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"2012 McLaren #3 - J. Button\" BASELIVERY=\"Chrome\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\McLaren03p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\McLaren03.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SPEC\" PATH=\"F1_Season_2012\\McLaren03spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"FRESNEL\" PATH=\"F1_Season_2012\\McLaren03fresnel.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_McLaren_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_McLaren_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Button_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_McLaren_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_McLaren_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_McLaren_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Button_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_McLaren_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_McLaren_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mercedes": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/mercedes/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mercedes/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mercedes/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/mercedes_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 76,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1536,
+            "Y": 746
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mercedes/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mercedes/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 20,
+          "driver1_livery": "external_liveries/car_liveries/mercedes/F1_Season_2012_Mercedes07_Brazil.dds",
+          "driver2_livery": "external_liveries/car_liveries/mercedes/F1_Season_2012_Mercedes08_Brazil.dds",
+          "livery_preview": "external_liveries/previews/mercedes/Previews_Mercedes07_Brazilp.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"2012 Mercedes #7 - M. Schumacher\" BASELIVERY=\"SilverMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\Mercedes07p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\Mercedes07.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Mercedes_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Mercedes_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_MSchumacher_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Mercedes_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Mercedes_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Mercedes_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_MSchumacher_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_MSchumacher_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_Mercedes_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "stewart": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/stewart/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/stewart/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/stewart/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/stewart_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 85,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1535,
+            "Y": 665
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000C29"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/stewart_wing_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 80,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3510,
+            "Y": 1133
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#000C29"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/stewart_wing_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 82,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3642,
+            "Y": 1214
+          },
+          "rotation": "Deg270",
+          "fill_color": "#000C29"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/stewart/REDBULL.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/stewart/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/stewart/F1_Season_2012_RedBull01_UK.dds",
+          "driver2_livery": "external_liveries/car_liveries/stewart/F1_Season_2012_RedBull02_UK.dds",
+          "livery_preview": "external_liveries/previews/stewart/Previews_RedBull01_UKp.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 20,
+          "driver1_livery": "external_liveries/car_liveries/stewart/F1_Season_2012_RedBull01_Brazil.dds",
+          "driver2_livery": "external_liveries/car_liveries/stewart/F1_Season_2012_RedBull02_Brazil.dds",
+          "livery_preview": "external_liveries/previews/stewart/Previews_RedBull01_Brazilp.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"2012 Red Bull #1 - S. Vettel\" BASELIVERY=\"BlueMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\RedBull01p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\RedBull01.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_RedBull_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_RedBull_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Vettel_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_RedBull_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_RedBull_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_RedBull_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_RedBull_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_RedBull_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_RedBull_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "sauber": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/sauber/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/sauber/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/sauber/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/sauber_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 142,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1569,
+            "Y": 805
+          },
+          "rotation": "Deg180",
+          "fill_color": "#080C08"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/sauber/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/sauber/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"63\" NAME=\"2012 Sauber #14 - K. Kobayashi\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\Sauber14p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\Sauber14.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Sauber_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_Sauber_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"63\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Kobayashi_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Sauber_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"63\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Sauber_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Sauber_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Sauber_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Sauber_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_Sauber_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "toro_rosso": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/toro_rosso/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/toro_rosso/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/toro_rosso/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/toro_rosso_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 127,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1557,
+            "Y": 1015
+          },
+          "rotation": "Deg180",
+          "fill_color": "#000C29"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/toro_rosso_wing_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 95,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3534,
+            "Y": 1129
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#000C29"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/toro_rosso_wing_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 95,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3628,
+            "Y": 1224
+          },
+          "rotation": "Deg270",
+          "fill_color": "#000C29"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/toro_rosso/REDBULL_LRonly.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/toro_rosso/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"65\" NAME=\"2012 Toro Rosso #16 - D. Ricciardo\" BASELIVERY=\"BlueMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\ToroRosso16p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\ToroRosso16.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_ToroRosso_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\2012_ToroRosso_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"65\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Ricciardo_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_ToroRosso_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_blue.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"65\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_ToroRosso_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_ToroRosso_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Ricciardo_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_ToroRosso_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_ToroRosso_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_reiza",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 139,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1565,
+            "Y": 948
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/williams_side_a.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 155,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 654,
+            "Y": 2127
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/2012/cosmetics/numbers/williams_side_b.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 155,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2334,
+            "Y": 2286
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FFFFFF"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"67\" NAME=\"2012 Williams #18 - P. Maldonado\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2012\\Previews\\Williams18p.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2012\\Williams18.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2012\\Rims\\FReiza_wheel_silver_diff.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2012\\Rims\\FReiza_wheel_silver_blur_diff.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"67\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Maldonado_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2012\\Helmets\\2012_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2012\\Helmets\\2012_Williams_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2012\\Helmets\\visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"67\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Williams_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Williams_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Williams_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2012\\Suits\\2012_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2012\\Suits\\2012_Williams_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2012\\Harness\\2012_Williams_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "bruno_senna": {
+      "picture": "https://www.statsf1.com/pilotes/photos/sennab.png"
+    },
+    "charles_pic": {
+      "picture": "https://www.statsf1.com/pilotes/photos/pic.png"
+    },
+    "daniel_ricciardo": {
+      "picture": "https://www.statsf1.com/pilotes/photos/ricciard.png"
+    },
+    "felipe_massa": {
+      "picture": "https://www.statsf1.com/pilotes/photos/massa.png"
+    },
+    "fernando_alonso": {
+      "picture": "https://www.statsf1.com/pilotes/photos/alonso.png"
+    },
+    "heikki_kovalainen": {
+      "picture": "https://www.statsf1.com/pilotes/photos/kovalain.png"
+    },
+    "jean_eric_vergne": {
+      "picture": "https://www.statsf1.com/pilotes/photos/vergne.png"
+    },
+    "jenson_button": {
+      "picture": "https://www.statsf1.com/pilotes/photos/button.png"
+    },
+    "jerome_d_ambrosio": {
+      "picture": "https://www.statsf1.com/pilotes/photos/dambrosi.png"
+    },
+    "kamui_kobayashi": {
+      "picture": "https://www.statsf1.com/pilotes/photos/kobayash.png"
+    },
+    "kimi_raikkonen": {
+      "picture": "https://www.statsf1.com/pilotes/photos/raikkone.png"
+    },
+    "lewis_hamilton": {
+      "picture": "https://www.statsf1.com/pilotes/photos/hamiltol.png"
+    },
+    "mark_webber": {
+      "picture": "https://www.statsf1.com/pilotes/photos/webber.png"
+    },
+    "michael_schumacher": {
+      "picture": "https://www.statsf1.com/pilotes/photos/schumacm.png"
+    },
+    "narain_karthikeyan": {
+      "picture": "https://www.statsf1.com/pilotes/photos/karthike.png"
+    },
+    "nico_hulkenberg": {
+      "picture": "https://www.statsf1.com/pilotes/photos/hulkenbe.png"
+    },
+    "nico_rosberg": {
+      "picture": "https://www.statsf1.com/pilotes/photos/rosbergn.png"
+    },
+    "pastor_maldonado": {
+      "picture": "https://www.statsf1.com/pilotes/photos/maldonad.png"
+    },
+    "paul_di_resta": {
+      "picture": "https://www.statsf1.com/pilotes/photos/diresta.png"
+    },
+    "pedro_de_la_rosa": {
+      "picture": "https://www.statsf1.com/pilotes/photos/delarosa.png"
+    },
+    "romain_grosjean": {
+      "picture": "https://www.statsf1.com/pilotes/photos/grosjean.png"
+    },
+    "sebastian_vettel": {
+      "picture": "https://www.statsf1.com/pilotes/photos/vettel.png"
+    },
+    "sergio_perez": {
+      "picture": "https://www.statsf1.com/pilotes/photos/perez.png"
+    },
+    "timo_glock": {
+      "picture": "https://www.statsf1.com/pilotes/photos/glock.png"
+    },
+    "vitaly_petrov": {
+      "picture": "https://www.statsf1.com/pilotes/photos/petrov.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/ams2-f1-2012-season.47608/",
+    "name": "AMS2 F1 2012 Season 2.09",
+    "detect": [
+      "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/RedBull01.dds",
+      "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/RedBull02.dds",
+      "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/RedBull01_UK.dds",
+      "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/RedBull02_UK.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\RedBull01.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\RedBull02.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\RedBull01p.dds",
+        "destinationPath": "external_liveries/previews/stewart/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_RedBull_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_RedBull_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_RedBull_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_RedBull_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_RedBull_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_RedBull_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_RedBull_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_RedBull_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_RedBull_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_RedBull_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_RedBull_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_RedBull_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_RedBull_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_RedBull_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\RedBull01_UK.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/F1_Season_2012_RedBull01_UK.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\RedBull02_UK.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/F1_Season_2012_RedBull02_UK.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\RedBull01_UKp.dds",
+        "destinationPath": "external_liveries/previews/stewart/Previews_RedBull01_UKp.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\RedBull01_Brazil.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/F1_Season_2012_RedBull01_Brazil.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\RedBull02_Brazil.dds",
+        "destinationPath": "external_liveries/car_liveries/stewart/F1_Season_2012_RedBull02_Brazil.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\RedBull01_Brazilp.dds",
+        "destinationPath": "external_liveries/previews/stewart/Previews_RedBull01_Brazilp.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\McLaren03.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\McLaren04.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\McLaren03p.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\McLaren03spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/McLaren03spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\McLaren03fresnel.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/McLaren03fresnel.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_McLaren_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_McLaren_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_McLaren_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_McLaren_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_McLaren_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_McLaren_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_McLaren_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_McLaren_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Button_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Button_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_McLaren_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_McLaren_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_McLaren_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_McLaren_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Ferrari05.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Ferrari06.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Ferrari05p.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Ferrari_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Ferrari_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Ferrari_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Ferrari_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Ferrari_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Ferrari_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Ferrari_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Ferrari_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Ferrari_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Ferrari_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Ferrari_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Ferrari_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_Ferrari_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_Ferrari_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Mercedes07.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Mercedes08.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Mercedes07p.dds",
+        "destinationPath": "external_liveries/previews/mercedes/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Mercedes_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Mercedes_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Mercedes_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Mercedes_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Mercedes_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Mercedes_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Mercedes_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Mercedes_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_MSchumacher_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_MSchumacher_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_MSchumacher_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_MSchumacher_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_Mercedes_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_Mercedes_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Mercedes07_Brazil.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/F1_Season_2012_Mercedes07_Brazil.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Mercedes08_Brazil.dds",
+        "destinationPath": "external_liveries/car_liveries/mercedes/F1_Season_2012_Mercedes08_Brazil.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Mercedes07_Brazilp.dds",
+        "destinationPath": "external_liveries/previews/mercedes/Previews_Mercedes07_Brazilp.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Lotus09.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Lotus10.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Lotus09p.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Lotus_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Lotus_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Lotus_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Lotus_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Lotus_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Lotus_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Lotus_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Lotus_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Lotus_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Lotus_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Lotus_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Lotus_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_Lotus_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_Lotus_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Lotus09_Monaco.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2012_Lotus09_Monaco.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Lotus10_Monaco.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2012_Lotus10_Monaco.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Lotus09_Monacop.dds",
+        "destinationPath": "external_liveries/previews/benetton/Previews_Lotus09_Monacop.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Lotus09_UK.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2012_Lotus09_UK.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Lotus10_UK.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2012_Lotus10_UK.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Lotus09_UKp.dds",
+        "destinationPath": "external_liveries/previews/benetton/Previews_Lotus09_UKp.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Lotus10_Dambrosio.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/F1_Season_2012_Lotus10_Dambrosio.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Lotus10_Dambrosiop.dds",
+        "destinationPath": "external_liveries/previews/benetton/Previews_Lotus10_Dambrosiop.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\ForceIndia11.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\ForceIndia12.dds",
+        "destinationPath": "external_liveries/car_liveries/jordan/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\ForceIndia11p.dds",
+        "destinationPath": "external_liveries/previews/jordan/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_ForceIndia_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_ForceIndia_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_ForceIndia_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_ForceIndia_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_ForceIndia_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_ForceIndia_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_ForceIndia_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_ForceIndia_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_ForceIndia_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_ForceIndia_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_ForceIndia_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_ForceIndia_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_ForceIndia_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_ForceIndia_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Sauber14.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Sauber15.dds",
+        "destinationPath": "external_liveries/car_liveries/sauber/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Sauber14p.dds",
+        "destinationPath": "external_liveries/previews/sauber/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Sauber_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Sauber_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Sauber_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Sauber_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Sauber_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Sauber_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Sauber_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Sauber_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Sauber_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Sauber_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Sauber_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Sauber_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_Sauber_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_Sauber_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\ToroRosso16.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\ToroRosso17.dds",
+        "destinationPath": "external_liveries/car_liveries/toro_rosso/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\ToroRosso16p.dds",
+        "destinationPath": "external_liveries/previews/toro_rosso/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_ToroRosso_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_ToroRosso_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_ToroRosso_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_ToroRosso_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_ToroRosso_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_ToroRosso_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_ToroRosso_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_ToroRosso_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Ricciardo_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Ricciardo_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_ToroRosso_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_ToroRosso_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_ToroRosso_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_ToroRosso_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Helmets\\visor_spec_blue.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/visor_spec_blue.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Williams18.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Williams19.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Williams18p.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Williams_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Williams_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Williams_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Williams_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Williams_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Williams_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Williams_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Williams_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_Williams_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_Williams_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Caterham20.dds",
+        "destinationPath": "external_liveries/car_liveries/caterham/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Caterham21.dds",
+        "destinationPath": "external_liveries/car_liveries/caterham/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Caterham20p.dds",
+        "destinationPath": "external_liveries/previews/caterham/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Caterham_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Caterham_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Caterham_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Caterham_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Caterham_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Caterham_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Caterham_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Caterham_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Caterham_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Caterham_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Caterham_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Caterham_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_Caterham_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_Caterham_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\HRT22.dds",
+        "destinationPath": "external_liveries/car_liveries/hrt/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\HRT23.dds",
+        "destinationPath": "external_liveries/car_liveries/hrt/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\HRT22p.dds",
+        "destinationPath": "external_liveries/previews/hrt/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_HRT_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_HRT_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_HRT_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_HRT_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_HRT_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_HRT_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_HRT_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_HRT_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_DelaRosa_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_DelaRosa_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_HRT_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_HRT_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Harness\\2012_HRT_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Harness/2012_HRT_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Marussia24.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Marussia25.dds",
+        "destinationPath": "external_liveries/car_liveries/virgin/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Previews\\Marussia24p.dds",
+        "destinationPath": "external_liveries/previews/virgin/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Marussia_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Marussia_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_Marussia_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_Marussia_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_rims_lowspec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_rims_lowspec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Rims\\2012_rims_lowspec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Rims/2012_rims_lowspec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Marussia_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Marussia_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Marussia_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Marussia_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Marussia_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Marussia_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_gloves_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_gloves_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Suits\\2012_Marussia_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Suits/2012_Marussia_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Helmets\\2012_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_2012_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_reiza\\F1_Season_2012\\Helmets\\visor_spec_black.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/visor_spec_black.dds"
+      }
+    ],
+    "helmets": {
+      "stewart": {
+        "samples": [
+          "REDBULL/REDBULL.png"
+        ],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Vettel_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_RedBull_visor.dds"
+      },
+      "toro_rosso": {
+        "samples": [
+          "REDBULL/REDBULL_LRonly.png"
+        ],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Ricciardo_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_ToroRosso_visor.dds"
+      },
+      "mclaren": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Hamilton_helmet.dds",
+        "map": "sponsor_maps/mclaren.png",
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_McLaren_visor.dds"
+      },
+      "ferrari": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Alonso_helmet.dds",
+        "map": "sponsor_maps/ferrari.png",
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Alonso_visor.dds"
+      },
+      "mercedes": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_MSchumacher_helmet.dds",
+        "map": "sponsor_maps/mercedes.png",
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Mercedes_visor.dds"
+      },
+      "benetton": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Grosjean_helmet.dds",
+        "map": "sponsor_maps/benetton.png",
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Lotus_visor.dds"
+      },
+      "jordan": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_DiResta_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_ForceIndia_visor.dds"
+      },
+      "sauber": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Kobayashi_helmet.dds",
+        "map": "sponsor_maps/sauber.png",
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Sauber_visor.dds"
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Senna_helmet.dds",
+        "map": "sponsor_maps/williams.png",
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Williams_visor.dds"
+      },
+      "caterham": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Kovalainen_helmet.dds",
+        "map": "sponsor_maps/caterham.png",
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Caterham_visor.dds"
+      },
+      "hrt": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_DelaRosa_helmet.dds",
+        "map": null,
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_DelaRosa_visor.dds"
+      },
+      "virgin": {
+        "samples": [],
+        "helmet": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Glock_helmet.dds",
+        "map": "sponsor_maps/virgin.png",
+        "visor": "[AMS2]F1_2012_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_reiza/F1_Season_2012/Helmets/2012_Marussia_visor.dds"
+      }
+    },
+    "helmet_model": "Modern"
+  }
+}
