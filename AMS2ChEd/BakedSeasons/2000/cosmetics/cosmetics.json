@@ -627,6 +627,28 @@
         }
       ],
       "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"2000 BAR #22 - J. Villeneuve\" BASELIVERY=\"SilverMetallic\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_2000\\Previews\\2000_BAR22_AUS_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_2000\\2000_BAR22_AUS.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_BAR_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_2000\\Rims\\2000_BAR_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_2000\\Rims\\2000_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_BAR22_tires.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_2000\\Tires\\2000_BAR22_tires_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_Villeneuve_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_2000\\Helmets\\helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_2000\\Helmets\\2000_BAR_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_2000\\Helmets\\2000_visor_spec_black.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_BAR_torso.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_BAR_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_BAR_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_SPEC\" PATH=\"F1_Season_2000\\Suits\\2000_gloves_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_2000\\Suits\\2000_BAR_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_2000\\Suits\\Black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "mclaren": {
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/WEST.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "livery_overrides": [
+        {
+          "race_id": 4,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/variant_nt.png"
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": null,
+          "driver2_livery": null,
+          "livery_preview": null,
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/variant_nt.png"
+        }
+      ]
     }
   },
   "drivers": {
@@ -1461,10 +1483,27 @@
         "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_v10_g2_m/F1_Season_2000/Helmets/2000_Arrows_visor.dds"
       },
       "mclaren": {
-        "samples": [],
+        "samples": [
+          "WEST/WEST.png"
+        ],
         "helmet": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp416/F1_Season_2000/Helmets/2000_Hakkinen_helmet.dds",
         "map": null,
-        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp416/F1_Season_2000/Helmets/2000_McLaren_visor.dds"
+        "visor": "[AMS2]F1_2000_Season/Vehicles/Textures/CustomLiveries/Overrides/mclaren_mp416/F1_Season_2000/Helmets/2000_McLaren_visor.dds",
+        "variants": [
+          {
+            "name": "nt",
+            "races": [
+              4,
+              9
+            ],
+            "sample": "WEST/WEST_NT.png",
+            "helmet": null,
+            "map": null,
+            "visor": null,
+            "visor_map": null,
+            "clear_visor": false
+          }
+        ]
       }
     },
     "helmet_model": "Modern"

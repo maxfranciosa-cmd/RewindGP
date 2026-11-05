@@ -93,6 +93,76 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         [TestMethod]
+        public void EffectiveSeason_TeamWithoutBody_KeepsOnlyItsSponsorLayersOnDisk()
+        {
+            var team = new Ams2TeamEntry
+            {
+                HelmetSponsors = "external_liveries/helmet_sponsors/mclaren/WEST.png",
+                VisorSponsors = "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+                LiveryPreview = "external_liveries/previews/mclaren/default.dds",
+                LiveryOverrides = new[]
+                {
+                    new LiveryOverride { RaceId = 4, HelmetSponsors = "external_liveries/helmet_sponsors/mclaren/variant_nt.png" },
+                    new LiveryOverride { RaceId = 9, HelmetSponsors = "external_liveries/helmet_sponsors/mclaren/missing.png" }
+                }
+            };
+            var cosmetics = Cosmetics(("mclaren", team));
+
+            Assert.IsNull(SeasonCosmeticsFiles.EffectiveSeason(cosmetics, 2000, Seasons), "nothing imported: nothing to lay");
+
+            Touch("external_liveries/helmet_sponsors/mclaren/WEST.png");
+            Touch("external_liveries/helmet_sponsors/mclaren/variant_nt.png");
+            Touch("external_liveries/previews/mclaren/default.dds");
+
+            var narrowed = SeasonCosmeticsFiles.EffectiveSeason(cosmetics, 2000, Seasons).Teams.OfType<Ams2TeamEntry>().Single();
+
+            Assert.IsNull(narrowed.BaseLiveryDriver1);
+            Assert.AreEqual("external_liveries/helmet_sponsors/mclaren/WEST.png", narrowed.HelmetSponsors);
+            Assert.IsNull(narrowed.VisorSponsors);
+            Assert.IsNull(narrowed.LiveryPreview, "only sponsor layers come from a team with no body");
+            Assert.AreEqual(4, narrowed.LiveryOverrides.Single().RaceId);
+            Assert.AreEqual("external_liveries/helmet_sponsors/mclaren/variant_nt.png", narrowed.LiveryOverrides.Single().HelmetSponsors);
+        }
+
+        [TestMethod]
+        public void MergeSeason_SponsorOnlyCosmetics_LayOverABorrowedLivery_RaceByRace()
+        {
+            var team = BakedTeam("mclaren");
+            team.CosmeticFallbacks = new List<CosmeticFallback> { new CosmeticFallback { Season = 1999 } };
+            var borrowed = Painted("mclaren", "borrowed");
+            borrowed.HelmetSponsors = "borrowed/west_1999.png";
+            borrowed.VisorSponsors = "borrowed/visor_1999.png";
+            var others = new Dictionary<int, Ams2Season> { [1999] = Season(borrowed) };
+            var sponsors = new Ams2TeamEntry
+            {
+                TeamId = "mclaren",
+                HelmetSponsors = "shipped/west.png",
+                LiveryOverrides = new[] { new LiveryOverride { RaceId = 9, HelmetSponsors = "shipped/west_nt.png" } }
+            };
+
+            var merged = Team(BakedSeasonMerge.MergeSeason(Season(team), null, Season(sponsors), y => others.GetValueOrDefault(y), new List<string>(), Seasons), "mclaren");
+
+            Assert.AreEqual("../1999/borrowed/mclaren.dds", merged.BaseLiveryDriver1.Replace('\\', '/'));
+            Assert.AreEqual("shipped/west.png", merged.HelmetSponsors);
+            Assert.AreEqual("../1999/borrowed/visor_1999.png", merged.VisorSponsors.Replace('\\', '/'), "no visor of its own: the borrowed one stays");
+            var race9 = merged.LiveryOverrides.Single();
+            Assert.AreEqual(9, race9.RaceId);
+            Assert.AreEqual("shipped/west_nt.png", race9.HelmetSponsors);
+            Assert.IsNull(race9.Driver1Livery);
+        }
+
+        [TestMethod]
+        public void MergeSeason_SponsorOnlyCosmetics_OnTheGenericLivery()
+        {
+            var sponsors = new Ams2TeamEntry { TeamId = "mclaren", HelmetSponsors = "shipped/west.png" };
+
+            var merged = Team(BakedSeasonMerge.MergeSeason(Season(BakedTeam("mclaren")), null, Season(sponsors), _ => null, new List<string>()), "mclaren");
+
+            Assert.IsNull(merged.BaseLiveryDriver1);
+            Assert.AreEqual("shipped/west.png", merged.HelmetSponsors);
+        }
+
+        [TestMethod]
         public void EffectiveDrivers_ShippedHelmetCounts_SkinPackHelmetOnlyOnceImported()
         {
             Touch("../../Drivers/own_helmets/michael_schumacher/0a1b2c3d.png");

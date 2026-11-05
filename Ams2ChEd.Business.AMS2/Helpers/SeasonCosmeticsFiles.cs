@@ -36,6 +36,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
 
         /// <summary>
         /// The teams whose artwork is on disk, as a season (for BakedSeasonMerge); null when none is.
+        /// A team with no body livery in the cosmetics comes with its sponsor layers alone.
         /// </summary>
         public static Ams2Season EffectiveSeason(SeasonCosmetics cosmetics, int year, string seasonsFolder = null)
         {
@@ -114,7 +115,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             string Keep(string path) => Has(path) ? path : null;
 
             if (string.IsNullOrEmpty(team.BaseLiveryDriver1) && string.IsNullOrEmpty(team.BaseLiveryDriver2))
-                return false;
+                return NarrowToSponsors(team, Keep);
             if (!string.IsNullOrEmpty(team.BaseLiveryDriver1) && !Has(team.BaseLiveryDriver1))
                 return false;
             if (!string.IsNullOrEmpty(team.BaseLiveryDriver2) && !Has(team.BaseLiveryDriver2))
@@ -144,6 +145,25 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                 })
                 .ToList();
             return true;
+        }
+
+        // A team the skin pack paints on another car still has its drivers' helmet and visor
+        // sponsors: only those are kept, for the team's own and per-race layers; false when none
+        // is on disk.
+        private static bool NarrowToSponsors(Ams2TeamEntry team, Func<string, string> keep)
+        {
+            team.HelmetSponsors = keep(team.HelmetSponsors);
+            team.VisorSponsors = keep(team.VisorSponsors);
+            team.LiveryPreview = null;
+            team.NumbersPlacements = null;
+            team.DriversSpecificHelmet = null;
+            team.LiveryXml = null;
+            team.LiveryOverrides = team.LiveryOverrides?
+                .Where(o => o != null)
+                .Select(o => new LiveryOverride { RaceId = o.RaceId, HelmetSponsors = keep(o.HelmetSponsors), VisorSponsors = keep(o.VisorSponsors) })
+                .Where(o => o.HelmetSponsors != null || o.VisorSponsors != null)
+                .ToList();
+            return team.HelmetSponsors != null || team.VisorSponsors != null || team.LiveryOverrides?.Any() == true;
         }
 
         private static List<NumbersPlacement> NarrowPlacements(IEnumerable<NumbersPlacement> placements, Func<string, bool> has)

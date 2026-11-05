@@ -34,7 +34,8 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         /// As above, with the artwork the app ships for the season (SeasonCosmeticsFiles.EffectiveSeason:
         /// only teams whose files are on disk) between the season's own pack and the fallbacks. Per
         /// team: the pack where it paints the team, else the shipped cosmetics, else a fallback,
-        /// else nothing (the generic livery).
+        /// else nothing (the generic livery). A shipped team with sponsor layers but no body
+        /// livery (painted on another car by the skin pack) lays them over the last three.
         /// </summary>
         public static Ams2Season MergeSeason(Ams2Season baked, Ams2Season pack, Ams2Season cosmetics, Func<int, Ams2Season> loadOtherPack, ICollection<string> warnings, string seasonsFolder = null)
         {
@@ -74,12 +75,14 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                     continue;
                 }
 
-                if (BorrowTeamArtwork(baked.Year, team, loadOtherPack, warnings, seasonsFolder))
-                    continue;
-
                 // a pack team with no body livery still brings whatever else it has
-                if (packTeam != null)
+                if (!BorrowTeamArtwork(baked.Year, team, loadOtherPack, warnings, seasonsFolder) && packTeam != null)
                     CopyTeamArtwork(packTeam, team);
+
+                // the season's own sponsors (a team the skin pack paints on another car) go on
+                // whichever livery the team ended up with: generic, borrowed or the pack's
+                if (cosmeticsTeam != null)
+                    LaySponsors(cosmeticsTeam, team);
             }
 
             if (pack == null)
@@ -228,6 +231,31 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             (d => d.BaseHelmetFile70s, (from, to, map) => { to.BaseHelmetFile70s = map(from.BaseHelmetFile70s); to.BaseVisorFile70s = map(from.BaseVisorFile70s); }),
             (d => d.PictureUrl, (from, to, _) => to.PictureUrl = from.PictureUrl),
         };
+
+        // The helmet and visor sponsor layers of a source with no body livery, over the team's:
+        // the team's own, and race by race (adding the race's override when the team has none).
+        private static void LaySponsors(Ams2TeamEntry from, Ams2TeamEntry to)
+        {
+            to.HelmetSponsors = from.HelmetSponsors ?? to.HelmetSponsors;
+            to.VisorSponsors = from.VisorSponsors ?? to.VisorSponsors;
+
+            var overrides = to.LiveryOverrides?.ToList() ?? new List<LiveryOverride>();
+            foreach (var source in from.LiveryOverrides ?? Enumerable.Empty<LiveryOverride>())
+            {
+                if (source == null || (source.HelmetSponsors == null && source.VisorSponsors == null))
+                    continue;
+
+                var target = overrides.FirstOrDefault(o => o != null && o.RaceId == source.RaceId);
+                if (target == null)
+                {
+                    target = new LiveryOverride { RaceId = source.RaceId };
+                    overrides.Add(target);
+                }
+                target.HelmetSponsors = source.HelmetSponsors ?? target.HelmetSponsors;
+                target.VisorSponsors = source.VisorSponsors ?? target.VisorSponsors;
+            }
+            to.LiveryOverrides = overrides.Count == 0 ? to.LiveryOverrides : overrides;
+        }
 
         private static bool HasBodyLivery(Ams2TeamEntry team) =>
             !string.IsNullOrEmpty(team.BaseLiveryDriver1) || !string.IsNullOrEmpty(team.BaseLiveryDriver2);
