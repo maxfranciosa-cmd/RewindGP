@@ -1131,7 +1131,8 @@
           "driver1_livery": "external_liveries/car_liveries/tyrrell/Tyrrell3don.dds",
           "driver2_livery": "external_liveries/car_liveries/tyrrell/Tyrrell3don.dds",
           "livery_preview": "external_liveries/previews/tyrrell/preview3_donington.dds",
-          "numbers_placements": null
+          "numbers_placements": null,
+          "helmet_sponsors": "external_liveries/helmet_sponsors/tyrrell/variant_nt.png"
         }
       ],
       "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"Tyrrell-Yamaha #3 U. Katayama\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1993\\preview3.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1993\\Tyrrell3early.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Helmets\\93_Katayama_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1993\\Helmets\\93_helmet_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Tyrrell_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Tyrrell_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Tyrrell_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1993\\Suits\\93_Tyrrell_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1993\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
@@ -2128,20 +2129,34 @@
       "sauber": {
         "samples": [],
         "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993/Helmets/93_Wendlinger_helmet.dds",
-        "map": null,
+        "map": "sponsor_maps/sauber.png",
         "visor": null
       },
       "lotus": {
         "samples": [],
         "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m2/F1_Season_1993/Helmets/93_Zanardi_helmet.dds",
-        "map": null,
+        "map": "sponsor_maps/lotus.png",
         "visor": null
       },
       "tyrrell": {
         "samples": [],
         "helmet": "[IMG] F1 1993/Vehicles/Textures/CustomLiveries/Overrides/formula_hitech_g2m3/F1_Season_1993/Helmets/93_Katayama_helmet.dds",
-        "map": null,
-        "visor": null
+        "map": "sponsor_maps/tyrrell.png",
+        "visor": null,
+        "variants": [
+          {
+            "name": "nt",
+            "races": [
+              3
+            ],
+            "sample": null,
+            "helmet": null,
+            "map": "sponsor_maps/tyrrell_nt.png",
+            "visor": null,
+            "visor_map": null,
+            "clear_visor": false
+          }
+        ]
       }
     },
     "helmet_model": "Nineties"
