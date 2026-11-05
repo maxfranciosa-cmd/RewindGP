@@ -81,6 +81,68 @@ namespace AMS2ChEd.Business.AMS2.Models
         /// <summary>The archive path of a visor of one of the team's drivers; its sponsor strip becomes the team's visor layer.</summary>
         [JsonPropertyName("visor")]
         public string Visor { get; set; }
+
+        /// <summary>
+        /// Races whose helmet or visor sponsors differ from the rest of the season (e.g. the
+        /// tobacco-free ones): each variant gives its own layers, which those races' livery
+        /// overrides reference.
+        /// </summary>
+        [JsonPropertyName("variants")]
+        public List<SkinPackHelmetVariant> Variants { get; set; } = new();
+    }
+
+    /// <summary>
+    /// A team's helmet and visor sponsors for some races. A field left out takes the team's own:
+    /// the helmet layer is built when the variant names a sample, a helmet or a map (the sample with
+    /// the cut over it, as for the team), the visor layer when it names a visor or a visor map, or
+    /// is cleared.
+    /// </summary>
+    public class SkinPackHelmetVariant
+    {
+        /// <summary>Names the variant's layers (e.g. "nt"): see HelmetLayerPath and VisorLayerPath.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("races")]
+        public List<int> Races { get; set; } = new();
+
+        /// <summary>A sample layer, relative to SampleHelmetSponsors, in place of the team's.</summary>
+        [JsonPropertyName("sample")]
+        public string Sample { get; set; }
+
+        /// <summary>The archive path of the helmet to cut, in place of the team's.</summary>
+        [JsonPropertyName("helmet")]
+        public string Helmet { get; set; }
+
+        /// <summary>The helmet's sponsor map, relative to the season's cosmetics folder, in place of the team's.</summary>
+        [JsonPropertyName("map")]
+        public string Map { get; set; }
+
+        /// <summary>The archive path of the visor to cut, in place of the team's.</summary>
+        [JsonPropertyName("visor")]
+        public string Visor { get; set; }
+
+        /// <summary>Where the visor's sponsors are (relative to the season's cosmetics folder, laid out like the helmet model's visor mask), in place of that mask.</summary>
+        [JsonPropertyName("visor_map")]
+        public string VisorMap { get; set; }
+
+        /// <summary>No visor sponsors at all at these races: the visor layer is empty.</summary>
+        [JsonPropertyName("clear_visor")]
+        public bool ClearVisor { get; set; }
+
+        [JsonIgnore]
+        public bool HasHelmetLayer => Sample != null || Helmet != null || Map != null;
+
+        [JsonIgnore]
+        public bool HasVisorLayer => Visor != null || VisorMap != null || ClearVisor;
+
+        /// <summary>Where the variant's helmet layer lands, relative to Seasons/&lt;year&gt;/.</summary>
+        public static string HelmetLayerPath(string teamId, string name) =>
+            $"external_liveries/helmet_sponsors/{teamId}/variant_{name}.png";
+
+        /// <summary>Where the variant's visor layer lands, relative to Seasons/&lt;year&gt;/.</summary>
+        public static string VisorLayerPath(string teamId, string name) =>
+            $"external_liveries/helmet_sponsors/{teamId}/variant_{name}_visor.png";
     }
 
     /// <summary>What was imported for a season (Seasons/&lt;year&gt;/skin_pack.json).</summary>

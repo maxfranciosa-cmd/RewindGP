@@ -189,6 +189,69 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         [TestMethod]
+        public async Task Import_Variants_BuildTheirOwnHelmetAndVisorLayers()
+        {
+            var cosmetics = Cosmetics("F1_2000_Season");
+            cosmetics.SkinPack.Helmets["ferrari"].Variants = new()
+            {
+                // its own helmet map and visor map
+                new() { Name = "nt", Races = new() { 3 }, Map = "sponsor_maps/ferrari_nt.png", VisorMap = "sponsor_maps/ferrari_nt_visor.png" },
+                // no visor sponsors, the helmet as the team's
+                new() { Name = "blank", Races = new() { 4 }, ClearVisor = true },
+                // a sample under the team's cut
+                new() { Name = "s", Races = new() { 5 }, Sample = "s.png" }
+            };
+            WriteCosmetics(2000, cosmetics);
+            var maps = Path.Combine(Baked, "2000", "cosmetics", "sponsor_maps");
+            Directory.CreateDirectory(maps);
+            SaveMask(Path.Combine(maps, "ferrari.png"), 256, 256, 64);
+            SaveMask(Path.Combine(maps, "ferrari_nt.png"), 256, 256, 16);
+            SaveMask(Path.Combine(maps, "ferrari_nt_visor.png"), 64, 32, 4);
+            Directory.CreateDirectory(HelmetMasks);
+            SaveMask(Path.Combine(HelmetMasks, "Modern.png"), 256, 256, 0);
+            Directory.CreateDirectory(VisorMasks);
+            SaveMask(Path.Combine(VisorMasks, "Modern.png"), 64, 32, 8);
+            var samples = Path.Combine(_root, "samples");
+            Directory.CreateDirectory(samples);
+            using (var sample = new Image<Rgba32>(256, 256))
+            {
+                for (int x = 0; x < 256; x++) for (int y = 128; y < 192; y++) sample[x, y] = new Rgba32(0, 200, 0, 255);
+                sample.SaveAsPng(Path.Combine(samples, "s.png"));
+            }
+            var archive = Path.Combine(_root, "pack.zip");
+            BuildArchive(archive, "F1_2000_Season");
+            var importer = new SkinPackImporter(Baked, Seasons, VisorMasks, HelmetMasks, samples);
+
+            var result = await importer.ImportAsync(2000, archive);
+
+            Assert.IsTrue(result.Success, result.Message);
+            var sponsors = Path.Combine(Seasons, "2000", "external_liveries", "helmet_sponsors", "ferrari");
+            using (var layer = SixLabors.ImageSharp.Image.Load<Rgba32>(Path.Combine(sponsors, "variant_nt.png")))
+            {
+                Assert.AreEqual(255, layer[10, 10].A, "inside the variant's map");
+                Assert.AreEqual(0, layer[10, 40].A, "inside the team's map only");
+            }
+            using (var layer = SixLabors.ImageSharp.Image.Load<Rgba32>(Path.Combine(sponsors, "variant_nt_visor.png")))
+            {
+                Assert.AreEqual(255, layer[10, 2].A, "inside the variant's visor map");
+                Assert.AreEqual(0, layer[10, 6].A, "inside the model's strip only");
+            }
+            using (var layer = SixLabors.ImageSharp.Image.Load<Rgba32>(Path.Combine(sponsors, "variant_blank_visor.png")))
+                Assert.AreEqual(0, layer[0, 0].A, "a cleared visor is an empty layer");
+            Assert.IsFalse(File.Exists(Path.Combine(sponsors, "variant_blank.png")), "the blank variant keeps the team's helmet layer");
+            using (var layer = SixLabors.ImageSharp.Image.Load<Rgba32>(Path.Combine(sponsors, "variant_s.png")))
+            {
+                Assert.AreEqual(new Rgba32(200, 0, 0, 255), layer[10, 10], "the team's cut");
+                Assert.AreEqual(new Rgba32(0, 200, 0, 255), layer[10, 150], "the sample");
+            }
+            Assert.IsFalse(File.Exists(Path.Combine(sponsors, "variant_s_visor.png")), "the sample variant keeps the team's visor layer");
+
+            importer.Remove(2000);
+
+            Assert.IsFalse(Directory.Exists(Path.Combine(Seasons, "2000")));
+        }
+
+        [TestMethod]
         public void Cut_ScalesTheTextureToTheMap_AndKeepsOnlyWhatTheMapMarks()
         {
             using var texture = new Image<Rgba32>(512, 256, new Rgba32(10, 120, 30));

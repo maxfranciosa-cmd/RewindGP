@@ -165,7 +165,7 @@ namespace Ams2ChEd.Business.AMS2.Services
 
         // Per team: the shipped sample with the pack helmet seen through the team's sponsor map (else
         // the helmet model's generic one) over it, and the pack visor seen through the model's visor
-        // strip.
+        // strip; then the same for each of the team's variants, whose races take its layers.
         private void BuildSponsorLayers(int year, SeasonCosmetics cosmetics, Func<string, string> source, string seasonFolder, SkinPackRecord record, CancellationToken ct)
         {
             var model = cosmetics.SkinPack.HelmetModel ?? "Modern";
@@ -176,32 +176,9 @@ namespace Ams2ChEd.Business.AMS2.Services
                 ct.ThrowIfCancellationRequested();
                 cosmetics.Teams.TryGetValue(teamId, out var shipped);
 
-                var helmet = team.Helmet == null ? null : source(team.Helmet);
-                string problem = null;
-                Image<Rgba32> cut = null;
-                if (helmet != null)
-                {
-                    var map = string.IsNullOrEmpty(team.Map)
-                        ? SponsorLayerCutter.HelmetMaskPath(model, _helmetMasksFolder)
-                        : Path.GetFullPath(Path.Combine(cosmeticsFolder, team.Map));
-                    cut = SponsorLayerCutter.Cut(helmet, map, out problem);
-                }
-                else if (team.Helmet != null)
-                {
-                    problem = $"{Path.GetFileName(team.Helmet)} is not in the archive";
-                }
-
-                var samples = new List<string>();
-                foreach (var sample in team.Samples ?? new List<string>())
-                {
-                    if (File.Exists(Path.Combine(_sampleSponsorsFolder, sample)))
-                        samples.Add(sample);
-                    else
-                        record.Notes.Add($"{teamId}: the sample {sample} is not shipped");
-                }
-
-                var mapName = string.IsNullOrEmpty(team.Map) ? $"the generic {model} map" : "its own map";
-                using (cut)
+                var samples = ShippedSamples(teamId, team.Samples, record);
+                var mapName = MapName(team.Map, model);
+                using (var cut = CutHelmet(team.Helmet, team.Map, model, cosmeticsFolder, source, out var problem))
                 {
                     foreach (var sample in samples)
                     {
@@ -221,25 +198,106 @@ namespace Ams2ChEd.Business.AMS2.Services
                     }
                 }
 
-                var visor = team.Visor == null ? null : source(team.Visor);
-                if (visor != null)
+                BuildVisor(teamId, team.Visor, null, ImportedLayerPath(shipped?.VisorSponsors) ?? $"external_liveries/helmet_sponsors/{teamId}/default_visor.png",
+                    model, cosmeticsFolder, source, seasonFolder, record);
+
+                foreach (var variant in team.Variants ?? new List<SkinPackHelmetVariant>())
                 {
-                    var layer = SponsorLayerCutter.Cut(visor, SponsorLayerCutter.VisorMaskPath(model, _visorMasksFolder), out var visorProblem);
-                    if (layer != null)
+                    ct.ThrowIfCancellationRequested();
+                    var label = $"{teamId} ({variant.Name})";
+                    if (variant.HasHelmetLayer)
                     {
-                        Save(layer, seasonFolder, ImportedLayerPath(shipped?.VisorSponsors) ?? $"external_liveries/helmet_sponsors/{teamId}/default_visor.png", record);
-                        layer.Dispose();
+                        var sample = variant.Sample == null ? null : ShippedSamples(label, new[] { variant.Sample }, record).FirstOrDefault();
+                        var map = variant.Map ?? team.Map;
+                        var path = SkinPackHelmetVariant.HelmetLayerPath(teamId, variant.Name);
+                        using var cut = CutHelmet(variant.Helmet ?? team.Helmet, map, model, cosmeticsFolder, source, out var problem);
+                        if (sample != null)
+                        {
+                            using var layer = SponsorLayerCutter.OverSample(Path.GetFullPath(Path.Combine(_sampleSponsorsFolder, sample)), cut);
+                            Save(layer, seasonFolder, path, record);
+                            record.Notes.Add($"{label}: helmet sponsors from the sample {sample}{(cut != null ? $" with {MapName(map, model)} over it" : "")}");
+                        }
+                        else if (cut != null)
+                        {
+                            Save(cut, seasonFolder, path, record);
+                            record.Notes.Add($"{label}: helmet sponsors from {MapName(map, model)}");
+                        }
+                        else
+                        {
+                            record.Notes.Add($"{label}: no helmet sponsors - {problem ?? "nothing to build them from"}");
+                        }
                     }
-                    else
+
+                    if (variant.ClearVisor)
                     {
-                        record.Notes.Add($"{teamId}: no visor sponsors - {visorProblem}");
+                        // a layer with nothing on it: the driver's own visor shows
+                        using var empty = new Image<Rgba32>(1, 1);
+                        Save(empty, seasonFolder, SkinPackHelmetVariant.VisorLayerPath(teamId, variant.Name), record);
+                        record.Notes.Add($"{label}: no visor sponsors");
                     }
-                }
-                else if (team.Visor != null)
-                {
-                    record.Notes.Add($"{teamId}: no visor sponsors - {Path.GetFileName(team.Visor)} is not in the archive");
+                    else if (variant.HasVisorLayer)
+                    {
+                        BuildVisor(label, variant.Visor ?? team.Visor, variant.VisorMap, SkinPackHelmetVariant.VisorLayerPath(teamId, variant.Name),
+                            model, cosmeticsFolder, source, seasonFolder, record);
+                    }
                 }
             }
+        }
+
+        private List<string> ShippedSamples(string label, IEnumerable<string> wanted, SkinPackRecord record)
+        {
+            var samples = new List<string>();
+            foreach (var sample in wanted ?? Enumerable.Empty<string>())
+            {
+                if (File.Exists(Path.Combine(_sampleSponsorsFolder, sample)))
+                    samples.Add(sample);
+                else
+                    record.Notes.Add($"{label}: the sample {sample} is not shipped");
+            }
+            return samples;
+        }
+
+        private static string MapName(string map, string model) =>
+            string.IsNullOrEmpty(map) ? $"the generic {model} map" : $"the map {Path.GetFileName(map)}";
+
+        // The pack helmet seen through the sponsor map (else the helmet model's generic one); null,
+        // with the reason, when there is no helmet or nothing to cut.
+        private Image<Rgba32> CutHelmet(string helmetPath, string map, string model, string cosmeticsFolder, Func<string, string> source, out string problem)
+        {
+            problem = null;
+            if (helmetPath == null)
+                return null;
+            var helmet = source(helmetPath);
+            if (helmet == null)
+            {
+                problem = $"{Path.GetFileName(helmetPath)} is not in the archive";
+                return null;
+            }
+            var mapPath = string.IsNullOrEmpty(map)
+                ? SponsorLayerCutter.HelmetMaskPath(model, _helmetMasksFolder)
+                : Path.GetFullPath(Path.Combine(cosmeticsFolder, map));
+            return SponsorLayerCutter.Cut(helmet, mapPath, out problem);
+        }
+
+        // The pack visor seen through the visor map (else the helmet model's visor strip).
+        private void BuildVisor(string label, string visorPath, string visorMap, string destination, string model, string cosmeticsFolder, Func<string, string> source, string seasonFolder, SkinPackRecord record)
+        {
+            if (visorPath == null)
+                return;
+            var visor = source(visorPath);
+            if (visor == null)
+            {
+                record.Notes.Add($"{label}: no visor sponsors - {Path.GetFileName(visorPath)} is not in the archive");
+                return;
+            }
+            var mask = string.IsNullOrEmpty(visorMap)
+                ? SponsorLayerCutter.VisorMaskPath(model, _visorMasksFolder)
+                : Path.GetFullPath(Path.Combine(cosmeticsFolder, visorMap));
+            using var layer = SponsorLayerCutter.Cut(visor, mask, out var problem);
+            if (layer != null)
+                Save(layer, seasonFolder, destination, record);
+            else
+                record.Notes.Add($"{label}: no visor sponsors - {problem}");
         }
 
         // The cosmetics' layer path when it is one the import writes; a layer the app ships (in a

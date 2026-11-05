@@ -175,6 +175,25 @@ namespace AMS2ChEd.Tests.Ams2
                     Assert.IsTrue(File.Exists(map), $"{year} {teamId}: sponsor map {map}");
                     foreach (var sample in helmets.Samples)
                         Assert.IsTrue(File.Exists(Path.Combine(app, "SampleHelmetSponsors", sample)), $"{year} {teamId}: sample {sample}");
+                    foreach (var variant in helmets.Variants ?? new())
+                    {
+                        Assert.IsTrue(variant.HasHelmetLayer || variant.HasVisorLayer, $"{year} {teamId} ({variant.Name}): changes nothing");
+                        if (variant.Sample != null)
+                            Assert.IsTrue(File.Exists(Path.Combine(app, "SampleHelmetSponsors", variant.Sample)), $"{year} {teamId} ({variant.Name}): sample {variant.Sample}");
+                        foreach (var variantMap in new[] { variant.Map, variant.VisorMap }.Where(m => m != null))
+                            Assert.IsTrue(File.Exists(Path.Combine(folder, "cosmetics", variantMap)), $"{year} {teamId} ({variant.Name}): map {variantMap}");
+                        // its races point at its layers
+                        if (!cosmetics.Teams.TryGetValue(teamId, out var team))
+                            continue;
+                        foreach (var race in variant.Races)
+                        {
+                            var raceOverride = team.LiveryOverrides?.FirstOrDefault(o => o.RaceId == race);
+                            if (variant.HasHelmetLayer)
+                                Assert.AreEqual(SkinPackHelmetVariant.HelmetLayerPath(teamId, variant.Name), raceOverride?.HelmetSponsors, $"{year} {teamId} race {race}");
+                            if (variant.HasVisorLayer)
+                                Assert.AreEqual(SkinPackHelmetVariant.VisorLayerPath(teamId, variant.Name), raceOverride?.VisorSponsors, $"{year} {teamId} race {race}");
+                        }
+                    }
                 }
 
                 // sponsor layers are built at import, or ship in their store (Drivers/team_helmet_sponsors); none in the season's folder
