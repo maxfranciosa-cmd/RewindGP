@@ -169,7 +169,11 @@
 
     <!-- a retired driver's photo is dimmed -->
     <Style x:Key="DriverDatabase.Photo" TargetType="Image">
-        <Setter Property="Stretch" Value="Uniform"/>
+        <!-- the portrait frame (2:3, see PortraitFrame), centred on the team colour -->
+        <Setter Property="Width" Value="106.667"/>
+        <Setter Property="Height" Value="160"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Stretch" Value="UniformToFill"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         <Style.Triggers>

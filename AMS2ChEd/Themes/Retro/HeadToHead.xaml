@@ -110,7 +110,7 @@
 
     <!-- the photos are clipped on with a white edge, a little askew -->
     <Style x:Key="HeadToHead.PhotoLeft" TargetType="Border">
-        <Setter Property="Width" Value="112"/>
+        <Setter Property="Width" Value="110"/>
         <Setter Property="Height" Value="160"/>
         <Setter Property="Background" Value="{StaticResource PhotoBackBrush}"/>
         <Setter Property="BorderBrush" Value="White"/>

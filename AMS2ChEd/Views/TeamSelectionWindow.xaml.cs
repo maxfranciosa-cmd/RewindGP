@@ -309,8 +309,8 @@ namespace AMS2ChEd
 
             TeamsColumn.Width = new GridLength(isWide ? 320 : 230);
             SeatsItemsControl.Tag = isWide ? 2 : 1;
-            Resources["SeatPhotoWidth"] = isWide ? 150.0 : 78.0;
-            Resources["SeatPhotoHeight"] = isWide ? 192.0 : 100.0;
+            Resources["SeatPhotoWidth"] = isWide ? 128.0 : 68.0;
+            Resources["SeatPhotoHeight"] = isWide ? 190.0 : 100.0;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)

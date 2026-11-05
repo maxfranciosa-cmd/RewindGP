@@ -94,8 +94,8 @@
 
                 <!-- Driver Portrait -->
                 <Border Grid.Row="3"
-                        Width="170"
-                        Height="225"
+                        Width="152"
+                        Height="226"
                         BorderBrush="#2c2c2c"
                         BorderThickness="2"
                         Background="White"
@@ -106,7 +106,7 @@
                         <DropShadowEffect BlurRadius="8" ShadowDepth="3" Opacity="0.3"/>
                     </Border.Effect>
                     <Image x:Name="DriverPortraitImage"
-                            Stretch="Uniform"/>
+                            Stretch="UniformToFill"/>
                 </Border>
 
                 <ScrollViewer Grid.Row="3" 

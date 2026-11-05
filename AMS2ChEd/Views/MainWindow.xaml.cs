@@ -913,6 +913,7 @@ namespace AMS2ChEd
             string photo = null;
             string headline = null;
             string subline = null;
+            var isPortrait = false;
 
             if (_latestSave != null)
             {
@@ -928,8 +929,14 @@ namespace AMS2ChEd
                 else if (hasPortraitCover)
                 {
                     (photo, headline, subline) = (portraitPhoto, portraitHeadline, portraitSubline);
+                    isPortrait = true;
                 }
             }
+
+            // a portrait cover gets the portrait frame; a Grand Prix picture keeps its own shape
+            WelcomeImage.Stretch = isPortrait ? System.Windows.Media.Stretch.UniformToFill : System.Windows.Media.Stretch.Uniform;
+            WelcomeImage.Height = isPortrait ? WelcomeImage.MaxHeight : double.NaN;
+            WelcomeImage.Width = isPortrait ? PortraitFrame.WidthFor(WelcomeImage.MaxHeight) : double.NaN;
 
             var photoLoaded = WelcomeImage.LoadPhoto(photo);
 
