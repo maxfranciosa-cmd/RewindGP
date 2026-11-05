@@ -11,10 +11,16 @@ namespace AMS2ChEd.Tests
             new TeammateComparison { RacesAhead = ahead, RacesBehind = behind, Wins = wins, TeammateWins = teammateWins, DominantCar = dominant };
 
         [DataTestMethod]
-        [DataRow(2, 5, 12, 4, 11, true, 4, DisplayName = "Bottas 2019: beaten clearly in a dominant car")]
-        [DataRow(3, 4, 13, 3, 9, true, 4, DisplayName = "Bottas 2017: third, beaten clearly")]
-        [DataRow(2, 3, 7, 6, 4, true, 2, DisplayName = "Senna 1989: lost the head-to-head, out-won the champion")]
-        [DataRow(2, 8, 10, 5, 11, true, 2, DisplayName = "held the head-to-head (Rosberg 2014)")]
+        // real seasons (Jolpica): standings, head-to-head ahead/behind, wins, teammate's wins
+        [DataRow(2, 6, 13, 4, 11, true, 4, DisplayName = "Bottas 2019: beaten clearly in a dominant car")]
+        [DataRow(3, 8, 11, 3, 9, true, 4, DisplayName = "Bottas 2017: close head-to-head, a quarter of the team's wins")]
+        [DataRow(3, 5, 6, 3, 7, true, 4, DisplayName = "Hill 1993: close head-to-head, under a third of the wins")]
+        [DataRow(2, 4, 10, 5, 11, true, 4, DisplayName = "Rosberg 2014: beaten clearly")]
+        [DataRow(2, 7, 1, 6, 4, true, 2, DisplayName = "Senna 1989: won the head-to-head and out-won the champion")]
+        [DataRow(2, 3, 7, 6, 4, true, 2, DisplayName = "lost the head-to-head but out-won the teammate")]
+        [DataRow(2, 5, 7, 7, 8, true, 2, DisplayName = "Prost 1988: lost the head-to-head, almost half the wins")]
+        [DataRow(2, 4, 6, 4, 8, true, 2, DisplayName = "Villeneuve 1996: on both lines (40%, a third of the wins)")]
+        [DataRow(3, 10, 12, 7, 7, true, 3, DisplayName = "Piastri 2025: as many wins as the teammate")]
         [DataRow(2, 2, 12, 1, 9, false, 2, DisplayName = "car not dominant")]
         [DataRow(1, 2, 12, 11, 4, true, 1, DisplayName = "a title is never touched")]
         [DataRow(4, 2, 12, 0, 11, true, 4, DisplayName = "outside the top three: unchanged")]

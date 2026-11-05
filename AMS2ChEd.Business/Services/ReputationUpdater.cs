@@ -67,6 +67,10 @@ namespace AMS2ChEd.Business.Services
         public const double CLEARLY_BEATEN_HEAD_TO_HEAD_SHARE = 0.4;
         public const int MINIMUM_HEAD_TO_HEAD_RACES = 3;
         public const int BEATEN_IN_DOMINANT_CAR_JUDGED_AS = 4;
+        // also beaten: lost the head-to-head and took under a third of the team's wins (Bottas 2017,
+        // Hill 1993: close in the head-to-head, far behind on wins). Prost 1988 (7 of 15) is not.
+        public const double LOST_HEAD_TO_HEAD_SHARE = 0.5;
+        public const double MINOR_SHARE_OF_TEAM_WINS = 1.0 / 3.0;
 
         /// <summary>The standings position a season is judged by: the real one, except as above.</summary>
         public static int StandingsJudgedBy(int standings, TeammateComparison teammate)
@@ -76,9 +80,14 @@ namespace AMS2ChEd.Business.Services
             if (teammate.HeadToHeadRaces < MINIMUM_HEAD_TO_HEAD_RACES)
                 return standings;
 
+            var teamWins = teammate.Wins + teammate.TeammateWins;
+            var shareOfTeamWins = teamWins == 0 ? 0 : (double)teammate.Wins / teamWins;
+
             var clearlyBeaten = teammate.HeadToHeadShare < CLEARLY_BEATEN_HEAD_TO_HEAD_SHARE
                                 && teammate.Wins <= teammate.TeammateWins;
-            return clearlyBeaten ? BEATEN_IN_DOMINANT_CAR_JUDGED_AS : standings;
+            var outWonByFar = teammate.HeadToHeadShare < LOST_HEAD_TO_HEAD_SHARE
+                              && shareOfTeamWins < MINOR_SHARE_OF_TEAM_WINS;
+            return clearlyBeaten || outWonByFar ? BEATEN_IN_DOMINANT_CAR_JUDGED_AS : standings;
         }
 
         private static DriverReputation SeasonFloorOrWildCard(int standings)
