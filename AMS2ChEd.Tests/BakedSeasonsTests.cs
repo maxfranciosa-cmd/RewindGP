@@ -17,6 +17,7 @@ namespace AMS2ChEd.Tests.Ams2
 
         [TestMethod]
         [DataRow(1988)]
+        [DataRow(1989)]
         [DataRow(1990)]
         [DataRow(1991)]
         [DataRow(1992)]
