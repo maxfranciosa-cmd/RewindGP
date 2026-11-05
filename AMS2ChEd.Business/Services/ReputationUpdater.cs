@@ -58,6 +58,29 @@ namespace AMS2ChEd.Business.Services
         // golden 1994/1995 data never goes past P25 and stays PAY_DRIVER_SEASON there).
         public const int WILD_CARD_FLOOR_STANDINGS_THRESHOLD = 20;
 
+        // A top-3 finish in a dominant car says more about the car than the driver when the
+        // teammate beat them clearly (Bottas 2017/19/20, Patrese 1992, Barrichello 2002/04): such a
+        // season is judged as a P4. One who out-won the teammate (Senna 1989) or held their own in
+        // the head-to-head keeps the top-3 verdict. A title is never touched.
+        public const double DOMINANT_CAR_WIN_SHARE = 0.5;
+        public const double DOMINANT_CAR_POINTS_RATIO = 1.5;
+        public const double CLEARLY_BEATEN_HEAD_TO_HEAD_SHARE = 0.4;
+        public const int MINIMUM_HEAD_TO_HEAD_RACES = 3;
+        public const int BEATEN_IN_DOMINANT_CAR_JUDGED_AS = 4;
+
+        /// <summary>The standings position a season is judged by: the real one, except as above.</summary>
+        public static int StandingsJudgedBy(int standings, TeammateComparison teammate)
+        {
+            if (standings < 2 || standings > 3 || teammate == null || !teammate.DominantCar)
+                return standings;
+            if (teammate.HeadToHeadRaces < MINIMUM_HEAD_TO_HEAD_RACES)
+                return standings;
+
+            var clearlyBeaten = teammate.HeadToHeadShare < CLEARLY_BEATEN_HEAD_TO_HEAD_SHARE
+                                && teammate.Wins <= teammate.TeammateWins;
+            return clearlyBeaten ? BEATEN_IN_DOMINANT_CAR_JUDGED_AS : standings;
+        }
+
         private static DriverReputation SeasonFloorOrWildCard(int standings)
         {
             return standings > WILD_CARD_FLOOR_STANDINGS_THRESHOLD

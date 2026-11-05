@@ -178,6 +178,81 @@ namespace AMS2ChEd.Business.Tests.GameLogic
             Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, driver.Reputation);
         }
 
+        // driver1 finishes P2 for "mercedes" over four races; winners and finishing orders per race
+        private SaveGame CreateTeammateSeason(int year, string[] winners, bool[] driver1Ahead, string otherTeamWinsInstead = null)
+        {
+            var saveGame = CreateSaveGame(year);
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { CreateTeamEntry("mercedes", "driver1", "driver2"), CreateTeamEntry("ferrari", "driver3", "driver4") };
+            saveGame.Drivers = saveGame.Drivers.Concat(new[] { CreateDriver("driver3", DriverReputation.PRIME_MIDFIELD, year), CreateDriver("driver4", DriverReputation.PRIME_MIDFIELD, year) }).ToList();
+            var results = new List<GrandPrixResult>();
+            for (int i = 0; i < winners.Length; i++)
+            {
+                var order = new List<(string Driver, string Team)>();
+                if (winners[i] == "ferrari") order.Add(("driver3", "ferrari"));
+                var (first, second) = driver1Ahead[i] ? ("driver1", "driver2") : ("driver2", "driver1");
+                if (winners[i] == "driver1" && !driver1Ahead[i]) (first, second) = ("driver1", "driver2");
+                if (winners[i] == "driver2" && driver1Ahead[i]) (first, second) = ("driver2", "driver1");
+                order.Add((first, "mercedes"));
+                order.Add((second, "mercedes"));
+                if (winners[i] != "ferrari") order.Add(("driver3", "ferrari"));
+                order.Add(("driver4", "ferrari"));
+                results.Add(new GrandPrixResult { Year = year, RaceResults = order.Select((o, p) => new SessionResult { DriverId = o.Driver, TeamId = o.Team, Position = p + 1 }).ToList() });
+            }
+            saveGame.GrandPrixResults = results;
+            saveGame.CurrentDriverStandings = new List<HistoricalDriverStandingEntry>
+            {
+                new HistoricalDriverStandingEntry { DriverId = "driver2", Position = 1, TeamId = "mercedes", PositionsTally = new PositionsTally() },
+                new HistoricalDriverStandingEntry { DriverId = "driver1", Position = 2, TeamId = "mercedes", PositionsTally = new PositionsTally() },
+            };
+            saveGame.CurrentConstructorStandings = new List<ConstructorStandingEntry>
+            {
+                new ConstructorStandingEntry { TeamId = "mercedes", Points = 100 },
+                new ConstructorStandingEntry { TeamId = "ferrari", Points = 80 },
+            };
+            _mockReputationUpdater.Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
+                .Returns(DriverReputation.PRIME_MIDFIELD);
+            return saveGame;
+        }
+
+        private void VerifyDriver1JudgedAs(int standings, int races = 4) =>
+            _mockReputationUpdater.Verify(x => x.GetNewReputation(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), standings, It.IsAny<int>(), It.IsAny<int>(), races, It.IsAny<int>(), It.IsAny<double>()), Times.Once);
+
+        [TestMethod]
+        public void UpdateDriversPool_SecondInADominantCar_ClearlyBeatenByTeammate_IsJudgedAsFourth()
+        {
+            // Bottas: the team wins every race, he wins one and is ahead once
+            var saveGame = CreateTeammateSeason(2019, new[] { "driver2", "driver2", "driver2", "driver1" }, new[] { false, false, false, true });
+
+            _sut.UpdateDriversPoolForNextSeason(2020, saveGame, new Dictionary<string, IDriverData>());
+
+            VerifyDriver1JudgedAs(4);
+        }
+
+        [TestMethod]
+        public void UpdateDriversPool_SecondInADominantCar_OutWinningTheTeammate_KeepsSecond()
+        {
+            // Senna 1989: three wins to the champion teammate's two (his wins came when the teammate
+            // retired), behind him every time both finished
+            var saveGame = CreateTeammateSeason(1989, new[] { "driver1", "driver1", "driver1", "driver2", "driver2", "ferrari" }, new[] { true, true, true, false, false, false });
+            foreach (var race in saveGame.GrandPrixResults.Take(3))
+                race.RaceResults.First(r => r.DriverId == "driver2").DNF = true;
+
+            _sut.UpdateDriversPoolForNextSeason(1990, saveGame, new Dictionary<string, IDriverData>());
+
+            VerifyDriver1JudgedAs(2, races: 6);
+        }
+
+        [TestMethod]
+        public void UpdateDriversPool_SecondBeatenByTeammate_InACarThatWasNotDominant_KeepsSecond()
+        {
+            // the team won one race in four and scored close to the next constructor
+            var saveGame = CreateTeammateSeason(2010, new[] { "ferrari", "ferrari", "ferrari", "driver2" }, new[] { false, false, false, false });
+
+            _sut.UpdateDriversPoolForNextSeason(2011, saveGame, new Dictionary<string, IDriverData>());
+
+            VerifyDriver1JudgedAs(2);
+        }
+
         [TestMethod]
         public void UpdateDriversPoolForNextSeason_InactiveDriver_UsesReputationUpdaterForInactive()
         {

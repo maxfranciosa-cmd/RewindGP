@@ -19,6 +19,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             public int Races { get; set; }
             public double AverageRacePosition { get; set; }
+            public TeammateComparison Teammate { get; set; }
         }
 
 
@@ -199,7 +200,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             return IsInactive(driver, seasonRecapsByDriverId) ?
                 _reputationUpdater.GetNewReputationForInactiveDriver(driver.Reputation, driverAge, decays: !reserveDriverIds.Contains(driver.DriverId)) :
-                _reputationUpdater.GetNewReputation(driver.Reputation, driverAge, driverSeasonRecap.Position, driverSeasonRecap.Podiums, driverSeasonRecap.DNFs, driverSeasonRecap.Races, totalSeasonRaces, driverSeasonRecap.AverageRacePosition);
+                _reputationUpdater.GetNewReputation(driver.Reputation, driverAge, ReputationUpdater.StandingsJudgedBy(driverSeasonRecap.Position, driverSeasonRecap.Teammate), driverSeasonRecap.Podiums, driverSeasonRecap.DNFs, driverSeasonRecap.Races, totalSeasonRaces, driverSeasonRecap.AverageRacePosition);
         }
 
         private Dictionary<string, SeasonRecap> GenerateSeasonRecaps(ISaveGame saveGame)
@@ -231,10 +232,53 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     DNFs = driverStats.TryGetValue(standing.DriverId, out var stats2) ? stats2.DNFs : 0,
                     Races = driverStats.TryGetValue(standing.DriverId, out var stats3) ? stats3.Races : 0,
                     AverageRacePosition = driverStats.TryGetValue(standing.DriverId, out var stats4) ? stats4.AverageRacePosition : 0,
+                    Teammate = CompareWithTeammates(saveGame, standing),
                 }
             );
 
             return seasonRecapsByDriverId;
+        }
+
+        private static bool Classified(SessionResult r) => !r.DNF && !r.DidNotPreQualify && r.Position > 0;
+
+        // the driver against whoever else drove for their team, race by race, and how dominant that team was
+        private static TeammateComparison CompareWithTeammates(ISaveGame saveGame, HistoricalDriverStandingEntry standing)
+        {
+            var races = saveGame.GrandPrixResults
+                .Where(r => r.Year == saveGame.CurrentSeason.Year && r.RaceResults != null)
+                .ToList();
+            var comparison = new TeammateComparison();
+
+            foreach (var race in races)
+            {
+                var own = race.RaceResults.FirstOrDefault(r => r.DriverId == standing.DriverId);
+                if (own != null && Classified(own))
+                {
+                    foreach (var mate in race.RaceResults.Where(r => r.TeamId == own.TeamId && r.DriverId != own.DriverId && Classified(r)))
+                    {
+                        if (own.Position < mate.Position) comparison.RacesAhead++;
+                        else comparison.RacesBehind++;
+                    }
+                }
+
+                var winner = race.RaceResults.FirstOrDefault(r => r.Position == 1 && Classified(r));
+                if (winner != null && winner.TeamId == standing.TeamId)
+                {
+                    if (winner.DriverId == standing.DriverId) comparison.Wins++;
+                    else comparison.TeammateWins++;
+                }
+            }
+
+            var teamWins = comparison.Wins + comparison.TeammateWins;
+            var constructors = saveGame.CurrentConstructorStandings?.ToList() ?? new List<ConstructorStandingEntry>();
+            var teamPoints = constructors.FirstOrDefault(c => c.TeamId == standing.TeamId)?.Points ?? 0;
+            var bestOtherPoints = constructors.Where(c => c.TeamId != standing.TeamId).Select(c => c.Points).DefaultIfEmpty(0).Max();
+
+            comparison.DominantCar = races.Count > 0 &&
+                (teamWins >= races.Count * ReputationUpdater.DOMINANT_CAR_WIN_SHARE
+                 || (teamPoints > 0 && teamPoints >= bestOtherPoints * ReputationUpdater.DOMINANT_CAR_POINTS_RATIO));
+
+            return comparison;
         }
 
         private IEnumerable<TeamSituation> GetTeamSituationBeforeDriverMarket(ISeason nextSeason, ISaveGame saveGame)

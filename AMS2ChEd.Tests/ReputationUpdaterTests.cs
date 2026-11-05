@@ -1,11 +1,34 @@
 ﻿using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
+using AMS2ChEd.Business.Services.Contracts;
 
 namespace AMS2ChEd.Tests
 {
     [TestClass]
     public sealed class ReputationUpdaterTests
     {
+        private static TeammateComparison Teammate(int ahead, int behind, int wins, int teammateWins, bool dominant) =>
+            new TeammateComparison { RacesAhead = ahead, RacesBehind = behind, Wins = wins, TeammateWins = teammateWins, DominantCar = dominant };
+
+        [DataTestMethod]
+        [DataRow(2, 5, 12, 4, 11, true, 4, DisplayName = "Bottas 2019: beaten clearly in a dominant car")]
+        [DataRow(3, 4, 13, 3, 9, true, 4, DisplayName = "Bottas 2017: third, beaten clearly")]
+        [DataRow(2, 3, 7, 6, 4, true, 2, DisplayName = "Senna 1989: lost the head-to-head, out-won the champion")]
+        [DataRow(2, 8, 10, 5, 11, true, 2, DisplayName = "held the head-to-head (Rosberg 2014)")]
+        [DataRow(2, 2, 12, 1, 9, false, 2, DisplayName = "car not dominant")]
+        [DataRow(1, 2, 12, 11, 4, true, 1, DisplayName = "a title is never touched")]
+        [DataRow(4, 2, 12, 0, 11, true, 4, DisplayName = "outside the top three: unchanged")]
+        [DataRow(2, 1, 1, 0, 0, true, 2, DisplayName = "too few races together to judge")]
+        public void StandingsJudgedBy(int standings, int ahead, int behind, int wins, int teammateWins, bool dominant, int expected)
+        {
+            Assert.AreEqual(expected, ReputationUpdater.StandingsJudgedBy(standings, Teammate(ahead, behind, wins, teammateWins, dominant)));
+        }
+
+        [TestMethod]
+        public void StandingsJudgedBy_NoComparison_KeepsTheStandings()
+        {
+            Assert.AreEqual(2, ReputationUpdater.StandingsJudgedBy(2, null));
+        }
         public class DriverRecord
         {
             public int Year { get; set; }
