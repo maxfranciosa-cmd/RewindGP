@@ -19,7 +19,7 @@ namespace AMS2ChEd.Business.Artwork
     /// </summary>
     public static class AvatarComposer
     {
-        public const int Width = 400, Height = 500;
+        public const int Width = 400, Height = 600;
 
         public static readonly string[] HairStyles = { "bald", "buzz", "short", "side_part", "centre_part", "longer_top", "medium", "long", "curly", "mullet", "receding" };
 
