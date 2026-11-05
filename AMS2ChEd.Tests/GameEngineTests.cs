@@ -392,6 +392,38 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
+        public void UpdateSeasonInsideSave_SeasonNamesDriversTheSaveLacks_AddsThemWithAStandingsLine()
+        {
+            // a scenario saved before the season data gained its AGS pair (1991): contracted, absent from the save
+            var saveGame = CreateSaveGame();
+            saveGame.Drivers = new List<IDriverData> { CreateDriver("driver1", "One", DriverReputation.PRIME_MIDFIELD) };
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { CreateTeam("team1", "driver1", 5, "driver2", 6) };
+            saveGame.CurrentSeason.Absences = new List<Absence> { new Absence { RaceId = 1, TeamId = "team1", DriverOut = "driver2", DriverIn = "sub" } };
+            saveGame.CurrentDriverStandings = new List<HistoricalDriverStandingEntry>
+            {
+                new HistoricalDriverStandingEntry { Position = 1, DriverId = "driver1", TeamId = "team1", PositionsTally = new PositionsTally() }
+            };
+
+            var updatedSeason = CreateSeason(1995);
+            updatedSeason.Teams = new List<ITeamEntry> { CreateTeam("team1", "driver1", 5, "driver2", 6) };
+            _engine.SeasonToReturn = updatedSeason;
+            _engine.DriversToReturn = new Dictionary<string, IDriverData>
+            {
+                ["driver1"] = CreateDriver("driver1", "One", DriverReputation.PRIME_MIDFIELD),
+                ["driver2"] = CreateDriver("driver2", "Two", DriverReputation.PRIME_MIDFIELD),
+                ["sub"] = CreateDriver("sub", "Sub", DriverReputation.PRIME_MIDFIELD)
+            };
+
+            _engine.UpdateSeasonInsideSave(saveGame);
+
+            CollectionAssert.AreEquivalent(new[] { "driver1", "driver2", "sub" }, saveGame.Drivers.Select(d => d.DriverId).ToList());
+            var line = saveGame.CurrentDriverStandings.Single(s => s.DriverId == "driver2");
+            Assert.AreEqual("team1", line.TeamId);
+            Assert.AreEqual(2, line.Position);
+            Assert.IsFalse(saveGame.CurrentDriverStandings.Any(s => s.DriverId == "sub"), "a substitute gets no standings line until they race");
+        }
+
+        [TestMethod]
         public void UpdateSeasonInsideSave_SaveWithoutReserve_DoesNotBringInThePacksReserve()
         {
             var saveGame = CreateSaveGame();

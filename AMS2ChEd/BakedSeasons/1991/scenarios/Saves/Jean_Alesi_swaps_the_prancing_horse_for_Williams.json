@@ -2009,6 +2009,100 @@
   "drivers": [
     {
       "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "gabriele_tarquini",
+      "name": "Gabriele Tarquini",
+      "nationality": "ITA",
+      "year_of_birth": 1962,
+      "picture": "https://www.statsf1.com/pilotes/photos/tarquini.png",
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.784,
+        "avoidance_of_forced_mistakes": 0.852,
+        "avoidance_of_mistakes": 0.822,
+        "blue_flag_conceding": 0.809,
+        "consistency": 0.204,
+        "defending": 0.821,
+        "fuel_management": 0.802,
+        "qualifying_skill": 0.815,
+        "race_skill": 0.767,
+        "stamina": 0.847,
+        "start_reactions": 0.795,
+        "tyre_management": 0.803,
+        "weather_tyre_changes": 0.831,
+        "wet_skill": 0.84
+      },
+      "generic_helmet": {
+        "design": "19_centre_stripe",
+        "palette": {
+          "red": "#F2F2F2",
+          "green": "#C8102E",
+          "blue": "#0A7A3C"
+        }
+      },
+      "generic_avatar": {
+        "skin": "#C89A74",
+        "hair": "receding",
+        "hair_colour": "#1C1814",
+        "facial_hair": "none"
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "driver_id": "fabrizio_barbazza",
+      "name": "Fabrizio Barbazza",
+      "nationality": "ITA",
+      "year_of_birth": 1963,
+      "picture": "https://www.statsf1.com/pilotes/photos/barbazza.png",
+      "favourite_numbers": [],
+      "reputation": "PAY_DRIVER_WILD_CARD",
+      "rating_values": {
+        "aggression": 0.854,
+        "avoidance_of_forced_mistakes": 0.79,
+        "avoidance_of_mistakes": 0.839,
+        "blue_flag_conceding": 0.815,
+        "consistency": 0.234,
+        "defending": 0.765,
+        "fuel_management": 0.814,
+        "qualifying_skill": 0.816,
+        "race_skill": 0.8,
+        "stamina": 0.817,
+        "start_reactions": 0.834,
+        "tyre_management": 0.828,
+        "weather_tyre_changes": 0.84,
+        "wet_skill": 0.796
+      },
+      "generic_helmet": {
+        "design": "19_centre_stripe",
+        "palette": {
+          "red": "#F2F2F2",
+          "green": "#0A6A70",
+          "blue": "#0A6A70"
+        }
+      },
+      "generic_avatar": {
+        "skin": "#E0B08A",
+        "hair": "curly",
+        "hair_colour": "#2A2018",
+        "facial_hair": "none"
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
       "base_helmet_file": "",
       "base_visor_file": "",
       "base_helmet_file_90s": "../1991/helmet_liveries/michele_alboreto_90s.png",
@@ -3532,6 +3626,20 @@
       "position": 32,
       "driver_id": "jean_alesi",
       "team_id": "williams",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 32,
+      "driver_id": "gabriele_tarquini",
+      "team_id": "ags",
+      "points": 0,
+      "positions_tally": "0"
+    },
+    {
+      "position": 32,
+      "driver_id": "fabrizio_barbazza",
+      "team_id": "ags",
       "points": 0,
       "positions_tally": "0"
     }

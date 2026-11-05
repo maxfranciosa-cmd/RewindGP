@@ -303,6 +303,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             saveGame.Drivers = newDrivers;
             saveGame.CurrentSeason.Teams = newTeamEntries;
 
+            AddMissingSeasonDrivers(saveGame, newDrivers, driversDict);
+
             var newDriverNamesDict = newDrivers.ToDictionary(d => d.DriverId, d => d.Name);
 
             // update driver names in historical standings
@@ -332,6 +334,74 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     race.Circuit = raceFromNewSeason.Circuit;
                     race.RaceName = raceFromNewSeason.RaceName;
                     race.RaceShortName = raceFromNewSeason.RaceShortName ?? race.RaceShortName;
+                }
+            }
+        }
+
+        /// <summary>
+        /// A save whose season names a driver it does not carry (a contract or an absence of a
+        /// scenario saved before the season data gained that driver, e.g. 1991's AGS seats) would
+        /// fail as soon as that driver is looked up. Such drivers come from the season data, and a
+        /// contracted one gets an empty standings line, as a new season's drivers do.
+        /// </summary>
+        private static void AddMissingSeasonDrivers(ISaveGame saveGame, List<IDriverData> drivers, IReadOnlyDictionary<string, IDriverData> driversDict)
+        {
+            var known = drivers.Select(d => d.DriverId).ToHashSet();
+            var season = saveGame.CurrentSeason;
+
+            var contracted = season.Teams
+                .SelectMany(t => new[] { (t.TeamId, t.Driver1Contract?.DriverId), (t.TeamId, t.Driver2Contract?.DriverId) })
+                .Where(c => !string.IsNullOrEmpty(c.Item2))
+                .ToList();
+
+            var referenced = contracted.Select(c => c.Item2)
+                .Concat(season.Teams.Select(t => t.ReserveContract?.DriverId))
+                .Concat(AbsenceDriverIds(season.Absences))
+                .Where(id => !string.IsNullOrEmpty(id))
+                .Distinct();
+
+            foreach (var id in referenced)
+            {
+                if (!known.Contains(id) && driversDict.TryGetValue(id, out var fromSeason))
+                {
+                    drivers.Add(fromSeason.DeepClone());
+                    known.Add(id);
+                }
+            }
+
+            if (saveGame.CurrentDriverStandings == null)
+                return;
+
+            var standings = saveGame.CurrentDriverStandings.ToList();
+            var inStandings = standings.Select(s => s.DriverId).ToHashSet();
+            var added = false;
+            foreach (var (teamId, driverId) in contracted)
+            {
+                if (inStandings.Add(driverId))
+                {
+                    standings.Add(new HistoricalDriverStandingEntry
+                    {
+                        Position = standings.Count + 1,
+                        DriverId = driverId,
+                        TeamId = teamId,
+                        Points = 0,
+                        PositionsTally = new PositionsTally()
+                    });
+                    added = true;
+                }
+            }
+            if (added)
+                saveGame.CurrentDriverStandings = standings;
+        }
+
+        private static IEnumerable<string> AbsenceDriverIds(IEnumerable<Absence> absences)
+        {
+            foreach (var absence in absences ?? Enumerable.Empty<Absence>())
+            {
+                for (var a = absence; a != null; a = a.ChainedAbsence)
+                {
+                    yield return a.DriverOut;
+                    yield return a.DriverIn;
                 }
             }
         }
