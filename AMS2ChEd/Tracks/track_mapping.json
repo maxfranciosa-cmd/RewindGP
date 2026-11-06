@@ -224,6 +224,24 @@
     },
     {
       "grand_prix_name_patterns": [ "British" ],
+      "year": 1986,
+      "default_track_id": "brandshatch_gp",
+      "default_number_of_laps": 75
+    },
+    {
+      "grand_prix_name_patterns": [ "British" ],
+      "year": 1987,
+      "track_options": [
+        {
+          "track_id": "silverstone_1975",
+          "dlc_id": "silverstone_pack"
+        }
+      ],
+      "default_track_id": "brandshatch_gp",
+      "default_number_of_laps": 65
+    },
+    {
+      "grand_prix_name_patterns": [ "British" ],
       "year": 1991,
       "track_options": [
         {
@@ -408,7 +426,7 @@
     },
     {
       "grand_prix_name_patterns": [ "Portuguese" ],
-      "year": 1988,
+      "year": 1984,
       "track_options": [
         {
           "track_id": "estoril_1988",
@@ -423,6 +441,12 @@
       "year": 1999,
       "default_track_id": "estoril_2019",
       "default_number_of_laps": 70
+    },
+    {
+      "grand_prix_name_patterns": [ "Austrian" ],
+      "year": 1977,
+      "default_track_id": "spielberg_historic",
+      "default_number_of_laps": 52
     },
     {
       "grand_prix_name_patterns": [ "Austrian" ],

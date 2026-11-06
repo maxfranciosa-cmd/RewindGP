@@ -16,6 +16,8 @@ namespace AMS2ChEd.Tests.Ams2
         private static readonly string[] HelmetEraPrefixes = { "", "90s_", "80s_", "70s_" };
 
         [TestMethod]
+        [DataRow(1986)]
+        [DataRow(1987)]
         [DataRow(1988)]
         [DataRow(1989)]
         [DataRow(1990)]

@@ -1,0 +1,27 @@
+{
+  "car_models": [
+    "formula_classic_g1m1"
+  ],
+  "livery_xml": "livery.xml",
+  "outfit_set": "open_wheel_90s",
+  "templates": [
+    {
+      "id": "body_1",
+      "body": "templates/body_1.png",
+      "numbers_placements": [
+        { "number_plate_width": 220, "starting_point": { "IsEmpty": false, "X": 2150, "Y": 418 }, "rotation": "Deg180", "sheet_size": [ 1100, 165 ] },
+        { "number_plate_width": 200, "starting_point": { "IsEmpty": false, "X": 1575, "Y": 1410 }, "rotation": "Deg90", "sheet_size": [ 1000, 150 ] },
+        { "number_plate_width": 200, "starting_point": { "IsEmpty": false, "X": 2525, "Y": 1605 }, "rotation": "Deg270", "sheet_size": [ 1000, 150 ] }
+      ]
+    },
+    {
+      "id": "body_2",
+      "body": "templates/body_2.png",
+      "numbers_placements": [
+        { "number_plate_width": 220, "starting_point": { "IsEmpty": false, "X": 2150, "Y": 418 }, "rotation": "Deg180", "sheet_size": [ 1100, 165 ] },
+        { "number_plate_width": 200, "starting_point": { "IsEmpty": false, "X": 1575, "Y": 1410 }, "rotation": "Deg90", "sheet_size": [ 1000, 150 ] },
+        { "number_plate_width": 200, "starting_point": { "IsEmpty": false, "X": 2525, "Y": 1605 }, "rotation": "Deg270", "sheet_size": [ 1000, 150 ] }
+      ]
+    }
+  ]
+}

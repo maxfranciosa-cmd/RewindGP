@@ -1,0 +1,1899 @@
+{
+  "_comment": "Artwork the app ships for 1986 in place of its season pack (Export-SeasonCosmetics.ps1 from the pack). Skin-pack files land under Seasons/1986/ when the player imports it; helmet and visor sponsor layers are built then from the pack\u0027s helmets. Teams with hand-painted liveries in the pack race on the generic kit: none.",
+  "teams": {
+    "mclaren": {
+      "ams2car": "formula_classic_g1m2",
+      "base_livery_driver1": "external_liveries/car_liveries/mclaren/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/mclaren/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/mclaren/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/mclaren_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 294,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2360,
+            "Y": 591
+          },
+          "rotation": "Deg180",
+          "fill_color": "#FFFFFF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/mclaren_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 294,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1068,
+            "Y": 3789
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#FF2000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/mclaren_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 294,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3441,
+            "Y": 4083
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FF2000"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/mclaren/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/mclaren/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/F1_Season_1986_1986_McLaren1_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/F1_Season_1986_1986_McLaren2_GBR.dds",
+          "livery_preview": null,
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/mclaren/F1_Season_1986_1986_McLaren1_DEU.dds",
+          "driver2_livery": "external_liveries/car_liveries/mclaren/F1_Season_1986_1986_McLaren2_DEU.dds",
+          "livery_preview": "external_liveries/previews/mclaren/Previews_1986_McLaren1_DEU_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/mclaren/F1_Season_1986_1986_McLaren2_PRT.dds",
+          "livery_preview": "external_liveries/previews/mclaren/Previews_1986_McLaren2_PRT_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"1986 McLaren #1 - A. Prost\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_McLaren1_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_McLaren1.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_McLaren_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_McLaren_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Prost_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_McLaren_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_McLaren_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_McLaren_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_McLaren_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_McLaren_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "tyrrell": {
+      "ams2car": "formula_classic_g1m2",
+      "base_livery_driver1": "external_liveries/car_liveries/tyrrell/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/tyrrell/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/tyrrell/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/tyrrell_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 231,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2326,
+            "Y": 493
+          },
+          "rotation": "Deg180",
+          "fill_color": "#E7E7E7"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/tyrrell_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 252,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1073,
+            "Y": 3856
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/tyrrell_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 252,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3370,
+            "Y": 4110
+          },
+          "rotation": "Deg270",
+          "fill_color": "#101010"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/tyrrell/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/tyrrell/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"1986 Tyrrell #3 - M. Brundle\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Tyrrell3_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Tyrrell3.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Tyrrell_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Tyrrell_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Brundle_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Tyrrell_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Tyrrell_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Tyrrell_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Tyrrell_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Tyrrell_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "williams": {
+      "ams2car": "formula_classic_g1m1",
+      "base_livery_driver1": "external_liveries/car_liveries/williams/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/williams/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/williams/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/williams_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 258,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2182,
+            "Y": 434
+          },
+          "rotation": "Deg180",
+          "fill_color": "#00205A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/williams_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 251,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1647,
+            "Y": 1393
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#ECE7E1"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/williams_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 262,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2452,
+            "Y": 1645
+          },
+          "rotation": "Deg270",
+          "fill_color": "#ECE7E1"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/williams/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/williams/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"1986 Williams #5 - N. Mansell\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Williams5_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Williams5.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Williams_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Williams_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Mansell_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Williams_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Mansell_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Mansell_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Mansell_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Mansell_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "brabham": {
+      "ams2car": "formula_classic_g1m1",
+      "base_livery_driver1": "external_liveries/car_liveries/brabham/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/brabham/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/brabham/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/brabham_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 248,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2175,
+            "Y": 469
+          },
+          "rotation": "Deg180",
+          "fill_color": "#EFEBEF"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/brabham_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 285,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 868,
+            "Y": 1635
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#001031"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/brabham_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 285,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3235,
+            "Y": 1920
+          },
+          "rotation": "Deg270",
+          "fill_color": "#001031"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/brabham/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/brabham/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/brabham/F1_Season_1986_1986_Brabham8_DeAngelis.dds",
+          "livery_preview": "external_liveries/previews/brabham/Previews_1986_Brabham8_DeAngelis_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/brabham/F1_Season_1986_1986_Brabham8_DeAngelis.dds",
+          "livery_preview": "external_liveries/previews/brabham/Previews_1986_Brabham8_DeAngelis_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/brabham/F1_Season_1986_1986_Brabham8_DeAngelis.dds",
+          "livery_preview": "external_liveries/previews/brabham/Previews_1986_Brabham8_DeAngelis_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/brabham/F1_Season_1986_1986_Brabham8_DeAngelis.dds",
+          "livery_preview": "external_liveries/previews/brabham/Previews_1986_Brabham8_DeAngelis_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/brabham/F1_Season_1986_1986_Brabham8_DeAngelis.dds",
+          "livery_preview": "external_liveries/previews/brabham/Previews_1986_Brabham8_DeAngelis_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"53\" NAME=\"1986 Brabham #7 - R. Patrese\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Brabham7_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Brabham7.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Brabham_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Brabham_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_diff.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_diff_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_spec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"53\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Patrese_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Brabham_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"53\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Brabham_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Brabham_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Brabham_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Brabham_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "lotus": {
+      "ams2car": "lotus_98T",
+      "base_livery_driver1": "external_liveries/car_liveries/lotus/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/lotus/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/lotus/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/lotus_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 143,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 831,
+            "Y": 765
+          },
+          "rotation": "Deg180",
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/lotus_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 143,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 165,
+            "Y": 801
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#101010"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/lotus_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 143,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1354,
+            "Y": 944
+          },
+          "rotation": "Deg270",
+          "fill_color": "#101010"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/lotus/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/lotus/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/lotus/F1_Season_1986_1986_Lotus11_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/lotus/F1_Season_1986_1986_Lotus12_GBR.dds",
+          "livery_preview": "external_liveries/previews/lotus/Previews_1986_Lotus11_GBR_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/lotus/F1_Season_1986_1986_Lotus11_DEU.dds",
+          "driver2_livery": "external_liveries/car_liveries/lotus/F1_Season_1986_1986_Lotus12_DEU.dds",
+          "livery_preview": "external_liveries/previews/lotus/Previews_1986_Lotus11_DEU_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"51\" NAME=\"1986 Lotus #11 - J. Dumfries\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Lotus11_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Lotus11.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"51\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Dumfries_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Lotus_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"51\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Dumfries_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Lotus_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Dumfries_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Lotus_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "zakspeed": {
+      "ams2car": "formula_classic_g1m2",
+      "base_livery_driver1": "external_liveries/car_liveries/zakspeed/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/zakspeed/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/zakspeed/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/zakspeed_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 196,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2311,
+            "Y": 645
+          },
+          "rotation": "Deg180",
+          "fill_color": "#C50C0A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/zakspeed_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 239,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 855,
+            "Y": 3829
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#C50C0A"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/zakspeed_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 239,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3616,
+            "Y": 4068
+          },
+          "rotation": "Deg270",
+          "fill_color": "#C50C0A"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/zakspeed/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/zakspeed/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/zakspeed/F1_Season_1986_1986_Zakspeed14_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/zakspeed/F1_Season_1986_1986_Zakspeed29_GBR.dds",
+          "livery_preview": "external_liveries/previews/zakspeed/Previews_1986_Zakspeed14_GBR_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/zakspeed/F1_Season_1986_1986_Zakspeed14_DEU.dds",
+          "driver2_livery": "external_liveries/car_liveries/zakspeed/F1_Season_1986_1986_Zakspeed29_DEU.dds",
+          "livery_preview": "external_liveries/previews/zakspeed/Previews_1986_Zakspeed14_DEU_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"63\" NAME=\"1986 Zakspeed #14 - J. Palmer\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Zakspeed14_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Zakspeed14.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Zakspeed_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Zakspeed_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"63\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Palmer_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Palmer_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"63\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Zakspeed_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Zakspeed_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Zakspeed_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Zakspeed_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "lola": {
+      "ams2car": "formula_classic_g1m2",
+      "base_livery_driver1": "external_liveries/car_liveries/lola/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/lola/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/lola/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/lola_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 225,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2323,
+            "Y": 772
+          },
+          "rotation": "Deg180",
+          "fill_color": "#C51200"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/lola_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 242,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 831,
+            "Y": 1588
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#C51200"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/lola_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 242,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3594,
+            "Y": 1830
+          },
+          "rotation": "Deg270",
+          "fill_color": "#C51200"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/lola/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/lola/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 7,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/lola/F1_Season_1986_1986_Lola16_Cheever.dds",
+          "livery_preview": "external_liveries/previews/lola/Previews_1986_Lola16_Cheever_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"1986 Lola #15 - A. Jones\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Lola15_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Lola15.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Lola_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Lola_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Jones_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Transparent_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Lola_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Lola_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Lola_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Lola_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "arrows": {
+      "ams2car": "formula_classic_g1m2",
+      "base_livery_driver1": "external_liveries/car_liveries/arrows/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/arrows/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/arrows/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/arrows_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 185,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2304,
+            "Y": 468
+          },
+          "rotation": "Deg180",
+          "fill_color": "#EFDB9C"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/arrows_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 240,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 796,
+            "Y": 3824
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#EFDB9C"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/arrows_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 277,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3640,
+            "Y": 4100
+          },
+          "rotation": "Deg270",
+          "fill_color": "#EFDB9C"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/arrows/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/arrows/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows17_Surer.dds",
+          "driver2_livery": null,
+          "livery_preview": "external_liveries/previews/arrows/Previews_1986_Arrows17_Surer_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows17_Surer.dds",
+          "driver2_livery": null,
+          "livery_preview": "external_liveries/previews/arrows/Previews_1986_Arrows17_Surer_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows17_Surer.dds",
+          "driver2_livery": null,
+          "livery_preview": "external_liveries/previews/arrows/Previews_1986_Arrows17_Surer_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows17_Surer.dds",
+          "driver2_livery": null,
+          "livery_preview": "external_liveries/previews/arrows/Previews_1986_Arrows17_Surer_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows17_Surer.dds",
+          "driver2_livery": null,
+          "livery_preview": "external_liveries/previews/arrows/Previews_1986_Arrows17_Surer_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 6,
+          "driver1_livery": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows17_Surer.dds",
+          "driver2_livery": null,
+          "livery_preview": "external_liveries/previews/arrows/Previews_1986_Arrows17_Surer_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows17_Danner_DEU.dds",
+          "driver2_livery": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows18_DEU.dds",
+          "livery_preview": "external_liveries/previews/arrows/Previews_1986_Arrows17_Danner_DEU_preview.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/arrows_nose.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 185,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 2304,
+                "Y": 468
+              },
+              "rotation": "Deg180",
+              "fill_color": "#EFDB9C"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/arrows_rear_l.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 240,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 796,
+                "Y": 3824
+              },
+              "rotation": "Deg90",
+              "rotation_degrees": 90.3,
+              "fill_color": "#EFDB9C"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/arrows_rear_r_deu.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 245,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 3435,
+                "Y": 4030
+              },
+              "rotation": "Deg270",
+              "fill_color": "#EFDB9C"
+            }
+          ]
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows17_Danner_DEU.dds",
+          "driver2_livery": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows18_DEU.dds",
+          "livery_preview": "external_liveries/previews/arrows/Previews_1986_Arrows17_Danner_DEU_preview.dds",
+          "numbers_placements": [
+            {
+              "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/arrows_nose.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 185,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 2304,
+                "Y": 468
+              },
+              "rotation": "Deg180",
+              "fill_color": "#EFDB9C"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/arrows_rear_l.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 240,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 796,
+                "Y": 3824
+              },
+              "rotation": "Deg90",
+              "rotation_degrees": 90.3,
+              "fill_color": "#EFDB9C"
+            },
+            {
+              "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/arrows_rear_r_deu.png",
+              "numbers_texture_driver2": null,
+              "number_plate_width": 245,
+              "starting_point": {
+                "IsEmpty": false,
+                "X": 3435,
+                "Y": 4030
+              },
+              "rotation": "Deg270",
+              "fill_color": "#EFDB9C"
+            }
+          ]
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"1986 Arrows #17 - C. Danner\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Arrows17_Danner_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Arrows17_Danner.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Arrows_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Arrows_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Danner_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Transparent_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Arrows_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Arrows_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Arrows_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Arrows_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "benetton": {
+      "ams2car": "formula_classic_g1m2",
+      "base_livery_driver1": "external_liveries/car_liveries/benetton/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/benetton/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/benetton/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/benetton_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 184,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2304,
+            "Y": 444
+          },
+          "rotation": "Deg180",
+          "fill_color": "#006952"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/benetton_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 223,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1145,
+            "Y": 3864
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#101410"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/benetton_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 227,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3326,
+            "Y": 4089
+          },
+          "rotation": "Deg270",
+          "fill_color": "#101410"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/benetton/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/benetton/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"1986 Benetton #19 - T. Fabi\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Benetton19_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Benetton19.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Benetton_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Benetton_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_diff.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_diff_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_spec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Fabi_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Benetton_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Benetton_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Benetton_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Benetton_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Benetton_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "osella": {
+      "ams2car": "formula_classic_g1m1",
+      "base_livery_driver1": "external_liveries/car_liveries/osella/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/osella/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/osella/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/osella_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 233,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2168,
+            "Y": 676
+          },
+          "rotation": "Deg180",
+          "fill_color": "#0D5ECD"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/osella_cockpit_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 220,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1892,
+            "Y": 2497
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#0D5ECD"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/osella_cockpit_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 219,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2215,
+            "Y": 2717
+          },
+          "rotation": "Deg270",
+          "fill_color": "#0D5ECD"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/osella/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/osella/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 1,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/osella/F1_Season_1986_1986_Osella22_Danner.dds",
+          "livery_preview": "external_liveries/previews/osella/Previews_1986_Osella22_Danner_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 2,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/osella/F1_Season_1986_1986_Osella22_Danner.dds",
+          "livery_preview": "external_liveries/previews/osella/Previews_1986_Osella22_Danner_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 3,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/osella/F1_Season_1986_1986_Osella22_Danner.dds",
+          "livery_preview": "external_liveries/previews/osella/Previews_1986_Osella22_Danner_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 4,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/osella/F1_Season_1986_1986_Osella22_Danner.dds",
+          "livery_preview": "external_liveries/previews/osella/Previews_1986_Osella22_Danner_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 5,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/osella/F1_Season_1986_1986_Osella22_Danner.dds",
+          "livery_preview": "external_liveries/previews/osella/Previews_1986_Osella22_Danner_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 6,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/osella/F1_Season_1986_1986_Osella22_Danner.dds",
+          "livery_preview": "external_liveries/previews/osella/Previews_1986_Osella22_Danner_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"55\" NAME=\"1986 Osella #21 - P. Ghinzani\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Osella21_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Osella21.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Osella_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Osella_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_diff.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_diff_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_spec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"55\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Ghinzani_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Transparent_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"55\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Osella_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Osella_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Osella_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Osella_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "minardi": {
+      "ams2car": "formula_classic_g1m1",
+      "base_livery_driver1": "external_liveries/car_liveries/minardi/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/minardi/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/minardi/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/minardi_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 213,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2158,
+            "Y": 507
+          },
+          "rotation": "Deg180",
+          "fill_color": "#181818"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/minardi_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 190,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 870,
+            "Y": 1690
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#FFD400"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/minardi_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 215,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3075,
+            "Y": 1870
+          },
+          "rotation": "Deg270",
+          "fill_color": "#FFD400"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/minardi/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/minardi/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"57\" NAME=\"1986 Minardi #23 - A. De Cesaris\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Minardi23_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Minardi23.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Minardi_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Minardi_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_diff.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_diff_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_spec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"57\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_DeCesaris_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Minardi_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"57\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Minardi_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Minardi_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Minardi_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Minardi_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ligier_prost": {
+      "ams2car": "formula_classic_g1m1",
+      "base_livery_driver1": "external_liveries/car_liveries/ligier_prost/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ligier_prost/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/ligier_prost/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/ligier_prost_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 201,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2152,
+            "Y": 649
+          },
+          "rotation": "Deg180",
+          "fill_color": "#E9E4DE"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/ligier_prost_side_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 197,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1196,
+            "Y": 2897
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#003D89"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/ligier_prost_side_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 197,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2908,
+            "Y": 3094
+          },
+          "rotation": "Deg270",
+          "fill_color": "#003D89"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ligier_prost/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier25_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Laffite_GBR.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/Previews_1986_Ligier25_GBR_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier25_GBR.dds",
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Alliot_DEU.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/Previews_1986_Ligier25_GBR_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 11,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Alliot.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/Previews_1986_Ligier26_Alliot_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 12,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Alliot.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/Previews_1986_Ligier26_Alliot_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 13,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Alliot.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/Previews_1986_Ligier26_Alliot_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 14,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Alliot.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/Previews_1986_Ligier26_Alliot_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 15,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Alliot.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/Previews_1986_Ligier26_Alliot_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 16,
+          "driver1_livery": null,
+          "driver2_livery": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Alliot.dds",
+          "livery_preview": "external_liveries/previews/ligier_prost/Previews_1986_Ligier26_Alliot_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"59\" NAME=\"1986 Ligier #25 - R. Arnoux\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Ligier25_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Ligier25.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Ligier_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Ligier_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREDIFF\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_diff.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRENORM\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_norm.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURDIFF\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_diff_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIRESPEC\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"TIREBLURSPEC\" PATH=\"F1_Season_1986\\Tires\\86_Pirelli_spec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"59\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Arnoux_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Ligier_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"59\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Ligier_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Ligier_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Ligier_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Ligier_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\red_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    },
+    "ferrari": {
+      "ams2car": "formula_classic_g1m2",
+      "base_livery_driver1": "external_liveries/car_liveries/ferrari/default.dds",
+      "base_livery_driver2": "external_liveries/car_liveries/ferrari/default_driver2.dds",
+      "livery_preview": "external_liveries/previews/ferrari/default.dds",
+      "numbers_placements": [
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/ferrari_nose.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 251,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 2336,
+            "Y": 978
+          },
+          "rotation": "Deg180",
+          "fill_color": "#B50000"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/ferrari_rear_l.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 224,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 1218,
+            "Y": 3612
+          },
+          "rotation": "Deg90",
+          "rotation_degrees": 90.3,
+          "fill_color": "#101410"
+        },
+        {
+          "numbers_texture": "../../BakedSeasons/1986/cosmetics/numbers/ferrari_rear_r.png",
+          "numbers_texture_driver2": null,
+          "number_plate_width": 227,
+          "starting_point": {
+            "IsEmpty": false,
+            "X": 3262,
+            "Y": 3837
+          },
+          "rotation": "Deg270",
+          "fill_color": "#101410"
+        }
+      ],
+      "helmet_sponsors": "external_liveries/helmet_sponsors/ferrari/default.png",
+      "visor_sponsors": "external_liveries/helmet_sponsors/ferrari/default_visor.png",
+      "drivers_specific_helmet": null,
+      "livery_overrides": [
+        {
+          "race_id": 9,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_1986_1986_Ferrari27_DEU.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_1986_1986_Ferrari28_DEU.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Previews_1986_Ferrari27_DEU_preview.dds",
+          "numbers_placements": null
+        },
+        {
+          "race_id": 10,
+          "driver1_livery": "external_liveries/car_liveries/ferrari/F1_Season_1986_1986_Ferrari27_DEU.dds",
+          "driver2_livery": "external_liveries/car_liveries/ferrari/F1_Season_1986_1986_Ferrari28_DEU.dds",
+          "livery_preview": "external_liveries/previews/ferrari/Previews_1986_Ferrari27_DEU_preview.dds",
+          "numbers_placements": null
+        }
+      ],
+      "livery_xml": "\u003cUSER_OVERRIDES\u003e\r\n  \u003cLIVERY_OVERRIDE LIVERY=\"61\" NAME=\"1986 Ferrari #27 - M. Alboreto\" BASELIVERY=\"Default\"\u003e\r\n    \u003cPREVIEWIMAGE PATH=\"F1_Season_1986\\Previews\\1986_Ferrari27_preview.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY\" PATH=\"F1_Season_1986\\1986_Ferrari27.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Ferrari_rims.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURDIFF\" PATH=\"F1_Season_1986\\Rims\\1986_Ferrari_rims_blur.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_Ferrari_rims_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"WHEELBLURSPEC\" PATH=\"F1_Season_1986\\Rims\\1986_Ferrari_rims_spec_blur.dds\" /\u003e\r\n  \u003c/LIVERY_OVERRIDE\u003e\r\n  \u003cHELMET_OVERRIDE LIVERY=\"61\" BASEHELMET=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Alboreto_helmet.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"BODY_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_helmet_spec.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_DIFF\" PATH=\"F1_Season_1986\\Helmets\\86_Transparent_visor.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"VISOR_SPEC\" PATH=\"F1_Season_1986\\Helmets\\86_visor_spec.dds\" /\u003e\r\n  \u003c/HELMET_OVERRIDE\u003e\r\n  \u003cOUTFIT_OVERRIDE LIVERY=\"61\" BASEOUTFIT=\"DEFAULT\"\u003e\r\n    \u003cTEXTURE NAME=\"BODY_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Ferrari_body.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"ARMS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Ferrari_arms.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"GLOVES_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Ferrari_gloves.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"LEGS_DIFF\" PATH=\"F1_Season_1986\\Suits\\86_Ferrari_legs.dds\" /\u003e\r\n    \u003cTEXTURE NAME=\"SEATBELTS_DIFF\" PATH=\"F1_Season_1986\\Suits\\black_safety_harness.dds\" /\u003e\r\n  \u003c/OUTFIT_OVERRIDE\u003e\r\n\u003c/USER_OVERRIDES\u003e"
+    }
+  },
+  "drivers": {
+    "alain_prost": {
+      "picture": "https://www.statsf1.com/pilotes/photos/prost.png"
+    },
+    "alan_jones": {
+      "picture": "https://www.statsf1.com/pilotes/photos/jones.png"
+    },
+    "alessandro_nannini": {
+      "picture": "https://www.statsf1.com/pilotes/photos/nannini.png"
+    },
+    "alex_caffi": {
+      "picture": "https://www.statsf1.com/pilotes/photos/caffi.png"
+    },
+    "allen_berg": {
+      "picture": "https://www.statsf1.com/pilotes/photos/berg.png"
+    },
+    "andrea_de_cesaris": {
+      "picture": "https://www.statsf1.com/pilotes/photos/decesar.png"
+    },
+    "ayrton_senna": {
+      "picture": "https://www.statsf1.com/pilotes/photos/senna.png"
+    },
+    "christian_danner": {
+      "picture": "https://www.statsf1.com/pilotes/photos/danner.png"
+    },
+    "derek_warwick": {
+      "picture": "https://www.statsf1.com/pilotes/photos/warwick.png"
+    },
+    "eddie_cheever": {
+      "picture": "https://www.statsf1.com/pilotes/photos/cheever.png"
+    },
+    "elio_de_angelis": {
+      "picture": "https://www.statsf1.com/pilotes/photos/deangeli.png"
+    },
+    "gerhard_berger": {
+      "picture": "https://www.statsf1.com/pilotes/photos/berger.png"
+    },
+    "huub_rothengatter": {
+      "picture": "https://www.statsf1.com/pilotes/photos/rothenga.png"
+    },
+    "jacques_laffite": {
+      "picture": "https://www.statsf1.com/pilotes/photos/laffite.png"
+    },
+    "johnny_dumfries": {
+      "picture": "https://www.statsf1.com/pilotes/photos/dumfries.png"
+    },
+    "jonathan_palmer": {
+      "picture": "https://www.statsf1.com/pilotes/photos/palmer.png"
+    },
+    "keke_rosberg": {
+      "picture": "https://www.statsf1.com/pilotes/photos/rosberg.png"
+    },
+    "marc_surer": {
+      "picture": "https://www.statsf1.com/pilotes/photos/surer.png"
+    },
+    "martin_brundle": {
+      "picture": "https://www.statsf1.com/pilotes/photos/brundle.png"
+    },
+    "michele_alboreto": {
+      "picture": "https://www.statsf1.com/pilotes/photos/alboreto.png"
+    },
+    "nelson_piquet": {
+      "picture": "https://www.statsf1.com/pilotes/photos/piquet.png"
+    },
+    "nigel_mansell": {
+      "picture": "https://www.statsf1.com/pilotes/photos/mansell.png"
+    },
+    "patrick_tambay": {
+      "picture": "https://www.statsf1.com/pilotes/photos/tambay.png"
+    },
+    "philippe_alliot": {
+      "picture": "https://www.statsf1.com/pilotes/photos/alliot.png"
+    },
+    "philippe_streiff": {
+      "picture": "https://www.statsf1.com/pilotes/photos/streiff.png"
+    },
+    "piercarlo_ghinzani": {
+      "picture": "https://www.statsf1.com/pilotes/photos/ghinzani.png"
+    },
+    "rene_arnoux": {
+      "picture": "https://www.statsf1.com/pilotes/photos/arnoux.png"
+    },
+    "riccardo_patrese": {
+      "picture": "https://www.statsf1.com/pilotes/photos/patrese.png"
+    },
+    "stefan_johansson": {
+      "picture": "https://www.statsf1.com/pilotes/photos/johansso.png"
+    },
+    "teo_fabi": {
+      "picture": "https://www.statsf1.com/pilotes/photos/fabit.png"
+    },
+    "thierry_boutsen": {
+      "picture": "https://www.statsf1.com/pilotes/photos/boutsen.png"
+    }
+  },
+  "skin_pack": {
+    "url": "https://www.overtake.gg/downloads/ams2-f1-1986-season.66568/",
+    "name": "[AMS2] F1 1986 Season",
+    "detect": [
+      "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/1986_McLaren1.dds",
+      "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/1986_McLaren2.dds",
+      "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/1986_McLaren1_GBR.dds",
+      "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/1986_McLaren2_GBR.dds"
+    ],
+    "entries": [
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_McLaren1.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_McLaren2.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_McLaren1_preview.dds",
+        "destinationPath": "external_liveries/previews/mclaren/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_McLaren_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_McLaren_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_McLaren_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_McLaren_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_McLaren_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_McLaren_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_McLaren_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_McLaren_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_McLaren_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_McLaren_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_McLaren_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_McLaren_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_McLaren1_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/F1_Season_1986_1986_McLaren1_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_McLaren2_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/F1_Season_1986_1986_McLaren2_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_McLaren1_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/F1_Season_1986_1986_McLaren1_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_McLaren2_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/F1_Season_1986_1986_McLaren2_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_McLaren1_DEU_preview.dds",
+        "destinationPath": "external_liveries/previews/mclaren/Previews_1986_McLaren1_DEU_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_McLaren2_PRT.dds",
+        "destinationPath": "external_liveries/car_liveries/mclaren/F1_Season_1986_1986_McLaren2_PRT.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_McLaren2_PRT_preview.dds",
+        "destinationPath": "external_liveries/previews/mclaren/Previews_1986_McLaren2_PRT_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Tyrrell3.dds",
+        "destinationPath": "external_liveries/car_liveries/tyrrell/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Tyrrell4.dds",
+        "destinationPath": "external_liveries/car_liveries/tyrrell/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Tyrrell3_preview.dds",
+        "destinationPath": "external_liveries/previews/tyrrell/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Tyrrell_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Tyrrell_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Tyrrell_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Tyrrell_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Tyrrell_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Tyrrell_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Tyrrell_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Tyrrell_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Tyrrell_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Tyrrell_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Tyrrell_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Tyrrell_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Williams5.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Williams6.dds",
+        "destinationPath": "external_liveries/car_liveries/williams/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Previews\\1986_Williams5_preview.dds",
+        "destinationPath": "external_liveries/previews/williams/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_Williams_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_Williams_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_Williams_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_Williams_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Mansell_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Mansell_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Mansell_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Mansell_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Mansell_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Mansell_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Mansell_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Mansell_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Brabham7.dds",
+        "destinationPath": "external_liveries/car_liveries/brabham/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Brabham8_Warwick.dds",
+        "destinationPath": "external_liveries/car_liveries/brabham/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Previews\\1986_Brabham7_preview.dds",
+        "destinationPath": "external_liveries/previews/brabham/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_Brabham_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_Brabham_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_Brabham_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_Brabham_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Brabham_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Brabham_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Brabham_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Brabham_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Brabham_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Brabham_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Brabham_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Brabham_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Brabham8_DeAngelis.dds",
+        "destinationPath": "external_liveries/car_liveries/brabham/F1_Season_1986_1986_Brabham8_DeAngelis.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Previews\\1986_Brabham8_DeAngelis_preview.dds",
+        "destinationPath": "external_liveries/previews/brabham/Previews_1986_Brabham8_DeAngelis_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\1986_Lotus11.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\1986_Lotus12.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\Previews\\1986_Lotus11_preview.dds",
+        "destinationPath": "external_liveries/previews/lotus/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\Suits\\86_Dumfries_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/lotus_98T/F1_Season_1986/Suits/86_Dumfries_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\Suits\\86_Lotus_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/lotus_98T/F1_Season_1986/Suits/86_Lotus_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\Suits\\86_Dumfries_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/lotus_98T/F1_Season_1986/Suits/86_Dumfries_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\Suits\\86_Lotus_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/lotus_98T/F1_Season_1986/Suits/86_Lotus_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\Suits\\black_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/lotus_98T/F1_Season_1986/Suits/black_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\Helmets\\86_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/lotus_98T/F1_Season_1986/Helmets/86_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/lotus_98T/F1_Season_1986/Helmets/86_visor_spec_sticker.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\1986_Lotus11_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/F1_Season_1986_1986_Lotus11_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\1986_Lotus12_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/F1_Season_1986_1986_Lotus12_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\Previews\\1986_Lotus11_GBR_preview.dds",
+        "destinationPath": "external_liveries/previews/lotus/Previews_1986_Lotus11_GBR_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\1986_Lotus11_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/F1_Season_1986_1986_Lotus11_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\1986_Lotus12_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/lotus/F1_Season_1986_1986_Lotus12_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\lotus_98T\\F1_Season_1986\\Previews\\1986_Lotus11_DEU_preview.dds",
+        "destinationPath": "external_liveries/previews/lotus/Previews_1986_Lotus11_DEU_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Zakspeed14.dds",
+        "destinationPath": "external_liveries/car_liveries/zakspeed/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Zakspeed29.dds",
+        "destinationPath": "external_liveries/car_liveries/zakspeed/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Zakspeed14_preview.dds",
+        "destinationPath": "external_liveries/previews/zakspeed/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Zakspeed_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Zakspeed_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Zakspeed_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Zakspeed_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Zakspeed_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Zakspeed_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Zakspeed_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Zakspeed_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Zakspeed_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Zakspeed_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Zakspeed_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Zakspeed_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Zakspeed14_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/zakspeed/F1_Season_1986_1986_Zakspeed14_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Zakspeed29_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/zakspeed/F1_Season_1986_1986_Zakspeed29_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Zakspeed14_GBR_preview.dds",
+        "destinationPath": "external_liveries/previews/zakspeed/Previews_1986_Zakspeed14_GBR_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Zakspeed14_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/zakspeed/F1_Season_1986_1986_Zakspeed14_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Zakspeed29_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/zakspeed/F1_Season_1986_1986_Zakspeed29_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Zakspeed14_DEU_preview.dds",
+        "destinationPath": "external_liveries/previews/zakspeed/Previews_1986_Zakspeed14_DEU_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Lola15.dds",
+        "destinationPath": "external_liveries/car_liveries/lola/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Lola16_Tambay.dds",
+        "destinationPath": "external_liveries/car_liveries/lola/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Lola15_preview.dds",
+        "destinationPath": "external_liveries/previews/lola/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Lola_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Lola_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Lola_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Lola_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Lola_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Lola_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Lola_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Lola_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Lola_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Lola_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Lola_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Lola_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Lola16_Cheever.dds",
+        "destinationPath": "external_liveries/car_liveries/lola/F1_Season_1986_1986_Lola16_Cheever.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Lola16_Cheever_preview.dds",
+        "destinationPath": "external_liveries/previews/lola/Previews_1986_Lola16_Cheever_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Arrows17_Danner.dds",
+        "destinationPath": "external_liveries/car_liveries/arrows/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Arrows18.dds",
+        "destinationPath": "external_liveries/car_liveries/arrows/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Arrows17_Danner_preview.dds",
+        "destinationPath": "external_liveries/previews/arrows/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Arrows_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Arrows_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Arrows_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Arrows_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Arrows_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Arrows_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Arrows_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Arrows_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Arrows_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Arrows_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Arrows_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Arrows_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Arrows17_Surer.dds",
+        "destinationPath": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows17_Surer.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Arrows17_Surer_preview.dds",
+        "destinationPath": "external_liveries/previews/arrows/Previews_1986_Arrows17_Surer_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Arrows17_Danner_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows17_Danner_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Arrows18_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/arrows/F1_Season_1986_1986_Arrows18_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Arrows17_Danner_DEU_preview.dds",
+        "destinationPath": "external_liveries/previews/arrows/Previews_1986_Arrows17_Danner_DEU_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Benetton19.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Benetton20.dds",
+        "destinationPath": "external_liveries/car_liveries/benetton/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Benetton19_preview.dds",
+        "destinationPath": "external_liveries/previews/benetton/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Benetton_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Benetton_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Benetton_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Benetton_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_rims_lowspec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_rims_lowspec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_rims_lowspec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Tires\\86_Pirelli_diff.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Tires/86_Pirelli_diff.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Tires\\86_Pirelli_norm.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Tires/86_Pirelli_norm.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Tires\\86_Pirelli_diff_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Tires/86_Pirelli_diff_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Tires\\86_Pirelli_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Tires/86_Pirelli_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Tires\\86_Pirelli_spec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Tires/86_Pirelli_spec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Benetton_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Benetton_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Benetton_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Benetton_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Benetton_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Benetton_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Benetton_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Benetton_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_visor_spec_sticker.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Osella21.dds",
+        "destinationPath": "external_liveries/car_liveries/osella/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Osella22_Berg.dds",
+        "destinationPath": "external_liveries/car_liveries/osella/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Previews\\1986_Osella21_preview.dds",
+        "destinationPath": "external_liveries/previews/osella/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_Osella_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_Osella_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_Osella_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_Osella_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Osella_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Osella_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Osella_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Osella_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Osella_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Osella_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Osella_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Osella_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Helmets\\86_visor_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_visor_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Osella22_Danner.dds",
+        "destinationPath": "external_liveries/car_liveries/osella/F1_Season_1986_1986_Osella22_Danner.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Previews\\1986_Osella22_Danner_preview.dds",
+        "destinationPath": "external_liveries/previews/osella/Previews_1986_Osella22_Danner_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Minardi23.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Minardi24.dds",
+        "destinationPath": "external_liveries/car_liveries/minardi/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Previews\\1986_Minardi23_preview.dds",
+        "destinationPath": "external_liveries/previews/minardi/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_Minardi_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_Minardi_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_Minardi_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_Minardi_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Minardi_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Minardi_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Minardi_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Minardi_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Minardi_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Minardi_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Minardi_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Minardi_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Ligier25.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Ligier26_Laffite.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Previews\\1986_Ligier25_preview.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_Ligier_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_Ligier_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_Ligier_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_Ligier_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_rims_lowspec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_rims_lowspec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Rims\\1986_rims_lowspec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Rims/1986_rims_lowspec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Tires\\86_Pirelli_diff.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Tires/86_Pirelli_diff.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Tires\\86_Pirelli_norm.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Tires/86_Pirelli_norm.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Tires\\86_Pirelli_diff_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Tires/86_Pirelli_diff_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Tires\\86_Pirelli_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Tires/86_Pirelli_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Tires\\86_Pirelli_spec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Tires/86_Pirelli_spec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Ligier_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Ligier_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Ligier_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Ligier_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Ligier_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Ligier_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\86_Ligier_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/86_Ligier_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Suits\\red_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Suits/red_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Helmets\\86_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Helmets\\86_visor_spec_sticker.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_visor_spec_sticker.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Ligier25_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier25_GBR.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Ligier26_Alliot_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Alliot_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Previews\\1986_Ligier25_GBR_preview.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/Previews_1986_Ligier25_GBR_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Ligier26_Alliot.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Alliot.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\Previews\\1986_Ligier26_Alliot_preview.dds",
+        "destinationPath": "external_liveries/previews/ligier_prost/Previews_1986_Ligier26_Alliot_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Ferrari27.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Ferrari28.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/default_driver2.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Ferrari27_preview.dds",
+        "destinationPath": "external_liveries/previews/ferrari/default.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Ferrari_rims.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Ferrari_rims.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Ferrari_rims_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Ferrari_rims_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Ferrari_rims_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Ferrari_rims_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Rims\\1986_Ferrari_rims_spec_blur.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Rims/1986_Ferrari_rims_spec_blur.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Ferrari_body.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Ferrari_body.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Ferrari_arms.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Ferrari_arms.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Ferrari_gloves.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Ferrari_gloves.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\86_Ferrari_legs.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/86_Ferrari_legs.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Suits\\black_safety_harness.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Suits/black_safety_harness.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Helmets\\86_helmet_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_helmet_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Helmets\\86_visor_spec.dds",
+        "destinationPath": "static_assets/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_visor_spec.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Ferrari27_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_1986_1986_Ferrari27_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\1986_Ferrari28_DEU.dds",
+        "destinationPath": "external_liveries/car_liveries/ferrari/F1_Season_1986_1986_Ferrari28_DEU.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m2\\F1_Season_1986\\Previews\\1986_Ferrari27_DEU_preview.dds",
+        "destinationPath": "external_liveries/previews/ferrari/Previews_1986_Ferrari27_DEU_preview.dds"
+      },
+      {
+        "sourcePath": "[AMS2]F1_1986_Season\\Vehicles\\Textures\\CustomLiveries\\Overrides\\formula_classic_g1m1\\F1_Season_1986\\1986_Ligier26_Laffite_GBR.dds",
+        "destinationPath": "external_liveries/car_liveries/ligier_prost/F1_Season_1986_1986_Ligier26_Laffite_GBR.dds"
+      }
+    ],
+    "helmets": {
+      "mclaren": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_Rosberg_helmet.dds",
+        "map": "sponsor_maps/mclaren.png",
+        "visor": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_McLaren_visor.dds"
+      },
+      "tyrrell": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_Brundle_helmet.dds",
+        "map": "sponsor_maps/tyrrell.png",
+        "visor": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_Tyrrell_visor.dds"
+      },
+      "williams": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_Piquet_helmet.dds",
+        "map": "sponsor_maps/williams.png",
+        "visor": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_Williams_visor.dds"
+      },
+      "brabham": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_Patrese_helmet.dds",
+        "map": "sponsor_maps/brabham.png",
+        "visor": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_Brabham_visor.dds"
+      },
+      "lotus": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/lotus_98T/F1_Season_1986/Helmets/86_Dumfries_helmet.dds",
+        "map": "sponsor_maps/lotus.png",
+        "visor": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/lotus_98T/F1_Season_1986/Helmets/86_Lotus_visor.dds"
+      },
+      "zakspeed": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_Palmer_helmet.dds",
+        "map": "sponsor_maps/zakspeed.png",
+        "visor": null
+      },
+      "lola": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_Cheever_helmet.dds",
+        "map": "sponsor_maps/lola.png",
+        "visor": null
+      },
+      "benetton": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_Fabi_helmet.dds",
+        "map": "sponsor_maps/benetton.png",
+        "visor": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_Benetton_visor.dds"
+      },
+      "minardi": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_DeCesaris_helmet.dds",
+        "map": "sponsor_maps/minardi.png",
+        "visor": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_Minardi_visor.dds"
+      },
+      "ligier_prost": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_Arnoux_helmet.dds",
+        "map": "sponsor_maps/ligier_prost.png",
+        "visor": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m1/F1_Season_1986/Helmets/86_Ligier_visor.dds"
+      },
+      "ferrari": {
+        "samples": [],
+        "helmet": "[AMS2]F1_1986_Season/Vehicles/Textures/CustomLiveries/Overrides/formula_classic_g1m2/F1_Season_1986/Helmets/86_Alboreto_helmet.dds",
+        "map": "sponsor_maps/ferrari.png",
+        "visor": null
+      }
+    },
+    "helmet_model": "Eighties"
+  }
+}
