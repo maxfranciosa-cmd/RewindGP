@@ -1,0 +1,5221 @@
+{
+  "currentSeason": {
+    "$type": "AMS2ChEd.Business.AMS2.Models.Ams2Season",
+    "ams2Class": "F-Ultimate",
+    "year": 2017,
+    "original_year": null,
+    "points_system": {
+      "1": 25,
+      "2": 18,
+      "3": 15,
+      "4": 12,
+      "5": 10,
+      "6": 8,
+      "7": 6,
+      "8": 4,
+      "9": 2,
+      "10": 1
+    },
+    "points_for_fastest_lap": 0,
+    "races": [
+      {
+        "race_id": 1,
+        "race_name": "Australian Grand Prix",
+        "race_short_name": "AUS",
+        "race_date": "2017-03-26",
+        "circuit": "Australia Albert Park Grand Prix Circuit, Melbourne",
+        "cover_picture": "https://www.progcovers.com/motor/melbourne170326.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 2,
+        "race_name": "Chinese Grand Prix",
+        "race_short_name": "CHN",
+        "race_date": "2017-04-09",
+        "circuit": "China Shanghai International Circuit, Shanghai",
+        "cover_picture": "https://www.progcovers.com/motor/shanghai170409.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 3,
+        "race_name": "Bahrain Grand Prix",
+        "race_short_name": "BAH",
+        "race_date": "2017-04-16",
+        "circuit": "Bahrain Bahrain International Circuit, Sakhir",
+        "cover_picture": "https://www.progcovers.com/motor/bahrain170416.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 4,
+        "race_name": "Russian Grand Prix",
+        "race_short_name": "RUS",
+        "race_date": "2017-04-30",
+        "circuit": "Russia Sochi Autodrom, Sochi",
+        "cover_picture": "https://www.progcovers.com/motor/sochi170430.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 5,
+        "race_name": "Spanish Grand Prix",
+        "race_short_name": "ESP",
+        "race_date": "2017-05-14",
+        "circuit": "Spain Circuit de Barcelona-Catalunya, Barcelona",
+        "cover_picture": "https://www.progcovers.com/motor/catalunya170514.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 6,
+        "race_name": "Monaco Grand Prix",
+        "race_short_name": "MON",
+        "race_date": "2017-05-28",
+        "circuit": "Monaco Circuit de Monaco, Monte Carlo",
+        "cover_picture": "https://www.progcovers.com/motor/monaco170528.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 7,
+        "race_name": "Canadian Grand Prix",
+        "race_short_name": "CAN",
+        "race_date": "2017-06-11",
+        "circuit": "Canada Circuit Gilles Villeneuve, Montreal",
+        "cover_picture": "https://www.progcovers.com/motor/montreal170611.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 8,
+        "race_name": "Azerbaijan Grand Prix",
+        "race_short_name": "AZE",
+        "race_date": "2017-06-25",
+        "circuit": "Azerbaijan Baku City Circuit, Baku",
+        "cover_picture": "https://www.progcovers.com/motor/baku170625.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 9,
+        "race_name": "Austrian Grand Prix",
+        "race_short_name": "AUT",
+        "race_date": "2017-07-09",
+        "circuit": "Austria Red Bull Ring, Spielberg",
+        "cover_picture": "https://www.progcovers.com/motor/redbullring170709.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 10,
+        "race_name": "British Grand Prix",
+        "race_short_name": "GBR",
+        "race_date": "2017-07-16",
+        "circuit": "UK Silverstone Circuit, Silverstone",
+        "cover_picture": "https://www.progcovers.com/motor/silverstone170716.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 11,
+        "race_name": "Hungarian Grand Prix",
+        "race_short_name": "HUN",
+        "race_date": "2017-07-30",
+        "circuit": "Hungary Hungaroring, Budapest",
+        "cover_picture": "https://www.progcovers.com/motor/hungaroring170730.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 12,
+        "race_name": "Belgian Grand Prix",
+        "race_short_name": "BEL",
+        "race_date": "2017-08-27",
+        "circuit": "Belgium Circuit de Spa-Francorchamps, Spa",
+        "cover_picture": "https://www.progcovers.com/motor/spa170827.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 13,
+        "race_name": "Italian Grand Prix",
+        "race_short_name": "ITA",
+        "race_date": "2017-09-03",
+        "circuit": "Italy Autodromo Nazionale di Monza, Monza",
+        "cover_picture": "https://www.progcovers.com/motor/monza170903.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 14,
+        "race_name": "Singapore Grand Prix",
+        "race_short_name": "SIN",
+        "race_date": "2017-09-17",
+        "circuit": "Singapore Marina Bay Street Circuit, Marina Bay",
+        "cover_picture": "https://www.progcovers.com/motor/singapore170917.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 15,
+        "race_name": "Malaysian Grand Prix",
+        "race_short_name": "MAL",
+        "race_date": "2017-10-01",
+        "circuit": "Malaysia Sepang International Circuit, Kuala Lumpur",
+        "cover_picture": "https://www.progcovers.com/motor/kualalumpur171001.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 16,
+        "race_name": "Japanese Grand Prix",
+        "race_short_name": "JPN",
+        "race_date": "2017-10-08",
+        "circuit": "Japan Suzuka Circuit, Suzuka",
+        "cover_picture": "https://www.progcovers.com/motor/suzuka171008.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 17,
+        "race_name": "United States Grand Prix",
+        "race_short_name": "USA",
+        "race_date": "2017-10-22",
+        "circuit": "USA Circuit of the Americas, Austin",
+        "cover_picture": "https://www.progcovers.com/motor/austin171022.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 18,
+        "race_name": "Mexican Grand Prix",
+        "race_short_name": "MEX",
+        "race_date": "2017-10-29",
+        "circuit": "Mexico Aut\u00F3dromo Hermanos Rodr\u00EDguez, Mexico City",
+        "cover_picture": "https://www.progcovers.com/motor/mexico171029.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 19,
+        "race_name": "Brazilian Grand Prix",
+        "race_short_name": "BRA",
+        "race_date": "2017-11-12",
+        "circuit": "Brazil Aut\u00F3dromo Jos\u00E9 Carlos Pace, S\u00E3o Paulo",
+        "cover_picture": "https://www.progcovers.com/motor/interlagos171112.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      },
+      {
+        "race_id": 20,
+        "race_name": "Abu Dhabi Grand Prix",
+        "race_short_name": "ABU",
+        "race_date": "2017-11-26",
+        "circuit": "UAE Yas Marina Circuit, Abu Dhabi",
+        "cover_picture": "https://www.progcovers.com/motor/yasmarina171126.jpg",
+        "points_system": null,
+        "points_for_fastest_lap": null,
+        "ignore_for_positions_tally": false
+      }
+    ],
+    "teams": [
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_ultimate_2019",
+        "ams2carPerformanceMalus": {
+          "consistency": 0,
+          "defending": 0,
+          "fuel_management": 0,
+          "qualifying_skill": 0,
+          "race_skill": 0,
+          "tyre_management": 0,
+          "vehicle_reliability": -0.451,
+          "wet_skill": 0,
+          "weight_scalar": -0.98,
+          "power_scalar": -1.02,
+          "drag_scalar": -0.98
+        },
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": null,
+        "base_livery_driver2": null,
+        "helmet_sponsors": null,
+        "visor_sponsors": null,
+        "drivers_specific_helmet": null,
+        "numbers_placements": null,
+        "livery_overrides": null,
+        "livery_preview": null,
+        "livery_xml": null,
+        "generic_livery": {
+          "template": "hybrid_g2_1",
+          "palette": {
+            "red": "#C40000",
+            "green": "#C40000",
+            "blue": "#C40000",
+            "yellow": "#141414",
+            "magenta": "#C40000",
+            "cyan": "#141414"
+          },
+          "number_style": "bahnschrift",
+          "number_fill": "#E9E5E1",
+          "number_outline": null,
+          "tyres": null,
+          "suit": null
+        },
+        "cosmetic_fallbacks": [
+          {
+            "season": 2018
+          },
+          {
+            "season": 2019
+          },
+          {
+            "season": 2020
+          }
+        ],
+        "team_id": "ferrari",
+        "team_name": "Ferrari",
+        "short_name": "Ferrari",
+        "team_principal": "Maurizio Arrivabene",
+        "reputation": "TOP_TEAM",
+        "driver1_contract": {
+          "driver_id": "sebastian_vettel",
+          "races": 62,
+          "drivernumber": 5,
+          "role": "UNDEFINED"
+        },
+        "driver2_contract": {
+          "driver_id": "kimi_raikkonen",
+          "races": 41,
+          "drivernumber": 7,
+          "role": "UNDEFINED"
+        },
+        "reserve_contract": null,
+        "color": "#DC0000",
+        "default_prequalifying": false,
+        "improvement_packages": null
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_ultimate_2019",
+        "ams2carPerformanceMalus": {
+          "consistency": 0,
+          "defending": 0,
+          "fuel_management": 0,
+          "qualifying_skill": 0,
+          "race_skill": 0,
+          "tyre_management": 0,
+          "vehicle_reliability": -0.342,
+          "wet_skill": 0,
+          "weight_scalar": -1.002,
+          "power_scalar": -0.998,
+          "drag_scalar": -1.002
+        },
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": null,
+        "base_livery_driver2": null,
+        "helmet_sponsors": null,
+        "visor_sponsors": null,
+        "drivers_specific_helmet": null,
+        "numbers_placements": null,
+        "livery_overrides": null,
+        "livery_preview": null,
+        "livery_xml": null,
+        "generic_livery": {
+          "template": "hybrid_g2_1",
+          "palette": {
+            "red": "#F596C8",
+            "green": "#F596C8",
+            "blue": "#F596C8",
+            "yellow": "#E9E5E1",
+            "magenta": "#F596C8",
+            "cyan": "#141414"
+          },
+          "number_style": "lato_italic",
+          "number_fill": "#141414",
+          "number_outline": null,
+          "tyres": null,
+          "suit": null
+        },
+        "cosmetic_fallbacks": [
+          {
+            "season": 2018
+          }
+        ],
+        "team_id": "jordan",
+        "team_name": "Force India Mercedes",
+        "short_name": "Force India",
+        "team_principal": "Vijay Mallya",
+        "reputation": "MIDFIELD_HIGH",
+        "driver1_contract": {
+          "driver_id": "sergio_perez",
+          "races": 62,
+          "drivernumber": 11,
+          "role": "UNDEFINED"
+        },
+        "driver2_contract": {
+          "driver_id": "esteban_ocon",
+          "races": 41,
+          "drivernumber": 31,
+          "role": "UNDEFINED"
+        },
+        "reserve_contract": null,
+        "color": "#F596C8",
+        "default_prequalifying": false,
+        "improvement_packages": null
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_ultimate_2019",
+        "ams2carPerformanceMalus": {
+          "consistency": 0,
+          "defending": 0,
+          "fuel_management": 0,
+          "qualifying_skill": 0,
+          "race_skill": 0,
+          "tyre_management": 0,
+          "vehicle_reliability": -0.244,
+          "wet_skill": 0,
+          "weight_scalar": -1.021,
+          "power_scalar": -0.979,
+          "drag_scalar": -1.021
+        },
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": null,
+        "base_livery_driver2": null,
+        "helmet_sponsors": null,
+        "visor_sponsors": null,
+        "drivers_specific_helmet": null,
+        "numbers_placements": null,
+        "livery_overrides": null,
+        "livery_preview": null,
+        "livery_xml": null,
+        "generic_livery": {
+          "template": "hybrid_g2_1",
+          "palette": {
+            "red": "#8A8B8C",
+            "green": "#8A8B8C",
+            "blue": "#141414",
+            "yellow": "#C8102E",
+            "magenta": "#8A8B8C",
+            "cyan": "#141414"
+          },
+          "number_style": "franklin_italic",
+          "number_fill": "#E9E5E1",
+          "number_outline": null,
+          "tyres": null,
+          "suit": null
+        },
+        "cosmetic_fallbacks": [
+          {
+            "season": 2018
+          }
+        ],
+        "team_id": "haas",
+        "team_name": "Haas Ferrari",
+        "short_name": "Haas",
+        "team_principal": "Guenther Steiner",
+        "reputation": "MIDFIELD",
+        "driver1_contract": {
+          "driver_id": "romain_grosjean",
+          "races": 62,
+          "drivernumber": 8,
+          "role": "UNDEFINED"
+        },
+        "driver2_contract": {
+          "driver_id": "kevin_magnussen",
+          "races": 62,
+          "drivernumber": 20,
+          "role": "UNDEFINED"
+        },
+        "reserve_contract": null,
+        "color": "#828282",
+        "default_prequalifying": false,
+        "improvement_packages": null
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_ultimate_2019",
+        "ams2carPerformanceMalus": {
+          "consistency": 0,
+          "defending": 0,
+          "fuel_management": 0,
+          "qualifying_skill": 0,
+          "race_skill": 0,
+          "tyre_management": 0,
+          "vehicle_reliability": -0.223,
+          "wet_skill": 0,
+          "weight_scalar": -1.025,
+          "power_scalar": -0.975,
+          "drag_scalar": -1.025
+        },
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": null,
+        "base_livery_driver2": null,
+        "helmet_sponsors": null,
+        "visor_sponsors": null,
+        "drivers_specific_helmet": null,
+        "numbers_placements": null,
+        "livery_overrides": null,
+        "livery_preview": null,
+        "livery_xml": null,
+        "generic_livery": {
+          "template": "hybrid_g2_1",
+          "palette": {
+            "red": "#FF8000",
+            "green": "#FF8000",
+            "blue": "#141414",
+            "yellow": "#141414",
+            "magenta": "#141414",
+            "cyan": "#141414"
+          },
+          "number_style": "angular",
+          "number_fill": "#141414",
+          "number_outline": null,
+          "tyres": null,
+          "suit": null
+        },
+        "team_id": "mclaren",
+        "team_name": "McLaren Honda",
+        "short_name": "McLaren",
+        "team_principal": "Eric Boullier",
+        "reputation": "MIDFIELD",
+        "driver1_contract": {
+          "driver_id": "stoffel_vandoorne",
+          "races": 41,
+          "drivernumber": 2,
+          "role": "UNDEFINED"
+        },
+        "driver2_contract": {
+          "driver_id": "fernando_alonso",
+          "races": 41,
+          "drivernumber": 14,
+          "role": "UNDEFINED"
+        },
+        "reserve_contract": null,
+        "color": "#FF8700",
+        "default_prequalifying": false,
+        "improvement_packages": null
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_ultimate_2019",
+        "ams2carPerformanceMalus": {
+          "consistency": 0,
+          "defending": 0,
+          "fuel_management": 0,
+          "qualifying_skill": 0,
+          "race_skill": 0,
+          "tyre_management": 0,
+          "vehicle_reliability": -0.5,
+          "wet_skill": 0,
+          "weight_scalar": -0.97,
+          "power_scalar": -1.03,
+          "drag_scalar": -0.97
+        },
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": null,
+        "base_livery_driver2": null,
+        "helmet_sponsors": null,
+        "visor_sponsors": null,
+        "drivers_specific_helmet": null,
+        "numbers_placements": null,
+        "livery_overrides": null,
+        "livery_preview": null,
+        "livery_xml": null,
+        "generic_livery": {
+          "template": "hybrid_g2_1",
+          "palette": {
+            "red": "#A8A9AD",
+            "green": "#A8A9AD",
+            "blue": "#A8A9AD",
+            "yellow": "#00D2BE",
+            "magenta": "#A8A9AD",
+            "cyan": "#141414"
+          },
+          "number_style": "lato_outline",
+          "number_fill": "#141414",
+          "number_outline": "#E9E5E1",
+          "tyres": null,
+          "suit": null
+        },
+        "cosmetic_fallbacks": [
+          {
+            "season": 2018
+          },
+          {
+            "season": 2019
+          }
+        ],
+        "team_id": "mercedes",
+        "team_name": "Mercedes",
+        "short_name": "Mercedes",
+        "team_principal": "Toto Wolff",
+        "reputation": "TOP_TEAM",
+        "driver1_contract": {
+          "driver_id": "lewis_hamilton",
+          "races": 62,
+          "drivernumber": 44,
+          "role": "UNDEFINED"
+        },
+        "driver2_contract": {
+          "driver_id": "valtteri_bottas",
+          "races": 62,
+          "drivernumber": 77,
+          "role": "UNDEFINED"
+        },
+        "reserve_contract": null,
+        "color": "#00D2BE",
+        "default_prequalifying": false,
+        "improvement_packages": null
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_ultimate_2019",
+        "ams2carPerformanceMalus": {
+          "consistency": 0,
+          "defending": 0,
+          "fuel_management": 0,
+          "qualifying_skill": 0,
+          "race_skill": 0,
+          "tyre_management": 0,
+          "vehicle_reliability": -0.399,
+          "wet_skill": 0,
+          "weight_scalar": -0.99,
+          "power_scalar": -1.01,
+          "drag_scalar": -0.99
+        },
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": null,
+        "base_livery_driver2": null,
+        "helmet_sponsors": null,
+        "visor_sponsors": null,
+        "drivers_specific_helmet": null,
+        "numbers_placements": null,
+        "livery_overrides": null,
+        "livery_preview": null,
+        "livery_xml": null,
+        "generic_livery": {
+          "template": "hybrid_g2_1",
+          "palette": {
+            "red": "#0B1A3A",
+            "green": "#0B1A3A",
+            "blue": "#0B1A3A",
+            "yellow": "#C8102E",
+            "magenta": "#FCCC0C",
+            "cyan": "#141414"
+          },
+          "number_style": "prolamina",
+          "number_fill": "#E9E5E1",
+          "number_outline": null,
+          "tyres": null,
+          "suit": null
+        },
+        "cosmetic_fallbacks": [
+          {
+            "season": 2018
+          },
+          {
+            "season": 2019
+          },
+          {
+            "season": 2020
+          },
+          {
+            "season": 2021
+          }
+        ],
+        "team_id": "stewart",
+        "team_name": "Red Bull TAG Heuer",
+        "short_name": "Red Bull",
+        "team_principal": "Christian Horner",
+        "reputation": "TOP_TEAM",
+        "driver1_contract": {
+          "driver_id": "daniel_ricciardo",
+          "races": 41,
+          "drivernumber": 3,
+          "role": "UNDEFINED"
+        },
+        "driver2_contract": {
+          "driver_id": "max_verstappen",
+          "races": 62,
+          "drivernumber": 33,
+          "role": "UNDEFINED"
+        },
+        "reserve_contract": null,
+        "color": "#1E41FF",
+        "default_prequalifying": false,
+        "improvement_packages": null
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_ultimate_2019",
+        "ams2carPerformanceMalus": {
+          "consistency": 0,
+          "defending": 0,
+          "fuel_management": 0,
+          "qualifying_skill": 0,
+          "race_skill": 0,
+          "tyre_management": 0,
+          "vehicle_reliability": -0.279,
+          "wet_skill": 0,
+          "weight_scalar": -1.014,
+          "power_scalar": -0.986,
+          "drag_scalar": -1.014
+        },
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": null,
+        "base_livery_driver2": null,
+        "helmet_sponsors": null,
+        "visor_sponsors": null,
+        "drivers_specific_helmet": null,
+        "numbers_placements": null,
+        "livery_overrides": null,
+        "livery_preview": null,
+        "livery_xml": null,
+        "generic_livery": {
+          "template": "hybrid_g2_1",
+          "palette": {
+            "red": "#FFD800",
+            "green": "#141414",
+            "blue": "#141414",
+            "yellow": "#FFD800",
+            "magenta": "#FFD800",
+            "cyan": "#141414"
+          },
+          "number_style": "geometric_outline",
+          "number_fill": "#141414",
+          "number_outline": "#E9E5E1",
+          "tyres": null,
+          "suit": null
+        },
+        "cosmetic_fallbacks": [
+          {
+            "season": 2018
+          },
+          {
+            "season": 2019
+          }
+        ],
+        "team_id": "benetton",
+        "team_name": "Renault",
+        "short_name": "Renault",
+        "team_principal": "Cyril Abiteboul",
+        "reputation": "MIDFIELD",
+        "driver1_contract": {
+          "driver_id": "nico_hulkenberg",
+          "races": 62,
+          "drivernumber": 27,
+          "role": "UNDEFINED"
+        },
+        "driver2_contract": {
+          "driver_id": "jolyon_palmer",
+          "races": 20,
+          "drivernumber": 30,
+          "role": "UNDEFINED"
+        },
+        "reserve_contract": null,
+        "color": "#FFF500",
+        "default_prequalifying": false,
+        "improvement_packages": null
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_ultimate_2019",
+        "ams2carPerformanceMalus": {
+          "consistency": 0,
+          "defending": 0,
+          "fuel_management": 0,
+          "qualifying_skill": 0,
+          "race_skill": 0,
+          "tyre_management": 0,
+          "vehicle_reliability": -0.201,
+          "wet_skill": 0,
+          "weight_scalar": -1.03,
+          "power_scalar": -0.97,
+          "drag_scalar": -1.03
+        },
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": null,
+        "base_livery_driver2": null,
+        "helmet_sponsors": null,
+        "visor_sponsors": null,
+        "drivers_specific_helmet": null,
+        "numbers_placements": null,
+        "livery_overrides": null,
+        "livery_preview": null,
+        "livery_xml": null,
+        "generic_livery": {
+          "template": "hybrid_g2_1",
+          "palette": {
+            "red": "#E9E5E1",
+            "green": "#0A2452",
+            "blue": "#0A2452",
+            "yellow": "#0A2452",
+            "magenta": "#E9E5E1",
+            "cyan": "#141414"
+          },
+          "number_style": "arial_outline",
+          "number_fill": "#141414",
+          "number_outline": "#E9E5E1",
+          "tyres": null,
+          "suit": null
+        },
+        "team_id": "sauber",
+        "team_name": "Sauber Ferrari",
+        "short_name": "Sauber",
+        "team_principal": "Monisha Kaltenborn",
+        "reputation": "MINNOW",
+        "driver1_contract": {
+          "driver_id": "marcus_ericsson",
+          "races": 41,
+          "drivernumber": 9,
+          "role": "UNDEFINED"
+        },
+        "driver2_contract": {
+          "driver_id": "pascal_wehrlein",
+          "races": 20,
+          "drivernumber": 94,
+          "role": "UNDEFINED"
+        },
+        "reserve_contract": null,
+        "color": "#006EFF",
+        "default_prequalifying": false,
+        "improvement_packages": null
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_ultimate_2019",
+        "ams2carPerformanceMalus": {
+          "consistency": 0,
+          "defending": 0,
+          "fuel_management": 0,
+          "qualifying_skill": 0,
+          "race_skill": 0,
+          "tyre_management": 0,
+          "vehicle_reliability": -0.262,
+          "wet_skill": 0,
+          "weight_scalar": -1.018,
+          "power_scalar": -0.982,
+          "drag_scalar": -1.018
+        },
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": null,
+        "base_livery_driver2": null,
+        "helmet_sponsors": null,
+        "visor_sponsors": null,
+        "drivers_specific_helmet": null,
+        "numbers_placements": null,
+        "livery_overrides": null,
+        "livery_preview": null,
+        "livery_xml": null,
+        "generic_livery": {
+          "template": "hybrid_g2_1",
+          "palette": {
+            "red": "#1C3C9A",
+            "green": "#1C3C9A",
+            "blue": "#1C3C9A",
+            "yellow": "#C8102E",
+            "magenta": "#C8102E",
+            "cyan": "#141414"
+          },
+          "number_style": "segoe_italic",
+          "number_fill": "#E9E5E1",
+          "number_outline": null,
+          "tyres": null,
+          "suit": null
+        },
+        "cosmetic_fallbacks": [
+          {
+            "season": 2018
+          },
+          {
+            "season": 2019
+          }
+        ],
+        "team_id": "toro_rosso",
+        "team_name": "Toro Rosso",
+        "short_name": "Toro Rosso",
+        "team_principal": "Franz Tost",
+        "reputation": "MIDFIELD",
+        "driver1_contract": {
+          "driver_id": "carlos_sainz",
+          "races": 20,
+          "drivernumber": 55,
+          "role": "UNDEFINED"
+        },
+        "driver2_contract": {
+          "driver_id": "daniil_kvyat",
+          "races": 20,
+          "drivernumber": 26,
+          "role": "UNDEFINED"
+        },
+        "reserve_contract": null,
+        "color": "#469BFF",
+        "default_prequalifying": false,
+        "improvement_packages": null
+      },
+      {
+        "$type": "AMS2ChEd.Business.AMS2.Models.Ams2TeamEntry",
+        "ams2car": "formula_ultimate_2019",
+        "ams2carPerformanceMalus": {
+          "consistency": 0,
+          "defending": 0,
+          "fuel_management": 0,
+          "qualifying_skill": 0,
+          "race_skill": 0,
+          "tyre_management": 0,
+          "vehicle_reliability": -0.302,
+          "wet_skill": 0,
+          "weight_scalar": -1.01,
+          "power_scalar": -0.99,
+          "drag_scalar": -1.01
+        },
+        "ams2carPerformanceMalusDriver2": null,
+        "base_livery_driver1": null,
+        "base_livery_driver2": null,
+        "helmet_sponsors": null,
+        "visor_sponsors": null,
+        "drivers_specific_helmet": null,
+        "numbers_placements": null,
+        "livery_overrides": null,
+        "livery_preview": null,
+        "livery_xml": null,
+        "generic_livery": {
+          "template": "hybrid_g2_1",
+          "palette": {
+            "red": "#E9E5E1",
+            "green": "#E9E5E1",
+            "blue": "#E9E5E1",
+            "yellow": "#0A2452",
+            "magenta": "#C8102E",
+            "cyan": "#141414"
+          },
+          "number_style": "segoe_italic",
+          "number_fill": "#141414",
+          "number_outline": null,
+          "tyres": null,
+          "suit": null
+        },
+        "cosmetic_fallbacks": [
+          {
+            "season": 2018
+          }
+        ],
+        "team_id": "williams",
+        "team_name": "Williams Mercedes",
+        "short_name": "Williams",
+        "team_principal": "Claire Williams",
+        "reputation": "MIDFIELD_HIGH",
+        "driver1_contract": {
+          "driver_id": "lance_stroll",
+          "races": 41,
+          "drivernumber": 18,
+          "role": "UNDEFINED"
+        },
+        "driver2_contract": {
+          "driver_id": "felipe_massa",
+          "races": 20,
+          "drivernumber": 19,
+          "role": "UNDEFINED"
+        },
+        "reserve_contract": null,
+        "color": "#E8E8E8",
+        "default_prequalifying": false,
+        "improvement_packages": null
+      }
+    ],
+    "absences": [
+      {
+        "race_id": 1,
+        "teamid": "sauber",
+        "driver_out": "pascal_wehrlein",
+        "driver_in": "antonio_giovinazzi",
+        "chainedAbsence": null,
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 2,
+        "teamid": "sauber",
+        "driver_out": "pascal_wehrlein",
+        "driver_in": "antonio_giovinazzi",
+        "chainedAbsence": null,
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 6,
+        "teamid": "mclaren",
+        "driver_out": "fernando_alonso",
+        "driver_in": "jenson_button",
+        "chainedAbsence": null,
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 11,
+        "teamid": "williams",
+        "driver_out": "felipe_massa",
+        "driver_in": "paul_di_resta",
+        "chainedAbsence": null,
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 15,
+        "teamid": "toro_rosso",
+        "driver_out": "daniil_kvyat",
+        "driver_in": "pierre_gasly",
+        "chainedAbsence": null,
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 16,
+        "teamid": "toro_rosso",
+        "driver_out": "daniil_kvyat",
+        "driver_in": "pierre_gasly",
+        "chainedAbsence": null,
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 17,
+        "teamid": "benetton",
+        "driver_out": "jolyon_palmer",
+        "driver_in": "carlos_sainz",
+        "chainedAbsence": {
+          "race_id": 17,
+          "teamid": "toro_rosso",
+          "driver_out": "carlos_sainz",
+          "driver_in": "brendon_hartley",
+          "chainedAbsence": null,
+          "reason": null,
+          "incident_race_id": null
+        },
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 18,
+        "teamid": "benetton",
+        "driver_out": "jolyon_palmer",
+        "driver_in": "carlos_sainz",
+        "chainedAbsence": {
+          "race_id": 18,
+          "teamid": "toro_rosso",
+          "driver_out": "carlos_sainz",
+          "driver_in": "pierre_gasly",
+          "chainedAbsence": null,
+          "reason": null,
+          "incident_race_id": null
+        },
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 18,
+        "teamid": "toro_rosso",
+        "driver_out": "daniil_kvyat",
+        "driver_in": "brendon_hartley",
+        "chainedAbsence": null,
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 19,
+        "teamid": "benetton",
+        "driver_out": "jolyon_palmer",
+        "driver_in": "carlos_sainz",
+        "chainedAbsence": {
+          "race_id": 19,
+          "teamid": "toro_rosso",
+          "driver_out": "carlos_sainz",
+          "driver_in": "pierre_gasly",
+          "chainedAbsence": null,
+          "reason": null,
+          "incident_race_id": null
+        },
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 19,
+        "teamid": "toro_rosso",
+        "driver_out": "daniil_kvyat",
+        "driver_in": "brendon_hartley",
+        "chainedAbsence": null,
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 20,
+        "teamid": "benetton",
+        "driver_out": "jolyon_palmer",
+        "driver_in": "carlos_sainz",
+        "chainedAbsence": {
+          "race_id": 20,
+          "teamid": "toro_rosso",
+          "driver_out": "carlos_sainz",
+          "driver_in": "brendon_hartley",
+          "chainedAbsence": null,
+          "reason": null,
+          "incident_race_id": null
+        },
+        "reason": null,
+        "incident_race_id": null
+      },
+      {
+        "race_id": 20,
+        "teamid": "toro_rosso",
+        "driver_out": "daniil_kvyat",
+        "driver_in": "pierre_gasly",
+        "chainedAbsence": null,
+        "reason": null,
+        "incident_race_id": null
+      }
+    ],
+    "max_drivers_per_race": null,
+    "slug": null,
+    "races_to_count_towards_championship": null
+  },
+  "drivers": [
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "21_vertical_stripes",
+        "palette": {
+          "red": "#E9E5E1",
+          "green": "#009246",
+          "blue": "#C8102E",
+          "yellow": "#009246",
+          "magenta": "#009246"
+        }
+      },
+      "driver_id": "antonio_giovinazzi",
+      "name": "Antonio Giovinazzi",
+      "nationality": "ITA",
+      "year_of_birth": 1993,
+      "picture": "https://www.statsf1.com/pilotes/photos/giovinaz.png",
+      "generic_avatar": {
+        "skin": "#E0B08A",
+        "hair": "short",
+        "hair_colour": "#1C1814",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        99
+      ],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.921,
+        "avoidance_of_forced_mistakes": 0.849,
+        "avoidance_of_mistakes": 0.849,
+        "blue_flag_conceding": 0.838,
+        "consistency": 0.308,
+        "defending": 0.856,
+        "fuel_management": 0.85,
+        "qualifying_skill": 0.818,
+        "race_skill": 0.834,
+        "stamina": 0.856,
+        "start_reactions": 0.823,
+        "tyre_management": 0.828,
+        "weather_tyre_changes": 0.838,
+        "wet_skill": 0.816
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "11_chevron",
+        "palette": {
+          "red": "#141414",
+          "green": "#E9E5E1",
+          "blue": "#C8102E"
+        }
+      },
+      "driver_id": "brendon_hartley",
+      "name": "Brendon Hartley",
+      "nationality": "NZL",
+      "year_of_birth": 1989,
+      "picture": "https://www.statsf1.com/pilotes/photos/hartleyb.png",
+      "generic_avatar": {
+        "skin": "#F1D3BC",
+        "hair": "medium",
+        "hair_colour": "#C8A060",
+        "facial_hair": "none"
+      },
+      "favourite_numbers": [
+        28
+      ],
+      "reputation": "PRIME_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.891,
+        "avoidance_of_forced_mistakes": 0.851,
+        "avoidance_of_mistakes": 0.842,
+        "blue_flag_conceding": 0.842,
+        "consistency": 0.307,
+        "defending": 0.867,
+        "fuel_management": 0.89,
+        "qualifying_skill": 0.881,
+        "race_skill": 0.838,
+        "stamina": 0.845,
+        "start_reactions": 0.884,
+        "tyre_management": 0.84,
+        "weather_tyre_changes": 0.875,
+        "wet_skill": 0.838
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "23_skewed_vertical",
+        "palette": {
+          "red": "#0A2452",
+          "green": "#C8102E",
+          "blue": "#C8102E",
+          "yellow": "#C8102E",
+          "magenta": "#0A2452",
+          "cyan": "#F5D000"
+        }
+      },
+      "driver_id": "carlos_sainz",
+      "name": "Carlos Sainz",
+      "nationality": "ESP",
+      "year_of_birth": 1994,
+      "picture": "https://www.statsf1.com/pilotes/photos/sainz.png",
+      "generic_avatar": {
+        "skin": "#E0B08A",
+        "hair": "short",
+        "hair_colour": "#1C1814",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        55
+      ],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.878,
+        "avoidance_of_forced_mistakes": 0.825,
+        "avoidance_of_mistakes": 0.853,
+        "blue_flag_conceding": 0.832,
+        "consistency": 0.236,
+        "defending": 0.863,
+        "fuel_management": 0.803,
+        "qualifying_skill": 0.873,
+        "race_skill": 0.871,
+        "stamina": 0.877,
+        "start_reactions": 0.824,
+        "tyre_management": 0.846,
+        "weather_tyre_changes": 0.844,
+        "wet_skill": 0.855
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "03_flashy",
+        "palette": {
+          "red": "#C1C3B5",
+          "green": "#C51BBE",
+          "blue": "#F72100",
+          "yellow": "#3FD900"
+        }
+      },
+      "driver_id": "daniel_ricciardo",
+      "name": "Daniel Ricciardo",
+      "nationality": "AUS",
+      "year_of_birth": 1989,
+      "picture": "https://www.statsf1.com/pilotes/photos/ricciard.png",
+      "generic_avatar": {
+        "skin": "#E0B08A",
+        "hair": "curly",
+        "hair_colour": "#2A1E16",
+        "facial_hair": "full_beard"
+      },
+      "favourite_numbers": [
+        3
+      ],
+      "reputation": "PRIME_CHAMPIONSHIP_LEVEL_UNPROVEN",
+      "rating_values": {
+        "aggression": 0.926,
+        "avoidance_of_forced_mistakes": 0.951,
+        "avoidance_of_mistakes": 0.928,
+        "blue_flag_conceding": 0.959,
+        "consistency": 0.408,
+        "defending": 0.927,
+        "fuel_management": 0.963,
+        "qualifying_skill": 0.974,
+        "race_skill": 0.928,
+        "stamina": 0.941,
+        "start_reactions": 0.944,
+        "tyre_management": 0.954,
+        "weather_tyre_changes": 0.969,
+        "wet_skill": 0.949
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "07_spikey",
+        "palette": {
+          "red": "#C8102E",
+          "green": "#0A2452",
+          "blue": "#E9E5E1"
+        }
+      },
+      "driver_id": "daniil_kvyat",
+      "name": "Daniil Kvyat",
+      "nationality": "RUS",
+      "year_of_birth": 1994,
+      "picture": "https://www.statsf1.com/pilotes/photos/kvyat.png",
+      "generic_avatar": {
+        "skin": "#E8BC98",
+        "hair": "short",
+        "hair_colour": "#6A4A2E",
+        "facial_hair": "none"
+      },
+      "favourite_numbers": [
+        26
+      ],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.911,
+        "avoidance_of_forced_mistakes": 0.859,
+        "avoidance_of_mistakes": 0.858,
+        "blue_flag_conceding": 0.88,
+        "consistency": 0.229,
+        "defending": 0.873,
+        "fuel_management": 0.826,
+        "qualifying_skill": 0.847,
+        "race_skill": 0.835,
+        "stamina": 0.848,
+        "start_reactions": 0.854,
+        "tyre_management": 0.814,
+        "weather_tyre_changes": 0.841,
+        "wet_skill": 0.87
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "07_spikey",
+        "palette": {
+          "red": "#060A07",
+          "green": "#E52323",
+          "blue": "#F6F503"
+        }
+      },
+      "driver_id": "esteban_ocon",
+      "name": "Esteban Ocon",
+      "nationality": "FRA",
+      "year_of_birth": 1996,
+      "picture": "https://www.statsf1.com/pilotes/photos/ocon.png",
+      "generic_avatar": {
+        "skin": "#E0B08A",
+        "hair": "short",
+        "hair_colour": "#1C1814",
+        "facial_hair": "none"
+      },
+      "favourite_numbers": [
+        31
+      ],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.945,
+        "avoidance_of_forced_mistakes": 0.843,
+        "avoidance_of_mistakes": 0.862,
+        "blue_flag_conceding": 0.838,
+        "consistency": 0.204,
+        "defending": 0.833,
+        "fuel_management": 0.854,
+        "qualifying_skill": 0.877,
+        "race_skill": 0.854,
+        "stamina": 0.834,
+        "start_reactions": 0.826,
+        "tyre_management": 0.836,
+        "weather_tyre_changes": 0.842,
+        "wet_skill": 0.832
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "14_sunset",
+        "palette": {
+          "red": "#F2F2F2",
+          "green": "#1E8C3C",
+          "blue": "#F0D000",
+          "yellow": "#1C3C9C"
+        }
+      },
+      "driver_id": "felipe_massa",
+      "name": "Felipe Massa",
+      "nationality": "BRA",
+      "year_of_birth": 1981,
+      "picture": "https://www.statsf1.com/pilotes/photos/massa.png",
+      "generic_avatar": {
+        "skin": "#E8BC98",
+        "hair": "short",
+        "hair_colour": "#1C1814",
+        "facial_hair": "none"
+      },
+      "favourite_numbers": [
+        19
+      ],
+      "reputation": "AGEING_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.84,
+        "avoidance_of_forced_mistakes": 0.874,
+        "avoidance_of_mistakes": 0.918,
+        "blue_flag_conceding": 0.925,
+        "consistency": 0.334,
+        "defending": 0.895,
+        "fuel_management": 0.93,
+        "qualifying_skill": 0.877,
+        "race_skill": 0.927,
+        "stamina": 0.862,
+        "start_reactions": 0.891,
+        "tyre_management": 0.936,
+        "weather_tyre_changes": 0.927,
+        "wet_skill": 0.895
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "23_skewed_vertical",
+        "palette": {
+          "red": "#0087C6",
+          "green": "#C8102E",
+          "blue": "#C8102E",
+          "yellow": "#0087C6",
+          "magenta": "#F4C404",
+          "cyan": "#F4C404"
+        }
+      },
+      "driver_id": "fernando_alonso",
+      "name": "Fernando Alonso",
+      "nationality": "ESP",
+      "year_of_birth": 1981,
+      "picture": "https://www.statsf1.com/pilotes/photos/alonso.png",
+      "generic_avatar": {
+        "skin": "#E0B08A",
+        "hair": "longer_top",
+        "hair_colour": "#2A1E16",
+        "facial_hair": "full_beard",
+        "facial_hair_colour": "#5A5048"
+      },
+      "favourite_numbers": [
+        14
+      ],
+      "reputation": "AGEING_CHAMPIONSHIP_LEVEL",
+      "rating_values": {
+        "aggression": 0.98,
+        "avoidance_of_forced_mistakes": 0.96,
+        "avoidance_of_mistakes": 0.959,
+        "blue_flag_conceding": 0.965,
+        "consistency": 0.5,
+        "defending": 0.983,
+        "fuel_management": 1,
+        "qualifying_skill": 1,
+        "race_skill": 0.979,
+        "stamina": 0.939,
+        "start_reactions": 0.956,
+        "tyre_management": 0.987,
+        "weather_tyre_changes": 0.982,
+        "wet_skill": 0.999
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "17_tiers",
+        "palette": {
+          "red": "#F2F2F2",
+          "green": "#C8102E",
+          "blue": "#1C3C9C",
+          "yellow": "#1C3C9C"
+        }
+      },
+      "driver_id": "jenson_button",
+      "name": "Jenson Button",
+      "nationality": "GBR",
+      "year_of_birth": 1980,
+      "picture": "https://www.statsf1.com/pilotes/photos/button.png",
+      "generic_avatar": {
+        "skin": "#E8BC98",
+        "hair": "longer_top",
+        "hair_colour": "#8A6440",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        22
+      ],
+      "reputation": "AGEING_CHAMPIONSHIP_LEVEL_WASHED",
+      "rating_values": {
+        "aggression": 0.865,
+        "avoidance_of_forced_mistakes": 0.896,
+        "avoidance_of_mistakes": 0.931,
+        "blue_flag_conceding": 0.925,
+        "consistency": 0.456,
+        "defending": 0.924,
+        "fuel_management": 0.952,
+        "qualifying_skill": 0.937,
+        "race_skill": 0.922,
+        "stamina": 0.878,
+        "start_reactions": 0.925,
+        "tyre_management": 0.931,
+        "weather_tyre_changes": 0.931,
+        "wet_skill": 0.923
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "06_stripes",
+        "palette": {
+          "red": "#E9E5E1",
+          "green": "#0A2452",
+          "blue": "#C8102E"
+        }
+      },
+      "driver_id": "jolyon_palmer",
+      "name": "Jolyon Palmer",
+      "nationality": "GBR",
+      "year_of_birth": 1991,
+      "picture": "https://www.statsf1.com/pilotes/photos/palmerj.png",
+      "generic_avatar": {
+        "skin": "#E8BC98",
+        "hair": "side_part",
+        "hair_colour": "#2A1E16",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        30
+      ],
+      "reputation": "PRIME_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.857,
+        "avoidance_of_forced_mistakes": 0.89,
+        "avoidance_of_mistakes": 0.847,
+        "blue_flag_conceding": 0.858,
+        "consistency": 0.32,
+        "defending": 0.851,
+        "fuel_management": 0.859,
+        "qualifying_skill": 0.895,
+        "race_skill": 0.857,
+        "stamina": 0.87,
+        "start_reactions": 0.892,
+        "tyre_management": 0.892,
+        "weather_tyre_changes": 0.849,
+        "wet_skill": 0.858
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "23_skewed_vertical",
+        "palette": {
+          "red": "#EE1702",
+          "green": "#F2F2F2",
+          "blue": "#EE1702",
+          "yellow": "#EE1702",
+          "magenta": "#F2F2F2",
+          "cyan": "#F2F2F2"
+        }
+      },
+      "driver_id": "kevin_magnussen",
+      "name": "Kevin Magnussen",
+      "nationality": "DNK",
+      "year_of_birth": 1992,
+      "picture": "https://www.statsf1.com/pilotes/photos/magnusk.png",
+      "generic_avatar": {
+        "skin": "#F1D3BC",
+        "hair": "short",
+        "hair_colour": "#B08A5A",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        20
+      ],
+      "reputation": "PRIME_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.835,
+        "avoidance_of_forced_mistakes": 0.858,
+        "avoidance_of_mistakes": 0.847,
+        "blue_flag_conceding": 0.856,
+        "consistency": 0.336,
+        "defending": 0.852,
+        "fuel_management": 0.853,
+        "qualifying_skill": 0.865,
+        "race_skill": 0.846,
+        "stamina": 0.894,
+        "start_reactions": 0.865,
+        "tyre_management": 0.887,
+        "weather_tyre_changes": 0.89,
+        "wet_skill": 0.878
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "10_hashtag",
+        "palette": {
+          "red": "#030305",
+          "green": "#ECEAEB",
+          "blue": "#FC0404"
+        }
+      },
+      "driver_id": "kimi_raikkonen",
+      "name": "Kimi R\u00E4ikk\u00F6nen",
+      "nationality": "FIN",
+      "year_of_birth": 1979,
+      "picture": "https://www.statsf1.com/pilotes/photos/raikkone.png",
+      "generic_avatar": {
+        "skin": "#F1D3BC",
+        "hair": "short",
+        "hair_colour": "#B08A5A",
+        "facial_hair": "none"
+      },
+      "favourite_numbers": [
+        7
+      ],
+      "reputation": "AGEING_CHAMPIONSHIP_LEVEL_WASHED",
+      "rating_values": {
+        "aggression": 0.903,
+        "avoidance_of_forced_mistakes": 0.914,
+        "avoidance_of_mistakes": 0.947,
+        "blue_flag_conceding": 0.93,
+        "consistency": 0.5,
+        "defending": 0.938,
+        "fuel_management": 0.966,
+        "qualifying_skill": 0.946,
+        "race_skill": 0.934,
+        "stamina": 0.895,
+        "start_reactions": 0.904,
+        "tyre_management": 0.958,
+        "weather_tyre_changes": 0.898,
+        "wet_skill": 0.94
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "22_skewed",
+        "palette": {
+          "red": "#002C54",
+          "green": "#002C54",
+          "blue": "#D1DEF3",
+          "yellow": "#C8102E",
+          "magenta": "#002C54",
+          "cyan": "#002C54"
+        }
+      },
+      "driver_id": "lance_stroll",
+      "name": "Lance Stroll",
+      "nationality": "CAN",
+      "year_of_birth": 1998,
+      "picture": "https://www.statsf1.com/pilotes/photos/stroll.png",
+      "generic_avatar": {
+        "skin": "#F1D3BC",
+        "hair": "longer_top",
+        "hair_colour": "#2A1E16",
+        "facial_hair": "none"
+      },
+      "favourite_numbers": [
+        18
+      ],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.802,
+        "avoidance_of_forced_mistakes": 0.798,
+        "avoidance_of_mistakes": 0.838,
+        "blue_flag_conceding": 0.82,
+        "consistency": 0.257,
+        "defending": 0.799,
+        "fuel_management": 0.841,
+        "qualifying_skill": 0.811,
+        "race_skill": 0.773,
+        "stamina": 0.854,
+        "start_reactions": 0.829,
+        "tyre_management": 0.848,
+        "weather_tyre_changes": 0.813,
+        "wet_skill": 0.836
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "20_horizontal_stripes",
+        "palette": {
+          "red": "#633E9F",
+          "green": "#D0CD31",
+          "blue": "#633E9F",
+          "yellow": "#633E9F",
+          "magenta": "#1D2426",
+          "cyan": "#633E9F"
+        }
+      },
+      "driver_id": "lewis_hamilton",
+      "name": "Lewis Hamilton",
+      "nationality": "GBR",
+      "year_of_birth": 1985,
+      "picture": "https://www.statsf1.com/pilotes/photos/hamiltol.png",
+      "generic_avatar": {
+        "skin": "#8D5A3B",
+        "hair": "long",
+        "hair_colour": "#1C1814",
+        "facial_hair": "goatee"
+      },
+      "favourite_numbers": [
+        44
+      ],
+      "reputation": "AGEING_CHAMPIONSHIP_LEVEL",
+      "rating_values": {
+        "aggression": 0.949,
+        "avoidance_of_forced_mistakes": 0.989,
+        "avoidance_of_mistakes": 0.967,
+        "blue_flag_conceding": 0.958,
+        "consistency": 0.343,
+        "defending": 0.965,
+        "fuel_management": 1,
+        "qualifying_skill": 0.967,
+        "race_skill": 0.962,
+        "stamina": 0.937,
+        "start_reactions": 0.986,
+        "tyre_management": 0.999,
+        "weather_tyre_changes": 0.986,
+        "wet_skill": 1
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "12_halo",
+        "palette": {
+          "red": "#0A4FA0",
+          "green": "#FCCC0C",
+          "blue": "#E9E5E1"
+        }
+      },
+      "driver_id": "marcus_ericsson",
+      "name": "Marcus Ericsson",
+      "nationality": "SWE",
+      "year_of_birth": 1990,
+      "picture": "https://www.statsf1.com/pilotes/photos/ericsson.png",
+      "generic_avatar": {
+        "skin": "#F1D3BC",
+        "hair": "side_part",
+        "hair_colour": "#C8A060",
+        "facial_hair": "none"
+      },
+      "favourite_numbers": [
+        9
+      ],
+      "reputation": "PAY_DRIVER_SEASON",
+      "rating_values": {
+        "aggression": 0.792,
+        "avoidance_of_forced_mistakes": 0.805,
+        "avoidance_of_mistakes": 0.858,
+        "blue_flag_conceding": 0.8,
+        "consistency": 0.48,
+        "defending": 0.778,
+        "fuel_management": 0.857,
+        "qualifying_skill": 0.8,
+        "race_skill": 0.81,
+        "stamina": 0.83,
+        "start_reactions": 0.845,
+        "tyre_management": 0.854,
+        "weather_tyre_changes": 0.825,
+        "wet_skill": 0.808
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "22_skewed",
+        "palette": {
+          "red": "#F2F2F2",
+          "green": "#AC140D",
+          "blue": "#052594",
+          "yellow": "#F2F2F2",
+          "magenta": "#AC140D",
+          "cyan": "#052594"
+        }
+      },
+      "driver_id": "max_verstappen",
+      "name": "Max Verstappen",
+      "nationality": "NLD",
+      "year_of_birth": 1997,
+      "picture": "https://www.statsf1.com/pilotes/photos/verstapm.png",
+      "generic_avatar": {
+        "skin": "#F1D3BC",
+        "hair": "short",
+        "hair_colour": "#6B4A2E",
+        "facial_hair": "none"
+      },
+      "favourite_numbers": [
+        33
+      ],
+      "reputation": "YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN",
+      "rating_values": {
+        "aggression": 0.968,
+        "avoidance_of_forced_mistakes": 0.95,
+        "avoidance_of_mistakes": 0.978,
+        "blue_flag_conceding": 0.953,
+        "consistency": 0.218,
+        "defending": 0.979,
+        "fuel_management": 0.935,
+        "qualifying_skill": 0.97,
+        "race_skill": 0.956,
+        "stamina": 0.981,
+        "start_reactions": 0.942,
+        "tyre_management": 0.938,
+        "weather_tyre_changes": 0.94,
+        "wet_skill": 0.955
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "06_stripes",
+        "palette": {
+          "red": "#F5E000",
+          "green": "#0B0F10"
+        }
+      },
+      "driver_id": "nico_hulkenberg",
+      "name": "Nico H\u00FClkenberg",
+      "nationality": "DEU",
+      "year_of_birth": 1987,
+      "picture": "https://www.statsf1.com/pilotes/photos/hulkenbe.png",
+      "generic_avatar": {
+        "skin": "#F1D3BC",
+        "hair": "longer_top",
+        "hair_colour": "#B08A5A",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        27
+      ],
+      "reputation": "PRIME_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.904,
+        "avoidance_of_forced_mistakes": 0.947,
+        "avoidance_of_mistakes": 0.904,
+        "blue_flag_conceding": 0.923,
+        "consistency": 0.485,
+        "defending": 0.895,
+        "fuel_management": 0.914,
+        "qualifying_skill": 0.912,
+        "race_skill": 0.93,
+        "stamina": 0.913,
+        "start_reactions": 0.909,
+        "tyre_management": 0.903,
+        "weather_tyre_changes": 0.934,
+        "wet_skill": 0.919
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "07_spikey",
+        "palette": {
+          "red": "#141414",
+          "green": "#8A8B8C",
+          "blue": "#C8102E"
+        }
+      },
+      "driver_id": "pascal_wehrlein",
+      "name": "Pascal Wehrlein",
+      "nationality": "DEU",
+      "year_of_birth": 1994,
+      "picture": "https://www.statsf1.com/pilotes/photos/wehrlein.png",
+      "generic_avatar": {
+        "skin": "#D8A07C",
+        "hair": "longer_top",
+        "hair_colour": "#1C1814",
+        "facial_hair": "none"
+      },
+      "favourite_numbers": [
+        94
+      ],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.9,
+        "avoidance_of_forced_mistakes": 0.87,
+        "avoidance_of_mistakes": 0.83,
+        "blue_flag_conceding": 0.87,
+        "consistency": 0.2,
+        "defending": 0.825,
+        "fuel_management": 0.832,
+        "qualifying_skill": 0.854,
+        "race_skill": 0.849,
+        "stamina": 0.836,
+        "start_reactions": 0.817,
+        "tyre_management": 0.84,
+        "weather_tyre_changes": 0.844,
+        "wet_skill": 0.88
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "18_sweep",
+        "palette": {
+          "red": "#0A2452",
+          "green": "#E9E5E1",
+          "blue": "#1B6FD0"
+        }
+      },
+      "driver_id": "paul_di_resta",
+      "name": "Paul di Resta",
+      "nationality": "GBR",
+      "year_of_birth": 1986,
+      "picture": "https://www.statsf1.com/pilotes/photos/diresta.png",
+      "generic_avatar": {
+        "skin": "#F1C8AC",
+        "hair": "short",
+        "hair_colour": "#5C3E26",
+        "facial_hair": "none"
+      },
+      "favourite_numbers": [
+        40
+      ],
+      "reputation": "AGEING_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.859,
+        "avoidance_of_forced_mistakes": 0.876,
+        "avoidance_of_mistakes": 0.848,
+        "blue_flag_conceding": 0.884,
+        "consistency": 0.384,
+        "defending": 0.865,
+        "fuel_management": 0.907,
+        "qualifying_skill": 0.841,
+        "race_skill": 0.871,
+        "stamina": 0.817,
+        "start_reactions": 0.884,
+        "tyre_management": 0.885,
+        "weather_tyre_changes": 0.874,
+        "wet_skill": 0.835
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "23_skewed_vertical",
+        "palette": {
+          "red": "#F61F1C",
+          "green": "#F3F5F4",
+          "blue": "#F3F5F4",
+          "yellow": "#F3F5F4",
+          "magenta": "#F61F1C",
+          "cyan": "#313240"
+        }
+      },
+      "driver_id": "pierre_gasly",
+      "name": "Pierre Gasly",
+      "nationality": "FRA",
+      "year_of_birth": 1996,
+      "picture": "https://www.statsf1.com/pilotes/photos/gasly.png",
+      "generic_avatar": {
+        "skin": "#E8BC98",
+        "hair": "short",
+        "hair_colour": "#2A1E16",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        10
+      ],
+      "reputation": "YOUNG_TALENT",
+      "rating_values": {
+        "aggression": 0.911,
+        "avoidance_of_forced_mistakes": 0.867,
+        "avoidance_of_mistakes": 0.869,
+        "blue_flag_conceding": 0.837,
+        "consistency": 0.382,
+        "defending": 0.84,
+        "fuel_management": 0.817,
+        "qualifying_skill": 0.832,
+        "race_skill": 0.848,
+        "stamina": 0.872,
+        "start_reactions": 0.85,
+        "tyre_management": 0.835,
+        "weather_tyre_changes": 0.863,
+        "wet_skill": 0.843
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "23_skewed_vertical",
+        "palette": {
+          "red": "#2770C9",
+          "green": "#2770C9",
+          "blue": "#2770C9",
+          "yellow": "#AFC614",
+          "magenta": "#F2F2F2",
+          "cyan": "#ED3200"
+        }
+      },
+      "driver_id": "romain_grosjean",
+      "name": "Romain Grosjean",
+      "nationality": "FRA",
+      "year_of_birth": 1986,
+      "picture": "https://www.statsf1.com/pilotes/photos/grosjean.png",
+      "generic_avatar": {
+        "skin": "#E8BC98",
+        "hair": "medium",
+        "hair_colour": "#5C3E26",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        8
+      ],
+      "reputation": "AGEING_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.853,
+        "avoidance_of_forced_mistakes": 0.851,
+        "avoidance_of_mistakes": 0.836,
+        "blue_flag_conceding": 0.878,
+        "consistency": 0.351,
+        "defending": 0.867,
+        "fuel_management": 0.886,
+        "qualifying_skill": 0.851,
+        "race_skill": 0.83,
+        "stamina": 0.806,
+        "start_reactions": 0.868,
+        "tyre_management": 0.904,
+        "weather_tyre_changes": 0.868,
+        "wet_skill": 0.83
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "21_vertical_stripes",
+        "palette": {
+          "red": "#F2F2F2",
+          "green": "#0B0B0D",
+          "blue": "#F2F2F2",
+          "yellow": "#D9CE2E",
+          "magenta": "#F4150D"
+        }
+      },
+      "driver_id": "sebastian_vettel",
+      "name": "Sebastian Vettel",
+      "nationality": "DEU",
+      "year_of_birth": 1987,
+      "picture": "https://www.statsf1.com/pilotes/photos/vettel.png",
+      "generic_avatar": {
+        "skin": "#F1D3BC",
+        "hair": "longer_top",
+        "hair_colour": "#8A6440",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        5
+      ],
+      "reputation": "PRIME_CHAMPIONSHIP_LEVEL",
+      "rating_values": {
+        "aggression": 0.965,
+        "avoidance_of_forced_mistakes": 1,
+        "avoidance_of_mistakes": 0.97,
+        "blue_flag_conceding": 1,
+        "consistency": 0.241,
+        "defending": 1,
+        "fuel_management": 0.971,
+        "qualifying_skill": 0.979,
+        "race_skill": 0.977,
+        "stamina": 0.976,
+        "start_reactions": 0.995,
+        "tyre_management": 1,
+        "weather_tyre_changes": 1,
+        "wet_skill": 0.97
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "07_spikey",
+        "palette": {
+          "red": "#EC284D",
+          "green": "#DBE2E7",
+          "blue": "#0D276A"
+        }
+      },
+      "driver_id": "sergio_perez",
+      "name": "Sergio P\u00E9rez",
+      "nationality": "MEX",
+      "year_of_birth": 1990,
+      "picture": "https://www.statsf1.com/pilotes/photos/perez.png",
+      "generic_avatar": {
+        "skin": "#E0B08A",
+        "hair": "short",
+        "hair_colour": "#1C1814",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        11
+      ],
+      "reputation": "PRIME_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.871,
+        "avoidance_of_forced_mistakes": 0.924,
+        "avoidance_of_mistakes": 0.93,
+        "blue_flag_conceding": 0.908,
+        "consistency": 0.33,
+        "defending": 0.877,
+        "fuel_management": 0.904,
+        "qualifying_skill": 0.895,
+        "race_skill": 0.899,
+        "stamina": 0.928,
+        "start_reactions": 0.891,
+        "tyre_management": 0.922,
+        "weather_tyre_changes": 0.898,
+        "wet_skill": 0.896
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "03_flashy",
+        "palette": {
+          "red": "#141414",
+          "green": "#FCCC0C",
+          "blue": "#C8102E"
+        }
+      },
+      "driver_id": "stoffel_vandoorne",
+      "name": "Stoffel Vandoorne",
+      "nationality": "BEL",
+      "year_of_birth": 1992,
+      "picture": "https://www.statsf1.com/pilotes/photos/vandoorn.png",
+      "generic_avatar": {
+        "skin": "#F1D3BC",
+        "hair": "side_part",
+        "hair_colour": "#2A1E16",
+        "facial_hair": "stubble"
+      },
+      "favourite_numbers": [
+        2
+      ],
+      "reputation": "PRIME_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.864,
+        "avoidance_of_forced_mistakes": 0.881,
+        "avoidance_of_mistakes": 0.84,
+        "blue_flag_conceding": 0.879,
+        "consistency": 0.266,
+        "defending": 0.873,
+        "fuel_management": 0.866,
+        "qualifying_skill": 0.866,
+        "race_skill": 0.849,
+        "stamina": 0.874,
+        "start_reactions": 0.84,
+        "tyre_management": 0.867,
+        "weather_tyre_changes": 0.847,
+        "wet_skill": 0.891
+      }
+    },
+    {
+      "$type": "AMS2ChEd.Business.AMS2.Models.Ams2DriverData",
+      "base_helmet_file": null,
+      "base_visor_file": null,
+      "base_helmet_file_90s": null,
+      "base_helmet_file_80s": null,
+      "base_visor_file_80s": null,
+      "base_helmet_file_70s": null,
+      "base_visor_file_70s": null,
+      "generic_helmet": {
+        "design": "22_skewed",
+        "palette": {
+          "red": "#37373E",
+          "green": "#0063B6",
+          "blue": "#F2F2F2",
+          "yellow": "#37373E",
+          "magenta": "#F2F2F2",
+          "cyan": "#0063B6"
+        }
+      },
+      "driver_id": "valtteri_bottas",
+      "name": "Valtteri Bottas",
+      "nationality": "FIN",
+      "year_of_birth": 1989,
+      "picture": "https://www.statsf1.com/pilotes/photos/bottas.png",
+      "generic_avatar": {
+        "skin": "#F1D3BC",
+        "hair": "mullet",
+        "hair_colour": "#D8C8A0",
+        "facial_hair": "moustache",
+        "facial_hair_colour": "#8A6A40"
+      },
+      "favourite_numbers": [
+        77
+      ],
+      "reputation": "PRIME_STRONG_MIDFIELD",
+      "rating_values": {
+        "aggression": 0.886,
+        "avoidance_of_forced_mistakes": 0.879,
+        "avoidance_of_mistakes": 0.93,
+        "blue_flag_conceding": 0.924,
+        "consistency": 0.467,
+        "defending": 0.915,
+        "fuel_management": 0.918,
+        "qualifying_skill": 0.893,
+        "race_skill": 0.899,
+        "stamina": 0.888,
+        "start_reactions": 0.883,
+        "tyre_management": 0.927,
+        "weather_tyre_changes": 0.914,
+        "wet_skill": 0.913
+      }
+    }
+  ],
+  "nextGpIndex": 14,
+  "nextGpEntryList": [],
+  "next_gp_entry_list_race_id": null,
+  "playerData": {
+    "$type": "AMS2ChEd.Business.Models.Concrete.PlayerData",
+    "driverid": "sebastian_vettel",
+    "name": "Sebastian Vettel",
+    "nationality": "DEU",
+    "teamid": "ferrari"
+  },
+  "grandPrixResults": [
+    {
+      "year": 2017,
+      "grandPrixName": "Australian Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "antonio_giovinazzi",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Chinese Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "antonio_giovinazzi",
+          "team_id": "sauber",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Bahrain Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Russian Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Spanish Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Monaco Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "jenson_button",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Canadian Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Azerbaijan Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Austrian Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "British Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Hungarian Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "paul_di_resta",
+          "team_id": "williams",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Belgian Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Italian Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "grandPrixName": "Singapore Grand Prix",
+      "qualifyingResults": [],
+      "raceResults": [
+        {
+          "position": 1,
+          "driver_id": "sebastian_vettel",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 25,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 2,
+          "driver_id": "max_verstappen",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 18,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 3,
+          "driver_id": "lewis_hamilton",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 15,
+          "FastestLap": true,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 4,
+          "driver_id": "daniel_ricciardo",
+          "team_id": "stewart",
+          "dnf": false,
+          "points": 12,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 5,
+          "driver_id": "kimi_raikkonen",
+          "team_id": "ferrari",
+          "dnf": false,
+          "points": 10,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 6,
+          "driver_id": "valtteri_bottas",
+          "team_id": "mercedes",
+          "dnf": false,
+          "points": 8,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 7,
+          "driver_id": "carlos_sainz",
+          "team_id": "toro_rosso",
+          "dnf": false,
+          "points": 6,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 8,
+          "driver_id": "sergio_perez",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 4,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 9,
+          "driver_id": "jolyon_palmer",
+          "team_id": "benetton",
+          "dnf": false,
+          "points": 2,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 10,
+          "driver_id": "stoffel_vandoorne",
+          "team_id": "mclaren",
+          "dnf": false,
+          "points": 1,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 11,
+          "driver_id": "lance_stroll",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 12,
+          "driver_id": "romain_grosjean",
+          "team_id": "haas",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 13,
+          "driver_id": "esteban_ocon",
+          "team_id": "jordan",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 14,
+          "driver_id": "felipe_massa",
+          "team_id": "williams",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 15,
+          "driver_id": "pascal_wehrlein",
+          "team_id": "sauber",
+          "dnf": false,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 16,
+          "driver_id": "kevin_magnussen",
+          "team_id": "haas",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 17,
+          "driver_id": "nico_hulkenberg",
+          "team_id": "benetton",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 18,
+          "driver_id": "marcus_ericsson",
+          "team_id": "sauber",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 19,
+          "driver_id": "daniil_kvyat",
+          "team_id": "toro_rosso",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        },
+        {
+          "position": 20,
+          "driver_id": "fernando_alonso",
+          "team_id": "mclaren",
+          "dnf": true,
+          "points": 0,
+          "FastestLap": false,
+          "did_not_prequalify": false
+        }
+      ]
+    }
+  ],
+  "currentDriverStandings": [
+    {
+      "position": 1,
+      "driver_id": "sebastian_vettel",
+      "team_id": "ferrari",
+      "points": 260,
+      "positions_tally": "505010200000100000000000000000000000000000000000000"
+    },
+    {
+      "position": 2,
+      "driver_id": "lewis_hamilton",
+      "team_id": "mercedes",
+      "points": 253,
+      "positions_tally": "602010301000100000000000000000000000000000000000000"
+    },
+    {
+      "position": 3,
+      "driver_id": "valtteri_bottas",
+      "team_id": "mercedes",
+      "points": 205,
+      "positions_tally": "204030101020000000000000000000001000000000000000000"
+    },
+    {
+      "position": 4,
+      "driver_id": "daniel_ricciardo",
+      "team_id": "stewart",
+      "points": 156,
+      "positions_tally": "100050302000000000000000000000002000001000000000000"
+    },
+    {
+      "position": 5,
+      "driver_id": "kimi_raikkonen",
+      "team_id": "ferrari",
+      "points": 148,
+      "positions_tally": "2020304000100000000000001000000000001000000000000"
+    },
+    {
+      "position": 6,
+      "driver_id": "max_verstappen",
+      "team_id": "stewart",
+      "points": 86,
+      "positions_tally": "1010104000000000100000000000000030201000000000000"
+    },
+    {
+      "position": 7,
+      "driver_id": "sergio_perez",
+      "team_id": "jordan",
+      "points": 62,
+      "positions_tally": "101010302030000000100010001000000000000000000"
+    },
+    {
+      "position": 8,
+      "driver_id": "esteban_ocon",
+      "team_id": "jordan",
+      "points": 55,
+      "positions_tally": "1030102020300010100000000000000000000000000"
+    },
+    {
+      "position": 9,
+      "driver_id": "carlos_sainz",
+      "team_id": "toro_rosso",
+      "points": 42,
+      "positions_tally": "10402000200000001000101000101000000000000"
+    },
+    {
+      "position": 10,
+      "driver_id": "nico_hulkenberg",
+      "team_id": "benetton",
+      "points": 34,
+      "positions_tally": "30002010001010200000003000001000000000000"
+    },
+    {
+      "position": 11,
+      "driver_id": "felipe_massa",
+      "team_id": "williams",
+      "points": 31,
+      "positions_tally": "20002030100000102000100000100000000000000"
+    },
+    {
+      "position": 12,
+      "driver_id": "lance_stroll",
+      "team_id": "williams",
+      "points": 24,
+      "positions_tally": "10000000100010103000001010301000001000000000000"
+    },
+    {
+      "position": 13,
+      "driver_id": "romain_grosjean",
+      "team_id": "haas",
+      "points": 24,
+      "positions_tally": "10102000201010200010000000201000000000000"
+    },
+    {
+      "position": 14,
+      "driver_id": "kevin_magnussen",
+      "team_id": "haas",
+      "points": 11,
+      "positions_tally": "101000101020201020100010100000000000000"
+    },
+    {
+      "position": 15,
+      "driver_id": "fernando_alonso",
+      "team_id": "mclaren",
+      "points": 10,
+      "positions_tally": "10000010000010002000201020101000000000000"
+    },
+    {
+      "position": 16,
+      "driver_id": "pascal_wehrlein",
+      "team_id": "sauber",
+      "points": 5,
+      "positions_tally": "1000101000001030201000101000000000000"
+    },
+    {
+      "position": 17,
+      "driver_id": "daniil_kvyat",
+      "team_id": "toro_rosso",
+      "points": 4,
+      "positions_tally": "20001040001010102000200000000000000"
+    },
+    {
+      "position": 18,
+      "driver_id": "jolyon_palmer",
+      "team_id": "benetton",
+      "points": 2,
+      "positions_tally": "10003010300010000010103000000000000"
+    },
+    {
+      "position": 19,
+      "driver_id": "stoffel_vandoorne",
+      "team_id": "mclaren",
+      "points": 2,
+      "positions_tally": "201020103000100020101000000000000"
+    },
+    {
+      "position": 20,
+      "driver_id": "marcus_ericsson",
+      "team_id": "sauber",
+      "points": 0,
+      "positions_tally": "2000101040201030000000000000000"
+    },
+    {
+      "position": 21,
+      "driver_id": "antonio_giovinazzi",
+      "team_id": null,
+      "points": 0,
+      "positions_tally": "10000000000000100000000000000"
+    },
+    {
+      "position": 22,
+      "driver_id": "jenson_button",
+      "team_id": null,
+      "points": 0,
+      "positions_tally": "10000000000000000"
+    },
+    {
+      "position": 23,
+      "driver_id": "paul_di_resta",
+      "team_id": null,
+      "points": 0,
+      "positions_tally": "10000000000000000"
+    }
+  ],
+  "currentConstructorStandings": [
+    {
+      "position": 1,
+      "team_id": "mercedes",
+      "points": 458,
+      "positions_tally": "806040402020100000000000000000001000000000000000000"
+    },
+    {
+      "position": 2,
+      "team_id": "ferrari",
+      "points": 408,
+      "positions_tally": "507030504000200000000000001000000000001000000000000"
+    },
+    {
+      "position": 3,
+      "team_id": "stewart",
+      "points": 242,
+      "positions_tally": "101060406000000000100000000000002030202000000000000"
+    },
+    {
+      "position": 4,
+      "team_id": "jordan",
+      "points": 117,
+      "positions_tally": "102040404050300010200010001000000000000000000"
+    },
+    {
+      "position": 5,
+      "team_id": "williams",
+      "points": 55,
+      "positions_tally": "10000020102040203000103010401010101000000000000"
+    },
+    {
+      "position": 6,
+      "team_id": "toro_rosso",
+      "points": 46,
+      "positions_tally": "10402020201040002010203000301000000000000"
+    },
+    {
+      "position": 7,
+      "team_id": "benetton",
+      "points": 36,
+      "positions_tally": "30002020004020500010003010104000000000000"
+    },
+    {
+      "position": 8,
+      "team_id": "haas",
+      "points": 35,
+      "positions_tally": "10203000302030401030100010301000000000000"
+    },
+    {
+      "position": 9,
+      "team_id": "mclaren",
+      "points": 12,
+      "positions_tally": "10000010201030105000301050202000000000000"
+    },
+    {
+      "position": 10,
+      "team_id": "sauber",
+      "points": 5,
+      "positions_tally": "1000103010102070402030201000000000000"
+    }
+  ],
+  "historicalDriverStandings": [],
+  "historicalConstructorStandings": [],
+  "retired_drivers": [],
+  "timestamp": "2026-11-06T08:27:26.8990404Z",
+  "pre-quali_status": 0,
+  "pre_quali_pool_entries": [],
+  "current_pre_quali_dnpq_results": [],
+  "reprimands": null,
+  "casualties": null,
+  "season_data_stamp": null
+}
