@@ -73,6 +73,22 @@ jobs:
           Compress-Archive -Path "AMS2ChEd\bin\Release\net8.0-windows\*" -DestinationPath $zipName
           "zipName=$zipName" >> $env:GITHUB_OUTPUT
 
+      # The setup exe is for first installs; the zip above stays what the in-app updater uses
+      # (it only picks .zip assets).
+      - name: Build installer
+        id: installer
+        shell: pwsh
+        run: |
+          choco install innosetup -y --no-progress
+          $iscc = Get-ChildItem "${env:ProgramFiles(x86)}\Inno Setup*\ISCC.exe", "$env:ProgramFiles\Inno Setup*\ISCC.exe" -ErrorAction SilentlyContinue |
+            Select-Object -First 1 -ExpandProperty FullName
+          if (-not $iscc) { Write-Error "ISCC.exe not found after installing Inno Setup"; exit 1 }
+          $sourceDir = (Resolve-Path "AMS2ChEd\bin\Release\net8.0-windows").Path
+          $version = "${{ steps.version.outputs.major }}.${{ steps.version.outputs.minor }}.${{ steps.version.outputs.patch }}"
+          & $iscc "/DSourceDir=$sourceDir" "/DAppVersion=$version" "/DTag=${{ github.ref_name }}" "/O$PWD" "Installer\RewindGP.iss"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          "setupName=RewindGP-Setup-${{ github.ref_name }}.exe" >> $env:GITHUB_OUTPUT
+
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -80,5 +96,5 @@ jobs:
         run: |
           $extra = @()
           if ("${{ steps.version.outputs.prerelease }}" -eq 'true') { $extra = @('--prerelease') }
-          gh release create "${{ github.ref_name }}" "${{ steps.zip.outputs.zipName }}" `
+          gh release create "${{ github.ref_name }}" "${{ steps.zip.outputs.zipName }}" "${{ steps.installer.outputs.setupName }}" `
             --title "Rewind GP ${{ github.ref_name }}" --generate-notes @extra

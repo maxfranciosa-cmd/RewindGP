@@ -58,7 +58,12 @@ dotnet test AMS2ChEd.Tests/AMS2ChEd.Tests.csproj --filter "FullyQualifiedName~En
 
 # Run the app (needs Windows; launches the WPF UI)
 dotnet run --project AMS2ChEd/AMS2ChEd.csproj
+
+# Build the setup exe (needs Inno Setup 6): Release build + ISCC over Installer/RewindGP.iss -> Installer/Output/
+powershell -ExecutionPolicy Bypass -File Installer/Build-Installer.ps1
 ```
+
+The setup (`Installer/RewindGP.iss`) installs per user into `%LocalAppData%\Programs\RewindGP` with no admin, because the app writes `Saves/`/`Seasons/` into its own folder and the in-app updater extracts the release zip over it. The release workflow attaches it next to the zip, which stays the update channel (`VersionCheckerService` only picks `.zip` assets). The uninstaller removes every top-level item the build output ships, plus the `.rwgp` keys, and asks before deleting saves, season packs and `%LocalAppData%\RewindGP` (it always keeps `vehicle_pak_backups`). It never touches the AMS2 install.
 
 Useful app launch flags (checked in `App.xaml.cs::OnStartup` / `e.Args`):
 - `--forceupdate` — forces the app-version-check flow.
