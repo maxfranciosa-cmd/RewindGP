@@ -74,9 +74,11 @@ jobs:
           "zipName=$zipName" >> $env:GITHUB_OUTPUT
 
       # The setup exe is for first installs; the zip above stays what the in-app updater uses
-      # (it only picks .zip assets).
+      # (it only picks .zip assets). Stable releases only: an experimental (patch-tag) build
+      # ships as the zip alone.
       - name: Build installer
         id: installer
+        if: steps.version.outputs.prerelease == 'false'
         shell: pwsh
         run: |
           choco install innosetup -y --no-progress
@@ -96,5 +98,7 @@ jobs:
         run: |
           $extra = @()
           if ("${{ steps.version.outputs.prerelease }}" -eq 'true') { $extra = @('--prerelease') }
-          gh release create "${{ github.ref_name }}" "${{ steps.zip.outputs.zipName }}" "${{ steps.installer.outputs.setupName }}" `
+          $assets = @("${{ steps.zip.outputs.zipName }}")
+          if ("${{ steps.installer.outputs.setupName }}") { $assets += "${{ steps.installer.outputs.setupName }}" }
+          gh release create "${{ github.ref_name }}" @assets `
             --title "Rewind GP ${{ github.ref_name }}" --generate-notes @extra

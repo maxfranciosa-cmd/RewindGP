@@ -63,7 +63,7 @@ dotnet run --project AMS2ChEd/AMS2ChEd.csproj
 powershell -ExecutionPolicy Bypass -File Installer/Build-Installer.ps1
 ```
 
-The setup (`Installer/RewindGP.iss`) installs per user into `%LocalAppData%\Programs\RewindGP` with no admin, because the app writes `Saves/`/`Seasons/` into its own folder and the in-app updater extracts the release zip over it. The release workflow attaches it next to the zip, which stays the update channel (`VersionCheckerService` only picks `.zip` assets). The uninstaller removes every top-level item the build output ships, plus the `.rwgp` keys, and asks before deleting saves, season packs and `%LocalAppData%\RewindGP` (it always keeps `vehicle_pak_backups`). It never touches the AMS2 install.
+The setup (`Installer/RewindGP.iss`) installs per user into `%LocalAppData%\Programs\RewindGP` with no admin, because the app writes `Saves/`/`Seasons/` into its own folder and the in-app updater extracts the release zip over it. For stable releases only (a `vX.Y` tag, not a `vX.Y.Z` prerelease), the release workflow attaches it next to the zip, which stays the update channel (`VersionCheckerService` only picks `.zip` assets). The uninstaller removes every top-level item the build output ships, plus the `.rwgp` keys, and asks before deleting saves, season packs and `%LocalAppData%\RewindGP` (it always keeps `vehicle_pak_backups`). It never touches the AMS2 install.
 
 Useful app launch flags (checked in `App.xaml.cs::OnStartup` / `e.Args`):
 - `--forceupdate` — forces the app-version-check flow.
