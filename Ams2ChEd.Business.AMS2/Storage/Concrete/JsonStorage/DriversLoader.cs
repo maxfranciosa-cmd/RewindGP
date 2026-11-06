@@ -12,6 +12,11 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
     public class DriversLoader : IDriversLoader<Ams2DriverData>
     {
         public Dictionary<string, Ams2DriverData> LoadDrivers(int seasonYear)
+            => LoadDrivers(seasonYear, new Lazy<Dictionary<int, Dictionary<string, Ams2DriverData>>>(() => ReadOtherPacks(seasonYear)));
+
+        // otherPacks: the other years' artwork, read only if the year is baked. It may also hold
+        // the year itself (when shared by several loads), which the merge leaves out.
+        private static Dictionary<string, Ams2DriverData> LoadDrivers(int seasonYear, Lazy<Dictionary<int, Dictionary<string, Ams2DriverData>>> otherPacks)
         {
             try
             {
@@ -28,7 +33,7 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
                 if (hasBaked)
                 {
                     var cosmetics = SeasonCosmeticsFiles.EffectiveDrivers(SeasonCosmeticsFiles.Read(seasonYear), seasonYear);
-                    return BakedSeasonMerge.MergeDrivers(Read(bakedPath), hasPack ? SeasonCosmeticsFiles.DropMissingFiles(Read(driversPath), seasonYear) : null, cosmetics, seasonYear, ReadOtherPacks(seasonYear));
+                    return BakedSeasonMerge.MergeDrivers(Read(bakedPath), hasPack ? SeasonCosmeticsFiles.DropMissingFiles(Read(driversPath), seasonYear) : null, cosmetics, seasonYear, otherPacks.Value);
                 }
 
                 return Read(driversPath);
@@ -39,9 +44,10 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             }
         }
 
-        // Every other year's drivers' artwork: its installed pack (as the pack alone), over the
-        // artwork the app ships for it; a pack that can't be read is left out.
-        private static Dictionary<int, Dictionary<string, Ams2DriverData>> ReadOtherPacks(int seasonYear)
+        // Every other year's drivers' artwork (every year's with no seasonYear): its installed
+        // pack (as the pack alone), over the artwork the app ships for it; a pack that can't be
+        // read is left out.
+        private static Dictionary<int, Dictionary<string, Ams2DriverData>> ReadOtherPacks(int? seasonYear)
         {
             var packs = new Dictionary<int, Dictionary<string, Ams2DriverData>>();
             foreach (var year in YearFolders(StoragePaths.SeasonsFolder).Union(YearFolders(StoragePaths.BakedSeasonsFolder)))
@@ -90,6 +96,15 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
         public Dictionary<string, IDriverData> LoadDriversBase(int seasonYear)
         {
             return LoadDrivers(seasonYear).ToDictionary(kv => kv.Key, kv => (IDriverData)kv.Value);
+        }
+
+        // the other years' artwork is read once for all of them, not once per year
+        public Dictionary<int, Dictionary<string, IDriverData>> LoadDriversBase(IEnumerable<int> seasonYears)
+        {
+            var otherPacks = new Lazy<Dictionary<int, Dictionary<string, Ams2DriverData>>>(() => ReadOtherPacks(null));
+            return seasonYears.Distinct().ToDictionary(
+                y => y,
+                y => LoadDrivers(y, otherPacks).ToDictionary(kv => kv.Key, kv => (IDriverData)kv.Value));
         }
     }
 }

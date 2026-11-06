@@ -669,6 +669,14 @@ namespace AMS2ChEd
                 }
                 ShowSeasonInstallPrompt(null);
 
+                // all the years not loaded yet in one go, so their shared artwork is read once
+                var missingYears = installedYears.Where(y => !_seasonDriversCache.ContainsKey(y)).ToList();
+                if (missingYears.Count > 0)
+                {
+                    foreach (var (year, drivers) in _ams2StorageFactory.DriversLoader.LoadDriversBase(missingYears))
+                        _seasonDriversCache[year] = drivers;
+                }
+
                 var driversInSelectedSeason = LoadSeasonDriversCached(seasonYear).Keys.ToHashSet();
 
                 var importableDrivers = installedYears
