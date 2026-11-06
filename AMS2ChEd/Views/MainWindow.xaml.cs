@@ -267,6 +267,8 @@ namespace AMS2ChEd
 
         private void UpdateReputationComboBox()
         {
+            var selectedReputation = (ReputationComboBox.SelectedItem as ComboBoxItem)?.Tag as ReputationItem;
+
             ReputationComboBox.Items.Clear();
 
             // Get available reputations based on age
@@ -291,7 +293,15 @@ namespace AMS2ChEd
 
             if (ReputationComboBox.Items.Count > 0)
             {
-                ReputationComboBox.SelectedIndex = 0;
+                if (selectedReputation != null && filteredReputations.Contains(selectedReputation))
+                {
+                    SelectReputation(selectedReputation.Reputation);
+                }
+                else
+                {
+                    ReputationComboBox.SelectedIndex = 0;
+                }
+                
             }
         }
         public void RefreshSeasonComboBoxes()
