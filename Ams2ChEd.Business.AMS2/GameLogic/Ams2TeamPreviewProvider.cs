@@ -94,7 +94,10 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                     }
 
                     string colour = team.GenericLivery?.Palette?.FirstOrDefault(p => string.Equals(p.Key, "red", StringComparison.OrdinalIgnoreCase)).Value ?? team.Color ?? "#808080";
-                    using var tile = HelmetPreviewComposer.ComposeTeamTile(helmets, TemplateRecolour.ParseColour(colour));
+                    // a see-through island's colour still makes a solid backdrop
+                    var backdrop = TemplateRecolour.ParseColour(colour);
+                    backdrop.A = 255;
+                    using var tile = HelmetPreviewComposer.ComposeTeamTile(helmets, backdrop);
                     if (maxWidth > 0 && tile.Width > maxWidth)
                         tile.Mutate(c => c.Resize(maxWidth, 0));
                     using var stream = new MemoryStream();

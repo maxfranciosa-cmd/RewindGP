@@ -155,19 +155,23 @@ public class DdsTextureComposer
 
     /// <summary>
     /// As above, for a livery already in memory (a generic livery just recoloured from its kit
-    /// template). Takes ownership of <paramref name="liveryImage"/> and disposes it.
+    /// template). Takes ownership of <paramref name="liveryImage"/> and disposes it. With
+    /// <paramref name="opaqueDigits"/>, every pixel the digits paint is made opaque: on a generic
+    /// livery's see-through island they are paint, not the base material.
     /// </summary>
     public static void ApplyCarNumbers(
         Image<Rgba32> liveryImage,
         List<NumberPlacementData> placements,
         int carNumber,
         string seasonDirectory,
-        string outputPath)
+        string outputPath,
+        bool opaqueDigits = false)
     {
         // A livery's alpha channel is material data for AMS2 (how the paint shines), not transparency.
         // Blending onto it as-is turns every pixel whose mask is 0 black wherever a digit cell's
         // transparent margin is drawn, so paint on an opaque copy and put the mask back afterwards.
         byte[] materialMask = ExtractAlphaAndMakeOpaque(liveryImage);
+        using var unstamped = opaqueDigits && materialMask.Any(a => a != 255) ? liveryImage.Clone() : null;
 
         // Get digits of the car number once
         string numberString = carNumber.ToString();
@@ -248,6 +252,9 @@ public class DdsTextureComposer
             numbersImage.Dispose();
         }
 
+        if (unstamped != null)
+            MarkPaintedOpaque(unstamped, liveryImage, materialMask);
+
         RestoreAlpha(liveryImage, materialMask);
         foreach (var (placement, height, fill) in filledPlates)
             RepaintPlateMask(liveryImage, materialMask, placement, height, fill);
@@ -293,6 +300,22 @@ public class DdsTextureComposer
             }
         });
         return alpha;
+    }
+
+    // Every pixel whose colour the stamping changed gets a full mask.
+    private static void MarkPaintedOpaque(Image<Rgba32> before, Image<Rgba32> after, byte[] mask)
+    {
+        before.ProcessPixelRows(after, (from, to) =>
+        {
+            for (int y = 0; y < from.Height; y++)
+            {
+                var a = from.GetRowSpan(y);
+                var b = to.GetRowSpan(y);
+                for (int x = 0; x < a.Length; x++)
+                    if (a[x] != b[x])
+                        mask[y * from.Width + x] = 255;
+            }
+        });
     }
 
     private static void RestoreAlpha(Image<Rgba32> image, byte[] alpha)

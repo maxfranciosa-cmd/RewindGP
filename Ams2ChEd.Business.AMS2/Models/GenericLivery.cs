@@ -14,11 +14,20 @@ namespace AMS2ChEd.Business.AMS2.Models
         public string Template { get; set; }
 
         /// <summary>
-        /// Key colour name (red, green, blue, yellow, magenta, cyan) to "#RRGGBB". A key left
-        /// out keeps its template colour.
+        /// Key colour name (red, green, blue, yellow, magenta, cyan) to "#RRGGBB", or "#AARRGGBB"
+        /// for a see-through island: its alpha lets the base livery's material (BaseLivery)
+        /// show through, "#00000000" fully. A key left out keeps its template colour.
         /// </summary>
         [JsonPropertyName("palette")]
         public Dictionary<string, string> Palette { get; set; }
+
+        /// <summary>
+        /// The BASELIVERY written for the generated livery (an AMS2 base material of the car,
+        /// e.g. "SilverMetallic"). Null keeps the kit XML's own.
+        /// </summary>
+        [JsonPropertyName("base_livery")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string BaseLivery { get; set; }
 
         /// <summary>Id of a number style in the kit.</summary>
         [JsonPropertyName("number_style")]

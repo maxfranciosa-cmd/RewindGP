@@ -13,19 +13,21 @@ namespace Ams2ChEd.Business.AMS2.Helpers
     public static class GenericLiveryComposer
     {
         /// <summary>
-        /// The kit template recoloured with the palette. Fully opaque: AMS2 reads a livery's alpha
-        /// as material data, and generic paint is plain paint, like the solid-colour fallback.
+        /// The kit template recoloured with the palette. Opaque but for the islands whose palette
+        /// colour has an alpha ("#AARRGGBB"): AMS2 reads a livery's alpha as how much of the base
+        /// livery's material shows through, so the template's own alpha never reaches the game,
+        /// only the one the team chose.
         /// </summary>
         public static Image<Rgba32> BuildBody(string templatePath, IReadOnlyDictionary<string, string> palette)
         {
             var image = Image.Load<Rgba32>(templatePath);
-            TemplateRecolour.Apply(image, TemplateRecolour.ParsePalette(palette));
             image.ProcessPixelRows(accessor =>
             {
                 for (int y = 0; y < accessor.Height; y++)
                     foreach (ref var pixel in accessor.GetRowSpan(y))
                         pixel.A = 255;
             });
+            TemplateRecolour.Apply(image, TemplateRecolour.ParsePalette(palette));
             return image;
         }
 

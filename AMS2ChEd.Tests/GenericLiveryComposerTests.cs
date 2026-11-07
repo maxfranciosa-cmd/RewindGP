@@ -21,6 +21,18 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         [TestMethod]
+        public void BuildBody_PaletteColourWithAlpha_LeavesThatIslandSeeThrough()
+        {
+            using var folder = new TempFolder();
+            string template = folder.Png("template.png", 2, 1, new Rgba32(255, 0, 0, 255), new Rgba32(0, 255, 0, 0));
+
+            using var body = GenericLiveryComposer.BuildBody(template, new Dictionary<string, string> { { "red", "#80C0C0C0" }, { "green", "#00000000" } });
+
+            Assert.AreEqual(new Rgba32(192, 192, 192, 128), body[0, 0]);
+            Assert.AreEqual(new Rgba32(0, 0, 0, 0), body[1, 0]);
+        }
+
+        [TestMethod]
         public void BuildNumberSheet_SingleColour_TakesTheFill_KeepsAlpha_AndIsResized()
         {
             using var folder = new TempFolder();

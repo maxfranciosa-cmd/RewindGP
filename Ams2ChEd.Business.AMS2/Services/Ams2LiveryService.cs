@@ -497,14 +497,21 @@ namespace Ams2ChEd.Business.AMS2.Services
 
         /// <summary>
         /// The BASELIVERY of the team's livery in the installed pack of the season its body was
-        /// borrowed from (Seasons/&lt;year&gt;/liveries_xml/&lt;team_id&gt;.xml), or null when that
-        /// pack has no XML for the team (then the kit's own base stays).
+        /// borrowed from (Seasons/&lt;year&gt;/liveries_xml/&lt;team_id&gt;.xml), else in that year's
+        /// shipped cosmetics, or null when neither has XML for the team (then the kit's own base
+        /// stays). For saves merged before the merge kept it (Ams2TeamEntry.BorrowedBaseLivery).
         /// </summary>
         private static string BorrowedBaseLivery(string seasonDirectory, int sourceYear, string teamId)
         {
             string sourceXmlPath = Path.GetFullPath(Path.Combine(seasonDirectory, "..", sourceYear.ToString(), "liveries_xml", $"{teamId}.xml"));
             if (!File.Exists(sourceXmlPath))
-                return null;
+            {
+                // a baked year keeps its XML in the cosmetics the app ships
+                var cosmeticsTeams = SeasonCosmeticsFiles.Read(sourceYear)?.Teams;
+                return cosmeticsTeams != null && cosmeticsTeams.TryGetValue(teamId, out var cosmeticsTeam)
+                    ? BakedSeasonMerge.BaseLiveryOf(cosmeticsTeam?.LiveryXml)
+                    : null;
+            }
 
             try
             {
@@ -920,8 +927,10 @@ namespace Ams2ChEd.Business.AMS2.Services
 
             // A borrowed body was painted against its own season's base livery (Matte, a metallic):
             // the material AMS2 lays under it. On the kit's Default base it can show bare carbon.
-            string borrowedBaseLivery = borrowedLivery && usingKitXml
-                ? BorrowedBaseLivery(seasonDirectory, BakedSeasonMerge.OtherSeasonYear(liveryFilePath).Value, team.TeamId)
+            // The merge took it from the source's XML (a baked year's is in its cosmetics); a save
+            // from before that falls back to the source pack's XML file.
+            string baseLiveryOverride = borrowedLivery && usingKitXml
+                ? team.BorrowedBaseLivery ?? BorrowedBaseLivery(seasonDirectory, BakedSeasonMerge.OtherSeasonYear(liveryFilePath).Value, team.TeamId)
                 : null;
 
             // Handle livery file: apply numbers if placements defined, otherwise just copy
@@ -944,6 +953,11 @@ namespace Ams2ChEd.Business.AMS2.Services
                 bool generic = team.GenericLivery != null && kit?.Templates?.Count > 0;
                 if (generic)
                 {
+                    // the kit's paint over the base the team chose: what shows through its
+                    // see-through islands
+                    if (usingKitXml && !string.IsNullOrWhiteSpace(team.GenericLivery.BaseLivery))
+                        baseLiveryOverride = team.GenericLivery.BaseLivery;
+
                     // A template livery in the team's colours, numbers on the template's own
                     // plates; on another kit than the team's own (an overflow slot), that kit's
                     // first template.
@@ -1010,8 +1024,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                     // Update LIVERY attribute
                     clonedElement.SetAttributeValue("LIVERY", liveryNumber);
 
-                    if (borrowedBaseLivery != null)
-                        clonedElement.SetAttributeValue("BASELIVERY", borrowedBaseLivery);
+                    if (baseLiveryOverride != null)
+                        clonedElement.SetAttributeValue("BASELIVERY", baseLiveryOverride);
 
                     // Update NAME attribute
                     clonedElement.SetAttributeValue("NAME", $"#{driverCarNumber} {team.TeamName} - {driver.Name}");
@@ -1153,7 +1167,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                         FillColor = plate.FillKey != null ? PaletteColour(livery.Palette, plate.FillKey) : plate.FillColor
                     });
                 }
-                DdsTextureComposer.ApplyCarNumbers(body, placements, carNumber, temporaryTexturesPath, outputPath);
+                DdsTextureComposer.ApplyCarNumbers(body, placements, carNumber, temporaryTexturesPath, outputPath, opaqueDigits: true);
             }
 
             GenericLiveryComposer.MarkCached(outputPath, key);

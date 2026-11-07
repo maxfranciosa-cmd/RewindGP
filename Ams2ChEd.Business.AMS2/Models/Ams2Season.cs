@@ -126,6 +126,15 @@ namespace AMS2ChEd.Business.AMS2.Models
         public string LiveryXml { get; set; }
 
         /// <summary>
+        /// Set by BakedSeasonMerge on a team wearing a body borrowed from another season: the
+        /// BASELIVERY that season's livery XML gives it (the material AMS2 lays under the paint,
+        /// e.g. SilverMetallic), as the team keeps the kit's XML. Null otherwise.
+        /// </summary>
+        [JsonPropertyName("borrowed_base_livery")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string BorrowedBaseLivery { get; set; }
+
+        /// <summary>
         /// Baked data only: the livery generated when no season pack supplies the team's artwork.
         /// Null (and absent from the JSON) in packs and saves made before it existed.
         /// </summary>

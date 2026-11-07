@@ -305,10 +305,13 @@ namespace Ams2ChEd.Business.AMS2.Helpers
 
                 // The source's overrides are keyed by its own season's races, and its livery XML
                 // was written for its own pack: the team keeps the XML it has without a pack.
+                // Its base material does come along: painted over the kit's base, the body can
+                // show bare carbon where it was meant to be metallic.
                 var ownLiveryXml = team.LiveryXml;
                 CopyTeamArtwork(sourceTeam, team);
                 team.LiveryOverrides = null;
                 team.LiveryXml = ownLiveryXml;
+                team.BorrowedBaseLivery = BaseLiveryOf(sourceTeam.LiveryXml);
                 MapTeamPaths(team, p => RebaseFromSeason(p, fallback.Season, seasonsFolder));
                 return true;
             }
@@ -415,6 +418,23 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             to.DriversSpecificHelmet = from.DriversSpecificHelmet;
             to.LiveryOverrides = from.LiveryOverrides;
             to.LiveryXml = from.LiveryXml;
+            to.BorrowedBaseLivery = from.BorrowedBaseLivery;
+        }
+
+        /// <summary>The BASELIVERY of a USER_OVERRIDES document's first LIVERY_OVERRIDE; null when it has none or isn't XML.</summary>
+        public static string BaseLiveryOf(string liveryXml)
+        {
+            if (string.IsNullOrWhiteSpace(liveryXml))
+                return null;
+            try
+            {
+                var baseLivery = System.Xml.Linq.XDocument.Parse(liveryXml).Root?.Element("LIVERY_OVERRIDE")?.Attribute("BASELIVERY")?.Value;
+                return string.IsNullOrWhiteSpace(baseLivery) ? null : baseLivery;
+            }
+            catch (System.Xml.XmlException)
+            {
+                return null;
+            }
         }
 
         /// <summary>The driver fields a season pack supplies over baked data: helmet, visor and portrait.</summary>

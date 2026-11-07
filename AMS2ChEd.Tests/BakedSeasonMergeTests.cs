@@ -191,6 +191,29 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         [TestMethod]
+        public void Fallbacks_BorrowTheSourceXmlsBaseLivery()
+        {
+            var baked = Season(WithFallbacks(BakedTeam("mercedes", "formula_reiza"), new CosmeticFallback { Season = 2010 }));
+            var source = PackTeam("mercedes", "formula_reiza");
+            source.LiveryXml = "<USER_OVERRIDES><LIVERY_OVERRIDE LIVERY=\"53\" BASELIVERY=\"SilverMetallic\" /></USER_OVERRIDES>";
+
+            var team = Team(Merge(baked, Season(), new() { { 2010, Season(source) } }), "mercedes");
+
+            Assert.AreEqual("SilverMetallic", team.BorrowedBaseLivery);
+            Assert.IsNull(team.LiveryXml);
+        }
+
+        [TestMethod]
+        public void Fallbacks_SourceXmlWithoutBaseLivery_BorrowsNone()
+        {
+            var baked = Season(WithFallbacks(BakedTeam("williams", "formula_v10_g1"), new CosmeticFallback { Season = 1997 }));
+
+            var team = Team(Merge(baked, Season(), new() { { 1997, Season(PackTeam("williams", "formula_v10_g1")) } }), "williams");
+
+            Assert.IsNull(team.BorrowedBaseLivery);
+        }
+
+        [TestMethod]
         public void Fallbacks_KeepTheBakedLiveryXml()
         {
             var bakedTeam = WithFallbacks(BakedTeam("williams", "formula_v10_g1"), new CosmeticFallback { Season = 1997 });
