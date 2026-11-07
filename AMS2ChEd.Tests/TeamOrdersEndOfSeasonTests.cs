@@ -26,13 +26,13 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         #region Disciplinary drops
 
         [TestMethod]
-        public void ExecuteTeamDrops_DriverWithTwoReprimands_IsDroppedForDisciplinaryReasons()
+        public void ExecuteTeamDrops_DriverWithThreeReprimands_IsDroppedForDisciplinaryReasons()
         {
             var saveGame = CreateSaveGame(
                 Team("T1", TeamReputation.TOP_TEAM, "D1", ContractRole.FIRST_DRIVER, "D2", ContractRole.SECOND_DRIVER),
                 Driver("D1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
                 Driver("D2", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL));
-            AddReprimands(saveGame, "D2", "T1", 2);
+            AddReprimands(saveGame, "D2", "T1", 3);
 
             var drops = _endOfSeasonManager.ExecuteTeamDrops(saveGame, NextSeason(saveGame)).ToList();
 
@@ -41,13 +41,13 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void ExecuteTeamDrops_DriverWithOneReprimand_IsNotDropped()
+        public void ExecuteTeamDrops_DriverWithTwoReprimands_IsNotDropped()
         {
             var saveGame = CreateSaveGame(
                 Team("T1", TeamReputation.TOP_TEAM, "D1", ContractRole.FIRST_DRIVER, "D2", ContractRole.SECOND_DRIVER),
                 Driver("D1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
                 Driver("D2", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL));
-            AddReprimands(saveGame, "D2", "T1", 1);
+            AddReprimands(saveGame, "D2", "T1", 2);
 
             var drops = _endOfSeasonManager.ExecuteTeamDrops(saveGame, NextSeason(saveGame)).ToList();
 
@@ -55,18 +55,63 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void ExecuteTeamDrops_ChampionWithTwoReprimands_IsNotDropped()
+        public void ExecuteTeamDrops_ChampionWithThreeReprimands_IsNotDropped()
         {
             var saveGame = CreateSaveGame(
                 Team("T1", TeamReputation.TOP_TEAM, "D1", ContractRole.FIRST_DRIVER, "D2", ContractRole.SECOND_DRIVER),
                 Driver("D1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
                 Driver("D2", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL));
-            AddReprimands(saveGame, "D2", "T1", 2);
+            AddReprimands(saveGame, "D2", "T1", 3);
             saveGame.CurrentDriverStandings = new List<HistoricalDriverStandingEntry>
             {
                 new HistoricalDriverStandingEntry { DriverId = "D2", Position = 1 },
                 new HistoricalDriverStandingEntry { DriverId = "D1", Position = 2 }
             };
+
+            var drops = _endOfSeasonManager.ExecuteTeamDrops(saveGame, NextSeason(saveGame)).ToList();
+
+            Assert.AreEqual(DriverFirerOutcome.NOT_DROPPED, drops.Single().DropDriver2);
+        }
+
+        [TestMethod]
+        public void ExecuteTeamDrops_ThreeReprimandsButAheadOfTeammateInTheStandings_IsNotDropped()
+        {
+            var saveGame = CreateSaveGame(
+                Team("T1", TeamReputation.TOP_TEAM, "D1", ContractRole.FIRST_DRIVER, "D2", ContractRole.SECOND_DRIVER),
+                Driver("D1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
+                Driver("D2", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL));
+            AddReprimands(saveGame, "D2", "T1", 3);
+            saveGame.CurrentDriverStandings = Standings(("X", 1), ("D2", 3), ("D1", 5));
+
+            var drops = _endOfSeasonManager.ExecuteTeamDrops(saveGame, NextSeason(saveGame)).ToList();
+
+            Assert.AreEqual(DriverFirerOutcome.NOT_DROPPED, drops.Single().DropDriver2);
+        }
+
+        [TestMethod]
+        public void ExecuteTeamDrops_ThreeReprimandsAndBehindTeammateInTheStandings_IsDropped()
+        {
+            var saveGame = CreateSaveGame(
+                Team("T1", TeamReputation.TOP_TEAM, "D1", ContractRole.FIRST_DRIVER, "D2", ContractRole.SECOND_DRIVER),
+                Driver("D1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
+                Driver("D2", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL));
+            AddReprimands(saveGame, "D2", "T1", 3);
+            saveGame.CurrentDriverStandings = Standings(("X", 1), ("D1", 2), ("D2", 4));
+
+            var drops = _endOfSeasonManager.ExecuteTeamDrops(saveGame, NextSeason(saveGame)).ToList();
+
+            Assert.AreEqual(DriverFirerOutcome.DROPPED_DISCIPLINARY, drops.Single().DropDriver2);
+        }
+
+        [TestMethod]
+        public void ExecuteTeamDrops_ThreeReprimandsAndTeammateNotInTheStandings_IsNotDropped()
+        {
+            var saveGame = CreateSaveGame(
+                Team("T1", TeamReputation.TOP_TEAM, "D1", ContractRole.FIRST_DRIVER, "D2", ContractRole.SECOND_DRIVER),
+                Driver("D1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
+                Driver("D2", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL));
+            AddReprimands(saveGame, "D2", "T1", 3);
+            saveGame.CurrentDriverStandings = Standings(("X", 1), ("D2", 9));
 
             var drops = _endOfSeasonManager.ExecuteTeamDrops(saveGame, NextSeason(saveGame)).ToList();
 
@@ -80,7 +125,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 Team("T1", TeamReputation.TOP_TEAM, "D1", ContractRole.FIRST_DRIVER, "D2", ContractRole.SECOND_DRIVER),
                 Driver("D1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
                 Driver("D2", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL, yearOfBirth: 1960));
-            AddReprimands(saveGame, "D2", "T1", 2);
+            AddReprimands(saveGame, "D2", "T1", 3);
 
             var drops = _endOfSeasonManager.ExecuteTeamDrops(saveGame, NextSeason(saveGame)).ToList();
 
@@ -94,7 +139,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 Team("T1", TeamReputation.TOP_TEAM, "D1", ContractRole.FIRST_DRIVER, "D2", ContractRole.SECOND_DRIVER),
                 Driver("D1", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL),
                 Driver("D2", DriverReputation.PRIME_CHAMPIONSHIP_LEVEL));
-            AddReprimands(saveGame, "D2", "T1", 2);
+            AddReprimands(saveGame, "D2", "T1", 3);
 
             _endOfSeasonManager.StartNewSeason(saveGame, NextSeason(saveGame));
 
@@ -356,6 +401,11 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         private static IDriverData Driver(string id, DriverReputation reputation, int yearOfBirth = 2000)
         {
             return new DriverData { DriverId = id, Name = $"Driver {id}", YearOfBirth = yearOfBirth, Reputation = reputation };
+        }
+
+        private static List<HistoricalDriverStandingEntry> Standings(params (string DriverId, int Position)[] entries)
+        {
+            return entries.Select(e => new HistoricalDriverStandingEntry { DriverId = e.DriverId, Position = e.Position }).ToList();
         }
 
         private static void AddReprimands(ISaveGame saveGame, string driverId, string teamId, int count)

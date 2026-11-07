@@ -50,27 +50,22 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return dropResults;
         }
 
-        // drivers who collected too many team-orders reprimands are let go by their team,
-        // unless they're the champion. Retirements and teams quitting still take precedence.
+        // drivers who collected too many team-orders reprimands are let go by their team, unless
+        // they're the champion or finished ahead of their teammate (ReprimandManager.IsDroppedAtSeasonEnd).
+        // Retirements and teams quitting still take precedence.
         private void ApplyDisciplinaryDrops(ISaveGame saveGame, List<DropTeamResult> dropResults)
         {
-            var reprimands = saveGame.Reprimands ?? new List<Reprimand>();
-            if (!reprimands.Any())
+            if (saveGame.Reprimands?.Any() != true)
                 return;
 
-            var championId = saveGame.CurrentDriverStandings?.FirstOrDefault(s => s.Position == 1)?.DriverId;
             var teamsDictionary = saveGame.CurrentSeason.Teams.ToDictionary(t => t.TeamId, t => t);
 
-            DriverFirerOutcome GetOutcome(DriverFirerOutcome current, string teamId, string driverId)
+            DriverFirerOutcome GetOutcome(DriverFirerOutcome current, ITeamEntry team, string driverId)
             {
-                if (string.IsNullOrEmpty(driverId) || driverId == championId)
-                    return current;
-
                 if (current == DriverFirerOutcome.DROPPED_RETIRING || current == DriverFirerOutcome.DROPPED_TEAM_QUITTING)
                     return current;
 
-                var count = reprimands.Count(r => r.DriverId == driverId && r.TeamId == teamId);
-                return count >= ReprimandManager.REPRIMANDS_FOR_SEASON_END_DROP ? DriverFirerOutcome.DROPPED_DISCIPLINARY : current;
+                return ReprimandManager.IsDroppedAtSeasonEnd(saveGame, team, driverId) ? DriverFirerOutcome.DROPPED_DISCIPLINARY : current;
             }
 
             foreach (var dropResult in dropResults)
@@ -78,8 +73,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 if (!teamsDictionary.TryGetValue(dropResult.TeamId, out var team))
                     continue;
 
-                dropResult.DropDriver1 = GetOutcome(dropResult.DropDriver1, team.TeamId, team.Driver1Contract?.DriverId);
-                dropResult.DropDriver2 = GetOutcome(dropResult.DropDriver2, team.TeamId, team.Driver2Contract?.DriverId);
+                dropResult.DropDriver1 = GetOutcome(dropResult.DropDriver1, team, team.Driver1Contract?.DriverId);
+                dropResult.DropDriver2 = GetOutcome(dropResult.DropDriver2, team, team.Driver2Contract?.DriverId);
             }
         }
 

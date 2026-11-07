@@ -191,25 +191,25 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         #region Consequences
 
         [TestMethod]
-        public void ProcessRace_SecondReprimand_IsAFinalWarning()
+        public void ProcessRace_ThirdReprimand_IsAFinalWarning()
         {
             var saveGame = CreateSaveGame();
-            AddPreviousReprimands(saveGame, "D2", "T1", 1);
+            AddPreviousReprimands(saveGame, "D2", "T1", 2);
             var result = CreateResult(("D2", 3), ("D1", 4));
 
             var news = Process(saveGame, result);
 
-            Assert.AreEqual(2, news.Single().ReprimandCount);
+            Assert.AreEqual(3, news.Single().ReprimandCount);
             Assert.AreEqual(ReprimandConsequence.FINAL_WARNING, news.Single().Consequence);
             Assert.AreEqual(0, saveGame.CurrentSeason.Absences.Count());
         }
 
         [TestMethod]
-        public void ProcessRace_ThirdReprimand_ReleasesDriverForTheRemainingRaces()
+        public void ProcessRace_FourthReprimand_ReleasesDriverForTheRemainingRaces()
         {
             var saveGame = CreateSaveGame();
             saveGame.NextGpIndex = 1; // races 3 and 4 remain after this one
-            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+            AddPreviousReprimands(saveGame, "D2", "T1", 3);
             var result = CreateResult(("D2", 3), ("D1", 4));
 
             var news = Process(saveGame, result);
@@ -225,11 +225,11 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void ProcessRace_ThirdReprimand_NobodyFree_GeneratedDriverReplacesForTheRemainingRaces()
+        public void ProcessRace_FourthReprimand_NobodyFree_GeneratedDriverReplacesForTheRemainingRaces()
         {
             var saveGame = CreateSaveGame();
             saveGame.NextGpIndex = 1;
-            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+            AddPreviousReprimands(saveGame, "D2", "T1", 3);
             // every unemployed driver already stands in somewhere in the rest of the season
             saveGame.CurrentSeason.Absences = new List<Absence>
             {
@@ -250,11 +250,11 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void ProcessRace_ThirdReprimand_DoesNotDuplicateExistingAbsencesNorReuseBusyDrivers()
+        public void ProcessRace_FourthReprimand_DoesNotDuplicateExistingAbsencesNorReuseBusyDrivers()
         {
             var saveGame = CreateSaveGame();
             saveGame.NextGpIndex = 1;
-            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+            AddPreviousReprimands(saveGame, "D2", "T1", 3);
             saveGame.CurrentSeason.Absences = new List<Absence>
             {
                 // D2 was already due to miss race 3
@@ -274,10 +274,10 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void ProcessRace_ThirdReprimandWhileLeadingTheChampionship_IsSpared()
+        public void ProcessRace_FourthReprimandWhileLeadingTheChampionship_IsSpared()
         {
             var saveGame = CreateSaveGame();
-            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+            AddPreviousReprimands(saveGame, "D2", "T1", 3);
             saveGame.CurrentDriverStandings = Standings(("D2", 1), ("D1", 2));
             var result = CreateResult(("D2", 3), ("D1", 4));
 
@@ -288,16 +288,16 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void ProcessRace_FourthReprimandAfterLosingTheLead_ReleasesDriver()
+        public void ProcessRace_FifthReprimandAfterLosingTheLead_ReleasesDriver()
         {
             var saveGame = CreateSaveGame();
-            AddPreviousReprimands(saveGame, "D2", "T1", 3);
+            AddPreviousReprimands(saveGame, "D2", "T1", 4);
             saveGame.CurrentDriverStandings = Standings(("D1", 1), ("D2", 2));
             var result = CreateResult(("D2", 3), ("D1", 4));
 
             var news = Process(saveGame, result);
 
-            Assert.AreEqual(4, news.Single().ReprimandCount);
+            Assert.AreEqual(5, news.Single().ReprimandCount);
             Assert.AreEqual(ReprimandConsequence.RELEASED, news.Single().Consequence);
             Assert.IsTrue(saveGame.CurrentSeason.Absences.Any(a => a.DriverOut == "D2"));
         }
@@ -372,13 +372,13 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         #region Reserves and simulated contacts
 
         [TestMethod]
-        public void ProcessRace_ThirdReprimand_TheTeamsReserveIsTheReplacement()
+        public void ProcessRace_FourthReprimand_TheTeamsReserveIsTheReplacement()
         {
             var saveGame = CreateSaveGame();
             saveGame.NextGpIndex = 1;
             // a weaker driver than U1, but the team's own reserve
             Team(saveGame, "T1").ReserveContract = new DriverContract { DriverId = "U3", Races = 4 };
-            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+            AddPreviousReprimands(saveGame, "D2", "T1", 3);
 
             var news = Process(saveGame, CreateResult(("D2", 3), ("D1", 4)));
 
@@ -387,12 +387,12 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void ProcessRace_ThirdReprimand_AnotherTeamsReserveIsNeverTheReplacement()
+        public void ProcessRace_FourthReprimand_AnotherTeamsReserveIsNeverTheReplacement()
         {
             var saveGame = CreateSaveGame();
             saveGame.NextGpIndex = 1;
             Team(saveGame, "T2").ReserveContract = new DriverContract { DriverId = "U1", Races = 4 };
-            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+            AddPreviousReprimands(saveGame, "D2", "T1", 3);
 
             var news = Process(saveGame, CreateResult(("D2", 3), ("D1", 4)));
 
@@ -400,7 +400,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void ProcessRace_ThirdReprimand_PlayerAsTheReserve_StandsInForTheRestOfTheSeason()
+        public void ProcessRace_FourthReprimand_PlayerAsTheReserve_StandsInForTheRestOfTheSeason()
         {
             var saveGame = CreateSaveGame();
             saveGame.NextGpIndex = 1;
@@ -410,7 +410,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             saveGame.NextGpEntryList.Single(e => e.TeamId == "T3").Driver1Id = "D6";
             saveGame.PlayerData.TeamId = null;
             Team(saveGame, "T1").ReserveContract = new DriverContract { DriverId = "PLAYER", Races = 4 };
-            AddPreviousReprimands(saveGame, "D2", "T1", 2);
+            AddPreviousReprimands(saveGame, "D2", "T1", 3);
 
             var news = Process(saveGame, CreateResult(("D2", 3), ("D1", 4)));
 

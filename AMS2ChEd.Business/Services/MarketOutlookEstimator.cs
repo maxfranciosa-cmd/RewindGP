@@ -187,8 +187,6 @@ namespace AMS2ChEd.Business.Services
             var racesInSeason = saveGame.CurrentSeason.Races.Count();
             var nextSeasonTeams = nextSeason.Teams.ToDictionary(t => t.TeamId, t => t);
             var birthYears = saveGame.Drivers.ToDictionary(d => d.DriverId, d => d.YearOfBirth);
-            var championId = saveGame.CurrentDriverStandings?.FirstOrDefault(s => s.Position == 1)?.DriverId;
-            var reprimands = saveGame.Reprimands ?? new List<Reprimand>();
             var driverIndexes = Enumerable.Range(0, _driverIds.Count).ToDictionary(i => _driverIds[i], i => i);
             var result = new List<TeamPlan>();
 
@@ -206,8 +204,7 @@ namespace AMS2ChEd.Business.Services
 
                     // retiring is replayed: here only what's certain
                     var outcome = _driverFirer.WillDropDriver(plan.Reputation, _reputations[driver], contracts[i].Races - racesInSeason, false, plan.IsQuitting);
-                    if (outcome != DriverFirerOutcome.DROPPED_TEAM_QUITTING && driverId != championId &&
-                        reprimands.Count(r => r.DriverId == driverId && r.TeamId == team.TeamId) >= ReprimandManager.REPRIMANDS_FOR_SEASON_END_DROP)
+                    if (outcome != DriverFirerOutcome.DROPPED_TEAM_QUITTING && ReprimandManager.IsDroppedAtSeasonEnd(saveGame, team, driverId))
                     {
                         outcome = DriverFirerOutcome.DROPPED_DISCIPLINARY;
                     }

@@ -10,13 +10,51 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
     /// <summary>
     /// Team orders: a SECOND_DRIVER finishing right ahead of their FIRST_DRIVER, or the player
     /// making contact with their teammate, earns a reprimand from the team principal.
-    /// Two reprimands mean the team won't retain the driver at the end of the season (see
-    /// EndOfSeasonManager), three mean the driver is replaced for the rest of the season.
+    /// Three reprimands mean the team won't retain the driver at the end of the season, unless they
+    /// finish it ahead of their teammate in the standings or as champion (IsDroppedAtSeasonEnd, see
+    /// EndOfSeasonManager); four mean the driver is replaced for the rest of the season.
     /// </summary>
     public class ReprimandManager : IReprimandManager
     {
-        public const int REPRIMANDS_FOR_SEASON_END_DROP = 2;
-        public const int REPRIMANDS_FOR_RELEASE = 3;
+        public const int REPRIMANDS_FOR_SEASON_END_DROP = 3;
+        public const int REPRIMANDS_FOR_RELEASE = 4;
+
+        /// <summary>
+        /// Whether the team lets the driver go at the end of the season for their reprimands: enough
+        /// of them at this team, and neither the champion nor ahead of their teammate in the drivers'
+        /// standings (a driver who beat the team leader over the season proved the point). Read on the
+        /// current standings, so before the season ends it is a forecast.
+        /// </summary>
+        public static bool IsDroppedAtSeasonEnd(ISaveGame saveGame, ITeamEntry team, string driverId)
+        {
+            if (string.IsNullOrEmpty(driverId) || team == null)
+                return false;
+
+            var count = (saveGame.Reprimands ?? new List<Reprimand>()).Count(r => r.DriverId == driverId && r.TeamId == team.TeamId);
+            if (count < REPRIMANDS_FOR_SEASON_END_DROP)
+                return false;
+
+            var standings = saveGame.CurrentDriverStandings ?? new List<HistoricalDriverStandingEntry>();
+            if (standings.FirstOrDefault(s => s.Position == 1)?.DriverId == driverId)
+                return false;
+
+            return !IsAheadOfTeammate(standings, team, driverId);
+        }
+
+        // a teammate missing from the standings (no points, never classified) is behind anyone in them
+        private static bool IsAheadOfTeammate(IEnumerable<HistoricalDriverStandingEntry> standings, ITeamEntry team, string driverId)
+        {
+            var teammateId = team.Driver1Contract?.DriverId == driverId ? team.Driver2Contract?.DriverId : team.Driver1Contract?.DriverId;
+            if (string.IsNullOrEmpty(teammateId))
+                return false;
+
+            var driver = standings.FirstOrDefault(s => s.DriverId == driverId);
+            if (driver == null)
+                return false;
+
+            var teammate = standings.FirstOrDefault(s => s.DriverId == teammateId);
+            return teammate == null || driver.Position < teammate.Position;
+        }
 
         // null: a released driver nobody can be found for leaves their car empty
         private readonly IRandomDriverGenerator _randomDriverGenerator;
