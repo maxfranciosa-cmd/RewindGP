@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:Ams2ChEd.Business.AMS2.Localization"
         Title="{loc:Loc OptionsWindow_Title}"
-        Height="720" Width="720"
+        Height="800" Width="720"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource Charcoal.BackgroundBrush}"
         ResizeMode="NoResize">
@@ -96,6 +96,18 @@
                 <!-- Auto-Launch Section -->
                 <CheckBox x:Name="AutoLaunchCheckBox"
                           Content="{loc:Loc OptionsWindow_AutoLaunchLabel}"
+                          Style="{StaticResource Charcoal.CheckBoxStyle}"
+                          HorizontalAlignment="Left"
+                          Margin="0,0,0,8"/>
+
+                <CheckBox x:Name="ChangePlayerNameCheckBox"
+                          Content="{loc:Loc OptionsWindow_ChangePlayerNameLabel}"
+                          Style="{StaticResource Charcoal.CheckBoxStyle}"
+                          HorizontalAlignment="Left"
+                          Margin="0,0,0,8"/>
+
+                <CheckBox x:Name="BorrowLiveriesCheckBox"
+                          Content="{loc:Loc OptionsWindow_BorrowLiveriesLabel}"
                           Style="{StaticResource Charcoal.CheckBoxStyle}"
                           HorizontalAlignment="Left"
                           Margin="0,0,0,22"/>

@@ -1,4 +1,5 @@
 ﻿using Ams2ChEd.Business.AMS2.Helpers;
+using Ams2ChEd.Business.AMS2.Settings;
 using AMS2ChEd.Business.AMS2.Models;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
@@ -33,7 +34,9 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
                 {
                     var warnings = new List<string>();
                     var cosmetics = SeasonCosmeticsFiles.EffectiveSeason(SeasonCosmeticsFiles.Read(seasonYear), seasonYear);
-                    seasonData = BakedSeasonMerge.MergeSeason(Read(bakedPath), hasPack ? Read(seasonPath) : null, cosmetics, OtherPackReader(), warnings);
+                    // with borrowing off, no other year lends its artwork: the team keeps the generic livery
+                    Func<int, Ams2Season> otherPacks = Ams2CareerLookSettings.LoadBorrowLiveries() ? OtherPackReader() : _ => null;
+                    seasonData = BakedSeasonMerge.MergeSeason(Read(bakedPath), hasPack ? Read(seasonPath) : null, cosmetics, otherPacks, warnings);
                     foreach (var warning in warnings)
                         Trace.TraceWarning(warning);
                 }
@@ -164,9 +167,12 @@ namespace AMS2ChEd.Business.AMS2.Storage.Concrete.JsonStorage
             string cosmetics = null;
             if (baked != null)
             {
+                // with borrowing off the other packs lend nothing, so they don't count: turning it
+                // on or off changes the stamp, and the saves' artwork is refreshed
+                var borrow = Ams2CareerLookSettings.LoadBorrowLiveries();
                 var otherPacks = YearFolders(StoragePaths.SeasonsFolder, null)
                     .Select(int.Parse)
-                    .Where(y => y != seasonYear)
+                    .Where(y => borrow && y != seasonYear)
                     .SelectMany(y => new[] { (y, StoragePaths.SeasonFilePath(y)), (y, StoragePaths.DriversFilePath(y)) });
                 var shipped = YearFolders(StoragePaths.BakedSeasonsFolder, StoragePaths.CosmeticsFilePath)
                     .Select(int.Parse)

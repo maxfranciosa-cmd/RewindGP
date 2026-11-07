@@ -30,6 +30,8 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string OptionsWindow_RaceLength_Half => ResourceManager.GetString(nameof(OptionsWindow_RaceLength_Half))!;
         public static string OptionsWindow_RaceLength_Full => ResourceManager.GetString(nameof(OptionsWindow_RaceLength_Full))!;
         public static string OptionsWindow_AutoLaunchLabel => ResourceManager.GetString(nameof(OptionsWindow_AutoLaunchLabel))!;
+        public static string OptionsWindow_ChangePlayerNameLabel => ResourceManager.GetString(nameof(OptionsWindow_ChangePlayerNameLabel))!;
+        public static string OptionsWindow_BorrowLiveriesLabel => ResourceManager.GetString(nameof(OptionsWindow_BorrowLiveriesLabel))!;
         public static string OptionsWindow_LanguageLabel => ResourceManager.GetString(nameof(OptionsWindow_LanguageLabel))!;
         public static string OptionsWindow_StyleLabel => ResourceManager.GetString(nameof(OptionsWindow_StyleLabel))!;
         public static string OptionsWindow_Style_Retro => ResourceManager.GetString(nameof(OptionsWindow_Style_Retro))!;

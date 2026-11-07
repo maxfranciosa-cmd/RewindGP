@@ -341,6 +341,12 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
         /// </summary>
         private static void ApplyPlayerIdentity(Ams2RaceConfigurator configurator, RaceLaunchRequest request)
         {
+            // the player chose to race under their own AMS2 name
+            if (!Ams2CareerLookSettings.LoadChangePlayerName())
+            {
+                return;
+            }
+
             var driver = request.Drivers?.FirstOrDefault(d => d.DriverId == request.PlayerDriverId);
             if (driver == null || string.IsNullOrWhiteSpace(driver.Name))
             {

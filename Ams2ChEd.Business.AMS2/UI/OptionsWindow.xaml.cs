@@ -29,6 +29,8 @@ namespace Ams2ChEd.Business.AMS2.UI
         {
             AMS2FolderTextBox.Text = _settingsStorage.LoadSettings()?.GameInstallFolder;
             AutoLaunchCheckBox.IsChecked = _settingsStorage.LoadAutoLaunchGame();
+            ChangePlayerNameCheckBox.IsChecked = Ams2CareerLookSettings.LoadChangePlayerName();
+            BorrowLiveriesCheckBox.IsChecked = Ams2CareerLookSettings.LoadBorrowLiveries();
 
             CrashDetectionCheckBox.IsChecked = CrashIncidentSettings.LoadDetectionEnabled();
             FatalitiesCheckBox.IsChecked = CrashIncidentSettings.LoadFatalitiesEnabled();
@@ -75,6 +77,8 @@ namespace Ams2ChEd.Business.AMS2.UI
             {
                 _settingsStorage.SaveSettings(new GameInstallSettings { GameInstallFolder = path });
                 _settingsStorage.SaveAutoLaunchGame(AutoLaunchCheckBox.IsChecked ?? true);
+                Ams2CareerLookSettings.SaveChangePlayerName(ChangePlayerNameCheckBox.IsChecked ?? true);
+                Ams2CareerLookSettings.SaveBorrowLiveries(BorrowLiveriesCheckBox.IsChecked ?? true);
 
                 if (RaceLengthComboBox.SelectedItem is ComboBoxItem selected
                     && Enum.TryParse<Ams2RaceLength>((string)selected.Tag, out var raceLength))
