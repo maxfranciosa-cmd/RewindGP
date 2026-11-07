@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         x:Class="AMS2ChEd.Views.ConstructorAccoladesWindow"
         Title="{loc:Loc ConstructorAccoladesWindow_Title}"
-        Height="700" Width="560"
-        MinHeight="540" MinWidth="500"
+        Height="860" Width="560"
+        MinHeight="680" MinWidth="500"
         WindowStartupLocation="CenterOwner"
         ResizeMode="CanResize"
         Background="{StaticResource Accolades.WindowBackground}"
@@ -49,6 +49,38 @@
                 <!-- Name, totals and championships -->
                 <StackPanel x:Name="ProfileBlock" Grid.ColumnSpan="2">
                     <TextBlock x:Name="TeamNameText" Style="{StaticResource Accolades.Name}"/>
+
+                    <!-- This season's drivers: first, second, then the reserve when the team runs one -->
+                    <StackPanel x:Name="DriversBlock">
+                        <Border Style="{StaticResource Accolades.SectionHeader}">
+                            <TextBlock Text="{loc:Loc ConstructorAccoladesWindow_DriversLabel}" Style="{StaticResource Accolades.SectionTitle}"/>
+                        </Border>
+                        <ItemsControl x:Name="DriversList" Focusable="False">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Style="{StaticResource Accolades.TeamDriver}" ToolTip="{Binding FullName}">
+                                        <Border Style="{StaticResource Accolades.TeamDriverPhoto}">
+                                            <Grid>
+                                                <TextBlock Text="?"
+                                                           Visibility="{Binding PlaceholderVisibility}"
+                                                           Style="{StaticResource Accolades.TeamDriverPlaceholder}"/>
+                                                <Image Source="{Binding Photo}"
+                                                       Stretch="UniformToFill"
+                                                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                                            </Grid>
+                                        </Border>
+                                        <TextBlock Text="{Binding Surname}" Style="{StaticResource Accolades.TeamDriverSurname}"/>
+                                        <TextBlock Text="{Binding Role}" Style="{StaticResource Accolades.TeamDriverRole}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
 
                     <!-- Totals -->
                     <StackPanel Style="{StaticResource Accolades.Totals}">

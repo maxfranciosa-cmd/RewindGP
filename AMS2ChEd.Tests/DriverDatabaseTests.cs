@@ -26,6 +26,36 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
+        public void Build_ATeamsReserve_IsAReserveWithHisTeamButNoNumber()
+        {
+            var saveGame = CreateTestSaveGame(1996);
+            saveGame.Drivers = new List<IDriverData> { Driver("nicola_larini", "Nicola Larini", 1964) };
+            var ferrari = Team("ferrari", "Scuderia Ferrari Marlboro", "#DC143C", ("michael_schumacher", 1), ("eddie_irvine", 2));
+            ferrari.ReserveContract = new DriverContract { DriverId = "nicola_larini", DriverNumber = 30 };
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { ferrari };
+
+            var entry = DriverDatabase.Build(saveGame).Single();
+
+            Assert.AreEqual(DriverDatabaseStatus.RESERVE, entry.Status);
+            Assert.AreEqual("ferrari", entry.TeamId);
+            Assert.AreEqual("Ferrari", entry.TeamShortName);
+            Assert.AreEqual("#DC143C", entry.TeamColor);
+            Assert.IsNull(entry.CarNumber);
+        }
+
+        [TestMethod]
+        public void Build_EmptyReserveContract_MakesNobodyAReserve()
+        {
+            var saveGame = CreateTestSaveGame(1996);
+            saveGame.Drivers = new List<IDriverData> { Driver("karl_wendlinger", "Karl Wendlinger", 1968) };
+            var ferrari = Team("ferrari", "Scuderia Ferrari Marlboro", "#DC143C");
+            ferrari.ReserveContract = new DriverContract { DriverId = "" };
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { ferrari };
+
+            Assert.AreEqual(DriverDatabaseStatus.FREE_AGENT, DriverDatabase.Build(saveGame).Single().Status);
+        }
+
+        [TestMethod]
         public void Build_DriverInThePoolWithoutASeat_IsAFreeAgentWithoutTeam()
         {
             var saveGame = CreateTestSaveGame(1996);

@@ -265,7 +265,7 @@
         <Setter Property="Foreground" Value="White"/>
     </Style>
 
-    <!-- the band across the bottom of the photo: black for the retired, yellow for a free agent -->
+    <!-- the band across the bottom of the photo: black for the retired, yellow for a free agent, blue for a reserve -->
     <Style x:Key="DriverDatabase.StatusBand" TargetType="Border">
         <Setter Property="Background" Value="#111111"/>
         <Setter Property="Padding" Value="3"/>
@@ -273,6 +273,9 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding Status}" Value="FreeAgent">
                 <Setter Property="Background" Value="{StaticResource CoverYellowBrush}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status}" Value="Reserve">
+                <Setter Property="Background" Value="{StaticResource PenBlueBrush}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>

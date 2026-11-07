@@ -1,4 +1,4 @@
-﻿using Steamworks;
+using Steamworks;
 using System.Resources;
 
 namespace AMS2ChEd.Resources
@@ -211,12 +211,14 @@ namespace AMS2ChEd.Resources
         public static string DriverAccoladesWindow_PolesColumnHeader => ResourceManager.GetString(nameof(DriverAccoladesWindow_PolesColumnHeader))!;
         public static string DriverAccoladesWindow_PointsColumnHeader => ResourceManager.GetString(nameof(DriverAccoladesWindow_PointsColumnHeader))!;
         public static string DriverAccoladesWindow_AgeText_Format => ResourceManager.GetString(nameof(DriverAccoladesWindow_AgeText_Format))!;
+        public static string DriverAccoladesWindow_Reputation_Format => ResourceManager.GetString(nameof(DriverAccoladesWindow_Reputation_Format))!;
 
         public static string ConstructorAccoladesWindow_Title => ResourceManager.GetString(nameof(ConstructorAccoladesWindow_Title))!;
         public static string ConstructorAccoladesWindow_WinsLabel => ResourceManager.GetString(nameof(ConstructorAccoladesWindow_WinsLabel))!;
         public static string ConstructorAccoladesWindow_PodiumsLabel => ResourceManager.GetString(nameof(ConstructorAccoladesWindow_PodiumsLabel))!;
         public static string ConstructorAccoladesWindow_PolesLabel => ResourceManager.GetString(nameof(ConstructorAccoladesWindow_PolesLabel))!;
         public static string ConstructorAccoladesWindow_ChampionshipsLabel => ResourceManager.GetString(nameof(ConstructorAccoladesWindow_ChampionshipsLabel))!;
+        public static string ConstructorAccoladesWindow_DriversLabel => ResourceManager.GetString(nameof(ConstructorAccoladesWindow_DriversLabel))!;
         public static string ConstructorAccoladesWindow_PreviousSeasonsLabel => ResourceManager.GetString(nameof(ConstructorAccoladesWindow_PreviousSeasonsLabel))!;
         public static string ConstructorAccoladesWindow_YearColumnHeader => ResourceManager.GetString(nameof(ConstructorAccoladesWindow_YearColumnHeader))!;
         public static string ConstructorAccoladesWindow_PositionColumnHeader => ResourceManager.GetString(nameof(ConstructorAccoladesWindow_PositionColumnHeader))!;
@@ -1153,6 +1155,7 @@ namespace AMS2ChEd.Resources
         public static string DriverDatabaseWindow_TabRacing => ResourceManager.GetString(nameof(DriverDatabaseWindow_TabRacing))!;
         public static string DriverDatabaseWindow_TabFreeAgents => ResourceManager.GetString(nameof(DriverDatabaseWindow_TabFreeAgents))!;
         public static string DriverDatabaseWindow_TabRetired => ResourceManager.GetString(nameof(DriverDatabaseWindow_TabRetired))!;
+        public static string DriverDatabaseWindow_TabReserves => ResourceManager.GetString(nameof(DriverDatabaseWindow_TabReserves))!;
         public static string DriverDatabaseWindow_SearchHint => ResourceManager.GetString(nameof(DriverDatabaseWindow_SearchHint))!;
         public static string DriverDatabaseWindow_SortLabel => ResourceManager.GetString(nameof(DriverDatabaseWindow_SortLabel))!;
         public static string DriverDatabaseWindow_SortByName => ResourceManager.GetString(nameof(DriverDatabaseWindow_SortByName))!;
@@ -1160,6 +1163,7 @@ namespace AMS2ChEd.Resources
         public static string DriverDatabaseWindow_SortByTeam => ResourceManager.GetString(nameof(DriverDatabaseWindow_SortByTeam))!;
         public static string DriverDatabaseWindow_Count_Format => ResourceManager.GetString(nameof(DriverDatabaseWindow_Count_Format))!;
         public static string DriverDatabaseWindow_StatusFreeAgent => ResourceManager.GetString(nameof(DriverDatabaseWindow_StatusFreeAgent))!;
+        public static string DriverDatabaseWindow_StatusReserve => ResourceManager.GetString(nameof(DriverDatabaseWindow_StatusReserve))!;
         public static string DriverDatabaseWindow_StatusRetired => ResourceManager.GetString(nameof(DriverDatabaseWindow_StatusRetired))!;
         public static string DriverDatabaseWindow_PlayerBadge => ResourceManager.GetString(nameof(DriverDatabaseWindow_PlayerBadge))!;
         public static string DriverDatabaseWindow_Age_Format => ResourceManager.GetString(nameof(DriverDatabaseWindow_Age_Format))!;

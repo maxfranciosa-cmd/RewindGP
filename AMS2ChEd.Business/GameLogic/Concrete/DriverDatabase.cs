@@ -8,6 +8,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
     {
         // holds a seat in the current season
         RACING,
+        // a team's reserve this season: no race seat, first in line when one of its drivers can't race
+        RESERVE,
         // in the save's drivers pool without a seat
         FREE_AGENT,
         // has retired
@@ -28,7 +30,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         public DriverDatabaseStatus Status { get; set; }
         public bool IsPlayer { get; set; }
 
-        // the seat, for a driver who is racing; null otherwise
+        // the seat, for a driver who is racing, or the team a reserve stands by for (no car number); null otherwise
         public string TeamId { get; set; }
         public string TeamName { get; set; }
         public string TeamShortName { get; set; }
@@ -61,6 +63,14 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 }
             }
 
+            // the team every reserve stands by for (a reserve holds no race seat)
+            var reserves = new Dictionary<string, ITeamEntry>();
+            foreach (var team in saveGame.CurrentSeason?.Teams ?? Enumerable.Empty<ITeamEntry>())
+            {
+                if (team.ReserveDriverId() is string reserveId)
+                    reserves.TryAdd(reserveId, team);
+            }
+
             var entries = new List<DriverDatabaseEntry>();
             var seen = new HashSet<string>();
 
@@ -79,6 +89,14 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     entry.TeamShortName = seat.Team.ShortTeamName();
                     entry.TeamColor = seat.Team.Color;
                     entry.CarNumber = seat.DriverNumber > -1 ? seat.DriverNumber : null;
+                }
+                else if (reserves.TryGetValue(driver.DriverId, out var reserveTeam))
+                {
+                    entry.Status = DriverDatabaseStatus.RESERVE;
+                    entry.TeamId = reserveTeam.TeamId;
+                    entry.TeamName = reserveTeam.TeamName;
+                    entry.TeamShortName = reserveTeam.ShortTeamName();
+                    entry.TeamColor = reserveTeam.Color;
                 }
                 else
                 {

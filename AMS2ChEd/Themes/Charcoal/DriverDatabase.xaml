@@ -223,10 +223,16 @@
         <Setter Property="FontSize" Value="13"/>
     </Style>
 
+    <!-- a reserve's band is red, like the title rule: he belongs to a team without racing for it -->
     <Style x:Key="DriverDatabase.StatusBand" TargetType="Border">
         <Setter Property="Background" Value="#d9141414"/>
         <Setter Property="Padding" Value="4"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="Reserve">
+                <Setter Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="DriverDatabase.StatusBandText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
@@ -234,6 +240,11 @@
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="Reserve">
+                <Setter Property="Foreground" Value="{StaticResource Charcoal.TextBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="DriverDatabase.PlayerBadge" TargetType="Border">

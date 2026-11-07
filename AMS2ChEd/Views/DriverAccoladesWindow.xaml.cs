@@ -1,4 +1,5 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
@@ -33,7 +34,7 @@ namespace AMS2ChEd.Views
                 AgeText.Visibility = Visibility.Collapsed;
             }
 
-            // team-orders role, only for drivers with a seat this season
+            // team-orders role for drivers with a seat this season, or that they are a team's reserve
             var contract = saveGame.CurrentSeason.Teams
                 .SelectMany(t => new[] { t.Driver1Contract, t.Driver2Contract })
                 .FirstOrDefault(c => c != null && c.DriverId == driverId);
@@ -41,9 +42,25 @@ namespace AMS2ChEd.Views
             {
                 RoleText.Text = TeamSelectionWindow.GetRoleName(contract.Role);
             }
+            else if (saveGame.CurrentSeason.ReserveTeamOf(driverId) != null)
+            {
+                RoleText.Text = Strings.TeamSelectionWindow_ReserveRole;
+            }
             else
             {
                 RoleText.Visibility = Visibility.Collapsed;
+            }
+
+            // the reputation the driver has now; a retired driver's no longer counts
+            bool retired = saveGame.Drivers?.Any(d => d.DriverId == driverId) != true
+                && saveGame.RetiredDrivers?.Any(d => d.DriverId == driverId) == true;
+            if (driverData != null && !retired)
+            {
+                ReputationText.Text = string.Format(Strings.DriverAccoladesWindow_Reputation_Format, SeasonOverviewWindow.FormatReputation(driverData.Reputation));
+            }
+            else
+            {
+                ReputationText.Visibility = Visibility.Collapsed;
             }
 
             var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, allTimeRecordsLoader?.Load(), driverId);

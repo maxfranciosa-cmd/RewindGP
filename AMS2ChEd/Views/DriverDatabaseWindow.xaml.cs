@@ -27,7 +27,7 @@ namespace AMS2ChEd.Views
         public string CarNumber { get; set; }
         public string TeamShortName { get; set; }
         public string StatusText { get; set; }
-        // "Racing", "FreeAgent" or "Retired": what the visual style tells the drivers apart by
+        // "Racing", "Reserve", "FreeAgent" or "Retired": what the visual style tells the drivers apart by
         public string Status { get; set; }
         public bool IsPlayer { get; set; }
         public string PictureUrl { get; set; }
@@ -68,6 +68,7 @@ namespace AMS2ChEd.Views
 
             AllTab.Content = TabLabel(Strings.DriverDatabaseWindow_TabAll, _rows.Count);
             RacingTab.Content = TabLabel(Strings.DriverDatabaseWindow_TabRacing, _rows.Count(r => r.Entry.Status == DriverDatabaseStatus.RACING));
+            ReservesTab.Content = TabLabel(Strings.DriverDatabaseWindow_TabReserves, _rows.Count(r => r.Entry.Status == DriverDatabaseStatus.RESERVE));
             FreeAgentsTab.Content = TabLabel(Strings.DriverDatabaseWindow_TabFreeAgents, _rows.Count(r => r.Entry.Status == DriverDatabaseStatus.FREE_AGENT));
             RetiredTab.Content = TabLabel(Strings.DriverDatabaseWindow_TabRetired, _rows.Count(r => r.Entry.Status == DriverDatabaseStatus.RETIRED));
 
@@ -97,6 +98,8 @@ namespace AMS2ChEd.Views
         {
             if (RacingTab.IsChecked == true)
                 return row.Entry.Status == DriverDatabaseStatus.RACING;
+            if (ReservesTab.IsChecked == true)
+                return row.Entry.Status == DriverDatabaseStatus.RESERVE;
             if (FreeAgentsTab.IsChecked == true)
                 return row.Entry.Status == DriverDatabaseStatus.FREE_AGENT;
             if (RetiredTab.IsChecked == true)
@@ -122,11 +125,13 @@ namespace AMS2ChEd.Views
             if (SortByAgeOption.IsChecked == true)
                 return rows.OrderBy(r => r.Entry.Age ?? int.MaxValue);
 
-            // the grid team by team, in car-number order; then the free agents and the retired
+            // the grid team by team, in car-number order with the team's reserve last; then the free
+            // agents and the retired
             if (SortByTeamOption.IsChecked == true)
                 return rows
-                    .OrderBy(r => r.Entry.Status)
+                    .OrderBy(r => r.Entry.Status == DriverDatabaseStatus.RESERVE ? DriverDatabaseStatus.RACING : r.Entry.Status)
                     .ThenBy(r => r.Entry.TeamShortName ?? string.Empty, System.StringComparer.CurrentCultureIgnoreCase)
+                    .ThenBy(r => r.Entry.Status)
                     .ThenBy(r => r.Entry.CarNumber ?? int.MaxValue);
 
             return rows;
@@ -169,7 +174,9 @@ namespace AMS2ChEd.Views
         private static DriverDatabaseRow ToRow(DriverDatabaseEntry entry, Brush noTeamBrush)
         {
             bool isRacing = entry.Status == DriverDatabaseStatus.RACING;
-            var teamBrush = isRacing ? ParseColor(entry.TeamColor) : null;
+            // a reserve wears his team's colours too, with the band saying he is the reserve
+            bool hasTeam = isRacing || entry.Status == DriverDatabaseStatus.RESERVE;
+            var teamBrush = hasTeam ? ParseColor(entry.TeamColor) : null;
             string portrait = DriverPortraitExtension.Portrait(entry.DriverId, entry.PictureUrl, entry.Avatar);
             bool hasPhoto = PictureUrlLoaderExtension.TryLoadBitmap(portrait, out var photo);
 
@@ -183,15 +190,17 @@ namespace AMS2ChEd.Views
                 Nationality = entry.Nationality ?? string.Empty,
                 AgeText = entry.Age.HasValue ? string.Format(Strings.DriverDatabaseWindow_Age_Format, entry.Age.Value) : string.Empty,
                 CarNumber = entry.CarNumber?.ToString() ?? string.Empty,
-                TeamShortName = isRacing ? entry.TeamShortName : string.Empty,
+                TeamShortName = hasTeam ? entry.TeamShortName : string.Empty,
                 Status = entry.Status switch
                 {
                     DriverDatabaseStatus.RACING => "Racing",
+                    DriverDatabaseStatus.RESERVE => "Reserve",
                     DriverDatabaseStatus.FREE_AGENT => "FreeAgent",
                     _ => "Retired"
                 },
                 StatusText = entry.Status switch
                 {
+                    DriverDatabaseStatus.RESERVE => Strings.DriverDatabaseWindow_StatusReserve,
                     DriverDatabaseStatus.FREE_AGENT => Strings.DriverDatabaseWindow_StatusFreeAgent,
                     DriverDatabaseStatus.RETIRED => Strings.DriverDatabaseWindow_StatusRetired,
                     _ => string.Empty
@@ -207,7 +216,7 @@ namespace AMS2ChEd.Views
                 PlayerBadgeVisibility = entry.IsPlayer ? Visibility.Visible : Visibility.Collapsed,
                 AccoladesTeamName = entry.Status switch
                 {
-                    DriverDatabaseStatus.RACING => entry.TeamName,
+                    DriverDatabaseStatus.RACING or DriverDatabaseStatus.RESERVE => entry.TeamName,
                     DriverDatabaseStatus.FREE_AGENT => Strings.DriverDatabaseWindow_AccoladesFreeAgent,
                     _ => Strings.DriverDatabaseWindow_AccoladesRetired
                 }

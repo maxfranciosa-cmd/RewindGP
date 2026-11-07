@@ -1,7 +1,10 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Storage.Contracts;
+using AMS2ChEd.Extensions;
+using AMS2ChEd.Resources;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -35,6 +38,10 @@ namespace AMS2ChEd.Views
                 TeamColorStrip.Background = fallbackColor;
             }
 
+            var drivers = BuildDriverCards(saveGame, teamId);
+            DriversList.ItemsSource = drivers;
+            DriversBlock.Visibility = drivers.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+
             var accolades = AccoladesCalculator.GetTeamAccolades(saveGame, allTimeRecordsLoader?.Load(), teamId);
 
             WinsText.Text = accolades.Wins.ToString();
@@ -67,6 +74,53 @@ namespace AMS2ChEd.Views
             public int Wins { get; set; }
             public int Podiums { get; set; }
             public int Poles { get; set; }
+        }
+
+        private class TeamDriverCard
+        {
+            public string FullName { get; set; }
+            public string Surname { get; set; }
+            public string Role { get; set; }
+            public ImageSource Photo { get; set; }
+            public Visibility PlaceholderVisibility { get; set; }
+        }
+
+        // The team's drivers this season, by team-orders role (first, second; equal ones in seat
+        // order), then its reserve; none for a team that isn't on this season's grid.
+        private static List<TeamDriverCard> BuildDriverCards(ISaveGame saveGame, string teamId)
+        {
+            var team = saveGame.CurrentSeason?.Teams?.FirstOrDefault(t => t.TeamId == teamId);
+            if (team == null)
+                return new List<TeamDriverCard>();
+
+            var cards = new[] { team.Driver1Contract, team.Driver2Contract }
+                .Where(c => !string.IsNullOrEmpty(c?.DriverId))
+                .Select((contract, seat) => (contract, seat))
+                .OrderBy(s => s.contract.Role switch { ContractRole.FIRST_DRIVER => 0, ContractRole.SECOND_DRIVER => 2, _ => 1 })
+                .ThenBy(s => s.seat)
+                .Select(s => Card(saveGame, s.contract.DriverId, TeamSelectionWindow.GetRoleName(s.contract.Role)))
+                .ToList();
+
+            if (team.ReserveDriverId() is string reserveId)
+                cards.Add(Card(saveGame, reserveId, Strings.TeamSelectionWindow_ReserveRole));
+
+            return cards;
+        }
+
+        private static TeamDriverCard Card(ISaveGame saveGame, string driverId, string role)
+        {
+            var driver = saveGame.Drivers?.FirstOrDefault(d => d.DriverId == driverId);
+            string portrait = driver != null ? driver.Portrait() : DriverPortraitExtension.Portrait(driverId, null, null);
+            bool hasPhoto = PictureUrlLoaderExtension.TryLoadBitmap(portrait, out var photo);
+
+            return new TeamDriverCard
+            {
+                FullName = driver?.Name ?? driverId,
+                Surname = driver?.Surname() ?? driverId,
+                Role = role,
+                Photo = hasPhoto ? photo : null,
+                PlaceholderVisibility = hasPhoto ? Visibility.Collapsed : Visibility.Visible
+            };
         }
 
         private List<SeasonAccoladeRow> BuildSeasonRows(ISaveGame saveGame, string teamId)

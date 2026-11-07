@@ -75,6 +75,42 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
+    <!-- A team's drivers: small photos attached to the sheet like the driver's own, surname typed under -->
+    <Style x:Key="Accolades.TeamDriver" TargetType="StackPanel">
+        <Setter Property="Width" Value="96"/>
+        <Setter Property="Margin" Value="0,0,14,4"/>
+    </Style>
+
+    <!-- the portrait frame (2:3, see PortraitFrame) inside the white edge: 62x93 -->
+    <Style x:Key="Accolades.TeamDriverPhoto" TargetType="Border">
+        <Setter Property="Width" Value="70"/>
+        <Setter Property="Height" Value="101"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Background" Value="{StaticResource PhotoBackBrush}"/>
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="BorderThickness" Value="4"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="2" Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Accolades.TeamDriverPlaceholder" TargetType="TextBlock" BasedOn="{StaticResource Accolades.PhotoPlaceholder}">
+        <Setter Property="FontSize" Value="28"/>
+    </Style>
+
+    <Style x:Key="Accolades.TeamDriverSurname" TargetType="TextBlock" BasedOn="{StaticResource PosterTextStyle}">
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="Margin" Value="0,6,0,0"/>
+    </Style>
+
+    <Style x:Key="Accolades.TeamDriverRole" TargetType="TextBlock" BasedOn="{StaticResource TypedLabelStyle}">
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
     <!-- Totals: a label, a dotted leader and the number -->
     <Style x:Key="Accolades.Totals" TargetType="StackPanel">
         <Setter Property="Margin" Value="0,12,0,0"/>
