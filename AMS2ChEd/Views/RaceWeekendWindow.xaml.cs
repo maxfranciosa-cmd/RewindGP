@@ -1048,7 +1048,17 @@ namespace AMS2ChEd.Views
             }
 
             var overlay = _gameLogicFactory.RaceLaunchAssistant?.ShowReturnOverlayAsync(this) ?? Task.CompletedTask;
-            return Task.WhenAny(overlay, _playerBackInApp.Task);
+            return WaitForOverlayOrReturnAsync(overlay, _playerBackInApp);
+        }
+
+        /// <summary>
+        /// Dismissing the overlay also counts as the player being back: mark it, or the next End
+        /// race click would be spent resolving an already-finished wait instead of closing.
+        /// </summary>
+        private static async Task WaitForOverlayOrReturnAsync(Task overlay, TaskCompletionSource playerBackInApp)
+        {
+            await Task.WhenAny(overlay, playerBackInApp.Task);
+            playerBackInApp.TrySetResult();
         }
 
         protected override void OnClosing(CancelEventArgs e)
