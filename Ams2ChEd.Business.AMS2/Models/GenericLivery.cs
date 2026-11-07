@@ -15,19 +15,32 @@ namespace AMS2ChEd.Business.AMS2.Models
 
         /// <summary>
         /// Key colour name (red, green, blue, yellow, magenta, cyan) to "#RRGGBB", or "#AARRGGBB"
-        /// for a see-through island: its alpha lets the base livery's material (BaseLivery)
-        /// show through, "#00000000" fully. A key left out keeps its template colour.
+        /// for an island with the base livery's finish: AMS2 reads the alpha as how much of that
+        /// material (BaseLivery: Chrome, a metallic) the paint takes, 255 plain paint. The colour
+        /// still shows. Skin packs use about 13 for chrome (2010 McLaren, #0D7B797B) and 64 for a
+        /// metallic silver (2010 Mercedes). A key left out keeps its template colour.
         /// </summary>
         [JsonPropertyName("palette")]
         public Dictionary<string, string> Palette { get; set; }
 
         /// <summary>
         /// The BASELIVERY written for the generated livery (an AMS2 base material of the car,
-        /// e.g. "SilverMetallic"). Null keeps the kit XML's own.
+        /// e.g. "SilverMetallic", "Chrome"), the finish the palette's alpha asks for. Null keeps
+        /// the kit XML's own.
         /// </summary>
         [JsonPropertyName("base_livery")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string BaseLivery { get; set; }
+
+        /// <summary>
+        /// Palette keys whose islands take the base livery's reflection (a "Chrome" base): a
+        /// FRESNEL texture is generated with those islands dark and everything else, the car
+        /// numbers included, white, as the 2010 McLaren skin's. Null: no FRESNEL texture, the
+        /// base's own applies (enough for a metallic base).
+        /// </summary>
+        [JsonPropertyName("fresnel")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public List<string> Fresnel { get; set; }
 
         /// <summary>Id of a number style in the kit.</summary>
         [JsonPropertyName("number_style")]

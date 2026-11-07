@@ -945,6 +945,9 @@ namespace Ams2ChEd.Business.AMS2.Services
             // Get numbers placements
             string finalLiveryPath;
 
+            // a generic livery's FRESNEL texture (reflective islands), when the team marks any
+            string finalFresnelPath = null;
+
             if (!hasValidTexture)
             {
                 string fallbackFilename = $"{team.TeamId}_{driverCarNumber}{textureTag}_{seasonYear}.dds";
@@ -963,6 +966,8 @@ namespace Ams2ChEd.Business.AMS2.Services
                     // first template.
                     var template = kit.FindTemplate(team.GenericLivery.Template) ?? kit.Templates[0];
                     GenerateGenericBody(template, kit, team, driverCarNumber, fallbackPath, temporaryTexturesPath);
+                    if (GenericFresnelPath(team, fallbackPath) is string fresnelPath)
+                        finalFresnelPath = Path.Combine("temporary_textures", Path.GetFileName(fresnelPath));
                 }
                 else
                 {
@@ -1048,6 +1053,18 @@ namespace Ams2ChEd.Business.AMS2.Services
                             texture.SetAttributeValue("PATH", finalLiveryPath);
                     }
 
+                    // where the base's reflection goes: replaces any FRESNEL the XML names
+                    if (finalFresnelPath != null)
+                    {
+                        clonedElement.Elements("TEXTURE").Where(t => t.Attribute("NAME")?.Value == "FRESNEL").Remove();
+                        var fresnelTexture = new XElement("TEXTURE", new XAttribute("NAME", "FRESNEL"), new XAttribute("PATH", finalFresnelPath));
+                        var bodyElement = clonedElement.Elements("TEXTURE").FirstOrDefault(t => t.Attribute("NAME")?.Value == "BODY");
+                        if (bodyElement != null)
+                            bodyElement.AddAfterSelf(fresnelTexture);
+                        else
+                            clonedElement.Add(fresnelTexture);
+                    }
+
                     // Update PREVIEW texture PATH if it exists
                     var previewImageNode = clonedElement.Elements("PREVIEWIMAGE").FirstOrDefault();
                     previewImageNode.SetAttributeValue("PATH", finalLiveryPreviewPath);
@@ -1111,9 +1128,19 @@ namespace Ams2ChEd.Business.AMS2.Services
         /// palette, the car number drawn on the template's own plates in the team's number style.
         /// Skipped when the file on disk was made from the same inputs.
         /// </summary>
+        /// <summary>
+        /// Where the FRESNEL texture of a generic livery's body goes (beside it), or null when the
+        /// team marks no reflective islands.
+        /// </summary>
+        private static string GenericFresnelPath(Ams2TeamEntry team, string bodyPath) =>
+            team.GenericLivery?.Fresnel?.Count > 0
+                ? Path.Combine(Path.GetDirectoryName(bodyPath), Path.GetFileNameWithoutExtension(bodyPath) + "_fresnel.dds")
+                : null;
+
         private void GenerateGenericBody(KitTemplate template, LiveryKit kit, Ams2TeamEntry team, int carNumber, string outputPath, string temporaryTexturesPath)
         {
             var livery = team.GenericLivery;
+            string fresnelPath = GenericFresnelPath(team, outputPath);
             string templatePath = Path.Combine(kit.Folder, template.Body);
             var style = liveryKits.FindNumberStyle(livery.NumberStyle);
             string stylePath = liveryKits.NumberStylePath(livery.NumberStyle);
@@ -1122,18 +1149,25 @@ namespace Ams2ChEd.Business.AMS2.Services
                 Console.WriteLine($"Warning: number style '{livery.NumberStyle}' not found: {team.TeamId} races without numbers");
 
             string key = string.Join("|", templatePath, File.GetLastWriteTimeUtc(templatePath).Ticks, GenericLiveryComposer.Describe(livery.Palette),
-                numbers ? $"{carNumber}|{stylePath}|{livery.NumberFill}|{livery.NumberOutline}|" + string.Join(",", template.NumbersPlacements.Select(p => $"{p.NumberFillKey}/{p.NumberOutlineKey}")) : "no numbers");
-            if (GenericLiveryComposer.IsCached(outputPath, key))
+                numbers ? $"{carNumber}|{stylePath}|{livery.NumberFill}|{livery.NumberOutline}|" + string.Join(",", template.NumbersPlacements.Select(p => $"{p.NumberFillKey}/{p.NumberOutlineKey}")) : "no numbers",
+                fresnelPath == null ? "no fresnel" : "fresnel=" + string.Join(",", livery.Fresnel.Select(k => k.ToLowerInvariant()).OrderBy(k => k)));
+            if (GenericLiveryComposer.IsCached(outputPath, key) && (fresnelPath == null || File.Exists(fresnelPath)))
             {
                 Console.WriteLine($"  Generic livery unchanged: {Path.GetFileName(outputPath)}");
                 return;
             }
 
             var body = GenericLiveryComposer.BuildBody(templatePath, livery.Palette);
+            var fresnel = fresnelPath == null ? null : GenericLiveryComposer.BuildFresnel(templatePath, livery.Fresnel);
             if (!numbers)
             {
                 using (body)
                     DdsTextureComposer.SaveAsDds(body, outputPath);
+                if (fresnel != null)
+                {
+                    using (fresnel)
+                        DdsTextureComposer.SaveAsDds(fresnel, fresnelPath);
+                }
             }
             else
             {
@@ -1167,7 +1201,7 @@ namespace Ams2ChEd.Business.AMS2.Services
                         FillColor = plate.FillKey != null ? PaletteColour(livery.Palette, plate.FillKey) : plate.FillColor
                     });
                 }
-                DdsTextureComposer.ApplyCarNumbers(body, placements, carNumber, temporaryTexturesPath, outputPath, opaqueDigits: true);
+                DdsTextureComposer.ApplyCarNumbers(body, placements, carNumber, temporaryTexturesPath, outputPath, opaqueDigits: true, fresnel, fresnelPath);
             }
 
             GenericLiveryComposer.MarkCached(outputPath, key);

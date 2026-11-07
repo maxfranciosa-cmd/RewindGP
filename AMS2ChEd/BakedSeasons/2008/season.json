@@ -527,13 +527,15 @@
       "default_prequalifying": false,
       "generic_livery": {
         "template": "v8g2_1",
+        "base_livery": "Chrome",
+        "fresnel": [ "red", "green", "blue", "magenta", "cyan" ],
         "palette": {
-          "red": "#9A9EA2",
-          "green": "#9A9EA2",
-          "blue": "#9A9EA2",
+          "red": "#0D7B797B",
+          "green": "#0D7B797B",
+          "blue": "#0D7B797B",
           "yellow": "#C8102E",
-          "magenta": "#9A9EA2",
-          "cyan": "#9A9EA2"
+          "magenta": "#0D7B797B",
+          "cyan": "#0D7B797B"
         },
         "number_style": "sans_outline",
         "number_fill": "#141414",

@@ -690,12 +690,14 @@
       "default_prequalifying": false,
       "generic_livery": {
         "template": "reiza_1",
+        "base_livery": "Chrome",
+        "fresnel": [ "red", "green", "blue", "magenta" ],
         "palette": {
-          "red": "#353435",
-          "green": "#353435",
-          "blue": "#353435",
+          "red": "#0D7B797B",
+          "green": "#0D7B797B",
+          "blue": "#0D7B797B",
           "yellow": "#FE1100",
-          "magenta": "#353435",
+          "magenta": "#0D7B797B",
           "cyan": "#0B0B0B"
         },
         "number_style": "angular",
@@ -754,12 +756,13 @@
       "default_prequalifying": false,
       "generic_livery": {
         "template": "reiza_1",
+        "base_livery": "SilverMetallic",
         "palette": {
-          "red": "#737573",
-          "green": "#737573",
+          "red": "#0D737573",
+          "green": "#0D737573",
           "blue": "#0C0C0C",
-          "yellow": "#737573",
-          "magenta": "#737573",
+          "yellow": "#0D737573",
+          "magenta": "#0D737573",
           "cyan": "#0C0B0C"
         },
         "number_style": "lato_outline",

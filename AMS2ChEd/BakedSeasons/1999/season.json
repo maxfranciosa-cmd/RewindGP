@@ -548,13 +548,14 @@
       "default_prequalifying": false,
       "generic_livery": {
         "template": "gen2_1",
+        "base_livery": "SilverMetallic",
         "palette": {
-          "red": "#B1B2B4",
+          "red": "#0DB1B2B4",
           "green": "#100C10",
-          "blue": "#B1B2B4",
+          "blue": "#0DB1B2B4",
           "cyan": "#100C10",
           "yellow": "#EF3810",
-          "magenta": "#B2B3B5"
+          "magenta": "#0DB2B3B5"
         },
         "number_style": "sans_outline",
         "number_fill": "#E8380C",
@@ -617,11 +618,12 @@
       "default_prequalifying": false,
       "generic_livery": {
         "template": "gen2_2",
+        "base_livery": "SilverMetallic",
         "palette": {
-          "red": "#838691",
+          "red": "#0D838691",
           "blue": "#151515",
           "green": "#01247D",
-          "magenta": "#848691",
+          "magenta": "#0D848691",
           "yellow": "#01247D",
           "cyan": "#01237D"
         },

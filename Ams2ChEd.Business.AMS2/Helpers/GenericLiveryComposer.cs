@@ -13,10 +13,10 @@ namespace Ams2ChEd.Business.AMS2.Helpers
     public static class GenericLiveryComposer
     {
         /// <summary>
-        /// The kit template recoloured with the palette. Opaque but for the islands whose palette
-        /// colour has an alpha ("#AARRGGBB"): AMS2 reads a livery's alpha as how much of the base
-        /// livery's material shows through, so the template's own alpha never reaches the game,
-        /// only the one the team chose.
+        /// The kit template recoloured with the palette. Alpha 255 (plain paint) but for the
+        /// islands whose palette colour has an alpha ("#AARRGGBB"): AMS2 reads a livery's alpha as
+        /// material data, how much of the base livery's finish (chrome, metallic) the paint takes,
+        /// so the template's own alpha never reaches the game, only the one the team chose.
         /// </summary>
         public static Image<Rgba32> BuildBody(string templatePath, IReadOnlyDictionary<string, string> palette)
         {
@@ -28,6 +28,38 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                         pixel.A = 255;
             });
             TemplateRecolour.Apply(image, TemplateRecolour.ParsePalette(palette));
+            return image;
+        }
+
+        /// <summary>The FRESNEL value of a reflective island: the 2010 McLaren chrome skin's.</summary>
+        public static readonly Rgba32 FresnelReflective = new(0x29, 0x2C, 0x29, 255);
+
+        /// <summary>The FRESNEL value of everything else.</summary>
+        public static readonly Rgba32 FresnelPlain = new(0xFE, 0xFE, 0xFE, 255);
+
+        /// <summary>
+        /// The FRESNEL texture of a kit template: the islands in the given key colours reflective,
+        /// every other pixel (other islands, fixed artwork, the gaps between islands) plain.
+        /// </summary>
+        public static Image<Rgba32> BuildFresnel(string templatePath, IEnumerable<string> reflectiveKeys)
+        {
+            var keys = (reflectiveKeys ?? Enumerable.Empty<string>())
+                .Select(k => TemplateRecolour.KeyColours.TryGetValue(k, out var c) ? c
+                    : throw new ArgumentException($"'{k}' is not a template key colour.", nameof(reflectiveKeys)))
+                .ToArray();
+
+            var image = Image.Load<Rgba32>(templatePath);
+            image.ProcessPixelRows(accessor =>
+            {
+                for (int y = 0; y < accessor.Height; y++)
+                    foreach (ref var pixel in accessor.GetRowSpan(y))
+                    {
+                        bool reflective = false;
+                        foreach (var k in keys)
+                            if (k.R == pixel.R && k.G == pixel.G && k.B == pixel.B) { reflective = true; break; }
+                        pixel = reflective ? FresnelReflective : FresnelPlain;
+                    }
+            });
             return image;
         }
 

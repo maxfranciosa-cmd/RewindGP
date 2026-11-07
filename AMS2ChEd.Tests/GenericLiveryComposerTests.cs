@@ -33,6 +33,72 @@ namespace AMS2ChEd.Tests.Ams2
         }
 
         [TestMethod]
+        public void BuildBody_ThenNumbersAndDds_KeepsThePaletteAlpha()
+        {
+            using var folder = new TempFolder();
+            var pixels = Enumerable.Range(0, 64 * 64).Select(i => i % 64 < 32 ? new Rgba32(255, 0, 0, 255) : new Rgba32(255, 255, 0, 255)).ToArray();
+            string template = folder.Png("template.png", 64, 64, pixels);
+            string output = Path.Combine(folder.Root, "body.dds");
+
+            var body = GenericLiveryComposer.BuildBody(template, new Dictionary<string, string> { { "red", "#309A9EA2" }, { "yellow", "#C8102E" } });
+            DdsTextureComposer.ApplyCarNumbers(body, new List<DdsTextureComposer.NumberPlacementData>(), 5, folder.Root, output, opaqueDigits: true);
+
+            using var read = DdsTextureComposer.LoadImage(output);
+            Assert.AreEqual(48, read[8, 8].A, 4);
+            Assert.AreEqual(255, read[48, 8].A);
+        }
+
+        [TestMethod]
+        public void BuildFresnel_ListedKeysReflective_EverythingElsePlain()
+        {
+            using var folder = new TempFolder();
+            string template = folder.Png("template.png", 4, 1,
+                new Rgba32(255, 0, 0, 255), new Rgba32(0, 255, 0, 255), new Rgba32(255, 255, 0, 255), new Rgba32(20, 20, 20, 0));
+
+            using var fresnel = GenericLiveryComposer.BuildFresnel(template, new[] { "red", "Green" });
+
+            Assert.AreEqual(GenericLiveryComposer.FresnelReflective, fresnel[0, 0]);
+            Assert.AreEqual(GenericLiveryComposer.FresnelReflective, fresnel[1, 0]);
+            Assert.AreEqual(GenericLiveryComposer.FresnelPlain, fresnel[2, 0]);
+            Assert.AreEqual(GenericLiveryComposer.FresnelPlain, fresnel[3, 0]);
+        }
+
+        [TestMethod]
+        public void ApplyCarNumbers_WithFresnel_DigitsArePlainOnIt_AndItIsWritten()
+        {
+            using var folder = new TempFolder();
+            // a 2x1 sheet per digit: digit cells white, so the stamped plate changes the body
+            string sheet = folder.Png("sheet.png", 20, 1, Enumerable.Repeat(new Rgba32(255, 255, 255, 255), 20).ToArray());
+            var red = Enumerable.Repeat(new Rgba32(255, 0, 0, 255), 64 * 64).ToArray();
+            string template = folder.Png("template.png", 64, 64, red);
+            string output = Path.Combine(folder.Root, "body.dds");
+            string fresnelOutput = Path.Combine(folder.Root, "body_fresnel.dds");
+
+            var body = GenericLiveryComposer.BuildBody(template, new Dictionary<string, string> { { "red", "#0D7B797B" } });
+            var fresnel = GenericLiveryComposer.BuildFresnel(template, new[] { "red" });
+            var plate = new DdsTextureComposer.NumberPlacementData { NumbersTexture = sheet, PlateWidth = 8, StartX = 0, StartY = 0, Rotation = 0 };
+            DdsTextureComposer.ApplyCarNumbers(body, new List<DdsTextureComposer.NumberPlacementData> { plate }, 5, folder.Root, output, opaqueDigits: true, fresnel, fresnelOutput);
+
+            using var readBody = DdsTextureComposer.LoadImage(output);
+            using var read = DdsTextureComposer.LoadImage(fresnelOutput);
+            int digitPixels = 0;
+            for (int y = 0; y < 64; y++)
+                for (int x = 0; x < 64; x++)
+                {
+                    bool digit = readBody[x, y].R > 200;
+                    if (digit)
+                    {
+                        digitPixels++;
+                        Assert.IsTrue(read[x, y].R > 200, $"digit pixel {x},{y} should be plain, was {read[x, y]}");
+                        Assert.AreEqual(255, readBody[x, y].A, 8);
+                    }
+                    else if (x > 20 && y > 20)
+                        Assert.IsTrue(read[x, y].R < 60, $"chrome pixel {x},{y} should stay reflective, was {read[x, y]}");
+                }
+            Assert.IsTrue(digitPixels > 0, "the plate painted nothing");
+        }
+
+        [TestMethod]
         public void BuildNumberSheet_SingleColour_TakesTheFill_KeepsAlpha_AndIsResized()
         {
             using var folder = new TempFolder();

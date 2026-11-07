@@ -156,8 +156,10 @@ public class DdsTextureComposer
     /// <summary>
     /// As above, for a livery already in memory (a generic livery just recoloured from its kit
     /// template). Takes ownership of <paramref name="liveryImage"/> and disposes it. With
-    /// <paramref name="opaqueDigits"/>, every pixel the digits paint is made opaque: on a generic
-    /// livery's see-through island they are paint, not the base material.
+    /// <paramref name="opaqueDigits"/>, every pixel the digits paint gets a full mask: on a generic
+    /// livery's chrome or metallic island they are plain paint, not the base material. With a
+    /// <paramref name="fresnel"/> map (same size), those pixels are made plain on it too, and it
+    /// is written to <paramref name="fresnelOutputPath"/>; it is disposed either way.
     /// </summary>
     public static void ApplyCarNumbers(
         Image<Rgba32> liveryImage,
@@ -165,13 +167,15 @@ public class DdsTextureComposer
         int carNumber,
         string seasonDirectory,
         string outputPath,
-        bool opaqueDigits = false)
+        bool opaqueDigits = false,
+        Image<Rgba32> fresnel = null,
+        string fresnelOutputPath = null)
     {
         // A livery's alpha channel is material data for AMS2 (how the paint shines), not transparency.
         // Blending onto it as-is turns every pixel whose mask is 0 black wherever a digit cell's
         // transparent margin is drawn, so paint on an opaque copy and put the mask back afterwards.
         byte[] materialMask = ExtractAlphaAndMakeOpaque(liveryImage);
-        using var unstamped = opaqueDigits && materialMask.Any(a => a != 255) ? liveryImage.Clone() : null;
+        using var unstamped = (opaqueDigits && materialMask.Any(a => a != 255)) || fresnel != null ? liveryImage.Clone() : null;
 
         // Get digits of the car number once
         string numberString = carNumber.ToString();
@@ -253,7 +257,13 @@ public class DdsTextureComposer
         }
 
         if (unstamped != null)
-            MarkPaintedOpaque(unstamped, liveryImage, materialMask);
+            MarkPainted(unstamped, liveryImage, opaqueDigits ? materialMask : null, fresnel);
+
+        if (fresnel != null)
+        {
+            using (fresnel)
+                SaveAsDds(fresnel, fresnelOutputPath);
+        }
 
         RestoreAlpha(liveryImage, materialMask);
         foreach (var (placement, height, fill) in filledPlates)
@@ -302,9 +312,11 @@ public class DdsTextureComposer
         return alpha;
     }
 
-    // Every pixel whose colour the stamping changed gets a full mask.
-    private static void MarkPaintedOpaque(Image<Rgba32> before, Image<Rgba32> after, byte[] mask)
+    // Every pixel whose colour the stamping changed gets a full mask (when given) and is plain
+    // on the fresnel map (when given).
+    private static void MarkPainted(Image<Rgba32> before, Image<Rgba32> after, byte[] mask, Image<Rgba32> fresnel)
     {
+        var painted = new bool[before.Width * before.Height];
         before.ProcessPixelRows(after, (from, to) =>
         {
             for (int y = 0; y < from.Height; y++)
@@ -313,7 +325,22 @@ public class DdsTextureComposer
                 var b = to.GetRowSpan(y);
                 for (int x = 0; x < a.Length; x++)
                     if (a[x] != b[x])
-                        mask[y * from.Width + x] = 255;
+                    {
+                        painted[y * from.Width + x] = true;
+                        if (mask != null)
+                            mask[y * from.Width + x] = 255;
+                    }
+            }
+        });
+
+        fresnel?.ProcessPixelRows(accessor =>
+        {
+            for (int y = 0; y < Math.Min(accessor.Height, before.Height); y++)
+            {
+                var row = accessor.GetRowSpan(y);
+                for (int x = 0; x < Math.Min(row.Length, before.Width); x++)
+                    if (painted[y * before.Width + x])
+                        row[x] = Ams2ChEd.Business.AMS2.Helpers.GenericLiveryComposer.FresnelPlain;
             }
         });
     }
