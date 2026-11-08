@@ -100,6 +100,35 @@ namespace AMS2ChEd.Tests
         }
 
         [TestMethod]
+        public void BuildSessionRules_UsesTheRaceStartTime()
+        {
+            var race = MakeRace();
+            race.StartTime = 20;
+
+            Assert.AreEqual(20, Ams2SessionRulesBuilder.BuildSessionRules(race, Ams2RaceLength.Default, 71).StartHour);
+            Assert.AreEqual(20, Ams2SessionRulesBuilder.BuildQualifyingConfig(race).StartHour);
+        }
+
+        [TestMethod]
+        [DataRow(-1)]
+        [DataRow(24)]
+        public void BuildSessionRules_OutOfRangeStartTime_FallsBackTo2pm(int startTime)
+        {
+            var race = MakeRace();
+            race.StartTime = startTime;
+
+            Assert.AreEqual(14, Ams2SessionRulesBuilder.BuildSessionRules(race, Ams2RaceLength.Default, 71).StartHour);
+        }
+
+        [TestMethod]
+        public void Race_WithoutStartTimeInJson_DefaultsTo2pm()
+        {
+            var race = System.Text.Json.JsonSerializer.Deserialize<Race>("{\"race_id\": 1, \"race_name\": \"Monaco Grand Prix\"}");
+
+            Assert.AreEqual(14, race.StartTime);
+        }
+
+        [TestMethod]
         public void BuildOpponentsConfig_UsesCustomSameClassWithGivenCount()
         {
             var result = Ams2SessionRulesBuilder.BuildOpponentsConfig(19);

@@ -19,6 +19,7 @@ namespace AMS2ChEd.SeasonPackEditor
             if (race == null)
             {
                 Race = new Race();
+                StartTimeTextBox.Text = Race.StartTime.ToString();
             }
             else
             {
@@ -33,6 +34,7 @@ namespace AMS2ChEd.SeasonPackEditor
             RaceNameTextBox.Text = Race.RaceName;
             RaceShortNameTextBox.Text = Race.RaceShortName;
             RaceDateTextBox.Text = Race.RaceDate;
+            StartTimeTextBox.Text = Race.StartTime.ToString();
             CircuitTextBox.Text = Race.Circuit;
             CoverPictureTextBox.Text = Race.CoverPictureUrl;
 
@@ -93,6 +95,7 @@ namespace AMS2ChEd.SeasonPackEditor
             Race.RaceName = RaceNameTextBox.Text;
             Race.RaceShortName = RaceShortNameTextBox.Text;
             Race.RaceDate = RaceDateTextBox.Text;
+            Race.StartTime = int.Parse(StartTimeTextBox.Text);
             Race.Circuit = CircuitTextBox.Text;
             Race.CoverPictureUrl = CoverPictureTextBox.Text;
 
@@ -117,6 +120,12 @@ namespace AMS2ChEd.SeasonPackEditor
             if (string.IsNullOrWhiteSpace(RaceNameTextBox.Text))
             {
                 MessageBox.Show("Race Name is required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (!int.TryParse(StartTimeTextBox.Text, out var startTime) || startTime < 0 || startTime > 23)
+            {
+                MessageBox.Show("Start Hour must be a whole hour from 0 to 23.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 

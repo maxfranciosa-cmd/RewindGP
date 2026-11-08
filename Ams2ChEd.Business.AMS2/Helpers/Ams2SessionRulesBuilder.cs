@@ -55,27 +55,37 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                 PrivateQualiSession = null,
                 PitMinTyres = PitTyreCount.Zero,
                 PitMinFuel = PitFuelCount.Zero,
-                StartHour = 14,
+                StartHour = GetStartHour(race),
                 Weather = new SessionWeatherConfig { HistoricalWeather = true },
                 RefuellingAllowed = OnOff.On
             };
         }
 
         /// <summary>
-        /// Fixed Qualifying config applied to every race launch (both Pre-Quali and Actual Race) -
-        /// not derived from Race/season data, unlike BuildSessionRules. Practice is deliberately
+        /// The race's own start hour, or the 2pm default when it's missing or out of range.
+        /// </summary>
+        public static int GetStartHour(Race race)
+        {
+            var hour = race?.StartTime ?? Race.DefaultStartTime;
+            return hour is >= 0 and <= 23 ? hour : Race.DefaultStartTime;
+        }
+
+        /// <summary>
+        /// Qualifying config applied to every race launch (both Pre-Quali and Actual Race). Only
+        /// its start hour comes from the race (so a night race also qualifies at night); the rest
+        /// is fixed. Practice is deliberately
         /// left alone entirely (no PracticeQualifySessionConfig is built for it) - whatever the
         /// player already has selected for Practice stays as-is.
         ///
         /// EXPERIMENTAL - see PracticeQualifySessionConfig/SessionVmResolver's doc comments in
         /// Ams2Interop before relying on this; it isn't live-confirmed by that library yet.
         /// </summary>
-        public static PracticeQualifySessionConfig BuildQualifyingConfig()
+        public static PracticeQualifySessionConfig BuildQualifyingConfig(Race race)
         {
             return new PracticeQualifySessionConfig
             {
                 DurationValue = 30, // 30 minutes - Qualifying is always time-based
-                StartHour = 14,     // 2pm
+                StartHour = GetStartHour(race),
                 Weather = new SessionWeatherConfig { HistoricalWeather = false, Slots = [WeatherType.Random] },
             };
         }

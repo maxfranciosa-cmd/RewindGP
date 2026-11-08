@@ -109,6 +109,18 @@
       "default_number_of_laps": 67
     },
     {
+      "grand_prix_name_patterns": [ "Eifel" ],
+      "year": 2020,
+      "track_options": [
+        {
+          "track_id": "nurb_gp_2020",
+          "dlc_id": "nurburgring_pack"
+        }
+      ],
+      "default_track_id": null,
+      "default_number_of_laps": 60
+    },
+    {
       "grand_prix_name_patterns": [ "San Marino" ],
       "year": 1981,
       "default_track_id": "imola_88",
@@ -267,6 +279,18 @@
     {
       "grand_prix_name_patterns": [ "British" ],
       "year": 2010,
+      "track_options": [
+        {
+          "track_id": "silverstone_2019",
+          "dlc_id": "silverstone_pack"
+        }
+      ],
+      "default_track_id": "donington_gp",
+      "default_number_of_laps": 52
+    },
+    {
+      "grand_prix_name_patterns": [ "70th Anniversary" ],
+      "year": 2020,
       "track_options": [
         {
           "track_id": "silverstone_2019",
@@ -467,7 +491,7 @@
       "default_number_of_laps": 71
     },
     {
-      "grand_prix_name_patterns": [ "Austrian" ],
+      "grand_prix_name_patterns": [ "Austrian", "Styrian" ],
       "year": 2011,
       "default_track_id": "spielberg_gp",
       "default_number_of_laps": 71
@@ -593,16 +617,136 @@
       "default_number_of_laps": 53
     },
     {
-      "grand_prix_name_patterns": [ "Japanese" ],
-      "year": 2007,
-      "default_track_id": null,
-      "default_number_of_laps": 67
+      "grand_prix_name_patterns": [ "Pacific" ],
+      "year": 0,
+      "default_track_id": "kansai_west",
+      "default_number_of_laps": 89
     },
     {
-      "grand_prix_name_patterns": [ "Japanese" ],
-      "year": 2009,
+      "grand_prix_name_patterns": [ "Chinese" ],
+      "year": 0,
       "default_track_id": "kansai_gp",
       "default_number_of_laps": 53
+    },
+    {
+      "grand_prix_name_patterns": [ "Mexican", "Mexico" ],
+      "year": 0,
+      "default_track_id": "buenos_aires_15",
+      "default_number_of_laps": 51
+    },
+    {
+      "grand_prix_name_patterns": [ "Miami" ],
+      "year": 0,
+      "track_options": [
+        {
+          "track_id": "daytona_circuit",
+          "dlc_id": "racin_usa_1"
+        }
+      ],
+      "default_track_id": "adelaide_modern",
+      "default_number_of_laps": 54
+    },
+    {
+      "grand_prix_name_patterns": [ "Las Vegas" ],
+      "year": 0,
+      "track_options": [
+        {
+          "track_id": "long_beach",
+          "dlc_id": "racin_usa_1"
+        }
+      ],
+      "default_track_id": "adelaide_modern",
+      "default_number_of_laps": 98
+    },
+    {
+      "grand_prix_name_patterns": [ "Detroit" ],
+      "year": 0,
+      "track_options": [
+        {
+          "track_id": "cleveland_gp",
+          "dlc_id": "racin_usa_2"
+        }
+      ],
+      "default_track_id": "salvador",
+      "default_number_of_laps": 75
+    },
+    {
+      "grand_prix_name_patterns": [ "Singapore" ],
+      "year": 0,
+      "default_track_id": "azure_circuit_2021",
+      "default_number_of_laps": 92
+    },
+    {
+      "grand_prix_name_patterns": [ "Azerbaijan" ],
+      "year": 0,
+      "default_track_id": "adelaide_modern",
+      "default_number_of_laps": 95
+    },
+    {
+      "grand_prix_name_patterns": [ "Saudi" ],
+      "year": 0,
+      "default_track_id": "galeao_airport",
+      "default_number_of_laps": 96
+    },
+    {
+      "grand_prix_name_patterns": [ "Korean" ],
+      "year": 0,
+      "default_track_id": "galeao_airport",
+      "default_number_of_laps": 96
+    },
+    {
+      "grand_prix_name_patterns": [ "Bahrain", "Sakhir" ],
+      "year": 0,
+      "default_track_id": "termas_rio_hondo",
+      "default_number_of_laps": 64
+    },
+    {
+      "grand_prix_name_patterns": [ "Abu Dhabi" ],
+      "year": 0,
+      "default_track_id": "termas_rio_hondo",
+      "default_number_of_laps": 64
+    },
+    {
+      "grand_prix_name_patterns": [ "Qatar" ],
+      "year": 0,
+      "default_track_id": "cordoba_gp",
+      "default_number_of_laps": 76
+    },
+    {
+      "grand_prix_name_patterns": [ "Malaysian" ],
+      "year": 0,
+      "default_track_id": "jacarepagua2005",
+      "default_number_of_laps": 63
+    },
+    {
+      "grand_prix_name_patterns": [ "Indian" ],
+      "year": 0,
+      "default_track_id": "kyalami_2019",
+      "default_number_of_laps": 68
+    },
+    {
+      "grand_prix_name_patterns": [ "Turkish" ],
+      "year": 0,
+      "default_track_id": "kyalami_2019",
+      "default_number_of_laps": 68
+    },
+    {
+      "grand_prix_name_patterns": [ "Russian" ],
+      "year": 0,
+      "default_track_id": "montrealmodern",
+      "default_number_of_laps": 71
+    },
+    {
+      "grand_prix_name_patterns": [ "Dutch" ],
+      "year": 0,
+      "default_track_id": "brandshatch_gp",
+      "default_number_of_laps": 78
+    },
+    {
+      "grand_prix_name_patterns": [ "Tuscan" ],
+      "year": 0,
+      "default_track_id": "imola",
+      "default_number_of_laps": 63
     }
   ]
 }

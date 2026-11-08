@@ -287,7 +287,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             // Same for both Pre-Quali and the Actual Race - see BuildQualifyingConfig's doc
             // comment. Practice is intentionally NOT configured at all here (left null) - whatever
             // the player already has selected for Practice is left exactly as-is.
-            var qualifying = Ams2SessionRulesBuilder.BuildQualifyingConfig();
+            var qualifying = Ams2SessionRulesBuilder.BuildQualifyingConfig(race);
 
             using var configurator = new Ams2RaceConfigurator(_hashCatalogProvider.CarHashes, _hashCatalogProvider.TrackHashes, LogToFile);
             if (!await configurator.AttachAsync(ct).ConfigureAwait(true))

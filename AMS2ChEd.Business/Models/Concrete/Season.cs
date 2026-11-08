@@ -62,6 +62,15 @@ namespace AMS2ChEd.Business.Models.Concrete
         [JsonPropertyName("race_date")]
         public string RaceDate { get; set; }
 
+        /// <summary>
+        /// Local hour (0-23) the race started at; the race session is set up at this hour.
+        /// Defaults to 14 (2pm), the usual start, for races that don't give one.
+        /// </summary>
+        [JsonPropertyName("start_time")]
+        public int StartTime { get; set; } = DefaultStartTime;
+
+        public const int DefaultStartTime = 14;
+
         [JsonPropertyName("circuit")]
         public string Circuit { get; set; }
 

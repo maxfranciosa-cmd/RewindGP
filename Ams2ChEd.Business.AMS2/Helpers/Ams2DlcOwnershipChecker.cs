@@ -65,6 +65,7 @@ namespace Ams2ChEd.Business.AMS2.Helpers
             // as "Racin' USA Expansion Pack" (1648110) - confirmed via that pack's own Steam store
             // description ("This DLC combines all 3 parts of the original Expansion Pack...").
             ["racin_usa_1"] = [1648061, 1648110],
+            ["racin_usa_2"] = [1648062, 1648110],          // "Racin' USA Pack Pt2" on Steam (Cleveland), also in the Expansion Pack above
             ["le_mans"] = [2697790],                       // "Circuit des 24 Heures du Mans" on Steam - no bundle relationship checked yet
         };
 
