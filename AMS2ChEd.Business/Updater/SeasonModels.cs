@@ -192,7 +192,10 @@ namespace AMS2ChEd.Business.Updater.Models
     {
         public bool IsUpdateAvailable { get; set; }
         public string CurrentVersion { get; set; } = string.Empty;
+        /// <summary>"major.minor": what the updater checks the downloaded exe against.</summary>
         public string LatestVersion { get; set; } = string.Empty;
+        /// <summary>The release's full version as tagged, without its "v" (3.0.1), for display.</summary>
+        public string LatestTag { get; set; } = string.Empty;
         public string PageUrl { get; set; } = string.Empty;
         public string DownloadUrl { get; set; } = string.Empty;
         public bool CheckFailed { get; set; }

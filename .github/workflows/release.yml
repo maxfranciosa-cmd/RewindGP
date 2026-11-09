@@ -26,7 +26,7 @@ jobs:
         run: |
           # v2.4 is a stable release. A patch tag (v2.4.1, v2.4.2...) is an experimental build:
           # it is published as a prerelease, which the app's update check (releases/latest,
-          # compared on major.minor only) never offers.
+          # compared on major.minor only) never offers; launching with --forceupdate installs the newest one.
           $tag = "${{ github.ref_name }}"
           if ($tag -notmatch '^v?(\d+)\.(\d+)(?:\.(\d+))?$') {
             Write-Error "Tag '$tag' doesn't look like a version (expected e.g. v2.1, or v2.1.1 for an experimental build)."

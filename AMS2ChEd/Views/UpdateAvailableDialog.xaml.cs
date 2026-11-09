@@ -21,7 +21,7 @@ namespace AMS2ChEd.Dialogs
             InitializeComponent();
             _update = update;
             CurrentVersionText.Text = update.CurrentVersion;
-            LatestVersionText.Text = update.LatestVersion;
+            LatestVersionText.Text = string.IsNullOrEmpty(update.LatestTag) ? update.LatestVersion : update.LatestTag;
             _originalArgs = originalArgs;
         }
 

@@ -105,6 +105,33 @@ namespace AMS2ChEd.Tests
         }
 
         [TestMethod]
+        public async Task CheckAsync_ForceUpdate_OffersNewestReleaseIncludingPrereleases_FromTheList()
+        {
+            const string preUrl = "https://github.com/maxfranciosa-cmd/RewindGP/releases/download/v3.0.2/RewindGP-v3.0.2.zip";
+            var list = "[" + string.Join(",",
+                @"{ ""tag_name"": ""v3.1.1"", ""draft"": true, ""prerelease"": true, ""html_url"": ""x"", ""assets"": [ { ""name"": ""d.zip"", ""browser_download_url"": ""draft"" } ] }",
+                MakeReleaseJson("v3.0.1", downloadUrl: "old"),
+                MakeReleaseJson("v3.0.2", downloadUrl: preUrl),
+                MakeReleaseJson("v3.0", downloadUrl: "stable"),
+                MakeReleaseJson("v3.0.3", assetName: null)) + "]";
+            var handler = new RecordingStubHandler(list);
+            var prefs = new InMemoryCurrentVersionCheckStore();
+            prefs.SetDateTime("UpdateCheck_LastCheck", DateTime.UtcNow);
+            prefs.SetString("UpdateCheck_LatestVersion", "3.0");
+            prefs.SetString("UpdateCheck_DownloadUrl", "stable");
+
+            var result = await new VersionCheckService(ApiUrl, prefs, forceUpdate: true, new HttpClient(handler), () => "3.0").CheckAsync();
+
+            Assert.AreEqual("https://api.github.com/repos/maxfranciosa-cmd/RewindGP/releases?per_page=30", handler.LastUri);
+            Assert.IsTrue(result.IsUpdateAvailable);
+            Assert.AreEqual(preUrl, result.DownloadUrl);
+            Assert.AreEqual("3.0", result.LatestVersion);
+            Assert.AreEqual("3.0.2", result.LatestTag);
+            // a normal launch still sees what it cached
+            Assert.AreEqual("stable", prefs.GetString("UpdateCheck_DownloadUrl"));
+        }
+
+        [TestMethod]
         public async Task CheckAsync_VPrefixedTag_NormalizesCorrectly()
         {
             var prefs = new InMemoryCurrentVersionCheckStore();
@@ -117,6 +144,25 @@ namespace AMS2ChEd.Tests
 
             Assert.IsTrue(result.IsUpdateAvailable);
             Assert.AreEqual("2.1", result.LatestVersion);
+            Assert.AreEqual("2.1", result.LatestTag);
+        }
+
+        [TestMethod]
+        public async Task CheckAsync_TagIsKeptInTheCache_AndAnOldCacheShowsTheVersion()
+        {
+            var prefs = new InMemoryCurrentVersionCheckStore();
+            var handler = new CountingStubHandler(MakeReleaseJson("v3.1.0"));
+            var svc = new VersionCheckService(ApiUrl, prefs, false, new HttpClient(handler), () => "3.0");
+
+            Assert.AreEqual("3.1.0", (await svc.CheckAsync()).LatestTag);
+            Assert.AreEqual("3.1.0", (await svc.CheckAsync()).LatestTag); // from the cache
+            Assert.AreEqual(1, handler.CallCount);
+
+            var old = new InMemoryCurrentVersionCheckStore();
+            old.SetDateTime("UpdateCheck_LastCheck", DateTime.UtcNow);
+            old.SetString("UpdateCheck_LatestVersion", "3.1");
+            var cached = await new VersionCheckService(ApiUrl, old, false, MakeHttpClient("{}", HttpStatusCode.InternalServerError), () => "3.0").CheckAsync();
+            Assert.AreEqual("3.1", cached.LatestTag);
         }
 
         // -------------------------------------------------------------------------
@@ -297,6 +343,24 @@ namespace AMS2ChEd.Tests
                 Content = new StringContent(_responseBody, Encoding.UTF8, "application/json")
             };
             return Task.FromResult(response);
+        }
+    }
+
+    internal class RecordingStubHandler : HttpMessageHandler
+    {
+        private readonly string _responseBody;
+        public string? LastUri { get; private set; }
+
+        public RecordingStubHandler(string responseBody) => _responseBody = responseBody;
+
+        protected override Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            LastUri = request.RequestUri?.ToString();
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(_responseBody, Encoding.UTF8, "application/json")
+            });
         }
     }
 
