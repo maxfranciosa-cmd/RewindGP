@@ -53,6 +53,7 @@ namespace AMS2ChEd
                 .Where(gp => gp.Year == saveGame.CurrentSeason.Year)
                 .OrderBy(gp => gp.Year)
                 .ToList() ?? new List<GrandPrixResult>();
+            var resultByRace = GrandPrixResultMatcher.MatchByRace(saveGame);
 
             // Collect all drivers from the current season
             var allDrivers = new HashSet<string>();
@@ -147,23 +148,8 @@ namespace AMS2ChEd
                 {
                     var race = allRaces[raceIndex];
 
-                    // Find if this race has been completed - try multiple matching strategies
-                    GrandPrixResult completedRace = null;
-
-                    // Strategy 1: Match by RaceId if GrandPrixResult has it stored somewhere
-                    // For now, match by name (try exact match first, then contains)
-                    completedRace = completedRaces.FirstOrDefault(cr =>
-                        cr.GrandPrixName != null && race.RaceName != null &&
-                        cr.GrandPrixName.Equals(race.RaceName, StringComparison.OrdinalIgnoreCase));
-
-                    // Strategy 2: Try partial match if exact match fails
-                    if (completedRace == null && race.RaceName != null)
-                    {
-                        completedRace = completedRaces.FirstOrDefault(cr =>
-                            cr.GrandPrixName != null &&
-                            (cr.GrandPrixName.Contains(race.RaceName, StringComparison.OrdinalIgnoreCase) ||
-                             race.RaceName.Contains(cr.GrandPrixName, StringComparison.OrdinalIgnoreCase)));
-                    }
+                    // The race's result, if it has been run
+                    var completedRace = resultByRace.GetValueOrDefault(race);
 
                     var result = completedRace?.RaceResults?.FirstOrDefault(r => r.DriverId == driverId);
 

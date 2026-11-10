@@ -217,6 +217,38 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
+        public void UpdateSeasonInsideSave_SeasonClonedFromAnotherYear_KeepsItsCalendar()
+        {
+            // a 1995 season running 1994's calendar: id 4 is Monaco there, Spain in the 1995 data
+            var saveGame = CreateSaveGame();
+            saveGame.CurrentSeason.Year = 1995;
+            saveGame.CurrentSeason.OriginalYear = 1994;
+            saveGame.CurrentSeason.Races = new List<Race>
+            {
+                new Race { RaceId = 4, RaceName = "Monaco Grand Prix", RaceShortName = "MON", Circuit = "Monaco", RaceDate = "1995-05-14", CoverPictureUrl = "monaco94.png" },
+                new Race { RaceId = 5, RaceName = "Spanish Grand Prix", RaceShortName = "ESP", Circuit = "Barcelona", RaceDate = "1995-05-28", CoverPictureUrl = "spain94.png" }
+            };
+
+            var updatedSeason = CreateSeason(1995);
+            updatedSeason.Races = new List<Race>
+            {
+                new Race { RaceId = 4, RaceName = "Spanish Grand Prix", RaceShortName = "ESP", Circuit = "Barcelona", RaceDate = "1995-05-14", CoverPictureUrl = "spain95.png" },
+                new Race { RaceId = 5, RaceName = "Monaco Grand Prix", RaceShortName = "MON", Circuit = "Monaco", RaceDate = "1995-05-28", CoverPictureUrl = "monaco95.png" }
+            };
+            _engine.SeasonToReturn = updatedSeason;
+
+            _engine.UpdateSeasonInsideSave(saveGame);
+
+            var races = saveGame.CurrentSeason.Races.ToList();
+            Assert.AreEqual("Monaco Grand Prix", races[0].RaceName, "the race stays the Grand Prix it was");
+            Assert.AreEqual("MON", races[0].RaceShortName);
+            Assert.AreEqual("1995-05-14", races[0].RaceDate, "the calendar keeps its own dates");
+            Assert.AreEqual("monaco95.png", races[0].CoverPictureUrl, "the cover is the one of the same Grand Prix");
+            Assert.AreEqual("Spanish Grand Prix", races[1].RaceName);
+            Assert.AreEqual("spain95.png", races[1].CoverPictureUrl);
+        }
+
+        [TestMethod]
         public void UpdateSeasonInsideSave_CallsConcreteSeasonUpdateHook()
         {
             // Arrange

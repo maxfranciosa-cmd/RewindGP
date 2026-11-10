@@ -108,6 +108,35 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             Assert.AreEqual(1, headToHead.Drivers.Single(d => d.DriverId == "A").Cells[1].Finish);
         }
 
+        [TestMethod]
+        public void GetTeamHeadToHead_TwoResultsWithTheSameName_AreToldApartByRaceId()
+        {
+            // the calendar was renamed after Race A was run under Race B's name
+            var saveGame = CreateSaveGame("Race A", "Race B");
+            AddRace(saveGame, "Race B", ("A", 1, 5), ("B", 2, 6));
+            AddRace(saveGame, "Race B", ("A", 1, 1), ("B", 2, 2));
+            saveGame.GrandPrixResults.ElementAt(0).RaceId = 1;
+            saveGame.GrandPrixResults.ElementAt(1).RaceId = 2;
+
+            var headToHead = HeadToHeadCalculator.GetTeamHeadToHead(saveGame, "TEAM");
+
+            Assert.AreEqual(5, headToHead.Drivers.Single(d => d.DriverId == "A").Cells[0].Finish);
+            Assert.AreEqual(1, headToHead.Drivers.Single(d => d.DriverId == "A").Cells[1].Finish);
+        }
+
+        [TestMethod]
+        public void MatchByRace_ResultWithARaceId_IsPlacedByItNotByName()
+        {
+            var saveGame = CreateSaveGame("Race A", "Race B");
+            AddRace(saveGame, "Race B", ("A", 1, 1), ("B", 2, 2));
+            saveGame.GrandPrixResults.Single().RaceId = 1;
+
+            var byRace = GrandPrixResultMatcher.MatchByRace(saveGame);
+
+            Assert.AreEqual(1, byRace.Count);
+            Assert.AreSame(saveGame.GrandPrixResults.Single(), byRace[saveGame.CurrentSeason.Races.First()]);
+        }
+
         #region Helpers
 
         private static ISaveGame CreateSaveGame(params string[] raceNames)

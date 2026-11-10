@@ -80,7 +80,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var season = saveGame.CurrentSeason;
             var races = season.Races.ToList();
             var team = season.Teams.First(t => t.TeamId == teamId);
-            var resultsByRace = MatchResultsToRaces(saveGame);
+            var resultsByRace = GrandPrixResultMatcher.MatchToCalendar(saveGame);
 
             var result = new TeamHeadToHead { TeamId = teamId };
             var contracted = new[] { team.Driver1Contract?.DriverId, team.Driver2Contract?.DriverId }
@@ -148,28 +148,6 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             }
 
             return result;
-        }
-
-        // GP results only carry the race's name: pair them with the calendar by name, falling back to
-        // calendar order. Null for a race not run yet.
-        private static GrandPrixResult[] MatchResultsToRaces(ISaveGame saveGame)
-        {
-            var races = saveGame.CurrentSeason.Races.ToList();
-            var results = (saveGame.GrandPrixResults ?? Enumerable.Empty<GrandPrixResult>())
-                .Where(g => g.Year == saveGame.CurrentSeason.Year)
-                .ToList();
-            var matched = new GrandPrixResult[races.Count];
-
-            for (int i = 0; i < results.Count; i++)
-            {
-                var index = Enumerable.Range(0, races.Count).FirstOrDefault(r => races[r].RaceName == results[i].GrandPrixName && matched[r] == null, -1);
-                if (index < 0)
-                    index = i < races.Count && matched[i] == null ? i : -1;
-                if (index >= 0)
-                    matched[index] = results[i];
-            }
-
-            return matched;
         }
 
         private static void Compare(TeamHeadToHead result, HeadToHeadDriver first, HeadToHeadDriver second)

@@ -322,8 +322,16 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 }
             }
 
+            if (saveGame.CurrentSeason.OriginalYear is int originalYear && originalYear != updatedSeason.Year)
+                RefreshClonedCalendar(saveGame.CurrentSeason, updatedSeason);
+            else
+                RefreshCalendar(saveGame.CurrentSeason, updatedSeason);
+        }
+
+        private static void RefreshCalendar(ISeason currentSeason, ISeason updatedSeason)
+        {
             var raceInfo = updatedSeason.Races.ToDictionary(r => r.RaceId);
-            foreach (var race in saveGame.CurrentSeason.Races)
+            foreach (var race in currentSeason.Races)
             {
                 var raceFromNewSeason = raceInfo.GetValueOrDefault(race.RaceId);
 
@@ -333,6 +341,27 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     race.RaceDate = raceFromNewSeason.RaceDate ?? race.RaceDate;
                     race.Circuit = raceFromNewSeason.Circuit;
                     race.RaceName = raceFromNewSeason.RaceName;
+                    race.RaceShortName = raceFromNewSeason.RaceShortName ?? race.RaceShortName;
+                }
+            }
+        }
+
+        // A season cloned from another year runs that year's calendar, so its race ids are that
+        // year's: in the season data now installed the same id can be another Grand Prix (id 4 is
+        // Monaco in 1994 and Spain in 1995). Renaming by id would turn the calendar into a
+        // different one mid-season, away from the results already recorded. Each race stays the
+        // Grand Prix it is, on its date, and only takes what the new data says about the Grand
+        // Prix of the same name.
+        private static void RefreshClonedCalendar(ISeason currentSeason, ISeason updatedSeason)
+        {
+            foreach (var race in currentSeason.Races)
+            {
+                var raceFromNewSeason = updatedSeason.Races.FirstOrDefault(r => r.RaceName == race.RaceName);
+
+                if (raceFromNewSeason != null)
+                {
+                    race.CoverPictureUrl = raceFromNewSeason.CoverPictureUrl ?? race.CoverPictureUrl;
+                    race.Circuit = raceFromNewSeason.Circuit ?? race.Circuit;
                     race.RaceShortName = raceFromNewSeason.RaceShortName ?? race.RaceShortName;
                 }
             }

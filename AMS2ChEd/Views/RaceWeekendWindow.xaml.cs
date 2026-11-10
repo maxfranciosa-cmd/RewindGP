@@ -466,6 +466,7 @@ namespace AMS2ChEd.Views
             var result = new GrandPrixResult
             {
                 GrandPrixName = currentRace.RaceName,
+                RaceId = currentRace.RaceId,
                 Year = saveGame.CurrentSeason.Year,
 
                 // Race results

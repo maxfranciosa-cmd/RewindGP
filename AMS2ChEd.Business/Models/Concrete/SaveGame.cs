@@ -127,6 +127,12 @@ namespace AMS2ChEd.Business.Models.Concrete
         [JsonPropertyName("grandPrixName")]
         public string GrandPrixName { get; set; }
 
+        // The calendar's race this result belongs to. The name alone does not say: a calendar
+        // can be renamed under a save, or hold the same Grand Prix twice. Null on results
+        // recorded before the id was kept.
+        [JsonPropertyName("race_id")]
+        public int? RaceId { get; set; }
+
         [JsonPropertyName("qualifyingResults")]
         public List<SessionResult> QualifyingResults { get; set; }
 

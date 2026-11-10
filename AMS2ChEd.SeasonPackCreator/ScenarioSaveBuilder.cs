@@ -310,6 +310,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 {
                     Year = season.Year,
                     GrandPrixName = race.RaceName,
+                    RaceId = race.RaceId,
                     QualifyingResults = new List<SessionResult>(),
                     RaceResults = sessionResults
                 });

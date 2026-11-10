@@ -195,6 +195,7 @@ namespace AMS2ChEd
 
         private Grid CreateTeamGrid(ISaveGame saveGame, string teamId, List<string> drivers, List<Race> allRaces, List<GrandPrixResult> completedRaces)
         {
+            var resultByRace = GrandPrixResultMatcher.MatchByRace(saveGame);
             var grid = new Grid();
 
             // Create column definitions
@@ -232,22 +233,8 @@ namespace AMS2ChEd
                 {
                     var race = allRaces[raceIndex];
 
-                    // Find if this race has been completed - try multiple matching strategies
-                    GrandPrixResult completedRace = null;
-
-                    // Strategy 1: Exact match (case-insensitive)
-                    completedRace = completedRaces.FirstOrDefault(cr =>
-                        cr.GrandPrixName != null && race.RaceName != null &&
-                        cr.GrandPrixName.Equals(race.RaceName, StringComparison.OrdinalIgnoreCase));
-
-                    // Strategy 2: Try partial match if exact match fails
-                    if (completedRace == null && race.RaceName != null)
-                    {
-                        completedRace = completedRaces.FirstOrDefault(cr =>
-                            cr.GrandPrixName != null &&
-                            (cr.GrandPrixName.Contains(race.RaceName, StringComparison.OrdinalIgnoreCase) ||
-                             race.RaceName.Contains(cr.GrandPrixName, StringComparison.OrdinalIgnoreCase)));
-                    }
+                    // The race's result, if it has been run
+                    var completedRace = resultByRace.GetValueOrDefault(race);
 
                     var result = completedRace?.RaceResults?.FirstOrDefault(r => r.DriverId == driverId && r.TeamId == teamId);
 
