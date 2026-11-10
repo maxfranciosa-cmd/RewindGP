@@ -316,7 +316,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         }
 
         // after a team has hired, the driver with the better reputation leads the team.
-        // On equal reputations the newly hired driver takes the role the team advertised for.
+        // On equal reputations both are EQUAL, whatever role the team advertised for.
         private void AssignRolesAfterHiring(ISaveGame saveGame, ITeamEntry teamEntry, TeamHiring driver1Hiring, TeamHiring driver2Hiring)
         {
             if (string.IsNullOrEmpty(teamEntry.Driver2Contract?.DriverId))
@@ -334,14 +334,15 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var driver1Reputation = GetReputation(teamEntry.Driver1Contract.DriverId, driver1Hiring);
             var driver2Reputation = GetReputation(teamEntry.Driver2Contract.DriverId, driver2Hiring);
 
-            bool driver1Leads;
-            if (driver1Reputation != driver2Reputation)
-                driver1Leads = driver1Reputation > driver2Reputation;
-            else if (driver1Hiring != null)
-                driver1Leads = driver1Hiring.Role == DriverRole.FIRST_DRIVER;
-            else
-                driver1Leads = driver2Hiring.Role == DriverRole.SECOND_DRIVER;
+            if (driver1Reputation == driver2Reputation)
+            {
+                // neither outranks the other: no team orders between them (as in AssignUndefinedRoles)
+                teamEntry.Driver1Contract.Role = ContractRole.EQUAL;
+                teamEntry.Driver2Contract.Role = ContractRole.EQUAL;
+                return;
+            }
 
+            var driver1Leads = driver1Reputation > driver2Reputation;
             teamEntry.Driver1Contract.Role = driver1Leads ? ContractRole.FIRST_DRIVER : ContractRole.SECOND_DRIVER;
             teamEntry.Driver2Contract.Role = driver1Leads ? ContractRole.SECOND_DRIVER : ContractRole.FIRST_DRIVER;
         }
