@@ -105,6 +105,16 @@ namespace Ams2ChEd.Business.AMS2.UI
             TrackLeftAsIsText.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Adds a reminder to the success state that only the practice counts (a rookie FP1 outing):
+        /// the event still has its qualifying and race, which the player leaves without driving.
+        /// </summary>
+        public void ShowPracticeOnly(string message)
+        {
+            PracticeOnlyText.Text = message;
+            PracticeOnlyText.Visibility = Visibility.Visible;
+        }
+
         public void ShowError(string message)
         {
             PromptPanel.Visibility = Visibility.Collapsed;
@@ -120,20 +130,22 @@ namespace Ams2ChEd.Business.AMS2.UI
         /// </summary>
         public Task WaitForManualInstructionsDismissedAsync(
             string carName, string liveryName, int opponentsNumber, int suggestedDifficulty,
-            bool usesPerformanceScalars, bool isPreQuali)
+            bool usesPerformanceScalars, bool isPreQuali, bool isPractice = false)
         {
             PromptPanel.Visibility = Visibility.Collapsed;
             WaitingPanel.Visibility = Visibility.Collapsed;
             WaitingForManualLaunchPanel.Visibility = Visibility.Collapsed;
             ErrorPanel.Visibility = Visibility.Collapsed;
 
-            ManualInstructionsTitle.Text = isPreQuali ? Strings.RaceSetupOverlayWindow_PreQualiSessionTitle : Strings.RaceSetupOverlayWindow_ManualSetupTitle;
+            ManualInstructionsTitle.Text = isPractice ? Strings.RaceSetupOverlayWindow_PracticeSessionTitle
+                : isPreQuali ? Strings.RaceSetupOverlayWindow_PreQualiSessionTitle : Strings.RaceSetupOverlayWindow_ManualSetupTitle;
             ManualStep1.Text = string.Format(Strings.RaceSetupOverlayWindow_ManualStep1_Format, carName, liveryName);
             ManualStep2.Text = string.Format(Strings.RaceSetupOverlayWindow_ManualStep2_Format, opponentsNumber);
             ManualStep3.Text = usesPerformanceScalars
                 ? Strings.RaceSetupOverlayWindow_ManualStep3_UsesScalars
                 : string.Format(Strings.RaceSetupOverlayWindow_ManualStep3_Format, suggestedDifficulty);
-            ManualStep4.Text = isPreQuali
+            ManualStep4.Text = isPractice ? Strings.RaceSetupOverlayWindow_ManualStep4_Practice
+                : isPreQuali
                 ? Strings.RaceSetupOverlayWindow_ManualStep4_PreQuali
                 : Strings.RaceSetupOverlayWindow_ManualStep4_Normal;
 

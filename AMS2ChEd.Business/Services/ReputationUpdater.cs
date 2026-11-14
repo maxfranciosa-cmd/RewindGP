@@ -6,9 +6,11 @@ namespace AMS2ChEd.Business.Services
 {
     public class ReputationUpdater : IReputationUpdater
     {
-        public static IEnumerable<DriverReputation> AvailableReputationForAge(int age)
+        // seasonYear: the season the career starts in; a modern one has no wild cards (ModernMarket)
+        public static IEnumerable<DriverReputation> AvailableReputationForAge(int age, int? seasonYear = null)
         {
-            yield return DriverReputation.PAY_DRIVER_WILD_CARD;
+            if (!(seasonYear.HasValue && GameLogic.Concrete.ModernMarket.IsModern(seasonYear.Value)))
+                yield return DriverReputation.PAY_DRIVER_WILD_CARD;
             yield return DriverReputation.PAY_DRIVER_SEASON;
 
             if (age < YOUNG_DRIVER_AGE)

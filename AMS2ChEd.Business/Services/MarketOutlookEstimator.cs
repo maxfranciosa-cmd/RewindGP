@@ -1,4 +1,4 @@
-using AMS2ChEd.Business.GameLogic.Concrete;
+﻿using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
@@ -66,6 +66,10 @@ namespace AMS2ChEd.Business.Services
             public int ExcludedDriver { get; set; } = NoDriver;
             public int ProvisionalPick { get; set; } = NoDriver;
 
+            // a reserve seat its academy gave a junior first (OffSeasonMovements.PickPotentialNewDrivers):
+            // his unless he wins a race seat
+            public int FirstPick { get; set; } = NoDriver;
+
             // the drivers the team made its provisional pick from, the player aside
             public List<int> PickPool { get; set; } = new();
             public bool IsReserve => Slot == TeamHiring.ReserveSlot;
@@ -104,6 +108,12 @@ namespace AMS2ChEd.Business.Services
         // DriverHirer's reserve fit weight of each [driver reputation, team reputation]
         private int[,] _reserveFitWeights;
 
+        // the academies of the season being hired for (null without), and each driver's academy
+        // there: a member's fit at his academy's teams is raised on top of the tables above
+        private AcademyContext _academies;
+        private Academy[] _academyOf;
+        private Func<AcademySeat, bool>[] _prefills;
+
         public MarketOutlookEstimator(IEndOfSeasonManager endOfSeasonManager, DriverFirer driverFirer, DriverHirer driverHirer)
         {
             _endOfSeasonManager = endOfSeasonManager;
@@ -134,6 +144,16 @@ namespace AMS2ChEd.Business.Services
             _minReserveAmbition = _reputations.Select(r => OffSeasonMovements.reserveAmbitions[r].MinReputation).ToArray();
             _maxReserveAmbition = _reputations.Select(r => OffSeasonMovements.reserveAmbitions[r].MaxReputation).ToArray();
             _player = _driverIds.IndexOf(saveGame.PlayerData.DriverId);
+
+            // next season's rookies aren't in the save yet mid-season: their years of birth come
+            // from next season's drivers
+            _academies = AcademyContext.For(nextSeason, saveGame.Drivers.Concat(nextSeasonDrivers.Values), saveGame.PlayerData.DriverId, saveGame.PlayerData.AcademyId, AcademyMembership.LastTeams(saveGame));
+            _academyOf = _driverIds.Select(id => _academies?.AcademyOf(id)).ToArray();
+            // the seats each member on the market applies to automatically, whatever his ambition
+            // (AcademyApplications, as in EndOfSeasonManager.TeamPicksPotentialReplacementsDrivers)
+            _prefills = Enumerable.Range(0, _driverIds.Count)
+                .Select(d => _academyOf[d] == null ? null : AcademyApplications.Rule(saveGame.CurrentSeason, _academies, _driverIds[d], _reputations[d]))
+                .ToArray();
 
             var driverReputations = Enum.GetValues<DriverReputation>();
             var roles = Enum.GetValues<DriverRole>();
@@ -173,8 +193,21 @@ namespace AMS2ChEd.Business.Services
                 .ThenByDescending(s => s.TeamReputation)
                 .ToList();
 
-            outlook.BestApplications = outlook.Seats.Take(MaxApplications).ToList();
-            // applications are treated as independent of each other
+            // an academy member on the market applies to his academy's seats automatically: they're
+            // always among his applications, and the best of the others fill what's left. A player
+            // whose contract runs on applies nowhere automatically
+            var playerOnTheMarket = outlook.PlayerTeamId == null || outlook.PlayerContractOutcome.IsDropped();
+            var playerPrefills = playerOnTheMarket ? _prefills[_player] : null;
+            foreach (var seat in outlook.Seats)
+            {
+                seat.IsPrefilled = playerPrefills?.Invoke(new AcademySeat(seat.TeamId, seat.Role, seat.IsReserve)) == true;
+            }
+
+            var prefilled = outlook.Seats.Where(s => s.IsPrefilled).ToList();
+            outlook.BestApplications = prefilled
+                .Concat(outlook.Seats.Where(s => !s.IsPrefilled).Take(Math.Max(0, MaxApplications - prefilled.Count)))
+                .ToList();
+            // applications are treated as independent of each other, every automatic one included
             outlook.HiredChance = 1 - outlook.BestApplications.Aggregate(1.0, (missed, s) => missed * (1 - s.Chance));
             outlook.HiredBand = ToBand(outlook.HiredChance);
 
@@ -203,7 +236,7 @@ namespace AMS2ChEd.Business.Services
                         continue;
 
                     // retiring is replayed: here only what's certain
-                    var outcome = _driverFirer.WillDropDriver(plan.Reputation, _reputations[driver], contracts[i].Races - racesInSeason, false, plan.IsQuitting);
+                    var outcome = _driverFirer.WillDropDriver(plan.Reputation, _reputations[driver], contracts[i].Races - racesInSeason, false, plan.IsQuitting, nextSeason.Year);
                     if (outcome != DriverFirerOutcome.DROPPED_TEAM_QUITTING && ReprimandManager.IsDroppedAtSeasonEnd(saveGame, team, driverId))
                     {
                         outcome = DriverFirerOutcome.DROPPED_DISCIPLINARY;
@@ -289,8 +322,11 @@ namespace AMS2ChEd.Business.Services
                     {
                         open[i] = true;
                         free.Add(seat.Driver);
-                        // out of contract, team and driver renew on a coin toss; any other drop is final
-                        var willingToRenew = seat.Outcome == DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED && random.Next(2) == 1;
+                        // out of contract, team and driver renew on a coin toss (always, for a junior at his
+                        // academy's sister team: the toss is still drawn, so the replays stay in step); any
+                        // other drop is final
+                        var willingToRenew = seat.Outcome == DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED &&
+                            (AcademyMembership.IsSisterTeam(_academyOf[seat.Driver], team.TeamId) | random.Next(2) == 1);
                         excluded[i] = willingToRenew ? NoDriver : seat.Driver;
                     }
                 }
@@ -317,7 +353,7 @@ namespace AMS2ChEd.Business.Services
                     // first refusal: the team's reserve takes the seat when they're a PerfectFit for it
                     // (EndOfSeasonManager.TeamPicksPotentialReplacementsDrivers); the player as reserve
                     // would be offered it
-                    if (!reservePromoted && team.Reserve != NoDriver && IsPerfectFit(team.Reserve, role, team.Reputation))
+                    if (!reservePromoted && team.Reserve != NoDriver && IsPerfectFit(team.Reserve, role, team))
                     {
                         reservePromoted = true;
                         if (team.IsPlayerReserve)
@@ -351,27 +387,62 @@ namespace AMS2ChEd.Business.Services
             var order = InPickingOrder(openSeats, random);
             var reserveOrder = InPickingOrder(reserveSeats, random);
 
-            // provisional picks: a player leaving their team is free too, so a team may pick them
+            // provisional picks: a player leaving their team is free too, so a team may pick them.
+            // Before each round, race seats then reserve seats, the academy teams give their seats
+            // to a junior of theirs who fits as well as anyone (OffSeasonMovements.PickPotentialNewDrivers).
+            // A race seat given that way is off the market: the player never sees it
             var pool = new List<int>(free) { _player };
-            foreach (var seat in order.Concat(reserveOrder))
+            foreach (var seat in order.ToList())
             {
-                var candidates = pool.Where(d => d != seat.ExcludedDriver && MinAmbition(d, seat) <= seat.Team.Reputation).ToList();
-                if (candidates.Count == 0)
+                var member = AcademyFirstPick(seat, pool, random);
+                if (member == NoDriver)
                     continue;
 
-                seat.PickPool = candidates.Where(d => d != _player).ToList();
-                seat.ProvisionalPick = PickWeighted(BestFitTier(candidates, seat), random);
-                pool.Remove(seat.ProvisionalPick);
+                order.Remove(seat);
+                pool.Remove(member);
+                free.Remove(member);
             }
+            ProvisionalPicks(order, pool, random);
+
+            var keptJuniors = new HashSet<int>();
+            foreach (var seat in reserveOrder)
+            {
+                var member = AcademyFirstPick(seat, pool, random);
+                if (member == NoDriver)
+                    continue;
+
+                seat.FirstPick = member;
+                seat.PickPool = pool.Where(d => d != _player && d != member && d != seat.ExcludedDriver && MinAmbition(d, seat) <= seat.Team.Reputation).ToList();
+                pool.Remove(member);
+                keptJuniors.Add(member);
+            }
+            ProvisionalPicks(reserveOrder.Where(s => s.FirstPick == NoDriver).ToList(), pool, random);
 
             // final ballots: every free driver applies to the teams within their ambition. The player
             // is weighed at each seat as if they applied there alone, then left out of it. Reserve
-            // ballots run among the drivers still without a race seat
+            // ballots run among the drivers still without a race seat; a junior kept for his
+            // academy's reserve seat signs there unless he won a race seat, and applies nowhere else
             var hired = new bool[_driverIds.Count];
-            foreach (var seat in order.Concat(reserveOrder))
+            // among teams of the same standing, the player's academy's teams settle first
+            // (OffSeasonMovements.FinalBallotResults)
+            var playerAcademy = _player >= 0 ? _academyOf?[_player] : null;
+            int SettleOrder(OpenSeat seat) =>
+                AcademyMembership.IsParentTeam(playerAcademy, seat.Team.TeamId) || AcademyMembership.IsSisterTeam(playerAcademy, seat.Team.TeamId) ? 0 : 1;
+            var ballotOrder = order.OrderByDescending(s => s.Team.Reputation).ThenBy(SettleOrder)
+                .Concat(reserveOrder.OrderByDescending(s => s.Team.Reputation).ThenBy(SettleOrder));
+            foreach (var seat in ballotOrder)
             {
-                var candidates = free.Where(d => !hired[d] && WithinAmbition(d, seat)).ToList();
-                Tally(seat, candidates, hired);
+                if (seat.FirstPick != NoDriver && !hired[seat.FirstPick])
+                {
+                    hired[seat.FirstPick] = true;
+                    continue;
+                }
+
+                var candidates = free.Where(d => !hired[d] && (WithinAmbition(d, seat) || Prefills(d, seat)) && !(seat.IsReserve && keptJuniors.Contains(d))).ToList();
+                // a seat kept for a junior is hidden from the player even when it falls to another
+                // (TeamApplicationWindow hides guaranteed seats)
+                if (seat.FirstPick == NoDriver)
+                    Tally(seat, candidates, hired);
 
                 // the player not applying here: a seat that picked them has no pick
                 var pick = seat.ProvisionalPick == _player ? NoDriver : seat.ProvisionalPick;
@@ -381,11 +452,47 @@ namespace AMS2ChEd.Business.Services
             }
         }
 
+        private void ProvisionalPicks(List<OpenSeat> seats, List<int> pool, Random random)
+        {
+            foreach (var seat in seats)
+            {
+                var candidates = pool.Where(d => d != seat.ExcludedDriver && MinAmbition(d, seat) <= seat.Team.Reputation).ToList();
+                if (candidates.Count == 0)
+                    continue;
+
+                seat.PickPool = candidates.Where(d => d != _player).ToList();
+                seat.ProvisionalPick = PickWeighted(BestFitTier(candidates, seat), random);
+                pool.Remove(seat.ProvisionalPick);
+            }
+        }
+
+        // DriverHirer.PickAcademyMember: a free AI junior of the seat's academy who fits it at least
+        // as well as anyone in the pool (the player included), or NoDriver
+        private int AcademyFirstPick(OpenSeat seat, List<int> pool, Random random)
+        {
+            if (_academies == null)
+                return NoDriver;
+
+            var candidates = pool.Where(d => d != seat.ExcludedDriver && MinAmbition(d, seat) <= seat.Team.Reputation).ToList();
+            var members = candidates.Where(d => d != _player &&
+                (AcademyMembership.IsParentTeam(_academyOf[d], seat.Team.TeamId) || AcademyMembership.IsSisterTeam(_academyOf[d], seat.Team.TeamId))).ToList();
+            if (members.Count == 0)
+                return NoDriver;
+
+            var best = candidates.Max(d => FitWeight(d, seat));
+            var bestMembers = members.Where(d => FitWeight(d, seat) >= best).ToList();
+            return bestMembers.Count == 0 ? NoDriver : PickWeighted(bestMembers, random);
+        }
+
         private static List<OpenSeat> InPickingOrder(List<OpenSeat> seats, Random random) => seats
             .GroupBy(s => s.Team.Reputation)
             .OrderByDescending(g => g.Key)
             .SelectMany(g => g.OrderBy(_ => random.Next()))
             .ToList();
+
+        // an academy member on the market applies to this seat automatically (AcademyApplications)
+        private bool Prefills(int driver, OpenSeat seat) =>
+            _prefills[driver]?.Invoke(new AcademySeat(seat.Team.TeamId, seat.Role, seat.IsReserve)) == true;
 
         private TeamReputation MinAmbition(int driver, OpenSeat seat) =>
             seat.IsReserve ? _minReserveAmbition[driver] : _minAmbition[driver];
@@ -394,8 +501,16 @@ namespace AMS2ChEd.Business.Services
             ? _minReserveAmbition[driver] <= seat.Team.Reputation && seat.Team.Reputation <= _maxReserveAmbition[driver]
             : _minAmbition[driver] <= seat.Team.Reputation && seat.Team.Reputation <= _maxAmbition[driver];
 
-        private bool IsPerfectFit(int driver, DriverRole role, TeamReputation teamReputation) =>
-            _perfectFits[(int)_reputations[driver], (int)role, (int)teamReputation];
+        // a reserve's promotion: exactly a PerfectFit, his academy's fit included
+        // (EndOfSeasonManager.PickPromotionSeat)
+        private bool IsPerfectFit(int driver, DriverRole role, TeamPlan team)
+        {
+            if (_academyOf[driver] == null)
+                return _perfectFits[(int)_reputations[driver], (int)role, (int)team.Reputation];
+
+            var fit = _driverHirer.DoesDriverFitSeat(_driverIds[driver], _reputations[driver], role, team.TeamId, team.Reputation, false, _academies);
+            return fit == DriverHirer.DriverPolicyFit.PerfectFit;
+        }
 
         private int FitWeight(int driver, DriverRole role, TeamReputation teamReputation) =>
             _fitWeights[(int)_reputations[driver], (int)role, (int)teamReputation];
@@ -403,9 +518,20 @@ namespace AMS2ChEd.Business.Services
         private int ReserveFitWeight(int driver, TeamReputation teamReputation) =>
             _reserveFitWeights[(int)_reputations[driver], (int)teamReputation];
 
-        private int FitWeight(int driver, OpenSeat seat) => seat.IsReserve
-            ? ReserveFitWeight(driver, seat.Team.Reputation)
-            : FitWeight(driver, seat.Role, seat.Team.Reputation);
+        private int FitWeight(int driver, OpenSeat seat) => SeatFitWeight(driver, seat.Team, seat.Role, seat.IsReserve);
+
+        // the precomputed fit, raised to the academy fit for a member at his academy's team
+        // (DriverHirer.DoesDriverFitSeat with the academies)
+        private int SeatFitWeight(int driver, TeamPlan team, DriverRole role, bool isReserve)
+        {
+            var weight = isReserve ? ReserveFitWeight(driver, team.Reputation) : FitWeight(driver, role, team.Reputation);
+            var academy = _academyOf[driver];
+            if (academy == null)
+                return weight;
+
+            var academyFit = AcademyMembership.AcademyFit(academy, team.TeamId, _reputations[driver]);
+            return academyFit == null ? weight : Math.Max(weight, DriverHirer.GetFitWeight(academyFit.Value));
+        }
 
         // a seat already the player's in this replay: a reserve's promotion, or staying on as reserve
         private void TallyCertain(OpenSeat seat)
@@ -431,8 +557,14 @@ namespace AMS2ChEd.Business.Services
                 if (fit == best)
                     tier.Add(driver);
             }
-            return tier;
+
+            // at his academy's team a junior wins a tie on fit (DriverHirer.MembersFirst)
+            var members = tier.Where(d => IsMemberAt(d, seat.Team)).ToList();
+            return members.Count > 0 ? members : tier;
         }
+
+        private bool IsMemberAt(int driver, TeamPlan team) =>
+            AcademyMembership.IsParentTeam(_academyOf[driver], team.TeamId) || AcademyMembership.IsSisterTeam(_academyOf[driver], team.TeamId);
 
         // DriverHirer.PickWeightedByReputation, on the tickets worked out once
         private int PickWeighted(List<int> candidates, Random random)
@@ -454,6 +586,11 @@ namespace AMS2ChEd.Business.Services
             var candidateFit = FitWeight(candidate, seat);
             if (pickFit != candidateFit)
                 return pickFit > candidateFit ? 1 : 0;
+
+            // at his academy's team a junior wins a tie on fit (DriverHirer.PickWinner)
+            var pickIsMember = IsMemberAt(pick, seat.Team);
+            if (pickIsMember != IsMemberAt(candidate, seat.Team))
+                return pickIsMember ? 1 : 0;
 
             if (_reputations[pick] == DriverReputation.PAY_DRIVER_SEASON && _reputations[candidate] == DriverReputation.PAY_DRIVER_SEASON)
                 return 0.5;
@@ -506,6 +643,7 @@ namespace AMS2ChEd.Business.Services
 
             // the player is never excluded, so excluded drivers drop out of the draw
             var playerFit = FitWeight(_player, seat);
+            var playerIsMember = IsMemberAt(_player, seat.Team);
             double tickets = _tickets[_player];
             foreach (var driver in candidates)
             {
@@ -513,9 +651,11 @@ namespace AMS2ChEd.Business.Services
                     continue;
 
                 var fit = FitWeight(driver, seat);
-                if (fit > playerFit)
+                // a junior of the team's academy as good a fit as the player wins the draw
+                if (fit > playerFit || (fit == playerFit && !playerIsMember && IsMemberAt(driver, seat.Team)))
                     return;
-                if (fit == playerFit)
+                // a member player draws among the members only
+                if (fit == playerFit && (!playerIsMember || IsMemberAt(driver, seat.Team)))
                     tickets += _tickets[driver];
             }
 
@@ -525,7 +665,7 @@ namespace AMS2ChEd.Business.Services
                 var chance = _tickets[_player] / tickets;
                 foreach (var driver in candidates)
                 {
-                    if (driver != seat.ExcludedDriver && FitWeight(driver, seat) == playerFit)
+                    if (driver != seat.ExcludedDriver && FitWeight(driver, seat) == playerFit && (!playerIsMember || IsMemberAt(driver, seat.Team)))
                         chance += _tickets[driver] / tickets * PickBeats(_player, driver, seat);
                 }
                 tally.PlayerWins += chance;
@@ -541,7 +681,7 @@ namespace AMS2ChEd.Business.Services
             var tally = team.Tallies[index];
             var isReserve = index + 1 == TeamHiring.ReserveSlot;
             var role = tally.RoleCounts[(int)DriverRole.FIRST_DRIVER] >= tally.RoleCounts[(int)DriverRole.SECOND_DRIVER] ? DriverRole.FIRST_DRIVER : DriverRole.SECOND_DRIVER;
-            int Fit(int driver) => isReserve ? ReserveFitWeight(driver, team.Reputation) : FitWeight(driver, role, team.Reputation);
+            int Fit(int driver) => SeatFitWeight(driver, team, role, isReserve);
             var playerFit = Fit(_player);
             var playerScore = DriverHirer.ReputationScore(_reputations[_player]);
 
@@ -564,7 +704,8 @@ namespace AMS2ChEd.Business.Services
                 ExitingDriverOutcome = exiting?.Outcome ?? DriverFirerOutcome.NOT_DROPPED,
                 OpenChance = tally.Opened / (double)Replays,
                 WinChanceIfOpen = tally.PlayerWins / tally.Opened,
-                PlayerFit = _driverHirer.DoesDriverFitSeat(_reputations[_player], role, team.Reputation, isReserve),
+                // the same academy fit as the chances, or the label would disagree with them
+                PlayerFit = _driverHirer.DoesDriverFitSeat(_driverIds[_player], _reputations[_player], role, team.TeamId, team.Reputation, isReserve, _academies),
                 BetterFitRivals = Named(d => Fit(d) > playerFit),
                 SameFitRivals = Named(d => Fit(d) == playerFit),
                 StrongerSameFitRivals = Named(d => Fit(d) == playerFit && DriverHirer.ReputationScore(_reputations[d]) > playerScore),

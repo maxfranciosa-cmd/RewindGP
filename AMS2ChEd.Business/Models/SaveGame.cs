@@ -66,6 +66,11 @@ namespace AMS2ChEd.Business.Models
         [JsonPropertyName("casualties")]
         public List<Casualty> Casualties { get; set; }
 
+        // rookie FP1 outings, every season of the save (PracticeOutings); null in saves without any
+        [JsonPropertyName("practice_outings")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public List<PracticeOuting> PracticeOutings { get; set; }
+
         // what the current season's data was made of when the save last took it on (null in
         // saves from before it was kept, and SaveGameSeasonChecker falls back on file times)
         [JsonPropertyName("season_data_stamp")]
@@ -93,6 +98,10 @@ namespace AMS2ChEd.Business.Models
         [JsonPropertyName("teamid")]
         string TeamId { get; set; }
 
+        /// <summary>The academy the player belongs to (Academy.Id), null for none. Age is checked separately.</summary>
+        [JsonPropertyName("academy_id")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        string AcademyId { get; set; }
     }
 
     public class Scenario

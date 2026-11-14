@@ -57,6 +57,9 @@ namespace AMS2ChEd.Business.Services.Contracts
 
         // the SameFitRivals as big a name as the player: equally likely to be drawn
         public List<string> EqualSameFitRivals { get; set; } = new();
+
+        // an automatic academy application (AcademyApplications): always in BestApplications
+        public bool IsPrefilled { get; set; }
     }
 
     public class MarketOutlook
@@ -75,7 +78,13 @@ namespace AMS2ChEd.Business.Services.Contracts
         // the seats the player could apply for, most likely first
         public List<SeatOutlook> Seats { get; set; } = new();
 
+        // the automatic academy applications (IsPrefilled), all of them even past MaxApplications,
+        // then the best of the other seats in the slots they leave
         public List<SeatOutlook> BestApplications { get; set; } = new();
+
+        public int PrefilledApplications => BestApplications.Count(s => s.IsPrefilled);
+
+        public int FreeApplications => BestApplications.Count(s => !s.IsPrefilled);
 
         // the chance of being hired somewhere when applying for BestApplications
         public double HiredChance { get; set; }

@@ -42,6 +42,14 @@ namespace AMS2ChEd.Business.Models
         /// </summary>
         [JsonPropertyName("races_to_count_towards_championship")]
         int? RacesToCountTowardsChampionship { get; set; }
+
+        /// <summary>
+        /// The season's junior academies (modern driver market). Null means none: every season
+        /// written before academies existed, and every older-era season.
+        /// </summary>
+        [JsonPropertyName("academies")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        List<Academy> Academies { get; set; }
     }
 
     public interface ITeamEntry

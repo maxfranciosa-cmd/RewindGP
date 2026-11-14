@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.Models;
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models.Concrete;
 using System;
 using System.Collections.Generic;
@@ -84,6 +85,11 @@ namespace AMS2ChEd.Business.Services.Contracts
         // ballot is reached; the market never sees the seat (TeamApplicationWindow hides it)
         public bool Guaranteed { get; set; }
 
+        // a guaranteed seat an academy gave one of its free juniors before the market opened
+        // (OffSeasonMovements.PickPotentialNewDrivers). Nobody else can sign him meanwhile: no
+        // other ballot for a race seat, or for a reserve seat when this one is a reserve seat
+        public bool AcademyFirstPick { get; set; }
+
         public DriverReputation DriverReputation { get; set; }
 
         public TeamReputation TeamReputation { get; set; }
@@ -156,9 +162,11 @@ namespace AMS2ChEd.Business.Services.Contracts
     {
         IEnumerable<TeamHiringBallot> DriversProposeToTeams(IEnumerable<UnemployedDriver> poolOfDrivers, IEnumerable<TeamHiring> currentTeamPickings);
 
-        IEnumerable<DropTeamResult> DropDrivers(IEnumerable<TeamSituation> teams);
-        IEnumerable<TeamHiring> FinalBallotResults(IEnumerable<TeamHiringBallot> ballots);
+        // seasonYear: the season being hired for (modern seasons drop more at MIDFIELD teams), null for the old rules
+        IEnumerable<DropTeamResult> DropDrivers(IEnumerable<TeamSituation> teams, int? seasonYear = null);
+        IEnumerable<TeamHiring> FinalBallotResults(IEnumerable<TeamHiringBallot> ballots, AcademyContext academies = null);
 
-        IEnumerable<TeamHiring> PickPotentialNewDrivers(IEnumerable<TeamJobAd> jobAds, IEnumerable<UnemployedDriver> poolOfDrivers, out List<TeamJobAd> adsWithNoPotentialCandidates);
+        // academies: the season being hired for (DriverHirer.DoesDriverFitSeat), null for the reputation-only fit
+        IEnumerable<TeamHiring> PickPotentialNewDrivers(IEnumerable<TeamJobAd> jobAds, IEnumerable<UnemployedDriver> poolOfDrivers, out List<TeamJobAd> adsWithNoPotentialCandidates, AcademyContext academies = null);
     }
 }

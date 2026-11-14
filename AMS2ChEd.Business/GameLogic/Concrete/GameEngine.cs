@@ -160,6 +160,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 HistoricalDriverStandings = new List<HistoricalDriverStanding>(),
                 HistoricalConstructorStandings = new List<HistoricalConstructorStanding>()
             };
+            // a pack can still carry wild cards in a modern season
+            ModernMarket.ClampAll(provisionalSaveGame.Drivers, modifiedSeason.Year);
             return InitializeConcreteNewSaveGame(provisionalSaveGame);
         }
 
@@ -708,6 +710,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 HistoricalDriverStandings = new List<HistoricalDriverStanding>(),
                 HistoricalConstructorStandings = new List<HistoricalConstructorStanding>()
             };
+            // a pack can still carry wild cards in a modern season
+            ModernMarket.ClampAll(provisionalSaveGame.Drivers, modifiedSeason.Year);
             return InitializeConcreteNewSaveGame(provisionalSaveGame);
         }
 

@@ -23,6 +23,9 @@ namespace AMS2ChEd.Views
         public DriverRole Role { get; set; }
         public string RoleDescription { get; set; }
         public bool IsDisabled { get; set; }
+
+        // an automatic academy application: selected and locked, it takes one of the slots
+        public bool IsPrefilled { get; set; }
         public string StatusMessage { get; set; }
         public TeamHiringBallot Ballot { get; set; }
 
@@ -75,6 +78,9 @@ namespace AMS2ChEd.Views
         private DriverReputation _playerReputation;
         // reserve seats count too: a safer reserve role at a top team, or a better chance of racing
         private const int MAX_APPLICATIONS = 4;
+        private int _prefilledCount;
+        // the applications the player picks himself: what the automatic academy ones leave
+        private int FreeChoices => System.Math.Max(0, MAX_APPLICATIONS - _prefilledCount);
 
         public List<TeamHiringBallot> UpdatedBallots { get; private set; }
 
@@ -111,12 +117,14 @@ namespace AMS2ChEd.Views
             IEnumerable<TeamHiringBallot> ballots,
             List<DropTeamResult> droppedDrivers,
             DriverReputation playerReputation,
-            IEnumerable<ITeamEntry> nextSeasonTeamEntries)
+            IEnumerable<ITeamEntry> nextSeasonTeamEntries,
+            IReadOnlyCollection<TeamHiringBallot> prefilledBallots = null)
         {
             InitializeComponent();
 
             _playerDriverId = saveGame.PlayerData.DriverId;
             _playerReputation = playerReputation;
+            var prefilled = new HashSet<TeamHiringBallot>(prefilledBallots ?? new List<TeamHiringBallot>());
             var nextYearTeamEntries = nextSeasonTeamEntries.ToDictionary(t => t.TeamId);
             var driversDictionary = saveGame.Drivers.ToDictionary(d => d.DriverId);
             var retiredDriversDictionary = saveGame.RetiredDrivers.ToDictionary(d => d.DriverId);
@@ -203,11 +211,14 @@ namespace AMS2ChEd.Views
                     Role = ballot.OriginalTeamHiring.Role,
                     RoleDescription = roleDescription,
                     IsDisabled = false,
-                    StatusMessage = teamAlreadyInterested
+                    IsPrefilled = prefilled.Contains(ballot),
+                    StatusMessage = prefilled.Contains(ballot)
+                        ? Strings.TeamApplicationWindow_AcademyApplicationStatus
+                        : teamAlreadyInterested
                         ? Strings.TeamApplicationWindow_AlreadyInterestedStatus
                         : Strings.TeamApplicationWindow_ClickToApplyStatus,
                     Ballot = ballot,
-                    IsSelected = false,
+                    IsSelected = prefilled.Contains(ballot),
                     TeamReputation = teamEntry?.Reputation ?? TeamReputation.MINNOW,
                     Kicker = kicker,
                     Headline = headline,
@@ -220,7 +231,10 @@ namespace AMS2ChEd.Views
                                     .ThenByDescending(t => t.TeamName)
                                     .ThenBy(t => t.Ballot.OriginalTeamHiring.IsReserve)
                                     .ThenBy(t => t.Role);
-            InstructionText.Text = string.Format(Strings.TeamApplicationWindow_InstructionText, MAX_APPLICATIONS);
+            _prefilledCount = _teamItems.Count(t => t.IsPrefilled);
+            InstructionText.Text = _prefilledCount == 0
+                ? string.Format(Strings.TeamApplicationWindow_InstructionText, MAX_APPLICATIONS)
+                : string.Format(Strings.TeamApplicationWindow_AcademyInstructionText, _prefilledCount, FreeChoices);
             UpdateSelectionCount();
         }
 
@@ -230,7 +244,7 @@ namespace AMS2ChEd.Views
             {
                 // Cards at capacity are visually locked (greyed out, hit-testing disabled by the
                 // trigger in the DataTemplate) - this is a defensive fallback, not the normal path.
-                if (item.IsDisabled || item.IsAtCapacity)
+                if (item.IsDisabled || item.IsAtCapacity || item.IsPrefilled)
                     return;
 
                 item.IsSelected = !item.IsSelected;
@@ -240,16 +254,19 @@ namespace AMS2ChEd.Views
 
         private void UpdateSelectionCount()
         {
-            int count = _teamItems.Count(t => t.IsSelected);
+            // the automatic academy applications take slots of their own: only what's left is a free choice
+            int count = _teamItems.Count(t => t.IsSelected && !t.IsPrefilled);
 
             foreach (var item in _teamItems)
             {
-                item.IsAtCapacity = !item.IsSelected && !item.IsDisabled && count >= MAX_APPLICATIONS;
+                item.IsAtCapacity = !item.IsSelected && !item.IsDisabled && count >= FreeChoices;
             }
 
-            SelectionCountText.Text = count == 1
-                ? Strings.TeamApplicationWindow_SelectionCount_Singular
-                : string.Format(Strings.TeamApplicationWindow_SelectionCount_Plural, count, MAX_APPLICATIONS);
+            SelectionCountText.Text = _prefilledCount > 0
+                ? string.Format(Strings.TeamApplicationWindow_AcademySelectionCount, _prefilledCount, count, FreeChoices)
+                : count == 1
+                    ? Strings.TeamApplicationWindow_SelectionCount_Singular
+                    : string.Format(Strings.TeamApplicationWindow_SelectionCount_Plural, count, MAX_APPLICATIONS);
         }
 
         private void ContinueButton_Click(object sender, RoutedEventArgs e)

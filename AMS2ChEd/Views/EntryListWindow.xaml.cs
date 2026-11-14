@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.DependencyInjection;
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
@@ -181,6 +182,15 @@ namespace AMS2ChEd.Views
                 return;
             }
 
+            // the player chose to drive his rookie FP1 outing: the practice comes first, then the
+            // weekend carries on as for any driver without a seat
+            var nextRaceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId;
+            var pendingOuting = PracticeOutings.PendingPlayerOuting(saveGame, nextRaceId);
+            if (pendingOuting != null)
+            {
+                await RunPracticeOuting(pendingOuting, nextRaceId);
+            }
+
             // Check if player is participating in this race
             bool playerParticipating = saveGame.NextGpEntryList?.Any(entry =>
                 entry.Driver1Id == saveGame.PlayerData.DriverId ||
@@ -250,6 +260,109 @@ namespace AMS2ChEd.Views
             foreach (var window in existingWindows)
             {
                 window.Close();
+            }
+        }
+
+        // the player's FP1 outing: driven in the game, or simulated when that can't happen (the car
+        // isn't on this grid, the liveries can't be exported, no launch assistant, or the player
+        // closed the session window first); then scored, saved and reported
+        private async Task RunPracticeOuting(PracticeOuting outing, int raceId)
+        {
+            var raceEntries = saveGame.NextGpEntryList?.ToList() ?? new List<EntryListEntry>();
+            var result = raceEntries.Any(e => e.TeamId == outing.TeamId)
+                ? await DrivePracticeOuting(outing, raceId, PracticeOutings.PracticeGrid(raceEntries, outing))
+                : null;
+            result ??= PracticeOutings.SimulatePlayerOuting(saveGame, raceId, raceEntries);
+            if (result == null)
+                return;
+
+            string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
+            _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
+
+            var race = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
+            var raceDate = DateTime.ParseExact(race.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var newsWindow = new PracticeOutingNewsWindow(saveGame, new[] { result.Value }, raceDate, race.RaceName) { Owner = this };
+            newsWindow.ShowDialog();
+        }
+
+        // the practice-only session: the liveries and AI roster exported for the practice grid (the
+        // save's own entry list stays as it is), AMS2 set up with practice on, then the practice read
+        // through the real data service in practice mode. Null when it didn't happen
+        private async Task<PracticeOutingResult?> DrivePracticeOuting(PracticeOuting outing, int raceId, List<EntryListEntry> grid)
+        {
+            if (_gameLogicFactory.RaceLaunchAssistant == null)
+                return null;
+
+            var loadingWindow = new ProgressWindow(Strings.EntryListWindow_ApplyingPracticeLiveries_Message);
+            loadingWindow.Show();
+            try
+            {
+                await Task.Run(() => _gameLogicFactory.RacePreparator.PrepareRace(raceId, grid, saveGame.Drivers, saveGame.CurrentSeason));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format(Strings.EntryListWindow_ApplyLiveriesError_Message, ex.Message), Strings.EntryListWindow_GenericError_Title,
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            finally
+            {
+                loadingWindow.Close();
+            }
+
+            var playerId = saveGame.PlayerData.DriverId;
+            var playerEntry = grid.First(e => e.TeamId == outing.TeamId);
+            var launchRequest = new RaceLaunchRequest
+            {
+                RaceId = raceId,
+                Season = saveGame.CurrentSeason,
+                EntryList = grid,
+                Drivers = saveGame.Drivers,
+                PlayerTeamId = outing.TeamId,
+                PlayerDriverId = playerId,
+                PlayerDriverSlot = playerEntry.Driver1Id == playerId ? 1 : 2,
+                IsPractice = true,
+            };
+
+            // hidden while the game is in front, as for a player-driven pre-qualifying session
+            this.Hide();
+            try
+            {
+                await _gameLogicFactory.RaceLaunchAssistant.ShowSetupOverlayAsync(launchRequest, this);
+
+                var participants = BuildParticipantsFromEntryList(grid);
+                var raceDataService = _gameLogicFactory.RaceDataService;
+                raceDataService.IsPracticeSession = true;
+                raceDataService.InitializeRaceWeekend(participants);
+
+                var simulatedService = new SimulatedRaceDataService(saveGame);
+                simulatedService.InitializeRaceWeekend(participants);
+
+                CleanUpExistingRaceWeekendWindowInstances();
+                var practiceWindow = new RaceWeekendWindow(_gameLogicFactory, saveGame, simulatedService, simulateRace: false, practiceMode: true);
+
+                var standings = new TaskCompletionSource<List<ParticipantData>>();
+                practiceWindow.PracticeResultsReady += (_, results) => standings.TrySetResult(results);
+                practiceWindow.Closed += (_, _) => standings.TrySetCanceled();
+                practiceWindow.Owner = this;
+                practiceWindow.ShowActivated = false;
+                practiceWindow.Show();
+
+                try
+                {
+                    var results = await standings.Task;
+                    practiceWindow.Close();
+                    return PracticeOutings.ScoreDriven(saveGame, outing, results);
+                }
+                catch (TaskCanceledException)
+                {
+                    // closed before the practice was over: simulated instead
+                    return null;
+                }
+            }
+            finally
+            {
+                this.Show();
             }
         }
 

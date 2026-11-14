@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.GameLogic.Concrete;
+﻿using AMS2ChEd.Business.Helpers;
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
@@ -56,8 +57,9 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 .Setup(x => x.PickPotentialNewDrivers(
                     It.IsAny<IEnumerable<TeamJobAd>>(),
                     It.IsAny<IEnumerable<UnemployedDriver>>(),
-                    out It.Ref<List<TeamJobAd>>.IsAny))
-                .Returns((IEnumerable<TeamJobAd> ads, IEnumerable<UnemployedDriver> drivers, out List<TeamJobAd> unfilled) =>
+                    out It.Ref<List<TeamJobAd>>.IsAny,
+                    It.IsAny<AcademyContext>()))
+                .Returns((IEnumerable<TeamJobAd> ads, IEnumerable<UnemployedDriver> drivers, out List<TeamJobAd> unfilled, AcademyContext academies) =>
                 {
                     unfilled = new List<TeamJobAd> { unfilledJobAd };
                     return new List<TeamHiring>();
@@ -137,8 +139,9 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 .Setup(x => x.PickPotentialNewDrivers(
                     It.IsAny<IEnumerable<TeamJobAd>>(),
                     It.IsAny<IEnumerable<UnemployedDriver>>(),
-                    out It.Ref<List<TeamJobAd>>.IsAny))
-                .Returns((IEnumerable<TeamJobAd> ads, IEnumerable<UnemployedDriver> drivers, out List<TeamJobAd> unfilled) =>
+                    out It.Ref<List<TeamJobAd>>.IsAny,
+                    It.IsAny<AcademyContext>()))
+                .Returns((IEnumerable<TeamJobAd> ads, IEnumerable<UnemployedDriver> drivers, out List<TeamJobAd> unfilled, AcademyContext academies) =>
                 {
                     unfilled = unfilledJobAds;
                     return new List<TeamHiring>();
@@ -203,8 +206,9 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 .Setup(x => x.PickPotentialNewDrivers(
                     It.IsAny<IEnumerable<TeamJobAd>>(),
                     It.IsAny<IEnumerable<UnemployedDriver>>(),
-                    out It.Ref<List<TeamJobAd>>.IsAny))
-                .Returns((IEnumerable<TeamJobAd> ads, IEnumerable<UnemployedDriver> drivers, out List<TeamJobAd> unfilled) =>
+                    out It.Ref<List<TeamJobAd>>.IsAny,
+                    It.IsAny<AcademyContext>()))
+                .Returns((IEnumerable<TeamJobAd> ads, IEnumerable<UnemployedDriver> drivers, out List<TeamJobAd> unfilled, AcademyContext academies) =>
                 {
                     unfilled = new List<TeamJobAd>(); // No unfilled ads
                     return new List<TeamHiring> { normalHiring };
@@ -259,8 +263,9 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 .Setup(x => x.PickPotentialNewDrivers(
                     It.IsAny<IEnumerable<TeamJobAd>>(),
                     It.IsAny<IEnumerable<UnemployedDriver>>(),
-                    out It.Ref<List<TeamJobAd>>.IsAny))
-                .Returns((IEnumerable<TeamJobAd> ads, IEnumerable<UnemployedDriver> drivers, out List<TeamJobAd> unfilled) =>
+                    out It.Ref<List<TeamJobAd>>.IsAny,
+                    It.IsAny<AcademyContext>()))
+                .Returns((IEnumerable<TeamJobAd> ads, IEnumerable<UnemployedDriver> drivers, out List<TeamJobAd> unfilled, AcademyContext academies) =>
                 {
                     unfilled = new List<TeamJobAd> { unfilledJobAd };
                     return new List<TeamHiring>();

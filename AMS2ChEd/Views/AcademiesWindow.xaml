@@ -1,0 +1,154 @@
+<!--Academies Window - the current season's junior academies: every member, his seat, his FP1 form and his season, in each academy's pecking order-->
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="clr-namespace:AMS2ChEd.Localization"
+        mc:Ignorable="d"
+        x:Class="AMS2ChEd.Views.AcademiesWindow"
+        Title="{loc:Loc AcademiesWindow_Title}"
+        Height="820" Width="1180"
+        MinHeight="520" MinWidth="900"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource Academies.WindowBackground}">
+
+    <!-- This window only holds structure. How each part looks comes from the "Academies.*" styles of the
+         active visual style (Themes/<style>/Academies.xaml). A member row's "IsPlayer" and "AgesOut", and an
+         academy's "IsPlayersAcademy", are what those styles pick the highlights by. -->
+    <Window.Resources>
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource Academies.ScrollBar}"/>
+    </Window.Resources>
+
+    <Grid Style="{StaticResource Academies.Root}">
+        <Border Style="{StaticResource Academies.Page}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Masthead -->
+                <Border Grid.Row="0" Style="{StaticResource Academies.Header}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock x:Name="KickerText" Style="{StaticResource Academies.Kicker}"/>
+                            <TextBlock Text="{loc:Loc AcademiesWindow_Headline}" Style="{StaticResource Academies.Headline}"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{loc:Loc AcademiesWindow_HeaderNote}" Style="{StaticResource Academies.HeaderNote}"/>
+                    </Grid>
+                </Border>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <ItemsControl x:Name="AcademiesItems">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource Academies.Card}">
+                                        <StackPanel>
+                                            <!-- the academy and its teams -->
+                                            <Border Style="{StaticResource Academies.CardHeader}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Grid.Column="0">
+                                                        <TextBlock Text="{Binding Name}" Style="{StaticResource Academies.AcademyName}"/>
+                                                        <TextBlock Text="{Binding Teams}" Style="{StaticResource Academies.AcademyTeams}"/>
+                                                    </StackPanel>
+                                                    <Border Grid.Column="1" Style="{StaticResource Academies.YourAcademyTag}"
+                                                            Visibility="{Binding YourAcademyVisibility}">
+                                                        <TextBlock Text="{loc:Loc AcademiesWindow_YourAcademy}" Style="{StaticResource Academies.YourAcademyText}"/>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+
+                                            <!-- column captions -->
+                                            <Grid Style="{StaticResource Academies.ColumnHeaders}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="40"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="200"/>
+                                                    <ColumnDefinition Width="190"/>
+                                                    <ColumnDefinition Width="190"/>
+                                                    <ColumnDefinition Width="110"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="1" Text="{loc:Loc AcademiesWindow_Column_Driver}" Style="{StaticResource Academies.ColumnHeader}"/>
+                                                <TextBlock Grid.Column="2" Text="{loc:Loc AcademiesWindow_Column_Seat}" Style="{StaticResource Academies.ColumnHeader}"/>
+                                                <TextBlock Grid.Column="3" Text="{loc:Loc AcademiesWindow_Column_Reputation}" Style="{StaticResource Academies.ColumnHeader}"/>
+                                                <TextBlock Grid.Column="4" Text="{loc:Loc AcademiesWindow_Column_Practice}" Style="{StaticResource Academies.ColumnHeader}"/>
+                                                <TextBlock Grid.Column="5" Text="{loc:Loc AcademiesWindow_Column_Season}" Style="{StaticResource Academies.ColumnHeaderRight}"/>
+                                            </Grid>
+
+                                            <!-- the members, in pecking order -->
+                                            <ItemsControl ItemsSource="{Binding Members}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Style="{StaticResource Academies.MemberRow}">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="40"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="200"/>
+                                                                    <ColumnDefinition Width="190"/>
+                                                                    <ColumnDefinition Width="190"/>
+                                                                    <ColumnDefinition Width="110"/>
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <TextBlock Grid.Column="0" Text="{Binding Rank}" Style="{StaticResource Academies.Rank}"/>
+
+                                                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                                    <Rectangle Fill="{Binding TeamBrush}" Style="{StaticResource Academies.TeamSwatch}"/>
+                                                                    <StackPanel VerticalAlignment="Center">
+                                                                        <TextBlock Text="{Binding Name}" Style="{StaticResource Academies.MemberName}"/>
+                                                                        <TextBlock Text="{Binding Detail}" Style="{StaticResource Academies.MemberDetail}"/>
+                                                                    </StackPanel>
+                                                                </StackPanel>
+
+                                                                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                                                    <TextBlock Text="{Binding SeatTeam}" Style="{StaticResource Academies.Value}"/>
+                                                                    <TextBlock Text="{Binding SeatDetail}" Style="{StaticResource Academies.SubValue}"/>
+                                                                </StackPanel>
+
+                                                                <TextBlock Grid.Column="3" Text="{Binding Reputation}" Style="{StaticResource Academies.ValueWrapped}"/>
+
+                                                                <StackPanel Grid.Column="4" VerticalAlignment="Center">
+                                                                    <TextBlock Text="{Binding Practice}" Style="{StaticResource Academies.Value}"/>
+                                                                    <TextBlock Text="{Binding PracticeOutlook}" Style="{StaticResource Academies.SubValue}"
+                                                                               Visibility="{Binding PracticeOutlookVisibility}"/>
+                                                                </StackPanel>
+
+                                                                <TextBlock Grid.Column="5" Text="{Binding Season}" Style="{StaticResource Academies.ValueRight}"/>
+                                                            </Grid>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+
+                                            <TextBlock Text="{loc:Loc AcademiesWindow_NoMembers}" Style="{StaticResource Academies.Empty}"
+                                                       Visibility="{Binding NoMembersVisibility}"/>
+
+                                            <!-- juniors the academy still lists who signed elsewhere -->
+                                            <TextBlock Text="{Binding Former}" Style="{StaticResource Academies.Former}"
+                                                       Visibility="{Binding FormerVisibility}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <TextBlock x:Name="NoAcademiesText"
+                                   Text="{loc:Loc AcademiesWindow_NoAcademies}"
+                                   Style="{StaticResource Academies.Empty}"
+                                   Visibility="Collapsed"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

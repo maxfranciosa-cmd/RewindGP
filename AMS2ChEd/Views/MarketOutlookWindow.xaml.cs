@@ -110,8 +110,13 @@ namespace AMS2ChEd.Views
             if (!anySeat)
                 return;
 
-            BestHeaderText.Text = string.Format(Strings.MarketOutlookWindow_BestHeader, outlook.BestApplications.Count);
-            BestText.Text = string.Join(" · ", outlook.BestApplications.Select(s => $"{_text.TeamName(s.TeamId)} ({MarketOutlookText.SeatName(s).ToLower()})"));
+            // an academy member's automatic applications are marked, and counted apart from his own picks
+            BestHeaderText.Text = outlook.PrefilledApplications > 0
+                ? string.Format(Strings.MarketOutlookWindow_BestHeader_Academy, outlook.PrefilledApplications, outlook.FreeApplications)
+                : string.Format(Strings.MarketOutlookWindow_BestHeader, outlook.BestApplications.Count);
+            BestText.Text = string.Join(" · ", outlook.BestApplications.Select(s => s.IsPrefilled
+                ? string.Format(Strings.MarketOutlookWindow_AutomaticApplication, _text.TeamName(s.TeamId), MarketOutlookText.SeatName(s).ToLower())
+                : $"{_text.TeamName(s.TeamId)} ({MarketOutlookText.SeatName(s).ToLower()})"));
             HiredStampText.Text = string.Format(Strings.MarketOutlookWindow_HiredStamp, MarketOutlookText.BandName(outlook.HiredBand));
             HiredStampText.Foreground = HiredStamp.BorderBrush = BandBrush(outlook.HiredBand);
         }

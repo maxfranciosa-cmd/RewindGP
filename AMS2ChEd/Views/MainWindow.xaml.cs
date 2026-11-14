@@ -275,7 +275,7 @@ namespace AMS2ChEd
             IEnumerable<DriverReputation> availableReputations;
             if (int.TryParse(DriverAgeTextBox.Text, out int age) && age > 0)
             {
-                availableReputations = ReputationUpdater.AvailableReputationForAge(age);
+                availableReputations = ReputationUpdater.AvailableReputationForAge(age, TryGetSelectedSeasonYear(out var seasonYear) ? seasonYear : null);
             }
             else
             {
@@ -1196,6 +1196,30 @@ namespace AMS2ChEd
                     return;
                 }
 
+                // a young driver in a season with academies chooses how to start: in an academy,
+                // without a team (waiting for its seats at the end of the season), or the usual way
+                if (seasonData.Academies?.Count > 0 && AcademyMembership.IsYoung(seasonYear, seasonYear - driverAge))
+                {
+                    var academyStartWindow = AcademyLetterWindow.ForCareerStart(driverName, seasonData.Academies, seasonData.Teams);
+                    academyStartWindow.Owner = this;
+                    if (academyStartWindow.ShowDialog() != true)
+                        return;
+
+                    if (academyStartWindow.ChosenAcademyId != null)
+                    {
+                        var saveGame = CreateGame(null, null);
+                        saveGame.PlayerData.AcademyId = academyStartWindow.ChosenAcademyId;
+
+                        string saveName = $"{driverName}_{seasonYear}".Replace(" ", "_");
+                        _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
+
+                        var seasonOverviewWindow = new SeasonOverviewWindow(_ams2StorageFactory, _installSettingsStorage, _gameLogicFactory, saveGame, _cosmeticsEditor, _offSeasonOrchestrator);
+                        seasonOverviewWindow.Owner = this.Owner;
+                        seasonOverviewWindow.Show();
+                        return;
+                    }
+                }
+
                 // Open Team Selection window
                 var teamSelectionWindow = new TeamSelectionWindow(_ams2StorageFactory, int.Parse(season), false, seasonDrivers);
                 teamSelectionWindow.Owner = this;
@@ -1564,6 +1588,9 @@ namespace AMS2ChEd
                 return;
 
             LoadDefaultHelmets();
+
+            // a modern season offers no wild card
+            UpdateReputationComboBox();
 
             if (_importedDriverMode)
             {

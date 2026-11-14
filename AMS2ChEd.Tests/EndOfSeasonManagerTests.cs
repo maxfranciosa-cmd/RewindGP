@@ -53,8 +53,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 .Returns(DriverReputation.PRIME_MIDFIELD);
 
             mockOffSeasonMovements
-                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>()))
-                .Returns((IEnumerable<TeamSituation> teams) =>
+                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>(), It.IsAny<int?>()))
+                .Returns((IEnumerable<TeamSituation> teams, int? seasonYear) =>
                 {
                     return teams.Select(t => new DropTeamResult
                     {
@@ -103,8 +103,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 .Returns(DriverReputation.YOUNG_TALENT);
 
             mockOffSeasonMovements
-                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>()))
-                .Returns((IEnumerable<TeamSituation> teams) =>
+                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>(), It.IsAny<int?>()))
+                .Returns((IEnumerable<TeamSituation> teams, int? seasonYear) =>
                 {
                     var firer = new DriverFirer();
                     return teams.Select(t => new DropTeamResult
@@ -150,8 +150,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 .Returns(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL);
 
             mockOffSeasonMovements
-                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>()))
-                .Returns((IEnumerable<TeamSituation> teams) =>
+                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>(), It.IsAny<int?>()))
+                .Returns((IEnumerable<TeamSituation> teams, int? seasonYear) =>
                 {
                     var firer = new DriverFirer();
                     return teams.Select(t => new DropTeamResult
@@ -195,8 +195,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 .Returns(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL);
 
             mockOffSeasonMovements
-                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>()))
-                .Returns((IEnumerable<TeamSituation> teams) =>
+                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>(), It.IsAny<int?>()))
+                .Returns((IEnumerable<TeamSituation> teams, int? seasonYear) =>
                 {
                     var firer = new DriverFirer();
                     return teams.Select(t => new DropTeamResult
@@ -247,11 +247,11 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             // Capture the TeamSituation passed to DropDrivers
             TeamSituation capturedTeamSituation = null;
             mockOffSeasonMovements
-                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>()))
-                .Callback<IEnumerable<TeamSituation>>(teams => {
+                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>(), It.IsAny<int?>()))
+                .Callback<IEnumerable<TeamSituation>, int?>((teams, seasonYear) => {
                     capturedTeamSituation = teams.First();
                 })
-                .Returns((IEnumerable<TeamSituation> teams) =>
+                .Returns((IEnumerable<TeamSituation> teams, int? seasonYear) =>
                 {
                     return teams.Select(t => new DropTeamResult
                     {
@@ -358,7 +358,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 .Returns(DriverReputation.PRIME_MIDFIELD);
 
             mockOffSeasonMovements
-                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>()))
+                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>(), It.IsAny<int?>()))
                 .Returns(new List<DropTeamResult>());
 
             // Act
@@ -397,8 +397,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
                 .Returns((DriverReputation rep, int age, int pos, int pod, int dnf, int races, int totalRaces, double avgPos) => rep);
 
             mockOffSeasonMovements
-                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>()))
-                .Returns((IEnumerable<TeamSituation> teams) =>
+                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>(), It.IsAny<int?>()))
+                .Returns((IEnumerable<TeamSituation> teams, int? seasonYear) =>
                 {
                     var firer = new DriverFirer();
                     return teams.Select(t => new DropTeamResult
@@ -447,8 +447,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
             TeamSituation capturedTeamSituation = null;
             mockOffSeasonMovements
-                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>()))
-                .Callback<IEnumerable<TeamSituation>>(teams =>
+                .Setup(x => x.DropDrivers(It.IsAny<IEnumerable<TeamSituation>>(), It.IsAny<int?>()))
+                .Callback<IEnumerable<TeamSituation>, int?>((teams, seasonYear) =>
                 {
                     capturedTeamSituation = teams.First();
                 })

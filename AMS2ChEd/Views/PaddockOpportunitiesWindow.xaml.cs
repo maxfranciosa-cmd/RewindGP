@@ -1,6 +1,7 @@
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Models;
+using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Resources;
 using System.Globalization;
 using System.IO;
@@ -18,6 +19,9 @@ using RadioButton = System.Windows.Controls.RadioButton;
 
 namespace AMS2ChEd.Views
 {
+    /// <summary>What the player did in the paddock window: bought a ride, and his FP1 outing answer.</summary>
+    public readonly record struct PaddockOpportunitiesResult(bool RideBought, PracticeOutingChoice? PracticeChoice);
+
     /// <summary>
     /// The rides a pay driver without a car can buy at one race (PaddockOpportunities), offered
     /// when the race's entry list is drawn up, once its absences are settled and the AI pay drivers
@@ -45,18 +49,24 @@ namespace AMS2ChEd.Views
 
         public bool RideBought { get; private set; }
 
-        // shows the window only when a ride is on sale at this race
-        public static void ShowFor(Window owner, ISaveGame saveGame, int raceIndex, ITeamPreviewProvider previewProvider = null)
+        // the player's answer to his FP1 outing, null when he had none (or closed the window: the
+        // caller then simulates it)
+        public PracticeOutingChoice? PracticeChoice { get; private set; }
+
+        // shows the window only when a ride is on sale at this race, or the player has an FP1
+        // outing there to drive or simulate
+        public static PaddockOpportunitiesResult ShowFor(Window owner, ISaveGame saveGame, int raceIndex, ITeamPreviewProvider previewProvider = null)
         {
             var opportunities = PaddockOpportunities.For(saveGame, raceIndex);
             if (opportunities.Race == null || !opportunities.HasChoices)
-                return;
+                return new PaddockOpportunitiesResult(false, null);
 
             var window = new PaddockOpportunitiesWindow(saveGame, opportunities, previewProvider);
             if (owner != null && owner.IsLoaded)
                 window.Owner = owner;
 
             window.ShowDialog();
+            return new PaddockOpportunitiesResult(window.RideBought, window.PracticeChoice);
         }
 
         private PaddockOpportunitiesWindow(ISaveGame saveGame, PaddockOpportunities opportunities, ITeamPreviewProvider previewProvider)
@@ -74,7 +84,42 @@ namespace AMS2ChEd.Views
             RidesTotalRun.Text = "/" + opportunities.PaidRidesBudget.ToString(CultureInfo.CurrentCulture);
             BudgetBadge.ToolTip = string.Format(Strings.PaddockOpportunitiesWindow_Budget_Format, opportunities.PaidRidesRemaining, opportunities.PaidRidesBudget);
 
+            ShowPracticeOuting(opportunities.PracticeOuting);
             BuildContent();
+        }
+
+        // the team's letter about the player's FP1 outing; with no ride on sale it's all the window
+        // shows, sized to it
+        private void ShowPracticeOuting(PracticeOuting outing)
+        {
+            if (outing == null)
+                return;
+
+            PracticeOutingPanel.Visibility = Visibility.Visible;
+            PracticeOutingText.Text = string.Format(Strings.PaddockOpportunitiesWindow_Fp1_Letter_Format,
+                DriverName(outing.ReplacedDriverId), TeamName(outing.TeamId), _opportunities.Race.RaceName, DriverName(outing.BenchmarkDriverId));
+
+            if (_opportunities.PaidRideOffers.Count > 0)
+                return;
+
+            TitleText.Text = string.Format(Strings.PaddockOpportunitiesWindow_Fp1_Title_Format, _opportunities.Race.RaceName);
+            IntroText.Text = string.Format(Strings.PaddockOpportunitiesWindow_Fp1_Intro_Format, TeamName(outing.TeamId));
+            BudgetBadge.Visibility = Visibility.Collapsed;
+            TilesScroller.Visibility = Visibility.Collapsed;
+            Footer.Visibility = Visibility.Collapsed;
+            SizeToContent = SizeToContent.Height;
+        }
+
+        private void DriveButton_Click(object sender, RoutedEventArgs e) => ChoosePractice(PracticeOutingChoice.Drive);
+
+        private void SimulateButton_Click(object sender, RoutedEventArgs e) => ChoosePractice(PracticeOutingChoice.Simulate);
+
+        // either answer settles the weekend: a ride can't be bought on top of an FP1 outing
+        private void ChoosePractice(PracticeOutingChoice choice)
+        {
+            PracticeChoice = choice;
+            DialogResult = true;
+            Close();
         }
 
         private void BuildContent(string bidLostText = null)

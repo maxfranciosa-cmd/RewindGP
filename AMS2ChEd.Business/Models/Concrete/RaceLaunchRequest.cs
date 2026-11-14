@@ -25,5 +25,11 @@ namespace AMS2ChEd.Business.Models.Concrete
         public int PlayerDriverSlot { get; set; }
 
         public bool IsPreQuali { get; set; }
+
+        /// <summary>
+        /// A rookie FP1 outing the player drives: only the practice session counts, EntryList is
+        /// the practice grid (the player in the replaced driver's car).
+        /// </summary>
+        public bool IsPractice { get; set; }
     }
 }

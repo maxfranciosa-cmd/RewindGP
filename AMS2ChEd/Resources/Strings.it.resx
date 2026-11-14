@@ -3217,6 +3217,9 @@ Cambierà le prestazioni di entrambe le vetture, e potrebbe renderle più lente 
   <data name="SeasonOverviewWindow_InstallPackage_NoneLeft_Tooltip" xml:space="preserve">
     <value>Il team non ha più pacchetti di sviluppo per questa stagione.</value>
   </data>
+  <data name="SeasonOverviewWindow_InstallPackage_SeasonFinale_Tooltip" xml:space="preserve">
+    <value>Niente pacchetti di sviluppo per l'ultima gara della stagione.</value>
+  </data>
   <data name="SeasonOverviewWindow_InstallPackage_AlreadyInstalled_Tooltip" xml:space="preserve">
     <value>Il team ha già installato un pacchetto di sviluppo per questa gara.</value>
   </data>
@@ -4198,5 +4201,272 @@ La squadra ha scelto di continuare a correre, come {0} avrebbe voluto.</value>
   </data>
   <data name="MainWindow_HairColourLabel" xml:space="preserve">
     <value>COLORE CAPELLI:</value>
+  </data>
+  <data name="AcademyLetterWindow_WindowTitle" xml:space="preserve">
+    <value>Accademie piloti</value>
+  </data>
+  <data name="AcademyLetterWindow_Header" xml:space="preserve">
+    <value>ACCADEMIE PILOTI</value>
+  </data>
+  <data name="AcademyLetterWindow_Subtitle" xml:space="preserve">
+    <value>Programmi per giovani piloti</value>
+  </data>
+  <data name="AcademyLetterWindow_Greeting_Format" xml:space="preserve">
+    <value>Caro {0},</value>
+  </data>
+  <data name="AcademyLetterWindow_Intro_NotMember" xml:space="preserve">
+    <value>Non hai un sedile per la prossima stagione e hai l'età giusta per un programma junior. Le accademie qui sotto cercano piloti.</value>
+  </data>
+  <data name="AcademyLetterWindow_Intro_Member_Format" xml:space="preserve">
+    <value>Fai ancora parte dell'{0}. Puoi restare, passare a un'altra accademia o lasciare il programma e proseguire per conto tuo.</value>
+  </data>
+  <data name="AcademyLetterWindow_Intro_Dormant" xml:space="preserve">
+    <value>La tua accademia non ha un programma la prossima stagione. Puoi entrare in un'altra, o aspettare.</value>
+  </data>
+  <data name="AcademyLetterWindow_Intro_CareerStart" xml:space="preserve">
+    <value>Puoi iniziare la carriera in un'accademia junior invece di cercare un sedile: parti senza squadra e aspetti i sedili della tua accademia a fine stagione. Oppure puoi cercare un sedile come al solito.</value>
+  </data>
+  <data name="AcademyLetterWindow_HowItWorks" xml:space="preserve">
+    <value>Un membro si candida automaticamente ai sedili che le squadre della sua accademia aprono ogni inverno, è preferito da quelle squadre e firma con le squadre satellite contratti di crescita di una stagione. L'appartenenza finisce a 25 anni, o quando firmi per una squadra esterna all'accademia. I membri senza un sedile da titolare fanno anche uscite nelle prime libere con le squadre dell'accademia, e una buona stagione di uscite ne alza la reputazione.</value>
+  </data>
+  <data name="AcademyLetterWindow_AcademyName_Format" xml:space="preserve">
+    <value>accademia piloti {0}</value>
+  </data>
+  <data name="AcademyLetterWindow_AcademyTeams_Format" xml:space="preserve">
+    <value>Squadra madre: {0} · Squadra satellite: {1}</value>
+  </data>
+  <data name="AcademyLetterWindow_NoSisterTeam" xml:space="preserve">
+    <value>nessuna</value>
+  </data>
+  <data name="AcademyLetterWindow_UnnamedAcademy" xml:space="preserve">
+    <value>accademia piloti</value>
+  </data>
+  <data name="AcademyLetterWindow_AgedOut_Format" xml:space="preserve">
+    <value>A 25 anni non puoi più far parte dell'{0}: da ora in poi cercherai i sedili per conto tuo. Gli eventuali contratti in corso restano validi. Ti auguriamo buona fortuna.</value>
+  </data>
+  <data name="AcademyLetterWindow_Signoff" xml:space="preserve">
+    <value>Cordiali saluti,</value>
+  </data>
+  <data name="AcademyLetterWindow_Signature" xml:space="preserve">
+    <value>Il tuo agente</value>
+  </data>
+  <data name="AcademyLetterWindow_JoinButton" xml:space="preserve">
+    <value>ENTRA</value>
+  </data>
+  <data name="AcademyLetterWindow_SwitchButton" xml:space="preserve">
+    <value>CAMBIA ACCADEMIA</value>
+  </data>
+  <data name="AcademyLetterWindow_StayButton" xml:space="preserve">
+    <value>RESTA</value>
+  </data>
+  <data name="AcademyLetterWindow_NoThanksButton" xml:space="preserve">
+    <value>NO, GRAZIE</value>
+  </data>
+  <data name="AcademyLetterWindow_LeaveButton" xml:space="preserve">
+    <value>LASCIA L'ACCADEMIA</value>
+  </data>
+  <data name="AcademyLetterWindow_UsualWayButton" xml:space="preserve">
+    <value>COME AL SOLITO</value>
+  </data>
+  <data name="AcademyLetterWindow_ContinueButton" xml:space="preserve">
+    <value>CONTINUA</value>
+  </data>
+  <data name="TeamApplicationWindow_AcademyApplicationStatus" xml:space="preserve">
+    <value>Candidatura automatica tramite la tua accademia.</value>
+  </data>
+  <data name="TeamApplicationWindow_AcademyInstructionText" xml:space="preserve">
+    <value>La tua accademia ha già cerchiato {0} annunci per te — cerchiane fino ad altri {1} qui sotto.</value>
+  </data>
+  <data name="TeamApplicationWindow_AcademySelectionCount" xml:space="preserve">
+    <value>ERRATA CORRIGE: {0} annunci dell'accademia, più {1} di {2} tuoi cerchiati in questa edizione.</value>
+  </data>
+  <data name="MarketOutlookWindow_BestHeader_Academy" xml:space="preserve">
+    <value>{0} AUTOMATICHE + {1} A TUA SCELTA</value>
+  </data>
+  <data name="MarketOutlookWindow_AutomaticApplication" xml:space="preserve">
+    <value>{0} ({1}, accademia)</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_Academy" xml:space="preserve">
+    <value>E la mia accademia?</value>
+  </data>
+  <data name="AgentTalkWindow_Academy_Member_Format" xml:space="preserve">
+    <value>Fai parte dell'{0}.</value>
+  </data>
+  <data name="AgentTalkWindow_Academy_Automatic_Format" xml:space="preserve">
+    <value>Per come stanno le cose, l'accademia ti candida per {0}. Ti restano {1} candidature a tua scelta.</value>
+  </data>
+  <data name="AgentTalkWindow_Academy_NoAutomatic_Format" xml:space="preserve">
+    <value>Per ora nessuna delle sue squadre ha un sedile a cui ti candideresti in automatico: tutte le {0} candidature sono a tua scelta.</value>
+  </data>
+  <data name="AgentTalkWindow_Academy_ContractRunsOn" xml:space="preserve">
+    <value>Il tuo contratto continua, quindi quest'inverno non ti candiderai in automatico da nessuna parte.</value>
+  </data>
+  <data name="AgentTalkWindow_Academy_AgesOut" xml:space="preserve">
+    <value>Però attenzione: la prossima stagione avrai 25 anni, troppi per l'accademia. Da lì in poi sarai per conto tuo.</value>
+  </data>
+  <data name="AgentTalkWindow_Academy_Projection" xml:space="preserve">
+    <value>Bada, è una previsione: quei sedili possono ancora cambiare prima dell'inverno.</value>
+  </data>
+  <data name="PracticeOutingNewsWindow_Banner" xml:space="preserve">
+    <value>ESORDIENTI NELLE LIBERE 1</value>
+  </data>
+  <data name="PracticeOutingNewsWindow_Headline_Generic_Format" xml:space="preserve">
+    <value>I giovani delle accademie in pista il venerdì al {0}</value>
+  </data>
+  <data name="PracticeOutingNewsWindow_Headline_Player_Format" xml:space="preserve">
+    <value>{0} sulla {1} nelle prime libere</value>
+  </data>
+  <data name="PracticeOutingNewsWindow_Ahead_Format" xml:space="preserve">
+    <value>{0} guida la {2} di {1} nelle prime libere del {3}, e chiude la sessione davanti a {4}, la prima guida della squadra.</value>
+  </data>
+  <data name="PracticeOutingNewsWindow_WithinReach_Format" xml:space="preserve">
+    <value>{0} guida la {2} di {1} nelle prime libere del {3}, e chiude la sessione a poche posizioni da {4}, la prima guida della squadra.</value>
+  </data>
+  <data name="PracticeOutingNewsWindow_FurtherBack_Format" xml:space="preserve">
+    <value>{0} guida la {2} di {1} nelle prime libere del {3}, ma chiude la sessione ben dietro a {4}, la prima guida della squadra.</value>
+  </data>
+  <data name="AgentTalkWindow_Ask_Fp1" xml:space="preserve">
+    <value>Come vanno le mie uscite nelle libere?</value>
+  </data>
+  <data name="AgentTalkWindow_Fp1_Format" xml:space="preserve">
+    <value>Quest'anno hai fatto {0} uscite nelle prime libere, e in media sono state {1}. Se la stagione finisse ora, saresti valutato {2}.</value>
+  </data>
+  <data name="AgentTalkWindow_Fp1_Outstanding" xml:space="preserve">
+    <value>eccezionali: all'altezza delle prime guide</value>
+  </data>
+  <data name="AgentTalkWindow_Fp1_Promising" xml:space="preserve">
+    <value>promettenti: le squadre se ne sono accorte</value>
+  </data>
+  <data name="AgentTalkWindow_Fp1_Decent" xml:space="preserve">
+    <value>discrete: abbastanza per tenere vivo il tuo nome nel paddock</value>
+  </data>
+  <data name="AgentTalkWindow_Fp1_Quiet" xml:space="preserve">
+    <value>anonime: finora non ti hanno aiutato granché</value>
+  </data>
+  <data name="AgentTalkWindow_Reserve_Fp1Path_Format" xml:space="preserve">
+    <value>Da riserva della {0} faresti anche uscite nelle prime libere con la loro macchina. Se lì impressioni, verresti valutato un giovane da campionato, ed è questa la strada per il loro prossimo sedile libero.</value>
+  </data>
+  <data name="PracticeOutingNewsWindow_WillDrive_Format" xml:space="preserve">
+    <value>{0} prende la {2} di {1} nelle prime libere del {3}, confrontato con {4}, la prima guida della squadra.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Fp1_Heading" xml:space="preserve">
+    <value>LA TUA USCITA NELLE PRIME LIBERE</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Fp1_Letter_Format" xml:space="preserve">
+    <value>Guiderai la macchina di {0} per la {1} nelle prime libere del {2}. {3}, la prima guida della squadra, è il tuo riferimento.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Fp1_Explanation" xml:space="preserve">
+    <value>Guidala tu in AMS2: conta solo la sessione di prove libere, giudicata sul tuo giro migliore. Oppure lascia che la squadra la svolga senza di te, simulata.</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Fp1_DriveButton" xml:space="preserve">
+    <value>GUIDA</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Fp1_SimulateButton" xml:space="preserve">
+    <value>SIMULA</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Fp1_Title_Format" xml:space="preserve">
+    <value>PRIME LIBERE · {0}</value>
+  </data>
+  <data name="PaddockOpportunitiesWindow_Fp1_Intro_Format" xml:space="preserve">
+    <value>Nessun sedile in gara questo weekend, ma la {0} ti affida la sua macchina per le prime libere.</value>
+  </data>
+  <data name="RaceWeekendWindow_PracticeOutingSessionLabel" xml:space="preserve">
+    <value>PRIME LIBERE:</value>
+  </data>
+  <data name="RaceWeekendWindow_PracticeOutingSessionName" xml:space="preserve">
+    <value>SESSIONE DI PROVE LIBERE</value>
+  </data>
+  <data name="EntryListWindow_ApplyingPracticeLiveries_Message" xml:space="preserve">
+    <value>Esportazione delle livree per le tue prime libere...</value>
+  </data>
+  <data name="SeasonOverviewWindow_AcademiesButton" xml:space="preserve">
+    <value>Accademie piloti</value>
+  </data>
+  <data name="AcademiesWindow_Title" xml:space="preserve">
+    <value>Accademie piloti</value>
+  </data>
+  <data name="AcademiesWindow_Kicker_Format" xml:space="preserve">
+    <value>PROGRAMMI GIOVANI · STAGIONE {0}</value>
+  </data>
+  <data name="AcademiesWindow_Headline" xml:space="preserve">
+    <value>Le accademie</value>
+  </data>
+  <data name="AcademiesWindow_HeaderNote" xml:space="preserve">
+    <value>In ordine di come le squadre dell&apos;accademia guardano ai loro giovani: prima la reputazione, poi la forma nelle FP1, poi i punti.</value>
+  </data>
+  <data name="AcademiesWindow_YourAcademy" xml:space="preserve">
+    <value>LA TUA ACCADEMIA</value>
+  </data>
+  <data name="AcademiesWindow_Column_Driver" xml:space="preserve">
+    <value>PILOTA</value>
+  </data>
+  <data name="AcademiesWindow_Column_Seat" xml:space="preserve">
+    <value>SEDILE</value>
+  </data>
+  <data name="AcademiesWindow_Column_Reputation" xml:space="preserve">
+    <value>REPUTAZIONE</value>
+  </data>
+  <data name="AcademiesWindow_Column_Practice" xml:space="preserve">
+    <value>USCITE IN FP1</value>
+  </data>
+  <data name="AcademiesWindow_Column_Season" xml:space="preserve">
+    <value>STAGIONE</value>
+  </data>
+  <data name="AcademiesWindow_Seat_Parent" xml:space="preserve">
+    <value>Titolare · squadra madre</value>
+  </data>
+  <data name="AcademiesWindow_Seat_Sister" xml:space="preserve">
+    <value>Titolare · squadra satellite</value>
+  </data>
+  <data name="AcademiesWindow_Seat_Other" xml:space="preserve">
+    <value>Titolare · fuori dall&apos;accademia</value>
+  </data>
+  <data name="AcademiesWindow_Seat_Reserve" xml:space="preserve">
+    <value>Pilota di riserva</value>
+  </data>
+  <data name="AcademiesWindow_Seat_None" xml:space="preserve">
+    <value>Senza sedile</value>
+  </data>
+  <data name="AcademiesWindow_Age_Format" xml:space="preserve">
+    <value>{0} anni</value>
+  </data>
+  <data name="AcademiesWindow_AgesOut" xml:space="preserve">
+    <value>ultima stagione in accademia</value>
+  </data>
+  <data name="AcademiesWindow_Practice_Format" xml:space="preserve">
+    <value>{0} fatte · media {1:0.0}/3</value>
+  </data>
+  <data name="AcademiesWindow_Practice_None" xml:space="preserve">
+    <value>nessuna finora</value>
+  </data>
+  <data name="AcademiesWindow_PracticeOutlook_Format" xml:space="preserve">
+    <value>in rotta per: {0}</value>
+  </data>
+  <data name="AcademiesWindow_PracticeOutlook_NoDecay" xml:space="preserve">
+    <value>in rotta per mantenere la reputazione</value>
+  </data>
+  <data name="AcademiesWindow_PracticeOutlook_None" xml:space="preserve">
+    <value>non ancora sufficiente</value>
+  </data>
+  <data name="AcademiesWindow_Season_Format" xml:space="preserve">
+    <value>P{0} · {1:0.#} pt</value>
+  </data>
+  <data name="AcademiesWindow_SeasonPoints_Format" xml:space="preserve">
+    <value>{0:0.#} pt</value>
+  </data>
+  <data name="AcademiesWindow_Season_None" xml:space="preserve">
+    <value>—</value>
+  </data>
+  <data name="AcademiesWindow_Former_Format" xml:space="preserve">
+    <value>Hanno lasciato l&apos;accademia: {0}</value>
+  </data>
+  <data name="AcademiesWindow_FormerEntry_Format" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="AcademiesWindow_NoMembers" xml:space="preserve">
+    <value>Nessun giovane in accademia questa stagione.</value>
+  </data>
+  <data name="AcademiesWindow_NoAcademies" xml:space="preserve">
+    <value>Nessuna accademia piloti in questa stagione.</value>
   </data>
 </root>

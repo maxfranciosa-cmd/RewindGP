@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.Models;
+﻿using AMS2ChEd.Business.Helpers;
+using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services.Contracts;
 using System.Reflection;
@@ -59,25 +60,26 @@ namespace AMS2ChEd.Business.Services
             _driverHirer = driverHirer;
         }
 
-        public IEnumerable<DropTeamResult> DropDrivers(IEnumerable<TeamSituation> teams)
+        public IEnumerable<DropTeamResult> DropDrivers(IEnumerable<TeamSituation> teams, int? seasonYear = null)
         {
             return teams.Select(team => new DropTeamResult
             {
                 TeamId = team.TeamId,
-                DropDriver1 = _driverFirer.WillDropDriver(team.Reputation, team.Driver1.Reputation, team.Driver1.RacesLeftInContract, team.Driver1.DriverRetiring, team.TeamQuitting),
+                DropDriver1 = _driverFirer.WillDropDriver(team.Reputation, team.Driver1.Reputation, team.Driver1.RacesLeftInContract, team.Driver1.DriverRetiring, team.TeamQuitting, seasonYear),
                 // a team with no second car this season has a null Driver2 situation - there's
                 // no driver to evaluate for dropping, so it's simply never dropped.
                 DropDriver2 = team.Driver2 == null
                     ? DriverFirerOutcome.NOT_DROPPED
-                    : _driverFirer.WillDropDriver(team.Reputation, team.Driver2.Reputation, team.Driver2.RacesLeftInContract, team.Driver2.DriverRetiring, team.TeamQuitting),
+                    : _driverFirer.WillDropDriver(team.Reputation, team.Driver2.Reputation, team.Driver2.RacesLeftInContract, team.Driver2.DriverRetiring, team.TeamQuitting, seasonYear),
             });
         }
 
 
 
-        public IEnumerable<TeamHiring> PickPotentialNewDrivers(IEnumerable<TeamJobAd> jobAds,  IEnumerable<UnemployedDriver> poolOfDrivers, out List<TeamJobAd> adsWithNoPotentialCandidates)
+        public IEnumerable<TeamHiring> PickPotentialNewDrivers(IEnumerable<TeamJobAd> jobAds,  IEnumerable<UnemployedDriver> poolOfDrivers, out List<TeamJobAd> adsWithNoPotentialCandidates, AcademyContext academies = null)
         { 
-            adsWithNoPotentialCandidates = new List<TeamJobAd>();
+            var unfulfilled = new List<TeamJobAd>();
+            adsWithNoPotentialCandidates = unfulfilled;
             var result = new List<TeamHiring>();
             var rnd = new Random();
             // race seats first, then reserve seats, so a reserve pick never takes a race seat's driver
@@ -99,7 +101,7 @@ namespace AMS2ChEd.Business.Services
                                         })
                                         .ToList();
 
-            foreach (var teamJobAd in orderJobAdOrderedByReputationAndRandomly)
+            HashSet<string> DriverIdsToExclude(TeamJobAd teamJobAd)
             {
                 var driverIdsToExclude = new HashSet<string>();
                 // if the ExitingDriverid is not null (so it's an ad for an exiting driver and not for a new team with no drivers before)
@@ -108,17 +110,81 @@ namespace AMS2ChEd.Business.Services
                 {
                     driverIdsToExclude.Add(teamJobAd.ExitingDriverId);
                 }
+                return driverIdsToExclude;
+            }
 
-                var availableDriversForThatTeam = availableDrivers
+            List<DriverResume> AvailableDriversFor(TeamJobAd teamJobAd, HashSet<string> driverIdsToExclude) => availableDrivers
                                                     .Where(d => !driverIdsToExclude.Contains(d.Id) && AmbitionFor(d.Reputation, teamJobAd.IsReserve).MinReputation <= teamJobAd.TeamReputation)
                                                     .OrderByDescending(d => d.Reputation)
                                                     .ToList();
+
+            // ACADEMY FIRST PICK: before each round (race seats, then reserve seats) the academy
+            // teams' seats go to a free junior of theirs who fits as well as anyone on the market.
+            // The rest of the seats are picked as usual
+            var raceAds = orderJobAdOrderedByReputationAndRandomly.Where(a => !a.IsReserve).ToList();
+            var reserveAds = orderJobAdOrderedByReputationAndRandomly.Where(a => a.IsReserve).ToList();
+            var normalAds = new List<TeamJobAd>();
+            foreach (var round in new[] { raceAds, reserveAds })
+            {
+                foreach (var teamJobAd in round)
+                {
+                    var firstPick = AcademyFirstPick(teamJobAd);
+                    if (firstPick == null)
+                        normalAds.Add(teamJobAd);
+                    else
+                        result.Add(firstPick);
+                }
+
+                foreach (var teamJobAd in normalAds)
+                    PickForAd(teamJobAd);
+                normalAds.Clear();
+            }
+
+            return result;
+
+            TeamHiring AcademyFirstPick(TeamJobAd teamJobAd)
+            {
+                if (academies == null)
+                    return null;
+
+                var driverIdsToExclude = DriverIdsToExclude(teamJobAd);
+                var availableDriversForThatTeam = AvailableDriversFor(teamJobAd, driverIdsToExclude);
+
+                // the season pack's own reserve, when free, keeps the seat
+                if (teamJobAd.PreferredDriverId != null && availableDrivers.Any(d => d.Id == teamJobAd.PreferredDriverId))
+                    return null;
+
+                var member = _driverHirer.PickAcademyMember(availableDriversForThatTeam, teamJobAd.Role, teamJobAd.TeamId, teamJobAd.TeamReputation, teamJobAd.IsReserve, academies);
+                if (member == null)
+                    return null;
+
+                availableDrivers.Remove(member);
+                return new TeamHiring()
+                {
+                    DriverId = member.Id,
+                    Role = teamJobAd.Role,
+                    Slot = teamJobAd.Slot,
+                    TeamId = teamJobAd.TeamId,
+                    DriverReputation = member.Reputation,
+                    TeamReputation = teamJobAd.TeamReputation,
+                    Guaranteed = true,
+                    AcademyFirstPick = true,
+                    ExcludeDriverIds = driverIdsToExclude,
+                    // a reserve junior who wins a race seat after all leaves the team these
+                    OtherPotentialCandidates = availableDriversForThatTeam.Where(d => d.Id != member.Id).ToList()
+                };
+            }
+
+            void PickForAd(TeamJobAd teamJobAd)
+            {
+                var driverIdsToExclude = DriverIdsToExclude(teamJobAd);
+                var availableDriversForThatTeam = AvailableDriversFor(teamJobAd, driverIdsToExclude);
 
                 if(availableDriversForThatTeam.Any())
                 {
                     // a reserve seat goes to the driver the season pack names, when they're free
                     var winner = availableDrivers.FirstOrDefault(d => teamJobAd.PreferredDriverId != null && d.Id == teamJobAd.PreferredDriverId)
-                                 ?? _driverHirer.PickBestCandidate(availableDriversForThatTeam, teamJobAd.Role, teamJobAd.TeamReputation, teamJobAd.IsReserve);
+                                 ?? _driverHirer.PickBestCandidate(availableDriversForThatTeam, teamJobAd.Role, teamJobAd.TeamReputation, teamJobAd.IsReserve, teamJobAd.TeamId, academies);
 
                     result.Add(new TeamHiring()
                     {
@@ -138,12 +204,9 @@ namespace AMS2ChEd.Business.Services
                 {
                     // nobody for a race seat: a driver gets generated for it. A reserve seat
                     // nobody wants simply stays empty
-                    adsWithNoPotentialCandidates.Add(teamJobAd);
+                    unfulfilled.Add(teamJobAd);
                 }
             }
-
-            return result;
-
         }
 
 
@@ -171,21 +234,39 @@ namespace AMS2ChEd.Business.Services
 
         }
 
-        public IEnumerable<TeamHiring> FinalBallotResults(IEnumerable<TeamHiringBallot> ballots)
+        public IEnumerable<TeamHiring> FinalBallotResults(IEnumerable<TeamHiringBallot> ballots, AcademyContext academies = null)
         {
             var result = new List<TeamHiring>();
             var rnd = new Random();
             var hiredDriversId = new HashSet<string>();
 
-            // every race seat is settled before the reserve seats, so nobody ends up holding both
-            foreach(var ballot in ballots.OrderBy(b => b.OriginalTeamHiring.IsReserve).ThenByDescending(b => b.OriginalTeamHiring.TeamReputation))
+            // a junior his academy picked first is kept for it: no other ballot can sign him for a
+            // race seat, nor for a reserve seat when his is a reserve seat (a race seat elsewhere
+            // still beats that)
+            var firstPicks = new Dictionary<string, TeamHiringBallot>();
+            foreach (var firstPick in ballots.Where(b => b.OriginalTeamHiring.AcademyFirstPick && !string.IsNullOrEmpty(b.OriginalTeamHiring.DriverId)))
+                firstPicks.TryAdd(firstPick.OriginalTeamHiring.DriverId, firstPick);
+
+            bool Taken(string driverId, TeamHiringBallot ballot) =>
+                hiredDriversId.Contains(driverId) ||
+                (firstPicks.TryGetValue(driverId, out var own) && own != ballot &&
+                 (!own.OriginalTeamHiring.IsReserve || ballot.OriginalTeamHiring.IsReserve));
+
+            // every race seat is settled before the reserve seats, so nobody ends up holding both.
+            // Among teams of the same standing, the player's academy's teams go first: a player who
+            // also applied to an equal team outside it would otherwise be signed there first, and
+            // gone before his own academy's seat is settled
+            var playerAcademy = academies?.AcademyOf(academies.PlayerDriverId);
+            foreach(var ballot in ballots.OrderBy(b => b.OriginalTeamHiring.IsReserve)
+                                         .ThenByDescending(b => b.OriginalTeamHiring.TeamReputation)
+                                         .ThenBy(b => IsAcademyTeam(playerAcademy, b.OriginalTeamHiring.TeamId) ? 0 : 1))
             {
                 var isReserve = ballot.OriginalTeamHiring.IsReserve;
-                var availableCandidates = ballot.Candidates.Where(d => !hiredDriversId.Contains(d.DriverId));
+                var availableCandidates = ballot.Candidates.Where(d => !Taken(d.DriverId, ballot));
 
                 if (ballot.OriginalTeamHiring.Guaranteed &&
                     !string.IsNullOrEmpty(ballot.OriginalTeamHiring.DriverId) &&
-                    !hiredDriversId.Contains(ballot.OriginalTeamHiring.DriverId))
+                    !Taken(ballot.OriginalTeamHiring.DriverId, ballot))
                 {
                     result.Add(ballot.OriginalTeamHiring);
                     hiredDriversId.Add(ballot.OriginalTeamHiring.DriverId);
@@ -195,7 +276,7 @@ namespace AMS2ChEd.Business.Services
                 if (!availableCandidates.Any())
                 {
                     // no original pick when the team's pick was the player, who didn't apply
-                    var originalHireAvailable = !string.IsNullOrEmpty(ballot.OriginalTeamHiring.DriverId) && !hiredDriversId.Contains(ballot.OriginalTeamHiring.DriverId);
+                    var originalHireAvailable = !string.IsNullOrEmpty(ballot.OriginalTeamHiring.DriverId) && !Taken(ballot.OriginalTeamHiring.DriverId, ballot);
 
                     if (originalHireAvailable)
                     {
@@ -206,7 +287,7 @@ namespace AMS2ChEd.Business.Services
                     {
                         // the team's pick signed elsewhere: the next one down, or no reserve at all
                         var nextPick = (ballot.OriginalTeamHiring.OtherPotentialCandidates ?? Enumerable.Empty<DriverResume>())
-                                                .Where(d => !hiredDriversId.Contains(d.Id))
+                                                .Where(d => !Taken(d.Id, ballot))
                                                 .OrderByDescending(d => d.Reputation)
                                                 .FirstOrDefault();
                         if (nextPick != null)
@@ -227,7 +308,7 @@ namespace AMS2ChEd.Business.Services
                     {
                         // the next one down, or failing that the best one still free
                         var stillAvailable = ballot.OriginalTeamHiring.OtherPotentialCandidates
-                                                                    .Where(d => !hiredDriversId.Contains(d.Id))
+                                                                    .Where(d => !Taken(d.Id, ballot))
                                                                     .OrderByDescending(d => d.Reputation)
                                                                     .ToList();
                         var firstAvailableDriverOfTheSameReputationOrLower = stillAvailable.FirstOrDefault(d => d.Reputation <= ballot.OriginalTeamHiring.DriverReputation)
@@ -246,9 +327,9 @@ namespace AMS2ChEd.Business.Services
                     continue;
                 }
 
-                var weightFit = (DriverReputation driverReputation) =>
+                var weightFit = (TeamHiringBallotCandidate candidate) =>
                 {
-                    var fit = _driverHirer.DoesDriverFitSeat(driverReputation, ballot.OriginalTeamHiring.Role, ballot.OriginalTeamHiring.TeamReputation, isReserve);
+                    var fit = _driverHirer.DoesDriverFitSeat(candidate.DriverId, candidate.DriverReputation, ballot.OriginalTeamHiring.Role, ballot.OriginalTeamHiring.TeamId, ballot.OriginalTeamHiring.TeamReputation, isReserve, academies);
                     return DriverHirer.GetFitWeight(fit);
                 };
 
@@ -259,17 +340,18 @@ namespace AMS2ChEd.Business.Services
                                             .GroupBy(x => ballot.OriginalTeamHiring.ExcludeDriverIds?.Contains(x.DriverId) == true)
                                             .OrderBy(g => g.Key)
                                             .First()
-                                            .GroupBy(x => weightFit(x.DriverReputation))
+                                            .GroupBy(x => weightFit(x))
                                             .OrderByDescending(g => g.Key)
                                             .First();
-                var bestCandidate = DriverHirer.PickWeightedByReputation(bestTier, x => x.DriverReputation, rnd);
+                var bestCandidate = DriverHirer.PickWeightedByReputation(
+                    DriverHirer.MembersFirst(bestTier, x => x.DriverId, ballot.OriginalTeamHiring.TeamId, academies), x => x.DriverReputation, rnd);
                 var bestCandidateResume = new DriverResume { Id = bestCandidate.DriverId, Reputation = bestCandidate.DriverReputation };
 
                 var originalHireResume = ballot.OriginalTeamHiring == null || ballot.OriginalTeamHiring.DriverId == null ? null : new DriverResume { Id = ballot.OriginalTeamHiring.DriverId, Reputation = ballot.OriginalTeamHiring.DriverReputation };
 
-                var winner = _driverHirer.PickWinner(originalHireResume, bestCandidateResume, ballot.OriginalTeamHiring.Role, ballot.OriginalTeamHiring.TeamReputation, isReserve);
+                var winner = _driverHirer.PickWinner(originalHireResume, bestCandidateResume, ballot.OriginalTeamHiring.Role, ballot.OriginalTeamHiring.TeamReputation, isReserve, ballot.OriginalTeamHiring.TeamId, academies);
 
-                if (winner == originalHireResume && !hiredDriversId.Contains(winner.Id))
+                if (winner == originalHireResume && !Taken(winner.Id, ballot))
                 {
                     result.Add(ballot.OriginalTeamHiring);
                     hiredDriversId.Add(originalHireResume.Id);
@@ -291,5 +373,8 @@ namespace AMS2ChEd.Business.Services
 
             return result;
         }
+
+        private static bool IsAcademyTeam(Academy academy, string teamId) =>
+            AcademyMembership.IsParentTeam(academy, teamId) || AcademyMembership.IsSisterTeam(academy, teamId);
     }
 }

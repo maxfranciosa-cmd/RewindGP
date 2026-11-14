@@ -117,6 +117,12 @@
         event EventHandler<SessionFinishedEventArgs> PreQualiSessionFinished;
 
         /// <summary>
+        /// Raised once when a practice session the player drove for a rookie FP1 outing is over
+        /// (IsPracticeSession): its last standings, with each car's best lap.
+        /// </summary>
+        event EventHandler<SessionFinishedEventArgs> PracticeSessionFinished;
+
+        /// <summary>
         /// Raised when the background poll loop catches an exception while reading shared memory
         /// (e.g. AMS2 isn't running yet, or its shared memory block isn't available). Non-fatal -
         /// polling continues and this may fire repeatedly until a read succeeds.
@@ -134,6 +140,12 @@
         SessionData CurrentSession { get; }
 
         bool IsPreQualiSession { get; set; }
+
+        /// <summary>
+        /// A rookie FP1 outing: only the practice session counts. Its end raises
+        /// PracticeSessionFinished, and nothing flows into SessionFinished.
+        /// </summary>
+        bool IsPracticeSession { get; set; }
 
         /// <summary>
         /// Gets the qualification results (null if not completed)

@@ -43,7 +43,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             var currentTeamsSituation = GetTeamSituationBeforeDriverMarket(newSeason, saveGame);
 
-            var dropResults = _offSeasonMovements.DropDrivers(currentTeamsSituation).ToList();
+            var dropResults = _offSeasonMovements.DropDrivers(currentTeamsSituation, newSeason.Year).ToList();
 
             ApplyDisciplinaryDrops(saveGame, dropResults);
 
@@ -88,6 +88,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var currentSeasonYear = saveGame.CurrentSeason.Year;
             var seasonRecapsByDriverId = GenerateSeasonRecaps(saveGame);
             var reserveDriverIds = saveGame.CurrentSeason.ReserveDriverIds();
+            var practiceScores = PracticeOutings.ScoresOf(saveGame, currentSeasonYear);
             var raceDriverIds = saveGame.CurrentSeason.RaceDriverIds();
 
             var driversInOldSeasonWithNewSeasonVersion = new List<IDriverData>();
@@ -96,7 +97,10 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             foreach (var currentDriver in saveGame.Drivers)
             {
-                var newReputation = GetNewReputation(currentDriver, seasonRecapsByDriverId, reserveDriverIds, nextSeasonYear, saveGame.CurrentSeason.Races.Count());
+                // retiring from inactivity is judged on the unclamped reputation (ModernMarket):
+                // a driver retires the winter his reputation would have reached WILD_CARD
+                var unclampedReputation = GetUnclampedNewReputation(currentDriver, seasonRecapsByDriverId, reserveDriverIds, practiceScores, nextSeasonYear, saveGame.CurrentSeason.Races.Count());
+                var newReputation = ModernMarket.Clamp(unclampedReputation, nextSeasonYear);
 
                 // a driver without a seat who sank to the bottom at retirement age quietly retires
                 // (no send-off article: they're retired before the off-season looks for newly retired drivers).
@@ -109,7 +113,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                      (!raceDriverIds.Contains(currentDriver.DriverId) &&
                       !reserveDriverIds.Contains(currentDriver.DriverId) &&
                       IsInactive(currentDriver, seasonRecapsByDriverId) &&
-                      IsRetiringFromInactivity(newReputation, nextSeasonYear - currentDriver.YearOfBirth))))
+                      IsRetiringFromInactivity(unclampedReputation, nextSeasonYear - currentDriver.YearOfBirth))))
                 {
                     retiringFromInactivity.Add(currentDriver);
                     driversNewSeasonDictionary.Remove(currentDriver.DriverId);
@@ -166,8 +170,12 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                                         .Except(driversInOldSeasonWithNewSeasonVersion)
                                         .Except(retiringFromInactivity)
                                         .Concat(newSeasonVersionOfOldDrivers)
-                                        .Concat(rookiesList);
+                                        .Concat(rookiesList)
+                                        .ToList();
 
+            // the next season's rookies come in with the pack's reputation: no wild card goes
+            // through a modern market (drops and hiring run after this)
+            ModernMarket.ClampAll(saveGame.Drivers, nextSeasonYear);
         }
 
         // every driver's reputation for next season as if the season ended after the races run so far,
@@ -177,8 +185,10 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var seasonRecapsByDriverId = GenerateSeasonRecaps(saveGame);
             var racesRun = saveGame.GrandPrixResults.Count(r => r.Year == saveGame.CurrentSeason.Year);
             var reserveDriverIds = saveGame.CurrentSeason.ReserveDriverIds();
+            // the FP1 outings scored so far count too
+            var practiceScores = PracticeOutings.ScoresOf(saveGame, saveGame.CurrentSeason.Year);
 
-            return saveGame.Drivers.ToDictionary(d => d.DriverId, d => GetNewReputation(d, seasonRecapsByDriverId, reserveDriverIds, nextSeasonYear, racesRun));
+            return saveGame.Drivers.ToDictionary(d => d.DriverId, d => GetNewReputation(d, seasonRecapsByDriverId, reserveDriverIds, practiceScores, nextSeasonYear, racesRun));
         }
 
         private static bool IsInactive(IDriverData driver, Dictionary<string, SeasonRecap> seasonRecapsByDriverId)
@@ -187,15 +197,27 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return driverSeasonRecap == null || driverSeasonRecap.Races <= 1;
         }
 
-        // a driver who raced no races loses a tier, unless they were a team's reserve
-        private DriverReputation GetNewReputation(IDriverData driver, Dictionary<string, SeasonRecap> seasonRecapsByDriverId, HashSet<string> reserveDriverIds, int nextSeasonYear, int totalSeasonRaces)
+        private DriverReputation GetNewReputation(IDriverData driver, Dictionary<string, SeasonRecap> seasonRecapsByDriverId, HashSet<string> reserveDriverIds, Dictionary<string, List<int>> practiceScores, int nextSeasonYear, int totalSeasonRaces)
+        {
+            return ModernMarket.Clamp(GetUnclampedNewReputation(driver, seasonRecapsByDriverId, reserveDriverIds, practiceScores, nextSeasonYear, totalSeasonRaces), nextSeasonYear);
+        }
+
+        // a driver who raced no races loses a tier, unless they were a team's reserve; his FP1
+        // outings of the season (PracticeOutings) can only raise that. A driver who raced goes by his
+        // results, whatever his outings
+        private DriverReputation GetUnclampedNewReputation(IDriverData driver, Dictionary<string, SeasonRecap> seasonRecapsByDriverId, HashSet<string> reserveDriverIds, Dictionary<string, List<int>> practiceScores, int nextSeasonYear, int totalSeasonRaces)
         {
             var driverAge = nextSeasonYear - driver.YearOfBirth;
             var driverSeasonRecap = seasonRecapsByDriverId.GetValueOrDefault(driver.DriverId);
 
-            return IsInactive(driver, seasonRecapsByDriverId) ?
-                _reputationUpdater.GetNewReputationForInactiveDriver(driver.Reputation, driverAge, decays: !reserveDriverIds.Contains(driver.DriverId)) :
-                _reputationUpdater.GetNewReputation(driver.Reputation, driverAge, ReputationUpdater.StandingsJudgedBy(driverSeasonRecap.Position, driverSeasonRecap.Teammate), driverSeasonRecap.Podiums, driverSeasonRecap.DNFs, driverSeasonRecap.Races, totalSeasonRaces, driverSeasonRecap.AverageRacePosition);
+            if (IsInactive(driver, seasonRecapsByDriverId))
+            {
+                var usual = _reputationUpdater.GetNewReputationForInactiveDriver(driver.Reputation, driverAge, decays: !reserveDriverIds.Contains(driver.DriverId));
+                var reward = PracticeOutings.RewardFor(practiceScores?.GetValueOrDefault(driver.DriverId));
+                return PracticeOutings.Raise(usual, reward, driver.Reputation, driverAge, _reputationUpdater);
+            }
+
+            return _reputationUpdater.GetNewReputation(driver.Reputation, driverAge, ReputationUpdater.StandingsJudgedBy(driverSeasonRecap.Position, driverSeasonRecap.Teammate), driverSeasonRecap.Podiums, driverSeasonRecap.DNFs, driverSeasonRecap.Races, totalSeasonRaces, driverSeasonRecap.AverageRacePosition);
         }
 
         private Dictionary<string, SeasonRecap> GenerateSeasonRecaps(ISaveGame saveGame)
@@ -402,9 +424,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 .ToHashSet();
         }
 
-        // a race seat opening at the team the reserve drives for next season, and whether the team
+        // a race seat opening at the team the player, as its reserve, drives for next season, and whether the team
         // promotes them to it (first refusal): null when no race seat opens
-        public ReservePromotion GetReservePromotion(ISaveGame saveGame, IEnumerable<ITeamEntry> newSeasonTeamEntries, IEnumerable<DropTeamResult> dropTeamResults, string teamId, DriverReputation reserveReputation)
+        public ReservePromotion GetReservePromotion(ISaveGame saveGame, IEnumerable<ITeamEntry> newSeasonTeamEntries, IEnumerable<DropTeamResult> dropTeamResults, string teamId, DriverReputation reserveReputation, AcademyContext academies = null)
         {
             var newTeamEntry = newSeasonTeamEntries.FirstOrDefault(t => t.TeamId == teamId);
             var currentTeamEntry = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
@@ -417,18 +439,18 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             var hiringDriver2 = !string.IsNullOrEmpty(driver2Id) && dropResult.DropDriver2.IsDropped();
             var (driver1Role, driver2Role) = GetJobAdRoles(saveGame, currentTeamEntry, newTeamEntry.Reputation, hiringDriver1, hiringDriver2, driver2Id);
 
-            return PickPromotionSeat(teamId, reserveReputation, newTeamEntry.Reputation, hiringDriver1, driver1Role, hiringDriver2, driver2Role);
+            return PickPromotionSeat(teamId, saveGame.PlayerData.DriverId, reserveReputation, newTeamEntry.Reputation, hiringDriver1, driver1Role, hiringDriver2, driver2Role, academies);
         }
 
         // judged with the race policy, as it's a race seat: PerfectFit is the only fit that's
         // promoted. With both seats open, the one they're a PerfectFit for, the first driver's on a tie
-        private ReservePromotion PickPromotionSeat(string teamId, DriverReputation reserveReputation, TeamReputation teamReputation, bool hiringDriver1, DriverRole driver1Role, bool hiringDriver2, DriverRole driver2Role)
+        private ReservePromotion PickPromotionSeat(string teamId, string reserveId, DriverReputation reserveReputation, TeamReputation teamReputation, bool hiringDriver1, DriverRole driver1Role, bool hiringDriver2, DriverRole driver2Role, AcademyContext academies)
         {
             var seats = new List<ReservePromotion>();
             if (hiringDriver1)
-                seats.Add(new ReservePromotion { TeamId = teamId, Slot = 1, Role = driver1Role, Fit = _driverHirer.DoesDriverFitTeamPolicy(reserveReputation, driver1Role, teamReputation) });
+                seats.Add(new ReservePromotion { TeamId = teamId, Slot = 1, Role = driver1Role, Fit = _driverHirer.DoesDriverFitSeat(reserveId, reserveReputation, driver1Role, teamId, teamReputation, false, academies) });
             if (hiringDriver2)
-                seats.Add(new ReservePromotion { TeamId = teamId, Slot = 2, Role = driver2Role, Fit = _driverHirer.DoesDriverFitTeamPolicy(reserveReputation, driver2Role, teamReputation) });
+                seats.Add(new ReservePromotion { TeamId = teamId, Slot = 2, Role = driver2Role, Fit = _driverHirer.DoesDriverFitSeat(reserveId, reserveReputation, driver2Role, teamId, teamReputation, false, academies) });
 
             return seats.FirstOrDefault(s => s.IsOffered) ?? seats.FirstOrDefault();
         }
@@ -452,7 +474,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return (driver1Role, driver2Role);
         }
 
-        public IEnumerable<TeamHiringBallot> TeamPicksPotentialReplacementsDrivers(int newSeasonYear, ISaveGame saveGame, IEnumerable<ITeamEntry> newSeasonTeamEntries, IEnumerable<DropTeamResult> dropTeamResults, ReservePlan reservePlan = null)
+        public IEnumerable<TeamHiringBallot> TeamPicksPotentialReplacementsDrivers(int newSeasonYear, ISaveGame saveGame, IEnumerable<ITeamEntry> newSeasonTeamEntries, IEnumerable<DropTeamResult> dropTeamResults, ReservePlan reservePlan = null, AcademyContext academies = null)
         {
             var idsOfRetiringDrivers = new HashSet<string>();
             var dropTeamResltsDictionary = dropTeamResults.ToDictionary(t => t.TeamId, t => t);
@@ -502,8 +524,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     else if (driver1DropOutcome == DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED)
                     {
                         // if the driver contract's expired, it's a coin toss to decide
-                        // if team and driver are willing to renew
-                        exitingDriver1WillingToRenew = (new Random().Next(2)) == 1;
+                        // if team and driver are willing to renew. A junior at his academy's sister
+                        // team always is, while he's still a member next season
+                        exitingDriver1WillingToRenew = IsSisterTeamMember(academies, driver1Id, teamEntry.TeamId) || (new Random().Next(2)) == 1;
                     }
                     else if (!driver1DropOutcome.IsDropped())
                     {
@@ -526,8 +549,9 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                         else if (driver2DropOutcome == DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED)
                         {
                             // if the driver contract's expired, it's a coin toss to decide
-                            // if team and driver are willing to renew
-                            exitingDriver2WillingToRenew = (new Random().Next(2)) == 1;
+                            // if team and driver are willing to renew (always, for a junior at his
+                            // academy's sister team)
+                            exitingDriver2WillingToRenew = IsSisterTeamMember(academies, driver2Id, teamEntry.TeamId) || (new Random().Next(2)) == 1;
                         }
                         else if (!driver2DropOutcome.IsDropped())
                         {
@@ -557,7 +581,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 }
                 else if (currentReserveId != null && currentReserveId != playerId && driversDictionary.TryGetValue(currentReserveId, out var reserveDriver))
                 {
-                    var seat = PickPromotionSeat(teamEntry.TeamId, reserveDriver.Reputation, teamEntry.Reputation, hiringDriver1, driver1Role, hiringDriver2, driver2Role);
+                    var seat = PickPromotionSeat(teamEntry.TeamId, reserveDriver.DriverId, reserveDriver.Reputation, teamEntry.Reputation, hiringDriver1, driver1Role, hiringDriver2, driver2Role, academies);
                     if (seat?.IsOffered == true)
                     {
                         promotion = seat;
@@ -668,7 +692,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             saveGame.Drivers = saveGame.Drivers.Except(retiredDrivers);
             saveGame.RetiredDrivers = saveGame.RetiredDrivers == null ? retiredDrivers : saveGame.RetiredDrivers.Concat(retiredDrivers);
 
-            var teamProvisionalHirings = _offSeasonMovements.PickPotentialNewDrivers(teamJobAds, unemployedDrivers, out var jobAdsUnfulfilled);
+            var teamProvisionalHirings = _offSeasonMovements.PickPotentialNewDrivers(teamJobAds, unemployedDrivers, out var jobAdsUnfulfilled, academies);
 
             var provisionalHiringsWithGeneratedDrivers = new List<TeamHiring>();
             var newDrivers = new List<IDriverData>();
@@ -701,17 +725,45 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 hiring.OtherPotentialCandidates = hiring.OtherPotentialCandidates?.Where(d => d.Id != playerId).ToList();
             }
 
-            return _offSeasonMovements.DriversProposeToTeams(unemployedDrivers, allHirings);
+            var ballots = _offSeasonMovements.DriversProposeToTeams(unemployedDrivers, allHirings).ToList();
+
+            // an AI academy member on the market also applies to the seats his academy gives him
+            // (AcademyApplications), whatever his ambition. The player's are filled in and locked
+            // in his own application window
+            if (academies != null)
+            {
+                foreach (var driver in unemployedDrivers)
+                {
+                    foreach (var ballot in AcademyApplications.PrefilledBallots(saveGame.CurrentSeason, academies, driver.DriverId, driver.Reputation, ballots))
+                    {
+                        if (ballot.OriginalTeamHiring.DriverId == driver.DriverId || ballot.Candidates.Any(c => c.DriverId == driver.DriverId))
+                            continue;
+                        ballot.Candidates = ballot.Candidates.Append(new TeamHiringBallotCandidate { DriverId = driver.DriverId, DriverReputation = driver.Reputation }).ToList();
+                    }
+                }
+            }
+
+            return ballots;
 
         }
 
-        public ISeason GenerateNewSeasonWithNewHirings(ISaveGame saveGame, ISeason newSeason, IEnumerable<TeamHiringBallot> ballots)
+        // a new contract lasts the season, plus a race (in effect a second season) for a PerfectFit;
+        // a junior at his academy's sister team signs a one-season development deal whatever his fit
+        private static int ContractRaces(ISeason newSeason, DriverHirer.DriverPolicyFit fit, bool sisterTeamMember) =>
+            !sisterTeamMember && fit >= DriverHirer.DriverPolicyFit.PerfectFit ? newSeason.Races.Count() + 1 : newSeason.Races.Count();
+
+        // whether the driver is a member, in the season being hired for, of an academy the team is a
+        // sister team of
+        private static bool IsSisterTeamMember(AcademyContext academies, string driverId, string teamId) =>
+            academies != null && AcademyMembership.IsSisterTeam(academies.AcademyOf(driverId), teamId);
+
+        public ISeason GenerateNewSeasonWithNewHirings(ISaveGame saveGame, ISeason newSeason, IEnumerable<TeamHiringBallot> ballots, AcademyContext academies = null)
         {
             var oldTeamEntries = saveGame.CurrentSeason.Teams.ToDictionary(t => t.TeamId, t => t);
             var newSeasonResult = newSeason.DeepClone();
 
             var teamHiringResultDictionary = _offSeasonMovements
-                                                .FinalBallotResults(ballots)
+                                                .FinalBallotResults(ballots, academies)
                                                 .GroupBy(b => b.TeamId)
                                                 .ToDictionary(g => g.Key, g => g.AsEnumerable());
 
@@ -731,8 +783,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 {
                     // Hired - use ballot result
                     teamEntry.Driver1Contract.DriverId = driver1Hiring.DriverId;
-                    var firstDriverFit = _driverHirer.DoesDriverFitTeamPolicy(driver1Hiring.DriverReputation, driver1Hiring.Role, teamEntry.Reputation);
-                    teamEntry.Driver1Contract.Races = firstDriverFit >= DriverHirer.DriverPolicyFit.PerfectFit ? newSeason.Races.Count() + 1 : newSeason.Races.Count();
+                    var firstDriverFit = _driverHirer.DoesDriverFitSeat(driver1Hiring.DriverId, driver1Hiring.DriverReputation, driver1Hiring.Role, teamEntry.TeamId, teamEntry.Reputation, false, academies);
+                    teamEntry.Driver1Contract.Races = ContractRaces(newSeason, firstDriverFit, IsSisterTeamMember(academies, driver1Hiring.DriverId, teamEntry.TeamId));
                 }
                 else if (currentSeasonTeam != null)
                 {
@@ -748,8 +800,8 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 {
                     // Hired - use ballot result
                     teamEntry.Driver2Contract.DriverId = driver2Hiring.DriverId;
-                    var secondDriverFit = _driverHirer.DoesDriverFitTeamPolicy(driver2Hiring.DriverReputation, driver2Hiring.Role, teamEntry.Reputation);
-                    teamEntry.Driver2Contract.Races = secondDriverFit >= DriverHirer.DriverPolicyFit.PerfectFit ? newSeason.Races.Count() + 1 : newSeason.Races.Count();
+                    var secondDriverFit = _driverHirer.DoesDriverFitSeat(driver2Hiring.DriverId, driver2Hiring.DriverReputation, driver2Hiring.Role, teamEntry.TeamId, teamEntry.Reputation, false, academies);
+                    teamEntry.Driver2Contract.Races = ContractRaces(newSeason, secondDriverFit, IsSisterTeamMember(academies, driver2Hiring.DriverId, teamEntry.TeamId));
                 }
                 else if (currentSeasonTeam != null)
                 {

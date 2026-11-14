@@ -68,9 +68,15 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         public static bool IsPayDriver(DriverReputation reputation) =>
             reputation == DriverReputation.PAY_DRIVER_WILD_CARD || reputation == DriverReputation.PAY_DRIVER_SEASON;
 
+        // race seats are sold race by race only before the modern market (ModernMarket)
+        public static bool Enabled(int seasonYear) => !ModernMarket.IsModern(seasonYear);
+
         // the player's budget this season: none with a race seat or a reserve contract
         public static int Budget(ISaveGame saveGame)
         {
+            if (!Enabled(saveGame.CurrentSeason.Year))
+                return 0;
+
             var playerId = saveGame.PlayerData.DriverId;
             if (!string.IsNullOrEmpty(saveGame.PlayerData.TeamId) || saveGame.CurrentSeason.ReserveTeamOf(playerId) != null)
                 return 0;
@@ -139,7 +145,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             var result = new List<PaidRideOffer>();
             var races = saveGame.CurrentSeason.Races.ToList();
-            if (raceIndex < 0 || raceIndex >= races.Count || remaining == 0)
+            if (!Enabled(saveGame.CurrentSeason.Year) || raceIndex < 0 || raceIndex >= races.Count || remaining == 0)
                 return result;
 
             var raceId = races[raceIndex].RaceId;
@@ -241,7 +247,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             var bought = new List<Absence>();
             var races = saveGame.CurrentSeason.Races.ToList();
-            if (raceIndex < 0 || raceIndex >= races.Count)
+            if (!Enabled(saveGame.CurrentSeason.Year) || raceIndex < 0 || raceIndex >= races.Count)
                 return bought;
 
             // nor a driver recovering from a crash, or dead
@@ -333,8 +339,13 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         // the team the player is the reserve of, null when they're nobody's reserve
         public string ReserveTeamId { get; set; }
 
-        // a ride the player can buy (only a pay driver without any contract, not racing there yet)
-        public bool HasChoices => PaidRideOffers.Count > 0;
+        // the player's rookie FP1 outing at that race, still to be run: he drives it or has it
+        // simulated (PracticeOutings). Null when he has none there
+        public PracticeOuting PracticeOuting { get; set; }
+
+        // a ride the player can buy (only a pay driver without any contract, not racing there yet),
+        // or an FP1 outing to drive or simulate
+        public bool HasChoices => PaidRideOffers.Count > 0 || PracticeOuting != null;
 
         public static PaddockOpportunities For(ISaveGame saveGame, int raceIndex)
         {
@@ -349,6 +360,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             result.Race = race;
             result.ReserveTeamId = saveGame.CurrentSeason.ReserveTeamOf(playerId)?.TeamId;
+            result.PracticeOuting = PracticeOutings.PendingPlayerOuting(saveGame, race.RaceId);
 
             // a player recovering from a crash, or dead, is offered nothing
             if (saveGame.IsOutOfAction(playerId, race.RaceId))

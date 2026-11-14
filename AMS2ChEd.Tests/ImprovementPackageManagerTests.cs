@@ -177,6 +177,32 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
+        public void SeasonFinale_NobodyInstalls_ThePlayerNeitherTheAi()
+        {
+            var saveGame = CreateSaveGame();
+            var manager = CreateManager(roll: 0.0);
+            saveGame.NextGpIndex = saveGame.CurrentSeason.Races.Count() - 1;
+
+            Assert.IsTrue(manager.IsSeasonFinale(saveGame));
+            Assert.AreEqual(0, manager.ProcessAiDecisions(saveGame).Count);
+            Assert.AreEqual(0, manager.GetInstallChance(saveGame, Team(saveGame, "T1")));
+            Assert.IsFalse(manager.CanDriverInstall(saveGame, "PLAYER"));
+            Assert.IsNull(manager.Install(saveGame, "T3", "PLAYER"));
+        }
+
+        [TestMethod]
+        public void TheRaceBeforeTheFinale_StillAllowsPackages()
+        {
+            var saveGame = CreateSaveGame();
+            var manager = CreateManager(roll: 0.0);
+            saveGame.NextGpIndex = saveGame.CurrentSeason.Races.Count() - 2;
+
+            Assert.IsFalse(manager.IsSeasonFinale(saveGame));
+            Assert.IsTrue(manager.CanDriverInstall(saveGame, "PLAYER"));
+            Assert.AreEqual(3, manager.ProcessAiDecisions(saveGame).Count);
+        }
+
+        [TestMethod]
         public void ProcessAiDecisions_LosingRoll_NobodyInstalls()
         {
             var saveGame = CreateSaveGame();

@@ -202,7 +202,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             var opponentsNumber = request.EntryList.DriverCount() - 1;
 
             await overlay.WaitForManualInstructionsDismissedAsync(
-                carName, liveryName, opponentsNumber, suggestedDifficulty, usesPerformanceScalars, request.IsPreQuali)
+                carName, liveryName, opponentsNumber, suggestedDifficulty, usesPerformanceScalars, request.IsPreQuali, request.IsPractice)
                 .WaitAsync(ct).ConfigureAwait(true);
         }
 
@@ -288,6 +288,8 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             // comment. Practice is intentionally NOT configured at all here (left null) - whatever
             // the player already has selected for Practice is left exactly as-is.
             var qualifying = Ams2SessionRulesBuilder.BuildQualifyingConfig(race);
+            // an FP1 outing: its practice is the only session that counts, so it's switched on
+            var practice = request.IsPractice ? Ams2SessionRulesBuilder.BuildPracticeConfig(race) : null;
 
             using var configurator = new Ams2RaceConfigurator(_hashCatalogProvider.CarHashes, _hashCatalogProvider.TrackHashes, LogToFile);
             if (!await configurator.AttachAsync(ct).ConfigureAwait(true))
@@ -302,7 +304,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 trackKnown ? trackResolution.TrackId : null,
                 opponents,
                 sessionRules,
-                practice: null,
+                practice: practice,
                 qualifying: qualifying,
                 ct: ct).ConfigureAwait(true);
 
@@ -317,13 +319,18 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
                 return false;
             }
 
-            // Pre-Quali is a qualifying-only session - nothing to scale there.
-            if (!request.IsPreQuali)
+            // Pre-Quali is a qualifying-only session, an FP1 outing a practice-only one - nothing to scale there.
+            if (!request.IsPreQuali && !request.IsPractice)
             {
                 ApplyWearScaling(configurator, raceLength);
             }
 
             ApplyPlayerIdentity(configurator, request);
+
+            if (request.IsPractice)
+            {
+                overlay.ShowPracticeOnly(Strings.RaceSetupOverlayWindow_PracticeOnlyNote);
+            }
 
             if (!trackKnown)
             {

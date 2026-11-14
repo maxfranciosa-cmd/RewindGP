@@ -1,0 +1,182 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- The academies as flat charcoal blocks: a title closed by the red rule, then one block per academy with
+         a strip per junior in pecking order; the player's strip carries the red edge, and a junior in his last
+         academy season has his age line in the accent colour. -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/AMS2ChEd;component/Themes/Charcoal/Base.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <SolidColorBrush x:Key="Academies.WindowBackground" Color="#141414"/>
+
+    <!-- the swatch of a junior without a seat -->
+    <SolidColorBrush x:Key="Academies.NoTeamBrush" Color="#444444"/>
+
+    <Style x:Key="Academies.ScrollBar" TargetType="ScrollBar" BasedOn="{StaticResource Charcoal.ScrollBarStyle}"/>
+
+    <Style x:Key="Academies.Root" TargetType="Grid">
+        <Setter Property="Margin" Value="22"/>
+    </Style>
+
+    <Style x:Key="Academies.Page" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.PanelBrush}"/>
+        <Setter Property="Padding" Value="26,20"/>
+    </Style>
+
+    <!-- Title -->
+    <Style x:Key="Academies.Header" TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,4"/>
+        <Setter Property="Padding" Value="0,0,0,10"/>
+        <Setter Property="Margin" Value="0,0,0,8"/>
+    </Style>
+
+    <Style x:Key="Academies.Kicker" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.AccentTextBrush}"/>
+    </Style>
+
+    <Style x:Key="Academies.Headline" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="Academies.HeaderNote" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="MaxWidth" Value="330"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Margin" Value="20,0,0,4"/>
+    </Style>
+
+    <!-- One block per academy -->
+    <Style x:Key="Academies.Card" TargetType="Border">
+        <Setter Property="Margin" Value="0,14,0,6"/>
+    </Style>
+
+    <Style x:Key="Academies.CardHeader" TargetType="Border">
+        <Setter Property="Padding" Value="0,0,0,4"/>
+    </Style>
+
+    <Style x:Key="Academies.AcademyName" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="Academies.AcademyTeams" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="Academies.YourAcademyTag" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="Padding" Value="10,4"/>
+        <Setter Property="Margin" Value="16,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="Academies.YourAcademyText" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+
+    <!-- Column captions -->
+    <Style x:Key="Academies.ColumnHeaders" TargetType="Grid">
+        <Setter Property="Margin" Value="10,6,10,4"/>
+    </Style>
+
+    <Style x:Key="Academies.ColumnHeader" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+    </Style>
+
+    <Style x:Key="Academies.ColumnHeaderRight" TargetType="TextBlock" BasedOn="{StaticResource Academies.ColumnHeader}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <!-- The juniors -->
+    <Style x:Key="Academies.MemberRow" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Charcoal.StripBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Charcoal.RedBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="10,7"/>
+        <Setter Property="Margin" Value="0,0,0,3"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPlayer}" Value="True">
+                <Setter Property="BorderThickness" Value="4,0,0,0"/>
+                <Setter Property="Background" Value="{StaticResource Charcoal.StripHoverBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Academies.Rank" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="Academies.TeamSwatch" TargetType="Rectangle">
+        <Setter Property="Width" Value="4"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+    </Style>
+
+    <Style x:Key="Academies.MemberName" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.HeadingTextStyle}">
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style x:Key="Academies.MemberDetail" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding AgesOut}" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Charcoal.AccentTextBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Academies.Value" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextSoftBrush}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+    </Style>
+
+    <Style x:Key="Academies.ValueWrapped" TargetType="TextBlock" BasedOn="{StaticResource Academies.Value}">
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="Academies.ValueRight" TargetType="TextBlock" BasedOn="{StaticResource Academies.Value}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0"/>
+    </Style>
+
+    <Style x:Key="Academies.SubValue" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+    </Style>
+
+    <Style x:Key="Academies.Former" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,6,0,0"/>
+    </Style>
+
+    <Style x:Key="Academies.Empty" TargetType="TextBlock" BasedOn="{StaticResource Charcoal.BodyTextStyle}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="{StaticResource Charcoal.TextMutedBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,10"/>
+    </Style>
+</ResourceDictionary>

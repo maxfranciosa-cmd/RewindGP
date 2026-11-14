@@ -97,6 +97,8 @@ namespace AMS2ChEd.Views
         private List<ParticipantData> _qualifyingResults;
         private GraphicsStyle _currentStyle = GraphicsStyle.Pre94;
         private readonly bool _preQualiMode;
+        // a rookie FP1 outing the player drives: only the practice counts (PracticeResultsReady)
+        private readonly bool _practiceMode;
         private bool _showRaceSetupAfterLoad;
         private string _originalGrandPrixName = "";
         private string _originalCircuitName = "";
@@ -115,12 +117,14 @@ namespace AMS2ChEd.Views
         // them): the save has changed again
         public event EventHandler<ISaveGame> CrashesApplied;
         public event EventHandler<List<ParticipantData>> PreQualiResultsReady;
-        public RaceWeekendWindow(GameLogicFactory gameLogicFactory, ISaveGame saveGame, SimulatedRaceDataService simulatedRaceDataService, bool simulateRace, bool preQualiMode = false)
+        public event EventHandler<List<ParticipantData>> PracticeResultsReady;
+        public RaceWeekendWindow(GameLogicFactory gameLogicFactory, ISaveGame saveGame, SimulatedRaceDataService simulatedRaceDataService, bool simulateRace, bool preQualiMode = false, bool practiceMode = false)
         {
             InitializeComponent();
             Loaded += RaceWeekendWindow_Loaded;
             this.saveGame = saveGame;
             _preQualiMode = preQualiMode;
+            _practiceMode = practiceMode;
             this._raceDataService = simulateRace ? simulatedRaceDataService : gameLogicFactory.RaceDataService;
             _gameLogicFactory = gameLogicFactory;
 
@@ -128,6 +132,7 @@ namespace AMS2ChEd.Views
             _raceDataService.SessionUpdated += OnSessionUpdated;
             _raceDataService.SessionFinished += OnSessionFinished;
             _raceDataService.PreQualiSessionFinished += OnPreQualiSessionFinished;
+            _raceDataService.PracticeSessionFinished += OnPracticeSessionFinished;
 
             // Start the service
             if (!_raceDataService.IsRunning)
@@ -142,7 +147,7 @@ namespace AMS2ChEd.Views
                 _controlWindow.Show();
             }
 
-            if (!preQualiMode)
+            if (!preQualiMode && !practiceMode)
             {
                 if (!simulateRace)
                 {
@@ -167,6 +172,11 @@ namespace AMS2ChEd.Views
             {
                 SessionLabelText.Text = Strings.RaceWeekendWindow_PreQualiSessionLabel;
                 SessionText.Text = Strings.RaceWeekendWindow_PreQualiSessionName;
+            }
+            else if (practiceMode)
+            {
+                SessionLabelText.Text = Strings.RaceWeekendWindow_PracticeOutingSessionLabel;
+                SessionText.Text = Strings.RaceWeekendWindow_PracticeOutingSessionName;
             }
         }
 
@@ -231,7 +241,7 @@ namespace AMS2ChEd.Views
             // finish is never seen (see ConfirmLeavingUnrecordedRace). Each update carries a new
             // list, so keeping the reference is safe.
             var session = e.SessionData;
-            if (!_preQualiMode && session.SessionType == SessionType.Race && session.IsSessionActive && session.Standings?.Any() == true)
+            if (!_preQualiMode && !_practiceMode && session.SessionType == SessionType.Race && session.IsSessionActive && session.Standings?.Any() == true)
             {
                 _lastRaceStandings = session.Standings;
             }
@@ -247,7 +257,7 @@ namespace AMS2ChEd.Views
         {
             Dispatcher.Invoke(async () =>
             {
-                if (_preQualiMode)
+                if (_preQualiMode || _practiceMode)
                 {
                     // Pre-quali is fully handled by OnPreQualiSessionFinished. This guard only
                     // matters for the mock service, which raises both SessionFinished and
@@ -593,6 +603,29 @@ namespace AMS2ChEd.Views
                 }
 
                 PreQualiResultsReady?.Invoke(this, qualiStandings);
+            });
+        }
+
+        // a rookie FP1 outing is over: back from the game, its standings go to EntryListWindow,
+        // which scores the outing by best lap (no missing-drivers step: only the player and his
+        // benchmark matter, and either missing has its own rule in PracticeOutings.Outcome)
+        private void OnPracticeSessionFinished(object sender, SessionFinishedEventArgs e)
+        {
+            Dispatcher.Invoke(async () =>
+            {
+                if (_gameLogicFactory.RaceLaunchAssistant != null)
+                {
+                    await _gameLogicFactory.RaceLaunchAssistant.ShowReturnOverlayAsync(this);
+                }
+
+                UpdateSessionDisplay(new SessionData
+                {
+                    SessionType = SessionType.Practice,
+                    IsSessionFinished = true,
+                    Standings = e.FinalStandings
+                });
+
+                PracticeResultsReady?.Invoke(this, e.FinalStandings.Where(p => p.DriverId != "driver_id").ToList());
             });
         }
 
@@ -997,7 +1030,7 @@ namespace AMS2ChEd.Views
                 return;
             }
 
-            if (!_preQualiMode && !_raceResultRecorded && !ConfirmLeavingUnrecordedRace())
+            if (!_preQualiMode && !_practiceMode && !_raceResultRecorded && !ConfirmLeavingUnrecordedRace())
                 return;
 
             this.Close();
@@ -1086,9 +1119,12 @@ namespace AMS2ChEd.Views
             _raceDataService.SessionUpdated -= OnSessionUpdated;
             _raceDataService.SessionFinished -= OnSessionFinished;
             _raceDataService.PreQualiSessionFinished -= OnPreQualiSessionFinished;
+            _raceDataService.PracticeSessionFinished -= OnPracticeSessionFinished;
 
             if (_preQualiMode)
                 _raceDataService.IsPreQualiSession = false;
+            if (_practiceMode)
+                _raceDataService.IsPracticeSession = false;
 
             if (_raceDataService.IsRunning)
             {

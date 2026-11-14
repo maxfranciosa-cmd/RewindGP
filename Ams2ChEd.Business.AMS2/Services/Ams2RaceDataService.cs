@@ -38,6 +38,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         public event EventHandler<SessionUpdateEventArgs> SessionUpdated;
         public event EventHandler<SessionFinishedEventArgs> SessionFinished;
         public event EventHandler<SessionFinishedEventArgs> PreQualiSessionFinished;
+        public event EventHandler<SessionFinishedEventArgs> PracticeSessionFinished;
         public event EventHandler<string> PollingError;
 
         public SessionData CurrentSession
@@ -57,6 +58,17 @@ namespace Ams2ChEd.Business.AMS2.Services
         public bool IsRunning { get; private set; }
 
         public bool IsPreQualiSession { get; set; }
+
+        public bool IsPracticeSession { get; set; }
+
+        // FP1 outing (IsPracticeSession): the practice's last standings that had a lap time, and
+        // whether its end was reported. Practice is over when AMS2 says the session finished, moves
+        // on to another session of the event, or goes back to its menus once the practice was driven
+        private List<ParticipantData> _lastPracticeStandings;
+        private bool _practiceDriven;
+        private bool _practiceFinishedTriggered;
+        private bool _practiceClockRunning;
+        private const string NoLapTime = "--:--.---";
 
         private SessionType? _previousSessionType;
         private bool _sessionFinishedTriggered;
@@ -154,7 +166,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         // session; its formation lap too, so the detector sees a restarted race start again
         private bool IsSamplingForCrashes(AMS2Page page)
         {
-            return _crashDetectionEnabled && !IsPreQualiSession &&
+            return _crashDetectionEnabled && !IsPreQualiSession && !IsPracticeSession &&
                    page.mSessionState is (uint)SessionState.SESSION_RACE or (uint)SessionState.SESSION_FORMATION_LAP &&
                    page.mGameState is (uint)GameState.GAME_INGAME_PLAYING or (uint)GameState.GAME_INGAME_PAUSED
                        or (uint)GameState.GAME_INGAME_INMENU_TIME_TICKING or (uint)GameState.GAME_INGAME_RESTARTING;
@@ -209,6 +221,7 @@ namespace Ams2ChEd.Business.AMS2.Services
             SessionType sessionType;
             bool isFinished;
             List<ParticipantData> standings;
+            List<ParticipantData> practiceStandings = null;
 
             lock (_lock)
             {
@@ -232,7 +245,10 @@ namespace Ams2ChEd.Business.AMS2.Services
                 isFinished = IsSessionFinished(page);
                 standings = GetStandings(page);
 
-                if (sessionType == SessionType.Race && !IsPreQualiSession && page.mGameState == 2 && !isFinished)
+                if (IsPracticeSession)
+                    practiceStandings = TrackPractice(page, sessionType, standings);
+
+                if (sessionType == SessionType.Race && !IsPreQualiSession && !IsPracticeSession && page.mGameState == 2 && !isFinished)
                 {
                     TrackPlayerContact(page);
                 }
@@ -251,6 +267,20 @@ namespace Ams2ChEd.Business.AMS2.Services
             // Raise events
             SessionUpdated?.Invoke(this, new SessionUpdateEventArgs { SessionData = _currentSession });
 
+            // an FP1 outing: only the practice counts, nothing flows into the weekend's sessions
+            if (IsPracticeSession)
+            {
+                if (practiceStandings != null)
+                {
+                    PracticeSessionFinished?.Invoke(this, new SessionFinishedEventArgs
+                    {
+                        CompletedSession = SessionType.Practice,
+                        FinalStandings = practiceStandings
+                    });
+                }
+                return;
+            }
+
             // Trigger session finished event
             if (isFinished && !_sessionFinishedTriggered && _sessionHasStarted)
             {
@@ -258,6 +288,43 @@ namespace Ams2ChEd.Business.AMS2.Services
                 
                 OnSessionFinished(sessionType, standings);
             } 
+        }
+
+        /// <summary>
+        /// FP1 outing (IsPracticeSession): keeps the practice's latest standings with a lap time in,
+        /// and returns them once the practice is over, a single time: AMS2 moved on to another
+        /// session of the event, went back to its menus, or the practice clock ran out. Only once
+        /// the player has been on track in it, so the menus before the session don't end it.
+        /// Null while the practice goes on. Called under _lock.
+        /// </summary>
+        private List<ParticipantData> TrackPractice(AMS2Page page, SessionType sessionType, List<ParticipantData> standings)
+        {
+            if (_practiceFinishedTriggered)
+                return null;
+
+            var inPractice = sessionType == SessionType.Practice && page.mSessionState == (uint)SessionState.SESSION_PRACTICE;
+            if (inPractice && page.mGameState == (uint)GameState.GAME_INGAME_PLAYING)
+                _practiceDriven = true;
+
+            if (inPractice && standings.Any(p => p.BestLapTime != NoLapTime))
+            {
+                _lastPracticeStandings = standings;
+                // the clock ran out: a positive time remaining that reached zero
+                if (page.mEventTimeRemaining > 0)
+                    _practiceClockRunning = true;
+            }
+
+            if (!_practiceDriven)
+                return null;
+
+            var clockRanOut = inPractice && _practiceClockRunning && page.mEventTimeRemaining <= 0;
+            var movedOn = !inPractice && page.mSessionState != (uint)SessionState.SESSION_INVALID;
+            var backInMenus = page.mGameState == (uint)GameState.GAME_FRONT_END || page.mGameState == (uint)GameState.GAME_EXITED;
+            if (!clockRanOut && !movedOn && !backInMenus)
+                return null;
+
+            _practiceFinishedTriggered = true;
+            return _lastPracticeStandings ?? (inPractice ? standings : new List<ParticipantData>());
         }
 
         private void OnSessionFinished(SessionType sessionType, List<ParticipantData> standings)
@@ -534,7 +601,7 @@ namespace Ams2ChEd.Business.AMS2.Services
         private string FormatLapTime(float seconds)
         {
             if (seconds <= 0)
-                return "--:--.---";
+                return NoLapTime;
 
             var ts = TimeSpan.FromSeconds(seconds);
             return $"{(int)ts.TotalMinutes}:{ts.Seconds:D2}.{ts.Milliseconds:D3}";
@@ -551,6 +618,10 @@ namespace Ams2ChEd.Business.AMS2.Services
             
             // Reset session state for the new race weekend.
             _sessionFinishedTriggered = false;
+            _lastPracticeStandings = null;
+            _practiceDriven = false;
+            _practiceFinishedTriggered = false;
+            _practiceClockRunning = false;
             _sessionHasStarted = false;
             _previousSessionType = null;
             lock (_lock)

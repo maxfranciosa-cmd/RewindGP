@@ -185,6 +185,10 @@
                                 <Setter TargetName="CircleOverlay" Property="Visibility" Value="Visible"/>
                                 <Setter TargetName="AppliedScrawl" Property="Visibility" Value="Visible"/>
                             </DataTrigger>
+                            <!-- an automatic academy application: circled and locked -->
+                            <DataTrigger Binding="{Binding IsPrefilled}" Value="True">
+                                <Setter TargetName="AdCard" Property="Cursor" Value="Arrow"/>
+                            </DataTrigger>
                             <DataTrigger Binding="{Binding IsAtCapacity}" Value="True">
                                 <Setter TargetName="AdCard" Property="Opacity" Value="0.55"/>
                                 <Setter TargetName="AdCard" Property="Cursor" Value="Arrow"/>

@@ -99,6 +99,8 @@
 
     <Style x:Key="SeasonOverview.MarketOutlookButton" TargetType="Button" BasedOn="{StaticResource SeasonOverview.HistoricalStandingsButton}"/>
 
+    <Style x:Key="SeasonOverview.AcademiesButton" TargetType="Button" BasedOn="{StaticResource SeasonOverview.HistoricalStandingsButton}"/>
+
     <!-- Next race ticket -->
     <Style x:Key="SeasonOverview.NextRaceCard" TargetType="Border" BasedOn="{StaticResource PaperCardStyle}">
         <Setter Property="Background" Value="{StaticResource TicketBrush}"/>

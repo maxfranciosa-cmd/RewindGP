@@ -41,6 +41,14 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
         public IReadOnlyList<ImprovementStat> Stats => _provider.Stats;
 
+        // no packages are brought for the last race of the season: whatever it would change, the
+        // season ends right after
+        public bool IsSeasonFinale(ISaveGame saveGame)
+        {
+            var raceCount = saveGame.CurrentSeason.Races.Count();
+            return raceCount > 0 && saveGame.NextGpIndex == raceCount - 1;
+        }
+
         public int GetRemainingPackages(ITeamEntry team)
         {
             return Math.Max(0, PACKAGES_PER_SEASON - (team.ImprovementPackages?.Count ?? 0));
@@ -50,7 +58,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             var race = GetNextRace(saveGame);
             var team = GetContractedTeam(saveGame, driverId);
-            if (race == null || team == null)
+            if (race == null || team == null || IsSeasonFinale(saveGame))
                 return false;
 
             return CanTeamInstall(team, race.RaceId) &&
@@ -72,7 +80,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             var race = GetNextRace(saveGame);
             var team = saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == teamId);
-            if (race == null || team == null || !CanTeamInstall(team, race.RaceId))
+            if (race == null || team == null || !CanTeamInstall(team, race.RaceId) || IsSeasonFinale(saveGame))
                 return null;
 
             var package = new ImprovementPackage
@@ -137,7 +145,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         {
             var races = saveGame.CurrentSeason.Races.ToList();
             var raceIndex = saveGame.NextGpIndex;
-            if (raceIndex < FIRST_RACE_INDEX_FOR_AI || raceIndex >= races.Count)
+            if (raceIndex < FIRST_RACE_INDEX_FOR_AI || raceIndex >= races.Count - 1)
                 return 0;
 
             var standings = (saveGame.CurrentConstructorStandings ?? Enumerable.Empty<ConstructorStandingEntry>()).ToList();

@@ -161,6 +161,14 @@ namespace AMS2ChEd.Views
             if (reserveTeam != null)
                 options.Add(new AgentOption { Label = string.Format(Strings.AgentTalkWindow_Ask_Promotion_Format, reserveTeam.TeamName), Pick = () => AnswerPromotion(reserveTeam) });
 
+            var academy = PlayerAcademy;
+            if (academy != null)
+                options.Add(new AgentOption { Label = Strings.AgentTalkWindow_Ask_Academy, Pick = () => AnswerAcademy(academy) });
+
+            var practiceScores = PlayerPracticeScores;
+            if (practiceScores.Count > 0)
+                options.Add(new AgentOption { Label = Strings.AgentTalkWindow_Ask_Fp1, Pick = () => AnswerPracticeOutings(practiceScores) });
+
             options.Add(new AgentOption { Label = Strings.AgentTalkWindow_Ask_AnySeat, Pick = AnswerAnySeat });
             options.Add(new AgentOption { Label = Strings.AgentTalkWindow_Ask_FullReport, Pick = ShowFullReport });
             options.Add(new AgentOption { Label = Strings.AgentTalkWindow_Ask_Reputation, Pick = AnswerReputation });
@@ -185,6 +193,67 @@ namespace AMS2ChEd.Views
             var promotion = _outlook.Seats.Any(s => s.TeamId == reserveTeam.TeamId && !s.IsReserve && s.PlayerFit == DriverHirer.DriverPolicyFit.PerfectFit);
             var format = promotion ? Strings.AgentTalkWindow_PromotionYes_Format : Strings.AgentTalkWindow_PromotionNo_Format;
             Say(string.Format(format, reserveTeam.TeamName), Strings.AgentTalkWindow_AnythingElse);
+        }
+
+        // the academy the player is a member of this season, null when none
+        private Academy PlayerAcademy
+        {
+            get
+            {
+                var yearOfBirth = _text.Driver(_saveGame.PlayerData.DriverId)?.YearOfBirth;
+                return yearOfBirth == null ? null : AcademyMembership.AcademyOf(_saveGame.CurrentSeason, _saveGame.PlayerData.DriverId, yearOfBirth.Value, _saveGame.PlayerData.DriverId, _saveGame.PlayerData.AcademyId);
+            }
+        }
+
+        // his academy, the seats he'll apply to automatically this winter (a projection mid-season)
+        // and the free picks they leave, or that he ages out of it
+        private void AnswerAcademy(Academy academy)
+        {
+            var teams = _text.NextSeason.Teams.Concat(_saveGame.CurrentSeason.Teams);
+            var lines = new List<string> { string.Format(Strings.AgentTalkWindow_Academy_Member_Format, AcademyLetterWindow.AcademyName(academy, teams)) };
+
+            var yearOfBirth = _text.Driver(_saveGame.PlayerData.DriverId)?.YearOfBirth;
+            if (yearOfBirth != null && !AcademyMembership.IsYoung(_text.NextSeason.Year, yearOfBirth.Value))
+            {
+                lines.Add(Strings.AgentTalkWindow_Academy_AgesOut);
+            }
+            else if (_outlook.PlayerTeamId != null && !_outlook.PlayerContractOutcome.IsDropped())
+            {
+                lines.Add(Strings.AgentTalkWindow_Academy_ContractRunsOn);
+            }
+            else
+            {
+                var prefilled = _outlook.BestApplications.Where(s => s.IsPrefilled).ToList();
+                var freePicks = Math.Max(0, MarketOutlookEstimator.MaxApplications - prefilled.Count);
+                lines.Add(prefilled.Count == 0
+                    ? string.Format(Strings.AgentTalkWindow_Academy_NoAutomatic_Format, MarketOutlookEstimator.MaxApplications)
+                    : string.Format(Strings.AgentTalkWindow_Academy_Automatic_Format,
+                        string.Join(", ", prefilled.Select(s => $"{_text.TeamName(s.TeamId)} ({MarketOutlookText.SeatName(s).ToLower()})")),
+                        freePicks));
+                if (_text.RacesToGo() > 0)
+                    lines.Add(Strings.AgentTalkWindow_Academy_Projection);
+            }
+
+            Say(string.Join("\n", lines), Strings.AgentTalkWindow_AnythingElse);
+        }
+
+        // the player's FP1 outings scored so far this season
+        private List<int> PlayerPracticeScores =>
+            PracticeOutings.ScoresOf(_saveGame, _saveGame.CurrentSeason.Year).GetValueOrDefault(_saveGame.PlayerData.DriverId) ?? new List<int>();
+
+        // how many outings, their average in the words of the reward bands, and the projected
+        // reputation, which already counts them (EndOfSeasonManager.ProjectNewReputations)
+        private void AnswerPracticeOutings(List<int> scores)
+        {
+            var verdict = PracticeOutings.RewardFor(scores) switch
+            {
+                PracticeReward.YoungChampionshipLevelUnproven => Strings.AgentTalkWindow_Fp1_Outstanding,
+                PracticeReward.YoungTalent => Strings.AgentTalkWindow_Fp1_Promising,
+                PracticeReward.NoDecay => Strings.AgentTalkWindow_Fp1_Decent,
+                _ => Strings.AgentTalkWindow_Fp1_Quiet
+            };
+            Say(string.Format(Strings.AgentTalkWindow_Fp1_Format, scores.Count, verdict, SeasonOverviewWindow.FormatReputation(_outlook.PlayerReputation)),
+                Strings.AgentTalkWindow_AnythingElse);
         }
 
         private void AnswerAnySeat()
@@ -299,7 +368,9 @@ namespace AMS2ChEd.Views
                 _saveGame.CurrentSeason.Races.Count(),
                 _text.NextSeason.Races.Count(),
                 _outlook,
-                PlayerReputationAfterAReserveSeason());
+                PlayerReputationAfterAReserveSeason(),
+                _saveGame.PlayerData.DriverId,
+                AcademyContext.For(_text.NextSeason, _saveGame.Drivers.Concat(_text.NextSeasonDrivers.Values), _saveGame.PlayerData.DriverId, _saveGame.PlayerData.AcademyId, AcademyMembership.LastTeams(_saveGame)));
 
             if (advice.OfficialSeatNow)
             {
@@ -333,6 +404,12 @@ namespace AMS2ChEd.Views
                 ReserveRaceTime.UnlikelyClash => Strings.AgentTalkWindow_Reserve_RaceTimeNoClash,
                 _ => Strings.AgentTalkWindow_Reserve_RaceTimeUnknown
             });
+
+            // at his academy's parent team the bench comes with FP1 outings: the way up to
+            // YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, and so to promotion (the advice above assumes no
+            // FP1 gain: it can't know how he'll drive)
+            if (AcademyMembership.IsParentTeam(PlayerAcademy, team.TeamId))
+                lines.Add(string.Format(Strings.AgentTalkWindow_Reserve_Fp1Path_Format, team.TeamName));
 
             Say(string.Join("\n", lines), Strings.AgentTalkWindow_AnythingElse);
             ShowQuestions();

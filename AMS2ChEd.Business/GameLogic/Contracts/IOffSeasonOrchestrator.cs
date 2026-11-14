@@ -85,8 +85,22 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
 
         Task ShowRetirementNewsAsync(ISaveGame saveGame, IDriverData retiredDriver, string lastTeamId);
 
-        /// <summary>Lets the player pick from team-application ballots. Returns the (possibly updated) ballots.</summary>
-        Task<IEnumerable<TeamHiringBallot>> ShowTeamApplicationAsync(ISaveGame saveGame, IEnumerable<TeamHiringBallot> ballots, List<DropTeamResult> dropResults, DriverReputation newPlayerReputation, IEnumerable<ITeamEntry> nextSeasonTeamEntries);
+        /// <summary>
+        /// The academy step of a young player without a race seat next season: join, switch, stay
+        /// or leave one of next season's academies. Returns his academy_id afterwards (the one he
+        /// had when he changes nothing, null when he leaves).
+        /// </summary>
+        Task<string> ShowAcademyLetterAsync(ISaveGame saveGame, IReadOnlyList<Academy> academies, IEnumerable<ITeamEntry> nextSeasonTeamEntries, string currentAcademyId);
+
+        /// <summary>The short letter to a player who is no longer young enough for his academy.</summary>
+        Task ShowAcademyAgedOutAsync(ISaveGame saveGame, string academyId, IReadOnlyList<Academy> academies, IEnumerable<ITeamEntry> seasonTeamEntries);
+
+        /// <summary>
+        /// Lets the player pick from team-application ballots. Returns the (possibly updated) ballots.
+        /// prefilledBallots: the seats an academy member applies to automatically, shown selected and
+        /// locked; they take application slots, and the player chooses only the ones left.
+        /// </summary>
+        Task<IEnumerable<TeamHiringBallot>> ShowTeamApplicationAsync(ISaveGame saveGame, IEnumerable<TeamHiringBallot> ballots, List<DropTeamResult> dropResults, DriverReputation newPlayerReputation, IEnumerable<ITeamEntry> nextSeasonTeamEntries, IReadOnlyCollection<TeamHiringBallot> prefilledBallots);
 
         /// <summary>Shows one team's off-season application outcome letter (win or lose).</summary>
         Task ShowTeamApplicationResultAsync(ISaveGame saveGame, IEnumerable<ITeamEntry> nextSeasonTeamEntries, TeamApplicationResult result, DriverReputation playerReputation);

@@ -53,6 +53,10 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // load the new season's data
             _gameLogicFactory.EndOfSeasonManager.UpdateDriversPoolForNextSeason(nextSeasonYear, saveGame, newDriversSeason);
 
+            // the academies of the season being hired for, with the next season's rookies already
+            // in the drivers' pool. Null when that season has none: the reputation-only fit
+            var academies = BuildAcademyContext(saveGame, originalNewSeason);
+
             // Execute team drops
             var dropResults = _gameLogicFactory.EndOfSeasonManager
                 .ExecuteTeamDrops(saveGame, originalNewSeason)
@@ -94,7 +98,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 var reserveLetter = new ReserveLetter
                 {
                     TeamId = playerReserveTeam.TeamId,
-                    Promotion = _gameLogicFactory.EndOfSeasonManager.GetReservePromotion(saveGame, originalNewSeason.Teams, dropResults, playerReserveTeam.TeamId, playerReputation),
+                    Promotion = _gameLogicFactory.EndOfSeasonManager.GetReservePromotion(saveGame, originalNewSeason.Teams, dropResults, playerReserveTeam.TeamId, playerReputation, academies),
                     TeamWantsReserve = reservePlan.TeamsWantingReserve.Contains(playerReserveTeam.TeamId)
                 };
 
@@ -113,6 +117,20 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 }
             }
 
+            // STEP 2.75: a young player without a race seat next season can join, switch or leave
+            // an academy of next season. Before the picks: his academy decides his pre-filled
+            // applications and his fit at its teams
+            if (!playerAcceptedContract && !playerDeceased && CanChooseAcademy(saveGame, originalNewSeason))
+            {
+                var currentAcademyId = saveGame.PlayerData.AcademyId;
+                var chosenAcademyId = await uiCallbacks.ShowAcademyLetterAsync(saveGame, originalNewSeason.Academies, originalNewSeason.Teams, currentAcademyId);
+                if (chosenAcademyId != currentAcademyId)
+                {
+                    saveGame.PlayerData.AcademyId = chosenAcademyId;
+                    academies = BuildAcademyContext(saveGame, originalNewSeason);
+                }
+            }
+
             // STEP 3: Generate potential team picks and driver proposals
 
             var newSeasonTeamEntries = originalNewSeason.Teams;
@@ -121,7 +139,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 .ToHashSet();
 
             var ballots = _gameLogicFactory.EndOfSeasonManager
-                .TeamPicksPotentialReplacementsDrivers(nextSeasonYear, saveGame, newSeasonTeamEntries, dropResults, reservePlan)
+                .TeamPicksPotentialReplacementsDrivers(nextSeasonYear, saveGame, newSeasonTeamEntries, dropResults, reservePlan, academies)
                 .ToList();
 
             // STEP 3.5: Show a retirement send-off article for any driver who newly retired this off-season.
@@ -146,13 +164,15 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             if (!playerAcceptedContract && !playerDeceased)
             {
                 var newPlayerReputation = saveGame.Drivers.First(d => d.DriverId == saveGame.PlayerData.DriverId).Reputation;
-                var updatedBallots = await uiCallbacks.ShowTeamApplicationAsync(saveGame, ballots, dropResults, newPlayerReputation, originalNewSeason.Teams);
+                // an academy member applies to his academy's seats automatically: locked in
+                var prefilledBallots = AcademyApplications.PrefilledBallots(saveGame.CurrentSeason, academies, saveGame.PlayerData.DriverId, newPlayerReputation, ballots);
+                var updatedBallots = await uiCallbacks.ShowTeamApplicationAsync(saveGame, ballots, dropResults, newPlayerReputation, originalNewSeason.Teams, prefilledBallots);
                 finalBallots = updatedBallots ?? ballots;
             }
 
             // STEP 5: Generate new season with hirings
             var actualNewSeason = _gameLogicFactory.EndOfSeasonManager
-                .GenerateNewSeasonWithNewHirings(saveGame, originalNewSeason, finalBallots);
+                .GenerateNewSeasonWithNewHirings(saveGame, originalNewSeason, finalBallots, academies);
 
             // STEP 5.5: Show a letter for each team the player applied to (rejections first,
             // then the acceptance if any), using the already-resolved actualNewSeason as the
@@ -178,9 +198,66 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             // when each race's entry list is drawn up
             UpdatePlayerTeamId(saveGame, actualNewSeason);
 
+            // the player leaves his academy when he's no longer young, or when he signed for a team
+            // outside it. A contract he holds is never touched
+            var agedOutOfAcademyId = UpdatePlayerAcademy(saveGame, actualNewSeason);
+            if (agedOutOfAcademyId != null)
+            {
+                await uiCallbacks.ShowAcademyAgedOutAsync(saveGame, agedOutOfAcademyId, actualNewSeason.Academies, actualNewSeason.Teams);
+            }
+
             // Save the game
             string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
             _dataFactory.GameStorage.SaveGame(saveGame, saveName);
+        }
+
+        // the AI members are listed in the season's academies; the player is in the one his
+        // academy_id names
+        private static AcademyContext BuildAcademyContext(ISaveGame saveGame, ISeason nextSeason) =>
+            AcademyContext.For(nextSeason, saveGame.Drivers, saveGame.PlayerData?.DriverId, saveGame.PlayerData?.AcademyId, AcademyMembership.LastTeams(saveGame));
+
+        // the academy step is offered to a player young next season, when that season has
+        // academies (he has no race seat there: the caller checks)
+        public static bool CanChooseAcademy(ISaveGame saveGame, ISeason nextSeason)
+        {
+            if (nextSeason?.Academies == null || nextSeason.Academies.Count == 0)
+                return false;
+
+            var player = saveGame.Drivers.FirstOrDefault(d => d.DriverId == saveGame.PlayerData.DriverId);
+            return player != null && AcademyMembership.IsYoung(nextSeason.Year, player.YearOfBirth);
+        }
+
+        /// <summary>
+        /// At the start of the new season: a player no longer young leaves his academy (returns its
+        /// id, for the letter), and one whose contract (race seat or reserve) is at a team outside
+        /// his academy leaves it quietly. An academy the season lacks keeps his id dormant.
+        /// </summary>
+        public static string UpdatePlayerAcademy(ISaveGame saveGame, ISeason newSeason)
+        {
+            var academyId = saveGame.PlayerData.AcademyId;
+            if (string.IsNullOrEmpty(academyId))
+                return null;
+
+            var player = saveGame.Drivers.FirstOrDefault(d => d.DriverId == saveGame.PlayerData.DriverId);
+            if (player != null && !AcademyMembership.IsYoung(newSeason.Year, player.YearOfBirth))
+            {
+                saveGame.PlayerData.AcademyId = null;
+                return academyId;
+            }
+
+            var academy = newSeason.Academies?.FirstOrDefault(a => a.Id == academyId);
+            if (academy == null)
+                return null;
+
+            var playerId = saveGame.PlayerData.DriverId;
+            var contractTeam = newSeason.Teams.FirstOrDefault(t => t.Driver1Contract?.DriverId == playerId || t.Driver2Contract?.DriverId == playerId)
+                ?? newSeason.ReserveTeamOf(playerId);
+            if (contractTeam != null && !AcademyMembership.IsParentTeam(academy, contractTeam.TeamId) && !AcademyMembership.IsSisterTeam(academy, contractTeam.TeamId))
+            {
+                saveGame.PlayerData.AcademyId = null;
+            }
+
+            return null;
         }
 
         private ISeason DuplicateCurrentSeasonAsNextSeason(ISeason currentSeason, int nextSeasonYear)

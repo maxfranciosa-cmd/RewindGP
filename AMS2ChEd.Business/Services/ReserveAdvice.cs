@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services.Contracts;
@@ -63,8 +64,11 @@ namespace AMS2ChEd.Business.Services
         /// <param name="outlook">the market outlook, with every driver's projected reputation</param>
         /// <param name="playerReputationWhenPromoted">the player's reputation when the team would decide,
         /// the winter after next</param>
+        /// <param name="playerDriverId">the player, for his academy's fit (null: the reputation-only fit)</param>
+        /// <param name="academies">the academies of the season being hired for (null: none). The
+        /// promotion is judged the winter after next, so he must still be young the season after it</param>
         public static ReserveAdvice For(ITeamEntry team, TeamReputation teamReputation, int racesThisSeason, int racesNextSeason,
-            MarketOutlook outlook, DriverReputation playerReputationWhenPromoted)
+            MarketOutlook outlook, DriverReputation playerReputationWhenPromoted, string playerDriverId = null, AcademyContext academies = null)
         {
             var raceSeats = outlook.Seats.Where(s => s.TeamId == team.TeamId && !s.IsReserve).ToList();
             var officialSeatNow = raceSeats.Any(s => s.Band >= OfficialSeatBand);
@@ -103,8 +107,15 @@ namespace AMS2ChEd.Business.Services
             }
 
             var driverHirer = new DriverHirer();
-            var wouldBePromoted = futureRoles.Any(role =>
-                driverHirer.DoesDriverFitTeamPolicy(playerReputationWhenPromoted, role, teamReputation) == DriverHirer.DriverPolicyFit.PerfectFit);
+            DriverHirer.DriverPolicyFit PromotionFit(DriverRole role)
+            {
+                var fit = driverHirer.DoesDriverFitTeamPolicy(playerReputationWhenPromoted, role, teamReputation);
+                return academies == null || playerDriverId == null
+                    ? fit
+                    : academies.Apply(playerDriverId, playerReputationWhenPromoted, team.TeamId, fit, atYear: academies.SeasonYear + 1);
+            }
+
+            var wouldBePromoted = futureRoles.Any(role => PromotionFit(role) == DriverHirer.DriverPolicyFit.PerfectFit);
 
             var raceTime = ReserveRaceTime.Unknown;
             if (contractedNextSeason[0] && contractedNextSeason[1])

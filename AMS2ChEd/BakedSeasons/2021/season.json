@@ -965,5 +965,11 @@
   ],
   "max_drivers_per_race": null,
   "slug": null,
-  "races_to_count_towards_championship": null
+  "races_to_count_towards_championship": null,
+  "academies": [
+    { "id": "red_bull", "parent_teams": ["stewart"], "sister_teams": ["toro_rosso"], "drivers": ["max_verstappen", "yuki_tsunoda"] },
+    { "id": "ferrari", "parent_teams": ["ferrari"], "sister_teams": ["haas", "sauber"], "drivers": ["charles_leclerc", "mick_schumacher"] },
+    { "id": "mercedes", "parent_teams": ["mercedes"], "sister_teams": ["williams"], "drivers": ["george_russell"] },
+    { "id": "alpine", "parent_teams": ["benetton"], "sister_teams": [], "drivers": [] }
+  ]
 }

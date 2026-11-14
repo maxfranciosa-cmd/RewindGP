@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.Models;
+﻿using AMS2ChEd.Business.Helpers;
+using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using System.Linq;
 
@@ -299,7 +300,46 @@ namespace AMS2ChEd.Business.Services
                 : DoesDriverFitTeamPolicy(driverReputation, role, teamReputation);
         }
 
-        public DriverResume? PickBestCandidate(IEnumerable<DriverResume> drivers, DriverRole role, TeamReputation teamReputation, bool isReserve = false)
+        /// <summary>
+        /// The fit for that seat of the driver himself, at that team: a member of the academy of
+        /// the season being hired for gets the better of his normal fit and the academy fit at his
+        /// academy's teams (AcademyMembership.AcademyFit). Without academies it's the
+        /// reputation-only fit. Every fit check made while hiring goes through here.
+        /// </summary>
+        public DriverPolicyFit DoesDriverFitSeat(string driverId, DriverReputation driverReputation, DriverRole role,
+            string teamId, TeamReputation teamReputation, bool isReserve, AcademyContext academies)
+        {
+            var fit = DoesDriverFitSeat(driverReputation, role, teamReputation, isReserve);
+            return academies == null ? fit : academies.Apply(driverId, driverReputation, teamId, fit);
+        }
+
+        /// <summary>
+        /// Academy first pick: the free AI member of the team's academy who takes the seat before
+        /// the market sees it, or null. He must fit it (academy fit included) at least as well as
+        /// the best of all the candidates, so a team never passes on a better driver for a junior;
+        /// among several such members the pick is drawn as PickBestCandidate draws it. The player
+        /// never gets a first pick.
+        /// </summary>
+        public DriverResume? PickAcademyMember(IEnumerable<DriverResume> candidates, DriverRole role, string teamId, TeamReputation teamReputation, bool isReserve, AcademyContext academies)
+        {
+            if (academies == null || candidates == null)
+                return null;
+
+            var all = candidates.ToList();
+            var members = all
+                .Where(d => d.Id != academies.PlayerDriverId && academies.IsMemberAt(d.Id, teamId))
+                .ToList();
+            if (members.Count == 0)
+                return null;
+
+            int Weight(DriverResume d) => GetFitWeight(DoesDriverFitSeat(d.Id, d.Reputation, role, teamId, teamReputation, isReserve, academies));
+            var bestWeight = all.Max(Weight);
+            var bestMembers = members.Where(m => Weight(m) >= bestWeight).ToList();
+
+            return bestMembers.Count == 0 ? null : PickWeightedByReputation(bestMembers, d => d.Reputation, new Random());
+        }
+
+        public DriverResume? PickBestCandidate(IEnumerable<DriverResume> drivers, DriverRole role, TeamReputation teamReputation, bool isReserve = false, string teamId = null, AcademyContext academies = null)
         {
             if (drivers == null)
                 return null;
@@ -307,11 +347,23 @@ namespace AMS2ChEd.Business.Services
             // The best fit tier for this role/team wins; inside it every driver has a chance,
             // weighted by reputation (see PickWeightedByReputation).
             var bestTier = drivers
-                    .GroupBy(d => GetFitWeight(DoesDriverFitSeat(d.Reputation, role, teamReputation, isReserve)))
+                    .GroupBy(d => GetFitWeight(DoesDriverFitSeat(d.Id, d.Reputation, role, teamId, teamReputation, isReserve, academies)))
                     .OrderByDescending(g => g.Key)
                     .FirstOrDefault();
 
-            return bestTier == null ? null : PickWeightedByReputation(bestTier, d => d.Reputation, new Random());
+            return bestTier == null ? null : PickWeightedByReputation(MembersFirst(bestTier, d => d.Id, teamId, academies), d => d.Reputation, new Random());
+        }
+
+        /// <summary>
+        /// A tier of equally fitting drivers, narrowed to the members of the team's academy when it
+        /// has any: at his academy's team a junior wins a tie on fit. The whole tier otherwise.
+        /// </summary>
+        public static IEnumerable<T> MembersFirst<T>(IEnumerable<T> tier, Func<T, string> driverId, string teamId, AcademyContext academies)
+        {
+            if (academies == null || teamId == null)
+                return tier;
+            var members = tier.Where(d => academies.IsMemberAt(driverId(d), teamId)).ToList();
+            return members.Count > 0 ? members : tier;
         }
 
         // A driver's standing for the weighted draw below. DriverReputation's enum order is a
@@ -393,16 +445,25 @@ namespace AMS2ChEd.Business.Services
         /// comparison (including the pay-driver-season coin toss) to break a tie within the same
         /// fit tier.
         /// </summary>
-        public DriverResume PickWinner(DriverResume driverPickedByTeam, DriverResume driverWhoIsProposingToTeam, DriverRole role, TeamReputation teamReputation, bool isReserve = false)
+        public DriverResume PickWinner(DriverResume driverPickedByTeam, DriverResume driverWhoIsProposingToTeam, DriverRole role, TeamReputation teamReputation, bool isReserve = false, string teamId = null, AcademyContext academies = null)
         {
             if (driverPickedByTeam == null)
                 return driverWhoIsProposingToTeam;
 
-            var pickedFitWeight = GetFitWeight(DoesDriverFitSeat(driverPickedByTeam.Reputation, role, teamReputation, isReserve));
-            var proposingFitWeight = GetFitWeight(DoesDriverFitSeat(driverWhoIsProposingToTeam.Reputation, role, teamReputation, isReserve));
+            var pickedFitWeight = GetFitWeight(DoesDriverFitSeat(driverPickedByTeam.Id, driverPickedByTeam.Reputation, role, teamId, teamReputation, isReserve, academies));
+            var proposingFitWeight = GetFitWeight(DoesDriverFitSeat(driverWhoIsProposingToTeam.Id, driverWhoIsProposingToTeam.Reputation, role, teamId, teamReputation, isReserve, academies));
 
             if (pickedFitWeight != proposingFitWeight)
                 return pickedFitWeight > proposingFitWeight ? driverPickedByTeam : driverWhoIsProposingToTeam;
+
+            // at his academy's team a junior wins a tie on fit
+            if (academies != null && teamId != null)
+            {
+                var pickedIsMember = academies.IsMemberAt(driverPickedByTeam.Id, teamId);
+                var proposingIsMember = academies.IsMemberAt(driverWhoIsProposingToTeam.Id, teamId);
+                if (pickedIsMember != proposingIsMember)
+                    return pickedIsMember ? driverPickedByTeam : driverWhoIsProposingToTeam;
+            }
 
             return PickWinner(driverPickedByTeam, driverWhoIsProposingToTeam);
         }

@@ -15,6 +15,7 @@ namespace AMS2ChEd.Business.Models.Concrete
         public int? MaxDriversPerRace { get; set; }
         public string? Slug { get; set; }
         public int? RacesToCountTowardsChampionship { get; set; }
+        public List<Academy> Academies { get; set; }
     }
 
     public class TeamEntry : ITeamEntry

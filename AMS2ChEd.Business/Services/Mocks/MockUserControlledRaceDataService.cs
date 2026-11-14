@@ -15,6 +15,7 @@ namespace AMS2ChEd.Business.Services.Mocks
         public event EventHandler<SessionUpdateEventArgs> SessionUpdated;
         public event EventHandler<SessionFinishedEventArgs> SessionFinished;
         public event EventHandler<SessionFinishedEventArgs> PreQualiSessionFinished;
+        public event EventHandler<SessionFinishedEventArgs> PracticeSessionFinished;
         public event EventHandler<string> PollingError;
 
         public SessionData CurrentSession
@@ -32,6 +33,7 @@ namespace AMS2ChEd.Business.Services.Mocks
         public List<ParticipantData> RaceResults { get; private set; }
         public bool IsRunning { get; private set; }
         public bool IsPreQualiSession { get; set; }
+        public bool IsPracticeSession { get; set; }
 
         public void InitializeRaceWeekend(IEnumerable<ParticipantData> participants)
         {

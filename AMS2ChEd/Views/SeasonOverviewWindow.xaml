@@ -137,6 +137,12 @@
                         Click="MarketOutlookButton_Click"
                         Style="{StaticResource SeasonOverview.MarketOutlookButton}"
                         Content="{loc:Loc SeasonOverviewWindow_MarketOutlookButton}"/>
+
+                <!-- The season's junior academies and their pecking order -->
+                <Button x:Name="AcademiesButton"
+                        Click="AcademiesButton_Click"
+                        Style="{StaticResource SeasonOverview.AcademiesButton}"
+                        Content="{loc:Loc SeasonOverviewWindow_AcademiesButton}"/>
             </StackPanel>
         </ScrollViewer>
 

@@ -130,6 +130,9 @@ namespace AMS2ChEd
             // the agent has nothing to say once the player's driver died in a crash
             MarketOutlookButton.Visibility = _gameLogicFactory.MarketOutlookEstimator == null || saveGame.IsPlayerDeceased() ? Visibility.Collapsed : Visibility.Visible;
 
+            // only a season with junior academies has anything to show there
+            AcademiesButton.Visibility = saveGame.CurrentSeason.Academies?.Any() == true ? Visibility.Visible : Visibility.Collapsed;
+
             // Load player data
             LoadPlayerData();
 
@@ -249,6 +252,8 @@ namespace AMS2ChEd
 
             if (InstallPackageButton.IsEnabled)
                 InstallPackageButton.ToolTip = null;
+            else if (manager.IsSeasonFinale(saveGame))
+                InstallPackageButton.ToolTip = Strings.SeasonOverviewWindow_InstallPackage_SeasonFinale_Tooltip;
             else if (remainingPackages == 0)
                 InstallPackageButton.ToolTip = Strings.SeasonOverviewWindow_InstallPackage_NoneLeft_Tooltip;
             else if (playerTeam.ImprovementPackages != null && playerTeam.ImprovementPackages.Any(p => p.RaceId == nextRace.RaceId))
@@ -591,7 +596,8 @@ namespace AMS2ChEd
                 _gameLogicFactory.AbsenceManager.ProcessAbsences(entryList, absences, saveGame, decisionProvider);
             }
 
-            SettlePaidRides(entryList, absences);
+            // the paid rides, and the rookie FP1 outings with them
+            var practiceOutings = SettlePaidRides(entryList, absences);
 
             var preQualiPool = _gameLogicFactory.PreQualiPoolResolver.Resolve(
                 saveGame, saveGame.NextGpIndex);
@@ -623,8 +629,22 @@ namespace AMS2ChEd
             _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
             ShowImprovementPackageNews();
+            ShowPracticeOutingNews(practiceOutings);
 
             ShowEntryListWindow();
+        }
+
+        // the paddock report on this weekend's rookie FP1 outings and how each went
+        private void ShowPracticeOutingNews(IReadOnlyList<PracticeOutingResult> outings)
+        {
+            if (outings == null || outings.Count == 0)
+                return;
+
+            var nextRace = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
+            var raceDate = DateTime.ParseExact(nextRace.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var newsWindow = new PracticeOutingNewsWindow(saveGame, outings, raceDate, nextRace.RaceName);
+            newsWindow.Owner = this;
+            newsWindow.ShowDialog();
         }
 
         private void ShowEntryListWindow()
@@ -638,16 +658,24 @@ namespace AMS2ChEd
         // once the race's absences are settled, AI pay drivers buy their seats, then a player pay
         // driver still without a car can buy one too, even one an AI driver just bought (shown only
         // when one is on sale); the rides bought are put on the grid like any absence, their news
-        // coming out once every bid is decided
-        private void SettlePaidRides(List<EntryListEntry> entryList, List<Absence> settledAbsences)
+        // coming out once every bid is decided.
+        // The rookie FP1 outings at the academies' teams are allocated in between, on the field as
+        // it stands then: the AI drivers' are run straight away by simulation, and the player's is
+        // offered in the same window, to drive in the game or have simulated. Returns the outings
+        private List<PracticeOutingResult> SettlePaidRides(List<EntryListEntry> entryList, List<Absence> settledAbsences)
         {
             PaidRides.BuyAiRides(saveGame, saveGame.NextGpIndex, new Random());
 
+            var raceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId;
+            var practiceOutings = PracticeOutings.AllocateAndSimulate(saveGame, saveGame.NextGpIndex, entryList, new Random());
+
             var playerId = saveGame.PlayerData.DriverId;
             if (!entryList.Any(e => e.Driver1Id == playerId || e.Driver2Id == playerId))
-                PaddockOpportunitiesWindow.ShowFor(this, saveGame, saveGame.NextGpIndex, _gameLogicFactory.TeamPreviewProvider);
+            {
+                var paddock = PaddockOpportunitiesWindow.ShowFor(this, saveGame, saveGame.NextGpIndex, _gameLogicFactory.TeamPreviewProvider);
+                practiceOutings = SettlePlayerOuting(practiceOutings, paddock, raceId, entryList);
+            }
 
-            var raceId = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceId;
             var boughtRides = saveGame.CurrentSeason.Absences
                 .Where(a => a.RaceId == raceId && a.Reason == AbsenceReason.PAID_RIDE && !settledAbsences.Contains(a))
                 .ToList();
@@ -656,6 +684,31 @@ namespace AMS2ChEd
                 var decisionProvider = new WpfAbsenceDecisionProvider(this, saveGame, _ams2StorageFactory);
                 _gameLogicFactory.AbsenceManager.ProcessAbsences(entryList, boughtRides, saveGame, decisionProvider);
             }
+
+            return practiceOutings;
+        }
+
+        // the player's answer to his FP1 outing (also one allocated the last time this entry list
+        // was drawn up): a ride bought instead drops it, Drive leaves it for the entry list to run in
+        // the game, anything else (Simulate, or the window closed) simulates it now
+        private List<PracticeOutingResult> SettlePlayerOuting(List<PracticeOutingResult> outings, PaddockOpportunitiesResult paddock, int raceId, List<EntryListEntry> entryList)
+        {
+            var pending = PracticeOutings.PendingPlayerOuting(saveGame, raceId);
+            if (pending == null)
+                return outings;
+
+            var others = outings.Where(o => o.Outing != pending).ToList();
+            if (paddock.RideBought)
+            {
+                PracticeOutings.CancelPendingPlayerOuting(saveGame, raceId);
+                return others;
+            }
+
+            if (paddock.PracticeChoice == PracticeOutingChoice.Drive)
+                return others.Append(new PracticeOutingResult(pending, null)).ToList();
+
+            var simulated = PracticeOutings.SimulatePlayerOuting(saveGame, raceId, entryList);
+            return simulated == null ? others : others.Append(simulated.Value).ToList();
         }
 
         private void OnRaceWeekendCompleted(object sender, ISaveGame updatedSaveGame)
@@ -802,6 +855,13 @@ namespace AMS2ChEd
             var agentTalkWindow = new Views.AgentTalkWindow(saveGame, _ams2StorageFactory, _gameLogicFactory.MarketOutlookEstimator);
             agentTalkWindow.Owner = this;
             agentTalkWindow.ShowDialog();
+        }
+
+        private void AcademiesButton_Click(object sender, RoutedEventArgs e)
+        {
+            var academiesWindow = new AcademiesWindow(saveGame);
+            academiesWindow.Owner = this;
+            academiesWindow.ShowDialog();
         }
     }
 
@@ -1072,9 +1132,9 @@ namespace AMS2ChEd
             return Task.CompletedTask;
         }
 
-        public Task<IEnumerable<TeamHiringBallot>> ShowTeamApplicationAsync(ISaveGame saveGame, IEnumerable<TeamHiringBallot> ballots, List<DropTeamResult> dropResults, DriverReputation newPlayerReputation, IEnumerable<ITeamEntry> nextSeasonTeamEntries)
+        public Task<IEnumerable<TeamHiringBallot>> ShowTeamApplicationAsync(ISaveGame saveGame, IEnumerable<TeamHiringBallot> ballots, List<DropTeamResult> dropResults, DriverReputation newPlayerReputation, IEnumerable<ITeamEntry> nextSeasonTeamEntries, IReadOnlyCollection<TeamHiringBallot> prefilledBallots)
         {
-            var applicationWindow = new TeamApplicationWindow(saveGame, ballots, dropResults, newPlayerReputation, nextSeasonTeamEntries);
+            var applicationWindow = new TeamApplicationWindow(saveGame, ballots, dropResults, newPlayerReputation, nextSeasonTeamEntries, prefilledBallots);
             applicationWindow.Owner = _owner;
             applicationWindow.ShowDialog();
             return Task.FromResult(applicationWindow.UpdatedBallots ?? ballots);
@@ -1155,6 +1215,22 @@ namespace AMS2ChEd
             letterWindow.Owner = _owner;
             letterWindow.ShowDialog();
             return Task.FromResult(letterWindow.Decision);
+        }
+
+        public Task<string> ShowAcademyLetterAsync(ISaveGame saveGame, IReadOnlyList<Academy> academies, IEnumerable<ITeamEntry> nextSeasonTeamEntries, string currentAcademyId)
+        {
+            var letterWindow = AcademyLetterWindow.ForChoice(saveGame.PlayerData.Name, academies, nextSeasonTeamEntries, currentAcademyId);
+            letterWindow.Owner = _owner;
+            letterWindow.ShowDialog();
+            return Task.FromResult(letterWindow.ChosenAcademyId);
+        }
+
+        public Task ShowAcademyAgedOutAsync(ISaveGame saveGame, string academyId, IReadOnlyList<Academy> academies, IEnumerable<ITeamEntry> seasonTeamEntries)
+        {
+            var letterWindow = AcademyLetterWindow.ForAgedOut(saveGame.PlayerData.Name, academyId, academies, seasonTeamEntries.Concat(saveGame.CurrentSeason.Teams));
+            letterWindow.Owner = _owner;
+            letterWindow.ShowDialog();
+            return Task.CompletedTask;
         }
     }
 }

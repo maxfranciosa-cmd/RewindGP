@@ -91,6 +91,22 @@ namespace Ams2ChEd.Business.AMS2.Helpers
         }
 
         /// <summary>
+        /// Practice config for a rookie FP1 outing the player drives: practice switched on, 30
+        /// minutes at the race's own start hour. Only applied to that launch - a normal race weekend
+        /// leaves Practice alone (see BuildQualifyingConfig). EXPERIMENTAL like it.
+        /// </summary>
+        public static PracticeQualifySessionConfig BuildPracticeConfig(Race race)
+        {
+            return new PracticeQualifySessionConfig
+            {
+                Enabled = OnOff.On,
+                DurationValue = 30,
+                StartHour = GetStartHour(race),
+                Weather = new SessionWeatherConfig { HistoricalWeather = false, Slots = [WeatherType.Random] },
+            };
+        }
+
+        /// <summary>
         /// Tyre-wear/fuel-usage multiplier that keeps a shortened race's strategy in proportion
         /// to the full distance (half distance = x2, one third = x3). Null = leave the player's
         /// own settings alone.

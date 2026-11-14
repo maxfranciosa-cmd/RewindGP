@@ -107,6 +107,16 @@ namespace AMS2ChEd.Business.Helpers
                     {
                         // Apply the JSON property name from the interface
                         propertyInfo.Name = jsonPropertyNameAttr.Name;
+
+                        // and its "omit when null", which System.Text.Json only reads off the
+                        // concrete type's own property
+                        var jsonIgnoreAttr = interfaceProperty
+                            .GetCustomAttributes(typeof(JsonIgnoreAttribute), true)
+                            .FirstOrDefault() as JsonIgnoreAttribute;
+                        if (jsonIgnoreAttr?.Condition == JsonIgnoreCondition.WhenWritingNull)
+                        {
+                            propertyInfo.ShouldSerialize = (_, value) => value != null;
+                        }
                     }
                 }
             }

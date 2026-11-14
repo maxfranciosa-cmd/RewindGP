@@ -25,6 +25,7 @@ namespace AMS2ChEd.Business.Models.Concrete
         public List<ParticipantData> CurrentPreQualiDnpqResults { get; set; }
         public List<Reprimand> Reprimands { get; set; }
         public List<Casualty> Casualties { get; set; }
+        public List<PracticeOuting> PracticeOutings { get; set; }
         public SeasonDataStamp SeasonDataStamp { get; set; }
     }
 
@@ -93,6 +94,7 @@ namespace AMS2ChEd.Business.Models.Concrete
         public string Name { get; set; }
         public string Nationality { get; set; }
         public string TeamId { get; set; }
+        public string AcademyId { get; set; }
     }
 
     public class EntryListEntry

@@ -48,8 +48,19 @@ namespace AMS2ChEd.Business.Services
             DriverReputation.PAY_DRIVER_WILD_CARD
         };
 
-        public DriverFirerOutcome WillDropDriver(TeamReputation teamReputation, DriverReputation driverNewReputation, int racesLeft, bool isDriverRetiring, bool isTeamQuitting)
+        // in modern seasons nobody is a wild card (ModernMarket), so a MIDFIELD team drops the
+        // tier above instead: otherwise it would never drop anyone for reputation
+        private DriverReputation[] modernMidfieldDrops = new[]
         {
+            DriverReputation.PAY_DRIVER_WILD_CARD,
+            DriverReputation.PAY_DRIVER_SEASON
+        };
+
+        // seasonYear: the season being hired for, null for the old rules
+        public DriverFirerOutcome WillDropDriver(TeamReputation teamReputation, DriverReputation driverNewReputation, int racesLeft, bool isDriverRetiring, bool isTeamQuitting, int? seasonYear = null)
+        {
+            var modern = seasonYear.HasValue && GameLogic.Concrete.ModernMarket.IsModern(seasonYear.Value);
+
             if (isDriverRetiring)
                 return DriverFirerOutcome.DROPPED_RETIRING;
 
@@ -66,7 +77,7 @@ namespace AMS2ChEd.Business.Services
                 case TeamReputation.MIDFIELD_HIGH:
                     return midfieldHighDrops.Contains(driverNewReputation) ? DriverFirerOutcome.DROPPED_UNDERPERFORMING : DriverFirerOutcome.NOT_DROPPED;
                 case TeamReputation.MIDFIELD:
-                    return midfielDrops.Contains(driverNewReputation)? DriverFirerOutcome.DROPPED_UNDERPERFORMING : DriverFirerOutcome.NOT_DROPPED;
+                    return (modern ? modernMidfieldDrops : midfielDrops).Contains(driverNewReputation) ? DriverFirerOutcome.DROPPED_UNDERPERFORMING : DriverFirerOutcome.NOT_DROPPED;
                 default:
                     return DriverFirerOutcome.NOT_DROPPED;
             }

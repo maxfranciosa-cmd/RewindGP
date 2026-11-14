@@ -19,9 +19,15 @@ namespace AMS2ChEd.Business.GameLogic.Contracts
         int GetRemainingPackages(ITeamEntry team);
 
         /// <summary>
+        /// True when the next race is the last of the season: no team, player or AI, can install
+        /// a package for it.
+        /// </summary>
+        bool IsSeasonFinale(ISaveGame saveGame);
+
+        /// <summary>
         /// True if the driver may instruct their team to install a package before the next race:
         /// the driver is allowed to decide, the team has packages left and hasn't installed one
-        /// for the next race yet.
+        /// for the next race yet, and the next race isn't the season finale.
         /// </summary>
         bool CanDriverInstall(ISaveGame saveGame, string driverId);
 
