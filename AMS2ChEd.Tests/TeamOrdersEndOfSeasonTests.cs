@@ -253,7 +253,7 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         }
 
         [TestMethod]
-        public void GenerateNewSeason_EqualReputations_HiredDriverTakesTheAdvertisedRole()
+        public void GenerateNewSeason_EqualReputations_BothEqualWhateverTheAdvertisedRole()
         {
             var saveGame = CreateSaveGame(
                 Team("T1", TeamReputation.MIDFIELD, "D1", ContractRole.EQUAL, "D2", ContractRole.EQUAL),
@@ -263,8 +263,27 @@ namespace AMS2ChEd.Tests.Business.GameLogic
 
             var team = GenerateNewSeason(saveGame, Hiring("U1", DriverReputation.PRIME_MIDFIELD, slot: 2, DriverRole.FIRST_DRIVER));
 
-            Assert.AreEqual(ContractRole.SECOND_DRIVER, team.Driver1Contract.Role);
-            Assert.AreEqual(ContractRole.FIRST_DRIVER, team.Driver2Contract.Role);
+            Assert.AreEqual(ContractRole.EQUAL, team.Driver1Contract.Role);
+            Assert.AreEqual(ContractRole.EQUAL, team.Driver2Contract.Role);
+        }
+
+        [TestMethod]
+        public void GenerateNewSeason_BothSeatsHiredWithEqualReputations_BothEqual()
+        {
+            // a leader and a wingman seat filled by drivers of the same reputation: neither leads
+            var saveGame = CreateSaveGame(
+                Team("T1", TeamReputation.TOP_TEAM, "D1", ContractRole.FIRST_DRIVER, "D2", ContractRole.SECOND_DRIVER),
+                Driver("D1", DriverReputation.PRIME_MIDFIELD),
+                Driver("D2", DriverReputation.PRIME_MIDFIELD),
+                Driver("U1", DriverReputation.AGEING_CHAMPIONSHIP_LEVEL),
+                Driver("U2", DriverReputation.AGEING_CHAMPIONSHIP_LEVEL));
+
+            var team = GenerateNewSeason(saveGame,
+                Hiring("U1", DriverReputation.AGEING_CHAMPIONSHIP_LEVEL, slot: 1, DriverRole.FIRST_DRIVER),
+                Hiring("U2", DriverReputation.AGEING_CHAMPIONSHIP_LEVEL, slot: 2, DriverRole.SECOND_DRIVER));
+
+            Assert.AreEqual(ContractRole.EQUAL, team.Driver1Contract.Role);
+            Assert.AreEqual(ContractRole.EQUAL, team.Driver2Contract.Role);
         }
 
         [TestMethod]
