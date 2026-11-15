@@ -10,7 +10,8 @@ namespace AMS2ChEd.Business.Services.RaceNumberSystem
     // EXCEPTION: The champion's team gets #1 and #2
     // SWAP RULE: The previous champion's team gets the numbers that the new champion's team had
     // SPECIAL CASE: If champion doesn't compete, their old team can use #0 and #2
-    // NEW TEAMS: Get assigned the next available numbers (skipping #13)
+    // NEW TEAMS (not in last season): ignore the season pack's numbers and get the lowest
+    // numbers still free once every returning team has kept its own (skipping #13)
     /// </summary>
     public class KeepTeamsNumbersAndSwapWithChampion : IRaceNumberAllocationService
     {
@@ -33,6 +34,16 @@ namespace AMS2ChEd.Business.Services.RaceNumberSystem
             {
                 // No champion found, keep existing numbers
                 return;
+            }
+
+            // Teams that didn't race last season: their numbers come from the season pack, which was
+            // authored against the real previous season, not this save's - drop them so they can't
+            // clash with a returning team (or be mistaken for last year's #1/#2 holder).
+            var newTeamIds = GetNewTeamIds(saveGame, previousYear);
+            foreach (var team in saveGame.CurrentSeason.Teams.Where(t => newTeamIds.Contains(t.TeamId)))
+            {
+                team.Driver1Contract.DriverNumber = -1;
+                team.Driver2Contract.DriverNumber = -1;
             }
 
             // Check if the previous champion is still racing this year
@@ -60,6 +71,15 @@ namespace AMS2ChEd.Business.Services.RaceNumberSystem
                     // Store the numbers the new champion's team currently has (before swap)
                     int championTeamOldNumber1 = newChampionTeam.Driver1Contract.DriverNumber;
                     int championTeamOldNumber2 = newChampionTeam.Driver2Contract.DriverNumber;
+
+                    // Champion moved to a team new this season: it has no numbers of its own to hand
+                    // over, so the old champion team gives up #1/#2 and gets the lowest free ones below.
+                    if (newTeamIds.Contains(newChampionTeam.TeamId) && oldChampionTeam != null && oldChampionTeam.TeamId != newChampionTeam.TeamId)
+                    {
+                        oldChampionTeam.Driver1Contract.DriverNumber = -1;
+                        oldChampionTeam.Driver2Contract.DriverNumber = -1;
+                        oldChampionTeam = null;
+                    }
 
                     // Assign 1 to champion, 2 to teammate
                     if (newChampionTeam.Driver1Contract.DriverId == previousChampion.DriverId)
@@ -94,22 +114,7 @@ namespace AMS2ChEd.Business.Services.RaceNumberSystem
                 }
 
                 // All other teams keep their existing numbers
-                foreach (var team in saveGame.CurrentSeason.Teams)
-                {
-                    if (team.TeamId != newChampionTeam?.TeamId && team.TeamId != oldChampionTeam?.TeamId)
-                    {
-                        // Check if team has valid numbers
-                        if (team.Driver1Contract.DriverNumber < 1 || team.Driver1Contract.DriverNumber > 99)
-                            team.Driver1Contract.DriverNumber = GetNextAvailableNumber(usedNumbers);
-
-                        usedNumbers.Add(team.Driver1Contract.DriverNumber);
-
-                        if (team.Driver2Contract.DriverNumber < 1 || team.Driver2Contract.DriverNumber > 99)
-                            team.Driver2Contract.DriverNumber = GetNextAvailableNumber(usedNumbers);
-
-                        usedNumbers.Add(team.Driver2Contract.DriverNumber);
-                    }
-                }
+                KeepOrAssignNumbers(saveGame, newTeamIds, usedNumbers, newChampionTeam?.TeamId, oldChampionTeam?.TeamId);
             }
             else
             {
@@ -122,8 +127,9 @@ namespace AMS2ChEd.Business.Services.RaceNumberSystem
                 // and receive the champion's old team's previous numbers, mirroring the swap done
                 // when the champion is still racing.
                 var holderTeam = saveGame.CurrentSeason.Teams
-                    .FirstOrDefault(t => t.Driver1Contract.DriverNumber == 1 || t.Driver2Contract.DriverNumber == 1 ||
-                                       t.Driver1Contract.DriverNumber == 2 || t.Driver2Contract.DriverNumber == 2);
+                    .FirstOrDefault(t => !newTeamIds.Contains(t.TeamId) &&
+                                        (t.Driver1Contract.DriverNumber == 1 || t.Driver2Contract.DriverNumber == 1 ||
+                                         t.Driver1Contract.DriverNumber == 2 || t.Driver2Contract.DriverNumber == 2));
 
                 // #1 stays vacant this season (only #0/#2 substitute for the retired champion) -
                 // reserve it so it can't be handed out to an unrelated team below.
@@ -160,23 +166,49 @@ namespace AMS2ChEd.Business.Services.RaceNumberSystem
                 }
 
                 // All other teams keep their existing numbers
-                foreach (var team in saveGame.CurrentSeason.Teams)
-                {
-                    if (team.TeamId != championOldTeam?.TeamId && team.TeamId != holderTeam?.TeamId)
-                    {
-                        // Check if team has valid numbers
-                        if (team.Driver1Contract.DriverNumber < 1 || team.Driver1Contract.DriverNumber > 99)
-                            team.Driver1Contract.DriverNumber = GetNextAvailableNumber(usedNumbers);
-
-                        usedNumbers.Add(team.Driver1Contract.DriverNumber);
-
-                        if (team.Driver2Contract.DriverNumber < 1 || team.Driver2Contract.DriverNumber > 99)
-                            team.Driver2Contract.DriverNumber = GetNextAvailableNumber(usedNumbers);
-
-                        usedNumbers.Add(team.Driver2Contract.DriverNumber);
-                    }
-                }
+                KeepOrAssignNumbers(saveGame, newTeamIds, usedNumbers, championOldTeam?.TeamId, holderTeam?.TeamId);
             }
+        }
+
+        // Every team not handled by the champion rules keeps its valid numbers; those are all
+        // reserved before any number is handed out, then returning teams with an invalid number
+        // and finally the new teams get the lowest free ones.
+        private void KeepOrAssignNumbers(ISaveGame saveGame, HashSet<string> newTeamIds, HashSet<int> usedNumbers, params string?[] handledTeamIds)
+        {
+            var teams = saveGame.CurrentSeason.Teams
+                .Where(t => !handledTeamIds.Contains(t.TeamId))
+                .OrderBy(t => newTeamIds.Contains(t.TeamId))
+                .ToList();
+
+            var contracts = teams.SelectMany(t => new[] { t.Driver1Contract, t.Driver2Contract }).ToList();
+
+            foreach (var contract in contracts.Where(c => IsValidNumber(c.DriverNumber)))
+                usedNumbers.Add(contract.DriverNumber);
+
+            foreach (var contract in contracts.Where(c => !IsValidNumber(c.DriverNumber)))
+            {
+                contract.DriverNumber = GetNextAvailableNumber(usedNumbers);
+                usedNumbers.Add(contract.DriverNumber);
+            }
+        }
+
+        private static bool IsValidNumber(int number) => number >= 1 && number <= 99;
+
+        // Teams absent from last season's constructor standings. Without those standings no team
+        // counts as new, and everyone keeps the numbers they have.
+        private static HashSet<string> GetNewTeamIds(ISaveGame saveGame, int previousYear)
+        {
+            var previousStanding = saveGame.HistoricalConstructorStandings?
+                .FirstOrDefault(h => h.Year == previousYear)?.Standing;
+
+            if (previousStanding == null || !previousStanding.Any())
+                return new HashSet<string>();
+
+            var previousTeamIds = previousStanding.Select(s => s.TeamId).ToHashSet();
+            return saveGame.CurrentSeason.Teams
+                .Select(t => t.TeamId)
+                .Where(id => !previousTeamIds.Contains(id))
+                .ToHashSet();
         }
 
         private int GetNextAvailableNumber(HashSet<int> usedNumbers)

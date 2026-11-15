@@ -728,6 +728,110 @@ namespace AMS2ChEd.Tests.Business.Services.RaceNumberSystem
             Assert.AreEqual(6, team1.Driver2Contract.DriverNumber);
         }
 
+        [TestMethod]
+        public void AssignNumbersToCurrentSeason_NewTeamWithClashingPackNumbers_GetsLowestFreeNumbers()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.HistoricalDriverStandings = new List<HistoricalDriverStanding>
+            {
+                CreateHistoricalDriverStanding(2024, new List<HisoricalDriverStandingEntry>
+                {
+                    CreateDriverStanding(1, "champ", "team1", 100)
+                })
+            };
+
+            var team1 = CreateTeam("team1", "champ", 1, "teammate", 2);
+            var returning = CreateTeam("returning", "r1", 32, "r2", 33);
+            // listed before the returning team on purpose: order must not let it claim 32/33
+            var newTeam = CreateTeam("new_team", "n1", 32, "n2", 33);
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { team1, newTeam, returning };
+            saveGame.HistoricalConstructorStandings = new List<HistoricalConstructorStanding>
+            {
+                new HistoricalConstructorStanding
+                {
+                    Year = 2024,
+                    Standing = new[] { team1, returning }.Select(t => new HistoricalConstructorStandingEntry { TeamId = t.TeamId }).ToList()
+                }
+            };
+
+            _service.AssignNumbersToCurrentSeason(saveGame);
+
+            Assert.AreEqual(32, returning.Driver1Contract.DriverNumber);
+            Assert.AreEqual(33, returning.Driver2Contract.DriverNumber);
+            Assert.AreEqual(3, newTeam.Driver1Contract.DriverNumber);
+            Assert.AreEqual(4, newTeam.Driver2Contract.DriverNumber);
+        }
+
+        [TestMethod]
+        public void AssignNumbersToCurrentSeason_NewTeamWithPackNumberTwo_IsNotTakenForLastYearsHolder()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.HistoricalDriverStandings = new List<HistoricalDriverStanding>
+            {
+                CreateHistoricalDriverStanding(2024, new List<HisoricalDriverStandingEntry>
+                {
+                    CreateDriverStanding(1, "champ", "team2", 100)
+                })
+            };
+
+            var newTeam = CreateTeam("new_team", "n1", 1, "n2", 2);
+            var team1 = CreateTeam("team1", "a", 1, "b", 2);
+            var team2 = CreateTeam("team2", "champ", 7, "c", 8);
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { newTeam, team1, team2 };
+            saveGame.HistoricalConstructorStandings = new List<HistoricalConstructorStanding>
+            {
+                new HistoricalConstructorStanding
+                {
+                    Year = 2024,
+                    Standing = new[] { team1, team2 }.Select(t => new HistoricalConstructorStandingEntry { TeamId = t.TeamId }).ToList()
+                }
+            };
+
+            _service.AssignNumbersToCurrentSeason(saveGame);
+
+            Assert.AreEqual(1, team2.Driver1Contract.DriverNumber);
+            Assert.AreEqual(2, team2.Driver2Contract.DriverNumber);
+            Assert.AreEqual(7, team1.Driver1Contract.DriverNumber);
+            Assert.AreEqual(8, team1.Driver2Contract.DriverNumber);
+            Assert.AreEqual(3, newTeam.Driver1Contract.DriverNumber);
+            Assert.AreEqual(4, newTeam.Driver2Contract.DriverNumber);
+        }
+
+        [TestMethod]
+        public void AssignNumbersToCurrentSeason_ChampionJoinsNewTeam_OldChampionTeamGetsLowestFreeNumbers()
+        {
+            var saveGame = CreateSaveGame();
+            saveGame.HistoricalDriverStandings = new List<HistoricalDriverStanding>
+            {
+                CreateHistoricalDriverStanding(2024, new List<HisoricalDriverStandingEntry>
+                {
+                    CreateDriverStanding(1, "champ", "team1", 100)
+                })
+            };
+
+            var team1 = CreateTeam("team1", "a", 1, "b", 2);
+            var other = CreateTeam("other", "c", 3, "d", 4);
+            var newTeam = CreateTeam("new_team", "champ", 3, "e", 4);
+            saveGame.CurrentSeason.Teams = new List<ITeamEntry> { team1, other, newTeam };
+            saveGame.HistoricalConstructorStandings = new List<HistoricalConstructorStanding>
+            {
+                new HistoricalConstructorStanding
+                {
+                    Year = 2024,
+                    Standing = new[] { team1, other }.Select(t => new HistoricalConstructorStandingEntry { TeamId = t.TeamId }).ToList()
+                }
+            };
+
+            _service.AssignNumbersToCurrentSeason(saveGame);
+
+            Assert.AreEqual(1, newTeam.Driver1Contract.DriverNumber);
+            Assert.AreEqual(2, newTeam.Driver2Contract.DriverNumber);
+            Assert.AreEqual(3, other.Driver1Contract.DriverNumber);
+            Assert.AreEqual(4, other.Driver2Contract.DriverNumber);
+            Assert.AreEqual(5, team1.Driver1Contract.DriverNumber);
+            Assert.AreEqual(6, team1.Driver2Contract.DriverNumber);
+        }
+
         #endregion
 
         #region AssignNumberAtGameCreation Tests
