@@ -2,6 +2,7 @@ using AMS2ChEd.Resources;
 using AMS2ChEd.Views.Letters;
 using System.Windows;
 using System.Windows.Controls;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace AMS2ChEd.Views
 {

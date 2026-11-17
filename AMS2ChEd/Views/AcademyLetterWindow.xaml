@@ -37,7 +37,8 @@
         <!-- the shared letter paper, with the academy choices under the text -->
         <views:LetterPaper x:Name="Paper" Grid.Row="0" Margin="40,30,40,20">
             <views:LetterPaper.ExtraContent>
-                <ItemsControl x:Name="AcademyList" Margin="0,30,0,0">
+                <!-- no x:Name: LetterPaper has its own namescope; code-behind reaches it via Paper.ExtraContent -->
+                <ItemsControl Margin="0,30,0,0">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <RadioButton GroupName="Academies"

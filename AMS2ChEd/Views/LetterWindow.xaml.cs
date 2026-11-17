@@ -37,7 +37,7 @@ namespace AMS2ChEd.Views
             ButtonPanel.Children.Clear();
             foreach (var action in letter.Actions)
             {
-                var button = new Button
+                var button = new System.Windows.Controls.Button
                 {
                     Content = action.Label,
                     Style = (Style)FindResource(StyleKey(action.Kind))

@@ -15,6 +15,9 @@ namespace AMS2ChEd.Views
     /// </summary>
     public partial class AcademyLetterWindow : Window
     {
+        // the academy choices sit in the letter paper's own namescope, so they can't be named in XAML
+        private System.Windows.Controls.ItemsControl AcademyList => (System.Windows.Controls.ItemsControl)Paper.ExtraContent!;
+
         public class AcademyOption : INotifyPropertyChanged
         {
             public string Id { get; set; }
