@@ -1473,5 +1473,16 @@ namespace AMS2ChEd.Resources
         public static string LetterSubject_AcademyMember_Format => ResourceManager.GetString(nameof(LetterSubject_AcademyMember_Format))!;
         public static string LetterSubject_AcademyDormant => ResourceManager.GetString(nameof(LetterSubject_AcademyDormant))!;
         public static string LetterSubject_AcademyAgedOut_Format => ResourceManager.GetString(nameof(LetterSubject_AcademyAgedOut_Format))!;
+
+        // the team principal's letter straight after the player installs an improvement package
+        public static string LetterSubject_ImprovementPackageResult_Format => ResourceManager.GetString(nameof(LetterSubject_ImprovementPackageResult_Format))!;
+        public static string ImprovementPackageResultLetter_Format => ResourceManager.GetString(nameof(ImprovementPackageResultLetter_Format))!;
+        public static string ImprovementPackageResultLetter_Gains_Format => ResourceManager.GetString(nameof(ImprovementPackageResultLetter_Gains_Format))!;
+        public static string ImprovementPackageResultLetter_Losses_Format => ResourceManager.GetString(nameof(ImprovementPackageResultLetter_Losses_Format))!;
+        public static string ImprovementPackageResultLetter_Mixed_Format => ResourceManager.GetString(nameof(ImprovementPackageResultLetter_Mixed_Format))!;
+        public static string ImprovementPackageResultLetter_NoChange => ResourceManager.GetString(nameof(ImprovementPackageResultLetter_NoChange))!;
+        public static string ImprovementPackageResultLetter_SomeLeft_Format => ResourceManager.GetString(nameof(ImprovementPackageResultLetter_SomeLeft_Format))!;
+        public static string ImprovementPackageResultLetter_OneLeft => ResourceManager.GetString(nameof(ImprovementPackageResultLetter_OneLeft))!;
+        public static string ImprovementPackageResultLetter_NoneLeft => ResourceManager.GetString(nameof(ImprovementPackageResultLetter_NoneLeft))!;
     }
 }

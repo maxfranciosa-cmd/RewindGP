@@ -283,13 +283,26 @@ namespace AMS2ChEd
             if (confirmation != MessageBoxResult.Yes)
                 return;
 
-            manager.Install(saveGame, playerTeam.TeamId, playerId);
+            var package = manager.Install(saveGame, playerTeam.TeamId, playerId);
 
             // save the game on disk
             string saveName = $"{saveGame.PlayerData.Name}_{saveGame.CurrentSeason.Year}".Replace(" ", "_");
             _ams2StorageFactory.GameStorage.SaveGame(saveGame, saveName);
 
             LoadPlayerData();
+
+            // the team principal reports straight away what the package did to the car
+            if (package != null)
+            {
+                LetterWindow.Present(this, TeamPrincipalLetters.ImprovementPackageResult(
+                    playerTeam.TeamName,
+                    playerTeam.TeamPrincipal,
+                    saveGame.PlayerData.Name,
+                    nextRace.RaceName,
+                    package,
+                    manager.Stats,
+                    manager.GetRemainingPackages(playerTeam)));
+            }
         }
 
         private void ImprovementPackagesButton_Click(object sender, RoutedEventArgs e)

@@ -4484,4 +4484,37 @@ The team chose to race on, as {0} would have wanted.</value>
   <data name="LetterSubject_AcademyAgedOut_Format" xml:space="preserve">
     <value>Leaving the {0}</value>
   </data>
+  <data name="LetterSubject_ImprovementPackageResult_Format" xml:space="preserve">
+    <value>Improvement package results – {0}</value>
+  </data>
+  <data name="ImprovementPackageResultLetter_Format" xml:space="preserve">
+    <value>Dear {0},
+
+As you instructed, our engineers have fitted the new improvement package to both cars ahead of the {1}.
+
+{2}
+
+{3}</value>
+  </data>
+  <data name="ImprovementPackageResultLetter_Gains_Format" xml:space="preserve">
+    <value>The first numbers from the factory are encouraging: our engineers report that {0}. It looks like a genuine step forward, and we should feel it on track.</value>
+  </data>
+  <data name="ImprovementPackageResultLetter_Losses_Format" xml:space="preserve">
+    <value>I won't sugar-coat it: the first numbers from the factory are disappointing. Our engineers report that {0}. We will have to make the best of it.</value>
+  </data>
+  <data name="ImprovementPackageResultLetter_Mixed_Format" xml:space="preserve">
+    <value>The first numbers from the factory are mixed: our engineers report that {0}, but {1}. We will find out on track whether it was worth it.</value>
+  </data>
+  <data name="ImprovementPackageResultLetter_NoChange" xml:space="preserve">
+    <value>To be honest, the first numbers from the factory show very little difference: our engineers think the package has barely changed the car.</value>
+  </data>
+  <data name="ImprovementPackageResultLetter_SomeLeft_Format" xml:space="preserve">
+    <value>We have {0} packages left for this season.</value>
+  </data>
+  <data name="ImprovementPackageResultLetter_OneLeft" xml:space="preserve">
+    <value>We have one package left for this season.</value>
+  </data>
+  <data name="ImprovementPackageResultLetter_NoneLeft" xml:space="preserve">
+    <value>That was our last package of the season.</value>
+  </data>
 </root>

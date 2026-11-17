@@ -59,36 +59,18 @@ namespace AMS2ChEd.Views
 
         private string BuildEffects(InstalledImprovementPackage item)
         {
-            var gains = new List<string>();
-            var losses = new List<string>();
-
-            foreach (var stat in _stats)
-            {
-                if (item.Package.Values == null || !item.Package.Values.TryGetValue(stat.Key, out var value) || value == 0)
-                    continue;
-
-                if ((value > 0) == stat.HigherIsBetter)
-                    gains.Add(stat.ImprovedText);
-                else
-                    losses.Add(stat.WorsenedText);
-            }
+            var effects = ImprovementPackageEffects.Describe(item.Package, _stats);
+            var gains = effects.Gains;
+            var losses = effects.Losses;
 
             if (gains.Any() && losses.Any())
-                return string.Format(Strings.ImprovementPackageNewsWindow_Effects_GainsAndLosses_Format, JoinList(gains), JoinList(losses));
+                return string.Format(Strings.ImprovementPackageNewsWindow_Effects_GainsAndLosses_Format, ImprovementPackageEffects.JoinList(gains), ImprovementPackageEffects.JoinList(losses));
             if (gains.Any())
-                return string.Format(Strings.ImprovementPackageNewsWindow_Effects_OnlyGains_Format, JoinList(gains));
+                return string.Format(Strings.ImprovementPackageNewsWindow_Effects_OnlyGains_Format, ImprovementPackageEffects.JoinList(gains));
             if (losses.Any())
-                return string.Format(Strings.ImprovementPackageNewsWindow_Effects_OnlyLosses_Format, JoinList(losses));
+                return string.Format(Strings.ImprovementPackageNewsWindow_Effects_OnlyLosses_Format, ImprovementPackageEffects.JoinList(losses));
 
             return Strings.ImprovementPackageNewsWindow_Effects_None;
-        }
-
-        private static string JoinList(List<string> parts)
-        {
-            if (parts.Count == 1)
-                return parts[0];
-
-            return string.Join(", ", parts.Take(parts.Count - 1)) + Strings.ImprovementPackageNewsWindow_ListAnd + parts.Last();
         }
 
         private string Pick(string[] variants) => variants[_random.Next(variants.Length)];
