@@ -16,6 +16,7 @@ using AMS2ChEd.Resources;
 using AMS2ChEd.Services;
 using AMS2ChEd.Updater;
 using AMS2ChEd.Views;
+using AMS2ChEd.Views.Letters;
 using SixLabors.ImageSharp;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -1236,17 +1237,15 @@ namespace AMS2ChEd
                         var replacedDriverData = seasonDrivers.ContainsKey(selectedDriver.DriverId) ? seasonDrivers[selectedDriver.DriverId] : null;
                         var replacedDriverReputation = replacedDriverData.Reputation;
 
-                        // NEW: Use ContractLetterWindow but pass the game engine
-                        var contractLetterWindow = new ContractLetterWindow(
+                        // the team's answer: the hire is decided while composing the letter
+                        var contractLetter = ContractLetters.CareerStartApplication(
                             _gameLogicFactory,
                             selectedTeamName,
                             teamSelectionWindow.SelectedTeamId,
                             selectedTeamPrincipal,
                             driverName,
-                            nationality,
                             driverAge,
                             playerDriverId,
-                            favouriteNumbers,
                             reputationItem.Reputation,
                             selectedDriver.Name,
                             selectedDriver.DriverId,
@@ -1255,9 +1254,8 @@ namespace AMS2ChEd
                             seasonData,
                             isReserve: teamSelectionWindow.SelectedIsReserve
                         );
-                        contractLetterWindow.Owner = this;
 
-                        if (contractLetterWindow.ShowDialog() == true)
+                        if (LetterWindow.Present(this, contractLetter) == LetterActionIds.Next)
                         {
                             // Player was hired - game has been created by the engine
                             teamSelected = true;

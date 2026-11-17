@@ -11,6 +11,7 @@ using AMS2ChEd.Business.Storage.Contracts;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Resources;
 using AMS2ChEd.Views;
+using AMS2ChEd.Views.Letters;
 using System.Formats.Tar;
 using System.Globalization;
 using System.IO;
@@ -347,15 +348,13 @@ namespace AMS2ChEd
             var nextRace = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
             var firstDriverName = saveGame.Drivers.FirstOrDefault(d => d.DriverId == firstDriverId)?.Name ?? Strings.SeasonOverviewWindow_UnknownDriver;
 
-            var letterWindow = new TeamPrincipalLetterWindow(
+            LetterWindow.Present(this, TeamPrincipalLetters.ImprovementPackageDecision(
                 playerTeam.TeamName,
                 playerTeam.TeamPrincipal,
                 saveGame.PlayerData.Name,
                 firstDriverName,
                 nextRace.RaceName,
-                manager.GetRemainingPackages(playerTeam));
-            letterWindow.Owner = this;
-            letterWindow.ShowDialog();
+                manager.GetRemainingPackages(playerTeam)));
         }
 
 
@@ -979,13 +978,12 @@ namespace AMS2ChEd
             var playerName = GetDriverName(_saveGame.PlayerData.DriverId);
             var driverInName = GetDriverName(absence.DriverIn);
 
-            var letterWindow = new TeamPrincipalLetterWindow(
+            LetterWindow.Present(_owner, TeamPrincipalLetters.SeatSold(
                 teamName,
                 team?.TeamPrincipal ?? Strings.OffSeasonContractWindow_DefaultTeamPrincipal,
-                Strings.SeasonOverviewWindow_SeatSoldLetter_Subtitle,
-                string.Format(Strings.SeasonOverviewWindow_SeatSoldLetter_Format, playerName, gpName, driverInName));
-            letterWindow.Owner = _owner;
-            letterWindow.ShowDialog();
+                playerName,
+                gpName,
+                driverInName));
 
             var newsWindow = new AbsenceAnnouncementWindow(
                 playerName,
@@ -1118,10 +1116,8 @@ namespace AMS2ChEd
 
         public Task<bool> ShowContractLetterAsync(ISaveGame saveGame, IEnumerable<ITeamEntry> nextSeasonTeamEntries, DriverFirerOutcome dropOutcome, DriverReputation playerReputation)
         {
-            var contractWindow = new OffSeasonContractWindow(saveGame, nextSeasonTeamEntries, dropOutcome, playerReputation);
-            contractWindow.Owner = _owner;
-            contractWindow.ShowDialog();
-            return Task.FromResult(contractWindow.PlayerAcceptedContract);
+            var letter = OffSeasonContractLetters.Compose(saveGame, nextSeasonTeamEntries, dropOutcome, playerReputation);
+            return Task.FromResult(LetterWindow.Present(_owner, letter) == LetterActionIds.Accept);
         }
 
         public Task ShowRetirementNewsAsync(ISaveGame saveGame, IDriverData retiredDriver, string lastTeamId)
@@ -1148,7 +1144,7 @@ namespace AMS2ChEd
 
             // A null OtherDriverId means the player had no real head-to-head opponent for this
             // seat (see TeamApplicationResult.OtherDriverId) - leave otherDriverName null too, so
-            // ContractLetterWindow can tell "no rival" apart from "rival's name is missing".
+            // ContractLetters can tell "no rival" apart from "rival's name is missing".
             string otherDriverName = null;
             if (!string.IsNullOrEmpty(result.OtherDriverId))
             {
@@ -1179,23 +1175,21 @@ namespace AMS2ChEd
                     teammateName);
             }
 
-            var letterWindow = new ContractLetterWindow(
+            LetterWindow.Present(_owner, ContractLetters.OffSeasonApplicationResult(
                 teamName,
                 teamPrincipal,
                 saveGame.PlayerData.Name,
                 playerReputation,
                 result.PlayerHired,
                 otherDriverName,
-                result.OtherDriverReputation,
                 result.OtherDriverWasAtTeamBefore,
                 roleName,
                 teamEntry?.Reputation ?? TeamReputation.MINNOW,
                 letterRole,
+                saveGame.CurrentSeason.Year + 1,
                 result.IsReserve,
                 roleChangeNote,
-                result.OtherDriverSignedElsewhere);
-            letterWindow.Owner = _owner;
-            letterWindow.ShowDialog();
+                result.OtherDriverSignedElsewhere));
             return Task.CompletedTask;
         }
 
@@ -1211,15 +1205,13 @@ namespace AMS2ChEd
         {
             var teamEntry = nextSeasonTeamEntries.FirstOrDefault(t => t.TeamId == letter.TeamId)
                             ?? saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == letter.TeamId);
-            var letterWindow = new ReserveLetterWindow(saveGame.PlayerData.Name, teamEntry, letter);
-            letterWindow.Owner = _owner;
-            letterWindow.ShowDialog();
-            return Task.FromResult(letterWindow.Decision);
+            var reserveLetter = ReserveLetters.Compose(saveGame.PlayerData.Name, teamEntry, letter, saveGame.CurrentSeason.Year + 1);
+            return Task.FromResult(ReserveLetters.ToDecision(LetterWindow.Present(_owner, reserveLetter)));
         }
 
         public Task<string> ShowAcademyLetterAsync(ISaveGame saveGame, IReadOnlyList<Academy> academies, IEnumerable<ITeamEntry> nextSeasonTeamEntries, string currentAcademyId)
         {
-            var letterWindow = AcademyLetterWindow.ForChoice(saveGame.PlayerData.Name, academies, nextSeasonTeamEntries, currentAcademyId);
+            var letterWindow = AcademyLetterWindow.ForChoice(saveGame.PlayerData.Name, academies, nextSeasonTeamEntries, currentAcademyId, saveGame.CurrentSeason.Year + 1);
             letterWindow.Owner = _owner;
             letterWindow.ShowDialog();
             return Task.FromResult(letterWindow.ChosenAcademyId);

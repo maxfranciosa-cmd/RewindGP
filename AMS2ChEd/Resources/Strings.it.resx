@@ -607,9 +607,6 @@ Se scegli No non te lo chiederemo più per questa stagione; potrai comunque scar
   <data name="SeasonOverviewWindow_GrandPrixFallback" xml:space="preserve">
     <value>Gran Premio</value>
   </data>
-  <data name="SeasonOverviewWindow_SeatSoldLetter_Subtitle" xml:space="preserve">
-    <value>Iscrizione alla gara</value>
-  </data>
   <data name="SeasonOverviewWindow_SeatSoldLetter_Format" xml:space="preserve">
     <value>Caro {0},
 
@@ -1727,24 +1724,6 @@ Clicca OK quando hai scaricato il file.</value>
   <data name="PostRaceNewsWindow_DefaultTeamName" xml:space="preserve">
     <value>Team sconosciuto</value>
   </data>
-  <data name="ContractLetterWindow_Title" xml:space="preserve">
-    <value>Offerta di Contratto</value>
-  </data>
-  <data name="ContractLetterWindow_Subtitle" xml:space="preserve">
-    <value>Scuderia di Formula</value>
-  </data>
-  <data name="ContractLetterWindow_Signoff" xml:space="preserve">
-    <value>Cordiali saluti,</value>
-  </data>
-  <data name="ContractLetterWindow_NextButton" xml:space="preserve">
-    <value>AVANTI</value>
-  </data>
-  <data name="ContractLetterWindow_ChooseAnotherTeamButton" xml:space="preserve">
-    <value>SCEGLI UN ALTRO TEAM</value>
-  </data>
-  <data name="ContractLetterWindow_SignatureTitle_Format" xml:space="preserve">
-    <value>Team Principal, {0}</value>
-  </data>
   <data name="ContractLetterWindow_YoungDriver_VeryYoung_Format" xml:space="preserve">
     <value>Caro/a {0},
 
@@ -2362,32 +2341,11 @@ Cordiali saluti,</value>
   <data name="ChampionshipCelebrationWindow_UnknownTeam" xml:space="preserve">
     <value>Team sconosciuto</value>
   </data>
-  <data name="OffSeasonContractWindow_Title" xml:space="preserve">
-    <value>Decisione sul Contratto</value>
-  </data>
-  <data name="OffSeasonContractWindow_Subtitle" xml:space="preserve">
-    <value>Scuderia di Formula</value>
-  </data>
-  <data name="OffSeasonContractWindow_Signoff" xml:space="preserve">
-    <value>Cordiali saluti,</value>
-  </data>
-  <data name="OffSeasonContractWindow_AcceptButton" xml:space="preserve">
-    <value>ACCETTA</value>
-  </data>
-  <data name="OffSeasonContractWindow_RejectButton" xml:space="preserve">
-    <value>RIFIUTA</value>
-  </data>
-  <data name="OffSeasonContractWindow_ContinueButton" xml:space="preserve">
-    <value>CONTINUA</value>
-  </data>
   <data name="OffSeasonContractWindow_DefaultTeamName" xml:space="preserve">
     <value>Team sconosciuto</value>
   </data>
   <data name="OffSeasonContractWindow_DefaultTeamPrincipal" xml:space="preserve">
     <value>Direzione del team</value>
-  </data>
-  <data name="OffSeasonContractWindow_SignatureTitle_Format" xml:space="preserve">
-    <value>Team Principal, {0}</value>
   </data>
   <data name="OffSeasonContractWindow_RenewalLetter_Format" xml:space="preserve">
     <value>Caro/a {0},
@@ -3274,12 +3232,6 @@ Cambierà le prestazioni di entrambe le vetture, e potrebbe renderle più lente 
   <data name="ImprovementPackagesWindow_FooterText" xml:space="preserve">
     <value>▲ valore aumentato, ▼ valore diminuito, = invariato nel complesso. Verde: un guadagno per la vettura, rosso: una perdita.</value>
   </data>
-  <data name="TeamPrincipalLetterWindow_Title" xml:space="preserve">
-    <value>Lettera del Team Principal</value>
-  </data>
-  <data name="TeamPrincipalLetterWindow_Subtitle" xml:space="preserve">
-    <value>Sviluppo della Vettura</value>
-  </data>
   <data name="TeamPrincipalLetterWindow_Letter_Format" xml:space="preserve">
     <value>Caro {0},
 
@@ -3679,12 +3631,6 @@ Puoi dare l'ordine dal riepilogo della stagione prima della gara.</value>
   <data name="PaddockOpportunitiesWindow_ContinueButton" xml:space="preserve">
     <value>CONTINUA</value>
   </data>
-  <data name="ReserveLetterWindow_WindowTitle" xml:space="preserve">
-    <value>Lettera dalla tua squadra</value>
-  </data>
-  <data name="ReserveLetterWindow_Subtitle" xml:space="preserve">
-    <value>Pilota di riserva</value>
-  </data>
   <data name="ReserveLetterWindow_Greeting_Format" xml:space="preserve">
     <value>Caro {0},</value>
   </data>
@@ -3727,9 +3673,6 @@ Te lo sei guadagnato in garage, nei test e ogni volta che ti abbiamo chiamato. A
   </data>
   <data name="ReserveLetterWindow_LeaveButton" xml:space="preserve">
     <value>SVINCOLATO</value>
-  </data>
-  <data name="ReserveLetterWindow_ContinueButton" xml:space="preserve">
-    <value>CONTINUA</value>
   </data>
   <data name="TeamApplicationWindow_ReserveRole" xml:space="preserve">
     <value>Pilota di riserva</value>
@@ -4202,9 +4145,6 @@ La squadra ha scelto di continuare a correre, come {0} avrebbe voluto.</value>
   <data name="MainWindow_HairColourLabel" xml:space="preserve">
     <value>COLORE CAPELLI:</value>
   </data>
-  <data name="AcademyLetterWindow_WindowTitle" xml:space="preserve">
-    <value>Accademie piloti</value>
-  </data>
   <data name="AcademyLetterWindow_Header" xml:space="preserve">
     <value>ACCADEMIE PILOTI</value>
   </data>
@@ -4243,9 +4183,6 @@ La squadra ha scelto di continuare a correre, come {0} avrebbe voluto.</value>
   </data>
   <data name="AcademyLetterWindow_AgedOut_Format" xml:space="preserve">
     <value>A 25 anni non puoi più far parte dell'{0}: da ora in poi cercherai i sedili per conto tuo. Gli eventuali contratti in corso restano validi. Ti auguriamo buona fortuna.</value>
-  </data>
-  <data name="AcademyLetterWindow_Signoff" xml:space="preserve">
-    <value>Cordiali saluti,</value>
   </data>
   <data name="AcademyLetterWindow_Signature" xml:space="preserve">
     <value>Il tuo agente</value>
@@ -4468,5 +4405,83 @@ La squadra ha scelto di continuare a correre, come {0} avrebbe voluto.</value>
   </data>
   <data name="AcademiesWindow_NoAcademies" xml:space="preserve">
     <value>Nessuna accademia piloti in questa stagione.</value>
+  </data>
+  <data name="Letter_SubjectLabel" xml:space="preserve">
+    <value>Oggetto:</value>
+  </data>
+  <data name="Letter_Signoff" xml:space="preserve">
+    <value>Cordiali saluti,</value>
+  </data>
+  <data name="Letter_SignatureTitle_Format" xml:space="preserve">
+    <value>Team Principal, {0}</value>
+  </data>
+  <data name="Letter_TeamTagline" xml:space="preserve">
+    <value>Scuderia di Formula</value>
+  </data>
+  <data name="Letter_NextButton" xml:space="preserve">
+    <value>AVANTI</value>
+  </data>
+  <data name="Letter_ContinueButton" xml:space="preserve">
+    <value>CONTINUA</value>
+  </data>
+  <data name="Letter_AcceptButton" xml:space="preserve">
+    <value>ACCETTA</value>
+  </data>
+  <data name="Letter_RejectButton" xml:space="preserve">
+    <value>RIFIUTA</value>
+  </data>
+  <data name="Letter_ChooseAnotherTeamButton" xml:space="preserve">
+    <value>SCEGLI UN ALTRO TEAM</value>
+  </data>
+  <data name="LetterSubject_ImprovementPackage_Format" xml:space="preserve">
+    <value>Decisione sui pacchetti di aggiornamento – {0}</value>
+  </data>
+  <data name="LetterSubject_SeatSold_Format" xml:space="preserve">
+    <value>Iscrizione alla gara – {0}</value>
+  </data>
+  <data name="LetterSubject_AgeRequirement" xml:space="preserve">
+    <value>Candidatura respinta – requisiti di età</value>
+  </data>
+  <data name="LetterSubject_ContractOffer_Format" xml:space="preserve">
+    <value>Offerta di contratto – {0}, stagione {1}</value>
+  </data>
+  <data name="LetterSubject_ApplicationUnsuccessful_Format" xml:space="preserve">
+    <value>Candidatura respinta – {0}, stagione {1}</value>
+  </data>
+  <data name="LetterSubject_ContractRenewal_Format" xml:space="preserve">
+    <value>Proposta di rinnovo del contratto – stagione {0}</value>
+  </data>
+  <data name="LetterSubject_ContractEnded_Format" xml:space="preserve">
+    <value>Fine del contratto – stagione {0}</value>
+  </data>
+  <data name="LetterSubject_ContractTerminated" xml:space="preserve">
+    <value>Risoluzione del contratto</value>
+  </data>
+  <data name="LetterSubject_TeamWithdrawing" xml:space="preserve">
+    <value>Il ritiro della squadra dal campionato</value>
+  </data>
+  <data name="LetterSubject_ReservePromotion_Format" xml:space="preserve">
+    <value>Promozione a pilota titolare – stagione {0}</value>
+  </data>
+  <data name="LetterSubject_ReserveStayOn_Format" xml:space="preserve">
+    <value>Ruolo di pilota di riserva – stagione {0}</value>
+  </data>
+  <data name="LetterSubject_ReserveFarewell" xml:space="preserve">
+    <value>Fine del tuo ruolo di pilota di riserva</value>
+  </data>
+  <data name="LetterSubject_AcademyCareerStart" xml:space="preserve">
+    <value>Entrare in un'accademia piloti</value>
+  </data>
+  <data name="LetterSubject_AcademyInvitations_Format" xml:space="preserve">
+    <value>Posti nelle accademie piloti – stagione {0}</value>
+  </data>
+  <data name="LetterSubject_AcademyMember_Format" xml:space="preserve">
+    <value>Il tuo posto nell'{0} – stagione {1}</value>
+  </data>
+  <data name="LetterSubject_AcademyDormant" xml:space="preserve">
+    <value>La tua iscrizione all'accademia piloti</value>
+  </data>
+  <data name="LetterSubject_AcademyAgedOut_Format" xml:space="preserve">
+    <value>Addio all'{0}</value>
   </data>
 </root>

@@ -210,7 +210,7 @@ namespace AMS2ChEd.Views
         private void AnswerAcademy(Academy academy)
         {
             var teams = _text.NextSeason.Teams.Concat(_saveGame.CurrentSeason.Teams);
-            var lines = new List<string> { string.Format(Strings.AgentTalkWindow_Academy_Member_Format, AcademyLetterWindow.AcademyName(academy, teams)) };
+            var lines = new List<string> { string.Format(Strings.AgentTalkWindow_Academy_Member_Format, AcademyNames.AcademyName(academy, teams)) };
 
             var yearOfBirth = _text.Driver(_saveGame.PlayerData.DriverId)?.YearOfBirth;
             if (yearOfBirth != null && !AcademyMembership.IsYoung(_text.NextSeason.Year, yearOfBirth.Value))

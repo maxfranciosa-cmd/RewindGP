@@ -3,77 +3,29 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:AMS2ChEd.Localization"
-        Title="{loc:Loc AcademyLetterWindow_WindowTitle}"
+        xmlns:views="clr-namespace:AMS2ChEd.Views"
         Height="1000" Width="1100"
         WindowStartupLocation="CenterScreen"
         Background="#f5f5dc"
         ResizeMode="NoResize">
 
-    <!-- The same letter look as ReserveLetterWindow: the off-season academy step, or the
-         farewell to a player who aged out of his academy -->
+    <!-- A letter from the player's agent on the shared letter paper: the academy step (career
+         start or off-season), or the farewell to a player who aged out of his academy -->
     <Window.Resources>
-        <Style x:Key="AcceptButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#2e7d32"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="MinWidth" Value="160"/>
-            <Setter Property="Padding" Value="16,0"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#388e3c"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.5"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="LetterStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-        <Style x:Key="RejectButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#c41e3a"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="MinWidth" Value="160"/>
-            <Setter Property="Padding" Value="16,0"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#d32f2f"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="ContinueButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#2c2c2c"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="MinWidth" Value="160"/>
-            <Setter Property="Padding" Value="16,0"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#3c3c3c"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="AcademyOptionStyle" TargetType="RadioButton">
-            <Setter Property="FontFamily" Value="Georgia"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Foreground" Value="#2c2c2c"/>
-            <Setter Property="Margin" Value="0,0,0,16"/>
-            <Setter Property="VerticalContentAlignment" Value="Top"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
+            <Style x:Key="AcademyOptionStyle" TargetType="RadioButton">
+                <Setter Property="FontFamily" Value="Georgia"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Foreground" Value="#2c2c2c"/>
+                <Setter Property="Margin" Value="0,0,0,16"/>
+                <Setter Property="VerticalContentAlignment" Value="Top"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Style>
+        </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
@@ -82,88 +34,42 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0"
-                Background="White"
-                BorderBrush="#8b7355"
-                BorderThickness="2"
-                Margin="40,30,40,20"
-                CornerRadius="3">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="10" ShadowDepth="3" Opacity="0.3"/>
-            </Border.Effect>
-
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="50,40">
-                <StackPanel>
-                    <TextBlock Text="{loc:Loc AcademyLetterWindow_Header}"
-                               FontSize="34"
-                               FontWeight="Bold"
-                               Foreground="#2c2c2c"
-                               HorizontalAlignment="Center"
-                               Margin="0,0,0,5"/>
-
-                    <TextBlock Text="{loc:Loc AcademyLetterWindow_Subtitle}"
-                               FontSize="22"
-                               Foreground="#666666"
-                               HorizontalAlignment="Center"
-                               Margin="0,0,0,30"/>
-
-                    <Rectangle Height="1" Fill="#cccccc" Margin="0,0,0,30"/>
-
-                    <TextBlock x:Name="LetterContent"
-                               FontSize="22"
-                               Foreground="#2c2c2c"
-                               TextWrapping="Wrap"
-                               FontFamily="Georgia"
-                               TextAlignment="Left"/>
-
-                    <ItemsControl x:Name="AcademyList" Margin="0,30,0,0">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <RadioButton GroupName="Academies"
-                                             Style="{StaticResource AcademyOptionStyle}"
-                                             IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                             Checked="Academy_Checked">
-                                    <StackPanel Margin="8,-4,0,0">
-                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" TextWrapping="Wrap"/>
-                                        <TextBlock Text="{Binding Teams}" FontSize="17" Foreground="#555555" TextWrapping="Wrap"/>
-                                    </StackPanel>
-                                </RadioButton>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
-                    <TextBlock Text="{loc:Loc AcademyLetterWindow_Signoff}"
-                               FontSize="22"
-                               Foreground="#2c2c2c"
-                               FontFamily="Georgia"
-                               Margin="0,30,0,10"/>
-
-                    <TextBlock Text="{loc:Loc AcademyLetterWindow_Signature}"
-                               FontSize="26"
-                               FontWeight="Bold"
-                               Foreground="#2c2c2c"
-                               FontFamily="Segoe Script"/>
-                </StackPanel>
-            </ScrollViewer>
-        </Border>
+        <!-- the shared letter paper, with the academy choices under the text -->
+        <views:LetterPaper x:Name="Paper" Grid.Row="0" Margin="40,30,40,20">
+            <views:LetterPaper.ExtraContent>
+                <ItemsControl x:Name="AcademyList" Margin="0,30,0,0">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton GroupName="Academies"
+                                         Style="{StaticResource AcademyOptionStyle}"
+                                         IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                         Checked="Academy_Checked">
+                                <StackPanel Margin="8,-4,0,0">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Teams}" FontSize="17" Foreground="#555555" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </RadioButton>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </views:LetterPaper.ExtraContent>
+        </views:LetterPaper>
 
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     Margin="0,0,0,30">
             <Button x:Name="ConfirmButton"
-                    Style="{StaticResource AcceptButtonStyle}"
+                    Style="{StaticResource LetterAcceptButtonStyle}"
                     Click="ConfirmButton_Click"
-                    Margin="0,0,10,0"
                     Visibility="Collapsed"/>
             <Button x:Name="LeaveButton"
                     Content="{loc:Loc AcademyLetterWindow_LeaveButton}"
-                    Style="{StaticResource RejectButtonStyle}"
+                    Style="{StaticResource LetterRejectButtonStyle}"
                     Click="LeaveButton_Click"
-                    Margin="0,0,10,0"
                     Visibility="Collapsed"/>
             <Button x:Name="DeclineButton"
-                    Style="{StaticResource ContinueButtonStyle}"
+                    Style="{StaticResource LetterNeutralButtonStyle}"
                     Click="DeclineButton_Click"
                     Visibility="Collapsed"/>
         </StackPanel>

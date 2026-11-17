@@ -3,57 +3,64 @@ using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Resources;
 using System.Linq;
-using System.Windows;
 
-namespace AMS2ChEd.Views
+namespace AMS2ChEd.Views.Letters
 {
-    public partial class OffSeasonContractWindow : Window
+    /// <summary>
+    /// The end-of-season letter from the player's team: a renewal offer to accept or reject, or the
+    /// end of the contract and why (was OffSeasonContractWindow). Closes with
+    /// <see cref="LetterActionIds.Accept"/> only when the player takes the renewal.
+    /// </summary>
+    public static class OffSeasonContractLetters
     {
-        public bool PlayerAcceptedContract { get; private set; }
-        private bool isPlayerDropped;
-
-        public OffSeasonContractWindow(
+        public static Letter Compose(
             ISaveGame saveGame,
             IEnumerable<ITeamEntry> nextSeasonTeamEntries,
             DriverFirerOutcome dropOutcome,
             DriverReputation playerReputation)
         {
-            InitializeComponent();
+            var playerId = saveGame.PlayerData.DriverId;
 
-            isPlayerDropped = dropOutcome.IsDropped();
-
-            // Get player's team info
+            // the player's team next season, or this season's when it isn't competing next season
             var playerTeam = nextSeasonTeamEntries.FirstOrDefault(t =>
-                t.Driver1Contract.DriverId == saveGame.PlayerData.DriverId ||
-                t.Driver2Contract.DriverId == saveGame.PlayerData.DriverId);
-
-            // get player's team info from current season if it can't find the team for next season
-            // (this means the team is not going to compete next season)
-            playerTeam = playerTeam ?? saveGame.CurrentSeason.Teams.FirstOrDefault(t =>
-                    t.Driver1Contract.DriverId == saveGame.PlayerData.DriverId ||
-                    t.Driver2Contract.DriverId == saveGame.PlayerData.DriverId);
+                                 t.Driver1Contract.DriverId == playerId ||
+                                 t.Driver2Contract.DriverId == playerId)
+                             ?? saveGame.CurrentSeason.Teams.FirstOrDefault(t =>
+                                 t.Driver1Contract.DriverId == playerId ||
+                                 t.Driver2Contract.DriverId == playerId);
 
             string teamName = playerTeam?.TeamName ?? Strings.OffSeasonContractWindow_DefaultTeamName;
             string teamPrincipal = playerTeam?.TeamPrincipal ?? Strings.OffSeasonContractWindow_DefaultTeamPrincipal;
+            string playerName = saveGame.PlayerData.Name;
+            int nextSeasonYear = saveGame.CurrentSeason.Year + 1;
 
-            TeamNameHeader.Text = teamName.ToUpper();
-            SignatureName.Text = teamPrincipal;
-            SignatureTitle.Text = string.Format(Strings.OffSeasonContractWindow_SignatureTitle_Format, teamName);
+            if (dropOutcome.IsDropped())
+            {
+                return Letter.FromTeam(
+                    teamName,
+                    teamPrincipal,
+                    TerminationSubject(dropOutcome, nextSeasonYear),
+                    TerminationLetter(playerName, teamName, dropOutcome, playerReputation),
+                    Letter.ContinueAction());
+            }
 
-            if (isPlayerDropped)
-            {
-                GenerateTerminationLetter(saveGame.PlayerData.Name, teamName, dropOutcome, playerReputation);
-                ContinueButton.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                GenerateRenewalLetter(saveGame.PlayerData.Name, teamName, playerReputation);
-                AcceptButton.Visibility = Visibility.Visible;
-                RejectButton.Visibility = Visibility.Visible;
-            }
+            return Letter.FromTeam(
+                teamName,
+                teamPrincipal,
+                string.Format(Strings.LetterSubject_ContractRenewal_Format, nextSeasonYear),
+                RenewalLetter(playerName, teamName, playerReputation),
+                new LetterAction(LetterActionIds.Accept, Strings.Letter_AcceptButton, LetterActionKind.Accept),
+                new LetterAction(LetterActionIds.Reject, Strings.Letter_RejectButton, LetterActionKind.Reject));
         }
 
-        private void GenerateRenewalLetter(string playerName, string teamName, DriverReputation playerReputation)
+        private static string TerminationSubject(DriverFirerOutcome dropOutcome, int nextSeasonYear) => dropOutcome switch
+        {
+            DriverFirerOutcome.DROPPED_TEAM_QUITTING => Strings.LetterSubject_TeamWithdrawing,
+            DriverFirerOutcome.DROPPED_DISCIPLINARY => Strings.LetterSubject_ContractTerminated,
+            _ => string.Format(Strings.LetterSubject_ContractEnded_Format, nextSeasonYear)
+        };
+
+        private static string RenewalLetter(string playerName, string teamName, DriverReputation playerReputation)
         {
             string reputationMessage = playerReputation switch
             {
@@ -87,28 +94,24 @@ namespace AMS2ChEd.Views
                 _ => Strings.OffSeasonContractWindow_Renewal_Default
             };
 
-            LetterContent.Text = string.Format(Strings.OffSeasonContractWindow_RenewalLetter_Format, playerName, teamName, reputationMessage);
+            return string.Format(Strings.OffSeasonContractWindow_RenewalLetter_Format, playerName, teamName, reputationMessage);
         }
 
-        private void GenerateTerminationLetter(
-            string playerName,
-            string teamName,
-            DriverFirerOutcome dropOutcome,
-            DriverReputation playerReputation)
+        private static string TerminationLetter(string playerName, string teamName, DriverFirerOutcome dropOutcome, DriverReputation playerReputation)
         {
             string reasonMessage = dropOutcome switch
             {
                 DriverFirerOutcome.DROPPED_CONTRACT_EXPIRED =>
-                    GenerateContractExpiredMessage(playerReputation, teamName),
+                    ContractExpiredMessage(playerReputation, teamName),
 
                 DriverFirerOutcome.DROPPED_UNDERPERFORMING =>
-                    GenerateUnderperformingMessage(playerReputation, teamName),
+                    string.Format(Strings.OffSeasonContractWindow_Underperforming_Format, teamName),
 
                 DriverFirerOutcome.DROPPED_RETIRING =>
-                    GenerateRetiringMessage(playerName, teamName),
+                    string.Format(Strings.OffSeasonContractWindow_Retiring_Format, teamName),
 
                 DriverFirerOutcome.DROPPED_TEAM_QUITTING =>
-                    GenerateTeamQuittingMessage(playerName, teamName),
+                    string.Format(Strings.OffSeasonContractWindow_TeamQuitting_Format, teamName),
 
                 DriverFirerOutcome.DROPPED_DISCIPLINARY =>
                     string.Format(Strings.OffSeasonContractWindow_Disciplinary_Format, teamName),
@@ -116,14 +119,10 @@ namespace AMS2ChEd.Views
                 _ => Strings.OffSeasonContractWindow_TerminationReason_Default
             };
 
-            LetterContent.Text = string.Format(Strings.OffSeasonContractWindow_TerminationLetter_Format, playerName, teamName, reasonMessage);
-        }
-        private string GenerateTeamQuittingMessage(string playerName, string teamName)
-        {
-            return string.Format(Strings.OffSeasonContractWindow_TeamQuitting_Format, teamName);
+            return string.Format(Strings.OffSeasonContractWindow_TerminationLetter_Format, playerName, teamName, reasonMessage);
         }
 
-        private string GenerateContractExpiredMessage(DriverReputation reputation, string teamName)
+        private static string ContractExpiredMessage(DriverReputation reputation, string teamName)
         {
             string template = reputation switch
             {
@@ -161,37 +160,6 @@ namespace AMS2ChEd.Views
             };
 
             return string.Format(template, teamName);
-        }
-
-        private string GenerateUnderperformingMessage(DriverReputation reputation, string teamName)
-        {
-            return string.Format(Strings.OffSeasonContractWindow_Underperforming_Format, teamName);
-        }
-
-        private string GenerateRetiringMessage(string playerName, string teamName)
-        {
-            return string.Format(Strings.OffSeasonContractWindow_Retiring_Format, teamName);
-        }
-
-        private void AcceptButton_Click(object sender, RoutedEventArgs e)
-        {
-            PlayerAcceptedContract = true;
-            this.DialogResult = true;
-            this.Close();
-        }
-
-        private void RejectButton_Click(object sender, RoutedEventArgs e)
-        {
-            PlayerAcceptedContract = false;
-            this.DialogResult = true;
-            this.Close();
-        }
-
-        private void ContinueButton_Click(object sender, RoutedEventArgs e)
-        {
-            PlayerAcceptedContract = false;
-            this.DialogResult = true;
-            this.Close();
         }
     }
 }

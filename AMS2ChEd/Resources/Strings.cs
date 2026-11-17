@@ -189,7 +189,6 @@ namespace AMS2ChEd.Resources
         public static string SeasonOverviewWindow_UnknownDriver => ResourceManager.GetString(nameof(SeasonOverviewWindow_UnknownDriver))!;
         public static string SeasonOverviewWindow_UnknownTeam => ResourceManager.GetString(nameof(SeasonOverviewWindow_UnknownTeam))!;
         public static string SeasonOverviewWindow_GrandPrixFallback => ResourceManager.GetString(nameof(SeasonOverviewWindow_GrandPrixFallback))!;
-        public static string SeasonOverviewWindow_SeatSoldLetter_Subtitle => ResourceManager.GetString(nameof(SeasonOverviewWindow_SeatSoldLetter_Subtitle))!;
         public static string SeasonOverviewWindow_SeatSoldLetter_Format => ResourceManager.GetString(nameof(SeasonOverviewWindow_SeatSoldLetter_Format))!;
         public static string SeasonOverviewWindow_PrepareGpError_Message => ResourceManager.GetString(nameof(SeasonOverviewWindow_PrepareGpError_Message))!;
         public static string SeasonOverviewWindow_OffSeasonError_Message => ResourceManager.GetString(nameof(SeasonOverviewWindow_OffSeasonError_Message))!;
@@ -568,12 +567,6 @@ namespace AMS2ChEd.Resources
         public static string PostRaceNewsWindow_DefaultDriverName => ResourceManager.GetString(nameof(PostRaceNewsWindow_DefaultDriverName))!;
         public static string PostRaceNewsWindow_DefaultTeamName => ResourceManager.GetString(nameof(PostRaceNewsWindow_DefaultTeamName))!;
 
-        public static string ContractLetterWindow_Title => ResourceManager.GetString(nameof(ContractLetterWindow_Title))!;
-        public static string ContractLetterWindow_Subtitle => ResourceManager.GetString(nameof(ContractLetterWindow_Subtitle))!;
-        public static string ContractLetterWindow_Signoff => ResourceManager.GetString(nameof(ContractLetterWindow_Signoff))!;
-        public static string ContractLetterWindow_NextButton => ResourceManager.GetString(nameof(ContractLetterWindow_NextButton))!;
-        public static string ContractLetterWindow_ChooseAnotherTeamButton => ResourceManager.GetString(nameof(ContractLetterWindow_ChooseAnotherTeamButton))!;
-        public static string ContractLetterWindow_SignatureTitle_Format => ResourceManager.GetString(nameof(ContractLetterWindow_SignatureTitle_Format))!;
         public static string ContractLetterWindow_YoungDriver_VeryYoung_Format => ResourceManager.GetString(nameof(ContractLetterWindow_YoungDriver_VeryYoung_Format))!;
         public static string ContractLetterWindow_YoungDriver_Karting_Format => ResourceManager.GetString(nameof(ContractLetterWindow_YoungDriver_Karting_Format))!;
         public static string ContractLetterWindow_YoungDriver_Junior_Format => ResourceManager.GetString(nameof(ContractLetterWindow_YoungDriver_Junior_Format))!;
@@ -756,15 +749,8 @@ namespace AMS2ChEd.Resources
         public static string ChampionshipCelebrationWindow_UnknownDriver => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_UnknownDriver))!;
         public static string ChampionshipCelebrationWindow_UnknownTeam => ResourceManager.GetString(nameof(ChampionshipCelebrationWindow_UnknownTeam))!;
 
-        public static string OffSeasonContractWindow_Title => ResourceManager.GetString(nameof(OffSeasonContractWindow_Title))!;
-        public static string OffSeasonContractWindow_Subtitle => ResourceManager.GetString(nameof(OffSeasonContractWindow_Subtitle))!;
-        public static string OffSeasonContractWindow_Signoff => ResourceManager.GetString(nameof(OffSeasonContractWindow_Signoff))!;
-        public static string OffSeasonContractWindow_AcceptButton => ResourceManager.GetString(nameof(OffSeasonContractWindow_AcceptButton))!;
-        public static string OffSeasonContractWindow_RejectButton => ResourceManager.GetString(nameof(OffSeasonContractWindow_RejectButton))!;
-        public static string OffSeasonContractWindow_ContinueButton => ResourceManager.GetString(nameof(OffSeasonContractWindow_ContinueButton))!;
         public static string OffSeasonContractWindow_DefaultTeamName => ResourceManager.GetString(nameof(OffSeasonContractWindow_DefaultTeamName))!;
         public static string OffSeasonContractWindow_DefaultTeamPrincipal => ResourceManager.GetString(nameof(OffSeasonContractWindow_DefaultTeamPrincipal))!;
-        public static string OffSeasonContractWindow_SignatureTitle_Format => ResourceManager.GetString(nameof(OffSeasonContractWindow_SignatureTitle_Format))!;
         public static string OffSeasonContractWindow_RenewalLetter_Format => ResourceManager.GetString(nameof(OffSeasonContractWindow_RenewalLetter_Format))!;
         public static string OffSeasonContractWindow_Renewal_PayDriver => ResourceManager.GetString(nameof(OffSeasonContractWindow_Renewal_PayDriver))!;
         public static string OffSeasonContractWindow_Renewal_YoungTalent => ResourceManager.GetString(nameof(OffSeasonContractWindow_Renewal_YoungTalent))!;
@@ -1049,8 +1035,6 @@ namespace AMS2ChEd.Resources
         public static string ImprovementPackagesWindow_PackagesColumnHeader => ResourceManager.GetString(nameof(ImprovementPackagesWindow_PackagesColumnHeader))!;
         public static string ImprovementPackagesWindow_FooterText => ResourceManager.GetString(nameof(ImprovementPackagesWindow_FooterText))!;
 
-        public static string TeamPrincipalLetterWindow_Title => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Title))!;
-        public static string TeamPrincipalLetterWindow_Subtitle => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Subtitle))!;
         public static string TeamPrincipalLetterWindow_Letter_Format => ResourceManager.GetString(nameof(TeamPrincipalLetterWindow_Letter_Format))!;
 
         public static string MainWindow_NewGameImportedDriverButton => ResourceManager.GetString(nameof(MainWindow_NewGameImportedDriverButton))!;
@@ -1187,8 +1171,6 @@ namespace AMS2ChEd.Resources
         public static string PaddockOpportunitiesWindow_PaidRidesNote => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_PaidRidesNote))!;
         public static string PaddockOpportunitiesWindow_BuyButton => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_BuyButton))!;
         public static string PaddockOpportunitiesWindow_ContinueButton => ResourceManager.GetString(nameof(PaddockOpportunitiesWindow_ContinueButton))!;
-        public static string ReserveLetterWindow_WindowTitle => ResourceManager.GetString(nameof(ReserveLetterWindow_WindowTitle))!;
-        public static string ReserveLetterWindow_Subtitle => ResourceManager.GetString(nameof(ReserveLetterWindow_Subtitle))!;
         public static string ReserveLetterWindow_Greeting_Format => ResourceManager.GetString(nameof(ReserveLetterWindow_Greeting_Format))!;
         public static string ReserveLetterWindow_Promotion_Format => ResourceManager.GetString(nameof(ReserveLetterWindow_Promotion_Format))!;
         public static string ReserveLetterWindow_SeatDeclined => ResourceManager.GetString(nameof(ReserveLetterWindow_SeatDeclined))!;
@@ -1202,7 +1184,6 @@ namespace AMS2ChEd.Resources
         public static string ReserveLetterWindow_DeclineButton => ResourceManager.GetString(nameof(ReserveLetterWindow_DeclineButton))!;
         public static string ReserveLetterWindow_StayButton => ResourceManager.GetString(nameof(ReserveLetterWindow_StayButton))!;
         public static string ReserveLetterWindow_LeaveButton => ResourceManager.GetString(nameof(ReserveLetterWindow_LeaveButton))!;
-        public static string ReserveLetterWindow_ContinueButton => ResourceManager.GetString(nameof(ReserveLetterWindow_ContinueButton))!;
         public static string TeamApplicationWindow_ReserveRole => ResourceManager.GetString(nameof(TeamApplicationWindow_ReserveRole))!;
         public static string TeamApplicationWindow_ReserveBlurb_Format => ResourceManager.GetString(nameof(TeamApplicationWindow_ReserveBlurb_Format))!;
         public static string TeamSelectionWindow_ReserveRole => ResourceManager.GetString(nameof(TeamSelectionWindow_ReserveRole))!;
@@ -1377,7 +1358,6 @@ namespace AMS2ChEd.Resources
 
 
 
-        public static string AcademyLetterWindow_WindowTitle => ResourceManager.GetString(nameof(AcademyLetterWindow_WindowTitle))!;
         public static string AcademyLetterWindow_Header => ResourceManager.GetString(nameof(AcademyLetterWindow_Header))!;
         public static string AcademyLetterWindow_Subtitle => ResourceManager.GetString(nameof(AcademyLetterWindow_Subtitle))!;
         public static string AcademyLetterWindow_Greeting_Format => ResourceManager.GetString(nameof(AcademyLetterWindow_Greeting_Format))!;
@@ -1391,7 +1371,6 @@ namespace AMS2ChEd.Resources
         public static string AcademyLetterWindow_NoSisterTeam => ResourceManager.GetString(nameof(AcademyLetterWindow_NoSisterTeam))!;
         public static string AcademyLetterWindow_UnnamedAcademy => ResourceManager.GetString(nameof(AcademyLetterWindow_UnnamedAcademy))!;
         public static string AcademyLetterWindow_AgedOut_Format => ResourceManager.GetString(nameof(AcademyLetterWindow_AgedOut_Format))!;
-        public static string AcademyLetterWindow_Signoff => ResourceManager.GetString(nameof(AcademyLetterWindow_Signoff))!;
         public static string AcademyLetterWindow_Signature => ResourceManager.GetString(nameof(AcademyLetterWindow_Signature))!;
         public static string AcademyLetterWindow_JoinButton => ResourceManager.GetString(nameof(AcademyLetterWindow_JoinButton))!;
         public static string AcademyLetterWindow_SwitchButton => ResourceManager.GetString(nameof(AcademyLetterWindow_SwitchButton))!;
@@ -1466,5 +1445,33 @@ namespace AMS2ChEd.Resources
         public static string AcademiesWindow_FormerEntry_Format => ResourceManager.GetString(nameof(AcademiesWindow_FormerEntry_Format))!;
         public static string AcademiesWindow_NoMembers => ResourceManager.GetString(nameof(AcademiesWindow_NoMembers))!;
         public static string AcademiesWindow_NoAcademies => ResourceManager.GetString(nameof(AcademiesWindow_NoAcademies))!;
+
+        // shared letter paper (LetterPaper / LetterWindow) and the subject of each letter
+        public static string Letter_SubjectLabel => ResourceManager.GetString(nameof(Letter_SubjectLabel))!;
+        public static string Letter_Signoff => ResourceManager.GetString(nameof(Letter_Signoff))!;
+        public static string Letter_SignatureTitle_Format => ResourceManager.GetString(nameof(Letter_SignatureTitle_Format))!;
+        public static string Letter_TeamTagline => ResourceManager.GetString(nameof(Letter_TeamTagline))!;
+        public static string Letter_NextButton => ResourceManager.GetString(nameof(Letter_NextButton))!;
+        public static string Letter_ContinueButton => ResourceManager.GetString(nameof(Letter_ContinueButton))!;
+        public static string Letter_AcceptButton => ResourceManager.GetString(nameof(Letter_AcceptButton))!;
+        public static string Letter_RejectButton => ResourceManager.GetString(nameof(Letter_RejectButton))!;
+        public static string Letter_ChooseAnotherTeamButton => ResourceManager.GetString(nameof(Letter_ChooseAnotherTeamButton))!;
+        public static string LetterSubject_ImprovementPackage_Format => ResourceManager.GetString(nameof(LetterSubject_ImprovementPackage_Format))!;
+        public static string LetterSubject_SeatSold_Format => ResourceManager.GetString(nameof(LetterSubject_SeatSold_Format))!;
+        public static string LetterSubject_AgeRequirement => ResourceManager.GetString(nameof(LetterSubject_AgeRequirement))!;
+        public static string LetterSubject_ContractOffer_Format => ResourceManager.GetString(nameof(LetterSubject_ContractOffer_Format))!;
+        public static string LetterSubject_ApplicationUnsuccessful_Format => ResourceManager.GetString(nameof(LetterSubject_ApplicationUnsuccessful_Format))!;
+        public static string LetterSubject_ContractRenewal_Format => ResourceManager.GetString(nameof(LetterSubject_ContractRenewal_Format))!;
+        public static string LetterSubject_ContractEnded_Format => ResourceManager.GetString(nameof(LetterSubject_ContractEnded_Format))!;
+        public static string LetterSubject_ContractTerminated => ResourceManager.GetString(nameof(LetterSubject_ContractTerminated))!;
+        public static string LetterSubject_TeamWithdrawing => ResourceManager.GetString(nameof(LetterSubject_TeamWithdrawing))!;
+        public static string LetterSubject_ReservePromotion_Format => ResourceManager.GetString(nameof(LetterSubject_ReservePromotion_Format))!;
+        public static string LetterSubject_ReserveStayOn_Format => ResourceManager.GetString(nameof(LetterSubject_ReserveStayOn_Format))!;
+        public static string LetterSubject_ReserveFarewell => ResourceManager.GetString(nameof(LetterSubject_ReserveFarewell))!;
+        public static string LetterSubject_AcademyCareerStart => ResourceManager.GetString(nameof(LetterSubject_AcademyCareerStart))!;
+        public static string LetterSubject_AcademyInvitations_Format => ResourceManager.GetString(nameof(LetterSubject_AcademyInvitations_Format))!;
+        public static string LetterSubject_AcademyMember_Format => ResourceManager.GetString(nameof(LetterSubject_AcademyMember_Format))!;
+        public static string LetterSubject_AcademyDormant => ResourceManager.GetString(nameof(LetterSubject_AcademyDormant))!;
+        public static string LetterSubject_AcademyAgedOut_Format => ResourceManager.GetString(nameof(LetterSubject_AcademyAgedOut_Format))!;
     }
 }

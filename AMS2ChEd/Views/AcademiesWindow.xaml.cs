@@ -66,7 +66,7 @@ namespace AMS2ChEd.Views
 
         private static AcademyCardRow ToCard(AcademyStandingsEntry entry, IEnumerable<ITeamEntry> teams, Brush noTeamBrush)
         {
-            var name = AcademyLetterWindow.AcademyName(entry.Academy, teams);
+            var name = AcademyNames.AcademyName(entry.Academy, teams);
             var formerNames = entry.FormerMembers
                 .Select(m => string.IsNullOrEmpty(m.TeamShortName) ? m.Name : string.Format(Strings.AcademiesWindow_FormerEntry_Format, m.Name, m.TeamShortName))
                 .ToList();
@@ -74,7 +74,7 @@ namespace AMS2ChEd.Views
             return new AcademyCardRow
             {
                 Name = string.IsNullOrEmpty(name) ? name : char.ToUpper(name[0]) + name.Substring(1),
-                Teams = AcademyLetterWindow.AcademyTeams(entry.Academy, teams),
+                Teams = AcademyNames.AcademyTeams(entry.Academy, teams),
                 IsPlayersAcademy = entry.IsPlayersAcademy,
                 YourAcademyVisibility = entry.IsPlayersAcademy ? Visibility.Visible : Visibility.Collapsed,
                 Members = entry.Members.Select(m => ToMember(m, noTeamBrush)).ToList(),

@@ -51,6 +51,18 @@ namespace AMS2ChEd.Views
             InitializeComponent();
             _currentAcademyId = currentAcademyId;
             ChosenAcademyId = currentAcademyId;
+
+            // from the player's agent, not a team
+            Paper.Header = Strings.AcademyLetterWindow_Header;
+            Paper.Tagline = Strings.AcademyLetterWindow_Subtitle;
+            Paper.SignatureName = Strings.AcademyLetterWindow_Signature;
+        }
+
+        // what the letter is about, on the paper and in the window title
+        private void SetSubject(string subject)
+        {
+            Paper.Subject = subject;
+            Title = subject;
         }
 
         private AcademyLetterWindow(string currentAcademyId, string activeAcademyId) : this(currentAcademyId)
@@ -58,29 +70,39 @@ namespace AMS2ChEd.Views
             _activeAcademyId = activeAcademyId;
         }
 
-        public static AcademyLetterWindow ForChoice(string playerName, IReadOnlyList<Academy> academies, IEnumerable<ITeamEntry> teams, string currentAcademyId)
+        public static AcademyLetterWindow ForChoice(string playerName, IReadOnlyList<Academy> academies, IEnumerable<ITeamEntry> teams, string currentAcademyId, int nextSeasonYear)
         {
-            var teamNames = TeamNames(teams);
+            var teamNames = AcademyNames.TeamNames(teams);
             var active = academies?.FirstOrDefault(a => a.Id == currentAcademyId);
             var window = new AcademyLetterWindow(currentAcademyId, active?.Id);
 
             var paragraphs = new List<string> { string.Format(Strings.AcademyLetterWindow_Greeting_Format, playerName) };
             if (active != null)
-                paragraphs.Add(string.Format(Strings.AcademyLetterWindow_Intro_Member_Format, AcademyName(active, teamNames)));
+            {
+                var activeName = AcademyNames.AcademyName(active, teamNames);
+                window.SetSubject(string.Format(Strings.LetterSubject_AcademyMember_Format, activeName, nextSeasonYear));
+                paragraphs.Add(string.Format(Strings.AcademyLetterWindow_Intro_Member_Format, activeName));
+            }
             else if (!string.IsNullOrEmpty(currentAcademyId))
+            {
+                window.SetSubject(Strings.LetterSubject_AcademyDormant);
                 paragraphs.Add(Strings.AcademyLetterWindow_Intro_Dormant);
+            }
             else
+            {
+                window.SetSubject(string.Format(Strings.LetterSubject_AcademyInvitations_Format, nextSeasonYear));
                 paragraphs.Add(Strings.AcademyLetterWindow_Intro_NotMember);
+            }
             paragraphs.Add(Strings.AcademyLetterWindow_HowItWorks);
-            window.LetterContent.Text = string.Join("\n\n", paragraphs);
+            window.Paper.Body = string.Join("\n\n", paragraphs);
 
             foreach (var academy in academies ?? new List<Academy>())
             {
                 window._options.Add(new AcademyOption
                 {
                     Id = academy.Id,
-                    Name = Capitalized(AcademyName(academy, teamNames)),
-                    Teams = AcademyTeams(academy, teamNames),
+                    Name = Capitalized(AcademyNames.AcademyName(academy, teamNames)),
+                    Teams = AcademyNames.AcademyTeams(academy, teamNames),
                     IsSelected = academy.Id == active?.Id
                 });
             }
@@ -100,10 +122,11 @@ namespace AMS2ChEd.Views
         /// </summary>
         public static AcademyLetterWindow ForCareerStart(string playerName, IReadOnlyList<Academy> academies, IEnumerable<ITeamEntry> teams)
         {
-            var window = ForChoice(playerName, academies, teams, currentAcademyId: null);
-            window.LetterContent.Text = string.Format(Strings.AcademyLetterWindow_Greeting_Format, playerName) + "\n\n" +
-                                        Strings.AcademyLetterWindow_Intro_CareerStart + "\n\n" +
-                                        Strings.AcademyLetterWindow_HowItWorks;
+            var window = ForChoice(playerName, academies, teams, currentAcademyId: null, nextSeasonYear: 0);
+            window.SetSubject(Strings.LetterSubject_AcademyCareerStart);
+            window.Paper.Body = string.Format(Strings.AcademyLetterWindow_Greeting_Format, playerName) + "\n\n" +
+                                Strings.AcademyLetterWindow_Intro_CareerStart + "\n\n" +
+                                Strings.AcademyLetterWindow_HowItWorks;
             window.DeclineButton.Content = Strings.AcademyLetterWindow_UsualWayButton;
             return window;
         }
@@ -112,9 +135,10 @@ namespace AMS2ChEd.Views
         {
             var window = new AcademyLetterWindow(academyId);
             var academy = academies?.FirstOrDefault(a => a.Id == academyId);
-            var name = academy != null ? AcademyName(academy, TeamNames(teams)) : Strings.AcademyLetterWindow_UnnamedAcademy;
-            window.LetterContent.Text = string.Format(Strings.AcademyLetterWindow_Greeting_Format, playerName) + "\n\n" +
-                                        string.Format(Strings.AcademyLetterWindow_AgedOut_Format, name);
+            var name = academy != null ? AcademyNames.AcademyName(academy, teams) : Strings.AcademyLetterWindow_UnnamedAcademy;
+            window.SetSubject(string.Format(Strings.LetterSubject_AcademyAgedOut_Format, name));
+            window.Paper.Body = string.Format(Strings.AcademyLetterWindow_Greeting_Format, playerName) + "\n\n" +
+                                string.Format(Strings.AcademyLetterWindow_AgedOut_Format, name);
             window.AcademyList.Visibility = Visibility.Collapsed;
             window.DeclineButton.Content = Strings.AcademyLetterWindow_ContinueButton;
             window.DeclineButton.Visibility = Visibility.Visible;
@@ -124,37 +148,6 @@ namespace AMS2ChEd.Views
 
         private static string Capitalized(string text) =>
             string.IsNullOrEmpty(text) ? text : char.ToUpper(text[0]) + text.Substring(1);
-
-        private static Dictionary<string, string> TeamNames(IEnumerable<ITeamEntry> teams)
-        {
-            var names = new Dictionary<string, string>();
-            foreach (var team in teams ?? Enumerable.Empty<ITeamEntry>())
-                names.TryAdd(team.TeamId, team.TeamName);
-            return names;
-        }
-
-        private static string Names(IEnumerable<string> teamIds, Dictionary<string, string> teamNames) =>
-            string.Join(", ", (teamIds ?? Enumerable.Empty<string>()).Select(id => teamNames.GetValueOrDefault(id) ?? id));
-
-        // named after its parent teams ("the Ferrari driver academy")
-        public static string AcademyName(Academy academy, IEnumerable<ITeamEntry> teams) => AcademyName(academy, TeamNames(teams));
-
-        private static string AcademyName(Academy academy, Dictionary<string, string> teamNames)
-        {
-            var parents = Names(academy.ParentTeams, teamNames);
-            return string.Format(Strings.AcademyLetterWindow_AcademyName_Format, string.IsNullOrEmpty(parents) ? academy.Id : parents);
-        }
-
-        // "Parent team: Ferrari · Sister team: Sauber"
-        public static string AcademyTeams(Academy academy, IEnumerable<ITeamEntry> teams) => AcademyTeams(academy, TeamNames(teams));
-
-        private static string AcademyTeams(Academy academy, Dictionary<string, string> teamNames)
-        {
-            var sisters = Names(academy.SisterTeams, teamNames);
-            return string.Format(Strings.AcademyLetterWindow_AcademyTeams_Format,
-                Names(academy.ParentTeams, teamNames),
-                string.IsNullOrEmpty(sisters) ? Strings.AcademyLetterWindow_NoSisterTeam : sisters);
-        }
 
         private AcademyOption Selected => _options.FirstOrDefault(o => o.IsSelected);
 

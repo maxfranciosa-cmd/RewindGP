@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The sheet of paper every letter is written on: letterhead, subject, text, an optional part
+     under the text (e.g. the academy choices), sign-off and signature -->
+<UserControl x:Class="AMS2ChEd.Views.LetterPaper"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:AMS2ChEd.Localization">
+
+    <UserControl.Resources>
+        <!-- an optional line (tagline, signature title) takes no room when it has no text -->
+        <Style x:Key="OptionalLineStyle" TargetType="TextBlock">
+            <Style.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Trigger>
+                <Trigger Property="Text" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <!-- bound to the control itself (DataContext set in code): the root isn't named, so a window
+         can name both the paper and what it puts on it -->
+    <Border x:Name="LayoutRoot"
+            Background="White"
+            BorderBrush="#8b7355"
+            BorderThickness="2"
+            CornerRadius="3">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="3" Opacity="0.3"/>
+        </Border.Effect>
+
+        <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Auto" Margin="50,40">
+            <StackPanel>
+                <!-- Letterhead -->
+                <TextBlock Text="{Binding Header}"
+                           FontSize="34"
+                           FontWeight="Bold"
+                           Foreground="#2c2c2c"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,5"/>
+
+                <TextBlock Text="{Binding Tagline}"
+                           Style="{StaticResource OptionalLineStyle}"
+                           FontSize="22"
+                           Foreground="#666666"
+                           HorizontalAlignment="Center"/>
+
+                <Rectangle Height="1" Fill="#cccccc" Margin="0,30,0,30"/>
+
+                <!-- Subject: what the letter is about, at a glance -->
+                <TextBlock x:Name="SubjectLine"
+                           FontSize="24"
+                           FontFamily="Georgia"
+                           Foreground="#2c2c2c"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,30">
+                    <Run Text="{loc:Loc Letter_SubjectLabel}" FontWeight="Bold"/>
+                    <Run Text="{Binding Subject, Mode=OneWay}" FontWeight="Bold"/>
+                </TextBlock>
+
+                <!-- Letter Body -->
+                <TextBlock Text="{Binding Body}"
+                           FontSize="24"
+                           Foreground="#2c2c2c"
+                           TextWrapping="Wrap"
+                           FontFamily="Georgia"
+                           TextAlignment="Left"/>
+
+                <!-- Whatever a letter adds under its text (nothing, for most letters) -->
+                <ContentPresenter Content="{Binding ExtraContent}"/>
+
+                <!-- Signature -->
+                <TextBlock Text="{Binding Signoff}"
+                           FontSize="24"
+                           Foreground="#2c2c2c"
+                           FontFamily="Georgia"
+                           Margin="0,40,0,10"/>
+
+                <TextBlock Text="{Binding SignatureName}"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="#2c2c2c"
+                           FontFamily="Segoe Script"
+                           Margin="0,0,0,5"/>
+
+                <TextBlock Text="{Binding SignatureTitle}"
+                           Style="{StaticResource OptionalLineStyle}"
+                           FontSize="22"
+                           Foreground="#666666"
+                           FontFamily="Georgia"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>
