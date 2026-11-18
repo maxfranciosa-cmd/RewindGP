@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="Ams2ProgressWindow_Title" xml:space="preserve">
+    <value>Aguarde</value>
+  </data>
+  <data name="Ams2ProgressWindow_DefaultMessage" xml:space="preserve">
+    <value>Processando...</value>
+  </data>
+
+  <data name="OptionsWindow_Title" xml:space="preserve">
+    <value>Opções</value>
+  </data>
+  <data name="OptionsWindow_HeaderText" xml:space="preserve">
+    <value>OPÇÕES</value>
+  </data>
+  <data name="OptionsWindow_Ams2FolderLabel" xml:space="preserve">
+    <value>PASTA DO AMS2:</value>
+  </data>
+  <data name="OptionsWindow_BrowseButton" xml:space="preserve">
+    <value>PROCURAR</value>
+  </data>
+  <data name="OptionsWindow_RaceLengthLabel" xml:space="preserve">
+    <value>DURAÇÃO DA CORRIDA (AUTO-CONFIG.):</value>
+  </data>
+  <data name="OptionsWindow_RaceLength_Default" xml:space="preserve">
+    <value>Padrão</value>
+  </data>
+  <data name="OptionsWindow_RaceLength_OneThird" xml:space="preserve">
+    <value>1/3 da distância</value>
+  </data>
+  <data name="OptionsWindow_RaceLength_Half" xml:space="preserve">
+    <value>1/2 da distância</value>
+  </data>
+  <data name="OptionsWindow_RaceLength_Full" xml:space="preserve">
+    <value>Distância total</value>
+  </data>
+  <data name="OptionsWindow_AutoLaunchLabel" xml:space="preserve">
+    <value>INICIAR O AMS2 AUTOMATICAMENTE</value>
+  </data>
+  <data name="OptionsWindow_ChangePlayerNameLabel" xml:space="preserve">
+    <value>CORRER NO AMS2 COM O NOME DO PILOTO DA CARREIRA</value>
+  </data>
+  <data name="OptionsWindow_BorrowLiveriesLabel" xml:space="preserve">
+    <value>USAR UMA PINTURA PARECIDA DE OUTRA TEMPORADA</value>
+  </data>
+  <data name="OptionsWindow_LanguageLabel" xml:space="preserve">
+    <value>IDIOMA:</value>
+  </data>
+  <data name="OptionsWindow_StyleLabel" xml:space="preserve">
+    <value>ESTILO VISUAL:</value>
+  </data>
+  <data name="OptionsWindow_Style_Retro" xml:space="preserve">
+    <value>Retrô</value>
+  </data>
+  <data name="OptionsWindow_Style_Charcoal" xml:space="preserve">
+    <value>Grafite</value>
+  </data>
+  <data name="OptionsWindow_StyleChangeRequiresRestart_Title" xml:space="preserve">
+    <value>Estilo Visual Alterado</value>
+  </data>
+  <data name="OptionsWindow_StyleChangeRequiresRestart_Message" xml:space="preserve">
+    <value>O novo estilo visual será aplicado na próxima vez que você abrir o aplicativo.</value>
+  </data>
+  <data name="OptionsWindow_SaveButton" xml:space="preserve">
+    <value>SALVAR</value>
+  </data>
+  <data name="OptionsWindow_RestoreVehicleFilesButton" xml:space="preserve">
+    <value>RESTAURAR ARQUIVOS ORIGINAIS DOS CARROS</value>
+  </data>
+  <data name="OptionsWindow_CloseButton" xml:space="preserve">
+    <value>FECHAR</value>
+  </data>
+  <data name="OptionsWindow_BrowseDialog_Description" xml:space="preserve">
+    <value>Selecione a pasta de instalação do AMS2</value>
+  </data>
+
+  <data name="OptionsWindow_FolderPathRequired_Title" xml:space="preserve">
+    <value>Erro de Validação</value>
+  </data>
+  <data name="OptionsWindow_FolderPathRequired_Message" xml:space="preserve">
+    <value>Informe o caminho da pasta do AMS2.</value>
+  </data>
+  <data name="OptionsWindow_FolderNotFound_Title" xml:space="preserve">
+    <value>Pasta Não Encontrada</value>
+  </data>
+  <data name="OptionsWindow_FolderNotFound_Message" xml:space="preserve">
+    <value>A pasta informada não existe. Deseja salvá-la mesmo assim?</value>
+  </data>
+  <data name="OptionsWindow_SettingsSaved_Title" xml:space="preserve">
+    <value>Sucesso</value>
+  </data>
+  <data name="OptionsWindow_SettingsSaved_Message" xml:space="preserve">
+    <value>Configurações salvas com sucesso!</value>
+  </data>
+  <data name="OptionsWindow_LanguageChangeRequiresRestart_Title" xml:space="preserve">
+    <value>Idioma Alterado</value>
+  </data>
+  <data name="OptionsWindow_LanguageChangeRequiresRestart_Message" xml:space="preserve">
+    <value>O novo idioma será aplicado na próxima vez que você abrir o aplicativo.</value>
+  </data>
+  <data name="OptionsWindow_SaveError_Title" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="OptionsWindow_SaveError_Message" xml:space="preserve">
+    <value>Erro ao salvar as configurações: {0}</value>
+  </data>
+  <data name="OptionsWindow_NothingToRestore_Title" xml:space="preserve">
+    <value>Nada a Restaurar</value>
+  </data>
+  <data name="OptionsWindow_NothingToRestore_Message" xml:space="preserve">
+    <value>Nenhum arquivo de carro modificado foi encontrado nesta instalação - nada a restaurar.</value>
+  </data>
+  <data name="OptionsWindow_RestoreConfirm_Title" xml:space="preserve">
+    <value>Restaurar Arquivos Originais dos Carros</value>
+  </data>
+  <data name="OptionsWindow_RestoreConfirm_Message" xml:space="preserve">
+    <value>Isso vai restaurar ao estado original todos os arquivos pak de carros que o Rewind GP modificou nesta temporada. Continuar?</value>
+  </data>
+  <data name="OptionsWindow_RestoringFiles_Message" xml:space="preserve">
+    <value>Restaurando os arquivos originais dos carros...</value>
+  </data>
+  <data name="OptionsWindow_RestoreComplete_Title" xml:space="preserve">
+    <value>Restauração Concluída</value>
+  </data>
+  <data name="OptionsWindow_RestoreComplete_Message" xml:space="preserve">
+    <value>{0} arquivo(s) restaurado(s) ao estado original.</value>
+  </data>
+  <data name="OptionsWindow_RestoreFailed_Title" xml:space="preserve">
+    <value>Falha na Restauração</value>
+  </data>
+  <data name="OptionsWindow_RestoreFailed_Message" xml:space="preserve">
+    <value>A restauração não foi concluída por completo: {0}</value>
+  </data>
+
+  <!-- PrerequisiteSetupWindow -->
+  <data name="PrerequisiteSetupWindow_Title" xml:space="preserve">
+    <value>Antes de correr...</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Header" xml:space="preserve">
+    <value>ANTES DE CORRER</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Intro" xml:space="preserve">
+    <value>Para que o Rewind GP possa configurar suas corridas automaticamente e exibir controles sobre o jogo, duas coisas precisam ser configuradas antes no AMS2:</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Step1Header" xml:space="preserve">
+    <value>1) Defina a Saída de Telemetria como "Project Cars 2"</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Step1Body" xml:space="preserve">
+    <value>No menu Opções &gt; Controles (ou Jogabilidade) do AMS2, defina o formato de saída UDP/Telemetria como "Project Cars 2" para que o Rewind GP possa ler os dados da sessão ao vivo.</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Step2Header" xml:space="preserve">
+    <value>2) Ative o modo Janela sem Bordas</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_Step2Body" xml:space="preserve">
+    <value>No menu Opções &gt; Vídeo do AMS2, defina o modo de exibição como "Janela sem Bordas" para que a sobreposição do Rewind GP possa aparecer sobre o jogo.</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_DontShowAgain" xml:space="preserve">
+    <value>Não mostrar novamente</value>
+  </data>
+  <data name="PrerequisiteSetupWindow_GotItButton" xml:space="preserve">
+    <value>ENTENDI</value>
+  </data>
+
+  <!-- RaceReturnOverlayWindow -->
+  <data name="RaceReturnOverlayWindow_SessionFinished" xml:space="preserve">
+    <value>Sessão encerrada!</value>
+  </data>
+  <data name="RaceReturnOverlayWindow_ReturnButton" xml:space="preserve">
+    <value>VOLTAR AO REWIND GP</value>
+  </data>
+
+  <!-- RaceSetupOverlayWindow -->
+  <data name="RaceSetupOverlayWindow_PromptText" xml:space="preserve">
+    <value>Vá em CORRIDA ÚNICA e clique abaixo para configurar a corrida automaticamente.</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ConfigureButton" xml:space="preserve">
+    <value>CONFIGURAR CORRIDA AUTOMATICAMENTE</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_SkipLink" xml:space="preserve">
+    <value>Pular — vou configurar manualmente</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_WaitingText" xml:space="preserve">
+    <value>Aguarde — aplicando as configurações da corrida...</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_LaunchingText" xml:space="preserve">
+    <value>Iniciando o Automobilista 2...</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_WaitingForManualLaunchText" xml:space="preserve">
+    <value>Inicie o Automobilista 2 — aguardando o jogo abrir...</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_SuccessText" xml:space="preserve">
+    <value>Corrida configurada automaticamente! Se quiser, você ainda pode mudar o circuito, a duração da classificação/corrida ou qualquer outra configuração antes de começar.</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_MenuMayLagWarning" xml:space="preserve">
+    <value>O menu ainda pode mostrar a pintura ou o carro anterior: a sessão vai começar com os corretos. Inicie-a a partir desta tela, pois sair da Corrida Personalizada desfaz a configuração.</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_SuccessOkButton" xml:space="preserve">
+    <value>OK, ENTENDI</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ContinueManuallyButton" xml:space="preserve">
+    <value>CONTINUAR MANUALMENTE</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualSetupTitle" xml:space="preserve">
+    <value>CONFIGURAR MANUALMENTE</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_PreQualiSessionTitle" xml:space="preserve">
+    <value>SESSÃO DE PRÉ-CLASSIFICAÇÃO</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualInstructionsOkButton" xml:space="preserve">
+    <value>ENTENDI</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep1_Format" xml:space="preserve">
+    <value>1) Certifique-se de SELECIONAR O CARRO ({0}) E A PINTURA CORRETOS. ela terá o nome do seu piloto! (no seu caso {1})</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep2_Format" xml:space="preserve">
+    <value>2) Selecione O NÚMERO CERTO DE ADVERSÁRIOS (no seu caso {0})</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep3_UsesScalars" xml:space="preserve">
+    <value>3) DIFICULDADE SUGERIDA: a sua dificuldade de sempre (as equipes devem ter o fator de desempenho, para que um carro lento seja de fato mais lento)</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep3_Format" xml:space="preserve">
+    <value>3) DIFICULDADE SUGERIDA: +{0} PONTOS (em relação a uma dificuldade em que você briga por vitórias)</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep4_PreQuali" xml:space="preserve">
+    <value>4) Faça APENAS UMA SESSÃO DE CLASSIFICAÇÃO — não inicie a corrida. O Rewind GP vai ler seu resultado na classificação automaticamente.</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep4_Normal" xml:space="preserve">
+    <value>4) a pista e a duração da corrida não importam, mas tenha pelo menos UMA SESSÃO DE CLASSIFICAÇÃO e UMA SESSÃO DE CORRIDA.</value>
+  </data>
+
+  <!-- Ams2RaceLaunchAssistant -->
+  <data name="Ams2RaceLaunchAssistant_ProcessLost" xml:space="preserve">
+    <value>O AMS2 não está mais em execução.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_RaceNotFound" xml:space="preserve">
+    <value>Não foi possível encontrar esta corrida na temporada atual.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_TrackLeftAsIs_Format" xml:space="preserve">
+    <value>Ainda não há pista configurada para "{0}", então a que está selecionada no AMS2 foi mantida. Escolha você mesmo o circuito e a duração da corrida antes de começar.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_CarSelectionFailed" xml:space="preserve">
+    <value>Não foi possível definir seu carro/pintura para esta corrida.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_CarNotInCatalog_Format" xml:space="preserve">
+    <value>O carro "{0}" ainda não está no catálogo de carros.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_AttachFailed" xml:space="preserve">
+    <value>Não foi possível se conectar ao AMS2 - verifique se ele está aberto e se você está na tela de Corrida Personalizada.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_ApplyFailed" xml:space="preserve">
+    <value>Algumas configurações da corrida não puderam ser aplicadas automaticamente - confira-as no jogo.</value>
+  </data>
+  <data name="Ams2RaceLaunchAssistant_GameVersionNotRecognised" xml:space="preserve">
+    <value>O AMS2 foi atualizado e o RewindGP ainda não reconhece totalmente esta versão, então algumas configurações da corrida não puderam ser aplicadas automaticamente - configure-as no jogo.</value>
+  </data>
+
+  <!-- Ams2PlayerCosmeticsEditorWindow -->
+  <data name="Ams2PlayerCosmeticsEditorWindow_Title" xml:space="preserve">
+    <value>Editar Dados do Jogador</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_Header" xml:space="preserve">
+    <value>EDITAR DADOS DO JOGADOR</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_PlayerNameLabel" xml:space="preserve">
+    <value>Nome do Jogador</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NationalityLabel" xml:space="preserve">
+    <value>Nacionalidade (código de 3 letras)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NationalityHelp" xml:space="preserve">
+    <value>Digite um código de nacionalidade de 3 caracteres (ex.: BRA, GBR, ITA)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_PhotoFileLabel" xml:space="preserve">
+    <value>Arquivo da Foto</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_PhotoFileHelp" xml:space="preserve">
+    <value>Caminho da foto do jogador (formato JPG, PNG ou BMP)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_BrowseButton" xml:space="preserve">
+    <value>Procurar...</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_PhotoUrlLabel" xml:space="preserve">
+    <value>URL da Foto</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_PhotoUrlHelp" xml:space="preserve">
+    <value>Alternativa: URL de uma foto online (ex.: https://example.com/photo.jpg)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_HelmetDesignLabel" xml:space="preserve">
+    <value>Desenho do Capacete</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_ModernTab" xml:space="preserve">
+    <value>MODERNO</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NinetiesTab" xml:space="preserve">
+    <value>Anos 90</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_EightiesTab" xml:space="preserve">
+    <value>Anos 80</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SeventiesTab" xml:space="preserve">
+    <value>Anos 70</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_UseDefaultHelmetOption" xml:space="preserve">
+    <value>Usar o Capacete Padrão</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_UseCustomFilesOption" xml:space="preserve">
+    <value>Usar Arquivos Próprios</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SelectHelmetDesignLabel" xml:space="preserve">
+    <value>Selecione o Desenho do Capacete</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_HelmetFileLabel" xml:space="preserve">
+    <value>Arquivo do Capacete (DDS)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_VisorFileLabel" xml:space="preserve">
+    <value>Arquivo da Viseira (DDS)</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NinetiesNoVisorNote" xml:space="preserve">
+    <value>Obs.: a era dos anos 90 usa uma única textura de capacete, sem arquivo de viseira separado.</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SaveButton" xml:space="preserve">
+    <value>Salvar Alterações</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SelectPhotoTitle" xml:space="preserve">
+    <value>Selecione a Foto do Jogador</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_ImageFileFilter" xml:space="preserve">
+    <value>Arquivos de Imagem (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp|Todos os Arquivos (*.*)|*.*</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SelectHelmetTextureTitle" xml:space="preserve">
+    <value>Selecione a Textura do Capacete</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_SelectVisorTextureTitle" xml:space="preserve">
+    <value>Selecione a Textura da Viseira</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_TextureFileFilter" xml:space="preserve">
+    <value>Arquivos PNG (*.png)|*.png|Arquivos DDS (*.dds)|*.dds|Todos os Arquivos (*.*)|*.*</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NameRequired_Message" xml:space="preserve">
+    <value>Digite o nome do jogador.</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_ValidationError_Title" xml:space="preserve">
+    <value>Erro de Validação</value>
+  </data>
+  <data name="Ams2PlayerCosmeticsEditorWindow_NationalityLength_Message" xml:space="preserve">
+    <value>A nacionalidade deve ter exatamente 3 caracteres (ex.: BRA, GBR, ITA).</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Power_Name" xml:space="preserve">
+    <value>Potência</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Power_Improved" xml:space="preserve">
+    <value>a potência foi melhorada</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Power_Worsened" xml:space="preserve">
+    <value>parte da potência foi perdida</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Drag_Name" xml:space="preserve">
+    <value>Arrasto</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Drag_Improved" xml:space="preserve">
+    <value>o arrasto foi reduzido</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Drag_Worsened" xml:space="preserve">
+    <value>o arrasto aumentou</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Weight_Name" xml:space="preserve">
+    <value>Peso</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Weight_Improved" xml:space="preserve">
+    <value>o carro perdeu peso</value>
+  </data>
+  <data name="Ams2ImprovementPackage_Weight_Worsened" xml:space="preserve">
+    <value>o carro ganhou peso</value>
+  </data>
+  <data name="OptionsWindow_CrashesLabel" xml:space="preserve">
+    <value>ACIDENTES:</value>
+  </data>
+  <data name="OptionsWindow_CrashDetectionLabel" xml:space="preserve">
+    <value>DETECTAR ACIDENTES NAS CORRIDAS QUE VOCÊ DISPUTA (EXPERIMENTAL)</value>
+  </data>
+  <data name="OptionsWindow_FatalitiesLabel" xml:space="preserve">
+    <value>UM ACIDENTE PODE SER FATAL</value>
+  </data>
+  <data name="OptionsWindow_PlayerDeathLabel" xml:space="preserve">
+    <value>INCLUSIVE O SEU PRÓPRIO PILOTO</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_PracticeSessionTitle" xml:space="preserve">
+    <value>SAÍDA NO TL1</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep4_Practice" xml:space="preserve">
+    <value>4) Faça APENAS O TREINO LIVRE, quanto mais longo melhor: o Rewind GP lê sua melhor volta. Quando o treino terminar, saia do evento - a classificação e a corrida dele não contam.</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_PracticeOnlyNote" xml:space="preserve">
+    <value>Saída no TL1: só o treino conta. Quando ele terminar, saia do evento - não dispute a classificação nem a corrida.</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_RefuellingBannedNote" xml:space="preserve">
+    <value>O reabastecimento está proibido nesta temporada: largue com combustível suficiente para a corrida inteira.</value>
+  </data>
+  <data name="RaceSetupOverlayWindow_ManualStep5_RefuellingOff" xml:space="preserve">
+    <value>5) o reabastecimento está proibido nesta temporada: DESATIVE O REABASTECIMENTO nas configurações da corrida e largue com combustível suficiente para a corrida inteira.</value>
+  </data></root>

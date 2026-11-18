@@ -80,6 +80,11 @@
                         <ComboBox x:Name="LanguageComboBox" Style="{StaticResource Charcoal.ComboBoxStyle}">
                             <ComboBoxItem Content="English" Tag="en"/>
                             <ComboBoxItem Content="Italiano" Tag="it"/>
+                            <!-- pt-BR (not pt): Brazilian number/date formats; its text comes from
+                                 the neutral Strings.pt.resx through culture fallback -->
+                            <ComboBoxItem Content="Português (Brasil)" Tag="pt-BR"/>
+                            <ComboBoxItem Content="Español" Tag="es"/>
+                            <ComboBoxItem Content="Deutsch" Tag="de"/>
                         </ComboBox>
                     </StackPanel>
 

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="RaceName_70thAnniversaryGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio do 70º Aniversário</value>
+  </data>
+  <data name="RaceName_AbuDhabiGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de Abu Dhabi</value>
+  </data>
+  <data name="RaceName_ArgentineGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Argentina</value>
+  </data>
+  <data name="RaceName_AustralianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Austrália</value>
+  </data>
+  <data name="RaceName_AustrianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Áustria</value>
+  </data>
+  <data name="RaceName_AustrianGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio da Áustria (Sprint)</value>
+  </data>
+  <data name="RaceName_AzerbaijanGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio do Azerbaijão</value>
+  </data>
+  <data name="RaceName_AzerbaijanGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio do Azerbaijão (Sprint)</value>
+  </data>
+  <data name="RaceName_BahrainGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio do Bahrein</value>
+  </data>
+  <data name="RaceName_BelgianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Bélgica</value>
+  </data>
+  <data name="RaceName_BelgianGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio da Bélgica (Sprint)</value>
+  </data>
+  <data name="RaceName_BrazilianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio do Brasil</value>
+  </data>
+  <data name="RaceName_BritishGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Grã-Bretanha</value>
+  </data>
+  <data name="RaceName_BritishGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio da Grã-Bretanha (Sprint)</value>
+  </data>
+  <data name="RaceName_CanadianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio do Canadá</value>
+  </data>
+  <data name="RaceName_ChineseGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da China</value>
+  </data>
+  <data name="RaceName_ChineseGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio da China (Sprint)</value>
+  </data>
+  <data name="RaceName_DetroitGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de Detroit</value>
+  </data>
+  <data name="RaceName_DutchGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Holanda</value>
+  </data>
+  <data name="RaceName_EifelGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de Eifel</value>
+  </data>
+  <data name="RaceName_EmiliaRomagnaGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Emília-Romanha</value>
+  </data>
+  <data name="RaceName_EmiliaRomagnaGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio da Emília-Romanha (Sprint)</value>
+  </data>
+  <data name="RaceName_EuropeanGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Europa</value>
+  </data>
+  <data name="RaceName_FrenchGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da França</value>
+  </data>
+  <data name="RaceName_GermanGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Alemanha</value>
+  </data>
+  <data name="RaceName_HungarianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Hungria</value>
+  </data>
+  <data name="RaceName_IndianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Índia</value>
+  </data>
+  <data name="RaceName_ItalianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Itália</value>
+  </data>
+  <data name="RaceName_ItalianGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio da Itália (Sprint)</value>
+  </data>
+  <data name="RaceName_JapaneseGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio do Japão</value>
+  </data>
+  <data name="RaceName_KoreanGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Coreia</value>
+  </data>
+  <data name="RaceName_LasVegasGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de Las Vegas</value>
+  </data>
+  <data name="RaceName_LuxembourgGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de Luxemburgo</value>
+  </data>
+  <data name="RaceName_MalaysianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Malásia</value>
+  </data>
+  <data name="RaceName_MexicanGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio do México</value>
+  </data>
+  <data name="RaceName_MexicoCityGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Cidade do México</value>
+  </data>
+  <data name="RaceName_MiamiGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de Miami</value>
+  </data>
+  <data name="RaceName_MiamiGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio de Miami (Sprint)</value>
+  </data>
+  <data name="RaceName_MonacoGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de Mônaco</value>
+  </data>
+  <data name="RaceName_PacificGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio do Pacífico</value>
+  </data>
+  <data name="RaceName_PortugueseGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de Portugal</value>
+  </data>
+  <data name="RaceName_QatarGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio do Catar</value>
+  </data>
+  <data name="RaceName_QatarGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio do Catar (Sprint)</value>
+  </data>
+  <data name="RaceName_RussianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Rússia</value>
+  </data>
+  <data name="RaceName_SakhirGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de Sakhir</value>
+  </data>
+  <data name="RaceName_SanMarinoGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de San Marino</value>
+  </data>
+  <data name="RaceName_SaoPauloGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de São Paulo</value>
+  </data>
+  <data name="RaceName_SaoPauloGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio de São Paulo (Sprint)</value>
+  </data>
+  <data name="RaceName_SaudiArabianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Arábia Saudita</value>
+  </data>
+  <data name="RaceName_SingaporeGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio de Singapura</value>
+  </data>
+  <data name="RaceName_SouthAfricanGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da África do Sul</value>
+  </data>
+  <data name="RaceName_SpanishGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Espanha</value>
+  </data>
+  <data name="RaceName_StyrianGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Estíria</value>
+  </data>
+  <data name="RaceName_TurkishGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Turquia</value>
+  </data>
+  <data name="RaceName_TuscanGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio da Toscana</value>
+  </data>
+  <data name="RaceName_UnitedStatesGrandPrix" xml:space="preserve">
+    <value>Grande Prêmio dos Estados Unidos</value>
+  </data>
+  <data name="RaceName_UnitedStatesGrandPrixSprint" xml:space="preserve">
+    <value>Grande Prêmio dos Estados Unidos (Sprint)</value>
+  </data>
+</root>
