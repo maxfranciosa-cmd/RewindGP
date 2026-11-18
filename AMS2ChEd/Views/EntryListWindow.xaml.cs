@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.DependencyInjection;
+﻿using AMS2ChEd.Business.Localization;
+using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
@@ -85,14 +86,14 @@ namespace AMS2ChEd.Views
             if (saveGame.NextGpIndex < saveGame.CurrentSeason.Races.Count())
             {
                 var nextRace = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
-                GrandPrixText.Text = nextRace.RaceName.ToUpper();
+                GrandPrixText.Text = nextRace.DisplayName().ToUpper();
                 DateText.Text = (DateTime.ParseExact(nextRace.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture)).ToString("dddd, MMMM dd, yyyy");
 
                 // Load race poster image
                 RacePosterImage.LoadPhoto(nextRace.CoverPicture(saveGame.CurrentSeason.Year));
 
                 FooterText.Text = isPreQuali
-                                    ? string.Format(Strings.EntryListWindow_PreQualiFooter_Format, saveGame.CurrentSeason.Year, nextRace.RaceName)
+                                    ? string.Format(Strings.EntryListWindow_PreQualiFooter_Format, saveGame.CurrentSeason.Year, nextRace.DisplayName())
                                     : string.Format(Strings.EntryListWindow_OfficialFooter_Format, saveGame.CurrentSeason.Year);
             }
 
@@ -281,7 +282,7 @@ namespace AMS2ChEd.Views
 
             var race = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
             var raceDate = DateTime.ParseExact(race.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            var newsWindow = new PracticeOutingNewsWindow(saveGame, new[] { result.Value }, raceDate, race.RaceName) { Owner = this };
+            var newsWindow = new PracticeOutingNewsWindow(saveGame, new[] { result.Value }, raceDate, race.DisplayName()) { Owner = this };
             newsWindow.ShowDialog();
         }
 
@@ -631,7 +632,7 @@ namespace AMS2ChEd.Views
             // Inform player if they did not pre-qualify.
             if (playerWasInPreQuali && !playerSurvived)
             {
-                var raceName = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).RaceName;
+                var raceName = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex).DisplayName();
                 MessageBox.Show(
                     string.Format(Strings.EntryListWindow_DidNotPreQualify_Message, raceName),
                     Strings.EntryListWindow_DidNotPreQualify_Title,
@@ -644,7 +645,7 @@ namespace AMS2ChEd.Views
             var preQualiResultsWindow = new PreQualiResultsWindow(
                 results,
                 passCount: survivorsToPick,
-                grandPrixName: nextRace.RaceName,
+                grandPrixName: nextRace.DisplayName(),
                 seasonYear: saveGame.CurrentSeason.Year);
 
             preQualiResultsWindow.Owner = this;

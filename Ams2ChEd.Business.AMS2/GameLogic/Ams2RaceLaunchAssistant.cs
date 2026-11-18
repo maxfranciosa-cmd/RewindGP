@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.Localization;
 using Ams2ChEd.Business.AMS2.Helpers;
 using Ams2ChEd.Business.AMS2.Resources;
 using Ams2ChEd.Business.AMS2.Settings;
@@ -339,7 +340,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
 
             if (!trackKnown)
             {
-                overlay.ShowTrackLeftAsIs(string.Format(Strings.Ams2RaceLaunchAssistant_TrackLeftAsIs_Format, race.RaceName));
+                overlay.ShowTrackLeftAsIs(string.Format(Strings.Ams2RaceLaunchAssistant_TrackLeftAsIs_Format, race.DisplayName()));
             }
 
             return true;

@@ -1,4 +1,5 @@
 ﻿using AMS2ChEd.Business.GameLogic.Concrete;
+using AMS2ChEd.Business.Localization;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services.CrashDetection;
@@ -27,6 +28,7 @@ namespace AMS2ChEd.Views
         private readonly bool _constructorsChampionshipDecidedAlready;
         private readonly string _driversChampionName;
         private readonly string _constructorsChampionName;
+        private readonly string _grandPrixName;
 
         public PostRaceNewsWindow(
             ISaveGame saveGame,
@@ -39,6 +41,8 @@ namespace AMS2ChEd.Views
             IReadOnlyList<CrashNewsItem> crashNews = null)
         {
             InitializeComponent();
+
+            _grandPrixName = raceResult.DisplayName(saveGame.CurrentSeason);
 
             _allTimeRecords = allTimeRecordsLoader?.Load();
             // NextGpIndex already points past the race just run; the calculator wants the race's own index.
@@ -99,7 +103,7 @@ namespace AMS2ChEd.Views
 
             // argument order standardized as (name, team, gpName, year, age)
             var article = string.Format(age > 0 ? Strings.PostRaceNewsWindow_Tribute_Opening_Format : Strings.PostRaceNewsWindow_Tribute_OpeningNoAge_Format,
-                name, team, raceResult.GrandPrixName, raceResult.Year, age) + "\n\n";
+                name, team, _grandPrixName, raceResult.Year, age) + "\n\n";
 
             // argument order standardized as (name, wins, podiums)
             var accolades = AccoladesCalculator.GetDriverAccolades(saveGame, _allTimeRecords, first.DriverId);
@@ -115,12 +119,12 @@ namespace AMS2ChEd.Views
             if (fatalities.Count > 1)
             {
                 var others = string.Join(", ", fatalities.Skip(1).Select(f => GetDriverName(saveGame, f.DriverId)));
-                article += string.Format(Strings.PostRaceNewsWindow_Tribute_AlsoKilled_Format, others, raceResult.GrandPrixName) + "\n\n";
+                article += string.Format(Strings.PostRaceNewsWindow_Tribute_AlsoKilled_Format, others, _grandPrixName) + "\n\n";
             }
 
             var winner = raceResult.RaceResults?.FirstOrDefault(d => d.Position == 1);
             if (winner != null)
-                article += string.Format(Strings.PostRaceNewsWindow_Tribute_Race_Format, GetDriverName(saveGame, winner.DriverId), GetTeamName(saveGame, winner.TeamId), raceResult.GrandPrixName) + "\n\n";
+                article += string.Format(Strings.PostRaceNewsWindow_Tribute_Race_Format, GetDriverName(saveGame, winner.DriverId), GetTeamName(saveGame, winner.TeamId), _grandPrixName) + "\n\n";
 
             article += Strings.PostRaceNewsWindow_Tribute_Closing;
             ArticleText.Text = article;
@@ -272,7 +276,7 @@ namespace AMS2ChEd.Views
             // Opening paragraph with podium. Argument order standardized across every variant as
             // (year, gpName, winnerName, winnerTeam, secondName, secondTeam, thirdName, thirdTeam)
             // regardless of English word order, so each language's resx template can freely reorder.
-            object[] openingArgs = { raceResult.Year, raceResult.GrandPrixName, winnerName, winnerTeam, secondName, secondTeam, thirdName, thirdTeam };
+            object[] openingArgs = { raceResult.Year, _grandPrixName, winnerName, winnerTeam, secondName, secondTeam, thirdName, thirdTeam };
 
             if (_driversChampionshipDecided && _constructorsChampionshipDecided)
             {
@@ -386,7 +390,7 @@ namespace AMS2ChEd.Views
             article += "\n\n";
 
             // Winner analysis based on reputation
-            article += GenerateWinnerAnalysis(winnerName, winnerTeam, winnerReputation, raceResult.GrandPrixName);
+            article += GenerateWinnerAnalysis(winnerName, winnerTeam, winnerReputation, _grandPrixName);
             article += "\n\n";
 
             // Grand slam (pole + win + fastest lap in the same race)
@@ -513,7 +517,7 @@ namespace AMS2ChEd.Views
         {
             var random = new Random();
             string upperName = winnerName.ToUpper();
-            string upperGp = string.Format(Strings.PostRaceNewsWindow_Headline_GpName_Format, raceResult.GrandPrixName, raceResult.Year).ToUpper();
+            string upperGp = string.Format(Strings.PostRaceNewsWindow_Headline_GpName_Format, _grandPrixName, raceResult.Year).ToUpper();
 
             if (isGrandSlam && isMaidenWin)
             {
@@ -580,7 +584,7 @@ namespace AMS2ChEd.Views
                 Strings.PostRaceNewsWindow_GrandSlam2_Format,
                 Strings.PostRaceNewsWindow_GrandSlam3_Format
             };
-            return string.Format(grandSlamVariants[random.Next(grandSlamVariants.Length)], winnerName, raceResult.GrandPrixName);
+            return string.Format(grandSlamVariants[random.Next(grandSlamVariants.Length)], winnerName, _grandPrixName);
         }
 
         private string GenerateRaceHighlightsParagraph(

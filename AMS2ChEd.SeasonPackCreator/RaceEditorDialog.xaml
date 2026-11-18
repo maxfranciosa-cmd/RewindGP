@@ -84,7 +84,12 @@
             <TextBox Grid.Row="0" Grid.Column="1" Name="RaceIdTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
 
             <Label Grid.Row="1" Grid.Column="0" Content="Race Name:" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Name="RaceNameTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>
+            <DockPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,15">
+                <TextBox DockPanel.Dock="Right" Name="RaceNameKeyTextBox" Style="{StaticResource ModernTextBox}" Width="260"
+                         ToolTip="Resource key of the translated name (RaceNames.resx in AMS2ChEd.Business), e.g. RaceName_AustralianGrandPrix. Leave empty to always show the English name."/>
+                <Label DockPanel.Dock="Right" Content="Key:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBox Name="RaceNameTextBox" Style="{StaticResource ModernTextBox}"/>
+            </DockPanel>
 
             <Label Grid.Row="2" Grid.Column="0" Content="Short Name:" VerticalAlignment="Center"/>
             <TextBox Grid.Row="2" Grid.Column="1" Name="RaceShortNameTextBox" Style="{StaticResource ModernTextBox}" Margin="0,0,0,15"/>

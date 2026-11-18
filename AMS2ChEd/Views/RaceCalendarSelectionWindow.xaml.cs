@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.Localization;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Resources;
@@ -63,7 +64,7 @@ namespace AMS2ChEd
                 var item = new RaceSelectionItem
                 {
                     RoundNumber = roundNumber,
-                    RaceName = race.RaceName,
+                    RaceName = race.DisplayName(),
                     CircuitName = race.Circuit,
                     RaceDate = race.RaceDate,
                     FormattedDate = FormatRaceDate(race.RaceDate),

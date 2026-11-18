@@ -343,6 +343,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     race.RaceDate = raceFromNewSeason.RaceDate ?? race.RaceDate;
                     race.Circuit = raceFromNewSeason.Circuit;
                     race.RaceName = raceFromNewSeason.RaceName;
+                    race.RaceNameKey = raceFromNewSeason.RaceNameKey;
                     race.RaceShortName = raceFromNewSeason.RaceShortName ?? race.RaceShortName;
                 }
             }
@@ -364,6 +365,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 {
                     race.CoverPictureUrl = raceFromNewSeason.CoverPictureUrl ?? race.CoverPictureUrl;
                     race.Circuit = raceFromNewSeason.Circuit ?? race.Circuit;
+                    race.RaceNameKey = raceFromNewSeason.RaceNameKey ?? race.RaceNameKey;
                     race.RaceShortName = raceFromNewSeason.RaceShortName ?? race.RaceShortName;
                 }
             }

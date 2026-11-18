@@ -168,6 +168,7 @@ namespace AMS2ChEd.Business.Services
                     {
                         RaceId = int.Parse(jr.Round),
                         RaceName = jr.RaceName + " (Sprint)",
+                        RaceNameKey = AMS2ChEd.Business.Localization.RaceNames.KeyFor(jr.RaceName + " (Sprint)"),
                         RaceShortName = GenerateRaceShortName(jr.RaceName),
                         Circuit = FormatCircuitInfo(jr.Circuit),
                         RaceDate = jr.Sprint.Date,
@@ -205,6 +206,7 @@ namespace AMS2ChEd.Business.Services
                 {
                     RaceId = int.Parse(jr.Round),
                     RaceName = jr.RaceName,
+                    RaceNameKey = AMS2ChEd.Business.Localization.RaceNames.KeyFor(jr.RaceName),
                     RaceShortName = GenerateRaceShortName(jr.RaceName),
                     Circuit = FormatCircuitInfo(jr.Circuit),
                     RaceDate = jr.Date,

@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.DependencyInjection;
+﻿using AMS2ChEd.Business.Localization;
+using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Extensions;
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Helpers;
@@ -378,7 +379,7 @@ namespace AMS2ChEd.Views
                         // before NextGpIndex moves on, as releases add absences for the remaining races)
                         var reprimandNews = _gameLogicFactory.ReprimandManager.ProcessRace(
                             saveGame, raceResult, preRaceStandings, e.PlayerContactDriverIds, e.TeammateContacts);
-                        var grandPrixName = raceResult.GrandPrixName;
+                        var grandPrixName = raceResult.DisplayName(saveGame.CurrentSeason);
 
                         // crashes: a simulated race's count straight away; the ones found in the
                         // telemetry wait for the player's review, after the race is saved
@@ -635,7 +636,7 @@ namespace AMS2ChEd.Views
             if (saveGame.NextGpIndex < saveGame.CurrentSeason.Races.Count())
             {
                 var nextRace = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
-                _originalGrandPrixName = nextRace.RaceName;
+                _originalGrandPrixName = nextRace.DisplayName();
                 _originalCircuitName = nextRace.Circuit ?? Strings.RaceWeekendWindow_DefaultCircuitName;
 
                 UpdateRaceHeaders();

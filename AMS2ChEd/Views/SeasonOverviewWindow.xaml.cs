@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.DependencyInjection;
+﻿using AMS2ChEd.Business.Localization;
+using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
@@ -148,7 +149,7 @@ namespace AMS2ChEd
             if (saveGame.NextGpIndex < saveGame.CurrentSeason.Races.Count())
             {
                 var nextRace = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
-                NextGPText.Text = nextRace.RaceName.ToUpper();
+                NextGPText.Text = nextRace.DisplayName().ToUpper();
 
                 // Format race info with round number and date
                 DateTime raceDate = DateTime.ParseExact(nextRace.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -169,7 +170,7 @@ namespace AMS2ChEd
                 {
                     Round = index + 1,
                     RaceCode = race.RaceShortName?.ToUpperInvariant() ?? $"R{index + 1}",
-                    RaceName = race.RaceName,
+                    RaceName = race.DisplayName(),
                     FormattedDate = DateTime.TryParseExact(race.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var raceDate)
                         ? raceDate.ToString("d MMM")
                         : race.RaceDate,
@@ -276,7 +277,7 @@ namespace AMS2ChEd
                 return;
 
             var confirmation = System.Windows.MessageBox.Show(
-                string.Format(Strings.SeasonOverviewWindow_InstallPackage_Confirm_Message, playerTeam.TeamName, nextRace.RaceName, manager.GetRemainingPackages(playerTeam)),
+                string.Format(Strings.SeasonOverviewWindow_InstallPackage_Confirm_Message, playerTeam.TeamName, nextRace.DisplayName(), manager.GetRemainingPackages(playerTeam)),
                 Strings.SeasonOverviewWindow_InstallPackage_Confirm_Title,
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -298,7 +299,7 @@ namespace AMS2ChEd
                     playerTeam.TeamName,
                     playerTeam.TeamPrincipal,
                     saveGame.PlayerData.Name,
-                    nextRace.RaceName,
+                    nextRace.DisplayName(),
                     package,
                     manager.Stats,
                     manager.GetRemainingPackages(playerTeam)));
@@ -323,7 +324,7 @@ namespace AMS2ChEd
                 return;
 
             var raceDate = DateTime.ParseExact(nextRace.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            var newsWindow = new ImprovementPackageNewsWindow(saveGame, packages, manager.Stats, raceDate, nextRace.RaceName);
+            var newsWindow = new ImprovementPackageNewsWindow(saveGame, packages, manager.Stats, raceDate, nextRace.DisplayName());
             newsWindow.Owner = this;
             newsWindow.ShowDialog();
         }
@@ -366,7 +367,7 @@ namespace AMS2ChEd
                 playerTeam.TeamPrincipal,
                 saveGame.PlayerData.Name,
                 firstDriverName,
-                nextRace.RaceName,
+                nextRace.DisplayName(),
                 manager.GetRemainingPackages(playerTeam)));
         }
 
@@ -654,7 +655,7 @@ namespace AMS2ChEd
 
             var nextRace = saveGame.CurrentSeason.Races.ElementAt(saveGame.NextGpIndex);
             var raceDate = DateTime.ParseExact(nextRace.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            var newsWindow = new PracticeOutingNewsWindow(saveGame, outings, raceDate, nextRace.RaceName);
+            var newsWindow = new PracticeOutingNewsWindow(saveGame, outings, raceDate, nextRace.DisplayName());
             newsWindow.Owner = this;
             newsWindow.ShowDialog();
         }
@@ -902,7 +903,7 @@ namespace AMS2ChEd
             var newsWindow = new AbsenceAnnouncementWindow(
                 driverOutName,
                 teamName,
-                gp?.RaceName ?? Strings.SeasonOverviewWindow_GrandPrixFallback,
+                gp?.DisplayName() ?? Strings.SeasonOverviewWindow_GrandPrixFallback,
                 driverInName,
                 DateTime.ParseExact(gp.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 askPlayerToApply: !playerAlreadySteppedIn && opportunity.DriverIn != _saveGame.PlayerData.DriverId && opportunity.Reason != AbsenceReason.PAID_RIDE,
@@ -939,7 +940,7 @@ namespace AMS2ChEd
                 var newsWindow = AbsenceAnnouncementWindow.CreateTeamRefusedWindow(
                     GetDriverName(e.Decision.Absence.DriverOut),
                     GetTeamName(e.Decision.Absence.TeamId),
-                    GetGrandPrix(e.Decision.Absence.RaceId).RaceName,
+                    GetGrandPrix(e.Decision.Absence.RaceId).DisplayName(),
                     GetDriverName(e.Decision.Absence.DriverIn),
                     GetDriverName(_saveGame.PlayerData.DriverId),
                     GetTeamName(_saveGame.PlayerData.TeamId),
@@ -955,7 +956,7 @@ namespace AMS2ChEd
                 var newsWindow = AbsenceAnnouncementWindow.CreateRefusedWindow(
                     GetDriverName(e.Decision.Absence.DriverOut),
                     GetTeamName(e.Decision.Absence.TeamId),
-                    GetGrandPrix(e.Decision.Absence.RaceId).RaceName,
+                    GetGrandPrix(e.Decision.Absence.RaceId).DisplayName(),
                     GetDriverName(e.Decision.Absence.DriverIn),
                     GetTeamName(_saveGame.PlayerData.TeamId),
                     isConsecutive
@@ -970,7 +971,7 @@ namespace AMS2ChEd
                 var newsWindow = AbsenceAnnouncementWindow.CreateAcceptedWindow(
                     GetDriverName(e.Decision.Absence.DriverOut),
                     GetTeamName(e.Decision.Absence.TeamId),
-                    GetGrandPrix(e.Decision.Absence.RaceId).RaceName,
+                    GetGrandPrix(e.Decision.Absence.RaceId).DisplayName(),
                     GetDriverName(_saveGame.PlayerData.DriverId),
                     GetTeamName(_saveGame.PlayerData.TeamId),
                     isConsecutive
@@ -987,7 +988,7 @@ namespace AMS2ChEd
             var team = _saveGame.CurrentSeason.Teams.FirstOrDefault(t => t.TeamId == absence.TeamId);
             var teamName = GetTeamName(absence.TeamId);
             var gp = GetGrandPrix(absence.RaceId);
-            var gpName = gp?.RaceName ?? Strings.SeasonOverviewWindow_GrandPrixFallback;
+            var gpName = gp?.DisplayName() ?? Strings.SeasonOverviewWindow_GrandPrixFallback;
             var playerName = GetDriverName(_saveGame.PlayerData.DriverId);
             var driverInName = GetDriverName(absence.DriverIn);
 
@@ -1017,7 +1018,7 @@ namespace AMS2ChEd
             var newsWindow = new AbsenceAnnouncementWindow(
                 GetDriverName(_saveGame.PlayerData.DriverId),
                 GetTeamName(absence.TeamId),
-                gp?.RaceName ?? Strings.SeasonOverviewWindow_GrandPrixFallback,
+                gp?.DisplayName() ?? Strings.SeasonOverviewWindow_GrandPrixFallback,
                 GetDriverName(absence.DriverIn),
                 DateTime.ParseExact(gp.RaceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 askPlayerToApply: false,
@@ -1030,7 +1031,7 @@ namespace AMS2ChEd
 
         private string IncidentGrandPrixName(int? incidentRaceId)
         {
-            return incidentRaceId == null ? null : GetGrandPrix(incidentRaceId.Value)?.RaceName;
+            return incidentRaceId == null ? null : GetGrandPrix(incidentRaceId.Value)?.DisplayName();
         }
 
         private bool WasThisDriverAbsenteThePreviousRace(ISaveGame saveGame, string driverOut)

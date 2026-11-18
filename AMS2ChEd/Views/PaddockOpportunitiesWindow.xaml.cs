@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.Localization;
 using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Models;
@@ -76,7 +77,7 @@ namespace AMS2ChEd.Views
             _opportunities = opportunities;
             _previewProvider = previewProvider;
 
-            var raceName = opportunities.Race.RaceName;
+            var raceName = opportunities.Race.DisplayName();
             TitleText.Text = string.Format(Strings.PaddockOpportunitiesWindow_Title_Format, raceName);
             IntroText.Text = string.Format(Strings.PaddockOpportunitiesWindow_Intro_NextRace_Format, raceName);
 
@@ -97,12 +98,12 @@ namespace AMS2ChEd.Views
 
             PracticeOutingPanel.Visibility = Visibility.Visible;
             PracticeOutingText.Text = string.Format(Strings.PaddockOpportunitiesWindow_Fp1_Letter_Format,
-                DriverName(outing.ReplacedDriverId), TeamName(outing.TeamId), _opportunities.Race.RaceName, DriverName(outing.BenchmarkDriverId));
+                DriverName(outing.ReplacedDriverId), TeamName(outing.TeamId), _opportunities.Race.DisplayName(), DriverName(outing.BenchmarkDriverId));
 
             if (_opportunities.PaidRideOffers.Count > 0)
                 return;
 
-            TitleText.Text = string.Format(Strings.PaddockOpportunitiesWindow_Fp1_Title_Format, _opportunities.Race.RaceName);
+            TitleText.Text = string.Format(Strings.PaddockOpportunitiesWindow_Fp1_Title_Format, _opportunities.Race.DisplayName());
             IntroText.Text = string.Format(Strings.PaddockOpportunitiesWindow_Fp1_Intro_Format, TeamName(outing.TeamId));
             BudgetBadge.Visibility = Visibility.Collapsed;
             TilesScroller.Visibility = Visibility.Collapsed;

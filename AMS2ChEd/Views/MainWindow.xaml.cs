@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.Artwork;
+﻿using AMS2ChEd.Business.Localization;
+using AMS2ChEd.Business.Artwork;
 using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
@@ -389,7 +390,7 @@ namespace AMS2ChEd
 
             foreach (var race in season.Races)
             {
-                DevRaceComboBox.Items.Add(new ComboBoxItem { Content = race.RaceName, Tag = race });
+                DevRaceComboBox.Items.Add(new ComboBoxItem { Content = race.DisplayName(), Tag = race });
             }
             if (DevRaceComboBox.Items.Count > 0)
                 DevRaceComboBox.SelectedIndex = 0;
@@ -982,7 +983,7 @@ namespace AMS2ChEd
                 return false;
 
             photo = cover;
-            headline = string.Format(Strings.MainWindow_Cover_NextRace_Headline_Format, nextRace.RaceName?.ToUpper());
+            headline = string.Format(Strings.MainWindow_Cover_NextRace_Headline_Format, nextRace.DisplayName()?.ToUpper());
             subline = string.Format(Strings.MainWindow_Cover_NextRace_Subline_Format, _latestSave.NextGpIndex + 1, races.Count, season.Year);
             return true;
         }

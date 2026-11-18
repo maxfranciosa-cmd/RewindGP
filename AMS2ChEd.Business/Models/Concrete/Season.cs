@@ -54,8 +54,20 @@ namespace AMS2ChEd.Business.Models.Concrete
         [JsonPropertyName("race_id")]
         public int RaceId { get; set; }
 
+        /// <summary>
+        /// The English name. Game logic matches races on it, so it is never translated: show
+        /// <see cref="AMS2ChEd.Business.Localization.RaceNames.DisplayName(Race)"/> instead.
+        /// </summary>
         [JsonPropertyName("race_name")]
         public string RaceName { get; set; }
+
+        /// <summary>
+        /// Optional key into Resources/RaceNames.resx for the name shown in the app's language
+        /// (e.g. "RaceName_AustralianGrandPrix"); without one, or with one the app doesn't know,
+        /// RaceName is shown.
+        /// </summary>
+        [JsonPropertyName("race_name_key")]
+        public string RaceNameKey { get; set; }
 
         [JsonPropertyName("race_short_name")]
         public string RaceShortName { get; set; }

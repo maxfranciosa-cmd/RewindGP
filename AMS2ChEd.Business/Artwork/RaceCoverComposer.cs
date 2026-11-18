@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.Localization;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -63,16 +64,19 @@ namespace AMS2ChEd.Business.Artwork
             if (race == null || string.IsNullOrEmpty(race.RaceName) || !File.Exists(Path.Combine(folder, "template.json")))
                 return null;
 
+            // in the app's language; the cached cover is redrawn when the language changes, as the
+            // name is part of its key
+            string raceName = race.DisplayName();
             var colours = PickColours(folder, year, race.RaceId);
             string output = Path.Combine(AppPaths.GeneratedArtworkFolder, "covers", $"{year}_{race.RaceId}.png");
-            string key = string.Join("|", race.RaceName, year, race.RaceDate, colours.Panel, colours.Rule, colours.Title, colours.Chequer,
+            string key = string.Join("|", raceName, year, race.RaceDate, colours.Panel, colours.Rule, colours.Title, colours.Chequer,
                 Directory.GetFiles(folder).Select(f => File.GetLastWriteTimeUtc(f).Ticks).DefaultIfEmpty().Max());
             lock (DrawLock)
             {
                 if (File.Exists(output) && File.Exists(output + ".key") && File.ReadAllText(output + ".key") == key)
                     return output;
                 Directory.CreateDirectory(Path.GetDirectoryName(output));
-                using var cover = Compose(folder, race.RaceName, year, race.RaceDate, colours);
+                using var cover = Compose(folder, raceName, year, race.RaceDate, colours);
                 cover.SaveAsPng(output);
                 File.WriteAllText(output + ".key", key);
             }

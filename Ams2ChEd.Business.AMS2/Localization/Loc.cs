@@ -37,9 +37,15 @@ namespace Ams2ChEd.Business.AMS2.Localization
                 return neutralValue;
             }
 
-            var cultureResourceSet = Strings.ResourceManager.GetResourceSet(culture, true, false);
-            var translated = cultureResourceSet?.GetString(key);
-            return translated ?? $"[[{key}]]";
+            // pt-BR is translated by Strings.pt.resx: walk up to the neutral culture, but never to
+            // the invariant one, whose English would hide a missing translation
+            for (; !culture.Equals(CultureInfo.InvariantCulture); culture = culture.Parent)
+            {
+                var translated = Strings.ResourceManager.GetResourceSet(culture, true, false)?.GetString(key);
+                if (translated != null)
+                    return translated;
+            }
+            return $"[[{key}]]";
         }
     }
 }

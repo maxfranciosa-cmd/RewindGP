@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.Localization;
 using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
@@ -60,7 +61,7 @@ namespace AMS2ChEd.Views
 
             var kicker = racesRun.Count == 0
                 ? string.Format(Strings.MarketOutlookWindow_KickerBeforeSeason, year)
-                : string.Format(Strings.MarketOutlookWindow_KickerAfterRace, year, racesRun.Last().GrandPrixName?.ToUpper());
+                : string.Format(Strings.MarketOutlookWindow_KickerAfterRace, year, racesRun.Last().DisplayName(_saveGame.CurrentSeason)?.ToUpper());
             if (racesToGo == 1)
                 kicker += " · " + Strings.MarketOutlookWindow_RacesToGoOne;
             else if (racesToGo > 1)

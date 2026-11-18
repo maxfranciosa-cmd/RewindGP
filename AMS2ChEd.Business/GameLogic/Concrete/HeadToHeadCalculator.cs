@@ -1,3 +1,4 @@
+using AMS2ChEd.Business.Localization;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
 
@@ -93,7 +94,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             {
                 var race = races[i];
                 var gp = resultsByRace[i];
-                var column = new HeadToHeadRace { Name = race.RaceName, ShortName = race.RaceShortName, IsRun = gp != null };
+                var column = new HeadToHeadRace { Name = race.DisplayName(), ShortName = race.RaceShortName, IsRun = gp != null };
                 result.Races.Add(column);
 
                 var teamResults = gp?.RaceResults?.Where(r => r.TeamId == teamId).ToList() ?? new List<SessionResult>();

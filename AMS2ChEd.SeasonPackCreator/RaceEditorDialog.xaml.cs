@@ -32,6 +32,7 @@ namespace AMS2ChEd.SeasonPackEditor
         {
             RaceIdTextBox.Text = Race.RaceId.ToString();
             RaceNameTextBox.Text = Race.RaceName;
+            RaceNameKeyTextBox.Text = Race.RaceNameKey;
             RaceShortNameTextBox.Text = Race.RaceShortName;
             RaceDateTextBox.Text = Race.RaceDate;
             StartTimeTextBox.Text = Race.StartTime.ToString();
@@ -93,6 +94,7 @@ namespace AMS2ChEd.SeasonPackEditor
 
             Race.RaceId = int.Parse(RaceIdTextBox.Text);
             Race.RaceName = RaceNameTextBox.Text;
+            Race.RaceNameKey = string.IsNullOrWhiteSpace(RaceNameKeyTextBox.Text) ? null : RaceNameKeyTextBox.Text.Trim();
             Race.RaceShortName = RaceShortNameTextBox.Text;
             Race.RaceDate = RaceDateTextBox.Text;
             Race.StartTime = int.Parse(StartTimeTextBox.Text);

@@ -357,6 +357,7 @@ namespace AMS2ChEd.SeasonPackEditor
                 {
                     RaceId = newRaceId,
                     RaceName = selectedRace.RaceName + " (Sprint)",
+                    RaceNameKey = AMS2ChEd.Business.Localization.RaceNames.KeyFor(selectedRace.RaceName + " (Sprint)"),
                     RaceShortName = selectedRace.RaceShortName + "*",
                     RaceDate = sprintDate,
                     Circuit = selectedRace.Circuit,
@@ -530,6 +531,7 @@ namespace AMS2ChEd.SeasonPackEditor
                     {
                         RaceId = raceId,
                         RaceName = raceName,
+                        RaceNameKey = AMS2ChEd.Business.Localization.RaceNames.KeyFor(raceName),
                         RaceShortName = shortName,
                         Circuit = circuit,
                         RaceDate = raceDate,
