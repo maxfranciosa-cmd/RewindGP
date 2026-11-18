@@ -29,14 +29,19 @@ using Ams2Interop.Signatures;
 //   find-slots
 //       Same, for every slot number the interop uses (Ams2Constants.Vm550Slot / Vm498Slot /
 //       MasterSlot) and the fixed offsets around them. Prints the constants that moved.
+//
+//   find-rules
+//       Same, for the Rules & Regulations page (pit lane speed limit, full course yellow): which
+//       object holds those settings, at which slots, and which objects point to it.
 
 var command = args.FirstOrDefault()?.ToLowerInvariant();
-if (command is not ("status" or "generate" or "find-tags" or "find-slots"))
+if (command is not ("status" or "generate" or "find-tags" or "find-slots" or "find-rules"))
 {
     Console.WriteLine("usage: Ams2Interop.Tool status [--signatures <file>] [--cache <file>]");
     Console.WriteLine("       Ams2Interop.Tool generate [<output file>]");
     Console.WriteLine("       Ams2Interop.Tool find-tags [--save <signature file>]");
     Console.WriteLine("       Ams2Interop.Tool find-slots");
+    Console.WriteLine("       Ams2Interop.Tool find-rules");
     return 2;
 }
 
@@ -114,7 +119,7 @@ if (command == "generate")
     return 1;
 }
 
-// ---- find-tags / find-slots ----
+// ---- find-tags / find-slots / find-rules ----
 
 var survey = configurator.CreateSurvey();
 if (survey == null)
@@ -124,7 +129,12 @@ if (survey == null)
     return 1;
 }
 
-var steps = command == "find-tags" ? CustomRaceSurvey.TagSteps : CustomRaceSurvey.SlotSteps;
+var steps = command switch
+{
+    "find-tags" => CustomRaceSurvey.TagSteps,
+    "find-rules" => CustomRaceSurvey.RulesSteps,
+    _ => CustomRaceSurvey.SlotSteps,
+};
 Console.WriteLine();
 Console.WriteLine("Open a SINGLE RACE in AMS2's Custom Race screen and stay on it.");
 Console.WriteLine($"You'll be asked to change {steps.Count} settings, one at a time. Change exactly that one");
@@ -138,7 +148,7 @@ var report = survey.Run(steps, Ask, configurator.CurrentSurveyTags(), () => Thre
 Console.WriteLine();
 Console.WriteLine(report.Describe());
 
-if (command == "find-slots")
+if (command is "find-slots" or "find-rules")
 {
     var moved = report.Slots.Where(s => s.Moved).ToList();
     var missing = report.Slots.Where(s => s.NewSlot == null && s.Note != "skipped").ToList();
@@ -153,7 +163,7 @@ if (command == "find-slots")
         {
             Console.WriteLine("Change in Ams2Interop/Ams2Constants.cs:");
             foreach (var s in moved)
-                Console.WriteLine($"  {ClassFor(s.Object)}.{s.Name} = {s.NewSlot};   // was {s.OldSlot}");
+                Console.WriteLine($"  {ClassFor(s.Object)}.{s.Name} = {s.NewSlot};   // " + (s.OldSlot == SurveySlot.UnknownSlot ? "new" : $"was {s.OldSlot}"));
         }
         if (missing.Count > 0)
             Console.WriteLine($"Not settled (redo those steps, or check by hand): {string.Join(", ", missing.Select(s => s.Name))}");
@@ -210,6 +220,7 @@ static string ClassFor(SurveyObject kind) => kind switch
 {
     SurveyObject.Vm550 => "Vm550Slot",
     SurveyObject.Vm498 => "Vm498Slot",
+    SurveyObject.Rules => "RulesSlot",
     _ => "MasterSlot",
 };
 

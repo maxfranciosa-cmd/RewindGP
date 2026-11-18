@@ -121,6 +121,20 @@ namespace AMS2ChEd.Tests
         }
 
         [TestMethod]
+        [DataRow(1975, 240, OnOff.Off)]
+        [DataRow(1992, 240, OnOff.Off)]
+        [DataRow(1993, 240, OnOff.On)]
+        [DataRow(1994, 80, OnOff.On)]
+        [DataRow(2025, 80, OnOff.On)]
+        public void BuildSessionRules_PitLimitAndFullCourseYellowFollowTheSeasonsEra(int seasonYear, int pitKph, OnOff fcy)
+        {
+            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Default, 71, seasonYear);
+
+            Assert.AreEqual(pitKph, result.PitSpeedLimitKph);
+            Assert.AreEqual(fcy, result.FullCourseYellow);
+        }
+
+        [TestMethod]
         public void BuildSessionRules_EveryEraUsesAStandingStart()
         {
             foreach (var era in AMS2ChEd.Business.GameLogic.Concrete.RaceRulesEras.All)

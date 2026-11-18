@@ -60,9 +60,17 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                 PitMinFuel = PitFuelCount.Zero,
                 StartHour = GetStartHour(race),
                 Weather = new SessionWeatherConfig { HistoricalWeather = true },
-                RefuellingAllowed = rules.RefuellingAllowed ? OnOff.On : OnOff.Off
+                RefuellingAllowed = rules.RefuellingAllowed ? OnOff.On : OnOff.Off,
+                PitSpeedLimitKph = rules.PitSpeedLimitKph ?? NoPitSpeedLimitKph,
+                FullCourseYellow = rules.SafetyCar ? OnOff.On : OnOff.Off,
             };
         }
+
+        /// <summary>
+        /// What stands in for "no pit lane speed limit" (F1 before 1994): AMS2 always has one, and
+        /// this is the highest its Rules &amp; Regulations page allows.
+        /// </summary>
+        public const int NoPitSpeedLimitKph = 240;
 
         /// <summary>True when the season's era bans refuelling - the player then starts with the fuel for the whole race.</summary>
         public static bool IsRefuellingBanned(int seasonYear) => !RaceRulesEras.For(seasonYear).RefuellingAllowed;

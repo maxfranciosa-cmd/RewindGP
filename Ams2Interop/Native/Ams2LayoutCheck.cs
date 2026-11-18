@@ -112,6 +112,18 @@ public sealed class Ams2LayoutCheck
     public Result CheckVm550(long vm) => Check(vm, Vm550);
     public Result CheckVm498(long vm498) => Check(vm498, Vm498);
     public Result CheckMaster(long master) => Check(master, Master);
+    public Result CheckRules(long rules) => Check(rules, Rules);
+
+    /// <summary>
+    /// The Rules &amp; Regulations object (see Ams2Constants.RulesSlot): the pit lane speed limit in
+    /// the range the page itself enforces, and the Full Course Yellow switch as a 0/1 (writing 0/1
+    /// live-confirmed to switch it). A failure means the two settings are simply not written.
+    /// </summary>
+    public static readonly IReadOnlyList<Expectation> Rules = new[]
+    {
+        new Expectation(nameof(Ams2Constants.RulesSlot.PitSpeedLimit), Ams2Constants.RulesSlot.PitSpeedLimit, "40-240", v => Between(v, 40, 240)),
+        new Expectation(nameof(Ams2Constants.RulesSlot.FullCourseYellow), Ams2Constants.RulesSlot.FullCourseYellow, "{0, 1}", v => v is 0 or 1),
+    };
 
     /// <summary>Reads every expectation's slot on <paramref name="objectBase"/>; passes only if all read cleanly and are accepted.</summary>
     public Result Check(long objectBase, IReadOnlyList<Expectation> expectations)

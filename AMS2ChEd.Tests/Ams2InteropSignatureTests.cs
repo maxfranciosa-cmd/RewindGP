@@ -463,6 +463,7 @@ namespace AMS2ChEd.Tests.Ams2Interop
                     [Ams2OffsetNames.Vm550IdentityTag] = DataRva + 0x1BE0 + dataShift,
                     [Ams2OffsetNames.Vm498ContainerTag] = DataRva + 0x2518 + dataShift,
                     [Ams2OffsetNames.GameplaySettingsPointer] = DataRva + 0x80000 + dataShift,
+                    [Ams2OffsetNames.RulesIdentityTag] = DataRva + 0x1720 + dataShift,
                     ["Elsewhere"] = DataRva + 0x50 + dataShift,
                 };
 
@@ -508,6 +509,12 @@ namespace AMS2ChEd.Tests.Ams2Interop
                 asm.Emit("48 89 51 10");
                 asm.EmitRip("48 8D 05", Ams2OffsetNames.Vm498ContainerTag);
                 asm.Emit("48 89 01 C7 41 20 01 00 00 00 48 83 C4 28 C3");
+                asm.Pad(0x30);
+
+                asm.Label("BuildsRules");
+                asm.Emit("48 83 EC 28");
+                asm.EmitRip("48 8D 05", Ams2OffsetNames.RulesIdentityTag);
+                asm.Emit("48 89 41 08 C7 41 30 3C 00 00 00 48 83 C4 28 C3");
                 asm.Pad(0x30);
 
                 asm.Label("ReadsSettings");

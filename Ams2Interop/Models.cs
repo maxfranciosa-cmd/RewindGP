@@ -47,6 +47,19 @@ public sealed class SessionRulesConfig
 
     /// <summary>Race session's weather - see SessionWeatherConfig's doc comment.</summary>
     public SessionWeatherConfig? Weather { get; init; }
+
+    /// <summary>
+    /// Pit lane speed limit in km/h, 40-240 (the range the Rules &amp; Regulations page allows).
+    /// Lives on the Rules object, not VM550 (see Ams2Constants.RulesSlot) - best-effort: when that
+    /// object can't be found or doesn't look as expected, it's skipped without failing the call.
+    /// </summary>
+    public int? PitSpeedLimitKph { get; init; }
+
+    /// <summary>The Full Course Yellow switch (not the scheduled FCY). Rules object, best-effort - see PitSpeedLimitKph.</summary>
+    public OnOff? FullCourseYellow { get; init; }
+
+    /// <summary>True when any setting of the Rules object is asked for.</summary>
+    public bool HasRules => PitSpeedLimitKph != null || FullCourseYellow != null;
 }
 
 /// <summary>

@@ -33,6 +33,8 @@ public static class Ams2Constants
         public const long Vm498IdentityTag = 0x141FDCB28;
         public const long Vm550IdentityTag = 0x141FDCBE0;
         public const long Vm498ContainerTag = 0x141FDD518;
+        // the Rules & Regulations object (pit lane speed limit, full course yellow) - found live 2026-11-18 by find-rules
+        public const long RulesIdentityTag = 0x141FDC720;
 
         // RVAs
         public const long SetterRva = 0x4ab430;
@@ -70,6 +72,7 @@ public static class Ams2Constants
     public static long Vm498IdentityTag => Ams2Offsets.Active.Absolute(Ams2OffsetNames.Vm498IdentityTag);      // VM498 (race entrants) object identity
     public static long Vm550IdentityTag => Ams2Offsets.Active.Absolute(Ams2OffsetNames.Vm550IdentityTag);      // VM550 (session/rules) object identity
     public static long Vm498ContainerTag => Ams2Offsets.Active.Absolute(Ams2OffsetNames.Vm498ContainerTag);    // VM498 container class, used by the master scan
+    public static long RulesIdentityTag => Ams2Offsets.Active.Absolute(Ams2OffsetNames.RulesIdentityTag);       // Rules & Regulations object identity
 
     // ---- Fixed offsets ----
     public const int Vm498Offset = 0x250; // VM498 = *(master + 0x250)
@@ -348,6 +351,23 @@ public static class Ams2Constants
         public const int Day = 53;
         public const int Month = 54;
         public const int Year = 55;
+    }
+
+    /// <summary>
+    /// Slots on the object behind the Custom Race "Rules &amp; Regulations" page (pit lane speed
+    /// limit, full course yellow), with its own tag (RVA 0x1FDC720 on the build of 2026-09-20, next
+    /// to the VM498/VM550 tags). AMS2 keeps several such objects; the custom race's own one is found
+    /// beside master and VM498 (see Native/RulesVmResolver.cs). Both slots LIVE-CONFIRMED 2026-11-18
+    /// with find-rules (each moved alone when only that setting was changed), and writing them
+    /// through the setter live-confirmed the same day (80 km/h and FCY on showed on the page).
+    /// </summary>
+    public static class RulesSlot
+    {
+        /// <summary>Km/h; the page keeps it within 40-240 and defaults it to 60.</summary>
+        public const int PitSpeedLimit = 28;
+
+        /// <summary>The "Full Course Yellow" switch (not the scheduled FCY, which is Vm550Slot.ScheduledFcy).</summary>
+        public const int FullCourseYellow = 45;
     }
 
     /// <summary>

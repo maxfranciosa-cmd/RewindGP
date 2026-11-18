@@ -253,6 +253,48 @@ namespace AMS2ChEd.Tests.Ams2Interop
         }
 
         [TestMethod]
+        public void Survey_RulesSteps_FindTheRulesObjectItsSlotsAndWhatHoldsIt()
+        {
+            const long rulesTag = 0x141FE1230, dialogTag = 0x141FE2000;
+            const int fcySlot = 31; // a "patched" build: moved from RulesSlot.FullCourseYellow
+            var g = BuildPatchedGame();
+            long rules = g.Race.NewObject();
+            g.Header(rules, rulesTag);
+            g.Race.SetSlot(rules, Ams2Constants.RulesSlot.PitSpeedLimit, 60);
+            g.Race.SetSlot(rules, fcySlot, 1);
+            long dialog = g.Race.NewObject();
+            g.Header(dialog, dialogTag);
+            g.Mem.PutInt64(dialog + 0x68, rules);
+
+            var report = Survey(g).Run(CustomRaceSurvey.RulesSteps, Developer(g, step =>
+            {
+                if (step.Slots[0].Name == nameof(Ams2Constants.RulesSlot.PitSpeedLimit)) g.Bump(rules, Ams2Constants.RulesSlot.PitSpeedLimit);
+                else g.Bump(rules, fcySlot);
+            }), OldTags);
+
+            Assert.AreEqual(rulesTag, report.Tags[SurveyObject.Rules].Tag);
+            Assert.IsTrue(report.Slots.Where(s => s.Name == nameof(Ams2Constants.RulesSlot.PitSpeedLimit)).All(s => s.NewSlot == Ams2Constants.RulesSlot.PitSpeedLimit && !s.Moved));
+            var fcy = report.Slots.Single(s => s.Name == nameof(Ams2Constants.RulesSlot.FullCourseYellow));
+            Assert.AreEqual(fcySlot, fcy.NewSlot);
+            StringAssert.Contains(report.Describe(), $"{Ams2Constants.RulesSlot.FullCourseYellow} -> {fcySlot}  ** MOVED **");
+            Assert.AreEqual(rules, report.RulesObject);
+            Assert.IsTrue(report.RulesHolders.Any(h => h.Object == dialog && h.Tag == dialogTag && h.Offset == 0x68));
+            // the Rules object isn't one the signature file knows
+            Assert.IsFalse(report.TagRvas().ContainsKey(SurveyReport.RulesTagName));
+        }
+
+        [TestMethod]
+        public void Survey_TagStepsOnly_DecideTheCoreTagsWithoutARulesObject()
+        {
+            var g = BuildPatchedGame();
+
+            var report = Survey(g).Run(CustomRaceSurvey.TagSteps, Developer(g), OldTags);
+
+            Assert.IsTrue(report.AllTagsDecided);
+            Assert.IsFalse(report.Tags.ContainsKey(SurveyObject.Rules));
+        }
+
+        [TestMethod]
         public void FindObjectStart_WalksBackToTheHeader()
         {
             var g = BuildPatchedGame();

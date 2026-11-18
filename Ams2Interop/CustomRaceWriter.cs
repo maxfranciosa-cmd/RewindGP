@@ -234,6 +234,21 @@ public sealed class CustomRaceWriter
         TrySet(vm498, Ams2Constants.Vm498Slot.MistakeFrequency, (int?)cfg.AiMistakeFrequency, nameof(cfg.AiMistakeFrequency), unverified);
     }
 
+    /// <summary>
+    /// Writes the Rules &amp; Regulations settings (pit lane speed limit, full course yellow) to the
+    /// Rules object. Callers pass only an object RulesVmResolver returned - it has already passed
+    /// Ams2LayoutCheck.Rules. A pit speed limit outside 40-240 is reported, not sent.
+    /// </summary>
+    public void ApplyRules(long rulesVm, SessionRulesConfig cfg, List<(string, int, int?)> unverified)
+    {
+        if (cfg.PitSpeedLimitKph is int kph)
+        {
+            if (kph is < 40 or > 240) unverified.Add(($"{nameof(cfg.PitSpeedLimitKph)} (out of range 40-240)", kph, null));
+            else TrySet(rulesVm, Ams2Constants.RulesSlot.PitSpeedLimit, kph, nameof(cfg.PitSpeedLimitKph), unverified);
+        }
+        TrySet(rulesVm, Ams2Constants.RulesSlot.FullCourseYellow, (int?)cfg.FullCourseYellow, nameof(cfg.FullCourseYellow), unverified);
+    }
+
     private void ApplySessionRules(long vm550, CustomRaceTargets t, CustomRaceLayout layout, SessionRulesConfig cfg, List<(string, int, int?)> unverified)
     {
         TrySet(vm550, Ams2Constants.Vm550Slot.PrivateQuali, (int?)cfg.PrivateQualiSession, nameof(cfg.PrivateQualiSession), unverified);

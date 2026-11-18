@@ -343,7 +343,9 @@ public sealed class Ams2RaceConfigurator : IDisposable
     /// 1. Every slot field is written, then written again after a 2s settle delay (AMS2's Custom
     ///    Race screen re-initializes some state shortly after opening and can clobber an early write).
     /// 2. SetCar (car/track/livery) + commit run after that, once the screen has settled.
-    /// 3. Opponents are written one final time, because SetCar/commit recompute AMS2's own
+    /// 3. The session rules are written again, because SetCar/commit put some of them (the start
+    ///    type) back to their own values.
+    /// 4. Opponents are written one final time, because SetCar/commit recompute AMS2's own
     ///    opponent/class counts for the new car and overwrite them.
     /// Every field's read-back reflects its final write.
     ///
@@ -443,16 +445,34 @@ public sealed class Ams2RaceConfigurator : IDisposable
         if (opponents != null && layout.Vm498Failed)
             errors.Add("opponents not applied: VM498's layout doesn't match what this AMS2 version is expected to have");
 
+        // The Rules & Regulations object (pit lane speed limit, full course yellow): best-effort. When
+        // it can't be found or doesn't look as expected, those two settings are skipped and reported
+        // as advisory - the rest of the race setup doesn't depend on them.
+        var rulesVm = ResolveRulesVm(sessionRules, master, vm498);
+        var rulesUnverified = new List<(string, int, int?)>();
+        if (sessionRules?.HasRules == true && rulesVm is null)
+            rulesUnverified.Add(("Rules (pit speed limit / full course yellow) not applied - rules object not found", 0, null));
+        void ApplyRules()
+        {
+            if (rulesVm is not long rules) return;
+            rulesUnverified.Clear();
+            writer.ApplyRules(rules, sessionRules!, rulesUnverified);
+        }
+
         writer.ApplyOnce(targets, layout, opponents, sessionRules, practice, qualifying, unverified, opponentsUnverified);
+        ApplyRules();
 
         // SlotWriter already reads back each write immediately, so this delay isn't about our write
         // landing - it's about outlasting AMS2's own Custom Race screen re-initializing some of its
         // state shortly after opening, which can silently clobber a config written too early.
         // Shorter delays were live-confirmed to lose writes.
         await Task.Delay(TimeSpan.FromSeconds(2), ct).ConfigureAwait(false);
-        unverified.Clear(); // only the second, later write's verification result is meaningful
+        unverified.Clear(); // only the later writes' verification results are meaningful
         opponentsUnverified.Clear();
         writer.ApplyOnce(targets, layout, opponents, sessionRules, practice, qualifying, unverified, opponentsUnverified);
+        ApplyRules();
+        // what that pass found unverified: replaced by the session rules' final write, after SetCar/commit
+        var sessionUnverifiedBeforeSetCar = unverified.ToList();
 
         // SetCar is a direct function call, not a staged slot write, so it isn't part of the
         // two-write cycle above - but it runs AFTER that cycle settles, for the same reason the
@@ -512,6 +532,21 @@ public sealed class Ams2RaceConfigurator : IDisposable
                 commitProblems = writer.CheckCommitResult(vm498, layout);
         }
 
+        // SetCar/commit also put some session rules back to their own values: live-confirmed
+        // 2026-11-18, the start type read back as written before them and was rolling again in the
+        // race (refuelling, from the same pass, held). So the session rules are written once more
+        // after them, and verified from this write instead of the earlier one.
+        if (sessionRules != null || practice != null || qualifying != null)
+        {
+            if (sessionRules?.RollingStart is StartType wantedStart && vm550 is long startVm
+                && _mem!.TryReadSlot(startVm, Ams2Constants.Vm550Slot.RollingStart, out var startNow) && startNow != (int)wantedStart)
+                _log?.Invoke($"ApplyRaceConfigAsync: start type reset to {startNow} by SetCar/commit - writing {(int)wantedStart} again");
+
+            unverified.RemoveAll(u => sessionUnverifiedBeforeSetCar.Contains(u));
+            writer.ApplyOnce(targets, layout, null, sessionRules, practice, qualifying, unverified, opponentsUnverified);
+            ApplyRules();
+        }
+
         // SetCar/commit recompute AMS2's own opponent counts for the newly-selected car, overwriting
         // what the two ApplyOnce passes wrote (live-confirmed: RivalCount reset to the class maximum,
         // and a count above the number of same-class cars makes AMS2 pad the grid with other
@@ -524,6 +559,7 @@ public sealed class Ams2RaceConfigurator : IDisposable
         unverified.AddRange(opponentsUnverified);
         unverified.AddRange(layout.Failures);
         unverified.AddRange(commitProblems);
+        unverified.AddRange(rulesUnverified);
 
         _log?.Invoke($"ApplyRaceConfigAsync: done - {errors.Count} error(s), {unverified.Count} unverified field(s)"
             + (layout.AnyFailed ? " | LAYOUT CHECK FAILED" : "")
@@ -534,9 +570,26 @@ public sealed class Ams2RaceConfigurator : IDisposable
         {
             Errors = errors,
             UnverifiedFields = unverified,
-            AdvisoryFields = commitProblems.Select(p => p.Field).ToArray(),
+            AdvisoryFields = commitProblems.Select(p => p.Field).Concat(rulesUnverified.Select(r => r.Item1)).ToArray(),
             LayoutCheckFailed = layout.AnyFailed
         };
+    }
+
+    /// <summary>The Rules &amp; Regulations object when <paramref name="cfg"/> asks for its settings and this build allows it; null (logged) otherwise.</summary>
+    private long? ResolveRulesVm(SessionRulesConfig? cfg, long? master, long? vm498)
+    {
+        if (cfg?.HasRules != true) return null;
+        if (master is not long m || vm498 is not long v)
+        {
+            _log?.Invoke("ApplyRaceConfigAsync: pit speed limit / full course yellow skipped - master or VM498 not resolved");
+            return null;
+        }
+        if (Offsets?.CanWriteRules == false)
+        {
+            _log?.Invoke($"ApplyRaceConfigAsync: pit speed limit / full course yellow skipped - the rules object isn't known for this AMS2 version ({Offsets.Describe()})");
+            return null;
+        }
+        return new RulesVmResolver(_mem!, _moduleBase, _moduleSize, Ams2Constants.RulesIdentityTag, Ams2Constants.IntPropertyTypeTag, _log).Resolve(m, v);
     }
 
     /// <summary>See Ams2Constants.SetCarValidationGateRva's doc comment for the full evidence behind each code.</summary>

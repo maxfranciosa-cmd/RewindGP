@@ -14,12 +14,13 @@ public static class Ams2OffsetNames
     public const string Vm550IdentityTag = "Vm550IdentityTag";
     public const string Vm498ContainerTag = "Vm498ContainerTag";
     public const string GameplaySettingsPointer = "GameplaySettingsPointer";
+    public const string RulesIdentityTag = "RulesIdentityTag";
 
     public static readonly IReadOnlyList<string> Code = new[] { Setter, SetCar, Commit };
 
     public static readonly IReadOnlyList<string> Data = new[]
     {
-        IntPropertyTypeTag, Vm498IdentityTag, Vm550IdentityTag, Vm498ContainerTag, GameplaySettingsPointer
+        IntPropertyTypeTag, Vm498IdentityTag, Vm550IdentityTag, Vm498ContainerTag, GameplaySettingsPointer, RulesIdentityTag
     };
 
     public static readonly IReadOnlyList<string> All = Code.Concat(Data).ToArray();
@@ -35,6 +36,7 @@ public static class Ams2OffsetNames
         [Vm550IdentityTag] = Ams2Constants.BuiltIn.Vm550IdentityTag - Ams2Constants.DefaultImageBase,
         [Vm498ContainerTag] = Ams2Constants.BuiltIn.Vm498ContainerTag - Ams2Constants.DefaultImageBase,
         [GameplaySettingsPointer] = Ams2Constants.BuiltIn.GameplaySettingsPointerRva,
+        [RulesIdentityTag] = Ams2Constants.BuiltIn.RulesIdentityTag - Ams2Constants.DefaultImageBase,
     };
 }
 
@@ -122,6 +124,10 @@ public sealed class Ams2ResolvedOffsets
     public bool CanCommit => CanResolveCustomRace && Has(Ams2OffsetNames.Commit);
 
     public bool CanChangeGameplaySettings => Has(Ams2OffsetNames.GameplaySettingsPointer);
+
+    /// <summary>RulesVmResolver can find the Rules &amp; Regulations object and its slots can be written (pit lane speed limit, full course yellow).</summary>
+    public bool CanWriteRules =>
+        Has(Ams2OffsetNames.IntPropertyTypeTag) && Has(Ams2OffsetNames.RulesIdentityTag) && Has(Ams2OffsetNames.Setter);
 
     /// <summary>True when some features are off because their values weren't found for this build.</summary>
     public bool IsDegraded => Missing.Count > 0;

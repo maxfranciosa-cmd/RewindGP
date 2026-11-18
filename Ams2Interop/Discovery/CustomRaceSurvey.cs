@@ -10,11 +10,24 @@ public enum SurveyObject
     /// <summary>Race entrants / AI.</summary>
     Vm498,
     /// <summary>The selection object: car, track, livery; holds VM498.</summary>
-    Master
+    Master,
+    /// <summary>
+    /// The Custom Race "Rules &amp; Regulations" page's settings (pit lane speed limit, full course
+    /// yellow). Not one of the objects above as far as is known, and not resolved by the interop -
+    /// its tag isn't in the signature file. Only surveyed by find-rules.
+    /// </summary>
+    Rules
 }
 
-/// <summary>One slot a survey step is expected to change, with its number in the current constants.</summary>
-public sealed record SurveySlot(string Name, int OldSlot);
+/// <summary>
+/// One slot a survey step is expected to change, with its number in the current constants -
+/// UnknownSlot when there's no number for it yet (the survey is what finds it).
+/// </summary>
+public sealed record SurveySlot(string Name, int OldSlot)
+{
+    public const int UnknownSlot = -1;
+    public bool Known => OldSlot != UnknownSlot;
+}
 
 /// <summary>
 /// One thing for the developer to change in AMS2's Custom Race screen, and the slot(s) that
@@ -85,6 +98,20 @@ public sealed class CustomRaceSurvey
         new SurveyStep("Change the AI MISTAKES setting", SurveyObject.Vm498, nameof(Ams2Constants.Vm498Slot.MistakeFrequency), Ams2Constants.Vm498Slot.MistakeFrequency),
         new SurveyStep("Pick a different CAR", SurveyObject.Master, nameof(Ams2Constants.MasterSlot.Car), Ams2Constants.MasterSlot.Car),
         new SurveyStep("Pick a different LIVERY (same car)", SurveyObject.Master, nameof(Ams2Constants.MasterSlot.Livery), Ams2Constants.MasterSlot.Livery),
+    };
+
+    /// <summary>
+    /// The Rules &amp; Regulations page's settings, to find the object they live on and their slots.
+    /// AMS2 may keep a changed value on the page until the page is left, so each step asks for that.
+    /// </summary>
+    public static IReadOnlyList<SurveyStep> RulesSteps { get; } = new[]
+    {
+        new SurveyStep("In RULES & REGULATIONS, change the PIT LANE SPEED LIMIT, then leave the page", SurveyObject.Rules,
+            nameof(Ams2Constants.RulesSlot.PitSpeedLimit), Ams2Constants.RulesSlot.PitSpeedLimit),
+        new SurveyStep("In RULES & REGULATIONS, toggle FULL COURSE YELLOW, then leave the page", SurveyObject.Rules,
+            nameof(Ams2Constants.RulesSlot.FullCourseYellow), Ams2Constants.RulesSlot.FullCourseYellow),
+        new SurveyStep("In RULES & REGULATIONS, change the PIT LANE SPEED LIMIT again, then leave the page", SurveyObject.Rules,
+            nameof(Ams2Constants.RulesSlot.PitSpeedLimit), Ams2Constants.RulesSlot.PitSpeedLimit),
     };
 
     /// <summary>Every slot the interop writes or checks, one setting per step.</summary>
@@ -275,7 +302,10 @@ public sealed class CustomRaceSurvey
     public SurveyReport Analyse(IReadOnlyList<StepObservation> observations, IReadOnlyDictionary<SurveyObject, long>? currentTags = null)
     {
         var report = new SurveyReport { ModuleBase = _moduleBase, Observations = observations };
-        var objects = Enum.GetValues<SurveyObject>();
+        // the three objects the interop resolves, always; Rules only when it was surveyed
+        var objects = SurveyReport.CoreObjects
+            .Concat(observations.Select(o => o.Step.Object).Where(k => !SurveyReport.CoreObjects.Contains(k)))
+            .Distinct();
 
         foreach (var kind in objects)
             report.Tags[kind] = DecideTag(kind, observations, currentTags);
@@ -352,8 +382,12 @@ public sealed class CustomRaceSurvey
     private static IEnumerable<SlotFinding> DecideSlots(StepObservation observation, long? tag)
     {
         var expected = observation.Step.Slots.OrderBy(s => s.OldSlot).ToList();
-        SlotFinding Finding(SurveySlot s, int? newSlot, IReadOnlyList<int> candidates, string? note) =>
-            new(s.Name, observation.Step.Object, s.OldSlot, newSlot, candidates, note);
+        SlotFinding Finding(SurveySlot s, int? newSlot, IReadOnlyList<int> candidates, string? note)
+        {
+            // the value the slot changed from and to, when it was found
+            var owner = newSlot is int n && tag is long ownerTag ? observation.Owners.FirstOrDefault(o => o.Tag == ownerTag && o.Slot == n) : null;
+            return new(s.Name, observation.Step.Object, s.OldSlot, newSlot, candidates, note) { Before = owner?.Before, After = owner?.After };
+        }
 
         if (observation.Skipped)
             return expected.Select(s => Finding(s, null, Array.Empty<int>(), "skipped"));
@@ -381,7 +415,7 @@ public sealed class CustomRaceSurvey
     private void CheckFixedOffsets(SurveyReport report, IReadOnlyList<StepObservation> observations)
     {
         long? Primary(SurveyObject kind) =>
-            report.Tags[kind].Tag is long tag
+            report.Tags.TryGetValue(kind, out var finding) && finding.Tag is long tag
                 ? observations.Where(o => o.Step.Object == kind).SelectMany(o => o.Owners).Where(w => w.Tag == tag)
                               .GroupBy(w => w.Object).OrderByDescending(g => g.Count()).Select(g => (long?)g.Key).FirstOrDefault()
                 : null;
@@ -392,6 +426,18 @@ public sealed class CustomRaceSurvey
         report.MasterObject = master;
         report.Vm498Object = vm498;
         report.Vm550Object = vm550;
+
+        // The interop doesn't resolve the Rules object yet: whatever holds a pointer to it is the
+        // way to get there (the way master holds VM498)
+        if (Primary(SurveyObject.Rules) is long rules)
+        {
+            report.RulesObject = rules;
+            foreach (var (location, _) in MemoryScanner.FindPointersTo(_mem, new HashSet<long> { rules }))
+            {
+                if (FindObjectStart(location) is not long holder || !_mem.TryReadInt64(holder + 8, out var holderTag)) continue;
+                report.RulesHolders.Add(new ObjectHolder(holder, holderTag, (int)(location - holder)));
+            }
+        }
 
         if (master is long m && vm498 is long v)
             report.Vm498OffsetsInMaster = PointerOffsetsTo(m, v);
@@ -447,11 +493,18 @@ public sealed class CustomRaceSurvey
     }
 }
 
+/// <summary>An object (by its address and tag) with a pointer to another at Offset.</summary>
+public sealed record ObjectHolder(long Object, long Tag, int Offset);
+
 public sealed record TagFinding(SurveyObject Object, long? Tag, IReadOnlyList<long> Candidates, long? CurrentTag, string? Note);
 
 public sealed record SlotFinding(string Name, SurveyObject Object, int OldSlot, int? NewSlot, IReadOnlyList<int> Candidates, string? Note)
 {
     public bool Moved => NewSlot is int n && n != OldSlot;
+
+    /// <summary>The value the found slot held before and after the step (null when no slot was found).</summary>
+    public int? Before { get; init; }
+    public int? After { get; init; }
 }
 
 /// <summary>What a CustomRaceSurvey found. Describe() is the developer-facing report.</summary>
@@ -465,6 +518,10 @@ public sealed class SurveyReport
     public long? MasterObject { get; set; }
     public long? Vm498Object { get; set; }
     public long? Vm550Object { get; set; }
+    public long? RulesObject { get; set; }
+
+    /// <summary>Objects found holding a pointer to RulesObject.</summary>
+    public List<ObjectHolder> RulesHolders { get; } = new();
 
     /// <summary>Where in master a pointer to VM498 was found (Ams2Constants.Vm498Offset expects exactly that one).</summary>
     public IReadOnlyList<int>? Vm498OffsetsInMaster { get; set; }
@@ -475,18 +532,26 @@ public sealed class SurveyReport
     /// <summary>Offsets in VM498 whose value decodes as RaceDate (Ams2Constants.Vm498DatePackedOffset expects it among them).</summary>
     public IReadOnlyList<int>? PackedDateOffsets { get; set; }
 
+    /// <summary>The objects the interop resolves through the signature file's tags.</summary>
+    public static readonly IReadOnlyList<SurveyObject> CoreObjects = new[] { SurveyObject.Vm550, SurveyObject.Vm498, SurveyObject.Master };
+
+    /// <summary>Rules has no offset name: it isn't in the signature file (yet).</summary>
+    public const string RulesTagName = "RulesObjectTag";
+
     public static string OffsetName(SurveyObject kind) => kind switch
     {
         SurveyObject.Vm550 => Ams2OffsetNames.Vm550IdentityTag,
         SurveyObject.Vm498 => Ams2OffsetNames.Vm498IdentityTag,
-        _ => Ams2OffsetNames.Vm498ContainerTag,
+        SurveyObject.Master => Ams2OffsetNames.Vm498ContainerTag,
+        _ => RulesTagName,
     };
 
-    /// <summary>The decided tags as known_builds values (RVAs), by offset name.</summary>
+    /// <summary>The decided tags of the core objects as known_builds values (RVAs), by offset name.</summary>
     public Dictionary<string, long> TagRvas() =>
-        Tags.Values.Where(t => t.Tag != null).ToDictionary(t => OffsetName(t.Object), t => t.Tag!.Value - ModuleBase);
+        Tags.Values.Where(t => t.Tag != null && CoreObjects.Contains(t.Object))
+            .ToDictionary(t => OffsetName(t.Object), t => t.Tag!.Value - ModuleBase);
 
-    public bool AllTagsDecided => Tags.Count == 3 && Tags.Values.All(t => t.Tag != null);
+    public bool AllTagsDecided => CoreObjects.All(k => Tags.TryGetValue(k, out var t) && t.Tag != null);
 
     public string Describe()
     {
@@ -509,13 +574,26 @@ public sealed class SurveyReport
             foreach (var s in Slots)
             {
                 var skipped = s.Note == "skipped";
+                var was = s.OldSlot == SurveySlot.UnknownSlot ? "not known yet" : $"was {s.OldSlot}";
                 var status = s.NewSlot is int n
-                    ? (n == s.OldSlot ? $"{n} (unchanged)" : $"{s.OldSlot} -> {n}  ** MOVED **")
-                    : skipped ? $"skipped (was {s.OldSlot})" : $"NOT FOUND (was {s.OldSlot})";
+                    ? (n == s.OldSlot ? $"{n} (unchanged)"
+                       : s.OldSlot == SurveySlot.UnknownSlot ? $"{n}  ** FOUND **"
+                       : $"{s.OldSlot} -> {n}  ** MOVED **")
+                    : skipped ? $"skipped ({was})" : $"NOT FOUND ({was})";
                 lines.Add($"  {$"{s.Object}.{s.Name}",-30} {status}"
+                          + (s.Before is int before && s.After is int after ? $"  (value {before} -> {after})" : "")
                           + (s.Note != null && !skipped ? $"  [{s.Note}]" : "")
                           + (s.NewSlot == null && s.Candidates.Count > 0 ? $"  candidates: {string.Join(", ", s.Candidates)}" : ""));
             }
+        }
+
+        if (RulesObject is long rules)
+        {
+            lines.Add("");
+            lines.Add($"RULES OBJECT at 0x{rules:X}, held by:");
+            if (RulesHolders.Count == 0) lines.Add("  nothing found (no object holds a pointer to it)");
+            foreach (var h in RulesHolders)
+                lines.Add($"  object 0x{h.Object:X}  tag RVA 0x{h.Tag - ModuleBase:X}  at +0x{h.Offset:X}");
         }
 
         lines.Add("");

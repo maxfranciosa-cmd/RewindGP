@@ -30,8 +30,8 @@ namespace AMS2ChEd.Tests
 
             Assert.IsFalse(RaceRulesEras.For(1992).SafetyCar);
             Assert.IsTrue(RaceRulesEras.For(1993).SafetyCar);
-            Assert.IsFalse(RaceRulesEras.For(1993).PitSpeedLimit);
-            Assert.IsTrue(RaceRulesEras.For(1994).PitSpeedLimit);
+            Assert.IsNull(RaceRulesEras.For(1993).PitSpeedLimitKph);
+            Assert.AreEqual(80, RaceRulesEras.For(1994).PitSpeedLimitKph);
 
             Assert.IsTrue(RaceRulesEras.All.All(e => e.StandingStart));
         }

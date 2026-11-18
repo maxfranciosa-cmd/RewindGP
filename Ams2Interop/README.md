@@ -99,6 +99,7 @@ a pattern at anything it doesn't recognise (e.g. EVEX) rather than guessing.
 | 1 | **Race session rules** (VM550): duration, laps, start hour, date Y/M/D, date type, time progression, rolling start, pit rules, refuelling, private quali, weather mode/count/slots | `SlotWriter` -> AMS2 setter | setter RVA, `IntPropertyTypeTag`, VM550 tag, `Vm550Slot` numbers, value offset `node + 0x18c` | confirmed-build gate or signatures (several per value, must agree); tag check; **race VM550 layout check before any write - failure skips the whole race config**; read-back |
 | 2 | **Practice1 / Qualifying1 / Race2 sessions**: enable trio, duration, start hour, weather, date propagation | `SlotWriter` | as #1, plus the session-wrapper array (`vm498 + 0x18 + i*8`, wrapper `+0x18`) | as #1; Race1-anchored resolver; **per-session layout check - a failing session is skipped** |
 | 3 | **Opponents** (VM498): count type, kind, rival count (+ per class), skill, wet skill, mistakes | `SlotWriter` | as #1, plus VM498 tag, `Vm498Offset = 0x250`, `Vm498Slot` numbers | as #1; **VM498 layout check - failure skips opponents and the packed date** |
+| 3b | **Rules & Regulations**: pit lane speed limit (km/h), full course yellow switch | `SlotWriter` | as #1, plus the Rules object tag (`RulesIdentityTag`), `RulesSlot` numbers; the object is found by a tag scan (`RulesVmResolver`), not from master | signatures (the tag); **layout check - pit limit 40-240, FCY 0/1 - and exactly one passing candidate, else both settings are skipped**; read-back; **best-effort: a failure is advisory and never fails the race config** |
 | 4 | **VM498 packed date** at `vm498 + 0x188` | **raw** write (preserves top 7 bits) | struct offset `0x188` | VM498 layout check; **current value must decode as a plausible date**; read-back |
 | 5 | **Car / track / livery** | remote call `SetCar` | `SetCar` RVA; `MasterSlot` numbers for the read-back | signatures; **master layout check before the call**; `CheckSetCarReadBack` |
 | 6 | **Opponent class recount** | remote call `Commit` | `Commit` RVA | signatures; master layout check; **advisory read-back of VM498 slots 37/39** (UNCONFIRMED, not fatal) |
@@ -197,7 +198,7 @@ application already drives) before calling `ApplyRaceConfigAsync`.
   selection back from `master`'s own slots (`Ams2Constants.MasterSlot`). **Confirmed live.**
 - A write-twice-then-verify pattern in `ApplyRaceConfigAsync` with a 2-second gap, since AMS2's
   Custom Race screen can re-initialize state shortly after opening and silently undo an early
-  write. `SetCar` runs after that gap, and opponents are written once more after `SetCar`.
+  write. `SetCar` runs after that gap, then the session rules and the opponents are written once more, because `SetCar`/commit reset the start type (seen live 2026-11-18) and the opponent counts.
 - `Ams2Launcher`: detect whether AMS2 is running and launch the game
   through Steam so the resulting process can actually be attached to afterward.
 - **RaceDate now applies reliably** — writing VM550's day/month/year slots alone left the field
