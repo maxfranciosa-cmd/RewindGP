@@ -478,18 +478,18 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         /// <summary>
         /// An inactive driver's new reputation with his FP1 reward: the higher (by
         /// DriverHirer.ReputationScore) of the usual inactive result and the reward's, the usual one
-        /// on a tie, so FP1 only ever raises. The young tiers need a driver still under 25 next
-        /// season (ageNextSeason); for an older one they only spare him the decay.
+        /// on a tie, so FP1 only ever raises. The young tiers need a driver still young next
+        /// season (ageNextSeason, in the era of nextSeasonYear: AgeEras); for an older one they only spare him the decay.
         /// </summary>
-        public static DriverReputation Raise(DriverReputation usual, PracticeReward reward, DriverReputation currentReputation, int ageNextSeason, IReputationUpdater reputationUpdater)
+        public static DriverReputation Raise(DriverReputation usual, PracticeReward reward, DriverReputation currentReputation, int ageNextSeason, int nextSeasonYear, IReputationUpdater reputationUpdater)
         {
-            var young = ageNextSeason < ReputationUpdater.YOUNG_DRIVER_AGE;
+            var young = ageNextSeason < AgeEras.For(nextSeasonYear).YoungDriverAge;
             DriverReputation? earned = reward switch
             {
                 PracticeReward.YoungChampionshipLevelUnproven when young => DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN,
                 PracticeReward.YoungTalent when young => DriverReputation.YOUNG_TALENT,
                 PracticeReward.None => null,
-                _ => reputationUpdater.GetNewReputationForInactiveDriver(currentReputation, ageNextSeason, decays: false)
+                _ => reputationUpdater.GetNewReputationForInactiveDriver(currentReputation, ageNextSeason, decays: false, nextSeasonYear)
             };
 
             return earned != null && DriverHirer.ReputationScore(earned.Value) > DriverHirer.ReputationScore(usual) ? earned.Value : usual;

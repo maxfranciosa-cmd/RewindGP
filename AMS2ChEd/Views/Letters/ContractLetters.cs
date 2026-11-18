@@ -2,6 +2,7 @@ using AMS2ChEd.Business.DependencyInjection;
 using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Resources;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace AMS2ChEd.Views.Letters
                     string.Format(template, playerName, teamName, playerAge), chooseAnotherTeam);
             }
 
-            if (playerAge > 42 && playerReputation != DriverReputation.JUST_ONE_LAST_DANCE)
+            if (playerAge > AgeEras.For(season?.Year).MaxRetiringAge && playerReputation != DriverReputation.JUST_ONE_LAST_DANCE)
             {
                 return Letter.FromTeam(teamName, teamPrincipal, Strings.LetterSubject_AgeRequirement,
                     string.Format(Strings.ContractLetterWindow_OlderDriver_Rejection_Format, playerName, teamName, playerAge), chooseAnotherTeam);

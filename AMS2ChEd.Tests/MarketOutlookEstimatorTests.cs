@@ -173,7 +173,7 @@ namespace AMS2ChEd.Tests.Business.Services
             var outlook = CreateEstimator().Estimate(saveGame, NextSeason(saveGame), new Dictionary<string, IDriverData>());
 
             var seat = outlook.Seats.Single(s => s.TeamId == "MINNOW" && s.Slot == 1);
-            Assert.AreEqual(EndOfSeasonManager.RetirementChance(38), seat.OpenChance, Tolerance);
+            Assert.AreEqual(EndOfSeasonManager.RetirementChance(38, Year + 1), seat.OpenChance, Tolerance);
             Assert.AreEqual(DriverFirerOutcome.NOT_DROPPED, seat.ExitingDriverOutcome);
             Assert.AreEqual("VETERAN", seat.ExitingDriverId);
         }
@@ -223,13 +223,19 @@ namespace AMS2ChEd.Tests.Business.Services
         }
 
         [TestMethod]
-        public void RetirementChance_GrowsFromThirtyFourToFortyTwo()
+        public void RetirementChance_GrowsFromTheErasMinimumToItsMaximumRetiringAge()
         {
-            Assert.AreEqual(0, EndOfSeasonManager.RetirementChance(33));
-            Assert.AreEqual(1 / 9.0, EndOfSeasonManager.RetirementChance(34), 1e-9);
-            Assert.AreEqual(5 / 9.0, EndOfSeasonManager.RetirementChance(38), 1e-9);
-            Assert.AreEqual(1, EndOfSeasonManager.RetirementChance(42), 1e-9);
-            Assert.AreEqual(1, EndOfSeasonManager.RetirementChance(43));
+            foreach (var era in AgeEras.All)
+            {
+                var year = era.FirstSeason;
+                var span = era.MaxRetiringAge - era.MinRetiringAge + 1;
+
+                Assert.AreEqual(0, EndOfSeasonManager.RetirementChance(era.MinRetiringAge - 1, year));
+                Assert.AreEqual(1.0 / span, EndOfSeasonManager.RetirementChance(era.MinRetiringAge, year), 1e-9);
+                Assert.AreEqual(5.0 / span, EndOfSeasonManager.RetirementChance(era.MinRetiringAge + 4, year), 1e-9);
+                Assert.AreEqual(1, EndOfSeasonManager.RetirementChance(era.MaxRetiringAge, year), 1e-9);
+                Assert.AreEqual(1, EndOfSeasonManager.RetirementChance(era.MaxRetiringAge + 1, year));
+            }
         }
 
         [TestMethod]
@@ -237,7 +243,7 @@ namespace AMS2ChEd.Tests.Business.Services
         {
             var reputationUpdater = new Mock<IReputationUpdater>();
             reputationUpdater
-                .Setup(r => r.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
+                .Setup(r => r.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>(), It.IsAny<int>()))
                 .Returns(DriverReputation.PRIME_STRONG_MIDFIELD);
             var endOfSeasonManager = new EndOfSeasonManager(reputationUpdater.Object, new Mock<IOffSeasonMovements>().Object, new Mock<IRandomDriverGenerator>().Object, new DriverHirer());
 
@@ -263,7 +269,7 @@ namespace AMS2ChEd.Tests.Business.Services
             var reputations = endOfSeasonManager.ProjectNewReputations(saveGame, Year + 1);
 
             Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, reputations["PLAYER"]);
-            reputationUpdater.Verify(r => r.GetNewReputation(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), 1, 2, 0, 2, 2, 1.0), Times.Once);
+            reputationUpdater.Verify(r => r.GetNewReputation(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), 1, 2, 0, 2, 2, 1.0, It.IsAny<int>()), Times.Once);
             Assert.AreEqual(DriverReputation.PRIME_MIDFIELD, saveGame.Drivers.Single(d => d.DriverId == "PLAYER").Reputation);
         }
 

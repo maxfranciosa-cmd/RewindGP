@@ -29,8 +29,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         {
             _mockReputationUpdater = new Mock<IReputationUpdater>();
             _mockReputationUpdater
-                .Setup(r => r.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
-                .Returns<DriverReputation, int, int, int, int, int, int, double>((rep, age, pos, pods, dnfs, races, totalRaces, avgPos) => rep);
+                .Setup(r => r.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>(), It.IsAny<int>()))
+                .Returns<DriverReputation, int, int, int, int, int, int, double, int>((rep, age, pos, pods, dnfs, races, totalRaces, avgPos, year) => rep);
 
             _generatedDriverCounter = 0;
             _mockRandomDriverGenerator = new Mock<IRandomDriverGenerator>();

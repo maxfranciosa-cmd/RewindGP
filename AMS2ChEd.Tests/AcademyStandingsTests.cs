@@ -46,8 +46,8 @@ namespace AMS2ChEd.Tests
         {
             var saveGame = Save(
                 // still young this season, too old for the academy next season
-                Driver("SEATLESS", ReputationUpdater.YOUNG_DRIVER_AGE - 1, DriverReputation.YOUNG_TALENT),
-                Driver("RESERVE", ReputationUpdater.YOUNG_DRIVER_AGE + 5, DriverReputation.PRIME_MIDFIELD));
+                Driver("SEATLESS", AgeEras.For(Year).YoungDriverAge - 1, DriverReputation.YOUNG_TALENT),
+                Driver("RESERVE", AgeEras.For(Year).YoungDriverAge + 5, DriverReputation.PRIME_MIDFIELD));
 
             var members = AcademyStandings.Build(saveGame).Single().Members;
 

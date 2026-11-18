@@ -212,12 +212,12 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
             if (IsInactive(driver, seasonRecapsByDriverId))
             {
-                var usual = _reputationUpdater.GetNewReputationForInactiveDriver(driver.Reputation, driverAge, decays: !reserveDriverIds.Contains(driver.DriverId));
+                var usual = _reputationUpdater.GetNewReputationForInactiveDriver(driver.Reputation, driverAge, decays: !reserveDriverIds.Contains(driver.DriverId), nextSeasonYear);
                 var reward = PracticeOutings.RewardFor(practiceScores?.GetValueOrDefault(driver.DriverId));
-                return PracticeOutings.Raise(usual, reward, driver.Reputation, driverAge, _reputationUpdater);
+                return PracticeOutings.Raise(usual, reward, driver.Reputation, driverAge, nextSeasonYear, _reputationUpdater);
             }
 
-            return _reputationUpdater.GetNewReputation(driver.Reputation, driverAge, ReputationUpdater.StandingsJudgedBy(driverSeasonRecap.Position, driverSeasonRecap.Teammate), driverSeasonRecap.Podiums, driverSeasonRecap.DNFs, driverSeasonRecap.Races, totalSeasonRaces, driverSeasonRecap.AverageRacePosition);
+            return _reputationUpdater.GetNewReputation(driver.Reputation, driverAge, ReputationUpdater.StandingsJudgedBy(driverSeasonRecap.Position, driverSeasonRecap.Teammate), driverSeasonRecap.Podiums, driverSeasonRecap.DNFs, driverSeasonRecap.Races, totalSeasonRaces, driverSeasonRecap.AverageRacePosition, nextSeasonYear);
         }
 
         private Dictionary<string, SeasonRecap> GenerateSeasonRecaps(ISaveGame saveGame)
@@ -321,14 +321,14 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     Driver1 = new DriverSituation
                     {
                         DriverId = driver1.DriverId,
-                        DriverRetiring = saveGame.IsDeceased(driver1.DriverId) || (driver1.DriverId != saveGame.PlayerData.DriverId && IsDriverRetiring(nextSeason.Year - driver1.YearOfBirth)),
+                        DriverRetiring = saveGame.IsDeceased(driver1.DriverId) || (driver1.DriverId != saveGame.PlayerData.DriverId && IsDriverRetiring(nextSeason.Year - driver1.YearOfBirth, nextSeason.Year)),
                         RacesLeftInContract = e.Driver1Contract.Races - saveGame.CurrentSeason.Races.Count(),
                         Reputation = driver1.Reputation
                     },
                     Driver2 = !hasDriver2 ? null : new DriverSituation
                     {
                         DriverId = driver2.DriverId,
-                        DriverRetiring = saveGame.IsDeceased(driver2.DriverId) || (driver2.DriverId != saveGame.PlayerData.DriverId && IsDriverRetiring(nextSeason.Year - driver2.YearOfBirth)),
+                        DriverRetiring = saveGame.IsDeceased(driver2.DriverId) || (driver2.DriverId != saveGame.PlayerData.DriverId && IsDriverRetiring(nextSeason.Year - driver2.YearOfBirth, nextSeason.Year)),
                         RacesLeftInContract = e.Driver2Contract.Races - saveGame.CurrentSeason.Races.Count(),
                         Reputation = driver2.Reputation
                     }
@@ -376,16 +376,16 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return DriverHirer.GetRoleToHireAlongside(stayingDriverContract.Role, stayingDriverReputation, teamReputation);
         }
 
-        private const int MIN_RETIRING_AGE = 34;
+        // the retiring ages depend on the era of the season (AgeEras)
         private const int RETIRING_AGE_INACTIVE_DRIVER = 32;
-        private const int MAX_RETIRING_AGE = 42;
-        private bool IsDriverRetiring(int age)
+        private bool IsDriverRetiring(int age, int seasonYear)
         {
-            if (age < MIN_RETIRING_AGE) return false;
+            var era = AgeEras.For(seasonYear);
+            if (age < era.MinRetiringAge) return false;
 
-            if (age > MAX_RETIRING_AGE) return true;
+            if (age > era.MaxRetiringAge) return true;
 
-            var possibleRetiringAge = (new Random()).Next(MIN_RETIRING_AGE, MAX_RETIRING_AGE + 1);
+            var possibleRetiringAge = (new Random()).Next(era.MinRetiringAge, era.MaxRetiringAge + 1);
 
             return age >= possibleRetiringAge;
         }
@@ -396,14 +396,15 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
             return newReputation == DriverReputation.PAY_DRIVER_WILD_CARD && age >= RETIRING_AGE_INACTIVE_DRIVER;
         }
 
-        // the chance IsDriverRetiring returns true for a driver of this age
-        public static double RetirementChance(int age)
+        // the chance IsDriverRetiring returns true for a driver of this age in that season
+        public static double RetirementChance(int age, int seasonYear)
         {
-            if (age < MIN_RETIRING_AGE) return 0;
+            var era = AgeEras.For(seasonYear);
+            if (age < era.MinRetiringAge) return 0;
 
-            if (age > MAX_RETIRING_AGE) return 1;
+            if (age > era.MaxRetiringAge) return 1;
 
-            return (age - MIN_RETIRING_AGE + 1) / (double)(MAX_RETIRING_AGE - MIN_RETIRING_AGE + 1);
+            return (age - era.MinRetiringAge + 1) / (double)(era.MaxRetiringAge - era.MinRetiringAge + 1);
         }
 
         // the chance a team runs a reserve next season, by its reputation. Rolled again every winter

@@ -258,7 +258,7 @@ namespace AMS2ChEd.Business.Services
                         // a driver who died in a crash leaves the seat as a retiring one does
                         RetirementChance = saveGame.IsDeceased(driverId) ? 1
                             : isPlayer ? 0
-                            : EndOfSeasonManager.RetirementChance(nextSeason.Year - birthYears.GetValueOrDefault(driverId, nextSeason.Year)),
+                            : EndOfSeasonManager.RetirementChance(nextSeason.Year - birthYears.GetValueOrDefault(driverId, nextSeason.Year), nextSeason.Year),
                         IsPlayer = isPlayer
                     };
                 }

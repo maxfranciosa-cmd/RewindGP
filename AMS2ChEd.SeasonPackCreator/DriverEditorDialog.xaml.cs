@@ -363,7 +363,7 @@ namespace AMS2ChEd.SeasonPackEditor
             IEnumerable<DriverReputation> availableReputations;
             if (int.TryParse(YearOfBirthTextBox.Text, out int yearOfBirth) && yearOfBirth > 0)
             {
-                availableReputations = ReputationUpdater.AvailableReputationForAge(_seasonYear - yearOfBirth);
+                availableReputations = ReputationUpdater.AvailableReputationForAge(_seasonYear - yearOfBirth, _seasonYear);
             }
             else
             {

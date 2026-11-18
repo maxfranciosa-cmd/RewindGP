@@ -154,7 +154,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                     1, // DNFs
                     3, // races
                     It.IsAny<int>(), // totalSeasonRaces
-                    It.IsAny<double>())) // averageRacePosition
+                    It.IsAny<double>(), It.IsAny<int>())) // averageRacePosition
                 .Returns(DriverReputation.PRIME_STRONG_MIDFIELD);
 
             // Act
@@ -170,7 +170,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                     1,
                     3,
                     It.IsAny<int>(),
-                    It.IsAny<double>()),
+                    It.IsAny<double>(), It.IsAny<int>()),
                 Times.Once,
                 "Should call GetNewReputation with season recap data");
 
@@ -209,13 +209,13 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 new ConstructorStandingEntry { TeamId = "mercedes", Points = 100 },
                 new ConstructorStandingEntry { TeamId = "ferrari", Points = 80 },
             };
-            _mockReputationUpdater.Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()))
+            _mockReputationUpdater.Setup(x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>(), It.IsAny<int>()))
                 .Returns(DriverReputation.PRIME_MIDFIELD);
             return saveGame;
         }
 
         private void VerifyDriver1JudgedAs(int standings, int races = 4) =>
-            _mockReputationUpdater.Verify(x => x.GetNewReputation(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), standings, It.IsAny<int>(), It.IsAny<int>(), races, It.IsAny<int>(), It.IsAny<double>()), Times.Once);
+            _mockReputationUpdater.Verify(x => x.GetNewReputation(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), standings, It.IsAny<int>(), It.IsAny<int>(), races, It.IsAny<int>(), It.IsAny<double>(), It.IsAny<int>()), Times.Once);
 
         [TestMethod]
         public void UpdateDriversPool_SecondInADominantCar_ClearlyBeatenByTeammate_IsJudgedAsFourth()
@@ -266,7 +266,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 .Setup(x => x.GetNewReputationForInactiveDriver(
                     DriverReputation.PRIME_MIDFIELD,
                     It.IsAny<int>(), // age
-                    It.IsAny<bool>()))
+                    It.IsAny<bool>(), It.IsAny<int>()))
                 .Returns(DriverReputation.AGEING_MIDFIELD);
 
             // Act
@@ -277,7 +277,8 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 x => x.GetNewReputationForInactiveDriver(
                     DriverReputation.PRIME_MIDFIELD,
                     It.IsAny<int>(),
-                    true),
+                    true,
+                    It.IsAny<int>()),
                 Times.Once,
                 "Should call GetNewReputationForInactiveDriver for driver without season recap");
 
@@ -304,7 +305,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                     0, // no DNFs
                     10, // races
                     It.IsAny<int>(), // totalSeasonRaces
-                    It.IsAny<double>())) // averageRacePosition
+                    It.IsAny<double>(), It.IsAny<int>())) // averageRacePosition
                 .Returns(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL);
 
             // Act
@@ -347,7 +348,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
             var driversNewSeasonDictionary = new Dictionary<string, IDriverData>();
 
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), It.IsAny<bool>()))
+                .Setup(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<int>()))
                 .Returns(DriverReputation.AGEING_MIDFIELD);
 
             // Act
@@ -355,11 +356,11 @@ namespace AMS2ChEd.Business.Tests.GameLogic
 
             // Assert
             _mockReputationUpdater.Verify(
-                x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), It.IsAny<bool>()),
+                x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<int>()),
                 Times.Once,
                 "A driver with zero real races should be treated as inactive, even if still present in the standings");
             _mockReputationUpdater.Verify(
-                x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>()),
+                x => x.GetNewReputation(It.IsAny<DriverReputation>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<double>(), It.IsAny<int>()),
                 Times.Never,
                 "GetNewReputation should not be called for a driver with zero real races");
 
@@ -413,7 +414,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                     0,   // DNFs
                     5,   // races (the 2 did-not-prequalify entries are included)
                     It.IsAny<int>(), // totalSeasonRaces
-                    4.0)) // averageRacePosition = (2+4+6)/3, excluding the did-not-prequalify entries
+                    4.0, It.IsAny<int>())) // averageRacePosition = (2+4+6)/3, excluding the did-not-prequalify entries
                 .Returns(DriverReputation.PRIME_STRONG_MIDFIELD);
 
             // Act
@@ -426,7 +427,8 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                     It.IsAny<int>(),
                     8, 1, 0, 5,
                     It.IsAny<int>(),
-                    4.0),
+                    4.0,
+                    It.IsAny<int>()),
                 Times.Once,
                 "Did-not-prequalify entries should be included from the races count but NOT for the average race position");
 
@@ -481,7 +483,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                     0,
                     2,  // races driven
                     10, // total season races
-                    3.0)) // average race position
+                    3.0, It.IsAny<int>())) // average race position
                 .Returns(DriverReputation.PRIME_STRONG_MIDFIELD);
 
             // Act
@@ -492,7 +494,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
                 x => x.GetNewReputation(
                     DriverReputation.PRIME_MIDFIELD,
                     It.IsAny<int>(),
-                    15, 1, 0, 2, 10, 3.0),
+                    15, 1, 0, 2, 10, 3.0, It.IsAny<int>()),
                 Times.Once,
                 "Should pass total season races and average race position for a partial-season driver");
 
@@ -674,8 +676,8 @@ namespace AMS2ChEd.Business.Tests.GameLogic
             _sut.UpdateDriversPoolForNextSeason(1997, saveGame, new Dictionary<string, IDriverData>());
 
             // Assert
-            _mockReputationUpdater.Verify(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), false), Times.Once);
-            _mockReputationUpdater.Verify(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), true), Times.Never);
+            _mockReputationUpdater.Verify(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), false, It.IsAny<int>()), Times.Once);
+            _mockReputationUpdater.Verify(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), true, It.IsAny<int>()), Times.Never);
         }
 
         [TestMethod]
@@ -726,7 +728,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
             _sut.UpdateDriversPoolForNextSeason(1997, saveGame, new Dictionary<string, IDriverData>());
 
             // Assert
-            _mockReputationUpdater.Verify(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), true), Times.Once);
+            _mockReputationUpdater.Verify(x => x.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, It.IsAny<int>(), true, It.IsAny<int>()), Times.Once);
             var driver = saveGame.Drivers.First(d => d.DriverId == "driver1");
             Assert.AreEqual(DriverReputation.PAY_DRIVER_WILD_CARD, driver.Reputation);
             Assert.IsFalse(saveGame.RetiredDrivers.Any());
@@ -863,7 +865,7 @@ namespace AMS2ChEd.Business.Tests.GameLogic
         private void SetupReputationUpdater(DriverReputation oldRep, DriverReputation newRep)
         {
             _mockReputationUpdater
-                .Setup(x => x.GetNewReputationForInactiveDriver(oldRep, It.IsAny<int>(), It.IsAny<bool>()))
+                .Setup(x => x.GetNewReputationForInactiveDriver(oldRep, It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<int>()))
                 .Returns(newRep);
         }
 

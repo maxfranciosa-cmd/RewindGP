@@ -58,11 +58,15 @@ namespace AMS2ChEd.Tests
         [TestMethod]
         public void AvailableReputationForAge_OldSeasonOrNoSeason_Unchanged()
         {
+            // the last season before the modern market: the modern age bands (AgeEras), as with no
+            // year, but wild cards still exist
+            var lastPreModernYear = ModernMarket.Year - 1;
             for (int age = ReputationUpdater.MINIMUM_AGE; age <= 45; age++)
             {
                 var withoutYear = ReputationUpdater.AvailableReputationForAge(age).ToList();
                 CollectionAssert.Contains(withoutYear, DriverReputation.PAY_DRIVER_WILD_CARD, $"age {age}");
-                CollectionAssert.AreEqual(withoutYear, ReputationUpdater.AvailableReputationForAge(age, OldYear).ToList(), $"age {age}");
+                CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(age, OldYear).ToList(), DriverReputation.PAY_DRIVER_WILD_CARD, $"age {age}");
+                CollectionAssert.AreEqual(withoutYear, ReputationUpdater.AvailableReputationForAge(age, lastPreModernYear).ToList(), $"age {age}");
             }
         }
 

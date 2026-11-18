@@ -1,4 +1,5 @@
-﻿using AMS2ChEd.Business.Models.Concrete;
+﻿using AMS2ChEd.Business.GameLogic.Concrete;
+using AMS2ChEd.Business.Models.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Services.Contracts;
 
@@ -7,6 +8,12 @@ namespace AMS2ChEd.Tests
     [TestClass]
     public sealed class ReputationUpdaterTests
     {
+        // a season judged by the modern age bands, before the modern market drops wild cards
+        private const int ModernBandsYear = 2010;
+        private static readonly AgeEra ModernBands = AgeEras.For(ModernBandsYear);
+        private const int ClassicYear = 1995;
+        private static readonly AgeEra ClassicBands = AgeEras.For(ClassicYear);
+
         private static TeammateComparison Teammate(int ahead, int behind, int wins, int teammateWins, bool dominant) =>
             new TeammateComparison { RacesAhead = ahead, RacesBehind = behind, Wins = wins, TeammateWins = teammateWins, DominantCar = dominant };
 
@@ -122,7 +129,9 @@ namespace AMS2ChEd.Tests
                 driver.DNFs,
                 races: 3,
                 totalSeasonRaces: 3,
-                averageRacePosition: driver.Position
+                averageRacePosition: driver.Position,
+                // the golden data was written for the modern bands, whatever its year
+                seasonYear: ModernBandsYear
             );
 
             Assert.AreEqual(driver.ExpectedReputation, newReputation,
@@ -137,7 +146,7 @@ namespace AMS2ChEd.Tests
         [DataRow(DriverReputation.PRIME_STRONG_MIDFIELD, 17, DriverReputation.PAY_DRIVER_SEASON)]
         public void GetNewReputation_StrongMidfielderTurningAgeing_IsJudgedAsAnAgeingOne(DriverReputation currentReputation, int standings, DriverReputation expected)
         {
-            var newReputation = new ReputationUpdater().GetNewReputation(currentReputation, ReputationUpdater.OLD_DRIVER_AGE, standings, 0, 0, 3, 3, standings);
+            var newReputation = new ReputationUpdater().GetNewReputation(currentReputation, ModernBands.OldDriverAge, standings, 0, 0, 3, 3, standings, ModernBandsYear);
 
             Assert.AreEqual(expected, newReputation);
         }
@@ -147,17 +156,17 @@ namespace AMS2ChEd.Tests
         [DataRow(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN)]
         public void GetNewReputation_UnprovenTurningAgeingOutsideTopEight_StaysAnAgeingReputation(DriverReputation currentReputation)
         {
-            var newReputation = new ReputationUpdater().GetNewReputation(currentReputation, ReputationUpdater.OLD_DRIVER_AGE, 9, 0, 0, 3, 3, 9);
+            var newReputation = new ReputationUpdater().GetNewReputation(currentReputation, ModernBands.OldDriverAge, 9, 0, 0, 3, 3, 9, ModernBandsYear);
 
             Assert.AreEqual(DriverReputation.AGEING_MIDFIELD, newReputation);
-            CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(ReputationUpdater.OLD_DRIVER_AGE).ToList(), newReputation);
+            CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(ModernBands.OldDriverAge, ModernBandsYear).ToList(), newReputation);
         }
 
         [TestMethod]
         public void GetNewReputation_PartTimerWhoNeverPreQualified_IsJudgedOnTheStandings()
         {
             // three pre-qualifying failures out of sixteen races: no race position to average
-            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_SEASON, 30, standings: 38, podiums: 0, dnfs: 0, races: 3, totalSeasonRaces: 16, averageRacePosition: 0);
+            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_SEASON, 30, standings: 38, podiums: 0, dnfs: 0, races: 3, totalSeasonRaces: 16, averageRacePosition: 0, seasonYear: ModernBandsYear);
 
             Assert.AreEqual(DriverReputation.PAY_DRIVER_WILD_CARD, newReputation);
         }
@@ -171,7 +180,7 @@ namespace AMS2ChEd.Tests
         [DataRow(35, 1, DriverReputation.AGEING_STRONG_MIDFIELD)]
         public void GetNewReputation_WildCardWithCleanSeason_MovesUp(int age, int podiums, DriverReputation expected)
         {
-            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_WILD_CARD, age, standings: 12, podiums, dnfs: 0, races: 5, totalSeasonRaces: 16, averageRacePosition: 8);
+            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_WILD_CARD, age, standings: 12, podiums, dnfs: 0, races: 5, totalSeasonRaces: 16, averageRacePosition: 8, seasonYear: ModernBandsYear);
 
             Assert.AreEqual(expected, newReputation);
         }
@@ -179,7 +188,7 @@ namespace AMS2ChEd.Tests
         [TestMethod]
         public void GetNewReputation_WildCardWithADnf_StaysAWildCard()
         {
-            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_WILD_CARD, 22, standings: 12, podiums: 0, dnfs: 1, races: 5, totalSeasonRaces: 16, averageRacePosition: 8);
+            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_WILD_CARD, 22, standings: 12, podiums: 0, dnfs: 1, races: 5, totalSeasonRaces: 16, averageRacePosition: 8, seasonYear: ModernBandsYear);
 
             Assert.AreEqual(DriverReputation.PAY_DRIVER_WILD_CARD, newReputation);
         }
@@ -187,7 +196,7 @@ namespace AMS2ChEd.Tests
         [TestMethod]
         public void GetNewReputation_PartTimer_IsJudgedOnTheirAverageRacePosition()
         {
-            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_SEASON, 30, standings: 25, podiums: 0, dnfs: 0, races: 3, totalSeasonRaces: 16, averageRacePosition: 9);
+            var newReputation = new ReputationUpdater().GetNewReputation(DriverReputation.PAY_DRIVER_SEASON, 30, standings: 25, podiums: 0, dnfs: 0, races: 3, totalSeasonRaces: 16, averageRacePosition: 9, seasonYear: ModernBandsYear);
 
             Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, newReputation);
         }
@@ -208,14 +217,58 @@ namespace AMS2ChEd.Tests
         [DataRow(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED, 35, DriverReputation.AGEING_STRONG_MIDFIELD)]
         [DataRow(DriverReputation.AGEING_CHAMPIONSHIP_LEVEL, 35, DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED)]
         [DataRow(DriverReputation.JUST_ONE_LAST_DANCE, 42, DriverReputation.AGEING_CHAMPIONSHIP_LEVEL_WASHED)]
-        // crossing into an age band: remapped first, then one tier down the new band
-        [DataRow(DriverReputation.PRIME_STRONG_MIDFIELD, ReputationUpdater.OLD_DRIVER_AGE, DriverReputation.AGEING_MIDFIELD)]
         public void GetNewReputationForInactiveDriver_Decaying_DropsOneTierInItsAgeBand(DriverReputation currentReputation, int age, DriverReputation expected)
         {
-            var newReputation = new ReputationUpdater().GetNewReputationForInactiveDriver(currentReputation, age, decays: true);
+            var newReputation = new ReputationUpdater().GetNewReputationForInactiveDriver(currentReputation, age, decays: true, seasonYear: ModernBandsYear);
 
             Assert.AreEqual(expected, newReputation);
-            CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(age).ToList(), newReputation);
+            CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(age, ModernBandsYear).ToList(), newReputation);
+        }
+
+        // crossing into an age band: remapped first, then one tier down the new band
+        [TestMethod]
+        public void GetNewReputationForInactiveDriver_DecayingIntoTheAgeingBand_DropsOneTierThere()
+        {
+            var newReputation = new ReputationUpdater().GetNewReputationForInactiveDriver(DriverReputation.PRIME_STRONG_MIDFIELD, ModernBands.OldDriverAge, decays: true, seasonYear: ModernBandsYear);
+
+            Assert.AreEqual(DriverReputation.AGEING_MIDFIELD, newReputation);
+        }
+
+        // the classic era's bands sit higher: the same age is a band younger there
+        [TestMethod]
+        public void AgeBands_FollowTheEraOfTheSeason()
+        {
+            var classicOnlyYoung = ClassicBands.YoungDriverAge - 1;
+            var classicOnlyPrime = ClassicBands.OldDriverAge - 1;
+            Assert.IsTrue(classicOnlyYoung >= ModernBands.YoungDriverAge, "test assumes the classic young band reaches past the modern one");
+            Assert.IsTrue(classicOnlyPrime >= ModernBands.OldDriverAge, "test assumes the classic prime band reaches past the modern one");
+
+            CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(classicOnlyYoung, ClassicYear).ToList(), DriverReputation.YOUNG_TALENT);
+            CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(classicOnlyYoung, ModernBandsYear).ToList(), DriverReputation.PRIME_MIDFIELD);
+            CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(classicOnlyPrime, ClassicYear).ToList(), DriverReputation.PRIME_MIDFIELD);
+            CollectionAssert.Contains(ReputationUpdater.AvailableReputationForAge(classicOnlyPrime, ModernBandsYear).ToList(), DriverReputation.AGEING_MIDFIELD);
+
+            var updater = new ReputationUpdater();
+            Assert.AreEqual(DriverReputation.YOUNG_TALENT, updater.GetNewReputationForInactiveDriver(DriverReputation.PRIME_MIDFIELD, classicOnlyYoung, decays: false, seasonYear: ClassicYear));
+            Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, updater.GetNewReputationForInactiveDriver(DriverReputation.AGEING_STRONG_MIDFIELD, classicOnlyPrime, decays: false, seasonYear: ClassicYear));
+            Assert.AreEqual(DriverReputation.AGEING_STRONG_MIDFIELD, updater.GetNewReputationForInactiveDriver(DriverReputation.AGEING_STRONG_MIDFIELD, ClassicBands.OldDriverAge, decays: false, seasonYear: ClassicYear));
+
+            // a season result is judged in the band of the season's era too
+            Assert.AreEqual(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL,
+                updater.GetNewReputation(DriverReputation.PRIME_STRONG_MIDFIELD, classicOnlyYoung, 1, 5, 0, 16, 16, 2, ClassicYear));
+            Assert.AreEqual(DriverReputation.PRIME_CHAMPIONSHIP_LEVEL,
+                updater.GetNewReputation(DriverReputation.PRIME_STRONG_MIDFIELD, classicOnlyYoung, 1, 5, 0, 16, 16, 2, ModernBandsYear));
+        }
+
+        // the year a career moves out of the classic era, a driver is judged by the modern bands
+        [TestMethod]
+        public void AgeBands_TheFirstModernBandsSeason_UsesTheModernBands()
+        {
+            var firstModern = AgeEras.All.Last().FirstSeason;
+            var age = ModernBands.YoungDriverAge;
+
+            Assert.AreEqual(DriverReputation.YOUNG_TALENT, new ReputationUpdater().GetNewReputationForInactiveDriver(DriverReputation.YOUNG_TALENT, age, decays: false, seasonYear: firstModern - 1));
+            Assert.AreEqual(DriverReputation.PRIME_MIDFIELD, new ReputationUpdater().GetNewReputationForInactiveDriver(DriverReputation.YOUNG_TALENT, age, decays: false, seasonYear: firstModern));
         }
 
         [TestMethod]
@@ -223,8 +276,8 @@ namespace AMS2ChEd.Tests
         {
             var updater = new ReputationUpdater();
 
-            Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, updater.GetNewReputationForInactiveDriver(DriverReputation.PRIME_STRONG_MIDFIELD, 28, decays: false));
-            Assert.AreEqual(DriverReputation.AGEING_STRONG_MIDFIELD, updater.GetNewReputationForInactiveDriver(DriverReputation.PRIME_STRONG_MIDFIELD, ReputationUpdater.OLD_DRIVER_AGE, decays: false));
+            Assert.AreEqual(DriverReputation.PRIME_STRONG_MIDFIELD, updater.GetNewReputationForInactiveDriver(DriverReputation.PRIME_STRONG_MIDFIELD, 28, decays: false, seasonYear: ModernBandsYear));
+            Assert.AreEqual(DriverReputation.AGEING_STRONG_MIDFIELD, updater.GetNewReputationForInactiveDriver(DriverReputation.PRIME_STRONG_MIDFIELD, ModernBands.OldDriverAge, decays: false, seasonYear: ModernBandsYear));
         }
     }
 }

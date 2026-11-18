@@ -4,6 +4,7 @@ using AMS2ChEd.Business.GameLogic.Contracts;
 using AMS2ChEd.Business.Helpers;
 using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Services;
 using AMS2ChEd.Business.Settings.Contracts;
 using AMS2ChEd.Business.Storage;
@@ -749,7 +750,7 @@ namespace AMS2ChEd
             var reputation = selected.Driver.Reputation;
             if (!SelectReputation(reputation))
             {
-                SelectReputation(new ReputationUpdater().GetNewReputationForInactiveDriver(reputation, age, decays: false));
+                SelectReputation(new ReputationUpdater().GetNewReputationForInactiveDriver(reputation, age, decays: false, seasonYear));
             }
         }
 
@@ -1174,9 +1175,9 @@ namespace AMS2ChEd
                 // NEW: Check if Pay Driver Wild Card is selected
                 if (reputationItem.Reputation == DriverReputation.PAY_DRIVER_WILD_CARD)
                 {
-                    if (driverAge < 18 || driverAge > 42)
+                    if (driverAge < ReputationUpdater.MINIMUM_AGE || driverAge > AgeEras.For(seasonYear).MaxRetiringAge)
                     {
-                        System.Windows.MessageBox.Show(Strings.MainWindow_PayDriverAgeInvalid_Message, Strings.MainWindow_ValidationError_Title,
+                        System.Windows.MessageBox.Show(string.Format(Strings.MainWindow_PayDriverAgeInvalid_Message, ReputationUpdater.MINIMUM_AGE, AgeEras.For(seasonYear).MaxRetiringAge), Strings.MainWindow_ValidationError_Title,
                             MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }

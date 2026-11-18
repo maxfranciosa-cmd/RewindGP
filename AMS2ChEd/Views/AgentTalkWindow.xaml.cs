@@ -424,7 +424,7 @@ namespace AMS2ChEd.Views
                 return _outlook.PlayerReputation;
 
             var age = _text.NextSeason.Year + 1 - yearOfBirth.Value;
-            return new ReputationUpdater().GetNewReputationForInactiveDriver(_outlook.PlayerReputation, age, decays: false);
+            return new ReputationUpdater().GetNewReputationForInactiveDriver(_outlook.PlayerReputation, age, decays: false, _text.NextSeason.Year + 1);
         }
 
         private string SeatMessage(SeatOutlook seat, bool isFirst)

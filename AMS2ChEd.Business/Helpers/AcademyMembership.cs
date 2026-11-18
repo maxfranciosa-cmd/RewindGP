@@ -1,5 +1,6 @@
 ﻿using AMS2ChEd.Business.Models;
 using AMS2ChEd.Business.Models.Concrete;
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Services;
 
 namespace AMS2ChEd.Business.Helpers
@@ -10,10 +11,10 @@ namespace AMS2ChEd.Business.Helpers
     /// </summary>
     public static class AcademyMembership
     {
-        // "young": younger than this in the season being played or hired for
-        public const int AgeLimit = ReputationUpdater.YOUNG_DRIVER_AGE;
+        // "young": younger than the era's young-driver age (AgeEras) in the season being played or hired for
+        public static int AgeLimit(int seasonYear) => AgeEras.For(seasonYear).YoungDriverAge;
 
-        public static bool IsYoung(int seasonYear, int yearOfBirth) => seasonYear - yearOfBirth < AgeLimit;
+        public static bool IsYoung(int seasonYear, int yearOfBirth) => seasonYear - yearOfBirth < AgeLimit(seasonYear);
 
         /// <summary>
         /// The academy the driver belongs to in that season, or null: an AI driver must be listed

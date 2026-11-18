@@ -15,6 +15,7 @@ namespace AMS2ChEd.Tests
     public class PracticeOutingsTests
     {
         private const int Year = 2024;
+        private static readonly AgeEra Modern = AgeEras.For(Year);
         private const int RaceCount = 10;
 
         // RBR (parent) runs its outings at race indexes 2 and 6, VCARB (sister) at 4 and 8
@@ -473,25 +474,25 @@ namespace AMS2ChEd.Tests
             var updater = new ReputationUpdater();
 
             // a young driver: the reward's tier
-            Assert.AreEqual(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, PracticeOutings.Raise(DriverReputation.PAY_DRIVER_SEASON, PracticeReward.YoungChampionshipLevelUnproven, DriverReputation.YOUNG_TALENT, 21, updater));
+            Assert.AreEqual(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, PracticeOutings.Raise(DriverReputation.PAY_DRIVER_SEASON, PracticeReward.YoungChampionshipLevelUnproven, DriverReputation.YOUNG_TALENT, 21, Year, updater));
             // never lower than the usual result
-            Assert.AreEqual(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, PracticeOutings.Raise(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, PracticeReward.YoungTalent, DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, 21, updater));
+            Assert.AreEqual(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, PracticeOutings.Raise(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, PracticeReward.YoungTalent, DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL, 21, Year, updater));
             // a tie on ReputationScore: PRIME_MIDFIELD and YOUNG_TALENT are both 3, the usual one stands
-            Assert.AreEqual(DriverReputation.PRIME_MIDFIELD, PracticeOutings.Raise(DriverReputation.PRIME_MIDFIELD, PracticeReward.YoungTalent, DriverReputation.PAY_DRIVER_SEASON, 21, updater));
+            Assert.AreEqual(DriverReputation.PRIME_MIDFIELD, PracticeOutings.Raise(DriverReputation.PRIME_MIDFIELD, PracticeReward.YoungTalent, DriverReputation.PAY_DRIVER_SEASON, 21, Year, updater));
             // no reward: the usual result
-            Assert.AreEqual(DriverReputation.PAY_DRIVER_SEASON, PracticeOutings.Raise(DriverReputation.PAY_DRIVER_SEASON, PracticeReward.None, DriverReputation.YOUNG_TALENT, 21, updater));
+            Assert.AreEqual(DriverReputation.PAY_DRIVER_SEASON, PracticeOutings.Raise(DriverReputation.PAY_DRIVER_SEASON, PracticeReward.None, DriverReputation.YOUNG_TALENT, 21, Year, updater));
             // no decay
-            Assert.AreEqual(DriverReputation.YOUNG_TALENT, PracticeOutings.Raise(DriverReputation.PAY_DRIVER_SEASON, PracticeReward.NoDecay, DriverReputation.YOUNG_TALENT, 21, updater));
+            Assert.AreEqual(DriverReputation.YOUNG_TALENT, PracticeOutings.Raise(DriverReputation.PAY_DRIVER_SEASON, PracticeReward.NoDecay, DriverReputation.YOUNG_TALENT, 21, Year, updater));
         }
 
         [TestMethod]
-        public void Raise_TheYoungTiersNeedADriverUnder25NextSeason_OtherwiseOnlyNoDecay()
+        public void Raise_TheYoungTiersNeedADriverStillYoungNextSeason_OtherwiseOnlyNoDecay()
         {
             var updater = new ReputationUpdater();
-            var usual = updater.GetNewReputationForInactiveDriver(DriverReputation.YOUNG_TALENT, 25, decays: true);
-            var noDecay = updater.GetNewReputationForInactiveDriver(DriverReputation.YOUNG_TALENT, 25, decays: false);
+            var usual = updater.GetNewReputationForInactiveDriver(DriverReputation.YOUNG_TALENT, Modern.YoungDriverAge, decays: true, Year);
+            var noDecay = updater.GetNewReputationForInactiveDriver(DriverReputation.YOUNG_TALENT, Modern.YoungDriverAge, decays: false, Year);
 
-            var raised = PracticeOutings.Raise(usual, PracticeReward.YoungChampionshipLevelUnproven, DriverReputation.YOUNG_TALENT, 25, updater);
+            var raised = PracticeOutings.Raise(usual, PracticeReward.YoungChampionshipLevelUnproven, DriverReputation.YOUNG_TALENT, Modern.YoungDriverAge, Year, updater);
 
             Assert.AreNotEqual(DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL_UNPROVEN, raised);
             Assert.AreEqual(noDecay, raised);

@@ -13,7 +13,9 @@ namespace AMS2ChEd.Business.Services
                 yield return DriverReputation.PAY_DRIVER_WILD_CARD;
             yield return DriverReputation.PAY_DRIVER_SEASON;
 
-            if (age < YOUNG_DRIVER_AGE)
+            var era = GameLogic.Concrete.AgeEras.For(seasonYear);
+
+            if (age < era.YoungDriverAge)
             {
                 yield return DriverReputation.YOUNG_TALENT;
                 if (age >= MINIMUM_AGE)
@@ -22,7 +24,7 @@ namespace AMS2ChEd.Business.Services
                     yield return DriverReputation.YOUNG_CHAMPIONSHIP_LEVEL;
                 }
             }
-            else if (age < OLD_DRIVER_AGE)
+            else if (age < era.OldDriverAge)
             {
                 yield return DriverReputation.PRIME_MIDFIELD;
                 yield return DriverReputation.PRIME_STRONG_MIDFIELD;
@@ -45,9 +47,8 @@ namespace AMS2ChEd.Business.Services
 
         }
 
+        // the young/prime/ageing bands depend on the era: AgeEras
         public const int MINIMUM_AGE = 18;
-        public const int YOUNG_DRIVER_AGE = 25;
-        public const int OLD_DRIVER_AGE = 31;
 
         // Deepest floor for a driver who was already PRIME_MIDFIELD or below going into the
         // season and finished outside this position - PAY_DRIVER_SEASON alone was absorbing
@@ -99,11 +100,11 @@ namespace AMS2ChEd.Business.Services
                 : DriverReputation.PAY_DRIVER_SEASON;
         }
 
-        private DriverReputation EvaluateWildCard(int age, int podiums, int races, int dnfs)
+        private DriverReputation EvaluateWildCard(int age, int podiums, int races, int dnfs, GameLogic.Concrete.AgeEra era)
         {
             if (dnfs > 0 || races < 3) return DriverReputation.PAY_DRIVER_WILD_CARD;
 
-            if (age < YOUNG_DRIVER_AGE)
+            if (age < era.YoungDriverAge)
             {
                 if (podiums > 0)
                 {
@@ -114,7 +115,7 @@ namespace AMS2ChEd.Business.Services
                     return DriverReputation.YOUNG_TALENT;
                 }
             }
-            else if (age < OLD_DRIVER_AGE)
+            else if (age < era.OldDriverAge)
             {
                 if (podiums > 0)
                 {
@@ -140,14 +141,15 @@ namespace AMS2ChEd.Business.Services
 
         // the reputation moved onto the driver's age band; with decays, a season spent without racing
         // also costs one tier, down to PAY_DRIVER_WILD_CARD (reserves and imported drivers don't decay)
-        public DriverReputation GetNewReputationForInactiveDriver(DriverReputation currentReputation, int age, bool decays)
+        public DriverReputation GetNewReputationForInactiveDriver(DriverReputation currentReputation, int age, bool decays, int seasonYear)
         {
+            var era = GameLogic.Concrete.AgeEras.For(seasonYear);
             DriverReputation related;
-            if (age < YOUNG_DRIVER_AGE)
+            if (age < era.YoungDriverAge)
             {
                 related = GetRelatedYoungReputation(currentReputation);
             }
-            else if (age < OLD_DRIVER_AGE)
+            else if (age < era.OldDriverAge)
             {
                 related = GetRelatedPrimeReputation(currentReputation);
             }
@@ -255,11 +257,12 @@ namespace AMS2ChEd.Business.Services
             }
         }
 
-        public DriverReputation GetNewReputation(DriverReputation currentReputation, int age, int standings, int podiums, int dnfs, int races, int totalSeasonRaces, double averageRacePosition)
+        public DriverReputation GetNewReputation(DriverReputation currentReputation, int age, int standings, int podiums, int dnfs, int races, int totalSeasonRaces, double averageRacePosition, int seasonYear)
         {
+            var era = GameLogic.Concrete.AgeEras.For(seasonYear);
             if (currentReputation == DriverReputation.PAY_DRIVER_WILD_CARD)
             {
-                return EvaluateWildCard(age, podiums, races, dnfs);
+                return EvaluateWildCard(age, podiums, races, dnfs, era);
             }
 
             // a part-timer is judged on where they finished; one who never got past pre-qualifying has
@@ -268,11 +271,11 @@ namespace AMS2ChEd.Business.Services
                 ? (int)Math.Round(averageRacePosition, MidpointRounding.AwayFromZero)
                 : standings;
 
-            if (age < YOUNG_DRIVER_AGE)
+            if (age < era.YoungDriverAge)
             {
                 return GetNewYoungReputation(currentReputation, age, effectiveStandings, podiums, dnfs);
             }
-            else if (age < OLD_DRIVER_AGE)
+            else if (age < era.OldDriverAge)
             {
                 return GetNewPrimeReputation(currentReputation, age, effectiveStandings, podiums, dnfs);
             }
@@ -344,7 +347,7 @@ namespace AMS2ChEd.Business.Services
                     else
                         return SeasonFloorOrWildCard(standings);
 
-                // a strong midfielder turning 31 is judged as one already past it: a top-3 season makes
+                // a strong midfielder entering the ageing band is judged as one already past it: a top-3 season makes
                 // them championship level either way
                 case DriverReputation.PRIME_STRONG_MIDFIELD:
                 case DriverReputation.AGEING_STRONG_MIDFIELD:
