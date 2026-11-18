@@ -9,6 +9,9 @@ namespace AMS2ChEd.Tests
     [TestClass]
     public class Ams2SessionRulesBuilderTests
     {
+        // a season with refuelling, so the fixed defaults are what the tests see
+        private const int Year = 1996;
+
         private static Race MakeRace(string raceDate = "1996-03-10") => new Race
         {
             RaceId = 1,
@@ -21,7 +24,7 @@ namespace AMS2ChEd.Tests
         [TestMethod]
         public void BuildSessionRules_Default_LeavesDurationAndTimeProgressionUnset()
         {
-            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Default, defaultNumberOfLaps: 71);
+            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Default, defaultNumberOfLaps: 71, Year);
 
             Assert.IsNull(result.DurationType);
             Assert.IsNull(result.DurationValue);
@@ -31,7 +34,7 @@ namespace AMS2ChEd.Tests
         [TestMethod]
         public void BuildSessionRules_Full_UsesFullLapsAndRealTime()
         {
-            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Full, defaultNumberOfLaps: 71);
+            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Full, defaultNumberOfLaps: 71, Year);
 
             Assert.AreEqual(DurationType.LapBased, result.DurationType);
             Assert.AreEqual(71, result.DurationValue);
@@ -41,7 +44,7 @@ namespace AMS2ChEd.Tests
         [TestMethod]
         public void BuildSessionRules_Half_RoundsLapsAndUsesX2()
         {
-            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Half, defaultNumberOfLaps: 71);
+            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Half, defaultNumberOfLaps: 71, Year);
 
             Assert.AreEqual(DurationType.LapBased, result.DurationType);
             Assert.AreEqual(36, result.DurationValue); // round(71 * 0.5) = round(35.5) = 36 (banker's rounding: 36)
@@ -51,7 +54,7 @@ namespace AMS2ChEd.Tests
         [TestMethod]
         public void BuildSessionRules_OneThird_RoundsLapsAndUsesX2()
         {
-            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.OneThird, defaultNumberOfLaps: 71);
+            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.OneThird, defaultNumberOfLaps: 71, Year);
 
             Assert.AreEqual(DurationType.LapBased, result.DurationType);
             Assert.AreEqual(24, result.DurationValue); // round(71 / 3.0) = round(23.67) = 24
@@ -71,7 +74,7 @@ namespace AMS2ChEd.Tests
         [TestMethod]
         public void BuildSessionRules_ParsesRaceDateAsCustomDateType()
         {
-            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace("1996-03-10"), Ams2RaceLength.Default, 71);
+            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace("1996-03-10"), Ams2RaceLength.Default, 71, Year);
 
             Assert.AreEqual(DateType.Custom, result.DateType);
             Assert.AreEqual(new DateTime(1996, 3, 10), result.RaceDate);
@@ -80,7 +83,7 @@ namespace AMS2ChEd.Tests
         [TestMethod]
         public void BuildSessionRules_UnparsableRaceDate_LeavesDateFieldsUnset()
         {
-            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace("not-a-date"), Ams2RaceLength.Default, 71);
+            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace("not-a-date"), Ams2RaceLength.Default, 71, Year);
 
             Assert.IsNull(result.DateType);
             Assert.IsNull(result.RaceDate);
@@ -89,14 +92,39 @@ namespace AMS2ChEd.Tests
         [TestMethod]
         public void BuildSessionRules_AlwaysAppliesTheFixedRewindGpDefaults()
         {
-            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Default, 71);
+            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Default, 71, Year);
 
             Assert.AreEqual(OnOff.Off, result.MandatoryPitStop);
-            Assert.AreEqual(StartType.Grid, result.RollingStart);
             Assert.IsNull(result.PrivateQualiSession);
             Assert.AreEqual(PitTyreCount.Zero, result.PitMinTyres);
             Assert.AreEqual(PitFuelCount.Zero, result.PitMinFuel);
             Assert.AreEqual(14, result.StartHour);
+        }
+
+        [TestMethod]
+        [DataRow(1975, true)]
+        [DataRow(1983, true)]
+        [DataRow(1984, false)]
+        [DataRow(1988, false)]
+        [DataRow(1993, false)]
+        [DataRow(1994, true)]
+        [DataRow(1996, true)]
+        [DataRow(2009, true)]
+        [DataRow(2010, false)]
+        [DataRow(2015, false)]
+        public void BuildSessionRules_RefuellingFollowsTheSeasonsEra(int seasonYear, bool allowed)
+        {
+            var result = Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Default, 71, seasonYear);
+
+            Assert.AreEqual(allowed ? OnOff.On : OnOff.Off, result.RefuellingAllowed);
+            Assert.AreEqual(!allowed, Ams2SessionRulesBuilder.IsRefuellingBanned(seasonYear));
+        }
+
+        [TestMethod]
+        public void BuildSessionRules_EveryEraUsesAStandingStart()
+        {
+            foreach (var era in AMS2ChEd.Business.GameLogic.Concrete.RaceRulesEras.All)
+                Assert.AreEqual(StartType.Grid, Ams2SessionRulesBuilder.BuildSessionRules(MakeRace(), Ams2RaceLength.Default, 71, era.FirstSeason).RollingStart);
         }
 
         [TestMethod]
@@ -105,7 +133,7 @@ namespace AMS2ChEd.Tests
             var race = MakeRace();
             race.StartTime = 20;
 
-            Assert.AreEqual(20, Ams2SessionRulesBuilder.BuildSessionRules(race, Ams2RaceLength.Default, 71).StartHour);
+            Assert.AreEqual(20, Ams2SessionRulesBuilder.BuildSessionRules(race, Ams2RaceLength.Default, 71, Year).StartHour);
             Assert.AreEqual(20, Ams2SessionRulesBuilder.BuildQualifyingConfig(race).StartHour);
         }
 
@@ -117,7 +145,7 @@ namespace AMS2ChEd.Tests
             var race = MakeRace();
             race.StartTime = startTime;
 
-            Assert.AreEqual(14, Ams2SessionRulesBuilder.BuildSessionRules(race, Ams2RaceLength.Default, 71).StartHour);
+            Assert.AreEqual(14, Ams2SessionRulesBuilder.BuildSessionRules(race, Ams2RaceLength.Default, 71, Year).StartHour);
         }
 
         [TestMethod]

@@ -1,5 +1,6 @@
 using Ams2ChEd.Business.AMS2.Settings;
 using Ams2Interop;
+using AMS2ChEd.Business.GameLogic.Concrete;
 using AMS2ChEd.Business.Models.Concrete;
 
 namespace Ams2ChEd.Business.AMS2.Helpers
@@ -12,8 +13,10 @@ namespace Ams2ChEd.Business.AMS2.Helpers
     /// </summary>
     public static class Ams2SessionRulesBuilder
     {
-        public static SessionRulesConfig BuildSessionRules(Race race, Ams2RaceLength raceLength, int defaultNumberOfLaps)
+        /// <param name="seasonYear">The season's historical year: its era decides the start type and refuelling (see RaceRulesEras).</param>
+        public static SessionRulesConfig BuildSessionRules(Race race, Ams2RaceLength raceLength, int defaultNumberOfLaps, int seasonYear)
         {
+            var rules = RaceRulesEras.For(seasonYear);
             DurationType? durationType = null;
             int? durationValue = null;
             TimeProgression? timeProgression = null;
@@ -51,15 +54,18 @@ namespace Ams2ChEd.Business.AMS2.Helpers
                 DurationValue = durationValue,
                 TimeProgression = timeProgression,
                 MandatoryPitStop = OnOff.Off,
-                RollingStart = StartType.Grid,
+                RollingStart = rules.StandingStart ? StartType.Grid : StartType.Rolling,
                 PrivateQualiSession = null,
                 PitMinTyres = PitTyreCount.Zero,
                 PitMinFuel = PitFuelCount.Zero,
                 StartHour = GetStartHour(race),
                 Weather = new SessionWeatherConfig { HistoricalWeather = true },
-                RefuellingAllowed = OnOff.On
+                RefuellingAllowed = rules.RefuellingAllowed ? OnOff.On : OnOff.Off
             };
         }
+
+        /// <summary>True when the season's era bans refuelling - the player then starts with the fuel for the whole race.</summary>
+        public static bool IsRefuellingBanned(int seasonYear) => !RaceRulesEras.For(seasonYear).RefuellingAllowed;
 
         /// <summary>
         /// The race's own start hour, or the 2pm default when it's missing or out of range.

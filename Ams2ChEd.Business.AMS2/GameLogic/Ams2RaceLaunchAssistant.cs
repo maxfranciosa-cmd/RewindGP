@@ -200,9 +200,10 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             var playerName = request.Drivers.FirstOrDefault(d => d.DriverId == request.PlayerDriverId)?.Name;
             var liveryName = $"#{playerNumber} {teamName} - {playerName}";
             var opponentsNumber = request.EntryList.DriverCount() - 1;
+            var refuellingBanned = Ams2SessionRulesBuilder.IsRefuellingBanned(request.Season.OriginalYear ?? request.Season.Year);
 
             await overlay.WaitForManualInstructionsDismissedAsync(
-                carName, liveryName, opponentsNumber, suggestedDifficulty, usesPerformanceScalars, request.IsPreQuali, request.IsPractice)
+                carName, liveryName, opponentsNumber, suggestedDifficulty, usesPerformanceScalars, request.IsPreQuali, request.IsPractice, refuellingBanned)
                 .WaitAsync(ct).ConfigureAwait(true);
         }
 
@@ -282,7 +283,7 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             var raceLength = lapsKnown
                 ? (_installSettingsStorage as Ams2GameInstallSettingsStorage)?.LoadRaceLength() ?? Ams2RaceLength.Default
                 : Ams2RaceLength.Default;
-            var sessionRules = Ams2SessionRulesBuilder.BuildSessionRules(race, raceLength, trackResolution?.DefaultNumberOfLaps ?? 0);
+            var sessionRules = Ams2SessionRulesBuilder.BuildSessionRules(race, raceLength, trackResolution?.DefaultNumberOfLaps ?? 0, seasonYear);
             var opponents = Ams2SessionRulesBuilder.BuildOpponentsConfig(request.EntryList.DriverCount() - 1);
             // Same for both Pre-Quali and the Actual Race - see BuildQualifyingConfig's doc
             // comment. Practice is intentionally NOT configured at all here (left null) - whatever
@@ -330,6 +331,10 @@ namespace Ams2ChEd.Business.AMS2.GameLogic
             if (request.IsPractice)
             {
                 overlay.ShowPracticeOnly(Strings.RaceSetupOverlayWindow_PracticeOnlyNote);
+            }
+            else if (!request.IsPreQuali && Ams2SessionRulesBuilder.IsRefuellingBanned(seasonYear))
+            {
+                overlay.ShowRefuellingBanned(Strings.RaceSetupOverlayWindow_RefuellingBannedNote);
             }
 
             if (!trackKnown)

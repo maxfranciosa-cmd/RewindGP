@@ -82,6 +82,9 @@
                     <TextBlock x:Name="PracticeOnlyText" Visibility="Collapsed"
                                Foreground="#ffc107" FontSize="16" FontWeight="Bold"
                                TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,15"/>
+                    <TextBlock x:Name="RefuellingBannedText" Visibility="Collapsed"
+                               Foreground="#ffc107" FontSize="16" FontWeight="Bold"
+                               TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,15"/>
                     <TextBlock x:Name="TrackLeftAsIsText" Visibility="Collapsed"
                                Foreground="#ffc107" FontSize="16" FontWeight="Bold"
                                TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,15"/>
@@ -120,6 +123,7 @@
                         <Run x:Name="ManualStep3" Text=""/>
                         <LineBreak/><LineBreak/>
                         <Run x:Name="ManualStep4" Text=""/>
+                        <Run x:Name="ManualStep5" Text=""/>
                     </TextBlock>
                     <Button x:Name="ManualInstructionsOkButton" Content="{loc:Loc RaceSetupOverlayWindow_ManualInstructionsOkButton}"
                             Style="{StaticResource OverlayButtonStyle}" HorizontalAlignment="Center"

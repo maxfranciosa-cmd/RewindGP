@@ -153,5 +153,7 @@ namespace Ams2ChEd.Business.AMS2.Resources
         public static string RaceSetupOverlayWindow_PracticeSessionTitle => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_PracticeSessionTitle))!;
         public static string RaceSetupOverlayWindow_ManualStep4_Practice => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ManualStep4_Practice))!;
         public static string RaceSetupOverlayWindow_PracticeOnlyNote => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_PracticeOnlyNote))!;
+        public static string RaceSetupOverlayWindow_RefuellingBannedNote => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_RefuellingBannedNote))!;
+        public static string RaceSetupOverlayWindow_ManualStep5_RefuellingOff => ResourceManager.GetString(nameof(RaceSetupOverlayWindow_ManualStep5_RefuellingOff))!;
     }
 }

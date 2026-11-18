@@ -115,6 +115,16 @@ namespace Ams2ChEd.Business.AMS2.UI
             PracticeOnlyText.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Adds a reminder to the success state that the season bans refuelling, so the race is
+        /// run on the fuel the car starts with.
+        /// </summary>
+        public void ShowRefuellingBanned(string message)
+        {
+            RefuellingBannedText.Text = message;
+            RefuellingBannedText.Visibility = Visibility.Visible;
+        }
+
         public void ShowError(string message)
         {
             PromptPanel.Visibility = Visibility.Collapsed;
@@ -130,7 +140,7 @@ namespace Ams2ChEd.Business.AMS2.UI
         /// </summary>
         public Task WaitForManualInstructionsDismissedAsync(
             string carName, string liveryName, int opponentsNumber, int suggestedDifficulty,
-            bool usesPerformanceScalars, bool isPreQuali, bool isPractice = false)
+            bool usesPerformanceScalars, bool isPreQuali, bool isPractice = false, bool refuellingBanned = false)
         {
             PromptPanel.Visibility = Visibility.Collapsed;
             WaitingPanel.Visibility = Visibility.Collapsed;
@@ -148,6 +158,12 @@ namespace Ams2ChEd.Business.AMS2.UI
                 : isPreQuali
                 ? Strings.RaceSetupOverlayWindow_ManualStep4_PreQuali
                 : Strings.RaceSetupOverlayWindow_ManualStep4_Normal;
+            // only the race itself needs it; a qualifying or practice session never refuels
+            var showRefuelling = refuellingBanned && !isPreQuali && !isPractice;
+            // a Run can't be collapsed: the step brings its own blank line, or is empty
+            ManualStep5.Text = showRefuelling
+                ? Environment.NewLine + Environment.NewLine + Strings.RaceSetupOverlayWindow_ManualStep5_RefuellingOff
+                : "";
 
             ManualInstructionsPanel.Visibility = Visibility.Visible;
 
