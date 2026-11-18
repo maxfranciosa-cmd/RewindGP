@@ -27,9 +27,11 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
     /// they bring money (PAY_DRIVER_WILD_CARD or PAY_DRIVER_SEASON) and have neither a race seat nor
     /// a reserve contract, and AI pay drivers without any contract, who buy first. The team can't
     /// refuse: any super minnow, and minnows depending on their line-up, but only drivers below
-    /// PRIME_STRONG_MIDFIELD and not already out of 4 races are stood down. Nothing is stored but the
-    /// bought rides themselves (absences with reason PAID_RIDE), so the budget left can't drift, and
-    /// it resets on its own with the new season.
+    /// PRIME_STRONG_MIDFIELD and not already out of 4 races are stood down. The sales are spread
+    /// out: a team sells one seat at a race at most, none at the race after one it sold, and the
+    /// seat of whichever of its drivers has missed fewer races; the AI drivers buy MaxAiRidesPerRace
+    /// rides a race at most. Nothing is stored but the bought rides themselves (absences with reason
+    /// PAID_RIDE), so the budget left can't drift, and it resets on its own with the new season.
     /// </summary>
     public static class PaidRides
     {
@@ -38,6 +40,10 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
 
         // the player bidding for a seat an AI driver already bought gets it this often
         private const double PlayerWinsContestChance = 0.5;
+
+        // the AI pay drivers buy no more rides than this at one race, however many have money, so
+        // most of the season's real line-ups still race; the player's own ride doesn't count
+        public const int MaxAiRidesPerRace = 2;
 
         // a driver of this reputation or above is never stood down for a paid ride
         public const DriverReputation ProtectedReputation = DriverReputation.PRIME_STRONG_MIDFIELD;
@@ -124,12 +130,15 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         }
 
         /// <summary>
-        /// The seats the player can buy at this race: at a super minnow the seat of a driver who
-        /// brings no money, then of the lowest reputation; at a minnow with no pay driver either seat,
-        /// with one pay driver the other driver's seat half the time (decided once per team and race),
-        /// with two none; never the seat of a driver who can't be bought out (CanBeBoughtOut). A seat
-        /// an AI pay driver already bought at this race is still offered, with that driver as rival
-        /// bidder. Empty when the budget is spent, or the player already races there.
+        /// The seats the player can buy at this race: at a super minnow one seat, that of the driver
+        /// who has missed fewer races this season, then of a driver who brings no money, then of the
+        /// lowest reputation; at a minnow with no pay driver the seat of whichever has missed fewer
+        /// races (either on a tie), with one pay driver the other driver's seat half the time
+        /// (decided once per team and race), with two none; never the seat of a driver who can't be
+        /// bought out (CanBeBoughtOut). A team that sold a seat at the previous race sells none at
+        /// this one, and one that sold a seat at this race sells no other: a seat an AI pay driver
+        /// bought is still offered, with that driver as rival bidder. Empty when the budget is
+        /// spent, or the player already races there.
         /// </summary>
         public static List<PaidRideOffer> Offers(ISaveGame saveGame, int raceIndex)
         {
@@ -162,44 +171,73 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 .SelectMany(a => Chain(a))
                 .ToList();
 
+            // the rides sold at the race before this one: those teams sell nothing here
+            var previousRaceId = raceIndex > 0 ? races[raceIndex - 1].RaceId : (int?)null;
+            var soldAtPreviousRace = (saveGame.CurrentSeason.Absences ?? Enumerable.Empty<Absence>())
+                .SelectMany(a => Chain(a))
+                .Where(a => a.RaceId == previousRaceId && a.Reason == AbsenceReason.PAID_RIDE)
+                .Select(a => a.TeamId)
+                .ToHashSet();
+
             foreach (var team in saveGame.CurrentSeason.Teams.Where(t => t.Reputation <= TeamReputation.MINNOW))
             {
                 var lineUp = new[] { (Slot: 1, DriverId: team.Driver1Contract?.DriverId), (Slot: 2, DriverId: team.Driver2Contract?.DriverId) }
                     .Where(s => !string.IsNullOrEmpty(s.DriverId))
                     .ToList();
 
-                // a driver already out for this race has no seat to sell, unless an AI driver bought
-                // it and the player bids against them
-                var seats = new List<(int Slot, string DriverId, Absence Rival)>();
-                foreach (var s in lineUp.Where(s => s.DriverId != buyerId))
+                // a team that sold a seat at this race sells no other: the player can only bid
+                // against the AI driver who bought it
+                var soldHere = raceAbsences.Where(a => a.TeamId == team.TeamId && a.Reason == AbsenceReason.PAID_RIDE).ToList();
+                if (soldHere.Count > 0)
                 {
-                    var takenBy = raceAbsences.FirstOrDefault(a => a.TeamId == team.TeamId && a.DriverOut == s.DriverId);
-                    if (takenBy != null && !(contestAiRides && takenBy.Reason == AbsenceReason.PAID_RIDE))
-                        continue;
-
-                    // a protected driver's seat isn't for sale, so the team sells the other one if it can
-                    if (CanBeBoughtOut(saveGame.CurrentSeason, s.DriverId, reputations.GetValueOrDefault(s.DriverId, DriverReputation.PRIME_MIDFIELD), takenBy))
-                        seats.Add((s.Slot, s.DriverId, takenBy));
+                    if (contestAiRides)
+                    {
+                        result.AddRange(soldHere
+                            .Where(a => a.DriverIn != buyerId && lineUp.Any(s => s.DriverId == a.DriverOut))
+                            .Select(a => new PaidRideOffer
+                            {
+                                TeamId = team.TeamId,
+                                Slot = lineUp.First(s => s.DriverId == a.DriverOut).Slot,
+                                DriverOutId = a.DriverOut,
+                                RivalBidderId = a.DriverIn,
+                                RivalRide = a
+                            }));
+                    }
+                    continue;
                 }
+
+                if (soldAtPreviousRace.Contains(team.TeamId))
+                    continue;
+
+                // a driver already out for this race has no seat to sell; a protected driver's seat
+                // isn't for sale, so the team sells the other one if it can
+                var seats = lineUp
+                    .Where(s => s.DriverId != buyerId)
+                    .Where(s => !raceAbsences.Any(a => a.TeamId == team.TeamId && a.DriverOut == s.DriverId))
+                    .Where(s => CanBeBoughtOut(saveGame.CurrentSeason, s.DriverId, reputations.GetValueOrDefault(s.DriverId, DriverReputation.PRIME_MIDFIELD)))
+                    .Select(s => (s.Slot, s.DriverId, Missed: AbsencesOf(saveGame.CurrentSeason, s.DriverId)))
+                    .ToList();
                 if (seats.Count == 0)
                     continue;
 
-                IEnumerable<(int Slot, string DriverId, Absence Rival)> onSale;
+                IEnumerable<(int Slot, string DriverId, int Missed)> onSale;
                 if (team.Reputation == TeamReputation.SUPER_MINNOW)
                 {
                     onSale = seats
-                        .OrderBy(s => BringsMoney(s.DriverId))
+                        .OrderBy(s => s.Missed)
+                        .ThenBy(s => BringsMoney(s.DriverId))
                         .ThenBy(s => reputations.GetValueOrDefault(s.DriverId, DriverReputation.PRIME_MIDFIELD))
                         .Take(1);
                 }
                 else
                 {
                     var payDrivers = lineUp.Count(s => BringsMoney(s.DriverId));
+                    var fewestMissed = seats.Min(s => s.Missed);
                     onSale = payDrivers == 0
-                        ? seats
+                        ? seats.Where(s => s.Missed == fewestMissed)
                         : payDrivers == 1 && lineUp.Count == 2 && IsSeatOnSale(saveGame.CurrentSeason.Year, raceId, team.TeamId)
                             ? seats.Where(s => !BringsMoney(s.DriverId))
-                            : Enumerable.Empty<(int, string, Absence)>();
+                            : Enumerable.Empty<(int, string, int)>();
                 }
 
                 result.AddRange(onSale
@@ -207,9 +245,7 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                     {
                         TeamId = team.TeamId,
                         Slot = s.Slot,
-                        DriverOutId = s.DriverId,
-                        RivalBidderId = s.Rival?.DriverIn,
-                        RivalRide = s.Rival
+                        DriverOutId = s.DriverId
                     }));
             }
 
@@ -239,9 +275,10 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
         /// AI pay drivers without any contract buy their rides at this race, before the player is
         /// offered theirs. Each with budget left buys with AiBuyChance, one of the seats on sale to
         /// them picked at random; they go in a random order, every ride bought shrinking what's left
-        /// for the next. A driver the season pack's absences already put in a car, at any race of the
-        /// season, buys nothing: those are the seats they paid for in that season. Returns the rides
-        /// bought, already added to the season's absences.
+        /// for the next, until MaxAiRidesPerRace rides are bought there. A driver the season pack's
+        /// absences already put in a car, at any race of the season, buys nothing: those are the
+        /// seats they paid for in that season. Returns the rides bought, already added to the
+        /// season's absences.
         /// </summary>
         public static List<Absence> BuyAiRides(ISaveGame saveGame, int raceIndex, Random random)
         {
@@ -261,8 +298,16 @@ namespace AMS2ChEd.Business.GameLogic.Concrete
                 .OrderBy(_ => random.Next())
                 .ToList();
 
+            // rides AI drivers already bought at this race count towards the cap too
+            var raceId = races[raceIndex].RaceId;
+            var aiRides = (saveGame.CurrentSeason.Absences ?? Enumerable.Empty<Absence>())
+                .Count(a => a.RaceId == raceId && a.Reason == AbsenceReason.PAID_RIDE && a.DriverIn != saveGame.PlayerData.DriverId);
+
             foreach (var buyer in buyers)
             {
+                if (aiRides + bought.Count >= MaxAiRidesPerRace)
+                    break;
+
                 if (random.NextDouble() >= AiBuyChance(buyer.Reputation))
                     continue;
 

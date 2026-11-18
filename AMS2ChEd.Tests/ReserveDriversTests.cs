@@ -791,6 +791,8 @@ namespace AMS2ChEd.Tests.Business.GameLogic
         {
             var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
             saveGame.CurrentSeason.Races = Enumerable.Range(1, 12).Select(i => new Race { RaceId = i, RaceName = $"GP {i}" }).ToList();
+            // S1 protected, so S2's seat is the only one the super minnow can sell
+            saveGame.Drivers.Single(d => d.DriverId == "S1").Reputation = DriverReputation.PRIME_STRONG_MIDFIELD;
             saveGame.CurrentSeason.Absences = Enumerable.Range(2, 2)
                 .Select(race => new Absence { RaceId = race, TeamId = "SM", DriverOut = "S2", DriverIn = $"X{race}" })
                 .ToList();
@@ -877,6 +879,89 @@ namespace AMS2ChEd.Tests.Business.GameLogic
             Assert.AreEqual("AI1", aiRide.DriverIn);
             Assert.AreEqual(3, PaidRides.Remaining(saveGame));
             // the player can still buy another seat at this race
+            Assert.IsTrue(PaidRides.Offers(saveGame, 0).Any(o => o.RivalBidderId == null));
+        }
+
+        [TestMethod]
+        public void PaidRides_AiRides_ATeamSellsOneSeatARace()
+        {
+            var saveGame = PaidRideSave(DriverReputation.YOUNG_TALENT);
+            foreach (var id in new[] { "AI1", "AI2", "AI3", "AI4" })
+                AddDriver(saveGame, id, DriverReputation.PAY_DRIVER_SEASON);
+
+            var bought = PaidRides.BuyAiRides(saveGame, 0, new FixedRandom(nextDouble: 0, next: 0));
+
+            // the super minnow and the minnow with no pay driver both had two seats to sell before
+            Assert.AreEqual(bought.Count, bought.Select(a => a.TeamId).Distinct().Count());
+        }
+
+        [TestMethod]
+        public void PaidRides_SeatAnAiDriverBought_IsTheTeamsOnlySeatOnSale()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            AddDriver(saveGame, "AI1", DriverReputation.PAY_DRIVER_SEASON);
+            saveGame.CurrentSeason.Absences = new List<Absence>
+            {
+                new Absence { RaceId = 1, TeamId = "M1", DriverOut = "M1A", DriverIn = "AI1", Reason = AbsenceReason.PAID_RIDE }
+            };
+
+            var offer = PaidRides.Offers(saveGame, 0).Single(o => o.TeamId == "M1");
+
+            Assert.AreEqual("M1A", offer.DriverOutId);
+            Assert.AreEqual("AI1", offer.RivalBidderId);
+        }
+
+        [TestMethod]
+        public void PaidRides_TeamThatSoldASeatAtThePreviousRace_SellsNoneAtThisOne()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            saveGame.CurrentSeason.Races = Enumerable.Range(1, 16).Select(i => new Race { RaceId = i, RaceName = $"GP {i}" }).ToList();
+            saveGame.CurrentSeason.Absences = new List<Absence>
+            {
+                new Absence { RaceId = 1, TeamId = "SM", DriverOut = "S2", DriverIn = "X1", Reason = AbsenceReason.PAID_RIDE }
+            };
+
+            Assert.IsFalse(PaidRides.Offers(saveGame, 1).Any(o => o.TeamId == "SM"));
+            // a race later it sells again
+            Assert.IsTrue(PaidRides.Offers(saveGame, 2).Any(o => o.TeamId == "SM"));
+        }
+
+        [TestMethod]
+        public void PaidRides_SeatOnSale_IsTheDriverWhoMissedFewerRaces()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_WILD_CARD);
+            saveGame.CurrentSeason.Races = Enumerable.Range(1, 16).Select(i => new Race { RaceId = i, RaceName = $"GP {i}" }).ToList();
+            // S2 (no money) and M1A were each out of a race earlier
+            saveGame.CurrentSeason.Absences = new List<Absence>
+            {
+                new Absence { RaceId = 1, TeamId = "SM", DriverOut = "S2", DriverIn = "X1", Reason = AbsenceReason.PAID_RIDE },
+                new Absence { RaceId = 1, TeamId = "M1", DriverOut = "M1A", DriverIn = "X2" }
+            };
+
+            var offers = PaidRides.Offers(saveGame, 2);
+
+            // the super minnow now sells its pay driver's seat; the minnow only M1B's
+            Assert.AreEqual("S1", offers.Single(o => o.TeamId == "SM").DriverOutId);
+            Assert.AreEqual("M1B", offers.Single(o => o.TeamId == "M1").DriverOutId);
+        }
+
+        [TestMethod]
+        public void PaidRides_AiRides_NoMoreThanTheCapARace_ThePlayerStillGetsOffers()
+        {
+            var saveGame = PaidRideSave(DriverReputation.PAY_DRIVER_SEASON);
+            // more seats on sale than the cap: a second super minnow
+            AddTeam(saveGame, Team("SM2", TeamReputation.SUPER_MINNOW, "S3", "S4"));
+            AddDriver(saveGame, "S3", DriverReputation.YOUNG_TALENT);
+            AddDriver(saveGame, "S4", DriverReputation.YOUNG_TALENT);
+            foreach (var id in new[] { "AI1", "AI2", "AI3", "AI4", "AI5" })
+                AddDriver(saveGame, id, DriverReputation.PAY_DRIVER_SEASON);
+
+            var bought = PaidRides.BuyAiRides(saveGame, 0, new FixedRandom(nextDouble: 0, next: 0));
+            var again = PaidRides.BuyAiRides(saveGame, 0, new FixedRandom(nextDouble: 0, next: 0));
+
+            Assert.AreEqual(PaidRides.MaxAiRidesPerRace, bought.Count);
+            // the rides already bought at the race count towards it
+            Assert.AreEqual(0, again.Count);
             Assert.IsTrue(PaidRides.Offers(saveGame, 0).Any(o => o.RivalBidderId == null));
         }
 
